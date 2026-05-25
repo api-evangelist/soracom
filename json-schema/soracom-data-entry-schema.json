@@ -1,0 +1,17 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/soracom/main/json-schema/soracom-data-entry-schema.json",
+  "title": "Soracom Harvest Data Entry",
+  "description": "A single time-series data point harvested from a SIM, Device, Sigfox, or LoRaWAN endpoint.",
+  "type": "object",
+  "properties": {
+    "resourceType": {"type": "string", "enum": ["Subscriber", "Device", "SigfoxDevice", "LoraDevice"]},
+    "resourceId": {"type": "string"},
+    "operatorId": {"type": "string"},
+    "time": {"type": "integer", "description": "Event time in UNIX epoch milliseconds."},
+    "contentType": {"type": "string", "description": "MIME type or 'json'/'text'/'binary'."},
+    "content": {"description": "Raw payload (object, string, or base64-encoded bytes)."}
+  },
+  "required": ["resourceType", "resourceId", "time", "content"],
+  "additionalProperties": true
+}

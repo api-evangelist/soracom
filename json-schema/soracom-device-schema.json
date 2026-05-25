@@ -1,0 +1,34 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/soracom/main/json-schema/soracom-device-schema.json",
+  "title": "Soracom Inventory Device",
+  "description": "A Soracom Inventory (LwM2M) device with its registration, object/instance/resource tree, last-seen metadata, and tags.",
+  "type": "object",
+  "properties": {
+    "deviceId": {"type": "string"},
+    "operatorId": {"type": "string"},
+    "endpoint": {"type": "string", "description": "LwM2M client endpoint name."},
+    "name": {"type": "string"},
+    "tags": {"type": "object", "additionalProperties": {"type": "string"}},
+    "groupId": {"type": ["string", "null"]},
+    "lastSeen": {"type": ["integer", "null"]},
+    "online": {"type": "boolean"},
+    "instances": {
+      "type": "array",
+      "description": "Registered LwM2M object instances.",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {"type": "string"},
+          "uri": {"type": "string"},
+          "objectId": {"type": "integer"},
+          "instanceId": {"type": "integer"},
+          "objectVersion": {"type": "string"},
+          "resources": {"type": "array", "items": {"type": "object"}}
+        }
+      }
+    }
+  },
+  "required": ["deviceId", "operatorId"],
+  "additionalProperties": true
+}

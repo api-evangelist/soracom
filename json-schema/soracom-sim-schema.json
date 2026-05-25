@@ -1,0 +1,35 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/soracom/main/json-schema/soracom-sim-schema.json",
+  "title": "Soracom SIM",
+  "description": "A Soracom SIM (physical or virtual Arc SIM/Subscriber) with its identifiers, status, group binding, and lifecycle metadata.",
+  "type": "object",
+  "properties": {
+    "simId": {"type": "string", "description": "Unique Soracom SIM identifier."},
+    "imsi": {"type": "string", "description": "International Mobile Subscriber Identity."},
+    "msisdn": {"type": "string", "description": "Mobile station ISDN number."},
+    "iccid": {"type": "string", "description": "Integrated Circuit Card Identifier printed on the SIM."},
+    "type": {"type": "string", "description": "Plan type (planX2, planX3, plan01s, plan-D, plan-K, plan-KM1, planP1, planDU, plan-NL1, planArc01)."},
+    "groupId": {"type": ["string", "null"], "description": "Group binding for service configuration."},
+    "operatorId": {"type": "string", "description": "Owning operator (account) ID."},
+    "status": {"type": "string", "enum": ["ready", "active", "inactive", "standby", "suspended", "terminated"], "description": "SIM lifecycle state."},
+    "imei": {"type": ["string", "null"], "description": "Last seen device IMEI."},
+    "imeiLock": {"type": ["object", "null"], "description": "IMEI lock configuration."},
+    "expiryAction": {"type": ["string", "null"]},
+    "expiryTime": {"type": ["integer", "null"], "description": "Expiry time (epoch ms)."},
+    "tags": {"type": "object", "additionalProperties": {"type": "string"}, "description": "Operator-assigned tags."},
+    "sessionStatus": {
+      "type": ["object", "null"],
+      "properties": {
+        "online": {"type": "boolean"},
+        "lastUpdatedAt": {"type": "integer"},
+        "imei": {"type": "string"},
+        "location": {"type": ["object", "null"]}
+      }
+    },
+    "createdTime": {"type": "integer"},
+    "lastModifiedTime": {"type": "integer"}
+  },
+  "required": ["simId", "operatorId", "status"],
+  "additionalProperties": true
+}

@@ -1,0 +1,65 @@
+extends:
+  - spectral:oas
+
+rules:
+  # Soracom uses snake_case path segments (e.g. /port_mappings, /event_handlers, /audit_logs).
+  soracom-paths-must-be-snake-case:
+    description: Path segments must use snake_case to match Soracom conventions (e.g. `/port_mappings`, `/event_handlers`).
+    severity: warn
+    given: $.paths.*~
+    then:
+      function: pattern
+      functionOptions:
+        match: '^/([a-z0-9_]+(/\{[a-zA-Z_]+\})?)+$'
+
+  # operationId must be camelCase verb+noun (e.g. listSims, createPortMapping, getBillingHistory).
+  soracom-operation-id-camel-case:
+    description: operationId must use camelCase verb+noun (Soracom convention).
+    severity: warn
+    given: $.paths.*[get,post,put,patch,delete].operationId
+    then:
+      function: pattern
+      functionOptions:
+        match: '^[a-z][a-zA-Z0-9]+$'
+
+  # Every operation must define a tag (Soracom groups operations by service: Sim, Group, Harvest, etc.).
+  soracom-operation-must-have-tag:
+    description: Every operation must declare at least one tag mapping to a Soracom service surface.
+    severity: error
+    given: $.paths.*[get,post,put,patch,delete]
+    then:
+      field: tags
+      function: truthy
+
+  # Pagination: list endpoints SHOULD accept `limit` and `last_evaluated_key` query parameters.
+  soracom-list-must-support-pagination:
+    description: List operations (operationId starts with `list`) should accept `limit` and `last_evaluated_key` query params.
+    severity: warn
+    given: $.paths.*.get[?(@.operationId =~ /^list/)]
+    then:
+      - field: parameters
+        function: truthy
+
+  # SIM ID, IMSI, etc. path parameters must be typed as strings.
+  soracom-id-path-params-string:
+    description: ID-style path parameters (sim_id, imsi, device_id, group_id, etc.) must be typed `string`.
+    severity: warn
+    given: '$.paths..parameters[?(@.in == "path" && (@.name == "sim_id" || @.name == "imsi" || @.name == "device_id" || @.name == "group_id" || @.name == "operator_id"))].schema.type'
+    then:
+      function: enumeration
+      functionOptions:
+        values: [string]
+
+  # 4xx responses should be documented for write operations.
+  soracom-write-op-has-4xx:
+    description: POST/PUT/PATCH/DELETE operations should document at least one 4xx response.
+    severity: warn
+    given: $.paths.*[post,put,patch,delete].responses
+    then:
+      function: schema
+      functionOptions:
+        schema:
+          type: object
+          patternProperties:
+            '^4[0-9]{2}$': {}
+          minProperties: 1

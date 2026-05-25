@@ -1,0 +1,1676 @@
+openapi: 3.0.0
+info:
+  title: Soracom Stats and Diagnostics API
+  description: Air data usage statistics, audit logs, error logs, and diagnostic features.
+  version: 20250903-043502
+servers:
+- description: Japan coverage production API endpoint
+  url: https://api.soracom.io/v1
+- description: Global coverage production API endpoint
+  url: https://g.api.soracom.io/v1
+paths:
+  /stats/air/groups/{group_id}:
+    get:
+      description: Retrieves the usage report aggregating all SIMs that belong to the specified Group.
+      operationId: getAirStatsOfGroup
+      parameters:
+      - description: Group ID
+        in: path
+        name: group_id
+        required: true
+        schema:
+          type: string
+      - description: Specify the start month/day of the period to be aggregated in UNIX time in seconds.
+        in: query
+        name: from
+        required: true
+        schema:
+          type: integer
+      - description: Specify the end month/day of the period to be aggregated in UNIX time in seconds.
+        in: query
+        name: to
+        required: true
+        schema:
+          type: integer
+      - description: "Unit of aggregation.\n\n- `month`: Monthly.\n\n  The `from` and `to` should be UNIX time (in seconds)\
+          \ from 3 months before the current time to the current time. The actual period of interest is not the time specified\
+          \ by `from` and `to`.\n\n  | Item | Description |\n  |-|-|\n  | Actual start time | 00:00:00 on the first day of\
+          \ the month, including the specified UNIX time (in seconds). |\n  | Actual end time | 24:00:00 of the last day of\
+          \ the month containing the specified UNIX time (in seconds). |\n- `day`: Daily\n\n  The `from` and `to` should be\
+          \ UNIX time (in seconds) from 7 days before the current time to the current time. The actual period of interest\
+          \ is not the time specified by `from` and `to`.\n\n  | Item | Description |\n  |-|-|\n  | Actual start time | 00:00:00\
+          \ of the day including the specified UNIX time (in seconds). |\n  | Actual end time | 24:00:00 of the day including\
+          \ the specified UNIX time (in seconds). |\n"
+        in: query
+        name: period
+        required: true
+        schema:
+          enum:
+          - month
+          - day
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/AirAggregatedStatsResponse'
+                type: array
+          description: OK.
+        '400':
+          description: Bad request.
+      security:
+      - api_key: []
+        api_token: []
+      summary: Get Air Usage Report of a Group.
+      tags:
+      - Stats
+      x-soracom-cli:
+      - stats air groups get
+  /stats/air/operators/{operator_id}:
+    get:
+      description: Retrieves the usage report aggregating all SIMs that belong to the specified Operator.
+      operationId: getAirStatsOfOperator
+      parameters:
+      - description: Operator ID
+        in: path
+        name: operator_id
+        required: true
+        schema:
+          type: string
+      - description: Specify the start month/day of the period to be aggregated in UNIX time in seconds.
+        in: query
+        name: from
+        required: true
+        schema:
+          type: integer
+      - description: Specify the end month/day of the period to be aggregated in UNIX time in seconds.
+        in: query
+        name: to
+        required: true
+        schema:
+          type: integer
+      - description: "Unit of aggregation.\n\n- `month`: Monthly.\n\n  The `from` and `to` should be UNIX time (in seconds)\
+          \ from 3 months before the current time to the current time. The actual period of interest is not the time specified\
+          \ by `from` and `to`.\n\n  | Item | Description |\n  |-|-|\n  | Actual start time | 00:00:00 on the first day of\
+          \ the month, including the specified UNIX time (in seconds). |\n  | Actual end time | 24:00:00 of the last day of\
+          \ the month containing the specified UNIX time (in seconds). |\n- `day`: Daily\n\n  The `from` and `to` should be\
+          \ UNIX time (in seconds) from 7 days before the current time to the current time. The actual period of interest\
+          \ is not the time specified by `from` and `to`.\n\n  | Item | Description |\n  |-|-|\n  | Actual start time | 00:00:00\
+          \ of the day including the specified UNIX time (in seconds). |\n  | Actual end time | 24:00:00 of the day including\
+          \ the specified UNIX time (in seconds). |\n"
+        in: query
+        name: period
+        required: true
+        schema:
+          enum:
+          - month
+          - day
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/AirAggregatedStatsResponse'
+                type: array
+          description: OK.
+        '400':
+          description: Bad request.
+      security:
+      - api_key: []
+        api_token: []
+      summary: Get Air Usage Report of an Operator.
+      tags:
+      - Stats
+      x-soracom-cli:
+      - stats air operators get
+  /stats/air/operators/{operator_id}/export:
+    post:
+      description: 'Download the Air Data Traffic Actual Data CSV file that contains the usage report of all the IoT SIMs
+        for the specified operator.
+
+
+        **Warning**: If there is no data usage during the specified period, a CSV file with only a header row will be output.
+
+        **Info**: You can also check the data usage of terminated IoT SIMs.
+
+        '
+      operationId: exportAirStats
+      parameters:
+      - description: Operator ID. The operator ID can be obtained from the [Operator:getOperator API](#!/Operator/getOperator).
+        in: path
+        name: operator_id
+        required: true
+        schema:
+          type: string
+      - description: 'Specify how to obtain the URL to download the Air Data Usage Report CSV.
+
+
+          - `async`: Get the `exportedFieldId` without waiting for the URL to be issued on the Soracom platform. Specify this
+          `exportedFieldId` in [Files:getExportedFile API](#!/Files/getExportedFile) to get the URL. If the file size of the
+          Air Data Usage Report CSV is huge, specify `async`.
+
+          - `sync` (default): Wait for the URL to be issued on the Soracom platform. However, if the file size of the Air
+          Data Usage Report CSV is huge, it may time out and the URL cannot be retrieved. If the timeout occurs, specify `async`.
+
+          '
+        in: query
+        name: export_mode
+        required: false
+        schema:
+          enum:
+          - async
+          - sync
+          type: string
+      requestBody:
+        content:
+          application/json:
+            example:
+              from: 1709218800
+              period: month
+              to: 1714402800
+            schema:
+              $ref: '#/components/schemas/ExportRequest'
+        description: Period and aggregation unit of the data to be exported.
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              examples:
+                (1) export_mode=async:
+                  description: 'By specifying this `exportedFieldId` in the [Files:getExportedFile API](#!/Files/getExportedFile),
+                    you can obtain the URL for downloading. Access the URL and download the CSV file.
+
+                    '
+                  value:
+                    exportedFileId: fe_xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx
+                    exportedFilePath: //files/exported/fe_xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx
+                (2) export_mode=sync:
+                  description: '`url` is the URL for downloading. Access the URL and download the CSV file.
+
+
+                    Example command:
+
+
+                    ```bash
+
+                    $ wget -O export.csv "https://soracom-xxxxxxxx-...."
+
+                    ```
+
+                    '
+                  value:
+                    url: https://soracom-xxxxxxxx-....
+              schema:
+                $ref: '#/components/schemas/FileExportResponse'
+          description: OK.
+      security:
+      - api_key: []
+        api_token: []
+      summary: Export Air Usage Report of All Subscribers
+      tags:
+      - Stats
+      x-soracom-cli:
+      - stats air export
+  /stats/air/sims/{sim_id}:
+    get:
+      description: 'Retrieves the usage report for the SIM specified by the SIM ID.
+
+
+        **Warning**: The data traffic of the terminated IoT SIM cannot be confirmed.
+
+        '
+      operationId: getAirStatsOfSim
+      parameters:
+      - description: SIM ID of the target SIM. The SIM ID can be obtained from the [Sim:listSims API](#!/Sim/listSims).
+        in: path
+        name: sim_id
+        required: true
+        schema:
+          type: string
+      - description: Specify the start month/day/minute of the period to be aggregated in UNIX time in seconds.
+        in: query
+        name: from
+        required: true
+        schema:
+          type: integer
+      - description: Specify the end month/day/minute of the period to be aggregated in UNIX time in seconds.
+        in: query
+        name: to
+        required: true
+        schema:
+          type: integer
+      - description: "Unit of aggregation.\n\n- `month`: Aggregate by month.\n\n  The `from` and `to` should be UNIX time\
+          \ (in seconds) from 18 months before the current time to the current time. The actual period of interest is not\
+          \ the time specified by `from` and `to`.\n\n  | Item | Description |\n  |-|-|\n  | Actual start time | 00:00:00\
+          \ on the first day of the month, including the specified UNIX time (in seconds). |\n  | Actual end time | 24:00:00\
+          \ of the last day of the month containing the specified UNIX time (in seconds). |\n- `day`: Aggregate by day.\n\n\
+          \  The `from` and `to` should be UNIX time (in seconds) from 18 months before the current time to the current time.\
+          \ The actual period of interest is not the time specified by `from` and `to`.\n\n  | Item | Description |\n  |-|-|\n\
+          \  | Actual start time | 00:00:00 of the day including the specified UNIX time (in seconds). |\n  | Actual end time\
+          \ | 24:00:00 of the day including the specified UNIX time (in seconds). |\n- `minutes`: Aggregate by approximately\
+          \ every 5 minutes.\n\n  The `from` and `to` must be between 32 days before the current time and the UNIX time (in\
+          \ seconds) of the current time. The actual period to be aggregated is not the time specified by `from` and `to`.\n\
+          \n  | Item | Description |\n  |-|-|\n  | Actual Start Time | Start time of approximately 5 minutes including the\
+          \ specified UNIX time (seconds). |\n  | Actual End Time | End time of approximately 5 minutes including the specified\
+          \ UNIX time (seconds). |\n"
+        in: query
+        name: period
+        required: true
+        schema:
+          enum:
+          - month
+          - day
+          - minutes
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/AirStatsResponse'
+                type: array
+          description: OK.
+      security:
+      - api_key: []
+        api_token: []
+      summary: Get Air Usage Report of SIM.
+      tags:
+      - Stats
+      x-soracom-cli:
+      - stats air sims get
+  /stats/air/subscribers/{imsi}:
+    get:
+      description: 'Retrieves the usage report for the subscriber specified by the IMSI.
+
+
+        **Warning**: The data traffic of the terminated IoT SIM cannot be confirmed.
+
+        '
+      operationId: getAirStats
+      parameters:
+      - description: The target IMSI. The IMSI can be obtained from the [Sim:listSims API](#!/Sim/listSims).
+        in: path
+        name: imsi
+        required: true
+        schema:
+          type: string
+      - description: Specify the start month/day/minute of the period to be aggregated in UNIX time in seconds.
+        in: query
+        name: from
+        required: true
+        schema:
+          type: integer
+      - description: Specify the end month/day/minute of the period to be aggregated in UNIX time in seconds.
+        in: query
+        name: to
+        required: true
+        schema:
+          type: integer
+      - description: "Unit of aggregation.\n\n- `month`: Aggregate by month.\n\n  The `from` and `to` should be UNIX time\
+          \ (in seconds) from 18 months before the current time to the current time. The actual period of interest is not\
+          \ the time specified by `from` and `to`.\n\n  | Item | Description |\n  |-|-|\n  | Actual start time | 00:00:00\
+          \ on the first day of the month, including the specified UNIX time (in seconds). |\n  | Actual end time | 24:00:00\
+          \ of the last day of the month containing the specified UNIX time (in seconds). |\n- `day`: Aggregate by day.\n\n\
+          \  The `from` and `to` should be UNIX time (in seconds) from 18 months before the current time to the current time.\
+          \ The actual period of interest is not the time specified by `from` and `to`.\n\n  | Item | Description |\n  |-|-|\n\
+          \  | Actual start time | 00:00:00 of the day including the specified UNIX time (in seconds). |\n  | Actual end time\
+          \ | 24:00:00 of the day including the specified UNIX time (in seconds). |\n- `minutes`: Aggregate by approximately\
+          \ every 5 minutes.\n\n  The `from` and `to` must be between 32 days before the current time and the UNIX time (in\
+          \ seconds) of the current time. The actual period to be aggregated is not the time specified by `from` and `to`.\n\
+          \n  | Item | Description |\n  |-|-|\n  | Actual Start Time | Start time of approximately 5 minutes including the\
+          \ specified UNIX time (seconds). |\n  | Actual End Time | End time of approximately 5 minutes including the specified\
+          \ UNIX time (seconds). |\n"
+        in: query
+        name: period
+        required: true
+        schema:
+          enum:
+          - month
+          - day
+          - minutes
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/AirStatsResponse'
+                type: array
+          description: OK.
+      security:
+      - api_key: []
+        api_token: []
+      summary: Get Air Usage Report of Subscriber.
+      tags:
+      - Stats
+      x-soracom-cli:
+      - stats air get
+  /stats/beam/operators/{operator_id}/export:
+    post:
+      description: Retrieves a file containing the Soracom Beam usage report of all subscribers for the specified operator.
+        The report data range is specified with from, to in unixtime. The report contains monthly data. The file output destination
+        is AWS S3. The file output format is CSV.
+      operationId: exportBeamStats
+      parameters:
+      - description: Operator ID
+        in: path
+        name: operator_id
+        required: true
+        schema:
+          type: string
+      - description: export_mode (async, sync)
+        in: query
+        name: export_mode
+        required: false
+        schema:
+          enum:
+          - async
+          - sync
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ExportRequest'
+        description: Export time period.
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FileExportResponse'
+          description: OK.
+      security:
+      - api_key: []
+        api_token: []
+      summary: Export Beam Usage Report of All Subscribers
+      tags:
+      - Stats
+      x-soracom-cli:
+      - stats beam export
+  /stats/beam/subscribers/{imsi}:
+    get:
+      description: Retrieves the Soracom Beam usage report for the subscriber specified by the IMSI.
+      operationId: getBeamStats
+      parameters:
+      - description: imsi
+        in: path
+        name: imsi
+        required: true
+        schema:
+          type: string
+      - description: Specify the start month/day/minute of the period to be aggregated in UNIX time in seconds.
+        in: query
+        name: from
+        required: true
+        schema:
+          type: integer
+      - description: Specify the end month/day/minute of the period to be aggregated in UNIX time in seconds.
+        in: query
+        name: to
+        required: true
+        schema:
+          type: integer
+      - description: "Unit of aggregation.\n\n- `month`: Aggregate by month.\n\n  The `from` and `to` should be UNIX time\
+          \ (in seconds) from 18 months before the current time to the current time. The actual period of interest is not\
+          \ the time specified by `from` and `to`.\n\n  | Item | Description |\n  |-|-|\n  | Actual start time | 00:00:00\
+          \ on the first day of the month, including the specified UNIX time (in seconds). |\n  | Actual end time | 24:00:00\
+          \ of the last day of the month containing the specified UNIX time (in seconds). |\n- `day`: Aggregate by day.\n\n\
+          \  The `from` and `to` should be UNIX time (in seconds) from 18 months before the current time to the current time.\
+          \ The actual period of interest is not the time specified by `from` and `to`.\n\n  | Item | Description |\n  |-|-|\n\
+          \  | Actual start time | 00:00:00 of the day including the specified UNIX time (in seconds). |\n  | Actual end time\
+          \ | 24:00:00 of the day including the specified UNIX time (in seconds). |\n- `minutes`: Aggregate by approximately\
+          \ every 5 minutes.\n\n  The `from` and `to` must be between 32 days before the current time and the UNIX time (in\
+          \ seconds) of the current time. The actual period to be aggregated is not the time specified by `from` and `to`.\n\
+          \n  | Item | Description |\n  |-|-|\n  | Actual Start Time | Start time of approximately 5 minutes including the\
+          \ specified UNIX time (seconds). |\n  | Actual End Time | End time of approximately 5 minutes including the specified\
+          \ UNIX time (seconds). |\n"
+        in: query
+        name: period
+        required: true
+        schema:
+          enum:
+          - month
+          - day
+          - minutes
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/BeamStatsResponse'
+                type: array
+          description: OK.
+      security:
+      - api_key: []
+        api_token: []
+      summary: Get Beam Usage Report of Subscriber
+      tags:
+      - Stats
+      x-soracom-cli:
+      - stats beam get
+  /stats/funk/operators/{operator_id}/export:
+    post:
+      description: Retrieves a file containing the Soracom Funk usage report of all subscribers for the specified operator.
+        The report data range is specified with from, to in unixtime. The report contains monthly data. The file output destination
+        is AWS S3. The file output format is CSV.
+      operationId: exportFunkStats
+      parameters:
+      - description: Operator ID
+        in: path
+        name: operator_id
+        required: true
+        schema:
+          type: string
+      - description: export_mode (async, sync)
+        in: query
+        name: export_mode
+        required: false
+        schema:
+          enum:
+          - async
+          - sync
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ExportRequest'
+        description: Export time period.
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FileExportResponse'
+          description: OK.
+      security:
+      - api_key: []
+        api_token: []
+      summary: Export Funk Usage Report of All Subscribers
+      tags:
+      - Stats
+      x-soracom-cli:
+      - stats funk export
+  /stats/funk/subscribers/{imsi}:
+    get:
+      description: Retrieves the Soracom Funk usage report for the subscriber specified by the IMSI.
+      operationId: getFunkStats
+      parameters:
+      - description: imsi
+        in: path
+        name: imsi
+        required: true
+        schema:
+          type: string
+      - description: Specify the start month/day/minute of the period to be aggregated in UNIX time in seconds.
+        in: query
+        name: from
+        required: true
+        schema:
+          type: integer
+      - description: Specify the end month/day/minute of the period to be aggregated in UNIX time in seconds.
+        in: query
+        name: to
+        required: true
+        schema:
+          type: integer
+      - description: "Unit of aggregation.\n\n- `month`: Aggregate by month.\n\n  The `from` and `to` should be UNIX time\
+          \ (in seconds) from 18 months before the current time to the current time. The actual period of interest is not\
+          \ the time specified by `from` and `to`.\n\n  | Item | Description |\n  |-|-|\n  | Actual start time | 00:00:00\
+          \ on the first day of the month, including the specified UNIX time (in seconds). |\n  | Actual end time | 24:00:00\
+          \ of the last day of the month containing the specified UNIX time (in seconds). |\n- `day`: Aggregate by day.\n\n\
+          \  The `from` and `to` should be UNIX time (in seconds) from 18 months before the current time to the current time.\
+          \ The actual period of interest is not the time specified by `from` and `to`.\n\n  | Item | Description |\n  |-|-|\n\
+          \  | Actual start time | 00:00:00 of the day including the specified UNIX time (in seconds). |\n  | Actual end time\
+          \ | 24:00:00 of the day including the specified UNIX time (in seconds). |\n- `minutes`: Aggregate by approximately\
+          \ every 5 minutes.\n\n  The `from` and `to` must be between 32 days before the current time and the UNIX time (in\
+          \ seconds) of the current time. The actual period to be aggregated is not the time specified by `from` and `to`.\n\
+          \n  | Item | Description |\n  |-|-|\n  | Actual Start Time | Start time of approximately 5 minutes including the\
+          \ specified UNIX time (seconds). |\n  | Actual End Time | End time of approximately 5 minutes including the specified\
+          \ UNIX time (seconds). |\n"
+        in: query
+        name: period
+        required: true
+        schema:
+          enum:
+          - month
+          - day
+          - minutes
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/FunkStatsResponse'
+                type: array
+          description: OK.
+      security:
+      - api_key: []
+        api_token: []
+      summary: Get Funk Usage Report of Subscriber
+      tags:
+      - Stats
+      x-soracom-cli:
+      - stats funk get
+  /stats/funnel/operators/{operator_id}/export:
+    post:
+      description: Retrieves a file containing the Soracom Funnel usage report of all subscribers for the specified operator.
+        The report data range is specified with from, to in unixtime. The report contains monthly data. The file output destination
+        is AWS S3. The file output format is CSV.
+      operationId: exportFunnelStats
+      parameters:
+      - description: Operator ID
+        in: path
+        name: operator_id
+        required: true
+        schema:
+          type: string
+      - description: export_mode (async, sync)
+        in: query
+        name: export_mode
+        required: false
+        schema:
+          enum:
+          - async
+          - sync
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ExportRequest'
+        description: Export time period.
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FileExportResponse'
+          description: OK.
+      security:
+      - api_key: []
+        api_token: []
+      summary: Export Funnel Usage Report of All Subscribers
+      tags:
+      - Stats
+      x-soracom-cli:
+      - stats funnel export
+  /stats/funnel/subscribers/{imsi}:
+    get:
+      description: Retrieves the Soracom Funnel usage report for the subscriber specified by the IMSI.
+      operationId: getFunnelStats
+      parameters:
+      - description: imsi
+        in: path
+        name: imsi
+        required: true
+        schema:
+          type: string
+      - description: Specify the start month/day/minute of the period to be aggregated in UNIX time in seconds.
+        in: query
+        name: from
+        required: true
+        schema:
+          type: integer
+      - description: Specify the end month/day/minute of the period to be aggregated in UNIX time in seconds.
+        in: query
+        name: to
+        required: true
+        schema:
+          type: integer
+      - description: "Unit of aggregation.\n\n- `month`: Aggregate by month.\n\n  The `from` and `to` should be UNIX time\
+          \ (in seconds) from 18 months before the current time to the current time. The actual period of interest is not\
+          \ the time specified by `from` and `to`.\n\n  | Item | Description |\n  |-|-|\n  | Actual start time | 00:00:00\
+          \ on the first day of the month, including the specified UNIX time (in seconds). |\n  | Actual end time | 24:00:00\
+          \ of the last day of the month containing the specified UNIX time (in seconds). |\n- `day`: Aggregate by day.\n\n\
+          \  The `from` and `to` should be UNIX time (in seconds) from 18 months before the current time to the current time.\
+          \ The actual period of interest is not the time specified by `from` and `to`.\n\n  | Item | Description |\n  |-|-|\n\
+          \  | Actual start time | 00:00:00 of the day including the specified UNIX time (in seconds). |\n  | Actual end time\
+          \ | 24:00:00 of the day including the specified UNIX time (in seconds). |\n- `minutes`: Aggregate by approximately\
+          \ every 5 minutes.\n\n  The `from` and `to` must be between 32 days before the current time and the UNIX time (in\
+          \ seconds) of the current time. The actual period to be aggregated is not the time specified by `from` and `to`.\n\
+          \n  | Item | Description |\n  |-|-|\n  | Actual Start Time | Start time of approximately 5 minutes including the\
+          \ specified UNIX time (seconds). |\n  | Actual End Time | End time of approximately 5 minutes including the specified\
+          \ UNIX time (seconds). |\n"
+        in: query
+        name: period
+        required: true
+        schema:
+          enum:
+          - month
+          - day
+          - minutes
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/FunnelStatsResponse'
+                type: array
+          description: OK.
+      security:
+      - api_key: []
+        api_token: []
+      summary: Get Funnel Usage Report of Subscriber
+      tags:
+      - Stats
+      x-soracom-cli:
+      - stats funnel get
+  /stats/harvest/operators/{operator_id}:
+    get:
+      description: Retrieves the Soracom Harvest usage report for the operator.
+      operationId: getHarvestExportedDataStats
+      parameters:
+      - description: Operator ID
+        in: path
+        name: operator_id
+        required: true
+        schema:
+          type: string
+      - description: Specify the year and month from 18 months before the current time to the current time in the YYYYMM format.
+        in: query
+        name: year_month
+        required: false
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HarvestExportedDataStatsResponse'
+          description: OK.
+      security:
+      - api_key: []
+        api_token: []
+      summary: Get 'Harvest usage report' for the specified operator.
+      tags:
+      - Stats
+      x-soracom-cli:
+      - stats harvest operators get
+  /stats/harvest/operators/{operator_id}/export:
+    post:
+      description: 'Download the Harvest Data Write Count Results Data CSV file that contains the usage report of all the
+        IoT SIMs for the specified operator.
+
+
+        **Info**: You can also check the Harvest Data write counts of the terminated IoT SIM.
+
+        '
+      operationId: exportHarvestStats
+      parameters:
+      - description: Operator ID.
+        in: path
+        name: operator_id
+        required: true
+        schema:
+          type: string
+      - description: 'Specify how to obtain the URL to download the Harvest Data Write Count Results Data CSV.
+
+
+          - `async`: Get the `exportedFieldId` without waiting for the URL to be issued on the Soracom platform. Specify this
+          `exportedFieldId` in [Files:getExportedFile API](#!/Files/getExportedFile) to get the URL for downloading. If the
+          file size of the Harvest Data Write Count Results Data CSV is huge, specify `async`.
+
+          - `sync` (default): Wait for the URL for downloading to be issued on the Soracom platform. However, if the file
+          size of the Harvest Data Write Count Results Data CSV is huge, it may time out and the URL cannot be retrieved.
+          If the timeout occurs, specify `async`.
+
+          '
+        in: query
+        name: export_mode
+        required: false
+        schema:
+          enum:
+          - async
+          - sync
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ExportRequest'
+        description: Export time period.
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FileExportResponse'
+          description: OK.
+      security:
+      - api_key: []
+        api_token: []
+      summary: Export Harvest Data Write Counts Report of all IoT SIMs
+      tags:
+      - Stats
+      x-soracom-cli:
+      - stats harvest export
+  /stats/harvest/subscribers/{imsi}:
+    get:
+      description: Retrieves the Soracom Harvest usage report for the subscriber specified by the IMSI.
+      operationId: getHarvestStats
+      parameters:
+      - description: imsi
+        in: path
+        name: imsi
+        required: true
+        schema:
+          type: string
+      - description: Specify the start month/day/minute of the period to be aggregated in UNIX time in seconds.
+        in: query
+        name: from
+        required: true
+        schema:
+          type: integer
+      - description: Specify the end month/day/minute of the period to be aggregated in UNIX time in seconds.
+        in: query
+        name: to
+        required: true
+        schema:
+          type: integer
+      - description: "Unit of aggregation.\n\n- `month`: Aggregate by month.\n\n  The `from` and `to` should be UNIX time\
+          \ (in seconds) from 18 months before the current time to the current time. The actual period of interest is not\
+          \ the time specified by `from` and `to`.\n\n  | Item | Description |\n  |-|-|\n  | Actual start time | 00:00:00\
+          \ on the first day of the month, including the specified UNIX time (in seconds). |\n  | Actual end time | 24:00:00\
+          \ of the last day of the month containing the specified UNIX time (in seconds). |\n- `day`: Aggregate by day.\n\n\
+          \  The `from` and `to` should be UNIX time (in seconds) from 18 months before the current time to the current time.\
+          \ The actual period of interest is not the time specified by `from` and `to`.\n\n  | Item | Description |\n  |-|-|\n\
+          \  | Actual start time | 00:00:00 of the day including the specified UNIX time (in seconds). |\n  | Actual end time\
+          \ | 24:00:00 of the day including the specified UNIX time (in seconds). |\n- `minutes`: Aggregate by approximately\
+          \ every 5 minutes.\n\n  The `from` and `to` must be between 32 days before the current time and the UNIX time (in\
+          \ seconds) of the current time. The actual period to be aggregated is not the time specified by `from` and `to`.\n\
+          \n  | Item | Description |\n  |-|-|\n  | Actual Start Time | Start time of approximately 5 minutes including the\
+          \ specified UNIX time (seconds). |\n  | Actual End Time | End time of approximately 5 minutes including the specified\
+          \ UNIX time (seconds). |\n"
+        in: query
+        name: period
+        required: true
+        schema:
+          enum:
+          - month
+          - day
+          - minutes
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/HarvestStatsResponse'
+                type: array
+          description: OK.
+      security:
+      - api_key: []
+        api_token: []
+      summary: Get Harvest Usage Report of Subscriber
+      tags:
+      - Stats
+      x-soracom-cli:
+      - stats harvest subscribers get
+  /stats/napter/audit_logs:
+    get:
+      description: Get Napter audit logs' monthly exported data stats.
+      operationId: getNapterAuditLogsExportedDataStats
+      parameters:
+      - description: Specify the year and month from 18 months before the current time to the current time in the YYYYMM format.
+        in: query
+        name: year_month
+        required: false
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NapterAuditLogsExportedDataStatsResponse'
+          description: OK.
+      security:
+      - api_key: []
+        api_token: []
+      summary: Get Napter audit logs' monthly exported data stats.
+      tags:
+      - Stats
+      x-soracom-cli:
+      - stats napter audit-logs get
+  /audit_logs/api:
+    get:
+      description: Retrieve audit logs for Soracom API calls.
+      operationId: getApiAuditLogs
+      parameters:
+      - description: Filter item for audit log retrieval by API kind (e.g. `/v1/auth`).
+        in: query
+        name: api_kind
+        required: false
+        schema:
+          type: string
+      - description: Start time for the log search range (unixtime milliseconds).
+        in: query
+        name: from_epoch_ms
+        required: false
+        schema:
+          type: integer
+      - description: End time for the log search range (unixtime milliseconds).
+        in: query
+        name: to_epoch_ms
+        required: false
+        schema:
+          type: integer
+      - description: Maximum number of log entries to retrieve (value range is 1 to 1000).
+        in: query
+        name: limit
+        required: false
+        schema:
+          maximum: 1000
+          minimum: 1
+          type: integer
+      - description: The value of `requestedTimeEpochMs` in the last log entry retrieved in the previous page. By specifying
+          this parameter, you can continue to retrieve the list from the next page onward.
+        in: query
+        name: last_evaluated_key
+        required: false
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              example:
+              - apiKind: /v1/bills
+                operatorId: OPXXXXXXXXXX
+                remoteIpAddress: xxx.xxx.xxx.xxx
+                requestPath: /v1/bills
+                requestedTimeEpocMs: 1234567890123
+                statusCode: 200
+                userName: SORACOMAPI
+              schema:
+                items:
+                  $ref: '#/components/schemas/APIAuditLogEntry'
+                type: array
+          description: A list of Soracom API audit log entries.
+      security:
+      - api_key: []
+        api_token: []
+      summary: Retrieve audit logs for Soracom API calls
+      tags:
+      - AuditLog
+      x-soracom-cli:
+      - audit-logs api get
+      x-soracom-cli-pagination:
+        request:
+          param: last_evaluated_key
+        response:
+          header: x-soracom-next-key
+  /audit_logs/napter:
+    get:
+      description: Retrieve audit logs for Soracom Napter.
+      operationId: getNapterAuditLogs
+      parameters:
+      - description: Type of the target resource to query log entries.
+        in: query
+        name: resource_type
+        required: false
+        schema:
+          enum:
+          - Subscriber
+          type: string
+      - description: Identity of the target resource to query log entries.
+        in: query
+        name: resource_id
+        required: false
+        schema:
+          type: string
+      - description: Start time for the log search range (unixtime milliseconds).
+        in: query
+        name: from
+        required: false
+        schema:
+          type: integer
+      - description: End time for the log search range (unixtime milliseconds).
+        in: query
+        name: to
+        required: false
+        schema:
+          type: integer
+      - description: Maximum number of log entries to retrieve (value range is 1 to 1000).
+        in: query
+        name: limit
+        required: false
+        schema:
+          maximum: 1000
+          minimum: 1
+          type: integer
+      - description: The value of `time` in the last log entry retrieved in the previous page. By specifying this parameter,
+          you can continue to retrieve the list from the next page onward.
+        in: query
+        name: last_evaluated_key
+        required: false
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              example:
+              - connectionId: 12345678-abcd-1234-abcd-123456789010
+                createdAt: 1234567890123
+                direction:
+                  destinationIPAddress: xxx.xxx.xxx.xxx
+                  destinationPort: 22
+                  sourceIPAddress: xxx.xxx.xxx.xxx
+                  sourcePort: 51720
+                imsi: '123456789012345'
+                operatorId: OPXXXXXXXXXX
+                tls: false
+                type: CLOSED
+              - connectionId: 12345678-abcd-1234-abcd-123456789011
+                createdAt: 1234567890123
+                direction:
+                  destinationIPAddress: xxx.xxx.xxx.xxx
+                  destinationPort: 22
+                  sourceIPAddress: xxx.xxx.xxx.xxx
+                  sourcePort: 51720
+                imsi: '234567890123456'
+                operatorId: OPXXXXXXXXXX
+                tls: false
+                type: EXPIRED
+              schema:
+                items:
+                  $ref: '#/components/schemas/NapterAuditLogEntry'
+                type: array
+          description: A list of Napter audit log entries.
+      security:
+      - api_key: []
+        api_token: []
+      summary: Retrieve audit logs for Soracom Napter
+      tags:
+      - AuditLog
+      x-soracom-cli:
+      - audit-logs napter get
+      x-soracom-cli-pagination:
+        request:
+          param: last_evaluated_key
+        response:
+          header: x-soracom-next-key
+  /logs:
+    get:
+      description: 'Fetches error logs that meet specified criteria. If the error logs exceed one page, a URL to retrieve
+        the next page under the same conditions is included in the `link` header of the response.
+
+        '
+      operationId: getLogs
+      parameters:
+      - description: 'The type of resource for which to retrieve error logs.
+
+
+          - `Subscriber`: IoT SIM.
+
+          - `Device`: Inventory device.
+
+          - `LoraDevice`: LoRaWAN device.
+
+          - `SigfoxDevice`: Sigfox device.
+
+          '
+        in: query
+        name: resource_type
+        required: false
+        schema:
+          enum:
+          - Subscriber
+          - Device
+          - LoraDevice
+          - SigfoxDevice
+          type: string
+      - description: 'The ID of the resource for which to retrieve error logs. The ID to specify varies depending on the value
+          of `resource_type`.
+
+
+          | `resource_type` | ID to specify |
+
+          |-|-|
+
+          | `Subscriber` | The IMSI of the IoT SIM. The IMSI can be obtained from the [Sim:listSims API](#!/Sim/listSims).
+          |
+
+          | `Device` | The ID of the Inventory device. The ID can be obtained from the [Device:listDevices API](#!/Device/listDevices).
+          |
+
+          | `LoraDevice` | The ID of the LoRaWAN device. The ID can be obtained from the [LoraDevice:listLoraDevices API](#!/LoraDevice/listLoraDevices).
+          |
+
+          | `SigfoxDevice` | The ID of the Sigfox device. The ID can be obtained from the [SigfoxDevice:listSigfoxDevices
+          API](#!/SigfoxDevice/listSigfoxDevices). |
+
+          '
+        in: query
+        name: resource_id
+        required: false
+        schema:
+          type: string
+      - description: 'The service name to filter error logs.
+
+
+          - `Air`: SORACOM Air
+
+          - `Beam`: SORACOM Beam
+
+          - `Funk`: SORACOM Funk
+
+          - `Funnel`: SORACOM Funnel
+
+          - `Harvest`: SORACOM Harvest Data/Files
+
+          - `Napter`: SORACOM Napter
+
+          - `Orbit`: SORACOM Orbit
+
+          - `Unified`: Unified Endpoint
+
+          '
+        in: query
+        name: service
+        required: false
+        schema:
+          enum:
+          - Air
+          - Beam
+          - Funk
+          - Funnel
+          - Harvest
+          - Napter
+          - Orbit
+          - Unified
+          type: string
+      - description: Start time of the period for which to retrieve error logs (UNIX time in milliseconds).
+        in: query
+        name: from
+        required: false
+        schema:
+          type: integer
+      - description: End time of the period for which to retrieve error logs (UNIX time in milliseconds).
+        in: query
+        name: to
+        required: false
+        schema:
+          type: integer
+      - description: The maximum number of error logs to retrieve.
+        in: query
+        name: limit
+        required: false
+        schema:
+          type: integer
+      - description: The value contained in the `x-soracom-next-key` header returned when fetching the previous page. Specify
+          this to retrieve the next page. For more information, see [Retrieving Large Amounts of Data (Paging)](/en/docs/tools/api/paging/).
+        in: query
+        name: last_evaluated_key
+        required: false
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/LogEntry'
+                type: array
+          description: A list of error logs.
+      security:
+      - api_key: []
+        api_token: []
+      summary: Retrieve Error Logs
+      tags:
+      - Log
+      x-soracom-cli:
+      - logs get
+      x-soracom-cli-pagination:
+        request:
+          param: last_evaluated_key
+        response:
+          header: x-soracom-next-key
+  /diagnostics:
+    post:
+      description: Send a diagnostic request.
+      operationId: sendDiagnosticRequest
+      requestBody:
+        content:
+          application/json:
+            examples:
+              Diagnosing SORACOM Air for Cellular:
+                value:
+                  from: 1655251200000
+                  resouceType: sim
+                  resourceId: XXXXXXXXXXXXXXXXXXX
+                  service: Air
+                  to: 1655337600000
+            schema:
+              $ref: '#/components/schemas/DiagnosticRequest'
+        description: request
+        required: true
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DiagnosticResponse'
+          description: Successfully accepted a diagnostic request.
+        '400':
+          description: Bad definitions among diagnostic time range (from/to queries).
+        '404':
+          description: The specified resource is not found.
+      security:
+      - api_key: []
+        api_token: []
+      summary: Send diagnostic request
+      tags:
+      - Diagnostic
+      x-soracom-cli:
+      - diagnostics send-request
+  /diagnostics/{diagnostic_id}:
+    get:
+      description: Returns a diagnostic.
+      operationId: getDiagnostic
+      parameters:
+      - description: The identifier of diagnostic request.
+        in: path
+        name: diagnostic_id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DiagnosticResponse'
+          description: OK.
+        '404':
+          description: The specified diagnostic_id is not found.
+      security:
+      - api_key: []
+        api_token: []
+      summary: Get diagnostic
+      tags:
+      - Diagnostic
+      x-soracom-cli:
+      - diagnostics get
+tags:
+- description: '[Audit logs](/en/docs/api-audit-logs/)'
+  name: AuditLog
+- description: '[Diagnostic features](/en/guides/diagnostic/)'
+  name: Diagnostic
+- description: Error logs
+  name: Log
+- description: '[Data usage history](/en/docs/air/view-data-usage/) retrieval'
+  name: Stats
+components:
+  schemas:
+    NapterAuditLogsExportedDataStatsResponse:
+      properties:
+        exportedBytes:
+          description: exportedBytes
+          type: integer
+        yearMonth:
+          description: yearMonth
+          type: string
+      type: object
+    FunkStatsResponse:
+      properties:
+        funkStatsMap:
+          additionalProperties:
+            $ref: '#/components/schemas/SoracomFunkStats'
+          type: object
+        unixtime:
+          format: int64
+          type: integer
+      type: object
+    NapterAuditLogDirection:
+      properties:
+        destinationIPAddress:
+          type: string
+        destinationPort:
+          format: int64
+          type: integer
+        sourceIPAddress:
+          type: string
+        sourcePort:
+          format: int64
+          type: integer
+      type: object
+    SoracomFunnelStats:
+      properties:
+        count:
+          format: int64
+          type: integer
+      type: object
+    ReferenceUrl:
+      properties:
+        title:
+          type: string
+        url:
+          type: string
+      type: object
+    SoracomHarvestStats:
+      properties:
+        count:
+          format: int64
+          type: integer
+      type: object
+    Insight:
+      properties:
+        anomalyDetectedTimes:
+          description: Times that possible anomaly behaviors were detected. The format depends on the timestamp of events
+            relating to the category. (e.g., UNIX time in milliseconds for session category)
+          items:
+            type: string
+          type: array
+        category:
+          enum:
+          - data
+          - session
+          - sim
+          - others
+          - unknown
+          type: string
+        insightId:
+          type: string
+        message:
+          type: string
+        referenceUrls:
+          description: Reference URLs that is related to the insight.
+          items:
+            $ref: '#/components/schemas/ReferenceUrl'
+          type: array
+        severity:
+          enum:
+          - error
+          - warning
+          - info
+          - none
+          - unknown
+          type: string
+      required:
+      - insightId
+      - message
+      - category
+      - severity
+      type: object
+    NapterAuditLogEntry:
+      properties:
+        connectionId:
+          type: string
+        createdAt:
+          format: int64
+          type: integer
+        direction:
+          $ref: '#/components/schemas/NapterAuditLogDirection'
+        imsi:
+          type: string
+        operatorId:
+          type: string
+        tls:
+          type: boolean
+        type:
+          enum:
+          - ACCESS
+          - DENIED
+          - CONNECTED
+          - CLOSED
+          - REFUSED
+          - CREATED
+          - DELETED
+          - EXPIRED
+          type: string
+      type: object
+    DiagnosticRequest:
+      properties:
+        from:
+          description: Start time for diagnostic (UNIX time in milliseconds).
+          format: int64
+          type: integer
+        resourceId:
+          description: 'Identifier according to resourceType.
+
+
+            - If resourceType is `sim`, specify the SIM ID.
+
+            '
+          type: string
+        resourceType:
+          enum:
+          - sim
+          type: string
+        service:
+          enum:
+          - Air
+          type: string
+        to:
+          description: End time for diagnostic (UNIX time in milliseconds).
+          format: int64
+          type: integer
+      required:
+      - service
+      - resourceType
+      - resourceId
+      type: object
+    ExportRequest:
+      properties:
+        from:
+          description: Specify the start month/day/minute of the period to be aggregated in UNIX time in seconds.
+          example: 1709218800
+          format: int64
+          type: integer
+        period:
+          description: "Unit of aggregation.\n\n- `month`: Aggregate by month.\n\n  The `from` and `to` should be UNIX time\
+            \ (in seconds) from 18 months before the current time to the current time. The actual period of interest is not\
+            \ the time specified by `from` and `to`.\n\n  | Item | Description |\n  |-|-|\n  | Actual start time | 00:00:00\
+            \ on the first day of the month, including the specified UNIX time (in seconds). |\n  | Actual end time | 24:00:00\
+            \ of the last day of the month containing the specified UNIX time (in seconds). |\n- `day`: Aggregate by day.\n\
+            \n  The `from` and `to` should be UNIX time (in seconds) from 18 months before the current time to the current\
+            \ time. The actual period of interest is not the time specified by `from` and `to`.\n\n  | Item | Description\
+            \ |\n  |-|-|\n  | Actual start time | 00:00:00 of the day including the specified UNIX time (in seconds). |\n\
+            \  | Actual end time | 24:00:00 of the day including the specified UNIX time (in seconds). |\n- `minutes`: Aggregate\
+            \ by approximately every 5 minutes.\n\n  The `from` and `to` must be between 32 days before the current time and\
+            \ the UNIX time (in seconds) of the current time. The actual period to be aggregated is not the time specified\
+            \ by `from` and `to`.\n\n  | Item | Description |\n  |-|-|\n  | Actual Start Time | Start time of approximately\
+            \ 5 minutes including the specified UNIX time (seconds). |\n  | Actual End Time | End time of approximately 5\
+            \ minutes including the specified UNIX time (seconds). |\n"
+          enum:
+          - month
+          - day
+          - minutes
+          type: string
+        to:
+          description: Specify the end month/day/minute of the period to be aggregated in UNIX time in seconds.
+          example: 1714402800
+          format: int64
+          type: integer
+      type: object
+    SoracomBeamStats:
+      properties:
+        count:
+          format: int64
+          type: integer
+      type: object
+    APIAuditLogEntry:
+      properties:
+        apiKind:
+          description: The kind of the API (e.g., `/v1/auth`).
+          type: string
+        operatorId:
+          description: The operator ID that called the API.
+          type: string
+        remoteIpAddress:
+          description: The IP address of the caller.
+          type: string
+        requestPath:
+          description: The request path that has been called.
+          type: string
+        requestedTimeEpochMs:
+          description: The timestamp of the API call. This can be used as the `last_evaluated_key` request parameter, for
+            pagination.
+          format: int64
+          type: integer
+        userName:
+          description: The SAM username that called the API. If this parameter is empty, it means the caller user is the root
+            user.
+          type: string
+      type: object
+    SoracomFunkStats:
+      properties:
+        count:
+          format: int64
+          type: integer
+      type: object
+    BeamStatsResponse:
+      properties:
+        beamStatsMap:
+          additionalProperties:
+            $ref: '#/components/schemas/SoracomBeamStats'
+          type: object
+        date:
+          type: string
+        unixtime:
+          format: int64
+          type: integer
+      type: object
+    LogEntry:
+      properties:
+        body:
+          description: The error log.
+          type: object
+        logLevel:
+          description: The log level.
+          enum:
+          - debug
+          - error
+          - warning
+          - info
+          type: string
+        operatorId:
+          description: The operator ID.
+          type: string
+        resourceId:
+          description: 'The resource ID. It varies according to `resourceType`.
+
+
+            - When the `resourceType` is `Subscriber`, the resource ID is the subscriber''s IMSI.
+
+            - When the `resourceType` is `Device`, the resource ID is the device''s Inventory Device ID.
+
+            - When the `resourceType` is `LoraDevice`, the resource ID is the device''s LoRaWAN Device ID.
+
+            - When the `resourceType` is `SigfoxDevice`, the resource ID is the device''s Sigfox Device ID.
+
+            '
+          type: string
+        resourceType:
+          description: The resource type.
+          enum:
+          - Subscriber
+          - Device
+          - LoraDevice
+          - SigfoxDevice
+          type: string
+        service:
+          description: 'The service name from which the error log was output.
+
+
+            - `Air`: SORACOM Air
+
+            - `Beam`: SORACOM Beam
+
+            - `Funk`: SORACOM Funk
+
+            - `Funnel`: SORACOM Funnel
+
+            - `Harvest`: SORACOM Harvest Data/Files
+
+            - `Napter`: SORACOM Napter
+
+            - `Orbit`: SORACOM Orbit
+
+            - `Unified`: Unified Endpoint
+
+            '
+          enum:
+          - Air
+          - Beam
+          - Funk
+          - Funnel
+          - Harvest
+          - Napter
+          - Orbit
+          - Unified
+          type: string
+        time:
+          description: UNIX time (milliseconds).
+          format: int64
+          type: integer
+      type: object
+    AirStatsResponse:
+      properties:
+        dataTrafficStatsMap:
+          additionalProperties:
+            $ref: '#/components/schemas/DataTrafficStats'
+          type: object
+        date:
+          description: Date and time (Coordinated Universal Time (UTC))
+          type: string
+        unixtime:
+          format: int64
+          type: integer
+      type: object
+    AirAggregatedStatsResponse:
+      properties:
+        downloadByteSizeTotal:
+          description: Number of bytes downloaded during the period covered by the aggregate
+          format: int64
+          type: integer
+        unixtime:
+          description: Start date and time of the period under consideration (UNIX time in seconds)
+          format: int64
+          type: integer
+        uploadByteSizeTotal:
+          description: Number of bytes uploaded during the period covered by the aggregate
+          format: int64
+          type: integer
+      type: object
+    HarvestStatsResponse:
+      properties:
+        harvestStatsMap:
+          additionalProperties:
+            $ref: '#/components/schemas/SoracomHarvestStats'
+          type: object
+        unixtime:
+          format: int64
+          type: integer
+      type: object
+    HarvestExportedDataStatsResponse:
+      properties:
+        exportedBytes:
+          description: exportedBytes
+          type: integer
+        yearMonth:
+          description: yearMonth
+          type: string
+      type: object
+    FunnelStatsResponse:
+      properties:
+        funnelStatsMap:
+          additionalProperties:
+            $ref: '#/components/schemas/SoracomFunnelStats'
+          type: object
+        unixtime:
+          format: int64
+          type: integer
+      type: object
+    DataTrafficStats:
+      properties:
+        downloadByteSizeTotal:
+          format: int64
+          type: integer
+        downloadPacketSizeTotal:
+          format: int64
+          type: integer
+        uploadByteSizeTotal:
+          format: int64
+          type: integer
+        uploadPacketSizeTotal:
+          format: int64
+          type: integer
+      type: object
+    FileExportResponse:
+      properties:
+        exportedFileId:
+          description: File Export ID. Specify this ID when calling [Files:getExportedFile API](#!/Files/getExportedFile)
+            to get the URL to download the file. Included only if `export_mode` is `async`.
+          type: string
+        exportedFilePath:
+          description: Path of the exported file. Included only if `export_mode` is `async`.
+          type: string
+        url:
+          description: URL to download the file. Included only if `export_mode` is `sync`.
+          type: string
+      type: object
+    DiagnosticResponse:
+      properties:
+        diagnosticId:
+          type: string
+        from:
+          description: Start time for diagnostic (UNIX time in milliseconds).
+          format: int64
+          type: integer
+        insights:
+          items:
+            $ref: '#/components/schemas/Insight'
+          type: array
+        resourceId:
+          description: Identifier according to resourceType.
+          type: string
+        resourceType:
+          enum:
+          - sim
+          type: string
+        service:
+          enum:
+          - Air
+          type: string
+        status:
+          enum:
+          - diagnosing
+          - done
+          - failed
+          type: string
+        to:
+          description: End time for diagnostic (UNIX time in milliseconds).
+          format: int64
+          type: integer
+      required:
+      - diagnosticId
+      - status
+      - service
+      - resourceType
+      - resourceId
+      - from
+      - to
+      - insights
+      type: object
+  securitySchemes:
+    api_key:
+      description: 'API key for authentication. Obtain this from the Soracom User Console or via the Auth API.
+
+        Required in combination with an API token for all authenticated requests.
+
+        '
+      in: header
+      name: X-Soracom-API-Key
+      type: apiKey
+    api_token:
+      description: 'API token for authentication. This token has an expiration time and must be refreshed periodically.
+
+        Required in combination with an API key for all authenticated requests.'
+      in: header
+      name: X-Soracom-Token
+      type: apiKey

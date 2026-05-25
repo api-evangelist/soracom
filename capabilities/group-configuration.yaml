@@ -1,0 +1,119 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Soracom Group Configuration Capability
+  description: Self-contained Naftiko capability for managing Soracom groups and per-service configuration (Air, Beam, Funnel, Funk, Harvest, Junction, Orbit, Metadata, Inventory).
+  tags:
+  - Soracom
+  - Groups
+  - Configuration
+  created: '2026-05-25'
+  modified: '2026-05-25'
+binds:
+- namespace: env
+  keys:
+    SORACOM_API_KEY: SORACOM_API_KEY
+    SORACOM_API_TOKEN: SORACOM_API_TOKEN
+capability:
+  consumes:
+  - type: http
+    namespace: group
+    baseUri: https://api.soracom.io/v1
+    description: Soracom Group Configuration API.
+    resources:
+    - name: groups
+      path: /groups
+      operations:
+      - name: listGroups
+        method: GET
+        description: List groups.
+        outputRawFormat: json
+        outputParameters:
+        - {name: result, type: array, value: $.}
+        inputParameters:
+        - {name: limit, in: query, type: integer, required: false}
+      - name: createGroup
+        method: POST
+        description: Create a group.
+        outputRawFormat: json
+        outputParameters:
+        - {name: result, type: object, value: $.}
+        inputParameters:
+        - {name: body, in: body, type: object, required: true}
+    - name: groups-by-id
+      path: /groups/{group_id}
+      operations:
+      - name: getGroup
+        method: GET
+        description: Get a group.
+        outputRawFormat: json
+        outputParameters:
+        - {name: result, type: object, value: $.}
+        inputParameters:
+        - {name: group_id, in: path, type: string, required: true}
+      - name: deleteGroup
+        method: DELETE
+        description: Delete a group.
+        outputRawFormat: json
+        outputParameters:
+        - {name: result, type: object, value: $.}
+        inputParameters:
+        - {name: group_id, in: path, type: string, required: true}
+    - name: groups-configuration
+      path: /groups/{group_id}/configuration/{namespace}
+      operations:
+      - name: putConfigurationParameters
+        method: PUT
+        description: Put configuration parameters for a namespace (e.g. SoracomAir, SoracomBeam, SoracomFunnel).
+        outputRawFormat: json
+        outputParameters:
+        - {name: result, type: object, value: $.}
+        inputParameters:
+        - {name: group_id, in: path, type: string, required: true}
+        - {name: namespace, in: path, type: string, required: true}
+        - {name: body, in: body, type: array, required: true}
+    authentication:
+      type: apikey
+      key: X-Soracom-API-Key
+      value: '{{env.SORACOM_API_KEY}}'
+      placement: header
+  exposes:
+  - type: mcp
+    namespace: group-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Group configuration.
+    tools:
+    - name: soracom-list-groups
+      description: List Soracom groups.
+      hints: {readOnly: true, destructive: false, idempotent: true}
+      call: group.listGroups
+      with:
+        limit: tools.limit
+      outputParameters:
+      - {type: array, mapping: $.}
+    - name: soracom-get-group
+      description: Get a Soracom group by ID.
+      hints: {readOnly: true, destructive: false, idempotent: true}
+      call: group.getGroup
+      with:
+        group_id: tools.group_id
+      outputParameters:
+      - {type: object, mapping: $.}
+    - name: soracom-create-group
+      description: Create a Soracom group.
+      hints: {readOnly: false, destructive: false, idempotent: false}
+      call: group.createGroup
+      with:
+        body: tools.body
+      outputParameters:
+      - {type: object, mapping: $.}
+    - name: soracom-put-group-configuration
+      description: Put per-service configuration parameters for a group.
+      hints: {readOnly: false, destructive: false, idempotent: true}
+      call: group.putConfigurationParameters
+      with:
+        group_id: tools.group_id
+        namespace: tools.namespace
+        body: tools.body
+      outputParameters:
+      - {type: object, mapping: $.}

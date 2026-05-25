@@ -1,0 +1,144 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Soracom Billing Capability
+  description: Self-contained Naftiko capability for retrieving Soracom usage charges, monthly and daily bill summaries, exports, payment methods, coupons, orders, and shipping addresses.
+  tags:
+  - Soracom
+  - Billing
+  - FinOps
+  - Payment
+  created: '2026-05-25'
+  modified: '2026-05-25'
+binds:
+- namespace: env
+  keys:
+    SORACOM_API_KEY: SORACOM_API_KEY
+    SORACOM_API_TOKEN: SORACOM_API_TOKEN
+capability:
+  consumes:
+  - type: http
+    namespace: billing
+    baseUri: https://api.soracom.io/v1
+    description: Soracom Billing, Payment, Order, and Shipping API.
+    resources:
+    - name: bills
+      path: /bills
+      operations:
+      - name: listBills
+        method: GET
+        description: List monthly bills.
+        outputRawFormat: json
+        outputParameters:
+        - {name: result, type: array, value: $.}
+        inputParameters: []
+    - name: bills-latest
+      path: /bills/latest
+      operations:
+      - name: getLatestBill
+        method: GET
+        description: Get the latest unbilled charges.
+        outputRawFormat: json
+        outputParameters:
+        - {name: result, type: object, value: $.}
+        inputParameters: []
+    - name: bills-by-month
+      path: /bills/{yyyyMM}
+      operations:
+      - name: getBillingHistory
+        method: GET
+        description: Get monthly bill for a YYYYMM period.
+        outputRawFormat: json
+        outputParameters:
+        - {name: result, type: object, value: $.}
+        inputParameters:
+        - {name: yyyyMM, in: path, type: string, required: true}
+    - name: bills-daily
+      path: /bills/{yyyyMM}/daily
+      operations:
+      - name: getDailyBilling
+        method: GET
+        description: Get daily bill breakdown for a YYYYMM period.
+        outputRawFormat: json
+        outputParameters:
+        - {name: result, type: array, value: $.}
+        inputParameters:
+        - {name: yyyyMM, in: path, type: string, required: true}
+    - name: bills-export
+      path: /bills/{yyyyMM}/export
+      operations:
+      - name: exportBilling
+        method: POST
+        description: Export monthly bill to CSV.
+        outputRawFormat: json
+        outputParameters:
+        - {name: result, type: object, value: $.}
+        inputParameters:
+        - {name: yyyyMM, in: path, type: string, required: true}
+    - name: payment-methods-webpay
+      path: /payment_methods/webpay
+      operations:
+      - name: getPaymentMethodWebPay
+        method: GET
+        description: Get WebPay payment method.
+        outputRawFormat: json
+        outputParameters:
+        - {name: result, type: object, value: $.}
+        inputParameters: []
+    - name: coupons
+      path: /coupons
+      operations:
+      - name: listCoupons
+        method: GET
+        description: List coupons.
+        outputRawFormat: json
+        outputParameters:
+        - {name: result, type: array, value: $.}
+        inputParameters: []
+    authentication:
+      type: apikey
+      key: X-Soracom-API-Key
+      value: '{{env.SORACOM_API_KEY}}'
+      placement: header
+  exposes:
+  - type: mcp
+    namespace: billing-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for billing.
+    tools:
+    - name: soracom-get-latest-bill
+      description: Get latest unbilled charges.
+      hints: {readOnly: true, destructive: false, idempotent: true}
+      call: billing.getLatestBill
+      outputParameters:
+      - {type: object, mapping: $.}
+    - name: soracom-get-monthly-bill
+      description: Get monthly bill for YYYYMM.
+      hints: {readOnly: true, destructive: false, idempotent: true}
+      call: billing.getBillingHistory
+      with:
+        yyyyMM: tools.yyyyMM
+      outputParameters:
+      - {type: object, mapping: $.}
+    - name: soracom-get-daily-bill
+      description: Get daily bill breakdown for YYYYMM.
+      hints: {readOnly: true, destructive: false, idempotent: true}
+      call: billing.getDailyBilling
+      with:
+        yyyyMM: tools.yyyyMM
+      outputParameters:
+      - {type: array, mapping: $.}
+    - name: soracom-export-monthly-bill
+      description: Export monthly bill to CSV.
+      hints: {readOnly: false, destructive: false, idempotent: false}
+      call: billing.exportBilling
+      with:
+        yyyyMM: tools.yyyyMM
+      outputParameters:
+      - {type: object, mapping: $.}
+    - name: soracom-list-coupons
+      description: List registered coupons.
+      hints: {readOnly: true, destructive: false, idempotent: true}
+      call: billing.listCoupons
+      outputParameters:
+      - {type: array, mapping: $.}

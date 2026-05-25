@@ -1,0 +1,656 @@
+openapi: 3.0.0
+info:
+  title: Soracom Batch API
+  description: Create and run batch jobs that apply API calls across multiple SIMs or devices.
+  version: 20250903-043502
+servers:
+- description: Japan coverage production API endpoint
+  url: https://api.soracom.io/v1
+- description: Global coverage production API endpoint
+  url: https://g.api.soracom.io/v1
+paths:
+  /batch_groups:
+    get:
+      description: Returns a list of batch groups.
+      operationId: listBatchGroups
+      parameters:
+      - description: Maximum number of batch groups to retrieve. The number of batch groups returned may be less than the
+          specified value.
+        example: 10
+        in: query
+        name: limit
+        required: false
+        schema:
+          format: int32
+          type: integer
+      - description: The value of the `x-soracom-next-key` header returned in the response to the last request. Specify this
+          to retrieve the next page of batch groups.
+        in: query
+        name: last_evaluated_key
+        required: false
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/BatchGroupResponse'
+                type: array
+          description: A list of batch groups was retrieved successfully.
+      security:
+      - api_key: []
+        api_token: []
+      summary: List batch groups.
+      tags:
+      - Batch
+      x-soracom-cli:
+      - batch-groups list
+      x-soracom-cli-pagination:
+        request:
+          param: last_evaluated_key
+        response:
+          header: x-soracom-next-key
+    post:
+      description: 'Create a new batch group for organizing and managing batch jobs. To create a batch job, use the [Batch:createBatchJob](#/Batch/createBatchJob)
+        instead.
+
+        '
+      operationId: createBatchGroup
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateBatchGroupRequest'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BatchGroupResponse'
+          description: The batch group has been created.
+      security:
+      - api_key: []
+        api_token: []
+      summary: Create batch group.
+      tags:
+      - Batch
+      x-soracom-cli:
+      - batch-groups create
+  /batch_groups/{batch_group_id}:
+    delete:
+      description: 'Delete the specified batch group. Batch groups can only be deleted if there are no running batch jobs
+        in the group.
+
+        '
+      operationId: deleteBatchGroup
+      parameters:
+      - description: Batch group ID.
+        in: path
+        name: batch_group_id
+        required: true
+        schema:
+          type: string
+      responses:
+        '204':
+          description: The batch group has been deleted.
+        '400':
+          description: The batch group cannot be deleted because there are running batch jobs.
+        '404':
+          description: Batch group not found.
+      security:
+      - api_key: []
+        api_token: []
+      summary: Delete batch group.
+      tags:
+      - Batch
+      x-soracom-cli:
+      - batch-groups delete
+    get:
+      description: 'Returns details of the specified batch group.
+
+        '
+      operationId: getBatchGroup
+      parameters:
+      - description: Batch group ID.
+        in: path
+        name: batch_group_id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BatchGroupResponse'
+          description: The batch group was found.
+        '404':
+          description: Batch group not found.
+      security:
+      - api_key: []
+        api_token: []
+      summary: Get batch group.
+      tags:
+      - Batch
+      x-soracom-cli:
+      - batch-groups get
+    put:
+      description: 'Updates the name or description of the specified batch group.
+
+        '
+      operationId: updateBatchGroup
+      parameters:
+      - description: Batch group ID.
+        in: path
+        name: batch_group_id
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateBatchGroupRequest'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BatchGroupResponse'
+          description: The batch group was updated.
+        '404':
+          description: Batch group not found.
+      security:
+      - api_key: []
+        api_token: []
+      summary: Update batch group.
+      tags:
+      - Batch
+      x-soracom-cli:
+      - batch-groups update
+  /batch_groups/{batch_group_id}/jobs:
+    get:
+      description: Returns a list of batch jobs in the specified batch group.
+      operationId: listBatchJobs
+      parameters:
+      - description: Batch group ID.
+        in: path
+        name: batch_group_id
+        required: true
+        schema:
+          type: string
+      - description: Maximum number of batch jobs to retrieve. The number of batch jobs returned may be less than the specified
+          value.
+        example: 10
+        in: query
+        name: limit
+        required: false
+        schema:
+          format: int32
+          type: integer
+      - description: The value of the `x-soracom-next-key` header returned in the response to the last request. Specify this
+          to retrieve the next page of batch jobs.
+        in: query
+        name: last_evaluated_key
+        required: false
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/BatchJobResponse'
+                type: array
+          description: A list of batch jobs was retrieved successfully.
+        '404':
+          description: Batch group not found.
+      security:
+      - api_key: []
+        api_token: []
+      summary: List batch jobs.
+      tags:
+      - Batch
+      x-soracom-cli:
+      - batch-groups jobs list
+      x-soracom-cli-pagination:
+        request:
+          param: last_evaluated_key
+        response:
+          header: x-soracom-next-key
+    post:
+      description: 'Create a new batch job and run it. A batch job consists of multiple tasks, each representing an API operation
+        to be performed. Tasks are executed using the permissions of the user that created the batch job API. Batch job information
+        is retained for 32 days.
+
+
+        **System Limits:**
+
+
+        - Each batch job is limited to a single API action. Mixing different APIs in the same job is not supported.
+
+        - Each batch job is limited to a maximum of 10,000 tasks.
+
+        - Only one batch job per API action can be created and processed at a time.
+
+        - Batch jobs may be delayed or restricted if system load is high. If this occurs, please wait and try again later.
+
+        '
+      operationId: createBatchJob
+      parameters:
+      - description: Batch group ID.
+        in: path
+        name: batch_group_id
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateBatchJobRequest'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BatchJobResponse'
+          description: The batch job has been created and execution has started.
+        '400':
+          description: 'Bad request. This error can occur in the following cases:
+
+            - Attempting to mix different APIs in a single batch job
+
+            - Already running a batch job with the same API for this operator
+
+            '
+        '404':
+          description: Batch group not found.
+        '429':
+          description: Batch job execution is restricted due to high system load.
+      security:
+      - api_key: []
+        api_token: []
+      summary: Create and run batch job.
+      tags:
+      - Batch
+      x-soracom-cli:
+      - batch-groups jobs create
+  /batch_groups/{batch_group_id}/jobs/{job_id}:
+    get:
+      description: 'Returns information about the specified batch job.
+
+        '
+      operationId: getBatchJob
+      parameters:
+      - description: Batch group ID.
+        in: path
+        name: batch_group_id
+        required: true
+        schema:
+          type: string
+      - description: Batch job ID.
+        in: path
+        name: job_id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BatchJobResponse'
+          description: The batch job was found.
+        '404':
+          description: Batch job not found.
+      security:
+      - api_key: []
+        api_token: []
+      summary: Get batch job.
+      tags:
+      - Batch
+      x-soracom-cli:
+      - batch-groups jobs get
+  /batch_groups/{batch_group_id}/jobs/{job_id}/tasks:
+    get:
+      description: 'Returns a list of tasks in the specified batch job. Each task represents an individual API operation executed
+        as part of the batch job.
+
+        '
+      operationId: listTasksOfBatchJob
+      parameters:
+      - description: Batch group ID.
+        in: path
+        name: batch_group_id
+        required: true
+        schema:
+          type: string
+      - description: Batch job ID.
+        in: path
+        name: job_id
+        required: true
+        schema:
+          type: string
+      - description: Maximum number of tasks to retrieve. The number of tasks returned may be less than the specified value.
+        example: 10
+        in: query
+        name: limit
+        required: false
+        schema:
+          format: int32
+          type: integer
+      - description: Filter by task status.
+        in: query
+        name: status
+        required: false
+        schema:
+          enum:
+          - pending
+          - success
+          - error
+          type: string
+      - description: The value of the `x-soracom-next-key` header returned in the response to the last request. Specify this
+          to retrieve the next page of tasks.
+        in: query
+        name: last_evaluated_key
+        required: false
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/BatchTaskResponse'
+                type: array
+          description: A list of batch tasks was retrieved successfully.
+        '404':
+          description: Batch job not found.
+      security:
+      - api_key: []
+        api_token: []
+      summary: List tasks.
+      tags:
+      - Batch
+      x-soracom-cli:
+      - batch-groups jobs list-tasks
+      x-soracom-cli-pagination:
+        request:
+          param: last_evaluated_key
+        response:
+          header: x-soracom-next-key
+tags:
+- description: Batch processing
+  name: Batch
+components:
+  schemas:
+    BatchTaskRequest:
+      properties:
+        request:
+          $ref: '#/components/schemas/BatchTaskApiRequest'
+          description: (Not shown because $ref is used at the same level in base/batch.yaml)
+      required:
+      - request
+      type: object
+    BatchJobResponse:
+      properties:
+        abortOnFailure:
+          description: Whether to immediately abort upon encountering an error.
+          type: boolean
+        batchGroupId:
+          description: Batch group ID.
+          example: aaaa1111
+          type: string
+        createdTime:
+          description: Created time.
+          example: 1704067200
+          format: int64
+          type: integer
+        description:
+          description: Description of the batch job.
+          type: string
+        errorMessage:
+          description: Detailed information about the failed batch job.
+          type: string
+        finishedTime:
+          description: Finished time.
+          example: 1704240000
+          format: int64
+          type: integer
+        jobId:
+          description: Batch job ID.
+          example: bbbb2222
+          type: string
+        jobName:
+          description: Batch job name.
+          example: July 16th 2025 Set group
+          type: string
+        status:
+          description: 'Status of the batch job.
+
+
+            - `pending`: The job is preparing to execute. No tasks have been processed yet.
+
+            - `running`: The job is executing tasks.
+
+            - `completed`: The job has finished successfully. All tasks have been executed without any errors.
+
+            - `failed`: The job has finished processing all tasks, but one or more tasks encountered errors during execution.
+
+            - `aborted`: The job was stopped before all tasks could be processed.
+
+            '
+          enum:
+          - pending
+          - running
+          - completed
+          - aborted
+          - failed
+          type: string
+        summary:
+          $ref: '#/components/schemas/BatchJobSummary'
+        updatedTime:
+          description: Updated time.
+          example: 1704153600
+          format: int64
+          type: integer
+      type: object
+    UpdateBatchGroupRequest:
+      properties:
+        batchGroupName:
+          description: Batch group name.
+          maxLength: 100
+          type: string
+        description:
+          description: Description of the batch group.
+          maxLength: 500
+          type: string
+      type: object
+    CreateBatchGroupRequest:
+      properties:
+        batchGroupName:
+          description: Batch group name.
+          example: Monthly SIM Tag Update
+          maxLength: 100
+          type: string
+        description:
+          description: Description of the batch group.
+          maxLength: 500
+          type: string
+      required:
+      - batchGroupName
+      type: object
+    BatchGroupResponse:
+      properties:
+        batchGroupId:
+          description: Batch group ID.
+          example: aaaa1111
+          type: string
+        batchGroupName:
+          description: Batch group name.
+          example: Monthly SIM Tag Update
+          type: string
+        createdTime:
+          description: Created time.
+          example: 1704067200
+          format: int64
+          type: integer
+        description:
+          description: Description of the batch group.
+          type: string
+        updatedTime:
+          description: Updated time.
+          example: 1704153600
+          format: int64
+          type: integer
+      type: object
+    BatchTaskApiResponse:
+      description: このタスクの API レスポンス。
+      properties:
+        body:
+          description: Body in the response.
+          type: object
+        statusCode:
+          description: Status code in the response.
+          example: 200
+          type: integer
+      type: object
+    CreateBatchJobRequest:
+      properties:
+        abortOnFailure:
+          description: Whether to immediately abort upon encountering an error during batch job execution.
+          example: false
+          type: boolean
+        description:
+          description: Description of the batch job.
+          maxLength: 500
+          type: string
+        jobName:
+          description: Batch job name.
+          example: July 16th 2025 Set group
+          maxLength: 100
+          type: string
+        tasks:
+          description: "List of tasks to be executed in the batch job.\n\nSupported Soracom APIs:\n\n- [Sim:activateSim API](#/Sim/activateSim)\n\
+            - [Sim:deactivateSim API](#/Sim/deactivateSim)\n- [Sim:setSimToStandby API](#/Sim/setSimToStandby)\n- [Sim:suspendSim\
+            \ API](#/Sim/suspendSim)\n- [Sim:setSimGroup API](#/Sim/setSimGroup)\n- [Sim:unsetSimGroup API](#/Sim/unsetSimGroup)\n\
+            - [Sim:putSimTags API](#/Sim/putSimTags)\n- [VirtualPrivateGateway:putVirtualPrivateGatewayIpAddressMapEntry API](#/VirtualPrivateGateway/putVirtualPrivateGatewayIpAddressMapEntry)\n\
+            \nSpecify the API request path, HTTP method, and body in the `request` field according to the Soracom API specification.\
+            \ For example, to call the Sim:activateSim API, specify as follows:\n\n```json\n{\n  \"request\": {\n    \"path\"\
+            : \"/v1/sims/8981100001234567890/activate\",\n    \"method\": \"POST\",\n    \"body\": {\n      \"sim_id\": \"\
+            8981100001234567890\"\n    }\n  }\n}\n```\n"
+          items:
+            $ref: '#/components/schemas/BatchTaskRequest'
+          type: array
+      required:
+      - tasks
+      type: object
+    BatchTaskApiRequest:
+      description: The API request of this task.
+      properties:
+        body:
+          description: Body of the API request.
+          example:
+            groupId: 11111111-2222-3333-4444-555555555555
+          type: object
+        method:
+          description: HTTP method of the API request.
+          enum:
+          - POST
+          - GET
+          - PUT
+          - DELETE
+          example: POST
+          type: string
+        path:
+          description: Path of the API request.
+          example: /v1/sims/8981100001234567890/set_group
+          type: string
+      required:
+      - path
+      - method
+      type: object
+    BatchTaskResponse:
+      properties:
+        finishedTime:
+          description: Finished time of the task.
+          example: 1704067202
+          format: int64
+          type: integer
+        request:
+          $ref: '#/components/schemas/BatchTaskApiRequest'
+          description: (Not shown because $ref is used at the same level in base/batch.yaml)
+        response:
+          $ref: '#/components/schemas/BatchTaskApiResponse'
+          description: (Not shown because $ref is used at the same level in base/batch.yaml)
+        startedTime:
+          description: Started time of the task.
+          example: 1704067201
+          format: int64
+          type: integer
+        status:
+          description: 'Status of the task.
+
+
+            - `pending`: Task is waiting for execution.
+
+            - `success`: Task succeeded.
+
+            - `error`: Task failed.
+
+            '
+          enum:
+          - pending
+          - success
+          - error
+          type: string
+        taskId:
+          description: Task ID.
+          example: 1
+          format: int32
+          type: integer
+      type: object
+    BatchJobSummary:
+      description: Number of tasks for each status. These numbers are periodically updated during the batch job execution.
+      properties:
+        error:
+          description: Number of tasks that failed to execute.
+          example: 0
+          format: int32
+          type: integer
+        pending:
+          description: Number of tasks waiting for execution.
+          example: 5
+          format: int32
+          type: integer
+        success:
+          description: Number of tasks that have successfully executed.
+          example: 95
+          format: int32
+          type: integer
+      type: object
+  securitySchemes:
+    api_key:
+      description: 'API key for authentication. Obtain this from the Soracom User Console or via the Auth API.
+
+        Required in combination with an API token for all authenticated requests.
+
+        '
+      in: header
+      name: X-Soracom-API-Key
+      type: apiKey
+    api_token:
+      description: 'API token for authentication. This token has an expiration time and must be refreshed periodically.
+
+        Required in combination with an API key for all authenticated requests.'
+      in: header
+      name: X-Soracom-Token
+      type: apiKey

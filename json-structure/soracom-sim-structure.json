@@ -1,0 +1,30 @@
+{
+  "$schema": "https://json-structure.org/draft-01/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/soracom/main/json-structure/soracom-sim-structure.json",
+  "title": "Soracom SIM Structure",
+  "description": "JSON Structure for a Soracom SIM resource, describing core identifiers, lifecycle status, group binding, and session state.",
+  "type": "object",
+  "properties": {
+    "simId": {"type": "string", "description": "Unique Soracom-assigned SIM identifier."},
+    "imsi": {"type": "string"},
+    "iccid": {"type": "string"},
+    "msisdn": {"type": "string"},
+    "operatorId": {"type": "string"},
+    "groupId": {"type": ["string", "null"]},
+    "type": {"type": "string"},
+    "status": {"type": "string", "enum": ["ready", "active", "inactive", "standby", "suspended", "terminated"]},
+    "tags": {"type": "object"},
+    "imei": {"type": ["string", "null"]},
+    "sessionStatus": {
+      "type": "object",
+      "properties": {
+        "online": {"type": "boolean"},
+        "imei": {"type": "string"},
+        "lastUpdatedAt": {"type": "integer"}
+      }
+    },
+    "createdTime": {"type": "integer"},
+    "lastModifiedTime": {"type": "integer"}
+  },
+  "required": ["simId", "operatorId", "status"]
+}

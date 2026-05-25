@@ -1,0 +1,157 @@
+specification: FinOps Framework
+specificationVersion: '1.0'
+schema: https://www.finops.org/framework/
+provider: Soracom
+providerId: soracom
+created: '2026-05-25'
+modified: '2026-05-25'
+reconciled: true
+tags:
+  - FinOps
+  - Cost Management
+  - FOCUS
+  - IoT
+  - Cellular
+description: FOCUS-aligned FinOps definition for Soracom's IoT cellular and platform services. Soracom bills
+  per-SIM (subscription, per-day, per-month), per-MB data, per-device-day for managed services, per-request
+  for proxy/transfer services, and per-hour for managed network gateways.
+sources:
+  - https://www.soracom.io/pricing/
+  - https://developers.soracom.io/en/docs/reference/fees/
+  - https://users.soracom.io/ja-jp/tools/api/reference/
+alignedWith:
+  framework: FinOps Foundation Framework
+  frameworkUrl: https://www.finops.org/framework/
+  dataSpec: FOCUS
+  dataSpecVersion: '1.3'
+  dataSpecUrl: https://focus.finops.org/focus-specification/v1-3/
+publisherName: Soracom
+serviceCategory: IoT and Connectivity
+billingModel:
+  pricingCategory: Usage-Based
+  billingFrequency: Monthly
+  billingCurrency: USD
+  chargeCategories:
+    - Usage
+    - Subscription
+    - Purchase
+    - Tax
+    - Credit
+    - Adjustment
+  primaryUnit: sim-day
+  secondaryUnits:
+    - MB
+    - request
+    - device-month
+    - vpg-hour
+    - session
+    - upload
+focusColumns:
+  ServiceName: Soracom API
+  ServiceCategory: IoT and Connectivity
+  ProviderName: Soracom
+  PublisherName: Soracom
+  InvoiceIssuerName: Soracom
+  PricingCategory: Usage-Based
+  PricingUnit: sim-day
+  BillingCurrency: USD
+meters:
+  - name: sim_active_day
+    unit: sim-day
+    aggregation: sum
+    dimensions:
+      - plan
+      - coverage
+      - operatorId
+  - name: data_usage
+    unit: MB
+    aggregation: sum
+    dimensions:
+      - plan
+      - country
+      - sim_id
+  - name: beam_requests
+    unit: request
+    aggregation: sum
+    dimensions:
+      - group
+  - name: funnel_requests
+    unit: request
+    aggregation: sum
+    dimensions:
+      - group
+      - destination
+  - name: harvest_device_day
+    unit: device-day
+    aggregation: sum
+    dimensions:
+      - resource_type
+  - name: harvest_uploads
+    unit: upload
+    aggregation: sum
+    dimensions:
+      - resource_type
+  - name: napter_sim_month
+    unit: sim-month
+    aggregation: sum
+    dimensions:
+      - sim_id
+  - name: vpg_hour
+    unit: vpg-hour
+    aggregation: sum
+    dimensions:
+      - vpg_type
+  - name: inventory_device_month
+    unit: device-month
+    aggregation: sum
+    dimensions:
+      - device_id
+costAllocation:
+  tagging: true
+  dimensions:
+    - group
+    - sim_id
+    - device_id
+    - tag
+  freeTier:
+    - service: Beam
+      limit: 100000 requests/month
+    - service: Funnel
+      limit: 50000 requests/month
+    - service: Napter
+      limit: 1 SIM/month
+    - service: Endorse
+      limit: 31 SIM-days/month
+    - service: Inventory
+      limit: $1.50/month credit
+discounts:
+  - name: Volume — Active SIM basic
+    description: '$0.06/day for first 100 SIMs, $0.05/day above.'
+    service: plan01s
+  - name: Long-term discount (Volume Discount Group)
+    description: Reduced unit price on data and basic fee tiers when SIMs are pooled in a Volume Discount Group.
+  - name: Pooled Data Plan
+    description: Fixed per-SIM data allotment shared across the device fleet (custom contract).
+reporting:
+  endpoints:
+    - method: GET
+      path: /v1/bills
+      description: List monthly bills.
+    - method: GET
+      path: /v1/bills/latest
+      description: Latest unbilled charges.
+    - method: GET
+      path: /v1/bills/{yyyyMM}
+      description: Monthly bill detail.
+    - method: GET
+      path: /v1/bills/{yyyyMM}/daily
+      description: Daily bill breakdown.
+    - method: POST
+      path: /v1/bills/{yyyyMM}/export
+      description: Asynchronous CSV export.
+    - method: GET
+      path: /v1/bills/summaries/sims
+      description: Per-SIM summary.
+    - method: GET
+      path: /v1/bills/summaries/bill_items
+      description: Per-bill-item summary.

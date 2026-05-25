@@ -1,0 +1,58 @@
+specification: API Commons Rate Limits
+specificationVersion: '0.1'
+schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main/schema/api-commons.yml#/$defs/RateLimits
+provider: Soracom
+providerId: soracom
+created: '2026-05-25'
+modified: '2026-05-25'
+reconciled: true
+tags:
+  - IoT
+  - Rate Limiting
+  - Throttling
+description: 'Reconciled rate limits for the Soracom API. Soracom uses HTTP 429 responses for throttling and
+  publishes per-operation guidance via the developer documentation. The platform also enforces SIM-level
+  cellular speed-class throttling (separate from API throttling). Pagination uses the x-soracom-next-key
+  response header and last_evaluated_key query parameter.'
+sources:
+  - https://users.soracom.io/ja-jp/tools/api/reference/
+  - https://developers.soracom.io/en/docs/
+  - https://developers.soracom.io/en/docs/air/speed-class/
+responseCodes:
+  throttled: 429
+  quotaExceeded: 429
+algorithm: sliding-window
+headers:
+  retryAfter: retry-after
+  paginationNext: x-soracom-next-key
+notes:
+  - Soracom does not publish a fixed global RPM/RPH ceiling. Operator throttling is applied dynamically and
+    surfaced as HTTP 429. Clients should honor the Retry-After header.
+  - List endpoints support pagination via the `limit` query parameter and the `last_evaluated_key` query
+    parameter, paired with the `x-soracom-next-key` response header.
+  - Bulk operations should prefer the Batch API (`/batch_groups`) over tight loops to avoid throttling.
+  - Long-running queries should use the asynchronous Analysis (Query) API rather than synchronous endpoints.
+operationGuidance:
+  - operation: getDataEntries
+    note: Use `from`/`to` and `limit` to keep responses paginated; default response sizes are bounded.
+  - operation: createPortMapping
+    note: Napter mapping creation is per-SIM rate-limited. Reuse keys when possible rather than recreating.
+  - operation: exportSubscribers
+    note: Use the asynchronous Files export pattern; do not poll more often than every few seconds.
+sim:
+  speedClasses:
+    - class: s1.minimum
+      upload: 32 kbps
+      download: 32 kbps
+    - class: s1.slow
+      upload: 32 kbps
+      download: 128 kbps
+    - class: s1.standard
+      upload: 256 kbps
+      download: 512 kbps
+    - class: s1.fast
+      upload: 1 Mbps
+      download: 8 Mbps
+    - class: s1.4xfast
+      upload: 4 Mbps
+      download: 32 Mbps

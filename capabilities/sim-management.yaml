@@ -1,0 +1,306 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Soracom SIM Management Capability
+  description: Self-contained Naftiko capability for managing Soracom Air for Cellular SIMs and Subscribers — list, get, activate, deactivate, terminate, set group, set IMEI lock, list session events.
+  tags:
+  - Soracom
+  - IoT
+  - Cellular
+  - SIM
+  created: '2026-05-25'
+  modified: '2026-05-25'
+binds:
+- namespace: env
+  keys:
+    SORACOM_AUTH_KEY_ID: SORACOM_AUTH_KEY_ID
+    SORACOM_AUTH_KEY: SORACOM_AUTH_KEY
+    SORACOM_API_TOKEN: SORACOM_API_TOKEN
+capability:
+  consumes:
+  - type: http
+    namespace: sim
+    baseUri: https://api.soracom.io/v1
+    description: Soracom SIM Management API surface. Use g.api.soracom.io for global coverage.
+    resources:
+    - name: sims
+      path: /sims
+      operations:
+      - name: listSims
+        method: GET
+        description: List SIMs in the operator account.
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: array
+          value: $.
+        inputParameters:
+        - name: limit
+          in: query
+          type: integer
+          required: false
+        - name: last_evaluated_key
+          in: query
+          type: string
+          required: false
+      - name: createSim
+        method: POST
+        description: Create a virtual Arc SIM/Subscriber.
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          required: true
+    - name: sims-by-id
+      path: /sims/{sim_id}
+      operations:
+      - name: getSim
+        method: GET
+        description: Get information about a SIM.
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: sim_id
+          in: path
+          type: string
+          required: true
+    - name: sims-activate
+      path: /sims/{sim_id}/activate
+      operations:
+      - name: activateSim
+        method: POST
+        description: Activate a SIM.
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: sim_id
+          in: path
+          type: string
+          required: true
+    - name: sims-deactivate
+      path: /sims/{sim_id}/deactivate
+      operations:
+      - name: deactivateSim
+        method: POST
+        description: Deactivate a SIM.
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: sim_id
+          in: path
+          type: string
+          required: true
+    - name: sims-terminate
+      path: /sims/{sim_id}/terminate
+      operations:
+      - name: terminateSim
+        method: POST
+        description: Terminate a SIM. Irreversible.
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: sim_id
+          in: path
+          type: string
+          required: true
+    - name: sims-set-group
+      path: /sims/{sim_id}/set_group
+      operations:
+      - name: setSimGroup
+        method: POST
+        description: Bind a SIM to a group.
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: sim_id
+          in: path
+          type: string
+          required: true
+        - name: body
+          in: body
+          type: object
+          required: true
+    - name: sims-session-events
+      path: /sims/{sim_id}/session_events
+      operations:
+      - name: listSimSessionEvents
+        method: GET
+        description: Retrieve session event history for a SIM.
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: array
+          value: $.
+        inputParameters:
+        - name: sim_id
+          in: path
+          type: string
+          required: true
+        - name: from
+          in: query
+          type: integer
+          required: false
+        - name: to
+          in: query
+          type: integer
+          required: false
+    authentication:
+      type: apikey
+      key: X-Soracom-API-Key
+      value: '{{env.SORACOM_API_KEY}}'
+      placement: header
+  exposes:
+  - type: rest
+    namespace: sim-rest
+    port: 8080
+    description: REST adapter for Soracom SIM Management.
+    resources:
+    - path: /v1/sims
+      name: sims
+      description: List or create SIMs.
+      operations:
+      - method: GET
+        name: listSims
+        description: List SIMs.
+        call: sim.listSims
+        with:
+          limit: rest.query.limit
+          last_evaluated_key: rest.query.last_evaluated_key
+        outputParameters:
+        - type: array
+          mapping: $.
+      - method: POST
+        name: createSim
+        description: Create a virtual Arc SIM.
+        call: sim.createSim
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/sims/{sim_id}
+      name: sims-by-id
+      description: Get SIM.
+      operations:
+      - method: GET
+        name: getSim
+        description: Get SIM.
+        call: sim.getSim
+        with:
+          sim_id: rest.path.sim_id
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: sim-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter exposing one tool per consumed SIM operation.
+    tools:
+    - name: soracom-list-sims
+      description: List SIMs in the Soracom operator account.
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: sim.listSims
+      with:
+        limit: tools.limit
+        last_evaluated_key: tools.last_evaluated_key
+      outputParameters:
+      - type: array
+        mapping: $.
+    - name: soracom-get-sim
+      description: Get a single SIM by ID.
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: sim.getSim
+      with:
+        sim_id: tools.sim_id
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: soracom-activate-sim
+      description: Activate a Soracom SIM.
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: sim.activateSim
+      with:
+        sim_id: tools.sim_id
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: soracom-deactivate-sim
+      description: Deactivate a Soracom SIM.
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: sim.deactivateSim
+      with:
+        sim_id: tools.sim_id
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: soracom-terminate-sim
+      description: Terminate (irrevocably) a Soracom SIM.
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: sim.terminateSim
+      with:
+        sim_id: tools.sim_id
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: soracom-set-sim-group
+      description: Bind a SIM to a group.
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: sim.setSimGroup
+      with:
+        sim_id: tools.sim_id
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: soracom-list-sim-session-events
+      description: Retrieve SIM session event history.
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: sim.listSimSessionEvents
+      with:
+        sim_id: tools.sim_id
+        from: tools.from
+        to: tools.to
+      outputParameters:
+      - type: array
+        mapping: $.

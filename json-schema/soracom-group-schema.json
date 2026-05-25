@@ -1,0 +1,22 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/soracom/main/json-schema/soracom-group-schema.json",
+  "title": "Soracom Group",
+  "description": "A Soracom group that binds SIMs/devices to per-service configuration for Soracom Air, Beam, Funnel, Funk, Harvest, Junction, Orbit, and Metadata.",
+  "type": "object",
+  "properties": {
+    "groupId": {"type": "string"},
+    "operatorId": {"type": "string"},
+    "name": {"type": "string"},
+    "configuration": {
+      "type": "object",
+      "description": "Map of namespace (e.g. SoracomAir, SoracomBeam, SoracomFunnel) to configuration parameters.",
+      "additionalProperties": true
+    },
+    "tags": {"type": "object", "additionalProperties": {"type": "string"}},
+    "createdTime": {"type": "integer"},
+    "lastModifiedTime": {"type": "integer"}
+  },
+  "required": ["groupId", "operatorId"],
+  "additionalProperties": true
+}

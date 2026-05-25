@@ -1,0 +1,33 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/soracom/main/json-schema/soracom-port-mapping-schema.json",
+  "title": "Soracom Napter Port Mapping",
+  "description": "A Soracom Napter on-demand port mapping that exposes a SIM-attached device's port to a source IP CIDR over the public internet for a limited time.",
+  "type": "object",
+  "properties": {
+    "key": {"type": "string", "description": "Port mapping key (also forms the endpoint hostname)."},
+    "ipAddress": {"type": "string", "description": "Public IPv4 endpoint."},
+    "port": {"type": "integer", "description": "Public TCP port assigned by Napter."},
+    "endpoint": {"type": "string", "description": "Public endpoint, host:port."},
+    "destination": {
+      "type": "object",
+      "properties": {
+        "imsi": {"type": "string"},
+        "simId": {"type": "string"},
+        "deviceId": {"type": "string"},
+        "port": {"type": "integer", "description": "Device-side TCP port (e.g. 22, 80, 443)."}
+      }
+    },
+    "source": {
+      "type": "object",
+      "properties": {
+        "ipRanges": {"type": "array", "items": {"type": "string"}, "description": "Allowed source CIDR ranges."}
+      }
+    },
+    "duration": {"type": "integer", "description": "Time-to-live in seconds."},
+    "expiresAt": {"type": "integer"},
+    "tlsRequired": {"type": "boolean"}
+  },
+  "required": ["key", "endpoint", "destination"],
+  "additionalProperties": true
+}

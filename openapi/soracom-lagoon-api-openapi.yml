@@ -1,0 +1,491 @@
+openapi: 3.0.0
+info:
+  title: Soracom Lagoon API
+  description: Manage Soracom Lagoon (dashboard and visualization) users, plans, and licenses.
+  version: 20250903-043502
+servers:
+- description: Japan coverage production API endpoint
+  url: https://api.soracom.io/v1
+- description: Global coverage production API endpoint
+  url: https://g.api.soracom.io/v1
+paths:
+  /lagoon/image/link:
+    get:
+      description: Get a custom icon image link of Soracom Lagoon Console.
+      operationId: getImageLink
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: string
+          description: OK.
+        '400':
+          description: Bad request.
+      security:
+      - api_key: []
+        api_token: []
+      summary: Get a custom icon image link of Soracom Lagoon Console
+      tags:
+      - Lagoon
+      x-soracom-cli:
+      - lagoon get-image-link
+  /lagoon/license_packs:
+    get:
+      description: Get the status of active Soracom Lagoon license packs.
+      operationId: listLagoonLicensePackStatus
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/LagoonLicensePackStatusResponse'
+                type: array
+          description: OK.
+        '400':
+          description: Bad request.
+      security:
+      - api_key: []
+        api_token: []
+      summary: Get the status of active Soracom Lagoon license packs
+      tags:
+      - Lagoon
+      x-soracom-cli:
+      - lagoon license-packs list-status
+    put:
+      description: 'Update the quantities for license packs of Soracom Lagoon.
+
+
+        **Warning**: This API must be called with the root user credentials. The quantities for license packs of Soracom Lagoon
+        cannot be updated with SAM user credentials.
+
+        '
+      operationId: updateLagoonLicensePack
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LagoonLicensePacksUpdatingRequest'
+        description: Request.
+        required: true
+      responses:
+        '204':
+          description: Updated.
+        '400':
+          description: Bad request.
+        '404':
+          description: Operator not found.
+      security:
+      - api_key: []
+        api_token: []
+      summary: Update the quantities for license packs of Soracom Lagoon
+      tags:
+      - Lagoon
+      x-soracom-cli:
+      - lagoon license-packs update
+  /lagoon/plan:
+    put:
+      description: 'Update the plan of Soracom Lagoon.
+
+
+        **Warning**: This API must be called with the root user credentials. The plan of Lagoon cannot be updated with SAM
+        user credentials.
+
+        '
+      operationId: updateLagoonPlan
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LagoonPlanChangingRequest'
+        required: true
+      responses:
+        '204':
+          description: Updated.
+        '400':
+          description: Bad request.
+        '404':
+          description: Operator not found.
+      security:
+      - api_key: []
+        api_token: []
+      summary: Update the plan of Soracom Lagoon
+      tags:
+      - Lagoon
+      x-soracom-cli:
+      - lagoon updated-plan
+  /lagoon/register:
+    post:
+      description: 'Register (activate) Soracom Lagoon.
+
+
+        **Warning**: This API must be called with the root user credentials. Lagoon cannot be registered with SAM user credentials.
+
+        '
+      operationId: registerLagoon
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LagoonRegistrationRequest'
+        description: Request.
+        required: true
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LagoonRegistrationResponse'
+          description: Registered.
+        '400':
+          description: Bad request.
+      security:
+      - api_key: []
+        api_token: []
+      summary: Register (activate) Soracom Lagoon
+      tags:
+      - Lagoon
+      x-soracom-cli:
+      - lagoon register
+  /lagoon/terminate:
+    post:
+      description: 'Terminate (deactivate) Soracom Lagoon.
+
+
+        **Warning**: This API must be called with the root user credentials. Lagoon cannot be terminated with SAM user credentials.
+
+        '
+      operationId: terminateLagoon
+      responses:
+        '204':
+          description: Terminated.
+        '400':
+          description: Bad request.
+        '404':
+          description: Operator not found.
+      security:
+      - api_key: []
+        api_token: []
+      summary: Terminate (deactivate) Soracom Lagoon
+      tags:
+      - Lagoon
+      x-soracom-cli:
+      - lagoon terminate
+  /lagoon/users:
+    get:
+      description: List Soracom Lagoon users that belong to operator.
+      operationId: listLagoonUsers
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/LagoonUser'
+                type: array
+          description: OK.
+        '400':
+          description: Bad request.
+      security:
+      - api_key: []
+        api_token: []
+      summary: List Soracom Lagoon users that belong to operator
+      tags:
+      - Lagoon
+      x-soracom-cli:
+      - lagoon list-users
+      - lagoon users list
+    post:
+      description: Create a Soracom Lagoon user.
+      operationId: createLagoonUser
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LagoonUserCreationRequest'
+        description: Request.
+        required: true
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LagoonUserCreationResponse'
+          description: Created.
+        '400':
+          description: Bad request.
+      security:
+      - api_key: []
+        api_token: []
+      summary: Create a Soracom Lagoon user
+      tags:
+      - Lagoon
+      x-soracom-cli:
+      - lagoon create-user
+      - lagoon users create
+  /lagoon/users/{lagoon_user_id}:
+    delete:
+      description: Delete a Soracom Lagoon user.
+      operationId: deleteLagoonUser
+      parameters:
+      - description: Target ID of the lagoon user.
+        in: path
+        name: lagoon_user_id
+        required: true
+        schema:
+          type: integer
+      responses:
+        '204':
+          description: Deleted.
+        '400':
+          description: Bad request.
+      security:
+      - api_key: []
+        api_token: []
+      summary: Delete a Soracom Lagoon user
+      tags:
+      - Lagoon
+      x-soracom-cli:
+      - lagoon delete-user
+      - lagoon users delete
+  /lagoon/users/{lagoon_user_id}/email:
+    put:
+      description: Update email address of a Soracom Lagoon user.
+      operationId: updateLagoonUserEmail
+      parameters:
+      - description: Target ID of the lagoon user.
+        in: path
+        name: lagoon_user_id
+        required: true
+        schema:
+          type: integer
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LagoonUserEmailUpdatingRequest'
+        description: Request.
+        required: true
+      responses:
+        '200':
+          description: OK.
+        '400':
+          description: Bad request.
+      security:
+      - api_key: []
+        api_token: []
+      summary: Update email address of a Soracom Lagoon user
+      tags:
+      - Lagoon
+      x-soracom-cli:
+      - lagoon update-user-email
+      - lagoon users update-email
+  /lagoon/users/{lagoon_user_id}/password:
+    put:
+      description: Update password of a Soracom Lagoon user.
+      operationId: updateLagoonUserPassword
+      parameters:
+      - description: Target ID of the lagoon user.
+        in: path
+        name: lagoon_user_id
+        required: true
+        schema:
+          type: integer
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LagoonUserPasswordUpdatingRequest'
+        description: Request.
+        required: true
+      responses:
+        '200':
+          description: OK.
+        '400':
+          description: Bad request.
+      security:
+      - api_key: []
+        api_token: []
+      summary: Update password of a Soracom Lagoon user
+      tags:
+      - Lagoon
+      x-soracom-cli:
+      - lagoon update-user-password
+      - lagoon users update-password
+  /lagoon/users/{lagoon_user_id}/permission:
+    put:
+      description: Update permission of a Soracom Lagoon user.
+      operationId: updateLagoonUserPermission
+      parameters:
+      - description: Target ID of the lagoon user.
+        in: path
+        name: lagoon_user_id
+        required: true
+        schema:
+          type: integer
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LagoonUserPermissionUpdatingRequest'
+        description: Request.
+        required: true
+      responses:
+        '200':
+          description: OK.
+        '400':
+          description: Bad request.
+      security:
+      - api_key: []
+        api_token: []
+      summary: Update permission of a Soracom Lagoon user
+      tags:
+      - Lagoon
+      x-soracom-cli:
+      - lagoon update-user-permission
+      - lagoon users update-permission
+tags:
+- description: '[Soracom Lagoon](/en/docs/lagoon-v3/)
+
+    User and plan management
+
+    '
+  name: Lagoon
+components:
+  schemas:
+    LagoonUser:
+      properties:
+        email:
+          description: This value used on login.
+          type: string
+        id:
+          type: number
+        lastSeenAt:
+          description: The last login datetime.
+          type: string
+        lastSeenAtAge:
+          description: The last login datetime as age.
+          type: string
+        role:
+          description: A role that represents the permission.
+          enum:
+          - Viewer
+          - Editor
+          type: string
+      type: object
+    LagoonRegistrationResponse:
+      properties:
+        lagoonUserEmail:
+          description: This email address is used on login with the initial user.
+          type: string
+      type: object
+    LagoonUserEmailUpdatingRequest:
+      properties:
+        userEmail:
+          type: string
+      type: object
+    LagoonLicensePackStatusResponse:
+      properties:
+        licensePackName:
+          type: string
+        quantity:
+          format: int32
+          type: integer
+      type: object
+    LagoonUserPasswordUpdatingRequest:
+      properties:
+        newPassword:
+          type: string
+        oldPassword:
+          type: string
+      type: object
+    LagoonUserPermissionUpdatingRequest:
+      properties:
+        role:
+          description: A role that represents the permission.
+          enum:
+          - Viewer
+          - Editor
+          type: string
+      type: object
+    LagoonUserCreationRequest:
+      properties:
+        role:
+          description: A role that represents the permission.
+          enum:
+          - Viewer
+          - Editor
+          type: string
+        userEmail:
+          type: string
+        userPassword:
+          type: string
+      type: object
+    LagoonUserCreationResponse:
+      properties:
+        id:
+          description: Lagoon user ID assigned to the created user.
+          type: integer
+      type: object
+    LagoonRegistrationRequest:
+      properties:
+        plan:
+          enum:
+          - free
+          - maker
+          - pro
+          type: string
+        userPassword:
+          description: This password is used by the initial user's login.
+          type: string
+      type: object
+    LagoonPlanChangingRequest:
+      properties:
+        plan:
+          enum:
+          - maker
+          - pro
+          - free
+          type: string
+      type: object
+    LagoonLicensePacksUpdatingRequest:
+      properties:
+        licensePackQuantities:
+          items:
+            properties:
+              desiredQuantity:
+                format: int32
+                type: integer
+              licensePackName:
+                description: 'Specify the license packs for which you want to update the number.
+
+                  - `basicUser`: User License Pack.
+
+                  - `basicDashboard`: Dashboard License Pack.
+
+                  '
+                enum:
+                - basicUser
+                - basicDashboard
+                type: string
+            type: object
+          type: array
+      type: object
+  securitySchemes:
+    api_key:
+      description: 'API key for authentication. Obtain this from the Soracom User Console or via the Auth API.
+
+        Required in combination with an API token for all authenticated requests.
+
+        '
+      in: header
+      name: X-Soracom-API-Key
+      type: apiKey
+    api_token:
+      description: 'API token for authentication. This token has an expiration time and must be refreshed periodically.
+
+        Required in combination with an API key for all authenticated requests.'
+      in: header
+      name: X-Soracom-Token
+      type: apiKey

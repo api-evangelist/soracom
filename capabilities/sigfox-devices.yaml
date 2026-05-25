@@ -1,0 +1,69 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Soracom Sigfox Devices Capability
+  description: Self-contained Naftiko capability for managing Soracom Air for Sigfox devices.
+  tags:
+  - Soracom
+  - Sigfox
+  - LPWAN
+  created: '2026-05-25'
+  modified: '2026-05-25'
+binds:
+- namespace: env
+  keys:
+    SORACOM_API_KEY: SORACOM_API_KEY
+    SORACOM_API_TOKEN: SORACOM_API_TOKEN
+capability:
+  consumes:
+  - type: http
+    namespace: sigfox
+    baseUri: https://api.soracom.io/v1
+    description: Soracom Sigfox device API.
+    resources:
+    - name: sigfox-devices
+      path: /sigfox_devices
+      operations:
+      - name: listSigfoxDevices
+        method: GET
+        description: List Air for Sigfox devices.
+        outputRawFormat: json
+        outputParameters:
+        - {name: result, type: array, value: $.}
+        inputParameters: []
+    - name: sigfox-device-by-id
+      path: /sigfox_devices/{device_id}
+      operations:
+      - name: getSigfoxDevice
+        method: GET
+        description: Get a Sigfox device.
+        outputRawFormat: json
+        outputParameters:
+        - {name: result, type: object, value: $.}
+        inputParameters:
+        - {name: device_id, in: path, type: string, required: true}
+    authentication:
+      type: apikey
+      key: X-Soracom-API-Key
+      value: '{{env.SORACOM_API_KEY}}'
+      placement: header
+  exposes:
+  - type: mcp
+    namespace: sigfox-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Sigfox.
+    tools:
+    - name: soracom-list-sigfox-devices
+      description: List Sigfox devices.
+      hints: {readOnly: true, destructive: false, idempotent: true}
+      call: sigfox.listSigfoxDevices
+      outputParameters:
+      - {type: array, mapping: $.}
+    - name: soracom-get-sigfox-device
+      description: Get a Sigfox device.
+      hints: {readOnly: true, destructive: false, idempotent: true}
+      call: sigfox.getSigfoxDevice
+      with:
+        device_id: tools.device_id
+      outputParameters:
+      - {type: object, mapping: $.}

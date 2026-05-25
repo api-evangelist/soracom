@@ -1,0 +1,137 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Soracom Event Handler Capability
+  description: Self-contained Naftiko capability for managing Soracom Event Handler rules, actions, credentials, and Soralets (Orbit).
+  tags:
+  - Soracom
+  - Event Handler
+  - Automation
+  - Soralet
+  created: '2026-05-25'
+  modified: '2026-05-25'
+binds:
+- namespace: env
+  keys:
+    SORACOM_API_KEY: SORACOM_API_KEY
+    SORACOM_API_TOKEN: SORACOM_API_TOKEN
+capability:
+  consumes:
+  - type: http
+    namespace: events
+    baseUri: https://api.soracom.io/v1
+    description: Soracom Event Handler and Credential API.
+    resources:
+    - name: event-handlers
+      path: /event_handlers
+      operations:
+      - name: listEventHandlers
+        method: GET
+        description: List event handlers.
+        outputRawFormat: json
+        outputParameters:
+        - {name: result, type: array, value: $.}
+        inputParameters:
+        - {name: target, in: query, type: string, required: false}
+      - name: createEventHandler
+        method: POST
+        description: Create a new event handler.
+        outputRawFormat: json
+        outputParameters:
+        - {name: result, type: object, value: $.}
+        inputParameters:
+        - {name: body, in: body, type: object, required: true}
+    - name: event-handler-by-id
+      path: /event_handlers/{handler_id}
+      operations:
+      - name: getEventHandler
+        method: GET
+        description: Get a single event handler.
+        outputRawFormat: json
+        outputParameters:
+        - {name: result, type: object, value: $.}
+        inputParameters:
+        - {name: handler_id, in: path, type: string, required: true}
+      - name: deleteEventHandler
+        method: DELETE
+        description: Delete an event handler.
+        outputRawFormat: json
+        outputParameters:
+        - {name: result, type: object, value: $.}
+        inputParameters:
+        - {name: handler_id, in: path, type: string, required: true}
+    - name: credentials
+      path: /credentials
+      operations:
+      - name: listCredentials
+        method: GET
+        description: List credentials in the credential store.
+        outputRawFormat: json
+        outputParameters:
+        - {name: result, type: array, value: $.}
+        inputParameters: []
+      - name: createCredential
+        method: POST
+        description: Create a new credential.
+        outputRawFormat: json
+        outputParameters:
+        - {name: result, type: object, value: $.}
+        inputParameters:
+        - {name: body, in: body, type: object, required: true}
+    - name: soralets
+      path: /soralets
+      operations:
+      - name: listSoralets
+        method: GET
+        description: List Soralets.
+        outputRawFormat: json
+        outputParameters:
+        - {name: result, type: array, value: $.}
+        inputParameters: []
+    authentication:
+      type: apikey
+      key: X-Soracom-API-Key
+      value: '{{env.SORACOM_API_KEY}}'
+      placement: header
+  exposes:
+  - type: mcp
+    namespace: events-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Event Handler and credentials.
+    tools:
+    - name: soracom-list-event-handlers
+      description: List Soracom event handlers.
+      hints: {readOnly: true, destructive: false, idempotent: true}
+      call: events.listEventHandlers
+      with:
+        target: tools.target
+      outputParameters:
+      - {type: array, mapping: $.}
+    - name: soracom-create-event-handler
+      description: Create a Soracom event handler.
+      hints: {readOnly: false, destructive: false, idempotent: false}
+      call: events.createEventHandler
+      with:
+        body: tools.body
+      outputParameters:
+      - {type: object, mapping: $.}
+    - name: soracom-delete-event-handler
+      description: Delete a Soracom event handler.
+      hints: {readOnly: false, destructive: true, idempotent: true}
+      call: events.deleteEventHandler
+      with:
+        handler_id: tools.handler_id
+      outputParameters:
+      - {type: object, mapping: $.}
+    - name: soracom-list-credentials
+      description: List Soracom credential store entries.
+      hints: {readOnly: true, destructive: false, idempotent: true}
+      call: events.listCredentials
+      outputParameters:
+      - {type: array, mapping: $.}
+    - name: soracom-list-soralets
+      description: List Soracom Orbit Soralets.
+      hints: {readOnly: true, destructive: false, idempotent: true}
+      call: events.listSoralets
+      outputParameters:
+      - {type: array, mapping: $.}

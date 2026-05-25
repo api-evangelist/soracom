@@ -1,0 +1,110 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Soracom Cloud Camera Services Capability
+  description: Self-contained Naftiko capability for managing Soracom Cloud Camera Services (SoraCam) — devices, recordings, image exports, motion events, and account settings.
+  tags:
+  - Soracom
+  - SoraCam
+  - Camera
+  - Video
+  created: '2026-05-25'
+  modified: '2026-05-25'
+binds:
+- namespace: env
+  keys:
+    SORACOM_API_KEY: SORACOM_API_KEY
+    SORACOM_API_TOKEN: SORACOM_API_TOKEN
+capability:
+  consumes:
+  - type: http
+    namespace: soracam
+    baseUri: https://api.soracom.io/v1
+    description: Soracom Cloud Camera Services API.
+    resources:
+    - name: sora-cam-devices
+      path: /sora_cam/devices
+      operations:
+      - name: listSoraCamDevices
+        method: GET
+        description: List SoraCam devices.
+        outputRawFormat: json
+        outputParameters:
+        - {name: result, type: array, value: $.}
+        inputParameters: []
+    - name: sora-cam-device-by-id
+      path: /sora_cam/devices/{device_id}
+      operations:
+      - name: getSoraCamDevice
+        method: GET
+        description: Get a SoraCam device.
+        outputRawFormat: json
+        outputParameters:
+        - {name: result, type: object, value: $.}
+        inputParameters:
+        - {name: device_id, in: path, type: string, required: true}
+    - name: sora-cam-device-stream
+      path: /sora_cam/devices/{device_id}/stream
+      operations:
+      - name: getDeviceStream
+        method: POST
+        description: Get a livestream URL for a SoraCam device.
+        outputRawFormat: json
+        outputParameters:
+        - {name: result, type: object, value: $.}
+        inputParameters:
+        - {name: device_id, in: path, type: string, required: true}
+    - name: sora-cam-device-exported-images
+      path: /sora_cam/devices/{device_id}/images/exports
+      operations:
+      - name: exportSoraCamDeviceImage
+        method: POST
+        description: Export a still image from a SoraCam device.
+        outputRawFormat: json
+        outputParameters:
+        - {name: result, type: object, value: $.}
+        inputParameters:
+        - {name: device_id, in: path, type: string, required: true}
+        - {name: body, in: body, type: object, required: true}
+    authentication:
+      type: apikey
+      key: X-Soracom-API-Key
+      value: '{{env.SORACOM_API_KEY}}'
+      placement: header
+  exposes:
+  - type: mcp
+    namespace: soracam-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for SoraCam.
+    tools:
+    - name: soracom-list-soracam-devices
+      description: List SoraCam devices.
+      hints: {readOnly: true, destructive: false, idempotent: true}
+      call: soracam.listSoraCamDevices
+      outputParameters:
+      - {type: array, mapping: $.}
+    - name: soracom-get-soracam-device
+      description: Get a SoraCam device.
+      hints: {readOnly: true, destructive: false, idempotent: true}
+      call: soracam.getSoraCamDevice
+      with:
+        device_id: tools.device_id
+      outputParameters:
+      - {type: object, mapping: $.}
+    - name: soracom-get-soracam-stream
+      description: Get a livestream URL for a SoraCam device.
+      hints: {readOnly: false, destructive: false, idempotent: false}
+      call: soracam.getDeviceStream
+      with:
+        device_id: tools.device_id
+      outputParameters:
+      - {type: object, mapping: $.}
+    - name: soracom-export-soracam-image
+      description: Export a still image from a SoraCam device.
+      hints: {readOnly: false, destructive: false, idempotent: false}
+      call: soracam.exportSoraCamDeviceImage
+      with:
+        device_id: tools.device_id
+        body: tools.body
+      outputParameters:
+      - {type: object, mapping: $.}

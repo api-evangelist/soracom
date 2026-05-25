@@ -1,0 +1,89 @@
+{
+  "@context": {
+    "@version": 1.1,
+    "@vocab": "https://schema.org/",
+    "soracom": "https://api.soracom.io/v1/",
+    "schema": "https://schema.org/",
+    "xsd": "http://www.w3.org/2001/XMLSchema#",
+    "dcterms": "http://purl.org/dc/terms/",
+    "geo": "http://www.w3.org/2003/01/geo/wgs84_pos#",
+
+    "Sim": {
+      "@id": "soracom:Sim",
+      "@context": {
+        "simId": {"@id": "soracom:Sim/simId", "@type": "xsd:string"},
+        "imsi": {"@id": "soracom:Sim/imsi", "@type": "xsd:string"},
+        "iccid": {"@id": "soracom:Sim/iccid", "@type": "xsd:string"},
+        "msisdn": {"@id": "soracom:Sim/msisdn", "@type": "xsd:string"},
+        "type": {"@id": "soracom:Sim/type", "@type": "xsd:string"},
+        "status": {"@id": "soracom:Sim/status", "@type": "xsd:string"},
+        "groupId": {"@id": "soracom:Sim/groupId", "@type": "@id"},
+        "imei": {"@id": "soracom:Sim/imei", "@type": "xsd:string"},
+        "operatorId": {"@id": "soracom:Sim/operatorId", "@type": "@id"},
+        "createdTime": {"@id": "soracom:Sim/createdTime", "@type": "xsd:long"}
+      }
+    },
+
+    "Group": {
+      "@id": "soracom:Group",
+      "@context": {
+        "groupId": {"@id": "soracom:Group/groupId", "@type": "xsd:string"},
+        "name": {"@id": "soracom:Group/name", "@type": "xsd:string"},
+        "configuration": {"@id": "soracom:Group/configuration"}
+      }
+    },
+
+    "Device": {
+      "@id": "soracom:Device",
+      "@context": {
+        "deviceId": {"@id": "soracom:Device/deviceId", "@type": "xsd:string"},
+        "endpoint": {"@id": "soracom:Device/endpoint", "@type": "xsd:string"},
+        "online": {"@id": "soracom:Device/online", "@type": "xsd:boolean"},
+        "lastSeen": {"@id": "soracom:Device/lastSeen", "@type": "xsd:long"},
+        "instances": {"@id": "soracom:Device/instances", "@container": "@list"}
+      }
+    },
+
+    "DataEntry": {
+      "@id": "soracom:DataEntry",
+      "@context": {
+        "resourceId": {"@id": "soracom:DataEntry/resourceId", "@type": "@id"},
+        "resourceType": {"@id": "soracom:DataEntry/resourceType", "@type": "xsd:string"},
+        "time": {"@id": "soracom:DataEntry/time", "@type": "xsd:long"},
+        "contentType": {"@id": "soracom:DataEntry/contentType", "@type": "xsd:string"},
+        "content": {"@id": "soracom:DataEntry/content"}
+      }
+    },
+
+    "PortMapping": {
+      "@id": "soracom:PortMapping",
+      "@context": {
+        "key": {"@id": "soracom:PortMapping/key", "@type": "xsd:string"},
+        "endpoint": {"@id": "soracom:PortMapping/endpoint", "@type": "xsd:string"},
+        "port": {"@id": "soracom:PortMapping/port", "@type": "xsd:integer"},
+        "expiresAt": {"@id": "soracom:PortMapping/expiresAt", "@type": "xsd:long"},
+        "tlsRequired": {"@id": "soracom:PortMapping/tlsRequired", "@type": "xsd:boolean"}
+      }
+    },
+
+    "Bill": {
+      "@id": "soracom:Bill",
+      "@context": {
+        "yyyyMM": {"@id": "soracom:Bill/yyyyMM", "@type": "xsd:string"},
+        "billAmount": {"@id": "soracom:Bill/billAmount", "@type": "xsd:decimal"},
+        "currency": {"@id": "soracom:Bill/currency", "@type": "xsd:string"},
+        "operatorId": {"@id": "soracom:Bill/operatorId", "@type": "@id"}
+      }
+    },
+
+    "EventHandler": {
+      "@id": "soracom:EventHandler",
+      "@context": {
+        "handlerId": {"@id": "soracom:EventHandler/handlerId", "@type": "xsd:string"},
+        "targetImsi": {"@id": "soracom:EventHandler/targetImsi", "@type": "xsd:string"},
+        "ruleConfig": {"@id": "soracom:EventHandler/ruleConfig"},
+        "actionConfigList": {"@id": "soracom:EventHandler/actionConfigList", "@container": "@list"}
+      }
+    }
+  }
+}

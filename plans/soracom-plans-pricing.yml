@@ -1,0 +1,404 @@
+specification: API Commons Plans
+specificationVersion: '0.1'
+schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main/schema/api-commons.yml#/$defs/Plans
+provider: Soracom
+providerId: soracom
+created: '2026-05-25'
+modified: '2026-05-25'
+reconciled: true
+tags:
+  - IoT
+  - Cellular
+  - SIM
+  - LPWAN
+  - Connectivity
+  - Platform
+description: 'Reconciled plans and pricing for Soracom IoT connectivity, platform, and data services. Source:
+  developers.soracom.io/en/docs/reference/fees and soracom.io/pricing.'
+sources:
+  - https://www.soracom.io/pricing/
+  - https://developers.soracom.io/en/docs/reference/fees/
+  - https://soracom.io/plan-us/
+plans:
+  - id: soracom-plan01s
+    name: plan01s (Global SIM)
+    type: usage-based
+    description: 'Global coverage plan with single SIM/eSIM/iSIM in 170+ countries. Basic per-day fee plus per-MB data.'
+    entries:
+      - label: Active SIM basic fee
+        name: sim_active_basic
+        type: subscription
+        metric: sim
+        limit: -1
+        timeFrame: day
+        geo: global
+        unit: 1
+        price: '0.06'
+      - label: Active SIM (101+ SIMs volume discount)
+        name: sim_active_basic_volume
+        type: subscription
+        metric: sim
+        limit: -1
+        timeFrame: day
+        geo: global
+        unit: 1
+        price: '0.05'
+      - label: Data — tier s1.minimum
+        name: data_minimum
+        type: metered
+        metric: MB
+        limit: -1
+        timeFrame: usage
+        geo: global
+        unit: 1
+        price: '0.50'
+  - id: soracom-plan-us
+    name: plan-US
+    type: usage-based
+    description: United States coverage plan with monthly subscription bundles and per-MB overage.
+    entries:
+      - label: SIM basic fee
+        name: sim_basic
+        type: subscription
+        metric: sim
+        limit: -1
+        timeFrame: month
+        geo: US
+        unit: 1
+        price: '0.40'
+      - label: Data overage
+        name: data_overage
+        type: metered
+        metric: MB
+        limit: -1
+        timeFrame: usage
+        geo: US
+        unit: 1
+        price: '0.50'
+      - label: Inactive renewal
+        name: sim_renewal
+        type: subscription
+        metric: sim
+        limit: -1
+        timeFrame: month
+        geo: US
+        unit: 1
+        price: '0.15'
+  - id: soracom-planX3
+    name: planX3
+    type: usage-based
+    description: 100+ countries plan with monthly bundles starting at 5 MB/$1.00.
+    entries:
+      - label: Bundle — 5MB
+        name: bundle_5mb
+        type: subscription
+        metric: sim
+        limit: -1
+        timeFrame: month
+        geo: global
+        unit: 1
+        price: '1.00'
+  - id: soracom-planP1
+    name: planP1 (eSIM/iSIM, 60+ countries)
+    type: usage-based
+    description: eSIM/iSIM profile plan for 60+ countries.
+    entries:
+      - label: SIM active fee
+        name: sim_active
+        type: subscription
+        metric: sim
+        limit: -1
+        timeFrame: month
+        geo: global
+        unit: 1
+        price: '1.80'
+  - id: soracom-beam
+    name: Soracom Beam
+    type: usage-based
+    description: HTTP/MQTT/TCP/UDP proxy with TLS termination and protocol conversion.
+    entries:
+      - label: Requests
+        name: requests
+        type: metered
+        metric: request
+        limit: -1
+        timeFrame: usage
+        geo: global
+        unit: 10000
+        price: '0.09'
+      - label: Free tier
+        name: free_tier
+        type: included
+        metric: request
+        limit: 100000
+        timeFrame: month
+        geo: global
+        unit: 1
+        price: '0.00'
+  - id: soracom-funnel
+    name: Soracom Funnel
+    type: usage-based
+    description: Cloud adapter that forwards device payloads to AWS/Azure/GCP services.
+    entries:
+      - label: Requests
+        name: requests
+        type: metered
+        metric: request
+        limit: -1
+        timeFrame: usage
+        geo: global
+        unit: 10000
+        price: '0.18'
+      - label: Free tier
+        name: free_tier
+        type: included
+        metric: request
+        limit: 50000
+        timeFrame: month
+        geo: global
+        unit: 1
+        price: '0.00'
+  - id: soracom-harvest-data
+    name: Soracom Harvest Data
+    type: usage-based
+    description: Managed time-series store for device telemetry with upload, retention, and download fees.
+    entries:
+      - label: Per-device service fee
+        name: device_fee
+        type: subscription
+        metric: device
+        limit: -1
+        timeFrame: day
+        geo: global
+        unit: 1
+        price: '0.05'
+      - label: Uploads
+        name: uploads
+        type: metered
+        metric: upload
+        limit: -1
+        timeFrame: usage
+        geo: global
+        unit: 1000
+        price: '0.04'
+      - label: Download (extended retention)
+        name: download
+        type: metered
+        metric: GB
+        limit: -1
+        timeFrame: usage
+        geo: global
+        unit: 1
+        price: '5.00'
+  - id: soracom-napter
+    name: Soracom Napter
+    type: usage-based
+    description: On-demand secure remote device access. Per-SIM monthly with one-SIM free tier.
+    entries:
+      - label: Service fee
+        name: napter_service
+        type: subscription
+        metric: sim
+        limit: -1
+        timeFrame: month
+        geo: global
+        unit: 1
+        price: '3.00'
+      - label: Free tier
+        name: free_tier
+        type: included
+        metric: sim
+        limit: 1
+        timeFrame: month
+        geo: global
+        unit: 1
+        price: '0.00'
+  - id: soracom-vpg-type-e
+    name: Soracom VPG Type-E
+    type: usage-based
+    description: Virtual Private Gateway Type-E — entry-level VPG with hourly active fee plus setup.
+    entries:
+      - label: Setup
+        name: vpg_setup
+        type: one-time
+        metric: vpg
+        limit: -1
+        timeFrame: setup
+        geo: global
+        unit: 1
+        price: '1.98'
+      - label: Active hourly
+        name: vpg_active
+        type: metered
+        metric: hour
+        limit: -1
+        timeFrame: usage
+        geo: global
+        unit: 1
+        price: '0.10'
+  - id: soracom-vpg-type-f
+    name: Soracom VPG Type-F
+    type: usage-based
+    description: Virtual Private Gateway Type-F.
+    entries:
+      - label: Setup
+        name: vpg_setup
+        type: one-time
+        metric: vpg
+        limit: -1
+        timeFrame: setup
+        geo: global
+        unit: 1
+        price: '9.80'
+      - label: Active hourly
+        name: vpg_active
+        type: metered
+        metric: hour
+        limit: -1
+        timeFrame: usage
+        geo: global
+        unit: 1
+        price: '0.50'
+      - label: Fixed Global IP
+        name: vpg_global_ip
+        type: metered
+        metric: hour
+        limit: -1
+        timeFrame: usage
+        geo: global
+        unit: 1
+        price: '0.15'
+  - id: soracom-lagoon-free
+    name: Soracom Lagoon Free
+    type: free
+    description: Free dashboard plan.
+    entries:
+      - label: Plan fee
+        name: plan_fee
+        type: subscription
+        metric: org
+        limit: 1
+        timeFrame: month
+        geo: global
+        unit: 1
+        price: '0.00'
+  - id: soracom-lagoon-maker
+    name: Soracom Lagoon Maker
+    type: subscription
+    description: Lagoon Maker plan with dashboards, alerts, and snapshot sharing.
+    entries:
+      - label: Plan fee
+        name: plan_fee
+        type: subscription
+        metric: org
+        limit: -1
+        timeFrame: month
+        geo: global
+        unit: 1
+        price: '9.80'
+  - id: soracom-lagoon-pro
+    name: Soracom Lagoon Pro
+    type: subscription
+    description: Lagoon Pro plan with higher dashboard, panel, and user limits.
+    entries:
+      - label: Plan fee
+        name: plan_fee
+        type: subscription
+        metric: org
+        limit: -1
+        timeFrame: month
+        geo: global
+        unit: 1
+        price: '49.80'
+  - id: soracom-endorse
+    name: Soracom Endorse
+    type: usage-based
+    description: Hardware-authentication based device identity service.
+    entries:
+      - label: Per-SIM-day
+        name: sim_day
+        type: metered
+        metric: sim-day
+        limit: -1
+        timeFrame: usage
+        geo: global
+        unit: 1
+        price: '0.05'
+      - label: Free tier
+        name: free_tier
+        type: included
+        metric: sim-day
+        limit: 31
+        timeFrame: month
+        geo: global
+        unit: 1
+        price: '0.00'
+  - id: soracom-inventory
+    name: Soracom Inventory
+    type: usage-based
+    description: LwM2M-based device management. Registration plus per-device-month tier.
+    entries:
+      - label: Device registration
+        name: device_registration
+        type: one-time
+        metric: device
+        limit: -1
+        timeFrame: setup
+        geo: global
+        unit: 1
+        price: '1.00'
+      - label: Device management (1–999 devices)
+        name: device_management
+        type: metered
+        metric: device-month
+        limit: 999
+        timeFrame: month
+        geo: global
+        unit: 1
+        price: '0.50'
+  - id: soracom-flux-standard
+    name: Soracom Flux Standard
+    type: subscription
+    description: Workflow automation service with included events and per-event overage.
+    entries:
+      - label: Plan fee
+        name: plan_fee
+        type: subscription
+        metric: org
+        limit: -1
+        timeFrame: month
+        geo: global
+        unit: 1
+        price: '500.00'
+      - label: Additional events
+        name: event_overage
+        type: metered
+        metric: event
+        limit: -1
+        timeFrame: usage
+        geo: global
+        unit: 1
+        price: '0.0010'
+  - id: soracom-peek-sim
+    name: Soracom Peek (SIM)
+    type: usage-based
+    description: Per-SIM packet capture.
+    entries:
+      - label: Session
+        name: peek_session
+        type: metered
+        metric: session
+        limit: -1
+        timeFrame: usage
+        geo: global
+        unit: 1
+        price: '1.00'
+      - label: Capture hour (over 1h)
+        name: peek_hour
+        type: metered
+        metric: hour
+        limit: -1
+        timeFrame: usage
+        geo: global
+        unit: 1
+        price: '0.20'

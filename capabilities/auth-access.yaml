@@ -1,0 +1,124 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Soracom Auth and Access Management Capability
+  description: Self-contained Naftiko capability for authenticating Soracom operators, managing users (SAM), roles, MFA, email addresses, system notifications, and switch-user (cross-operator) flows.
+  tags:
+  - Soracom
+  - Auth
+  - SAM
+  - Access Management
+  - MFA
+  created: '2026-05-25'
+  modified: '2026-05-25'
+binds:
+- namespace: env
+  keys:
+    SORACOM_AUTH_KEY_ID: SORACOM_AUTH_KEY_ID
+    SORACOM_AUTH_KEY: SORACOM_AUTH_KEY
+    SORACOM_API_KEY: SORACOM_API_KEY
+    SORACOM_API_TOKEN: SORACOM_API_TOKEN
+capability:
+  consumes:
+  - type: http
+    namespace: auth
+    baseUri: https://api.soracom.io/v1
+    description: Soracom Auth, Operator, User, Role, and Email API.
+    resources:
+    - name: auth
+      path: /auth
+      operations:
+      - name: auth
+        method: POST
+        description: Authenticate with email/password or AuthKey, returning an API Key and API Token.
+        outputRawFormat: json
+        outputParameters:
+        - {name: result, type: object, value: $.}
+        inputParameters:
+        - {name: body, in: body, type: object, required: true}
+    - name: auth-logout
+      path: /auth/logout
+      operations:
+      - name: logout
+        method: POST
+        description: Log out and invalidate the API Key/Token.
+        outputRawFormat: json
+        outputParameters:
+        - {name: result, type: object, value: $.}
+        inputParameters: []
+    - name: operator
+      path: /operators/{operator_id}
+      operations:
+      - name: getOperator
+        method: GET
+        description: Get operator (account) information.
+        outputRawFormat: json
+        outputParameters:
+        - {name: result, type: object, value: $.}
+        inputParameters:
+        - {name: operator_id, in: path, type: string, required: true}
+    - name: users
+      path: /operators/{operator_id}/users
+      operations:
+      - name: listUsers
+        method: GET
+        description: List SAM users in the operator account.
+        outputRawFormat: json
+        outputParameters:
+        - {name: result, type: array, value: $.}
+        inputParameters:
+        - {name: operator_id, in: path, type: string, required: true}
+    - name: roles
+      path: /operators/{operator_id}/roles
+      operations:
+      - name: listRoles
+        method: GET
+        description: List SAM roles.
+        outputRawFormat: json
+        outputParameters:
+        - {name: result, type: array, value: $.}
+        inputParameters:
+        - {name: operator_id, in: path, type: string, required: true}
+    authentication:
+      type: apikey
+      key: X-Soracom-API-Key
+      value: '{{env.SORACOM_API_KEY}}'
+      placement: header
+  exposes:
+  - type: mcp
+    namespace: auth-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Soracom Auth & SAM.
+    tools:
+    - name: soracom-auth
+      description: Authenticate and obtain an API Key + Token.
+      hints: {readOnly: false, destructive: false, idempotent: false}
+      call: auth.auth
+      with:
+        body: tools.body
+      outputParameters:
+      - {type: object, mapping: $.}
+    - name: soracom-get-operator
+      description: Get operator account information.
+      hints: {readOnly: true, destructive: false, idempotent: true}
+      call: auth.getOperator
+      with:
+        operator_id: tools.operator_id
+      outputParameters:
+      - {type: object, mapping: $.}
+    - name: soracom-list-users
+      description: List SAM users.
+      hints: {readOnly: true, destructive: false, idempotent: true}
+      call: auth.listUsers
+      with:
+        operator_id: tools.operator_id
+      outputParameters:
+      - {type: array, mapping: $.}
+    - name: soracom-list-roles
+      description: List SAM roles.
+      hints: {readOnly: true, destructive: false, idempotent: true}
+      call: auth.listRoles
+      with:
+        operator_id: tools.operator_id
+      outputParameters:
+      - {type: array, mapping: $.}

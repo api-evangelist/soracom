@@ -1,0 +1,22 @@
+{
+  "$schema": "https://json-structure.org/draft-01/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/soracom/main/json-structure/soracom-device-structure.json",
+  "title": "Soracom Inventory Device Structure",
+  "description": "JSON Structure documenting a Soracom Inventory (LwM2M) device record.",
+  "type": "object",
+  "properties": {
+    "deviceId": {"type": "string"},
+    "endpoint": {"type": "string"},
+    "operatorId": {"type": "string"},
+    "name": {"type": "string"},
+    "online": {"type": "boolean"},
+    "lastSeen": {"type": "integer"},
+    "tags": {"type": "object"},
+    "groupId": {"type": ["string", "null"]},
+    "instances": {
+      "type": "array",
+      "items": {"type": "object"}
+    }
+  },
+  "required": ["deviceId", "operatorId"]
+}

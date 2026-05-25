@@ -1,0 +1,135 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Soracom Inventory Capability
+  description: Self-contained Naftiko capability for Soracom Inventory — LwM2M device registration, object models, resource read/write, observe/notify, and remote execution.
+  tags:
+  - Soracom
+  - Inventory
+  - LwM2M
+  - Devices
+  created: '2026-05-25'
+  modified: '2026-05-25'
+binds:
+- namespace: env
+  keys:
+    SORACOM_API_KEY: SORACOM_API_KEY
+    SORACOM_API_TOKEN: SORACOM_API_TOKEN
+capability:
+  consumes:
+  - type: http
+    namespace: inventory
+    baseUri: https://api.soracom.io/v1
+    description: Soracom Inventory API.
+    resources:
+    - name: devices
+      path: /devices
+      operations:
+      - name: listDevices
+        method: GET
+        description: List Inventory devices.
+        outputRawFormat: json
+        outputParameters:
+        - {name: result, type: array, value: $.}
+        inputParameters:
+        - {name: limit, in: query, type: integer, required: false}
+    - name: device-by-id
+      path: /devices/{device_id}
+      operations:
+      - name: getDevice
+        method: GET
+        description: Get an Inventory device.
+        outputRawFormat: json
+        outputParameters:
+        - {name: result, type: object, value: $.}
+        inputParameters:
+        - {name: device_id, in: path, type: string, required: true}
+    - name: device-resource
+      path: /devices/{device_id}/{object}/{instance}/{resource}
+      operations:
+      - name: getResource
+        method: GET
+        description: Read an LwM2M resource value from the device.
+        outputRawFormat: json
+        outputParameters:
+        - {name: result, type: object, value: $.}
+        inputParameters:
+        - {name: device_id, in: path, type: string, required: true}
+        - {name: object, in: path, type: string, required: true}
+        - {name: instance, in: path, type: string, required: true}
+        - {name: resource, in: path, type: string, required: true}
+    - name: device-resource-execute
+      path: /devices/{device_id}/{object}/{instance}/{resource}/execute
+      operations:
+      - name: executeResource
+        method: POST
+        description: Execute an LwM2M resource on the device.
+        outputRawFormat: json
+        outputParameters:
+        - {name: result, type: object, value: $.}
+        inputParameters:
+        - {name: device_id, in: path, type: string, required: true}
+        - {name: object, in: path, type: string, required: true}
+        - {name: instance, in: path, type: string, required: true}
+        - {name: resource, in: path, type: string, required: true}
+        - {name: body, in: body, type: object, required: false}
+    - name: device-object-models
+      path: /device_object_models
+      operations:
+      - name: listObjectModels
+        method: GET
+        description: List object models.
+        outputRawFormat: json
+        outputParameters:
+        - {name: result, type: array, value: $.}
+        inputParameters: []
+    authentication:
+      type: apikey
+      key: X-Soracom-API-Key
+      value: '{{env.SORACOM_API_KEY}}'
+      placement: header
+  exposes:
+  - type: mcp
+    namespace: inventory-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Inventory devices.
+    tools:
+    - name: soracom-list-devices
+      description: List Inventory devices.
+      hints: {readOnly: true, destructive: false, idempotent: true}
+      call: inventory.listDevices
+      with:
+        limit: tools.limit
+      outputParameters:
+      - {type: array, mapping: $.}
+    - name: soracom-get-device
+      description: Get a single Inventory device.
+      hints: {readOnly: true, destructive: false, idempotent: true}
+      call: inventory.getDevice
+      with:
+        device_id: tools.device_id
+      outputParameters:
+      - {type: object, mapping: $.}
+    - name: soracom-read-device-resource
+      description: Read an LwM2M resource value from the device.
+      hints: {readOnly: true, destructive: false, idempotent: true}
+      call: inventory.getResource
+      with:
+        device_id: tools.device_id
+        object: tools.object
+        instance: tools.instance
+        resource: tools.resource
+      outputParameters:
+      - {type: object, mapping: $.}
+    - name: soracom-execute-device-resource
+      description: Execute an LwM2M resource on the device.
+      hints: {readOnly: false, destructive: false, idempotent: false}
+      call: inventory.executeResource
+      with:
+        device_id: tools.device_id
+        object: tools.object
+        instance: tools.instance
+        resource: tools.resource
+        body: tools.body
+      outputParameters:
+      - {type: object, mapping: $.}

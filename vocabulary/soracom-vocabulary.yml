@@ -1,0 +1,155 @@
+vocabulary: Soracom IoT Platform Vocabulary
+version: '1.0'
+provider: Soracom
+providerId: soracom
+created: '2026-05-25'
+modified: '2026-05-25'
+description: Operational and capability vocabulary for the Soracom global IoT cellular and platform suite,
+  mapping Soracom service names and SIM lifecycle terms to industry and schema.org concepts.
+tags:
+  - IoT
+  - Cellular
+  - LPWAN
+  - SIM
+  - MVNO
+
+domains:
+  Connectivity:
+    description: Cellular, LoRaWAN, Sigfox, and satellite connectivity offerings.
+    terms:
+      - term: Air for Cellular
+        canonical: SoracomAir
+        description: Global multicarrier cellular (2G/3G/4G/LTE/LTE-M/NB-IoT/5G) IoT connectivity.
+        synonyms: [Soracom Air, Cellular IoT]
+      - term: Air for LoRaWAN
+        canonical: SoracomAirLoRaWAN
+        description: LoRaWAN LPWAN connectivity managed via the Soracom platform.
+      - term: Air for Sigfox
+        canonical: SoracomAirSigfox
+        description: Sigfox LPWAN connectivity managed via the Soracom platform.
+      - term: Arc
+        canonical: SoracomArc
+        description: Wireguard-based virtual-SIM client that allows non-cellular IP devices to join Soracom.
+      - term: SIM
+        canonical: soracom:Sim
+        description: Soracom-issued physical or virtual subscriber, identified by simId/IMSI/ICCID.
+      - term: Subscriber
+        canonical: soracom:Subscriber
+        description: Legacy term for SIM, still surfaced in the API as the Subscriber resource.
+
+  Networking:
+    description: Cloud connectivity and network management for connected devices.
+    terms:
+      - term: Beam
+        canonical: SoracomBeam
+        description: Cloud proxy that performs TLS termination and protocol conversion (HTTP/MQTT/TCP/UDP/WebSocket).
+      - term: Funnel
+        canonical: SoracomFunnel
+        description: Cloud adapter that forwards device payloads to AWS, Azure, GCP services.
+      - term: Funk
+        canonical: SoracomFunk
+        description: Serverless function trigger that invokes Lambda/Functions/Cloud Functions from device payloads.
+      - term: Canal
+        canonical: SoracomCanal
+        description: Private connectivity from SIMs into customer AWS VPCs (Transit Gateway/VPC Peering).
+      - term: Direct
+        canonical: SoracomDirect
+        description: Dedicated AWS Direct Connect path from SIMs to a customer AWS region.
+      - term: Door
+        canonical: SoracomDoor
+        description: IPSec VPN tunnel from SIMs into a customer on-premises or cloud network.
+      - term: Gate
+        canonical: SoracomGate
+        description: Reverse-NAT service enabling cloud-to-device and device-to-device access.
+      - term: Virtual Private Gateway
+        canonical: soracom:VirtualPrivateGateway
+        synonyms: [VPG]
+        description: Managed network gateway that anchors Canal, Direct, Door, Gate, Junction, and Peek.
+
+  Data Pipeline:
+    description: Telemetry ingest, transformation, storage, and visualization.
+    terms:
+      - term: Harvest Data
+        canonical: SoracomHarvestData
+        description: Managed time-series storage for device payloads.
+      - term: Harvest Files
+        canonical: SoracomHarvestFiles
+        description: Managed object storage for binary device uploads.
+      - term: Orbit
+        canonical: SoracomOrbit
+        description: Inline payload transformation engine that runs WebAssembly Soralets on cloud-bound traffic.
+      - term: Soralet
+        canonical: soracom:Soralet
+        description: A user-uploaded WebAssembly module executed by Orbit.
+      - term: Lagoon
+        canonical: SoracomLagoon
+        description: Hosted Grafana-style dashboard product for Harvest data.
+      - term: Query
+        canonical: SoracomQuery
+        description: Columnar SQL analytics surface over historical SIM session, location, and data events.
+
+  Device Management:
+    description: Device identity, registration, observability, and remote access.
+    terms:
+      - term: Inventory
+        canonical: SoracomInventory
+        description: LwM2M-based device registration, object model, and remote management.
+      - term: Endorse
+        canonical: SoracomEndorse
+        description: Hardware-rooted authentication service using SIM-based identity.
+      - term: Krypton
+        canonical: SoracomKrypton
+        description: Certificate and credential provisioning service rooted in SIM identity.
+      - term: Napter
+        canonical: SoracomNapter
+        description: On-demand secure remote port mapping into SIM-attached devices.
+      - term: Peek
+        canonical: SoracomPeek
+        description: Managed pcap-style packet capture per SIM or per VPG.
+      - term: Junction
+        canonical: SoracomJunction
+        description: Layer-3 packet rule engine (mirror/inspect/redirect) attached to VPG.
+
+  Camera and Vision:
+    description: Cloud camera services and image/video pipeline.
+    terms:
+      - term: SoraCam
+        canonical: SoracomCloudCameraServices
+        description: Managed cloud camera devices with livestream, motion events, and image export APIs.
+
+  Access Management:
+    description: Operator, user, role, and authentication model.
+    terms:
+      - term: Operator
+        canonical: soracom:Operator
+        description: A Soracom account (tenant) that owns SIMs, devices, and configurations.
+      - term: SAM
+        canonical: SoracomAccessManagement
+        synonyms: [Access Management]
+        description: Identity-and-access management for sub-users, roles, and policies inside an operator.
+      - term: AuthKey
+        canonical: soracom:AuthKey
+        description: Long-lived credential pair (authKeyId + authKey) used to obtain a short-lived API Token.
+      - term: API Key + API Token
+        canonical: soracom:ApiCredentials
+        description: Short-lived HTTP credentials issued by /auth and presented in X-Soracom-API-Key and
+          X-Soracom-Token headers.
+
+  Coverage:
+    description: Regional coverage of the Soracom platform and API endpoints.
+    terms:
+      - term: Japan coverage
+        canonical: soracom:JapanCoverage
+        description: Japan-managed API and connectivity (api.soracom.io / jp.api.soracom.io).
+      - term: Global coverage
+        canonical: soracom:GlobalCoverage
+        description: Global-managed API and connectivity (g.api.soracom.io); spans 170+ countries via plan01s.
+
+mappings:
+  schemaOrg:
+    soracom:Sim: schema:Product
+    soracom:Operator: schema:Organization
+    soracom:Device: schema:Thing
+    soracom:DataEntry: schema:Observation
+    soracom:Bill: schema:Invoice
+    soracom:PortMapping: schema:Service

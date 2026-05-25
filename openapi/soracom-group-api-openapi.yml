@@ -1,0 +1,1151 @@
+openapi: 3.0.0
+info:
+  title: Soracom Group Configuration API
+  description: Manage groups and per-service configuration for Soracom Air, Beam, Funnel, Funk, Harvest, Junction, and Orbit.
+  version: 20250903-043502
+servers:
+- description: Japan coverage production API endpoint
+  url: https://api.soracom.io/v1
+- description: Global coverage production API endpoint
+  url: https://g.api.soracom.io/v1
+paths:
+  /groups:
+    get:
+      description: Returns a list of Groups.
+      operationId: listGroups
+      parameters:
+      - description: Tag name of the group. Filters through all groups that exactly match the tag name. When tag_name is specified,
+          tag_value is required.
+        in: query
+        name: tag_name
+        required: false
+        schema:
+          type: string
+      - description: Tag value of the groups.
+        in: query
+        name: tag_value
+        required: false
+        schema:
+          type: string
+      - description: Search criteria for tag strings (`tag_value`).
+        in: query
+        name: tag_value_match_mode
+        required: false
+        schema:
+          default: exact
+          enum:
+          - exact
+          - prefix
+          type: string
+      - description: Maximum number of results per response page.
+        in: query
+        name: limit
+        required: false
+        schema:
+          type: integer
+      - description: The last Group ID retrieved on the current page. By specifying this parameter, you can continue to retrieve
+          the list from the next group onward.
+        in: query
+        name: last_evaluated_key
+        required: false
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/Group'
+                type: array
+          description: A list of groups.
+      security:
+      - api_key: []
+        api_token: []
+      summary: List Groups.
+      tags:
+      - Group
+      x-soracom-cli:
+      - groups list
+      x-soracom-cli-pagination:
+        request:
+          param: last_evaluated_key
+        response:
+          header: x-soracom-next-key
+    post:
+      description: Create a new group.
+      operationId: createGroup
+      requestBody:
+        content:
+          application/json:
+            example:
+              configuration:
+                SoracomAir:
+                  metadata:
+                    enabled: true
+                SoracomHarvest:
+                  enabled: true
+                SoracomHarvestFiles:
+                  enabled: true
+              tags:
+                name: Group name
+            schema:
+              $ref: '#/components/schemas/CreateGroupRequest'
+        description: Tags and configuration for a new group to be created.
+        required: true
+      responses:
+        '201':
+          content:
+            application/json:
+              example:
+                configuration:
+                  SoracomAir:
+                    metadata:
+                      enabled: true
+                  SoracomHarvest:
+                    enabled: true
+                  SoracomHarvestFiles:
+                    enabled: true
+                createdAt: 1698796800000
+                createdTime: 1698796800000
+                groupId: 12345678-abcd-9012-efab-345678901234
+                lastModifiedAt: 1698796800000
+                lastModifiedTime: 1698796800000
+                operatorId: OP0012345678
+                tags:
+                  name: Group name
+              schema:
+                $ref: '#/components/schemas/Group'
+          description: Created.
+      security:
+      - api_key: []
+        api_token: []
+      summary: Create Group
+      tags:
+      - Group
+      x-soracom-cli:
+      - groups create
+  /groups/{group_id}:
+    delete:
+      description: Deletes the group specified by Group ID.
+      operationId: deleteGroup
+      parameters:
+      - description: ID of the target Group.
+        in: path
+        name: group_id
+        required: true
+        schema:
+          type: string
+      responses:
+        '204':
+          description: Deletion of specified group complete.
+        '404':
+          description: The specified group does not exist.
+      security:
+      - api_key: []
+        api_token: []
+      summary: Delete Group
+      tags:
+      - Group
+      x-soracom-cli:
+      - groups delete
+    get:
+      description: Returns the group specified by the group ID.
+      operationId: getGroup
+      parameters:
+      - description: ID of the target Group.
+        in: path
+        name: group_id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Group'
+          description: Specified Group.
+        '404':
+          description: The specified group does not exist.
+      security:
+      - api_key: []
+        api_token: []
+      summary: Get Group
+      tags:
+      - Group
+      x-soracom-cli:
+      - groups get
+  /groups/{group_id}/configuration/{namespace}:
+    delete:
+      description: Delete a namespace for the specified group.
+      operationId: deleteConfigurationNamespace
+      parameters:
+      - description: ID of the target Group.
+        in: path
+        name: group_id
+        required: true
+        schema:
+          type: string
+      - description: Namespace to be deleted.
+        in: path
+        name: namespace
+        required: true
+        schema:
+          enum:
+          - SoracomAir
+          - SoracomBeam
+          - SoracomEndorse
+          - SoracomOrbit
+          - SoracomFunk
+          - SoracomFunnel
+          - SoracomHarvest
+          - SoracomHarvestFiles
+          - SoracomKrypton
+          - UnifiedEndpoint
+          type: string
+      responses:
+        '204':
+          description: The namespace was successfully deleted.
+        '400':
+          description: The specified namespace does not exist.
+        '404':
+          description: The specified group does not exist.
+      security:
+      - api_key: []
+        api_token: []
+      summary: Delete Group Configuration Namespace
+      tags:
+      - Group
+      x-soracom-cli:
+      - groups delete-config-namespace
+    put:
+      description: Updates the configuration of the specified group.
+      operationId: putConfigurationParameters
+      parameters:
+      - description: ID of the target group. The group ID can be obtained via the [Group:listGroups API](#!/Group/listGroups).
+        in: path
+        name: group_id
+        required: true
+        schema:
+          type: string
+      - description: 'A string indicating the configuration target. It varies depending on the configuration content.
+
+
+          - `SoracomAir`: Custom DNS, Metadata service, VPG (Virtual Private Gateway), CHAP authentication, Simple Location
+          function, Binary Parser.
+
+          - `SoracomBeam`: SORACOM Beam.
+
+          - `SoracomEndorse`: SORACOM Endorse.
+
+          - `SoracomFunk`: SORACOM Funk.
+
+          - `SoracomFunnel`: SORACOM Funnel.
+
+          - `SoracomHarvest`: SORACOM Harvest Data.
+
+          - `SoracomHarvestFiles`: SORACOM Harvest Files.
+
+          - `SoracomKrypton`: SORACOM Krypton.
+
+          - `SoracomOrbit`: SORACOM Orbit.
+
+          - `UnifiedEndpoint`: Unified Endpoint.
+
+          '
+        in: path
+        name: namespace
+        required: true
+        schema:
+          enum:
+          - SoracomAir
+          - SoracomBeam
+          - SoracomEndorse
+          - SoracomFunk
+          - SoracomFunnel
+          - SoracomHarvest
+          - SoracomHarvestFiles
+          - SoracomKrypton
+          - SoracomOrbit
+          - UnifiedEndpoint
+          type: string
+      requestBody:
+        content:
+          application/json:
+            examples:
+              (1) Configuring Custom DNS (SoracomAir):
+                description: 'When configuring [Custom DNS](/en/docs/air/custom-dns/) for IoT SIM, please note the following
+                  points.
+
+
+                  - Specify `SoracomAir` for the `namespace` path parameter.
+
+                  - For more information about the `key` and `value` pairs, refer to [Advanced Configuration](/en/docs/air/custom-dns/#advanced-configuration).
+
+                  '
+                value:
+                - key: useCustomDns
+                  value: true
+                - key: dnsServers
+                  value:
+                  - 192.168.0.5
+                  - 192.168.0.6
+              (2) Configuring Metadata Service (SoracomAir):
+                description: 'When configuring [Metadata Service](/en/docs/air/metadata-service/), please note the following
+                  points.
+
+
+                  - Specify `SoracomAir` for the `namespace` path parameter.
+
+                  - For more information about the `key` and `value` pairs, refer to [Advanced Configuration](/en/docs/air/metadata-service/#advanced-configuration).
+
+                  '
+                value:
+                - key: metadata
+                  value:
+                    allowOrigin: http://some.example.com
+                    enabled: true
+                    minimizeResponseBody: true
+                    readonly: true
+                - key: userdata
+                  value: foobar
+              (3) Configuring CHAP Authentication (SoracomAir):
+                description: 'When [using arbitrary username and password with CHAP authentication](/en/docs/air/chap-authentication/),
+                  please note the following points.
+
+
+                  - Specify `SoracomAir` for the `namespace` path parameter.
+
+                  '
+                value:
+                - key: authenticationRequired
+                  value: true
+                - key: username
+                  value: xxxxx
+                - key: password
+                  value: yyyyy
+              (4) Enabling Endorse (SoracomEndorse):
+                description: 'When [enabling Endorse](/en/docs/endorse/configuration/), please note the following points.
+
+
+                  - Specify `SoracomEndorse` for the `namespace` path parameter.
+
+                  - For more information about the `key` and `value` pairs, refer to [Advanced Configuration](/en/docs/endorse/configuration/#advanced-configuration).
+
+                  '
+                value:
+                - key: enabled
+                  value: true
+                - key: parametersToEndorse
+                  value:
+                    imei: true
+                    imsi: true
+                    msisdn: false
+                    requestParameters: true
+                    simId: true
+                - key: tokenTimeoutSeconds
+                  value: 600
+                - key: allowOrigin
+                  value: https://soracom.io
+                - key: authorizedRedirectUrls
+                  value:
+                  - https://soracom.io
+                  - http://localhost:3000
+              (5) Overwriting timestamp with payload data (SoracomHarvest):
+                description: 'When overwriting timestamp with payload data on Harvest Data, please note the following points.
+
+
+                  - Specify `SoracomHarvest` for the `namespace` path parameter.
+
+                  - For more information about the `key` and `value` pairs, refer to [Advanced Configuration](/en/docs/harvest/configuration/#advanced-configuration).
+
+                  '
+                value:
+                - key: enabled
+                  value: true
+                - key: customTimestamp
+                  value:
+                    format: iso-8601
+                    type: jsonpointer
+                    value: /time
+            schema:
+              items:
+                $ref: '#/components/schemas/GroupConfigurationUpdateRequest'
+              type: array
+        description: 'Group configuration.
+
+
+          **Warning**: If you change the settings included in the same `namespace`, please include all existing settings in
+          the request body, not just the changes. Any settings not included in the request body will be reset to their default
+          values.
+
+          '
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Group'
+          description: The Group after the update.
+        '404':
+          description: The specified Group does not exist.
+      security:
+      - api_key: []
+        api_token: []
+      summary: Update group configuration
+      tags:
+      - Group
+      x-soracom-cli:
+      - groups put-config
+  /groups/{group_id}/configuration/{namespace}/{name}:
+    delete:
+      description: Delete parameters for the specified group.
+      operationId: deleteConfigurationParameter
+      parameters:
+      - description: ID of the target Group.
+        in: path
+        name: group_id
+        required: true
+        schema:
+          type: string
+      - description: Namespace of target parameters.
+        in: path
+        name: namespace
+        required: true
+        schema:
+          enum:
+          - SoracomAir
+          - SoracomBeam
+          - SoracomEndorse
+          - SoracomFunk
+          - SoracomFunnel
+          - SoracomHarvest
+          - SoracomHarvestFiles
+          - SoracomKrypton
+          - UnifiedEndpoint
+          type: string
+      - description: Parameter name to be deleted. (This will be part of a URL path, so it needs to be percent-encoded. In
+          JavaScript, specify the name after it has been encoded using encodeURIComponent().)
+        in: path
+        name: name
+        required: true
+        schema:
+          type: string
+      responses:
+        '204':
+          description: The parameter was successfully deleted.
+        '404':
+          description: The specified group does not exist.
+      security:
+      - api_key: []
+        api_token: []
+      summary: Delete Group Configuration Parameters
+      tags:
+      - Group
+      x-soracom-cli:
+      - groups delete-config
+  /groups/{group_id}/subscribers:
+    get:
+      description: Returns a list of subscribers that belong to the specified group by group ID.
+      operationId: listSubscribersInGroup
+      parameters:
+      - description: ID of the target Group.
+        in: path
+        name: group_id
+        required: true
+        schema:
+          type: string
+      - description: Maximum number of results per response page.
+        in: query
+        name: limit
+        required: false
+        schema:
+          type: integer
+      - description: The IMSI of the last subscriber retrieved on the previous page. By specifying this parameter, you can
+          continue to retrieve the list from the next subscriber onward.
+        in: query
+        name: last_evaluated_key
+        required: false
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/Sim'
+                type: array
+          description: Specified Group.
+        '404':
+          description: The specified group does not exist.
+      security:
+      - api_key: []
+        api_token: []
+      summary: List Subscribers in a group
+      tags:
+      - Group
+      x-sam-operationId: listSubscribers
+      x-soracom-cli:
+      - groups list-subscribers
+      x-soracom-cli-pagination:
+        request:
+          param: last_evaluated_key
+        response:
+          header: x-soracom-next-key
+  /groups/{group_id}/tags:
+    put:
+      description: Adds/updates tags of specified configuration group.
+      operationId: putGroupTags
+      parameters:
+      - description: ID of the target Group.
+        in: path
+        name: group_id
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              items:
+                $ref: '#/components/schemas/TagUpdateRequest'
+              type: array
+        description: Array of values for tags to be updated.
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Group'
+          description: The group after the update.
+        '404':
+          description: The specified group does not exist.
+      security:
+      - api_key: []
+        api_token: []
+      summary: Update Group Tags
+      tags:
+      - Group
+      x-sam-operationId: putTags
+      x-soracom-cli:
+      - groups put-tags
+  /groups/{group_id}/tags/{tag_name}:
+    delete:
+      description: Deletes tag from the specified group.
+      operationId: deleteGroupTag
+      parameters:
+      - description: ID of the target Group.
+        in: path
+        name: group_id
+        required: true
+        schema:
+          type: string
+      - description: Tag name to be deleted. (This will be part of a URL path, so it needs to be percent-encoded. In JavaScript,
+          specify the name after it has been encoded using encodeURIComponent().)
+        in: path
+        name: tag_name
+        required: true
+        schema:
+          type: string
+      responses:
+        '204':
+          description: Tag deletion complete.
+        '404':
+          description: The specified group or the tag does not exist.
+      security:
+      - api_key: []
+        api_token: []
+      summary: Delete Group Tag
+      tags:
+      - Group
+      x-sam-operationId: deleteTag
+      x-soracom-cli:
+      - groups delete-tag
+tags:
+- description: '[Group configuration](/en/docs/group-configuration/)'
+  name: Group
+components:
+  schemas:
+    Capabilities:
+      properties:
+        data:
+          description: 'Data communication support.
+
+
+            - `true`: with data.
+
+            - `false`: without data.
+
+            '
+          type: boolean
+        sms:
+          description: 'SMS support.
+
+
+            - `true`: with SMS.
+
+            - `false`: without SMS.
+
+            '
+          type: boolean
+      type: object
+    ImeiLock:
+      description: IMEI lock configuration.
+      properties:
+        imei:
+          description: IMEI of the target device
+          type: string
+      type: object
+    PreviousSessionStatus:
+      description: Information about the previous session.
+      properties:
+        cell:
+          $ref: '#/components/schemas/Cell'
+        createdTime:
+          description: The time when the previous session was created.
+          format: int64
+          type: integer
+        deletedTime:
+          description: The time when the previous session was deleted.
+          format: int64
+          type: integer
+        dnsServers:
+          description: Array of IP address of the DNS servers.
+          items:
+            type: string
+          type: array
+        gatewayPrivateIpAddress:
+          description: The private IP address of the VPG. In the case of VPG Type-F, the source IP address of the closed network
+            communication from the IoT SIM to the customer's system is NAT-ed to this IP address.
+          type: string
+        gatewayPublicIpAddress:
+          description: The fixed global IP address when using the VPG [Fixed Global IP Address Option](/en/docs/vpg/fixed-global-ip/).
+          type: string
+        imei:
+          description: The IMEI of the device using the IoT SIM. If using a virtual SIM/subscriber, this will be `null`.
+          type: string
+        imsi:
+          description: The IMSI of the IoT SIM.
+          type: string
+        sessionId:
+          description: The session ID.
+          type: string
+        subscription:
+          type: string
+        ueIpAddress:
+          description: The IP address of the device.
+          type: string
+        vpgId:
+          description: The VPG ID. If the VPG was not used, this will not be output.
+          type: string
+      type: object
+    SimplifiedSubscriber:
+      properties:
+        bundles:
+          items:
+            type: string
+          type: array
+        capabilities:
+          $ref: '#/components/schemas/Capabilities'
+        imsi:
+          description: IMSI
+          type: string
+        msisdn:
+          type: string
+        status:
+          description: 'Status of the IoT SIM (primary subscription of the IoT SIM) or status of the additional subscription.
+
+
+            For primary subscriptions, it refers to the status of the IoT SIM.
+
+
+            - `ready`
+
+            - `active`
+
+            - `inactive`
+
+            - `standby`
+
+            - `suspended`
+
+            - `terminated`
+
+
+            For additional subscriptions, it refers to the status of the additional subscription.
+
+
+            - `shipped`: OTA is ready or in progress (first half).
+
+            - `delivered`: OTA is in progress (second half).
+
+            - `ready`: OTA is complete.
+
+            - `active`: A connection via the additional subscription has been confirmed. This does not refer to the status
+            of the IoT SIM.
+
+            - `terminated`
+
+
+            The status of the virtual SIM/subscriber is either `active` or `terminated`.
+
+            '
+          enum:
+          - shipped
+          - delivered
+          - ready
+          - active
+          - terminated
+          type: string
+        subscription:
+          type: string
+      type: object
+    SessionStatus:
+      description: Information about the current session.
+      properties:
+        cell:
+          $ref: '#/components/schemas/Cell'
+        dnsServers:
+          description: Array of IP address of the DNS servers.
+          items:
+            type: string
+          type: array
+        gatewayPrivateIpAddress:
+          description: The private IP address of the VPG. In the case of VPG Type-F, the source IP address of the closed network
+            communication from the IoT SIM to the customer's system is NAT-ed to this IP address.
+          type: string
+        gatewayPublicIpAddress:
+          description: The fixed global IP address when using the VPG [Fixed Global IP Address Option](/en/docs/vpg/fixed-global-ip/).
+          type: string
+        imei:
+          description: The IMEI of the device using the IoT SIM. If using a virtual SIM/subscriber, this will be `null`.
+          type: string
+        imsi:
+          description: The IMSI of the IoT SIM.
+          type: string
+        lastUpdatedAt:
+          format: int64
+          type: integer
+        location:
+          type: object
+        online:
+          description: 'Session status.
+
+            - `true`: online
+
+            - `false`: offline
+
+            '
+          type: boolean
+        placement:
+          $ref: '#/components/schemas/Placement'
+        sessionId:
+          description: The session ID.
+          type: string
+        subscription:
+          description: The subscription.
+          type: string
+        ueIpAddress:
+          description: The IP address of the device.
+          type: string
+        vpgId:
+          description: The VPG ID. If the VPG was not used, this will not be output.
+          type: string
+      type: object
+    GroupConfigurationUpdateRequest:
+      properties:
+        key:
+          type: string
+        value: {}
+      required:
+      - key
+      - value
+      type: object
+    Group:
+      properties:
+        configuration:
+          $ref: '#/components/schemas/GroupConfiguration'
+        createdTime:
+          format: int64
+          type: integer
+        groupId:
+          type: string
+        lastModifiedTime:
+          format: int64
+          type: integer
+        operatorId:
+          type: string
+        tags:
+          $ref: '#/components/schemas/TagSet'
+      type: object
+    TagUpdateRequest:
+      properties:
+        tagName:
+          type: string
+        tagValue:
+          type: string
+      required:
+      - tagName
+      - tagValue
+      type: object
+    CreateGroupRequest:
+      properties:
+        configuration:
+          $ref: '#/components/schemas/GroupConfiguration'
+        tags:
+          $ref: '#/components/schemas/TagSet'
+      type: object
+    TagSet:
+      additionalProperties:
+        type: string
+      description: An object which always contains at least one property "name" with a string value. If you give a subscriber/SIM
+        a name, the name will be returned as the value of the "name" property. If the subscriber/SIM does not have a name,
+        an empty string "" is returned. In addition, if you create any custom tags for the subscriber/SIM, each custom tag
+        will appear as additional properties in the object.
+      example:
+        tagName1: tagValue1
+        tagName2: tagValue2...
+      type: object
+    ArcSessionStatus:
+      properties:
+        arcAllowedIPs:
+          description: Displays the WireGuard AllowedIPs received from the Arc server.
+          items:
+            type: string
+          type: array
+        arcClientPeerIpAddress:
+          description: IP address of the client.
+          type: string
+        arcClientPeerPublicKey:
+          type: string
+        arcServerEndpoint:
+          description: WireGuard protocol endpoints on the Arc server.
+          type: string
+        arcServerPeerPublicKey:
+          description: Server peer public key for the Arc server.
+          type: string
+        gatewayPrivateIpAddress:
+          description: The private IP address of the VPG. In the case of VPG Type-F, the source IP address of the closed network
+            communication from the IoT SIM to the customer's system is NAT-ed to this IP address.
+          type: string
+        gatewayPublicIpAddress:
+          description: The fixed global IP address when using the VPG [Fixed Global IP Address Option](/en/docs/vpg/fixed-global-ip/).
+          type: string
+        lastUpdatedAt:
+          format: int64
+          type: integer
+        placement:
+          $ref: '#/components/schemas/Placement'
+        vpgId:
+          description: The VPG ID. If the VPG was not used, this will not be output.
+          type: string
+      type: object
+    Cell:
+      description: Information about the base station to which the IoT SIM is connected. It will not be output for virtual
+        SIM/subscribers.
+      properties:
+        ci:
+          description: The Cell Identity (for 2G and 3G networks), a 16 bit value represented in decimal form as an integer.
+            (See 3GPP TS 23.003 4.3)
+          type: integer
+        eci:
+          description: The E-UTRAN Cell Identifier (for LTE networks), a 28 bit value represented in decimal form as a long.
+            (See 3GPP TS 23.003 19.6)
+          type: integer
+        lac:
+          description: The Location Area Code (for 2G and 3G networks), a 16 bit value represented in decimal form as an integer.
+            (See 3GPP TS 23.003 4.1)
+          type: integer
+        mcc:
+          description: The Mobile Country Code, a 3 digit number.
+          type: integer
+        mnc:
+          description: The Mobile Network Code, a 2 or 3 digit number. If the value returned is only 1 digit in length, then
+            you should prepend the value with a leading zero.
+          type: integer
+        rac:
+          description: The Routing Area Code (for 2G and 3G networks), an 8 bit value represented in decimal form as an integer.
+            (See 3GPP TS 23.003 4.2)
+          type: integer
+        radioType:
+          description: "The Radio Access Technology or type of network that the device is connected to. \n\n**Warning**: In\
+            \ some cases, the information displayed may differ from the actual wireless access technology or type of network\
+            \ being used by the communication carrier's equipment. For example, even when connected to LTE-M, it may be displayed\
+            \ as LTE.\n"
+          enum:
+          - 3G
+          - GSM
+          - LTE
+          - LTE-M
+          - NB-IoT
+          type: string
+        sac:
+          description: The Service Area Code (for 2G and 3G networks), a 16 bit value represented in decimal form as an integer.
+            (See 3GPP TS 23.003 12.5)
+          type: integer
+        tac:
+          description: The Tracking Area Code (for LTE networks), a 16 bit value represented in decimal form as an integer.
+            (See 3GPP TS 23.003 19.4.2.3)
+          type: integer
+      type: object
+    Map:
+      additionalProperties:
+        type: string
+      type: object
+    Sim:
+      properties:
+        activeProfileId:
+          type: string
+        arcSessionStatus:
+          $ref: '#/components/schemas/ArcSessionStatus'
+        capabilities:
+          $ref: '#/components/schemas/Capabilities'
+        createdTime:
+          description: UNIX time (in milliseconds) that the IoT SIM (primary subscription to the IoT SIM) was created.
+          format: int64
+          type: integer
+        expiryAction:
+          description: 'Action when expiration date expires. Please refer to [Soracom Air Expiration Function](/en/docs/air/expiration/)
+            for more detail.
+
+
+            - `doNothing` : do nothing
+
+            - `deleteSession` : delete session of the SIM if any
+
+            - `deactivate` : change the SIM status to Inactive
+
+            - `suspend` : change the SIM status to Suspended
+
+            - `terminate` : forcibly end any existing connections, and terminate the SIM
+
+            - `null`: No expiration date set.
+
+            '
+          enum:
+          - doNothing
+          - deleteSession
+          - deactivate
+          - suspend
+          - terminate
+          - (null value)
+          type: string
+        expiryTime:
+          description: IoT SIM expiration date (UNIX time in milliseconds).
+          format: int64
+          type: integer
+        groupId:
+          description: The SIM group ID where the SIM belongs to.
+          type: string
+        imeiLock:
+          $ref: '#/components/schemas/ImeiLock'
+        lastModifiedTime:
+          description: UNIX time (in milliseconds) that the information in the IoT SIM (primary subscription to the IoT SIM)
+            was changed
+          format: int64
+          type: integer
+        lastPortMappingCreatedTime:
+          description: UNIX time in milliseconds that Napter was used with the SIM. If Napter has never been used with the
+            SIM, null is returned.
+          format: int64
+          type: integer
+        localInfo:
+          $ref: '#/components/schemas/Map'
+        moduleType:
+          description: 'The form factor of the physical SIM.
+
+
+            - `mini`: standard (2FF) size.
+
+            - `micro`: micro (3FF) size.
+
+            - `nano`: nano (4FF) size.
+
+            - `trio`: 3 in 1 (can be cut into 2FF/3FF/4FF depending on how you cut it).
+
+            - `embedded`: Embedded (MFF2).
+
+            - `virtual`: Virtual SIM/Subscriber.
+
+            - `integrated`: Embedded (iSIM).
+
+            - `profilePackage`: Profile Package (eSIM profile).
+
+            '
+          enum:
+          - mini
+          - micro
+          - nano
+          - trio
+          - embedded
+          - virtual
+          - integrated
+          - profilePackage
+          type: string
+        operatorId:
+          description: The ID of the operator who owns this SIM.
+          type: string
+        otaSerialNumber:
+          type: string
+        pcapEndTime:
+          format: int64
+          type: integer
+        pcapStartTime:
+          format: int64
+          type: integer
+        previousSession:
+          $ref: '#/components/schemas/PreviousSessionStatus'
+        profiles:
+          additionalProperties:
+            $ref: '#/components/schemas/SimProfile'
+          type: object
+        renewalFeeStatusSetTime:
+          description: UNIX time (in milliseconds) that the IoT SIM status is either "ready", "standby", or "suspended".
+          format: int64
+          type: integer
+        serialNumber:
+          description: The serial number of the SIM. Virtual SIM/Subscriber does not have a serial number.
+          type: string
+        sessionStatus:
+          $ref: '#/components/schemas/SessionStatus'
+        simId:
+          description: The SIM ID of the SIM.
+          type: string
+        speedClass:
+          description: The speed class of the SIM.
+          type: string
+        status:
+          description: 'Status of the IoT SIM (primary subscription of the IoT SIM). The status of the virtual SIM/subscriber
+            added to the IoT SIM is either `active` or `terminated`.
+
+
+            - `ready`
+
+            - `active`
+
+            - `inactive`
+
+            - `standby`
+
+            - `suspended`
+
+            - `terminated`
+
+            '
+          enum:
+          - ready
+          - active
+          - inactive
+          - standby
+          - suspended
+          - terminated
+          type: string
+        tags:
+          $ref: '#/components/schemas/TagSet'
+        terminationEnabled:
+          description: 'Value indicating whether the IoT SIM can be terminated (termination protection setting).
+
+
+            - `true`: Can be terminated (termination protection OFF)
+
+            - `false`: Cannot be terminated (termination protection ON)
+
+            '
+          type: boolean
+        testmodeExhaustedTime:
+          description: UNIX time (in milliseconds) when the SIM exceeded the testing usage limit.
+          format: int64
+          type: integer
+        type:
+          description: 'IoT SIM Type
+
+
+            - `euicc`: Chip type (eSIM)
+
+            - `uicc`: Card type
+
+            - `virtual`: Virtual SIM/Subscriber
+
+            '
+          enum:
+          - euicc
+          - uicc
+          - virtual
+          type: string
+      type: object
+    GroupConfiguration:
+      additionalProperties:
+        type: object
+      type: object
+    SimProfile:
+      properties:
+        arcClientPeerPrivateKey:
+          description: 'The client''s PrivateKey (client peer private key) for connecting with WireGuard.
+
+            - PrivateKey (client peer private key) cannot be redisplayed. If you have lost your private key, generate a new
+            key and update the device credentials.
+
+            - Never disclose connection information to outside parties.
+
+            '
+          type: string
+        arcClientPeerPublicKey:
+          type: string
+        iccid:
+          type: string
+        otaSupported:
+          type: boolean
+        primaryImsi:
+          type: string
+        subscribers:
+          additionalProperties:
+            $ref: '#/components/schemas/SimplifiedSubscriber'
+          type: object
+      type: object
+    Placement:
+      properties:
+        infrastructureProvider:
+          enum:
+          - aws
+          type: string
+        region:
+          description: 'If `infrastructureProvider` is `aws`, it indicates the rendezvous point.
+
+
+            - `ap-northeast-1`: Tokyo (Japan). The default for Japan coverage.
+
+            - `eu-central-1`: Frankfurt (Germany).  The default for Global coverage.
+
+            - `us-west-2`: Oregon (USA).
+
+            - `ap-southeast-2`: Sydney (Australia).
+
+            '
+          enum:
+          - ap-northeast-1
+          - eu-central-1
+          - us-west-2
+          - ap-southeast-2
+          type: string
+      type: object
+  securitySchemes:
+    api_key:
+      description: 'API key for authentication. Obtain this from the Soracom User Console or via the Auth API.
+
+        Required in combination with an API token for all authenticated requests.
+
+        '
+      in: header
+      name: X-Soracom-API-Key
+      type: apiKey
+    api_token:
+      description: 'API token for authentication. This token has an expiration time and must be refreshed periodically.
+
+        Required in combination with an API key for all authenticated requests.'
+      in: header
+      name: X-Soracom-Token
+      type: apiKey
