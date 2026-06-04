@@ -1,0 +1,66 @@
+arazzo: 1.0.1
+info:
+  title: Soracom Register and Verify Coupon
+  summary: List currently registered coupons, register a new coupon code, then re-list to confirm the credit applied.
+  description: >-
+    Applies prepaid credit to a Soracom account via a coupon code. The workflow
+    first lists the coupons already registered for context, registers the new
+    coupon code to add its balance, and re-lists the coupons to confirm the new
+    coupon now appears with its balance. Every step spells out its request inline
+    so the flow can be read and executed without opening the underlying OpenAPI
+    description.
+  version: 1.0.0
+sourceDescriptions:
+- name: billingApi
+  url: ../openapi/soracom-billing-api-openapi.yml
+  type: openapi
+workflows:
+- workflowId: register-and-verify-coupon
+  summary: Register a coupon code and confirm it appears in the registered coupon list.
+  description: >-
+    Lists existing coupons, registers the supplied coupon code, and re-lists to
+    confirm the registered coupon balance.
+  inputs:
+    type: object
+    required:
+    - couponCode
+    properties:
+      couponCode:
+        type: string
+        description: The coupon code to register against the account.
+  steps:
+  - stepId: listBefore
+    description: >-
+      List currently registered coupons to capture the state before the new
+      coupon is applied.
+    operationId: listCoupons
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      couponsBefore: $response.body#/couponList
+  - stepId: registerCoupon
+    description: >-
+      Register the supplied coupon code, adding its balance to the account.
+    operationId: registerCoupon
+    parameters:
+    - name: coupon_code
+      in: path
+      value: $inputs.couponCode
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      registeredCouponCode: $response.body#/couponCode
+      balance: $response.body#/balance
+  - stepId: listAfter
+    description: >-
+      Re-list the registered coupons to confirm the newly registered coupon now
+      appears.
+    operationId: listCoupons
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      couponsAfter: $response.body#/couponList
+  outputs:
+    registeredCouponCode: $steps.registerCoupon.outputs.registeredCouponCode
+    balance: $steps.registerCoupon.outputs.balance
+    couponsAfter: $steps.listAfter.outputs.couponsAfter

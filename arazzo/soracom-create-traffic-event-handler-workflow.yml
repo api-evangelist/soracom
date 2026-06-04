@@ -1,0 +1,104 @@
+arazzo: 1.0.1
+info:
+  title: Soracom Create Monthly Traffic Event Handler
+  summary: Create an event handler that caps a group's monthly traffic and notifies the operator, then verify it.
+  description: >-
+    Stands up a Soracom event handler that watches the monthly data traffic of
+    all SIMs in a target group and, once a megabyte threshold is crossed, throttles
+    the speed class and emails the operator. The workflow lists existing handlers
+    for the group for context, creates the new handler with its rule and action
+    configuration inline, and reads the created handler back to confirm it is
+    active. Every step spells out its request inline so the flow can be read and
+    executed without opening the underlying OpenAPI description.
+  version: 1.0.0
+sourceDescriptions:
+- name: eventHandlerApi
+  url: ../openapi/soracom-event-handler-api-openapi.yml
+  type: openapi
+workflows:
+- workflowId: create-traffic-event-handler
+  summary: Create and verify a monthly-traffic event handler for a SIM group.
+  description: >-
+    Lists existing group-targeted handlers, creates a SubscriberMonthlyTrafficRule
+    handler that throttles speed class and emails the operator on threshold, and
+    reads the new handler back to confirm it is active.
+  inputs:
+    type: object
+    required:
+    - name
+    - targetGroupId
+    - limitTotalTrafficMegaByte
+    properties:
+      name:
+        type: string
+        description: A human-readable name for the event handler.
+      targetGroupId:
+        type: string
+        description: The group ID whose SIMs the handler monitors.
+      limitTotalTrafficMegaByte:
+        type: integer
+        description: The monthly traffic threshold in MiB that triggers the actions.
+      throttledSpeedClass:
+        type: string
+        description: The speed class to switch SIMs to once the threshold is crossed.
+        default: s1.minimum
+  steps:
+  - stepId: listExisting
+    description: >-
+      List existing group-targeted event handlers to provide context before
+      creating a new one.
+    operationId: listEventHandlers
+    parameters:
+    - name: target
+      in: query
+      value: group
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      existingHandlers: $response.body
+  - stepId: createHandler
+    description: >-
+      Create the monthly-traffic event handler that throttles the speed class
+      and emails the operator when the group crosses the traffic threshold.
+    operationId: createEventHandler
+    requestBody:
+      contentType: application/json
+      payload:
+        name: $inputs.name
+        status: active
+        targetGroupId: $inputs.targetGroupId
+        ruleConfig:
+          type: SubscriberMonthlyTrafficRule
+          properties:
+            limitTotalTrafficMegaByte: $inputs.limitTotalTrafficMegaByte
+            inactiveTimeoutDateConst: BEGINNING_OF_NEXT_MONTH
+        actionConfigList:
+        - type: ChangeSpeedClassAction
+          properties:
+            executionDateTimeConst: IMMEDIATELY
+            speedClass: $inputs.throttledSpeedClass
+        - type: SendMailToOperatorAction
+          properties:
+            executionDateTimeConst: IMMEDIATELY
+            title: Monthly traffic limit reached
+            message: The monthly data traffic limit for the group has been reached and the speed class has been throttled.
+    successCriteria:
+    - condition: $statusCode == 201
+    outputs:
+      handlerId: $response.body#/handlerId
+  - stepId: confirmHandler
+    description: >-
+      Read the created handler back to confirm it exists and is active.
+    operationId: getEventHandler
+    parameters:
+    - name: handler_id
+      in: path
+      value: $steps.createHandler.outputs.handlerId
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      status: $response.body#/status
+      name: $response.body#/name
+  outputs:
+    handlerId: $steps.createHandler.outputs.handlerId
+    status: $steps.confirmHandler.outputs.status

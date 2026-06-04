@@ -1,0 +1,106 @@
+arazzo: 1.0.1
+info:
+  title: Soracom Register Subscriber to Group
+  summary: Register a subscriber by IMSI, activate it, bind it to a group, and confirm its state.
+  description: >-
+    Onboards a Soracom subscriber identified by IMSI. The workflow registers
+    the subscriber to the operator using its registration secret, activates it
+    so it can pass traffic, sets its group to inherit service configuration, and
+    reads the subscriber back to confirm the active, grouped state. Every step
+    spells out its request inline so the flow can be read and executed without
+    opening the underlying OpenAPI description.
+  version: 1.0.0
+sourceDescriptions:
+- name: simApi
+  url: ../openapi/soracom-sim-api-openapi.yml
+  type: openapi
+workflows:
+- workflowId: register-subscriber-to-group
+  summary: Register, activate, and group a subscriber by IMSI.
+  description: >-
+    Registers the subscriber identified by IMSI using its PUK/PASSCODE
+    registration secret, activates it, sets its group, and reads the subscriber
+    to verify the active status and group binding.
+  inputs:
+    type: object
+    required:
+    - imsi
+    - registrationSecret
+    - groupId
+    properties:
+      imsi:
+        type: string
+        description: The IMSI of the target subscriber.
+      registrationSecret:
+        type: string
+        description: The PUK or PASSCODE for the SIM, used to prove ownership at registration.
+      groupId:
+        type: string
+        description: The group ID to bind the subscriber to after activation.
+  steps:
+  - stepId: registerSubscriber
+    description: >-
+      Register the subscriber to the operator account using its registration
+      secret, also assigning it to the supplied group.
+    operationId: registerSubscriber
+    parameters:
+    - name: imsi
+      in: path
+      value: $inputs.imsi
+    requestBody:
+      contentType: application/json
+      payload:
+        registrationSecret: $inputs.registrationSecret
+        groupId: $inputs.groupId
+    successCriteria:
+    - condition: $statusCode == 201
+    outputs:
+      registeredImsi: $response.body#/imsi
+      statusAfterRegister: $response.body#/status
+  - stepId: activateSubscriber
+    description: >-
+      Change the subscriber status to active so it can establish data sessions.
+    operationId: activateSubscriber
+    parameters:
+    - name: imsi
+      in: path
+      value: $inputs.imsi
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      statusAfterActivate: $response.body#/status
+  - stepId: setGroup
+    description: >-
+      Bind the subscriber to the supplied group so it inherits the group's
+      service configuration.
+    operationId: setGroup
+    parameters:
+    - name: imsi
+      in: path
+      value: $inputs.imsi
+    requestBody:
+      contentType: application/json
+      payload:
+        groupId: $inputs.groupId
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      groupId: $response.body#/groupId
+  - stepId: confirmSubscriber
+    description: >-
+      Read the subscriber back to confirm the final active status and group
+      binding.
+    operationId: getSubscriber
+    parameters:
+    - name: imsi
+      in: path
+      value: $inputs.imsi
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      finalStatus: $response.body#/status
+      finalGroupId: $response.body#/groupId
+  outputs:
+    imsi: $steps.registerSubscriber.outputs.registeredImsi
+    status: $steps.confirmSubscriber.outputs.finalStatus
+    groupId: $steps.confirmSubscriber.outputs.finalGroupId

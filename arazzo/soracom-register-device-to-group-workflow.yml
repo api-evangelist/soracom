@@ -1,0 +1,90 @@
+arazzo: 1.0.1
+info:
+  title: Soracom Register Inventory Device to Group
+  summary: Create a Soracom Inventory device, bind it to an Inventory group, and confirm the binding.
+  description: >-
+    Onboards a LwM2M device into Soracom Inventory. The workflow creates a new
+    device record (carrying endpoint and manufacturer metadata plus name tag),
+    adds the device to an Inventory group so it inherits group configuration,
+    and reads the device back to confirm the group binding. Every step spells
+    out its request inline so the flow can be read and executed without opening
+    the underlying OpenAPI description.
+  version: 1.0.0
+sourceDescriptions:
+- name: inventoryApi
+  url: ../openapi/soracom-inventory-api-openapi.yml
+  type: openapi
+workflows:
+- workflowId: register-device-to-group
+  summary: Create an Inventory device and attach it to an Inventory group.
+  description: >-
+    Creates a device with the supplied metadata, sets its group, and reads the
+    device to verify it now reports the target group ID.
+  inputs:
+    type: object
+    required:
+    - deviceName
+    - groupId
+    properties:
+      deviceName:
+        type: string
+        description: A display name stored in the device's name tag.
+      endpoint:
+        type: string
+        description: The LwM2M endpoint identifier of the device.
+      manufacturer:
+        type: string
+        description: The device manufacturer.
+      groupId:
+        type: string
+        description: The Inventory group ID to attach the device to.
+  steps:
+  - stepId: createDevice
+    description: >-
+      Create the Inventory device record with the supplied endpoint and
+      manufacturer metadata and a name tag.
+    operationId: createDevice
+    requestBody:
+      contentType: application/json
+      payload:
+        endpoint: $inputs.endpoint
+        manufacturer: $inputs.manufacturer
+        tags:
+          name: $inputs.deviceName
+    successCriteria:
+    - condition: $statusCode == 201
+    outputs:
+      deviceId: $response.body#/device_id
+  - stepId: setDeviceGroup
+    description: >-
+      Add the newly created device to the supplied Inventory group.
+    operationId: setDeviceGroup
+    parameters:
+    - name: device_id
+      in: path
+      value: $steps.createDevice.outputs.deviceId
+    requestBody:
+      contentType: application/json
+      payload:
+        groupId: $inputs.groupId
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      groupId: $response.body#/groupId
+  - stepId: confirmDevice
+    description: >-
+      Read the device back to confirm it now reports membership in the target
+      group.
+    operationId: getDevice
+    parameters:
+    - name: device_id
+      in: path
+      value: $steps.createDevice.outputs.deviceId
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      finalGroupId: $response.body#/groupId
+      online: $response.body#/online
+  outputs:
+    deviceId: $steps.createDevice.outputs.deviceId
+    groupId: $steps.confirmDevice.outputs.finalGroupId

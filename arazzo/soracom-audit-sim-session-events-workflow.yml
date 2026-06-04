@@ -1,0 +1,80 @@
+arazzo: 1.0.1
+info:
+  title: Soracom Audit SIM Session Events
+  summary: Confirm a SIM exists, read its current session status, and pull its session event history for an audit window.
+  description: >-
+    Audits the connectivity history of a single IoT SIM. The workflow reads the
+    SIM to confirm it exists and capture its current session status, then
+    retrieves the SIM's session event history (session connect/disconnect
+    records) bounded by an optional time window. Every step spells out its
+    request inline so the flow can be read and executed without opening the
+    underlying OpenAPI description.
+  version: 1.0.0
+sourceDescriptions:
+- name: simApi
+  url: ../openapi/soracom-sim-api-openapi.yml
+  type: openapi
+workflows:
+- workflowId: audit-sim-session-events
+  summary: Read a SIM and pull its session event history for an audit window.
+  description: >-
+    Reads the SIM for its current session status, then lists its session event
+    history bounded by an optional from/to time window.
+  inputs:
+    type: object
+    required:
+    - simId
+    properties:
+      simId:
+        type: string
+        description: The SIM ID of the target SIM to audit.
+      from:
+        type: integer
+        description: Start of the audit window (UNIX time in milliseconds).
+      to:
+        type: integer
+        description: End of the audit window (UNIX time in milliseconds).
+      limit:
+        type: integer
+        description: Maximum number of session event records to retrieve.
+        default: 100
+  steps:
+  - stepId: getSim
+    description: >-
+      Read the SIM to confirm it exists and capture its current session status
+      before pulling history.
+    operationId: getSim
+    parameters:
+    - name: sim_id
+      in: path
+      value: $inputs.simId
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      status: $response.body#/status
+      sessionStatus: $response.body#/sessionStatus
+  - stepId: listSessionEvents
+    description: >-
+      Retrieve the SIM's session event history within the supplied time window.
+    operationId: listSimSessionEvents
+    parameters:
+    - name: sim_id
+      in: path
+      value: $inputs.simId
+    - name: from
+      in: query
+      value: $inputs.from
+    - name: to
+      in: query
+      value: $inputs.to
+    - name: limit
+      in: query
+      value: $inputs.limit
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      events: $response.body
+  outputs:
+    simId: $inputs.simId
+    status: $steps.getSim.outputs.status
+    events: $steps.listSessionEvents.outputs.events

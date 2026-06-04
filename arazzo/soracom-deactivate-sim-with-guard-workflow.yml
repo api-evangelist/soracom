@@ -1,0 +1,86 @@
+arazzo: 1.0.1
+info:
+  title: Soracom Deactivate IoT SIM with Guard
+  summary: Read a SIM, deactivate it only when it is currently active, then confirm the inactive status.
+  description: >-
+    A safe deactivation flow for a Soracom Air SIM. The workflow reads the SIM
+    first and only attempts deactivation when the SIM is in the active status,
+    avoiding a redundant or invalid status change on a SIM that is already
+    inactive, terminated, or suspended. After deactivation it reads the SIM back
+    to confirm the inactive status. Every step spells out its request inline so
+    the flow can be read and executed without opening the underlying OpenAPI
+    description.
+  version: 1.0.0
+sourceDescriptions:
+- name: simApi
+  url: ../openapi/soracom-sim-api-openapi.yml
+  type: openapi
+workflows:
+- workflowId: deactivate-sim-with-guard
+  summary: Deactivate a SIM only when it is currently active, then confirm.
+  description: >-
+    Reads the SIM, branches on its status, deactivates it when it is active,
+    and reads it back to confirm the inactive status.
+  inputs:
+    type: object
+    required:
+    - simId
+    properties:
+      simId:
+        type: string
+        description: The SIM ID of the target SIM to deactivate.
+  steps:
+  - stepId: getSim
+    description: >-
+      Read the SIM to determine whether it is currently active and therefore
+      eligible for deactivation.
+    operationId: getSim
+    parameters:
+    - name: sim_id
+      in: path
+      value: $inputs.simId
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      status: $response.body#/status
+    onSuccess:
+    - name: simActive
+      type: goto
+      stepId: deactivateSim
+      criteria:
+      - context: $response.body
+        condition: $.status == "active"
+        type: jsonpath
+    - name: simNotActive
+      type: end
+      criteria:
+      - context: $response.body
+        condition: $.status != "active"
+        type: jsonpath
+  - stepId: deactivateSim
+    description: >-
+      Change the SIM status to inactive.
+    operationId: deactivateSim
+    parameters:
+    - name: sim_id
+      in: path
+      value: $inputs.simId
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      statusAfterDeactivate: $response.body#/status
+  - stepId: confirmSim
+    description: >-
+      Read the SIM back to confirm it now reports the inactive status.
+    operationId: getSim
+    parameters:
+    - name: sim_id
+      in: path
+      value: $inputs.simId
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      finalStatus: $response.body#/status
+  outputs:
+    simId: $inputs.simId
+    finalStatus: $steps.confirmSim.outputs.finalStatus

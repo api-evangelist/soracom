@@ -1,0 +1,109 @@
+arazzo: 1.0.1
+info:
+  title: Soracom Collect SIM Harvest Data
+  summary: Confirm a SIM exists, pull its Harvest Data entries, and fall back to the generic Harvest endpoint when empty.
+  description: >-
+    Retrieves device telemetry that a SIM has sent to Soracom Harvest Data. The
+    workflow first reads the SIM to confirm it exists, then pulls the most
+    recent data entries via the SIM-scoped Harvest endpoint. When that SIM-scoped
+    read returns no entries, the flow branches to the generic Harvest Data
+    endpoint, querying by the Sim resource type and SIM ID as the resource. Every
+    step spells out its request inline so the flow can be read and executed
+    without opening the underlying OpenAPI description.
+  version: 1.0.0
+sourceDescriptions:
+- name: simApi
+  url: ../openapi/soracom-sim-api-openapi.yml
+  type: openapi
+- name: harvestApi
+  url: ../openapi/soracom-harvest-api-openapi.yml
+  type: openapi
+workflows:
+- workflowId: collect-sim-harvest-data
+  summary: Read a SIM and collect its Harvest Data entries, with a generic fallback.
+  description: >-
+    Reads the SIM, pulls its SIM-scoped Harvest Data entries, and falls back to
+    the generic Harvest Data endpoint (resource_type Sim) when the SIM-scoped
+    read returns an empty list.
+  inputs:
+    type: object
+    required:
+    - simId
+    properties:
+      simId:
+        type: string
+        description: The SIM ID of the target SIM whose Harvest Data should be collected.
+      limit:
+        type: integer
+        description: Maximum number of data entries to retrieve (1 to 1000).
+        default: 10
+  steps:
+  - stepId: getSim
+    description: >-
+      Read the SIM to confirm it exists before attempting to collect its data.
+    operationId: getSim
+    parameters:
+    - name: sim_id
+      in: path
+      value: $inputs.simId
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      status: $response.body#/status
+  - stepId: getSimData
+    description: >-
+      Pull the most recent Harvest Data entries the SIM has sent, newest first.
+    operationId: getDataFromSim
+    parameters:
+    - name: sim_id
+      in: path
+      value: $inputs.simId
+    - name: sort
+      in: query
+      value: desc
+    - name: limit
+      in: query
+      value: $inputs.limit
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      entries: $response.body
+    onSuccess:
+    - name: hasEntries
+      type: end
+      criteria:
+      - context: $response.body
+        condition: $.length > 0
+        type: jsonpath
+    - name: noEntries
+      type: goto
+      stepId: getGenericData
+      criteria:
+      - context: $response.body
+        condition: $.length == 0
+        type: jsonpath
+  - stepId: getGenericData
+    description: >-
+      Fall back to the generic Harvest Data endpoint, querying by the Sim
+      resource type with the SIM ID as the resource.
+    operationId: getDataEntries
+    parameters:
+    - name: resource_type
+      in: path
+      value: Sim
+    - name: resource_id
+      in: path
+      value: $inputs.simId
+    - name: sort
+      in: query
+      value: desc
+    - name: limit
+      in: query
+      value: $inputs.limit
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      entries: $response.body
+  outputs:
+    simEntries: $steps.getSimData.outputs.entries
+    fallbackEntries: $steps.getGenericData.outputs.entries

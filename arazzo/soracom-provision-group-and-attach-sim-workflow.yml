@@ -1,0 +1,120 @@
+arazzo: 1.0.1
+info:
+  title: Soracom Provision Group and Attach SIM
+  summary: Create a SIM group, apply a service configuration, attach an existing SIM, and verify the binding.
+  description: >-
+    Stands up a reusable SIM group and onboards a SIM into it. The workflow
+    creates a new group with tags, writes a service configuration parameter set
+    into a chosen namespace (e.g. SoracomHarvest or SoracomAir), attaches an
+    existing SIM to the group, and reads the SIM back to confirm it now belongs
+    to the group. Every step spells out its request inline so the flow can be
+    read and executed without opening the underlying OpenAPI description.
+  version: 1.0.0
+sourceDescriptions:
+- name: groupApi
+  url: ../openapi/soracom-group-api-openapi.yml
+  type: openapi
+- name: simApi
+  url: ../openapi/soracom-sim-api-openapi.yml
+  type: openapi
+workflows:
+- workflowId: provision-group-and-attach-sim
+  summary: Create and configure a SIM group, then attach an existing SIM to it.
+  description: >-
+    Creates a SIM group, applies a configuration parameter list to a service
+    namespace, sets the SIM's group to the new group, and confirms the SIM now
+    reports the new group ID.
+  inputs:
+    type: object
+    required:
+    - groupName
+    - namespace
+    - configuration
+    - simId
+    properties:
+      groupName:
+        type: string
+        description: The display name to store in the group's name tag.
+      namespace:
+        type: string
+        description: >-
+          The configuration target namespace. One of SoracomAir, SoracomBeam,
+          SoracomEndorse, SoracomFunk, SoracomFunnel, SoracomHarvest,
+          SoracomHarvestFiles, SoracomKrypton, SoracomOrbit, UnifiedEndpoint.
+      configuration:
+        type: array
+        description: >-
+          The list of key/value configuration objects to write to the
+          namespace (e.g. [{ "key": "enabled", "value": true }]).
+        items:
+          type: object
+      simId:
+        type: string
+        description: The SIM ID of an existing SIM to attach to the new group.
+  steps:
+  - stepId: createGroup
+    description: >-
+      Create a new SIM group, storing the supplied name in the group's name
+      tag.
+    operationId: createGroup
+    requestBody:
+      contentType: application/json
+      payload:
+        tags:
+          name: $inputs.groupName
+    successCriteria:
+    - condition: $statusCode == 201
+    outputs:
+      groupId: $response.body#/groupId
+  - stepId: configureGroup
+    description: >-
+      Write the supplied configuration parameter list into the chosen service
+      namespace for the new group.
+    operationId: putConfigurationParameters
+    parameters:
+    - name: group_id
+      in: path
+      value: $steps.createGroup.outputs.groupId
+    - name: namespace
+      in: path
+      value: $inputs.namespace
+    requestBody:
+      contentType: application/json
+      payload: $inputs.configuration
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      configuredGroupId: $response.body#/groupId
+  - stepId: attachSim
+    description: >-
+      Attach the existing SIM to the newly configured group.
+    operationId: setSimGroup
+    parameters:
+    - name: sim_id
+      in: path
+      value: $inputs.simId
+    requestBody:
+      contentType: application/json
+      payload:
+        groupId: $steps.createGroup.outputs.groupId
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      simGroupId: $response.body#/groupId
+  - stepId: confirmSim
+    description: >-
+      Read the SIM back to confirm it now reports membership in the new group.
+    operationId: getSim
+    parameters:
+    - name: sim_id
+      in: path
+      value: $inputs.simId
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      finalGroupId: $response.body#/groupId
+      status: $response.body#/status
+  outputs:
+    groupId: $steps.createGroup.outputs.groupId
+    simId: $inputs.simId
+    finalGroupId: $steps.confirmSim.outputs.finalGroupId

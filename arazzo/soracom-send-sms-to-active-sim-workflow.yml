@@ -1,0 +1,88 @@
+arazzo: 1.0.1
+info:
+  title: Soracom Send SMS to Active IoT SIM
+  summary: Look up a SIM, branch on whether it is active, and send a downlink SMS only when it can receive one.
+  description: >-
+    A guarded SMS delivery flow for Soracom Air. The workflow reads the target
+    SIM, and only when the SIM is in the active status does it send the SMS to
+    the device; if the SIM is not active the flow ends without attempting an
+    impossible delivery. Every step spells out its request inline so the flow
+    can be read and executed without opening the underlying OpenAPI description.
+  version: 1.0.0
+sourceDescriptions:
+- name: simApi
+  url: ../openapi/soracom-sim-api-openapi.yml
+  type: openapi
+workflows:
+- workflowId: send-sms-to-active-sim
+  summary: Send an SMS to an IoT SIM only when it is active.
+  description: >-
+    Reads the SIM, branches on its status, and sends the SMS to the SIM when it
+    is active, otherwise ends without sending.
+  inputs:
+    type: object
+    required:
+    - simId
+    - payload
+    properties:
+      simId:
+        type: string
+        description: The SIM ID of the target SIM to message.
+      payload:
+        type: string
+        description: The SMS message body to send to the device.
+      encodingType:
+        type: integer
+        description: >-
+          Encoding type of the message body. 1 for GSM 7-bit, 2 for UCS-2
+          (default).
+        default: 2
+  steps:
+  - stepId: getSim
+    description: >-
+      Read the target SIM so the flow can decide whether it is in a state that
+      can receive an SMS.
+    operationId: getSim
+    parameters:
+    - name: sim_id
+      in: path
+      value: $inputs.simId
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      status: $response.body#/status
+    onSuccess:
+    - name: simActive
+      type: goto
+      stepId: sendSms
+      criteria:
+      - context: $response.body
+        condition: $.status == "active"
+        type: jsonpath
+    - name: simNotActive
+      type: end
+      criteria:
+      - context: $response.body
+        condition: $.status != "active"
+        type: jsonpath
+  - stepId: sendSms
+    description: >-
+      Send the SMS message to the active SIM and capture the returned message
+      ID.
+    operationId: sendSmsToSim
+    parameters:
+    - name: sim_id
+      in: path
+      value: $inputs.simId
+    requestBody:
+      contentType: application/json
+      payload:
+        encodingType: $inputs.encodingType
+        payload: $inputs.payload
+    successCriteria:
+    - condition: $statusCode == 202
+    outputs:
+      messageId: $response.body#/messageId
+  outputs:
+    status: $steps.getSim.outputs.status
+    messageId: $steps.sendSms.outputs.messageId

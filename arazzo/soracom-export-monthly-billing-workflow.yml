@@ -1,0 +1,102 @@
+arazzo: 1.0.1
+info:
+  title: Soracom Export Monthly Billing CSV
+  summary: Read a finalized monthly bill, kick off an async detailed-billing CSV export, and poll until the download URL is ready.
+  description: >-
+    Produces a downloadable detailed billing CSV for a given month. The workflow
+    reads the finalized monthly bill for the target year-month, starts an
+    asynchronous export of the detailed billing CSV, and then polls the exported
+    file resource until its status flips to exported and a download URL is
+    available. The export is initiated in the Billing API while the export
+    progress is polled in the Harvest API's Files endpoint. Every step spells out
+    its request inline so the flow can be read and executed without opening the
+    underlying OpenAPI description.
+  version: 1.0.0
+sourceDescriptions:
+- name: billingApi
+  url: ../openapi/soracom-billing-api-openapi.yml
+  type: openapi
+- name: harvestApi
+  url: ../openapi/soracom-harvest-api-openapi.yml
+  type: openapi
+workflows:
+- workflowId: export-monthly-billing
+  summary: Read a month's bill, export the detailed CSV asynchronously, and poll for the download URL.
+  description: >-
+    Reads the monthly bill, starts an async detailed billing CSV export, and
+    polls the exported file until status is exported and the URL is available.
+  inputs:
+    type: object
+    required:
+    - yyyyMM
+    properties:
+      yyyyMM:
+        type: string
+        description: The target year and month in YYYYMM form (e.g. 202208).
+  steps:
+  - stepId: getBill
+    description: >-
+      Read the finalized monthly bill for the target month to confirm there is
+      a bill to export.
+    operationId: getBilling
+    parameters:
+    - name: yyyyMM
+      in: path
+      value: $inputs.yyyyMM
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      amount: $response.body#/amount
+      state: $response.body#/state
+  - stepId: startExport
+    description: >-
+      Start an asynchronous export of the detailed billing CSV for the month
+      and capture the exported file ID for polling.
+    operationId: exportBilling
+    parameters:
+    - name: yyyyMM
+      in: path
+      value: $inputs.yyyyMM
+    - name: export_mode
+      in: query
+      value: async
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      exportedFileId: $response.body#/exportedFileId
+  - stepId: pollExport
+    description: >-
+      Poll the exported file resource until the export has completed and a
+      download URL is available. Repeats while the status is still processing.
+    operationId: getExportedFile
+    parameters:
+    - name: exported_file_id
+      in: path
+      value: $steps.startExport.outputs.exportedFileId
+    successCriteria:
+    - condition: $statusCode == 200
+    - context: $response.body
+      condition: $.status == "exported"
+      type: jsonpath
+    outputs:
+      status: $response.body#/status
+      url: $response.body#/url
+    onSuccess:
+    - name: exportReady
+      type: end
+      criteria:
+      - context: $response.body
+        condition: $.status == "exported"
+        type: jsonpath
+    onFailure:
+    - name: stillProcessing
+      type: retry
+      retryAfter: 5
+      retryLimit: 20
+      criteria:
+      - context: $response.body
+        condition: $.status == "processing"
+        type: jsonpath
+  outputs:
+    exportedFileId: $steps.startExport.outputs.exportedFileId
+    downloadUrl: $steps.pollExport.outputs.url

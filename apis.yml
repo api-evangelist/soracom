@@ -398,6 +398,42 @@ tags:
 - Japan
 image: https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
 common:
+- type: ArazzoWorkflows
+  url: arazzo/
+  workflows:
+  - url: arazzo/soracom-audit-sim-session-events-workflow.yml
+    name: Soracom Audit SIM Session Events
+    summary: Confirm a SIM exists, read its current session status, and pull its session event history for an audit window.
+  - url: arazzo/soracom-collect-sim-harvest-data-workflow.yml
+    name: Soracom Collect SIM Harvest Data
+    summary: Confirm a SIM exists, pull its Harvest Data entries, and fall back to the generic Harvest endpoint when empty.
+  - url: arazzo/soracom-create-traffic-event-handler-workflow.yml
+    name: Soracom Create Monthly Traffic Event Handler
+    summary: Create an event handler that caps a group's monthly traffic and notifies the operator, then verify it.
+  - url: arazzo/soracom-deactivate-sim-with-guard-workflow.yml
+    name: Soracom Deactivate IoT SIM with Guard
+    summary: Read a SIM, deactivate it only when it is currently active, then confirm the inactive status.
+  - url: arazzo/soracom-export-monthly-billing-workflow.yml
+    name: Soracom Export Monthly Billing CSV
+    summary: Read a finalized monthly bill, kick off an async detailed-billing CSV export, and poll until the download URL is ready.
+  - url: arazzo/soracom-provision-group-and-attach-sim-workflow.yml
+    name: Soracom Provision Group and Attach SIM
+    summary: Create a SIM group, apply a service configuration, attach an existing SIM, and verify the binding.
+  - url: arazzo/soracom-register-and-activate-sim-workflow.yml
+    name: Soracom Register and Activate IoT SIM
+    summary: Register a physical IoT SIM to the operator, activate it, bind it to a SIM group, and confirm its state.
+  - url: arazzo/soracom-register-and-verify-coupon-workflow.yml
+    name: Soracom Register and Verify Coupon
+    summary: List currently registered coupons, register a new coupon code, then re-list to confirm the credit applied.
+  - url: arazzo/soracom-register-device-to-group-workflow.yml
+    name: Soracom Register Inventory Device to Group
+    summary: Create a Soracom Inventory device, bind it to an Inventory group, and confirm the binding.
+  - url: arazzo/soracom-register-subscriber-to-group-workflow.yml
+    name: Soracom Register Subscriber to Group
+    summary: Register a subscriber by IMSI, activate it, bind it to a group, and confirm its state.
+  - url: arazzo/soracom-send-sms-to-active-sim-workflow.yml
+    name: Soracom Send SMS to Active IoT SIM
+    summary: Look up a SIM, branch on whether it is active, and send a downlink SMS only when it can receive one.
 - type: Portal
   url: https://www.soracom.io
 - type: Documentation

@@ -1,0 +1,107 @@
+arazzo: 1.0.1
+info:
+  title: Soracom Register and Activate IoT SIM
+  summary: Register a physical IoT SIM to the operator, activate it, bind it to a SIM group, and confirm its state.
+  description: >-
+    The end-to-end onboarding flow for a Soracom Air for Cellular SIM. The
+    workflow registers the SIM to the operator using its registration secret,
+    flips the SIM to the active status so it can pass traffic, binds it to a SIM
+    group so it inherits Air/Beam/Harvest configuration, and finally reads the
+    SIM back to confirm the registered, active, grouped state. Every step spells
+    out its request inline so the flow can be read and executed without opening
+    the underlying OpenAPI description.
+  version: 1.0.0
+sourceDescriptions:
+- name: simApi
+  url: ../openapi/soracom-sim-api-openapi.yml
+  type: openapi
+workflows:
+- workflowId: register-and-activate-sim
+  summary: Register, activate, and group a single IoT SIM by SIM ID.
+  description: >-
+    Registers the SIM to the operator using its PUK/PASSCODE registration
+    secret, activates it, sets its SIM group, and reads the resulting SIM
+    resource to verify the active status and group binding.
+  inputs:
+    type: object
+    required:
+    - simId
+    - registrationSecret
+    - groupId
+    properties:
+      simId:
+        type: string
+        description: The SIM ID of the target IoT SIM (e.g. 8981100000000000000).
+      registrationSecret:
+        type: string
+        description: The PUK or PASSCODE printed on the SIM card, used to prove ownership at registration.
+      groupId:
+        type: string
+        description: The SIM group ID to bind the SIM to after activation.
+  steps:
+  - stepId: registerSim
+    description: >-
+      Register the IoT SIM to the operator account using its registration
+      secret so it can be managed.
+    operationId: registerSim
+    parameters:
+    - name: sim_id
+      in: path
+      value: $inputs.simId
+    requestBody:
+      contentType: application/json
+      payload:
+        registrationSecret: $inputs.registrationSecret
+        groupId: $inputs.groupId
+    successCriteria:
+    - condition: $statusCode == 201
+    outputs:
+      registeredSimId: $response.body#/simId
+      statusAfterRegister: $response.body#/status
+  - stepId: activateSim
+    description: >-
+      Change the SIM status to active so it can establish data sessions.
+    operationId: activateSim
+    parameters:
+    - name: sim_id
+      in: path
+      value: $inputs.simId
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      statusAfterActivate: $response.body#/status
+  - stepId: setSimGroup
+    description: >-
+      Bind the SIM to the supplied SIM group so it inherits the group's
+      service configuration.
+    operationId: setSimGroup
+    parameters:
+    - name: sim_id
+      in: path
+      value: $inputs.simId
+    requestBody:
+      contentType: application/json
+      payload:
+        groupId: $inputs.groupId
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      groupId: $response.body#/groupId
+  - stepId: confirmSim
+    description: >-
+      Read the SIM back to confirm the final active status and group binding.
+    operationId: getSim
+    parameters:
+    - name: sim_id
+      in: path
+      value: $inputs.simId
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      finalStatus: $response.body#/status
+      finalGroupId: $response.body#/groupId
+      speedClass: $response.body#/speedClass
+  outputs:
+    simId: $steps.registerSim.outputs.registeredSimId
+    status: $steps.confirmSim.outputs.finalStatus
+    groupId: $steps.confirmSim.outputs.finalGroupId
