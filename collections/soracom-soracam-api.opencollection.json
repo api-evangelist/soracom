@@ -1,0 +1,2016 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Soracom Cloud Camera Services API",
+    "version": "20250903-043502"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "SoraCam",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List SoraCam compatible camera devices.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.soracom.io/v1/sora_cam/devices",
+            "auth": {
+              "type": "apikey",
+              "key": "X-Soracom-API-Key",
+              "value": "{{X-Soracom-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Obtains a list of cameras that are compatible with the Soracom Cloud Camera Services.\n\n**Warning**: When calling this API using a SAM User's API key and API token, the SAM User must also have permission to call the `OAuth2:authorize` API in addition to permission to call this API. For more information on setting permissions, see [Access Levels](/en/docs/security/users-and-roles/#access-levels).\n"
+        },
+        {
+          "info": {
+            "name": "Get the SoraCam compatible camera device information identified by device_id.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.soracom.io/v1/sora_cam/devices/:device_id",
+            "params": [
+              {
+                "name": "device_id",
+                "value": "",
+                "type": "path",
+                "description": "Device ID of the target SoraCam compatible camera device."
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-Soracom-API-Key",
+              "value": "{{X-Soracom-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Obtain a SoraCam compatible camera device record for the device identified by device_id.\n\n**Warning**: When calling this API using a SAM User's API key and API token, the SAM User must also have permission to call the `OAuth2:authorize` API in addition to permission to call this API. For more information on setting permissions, see [Access Levels](/en/docs/security/users-and-roles/#access-levels).\n"
+        },
+        {
+          "info": {
+            "name": "Delete the SoraCam compatible camera device identified by device_id.",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.soracom.io/v1/sora_cam/devices/:device_id",
+            "params": [
+              {
+                "name": "device_id",
+                "value": "",
+                "type": "path",
+                "description": "Device ID of the target SoraCam compatible camera device."
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-Soracom-API-Key",
+              "value": "{{X-Soracom-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Delete a SoraCam compatible camera device from the operator identified by device_id.\n\n**Warning**: When calling this API using a SAM User's API key and API token, the SAM User must also have permission to call the `OAuth2:authorize` API in addition to permission to call this API. For more information on setting permissions, see [Access Levels](/en/docs/security/users-and-roles/#access-levels).\n"
+        },
+        {
+          "info": {
+            "name": "Retrieve firmware update information for a SoraCam compatible camera device",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.soracom.io/v1/sora_cam/devices/:device_id/atom_cam/firmware/update",
+            "params": [
+              {
+                "name": "device_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-Soracom-API-Key",
+              "value": "{{X-Soracom-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Returns available firmware update information for a SoraCam compatible camera device.\n\n**Warning**: If you will run this API with a SAM user's API key and API token, please add the `OAuth2:authorize` permission to the SAM user in addition to the permission required to call this API (e.g. `SoraCam:*`). For more information on setting permissions, see [Access Levels](/en/docs/security/users-and-roles/#access-levels).\n"
+        },
+        {
+          "info": {
+            "name": "Update a firmware for a SoraCam compatible camera device",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.soracom.io/v1/sora_cam/devices/:device_id/atom_cam/firmware/update",
+            "params": [
+              {
+                "name": "device_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-Soracom-API-Key",
+              "value": "{{X-Soracom-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Update a firmware for a SoraCam compatible camera device if it is available. The SoraCam compatible camera device will be offline while updating.\n\n**Warning**: Please do not turn off the power while updating.\n\n**Warning**: If you will run this API with a SAM user's API key and API token, please add the `OAuth2:authorize` permission to the SAM user in addition to the permission required to call this API (e.g. `SoraCam:*`). For more information on setting permissions, see [Access Levels](/en/docs/"
+        },
+        {
+          "info": {
+            "name": "Update the assigned license for a SoraCam compatible camera device",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.soracom.io/v1/sora_cam/devices/:device_id/atom_cam/license",
+            "params": [
+              {
+                "name": "device_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-Soracom-API-Key",
+              "value": "{{X-Soracom-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Updates the license for a specified SoraCam compatible camera device.\n\n**Warning**: If you will run this API with a SAM user's API key and API token, please add the `OAuth2:authorize` permission to the SAM user in addition to the permission required to call this API (e.g. `SoraCam:*`). For more information on setting permissions, see [Access Levels](/en/docs/security/users-and-roles/#access-levels).\n"
+        },
+        {
+          "info": {
+            "name": "Unassign the license from a SoraCam compatible camera device",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.soracom.io/v1/sora_cam/devices/:device_id/atom_cam/license",
+            "params": [
+              {
+                "name": "device_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-Soracom-API-Key",
+              "value": "{{X-Soracom-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Unassigns the license from a specified SoraCam compatible camera device.\n\n**Warning**: If you will run this API with a SAM user's API key and API token, please add the `OAuth2:authorize` permission to the SAM user in addition to the permission required to call this API (e.g. `SoraCam:*`). For more information on setting permissions, see [Access Levels](/en/docs/security/users-and-roles/#access-levels).\n\n**Warning**: Devices will not undergo cloud recording by Soracom Cloud Camera Services unless"
+        },
+        {
+          "info": {
+            "name": "Get a live image from a SoraCam compatible camera device",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.soracom.io/v1/sora_cam/devices/:device_id/atom_cam/live_image",
+            "params": [
+              {
+                "name": "device_id",
+                "value": "",
+                "type": "path",
+                "description": "Device ID of the target SoraCam compatible camera device."
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-Soracom-API-Key",
+              "value": "{{X-Soracom-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Gets a live image from a SoraCam compatible camera device. Images are captured at the time the API is called and a download URL is returned.\n\n**Warning**: When calling this API using a SAM User's API key and API token, the SAM User must also have permission to call the `OAuth2:authorize` API in addition to permission to call this API. For more information on setting permissions, see [Access Levels](/en/docs/security/users-and-roles/#access-levels).\n\n**Info**: To use this API, you must enable rea"
+        },
+        {
+          "info": {
+            "name": "Retrieve enabled options for a SoraCam-compatible camera",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.soracom.io/v1/sora_cam/devices/:device_id/atom_cam/options",
+            "params": [
+              {
+                "name": "device_id",
+                "value": "",
+                "type": "path",
+                "description": "The device ID of the SoraCam-compatible camera."
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-Soracom-API-Key",
+              "value": "{{X-Soracom-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Gets a list of whether the following options are enabled for a SoraCam-compatible camera.\n\n- [Real-time access](https://users.soracom.io/ja-jp/docs/soracom-cloud-camera-services/real-time-access/) (Japanese)\n"
+        },
+        {
+          "info": {
+            "name": "Enable or disable real-time access for a SoraCam-compatible camera",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.soracom.io/v1/sora_cam/devices/:device_id/atom_cam/options/real_time_access",
+            "params": [
+              {
+                "name": "device_id",
+                "value": "",
+                "type": "path",
+                "description": "The device ID of the SoraCam-compatible camera."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-Soracom-API-Key",
+              "value": "{{X-Soracom-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Enables or disables the real-time access feature for a SoraCam-compatible camera.\nWhen enabled, the camera can be accessed directly via P2P communication for retrieving camera feed and performing operations in real time.\n\n**Warning:** Real-time access is a paid feature. For more details, see the [documentation](https://users.soracom.io/ja-jp/docs/soracom-cloud-camera-services/real-time-access/) (Japanese).\n"
+        },
+        {
+          "info": {
+            "name": "Retrieve the camera's various settings",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.soracom.io/v1/sora_cam/devices/:device_id/atom_cam/settings",
+            "params": [
+              {
+                "name": "device_id",
+                "value": "",
+                "type": "path",
+                "description": "Device ID of the target SoraCam compatible camera device."
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-Soracom-API-Key",
+              "value": "{{X-Soracom-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Retrieve the camera's various settings.\n\n**Warning**: When calling this API using a SAM User's API key and API token, the SAM User must also have permission to call the `OAuth2:authorize` API in addition to permission to call this API. For more information on setting permissions, see [Access Levels](/en/docs/security/users-and-roles/#access-levels).\n\n**Info**: To use this API, you must either assign a cloud license to the target Soracom-compatible camera or enable real-time access.\n"
+        },
+        {
+          "info": {
+            "name": "Retrieve the display settings for the ATOM tech Inc. logo shown on the bottom left of the captured image",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.soracom.io/v1/sora_cam/devices/:device_id/atom_cam/settings/logo",
+            "params": [
+              {
+                "name": "device_id",
+                "value": "",
+                "type": "path",
+                "description": "Device ID of the target SoraCam compatible camera device."
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-Soracom-API-Key",
+              "value": "{{X-Soracom-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Retrieve the display settings for the ATOM tech Inc. logo shown on the bottom left of the captured image.\n\n**Warning**: When calling this API using a SAM User's API key and API token, the SAM User must also have permission to call the `OAuth2:authorize` API in addition to permission to call this API. For more information on setting permissions, see [Access Levels](/en/docs/security/users-and-roles/#access-levels).\n\n**Info**: To use this API, you must either assign a cloud license to the target S"
+        },
+        {
+          "info": {
+            "name": "Change the display settings for the ATOM tech Inc. logo shown on the bottom left of the captured image",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.soracom.io/v1/sora_cam/devices/:device_id/atom_cam/settings/logo",
+            "params": [
+              {
+                "name": "device_id",
+                "value": "",
+                "type": "path",
+                "description": "Device ID of the target SoraCam compatible camera device."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-Soracom-API-Key",
+              "value": "{{X-Soracom-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Change the display settings for the ATOM tech Inc. logo shown on the bottom left of the captured image.\n\n**Warning**: When calling this API using a SAM User's API key and API token, the SAM User must also have permission to call the `OAuth2:authorize` API in addition to permission to call this API. For more information on setting permissions, see [Access Levels](/en/docs/security/users-and-roles/#access-levels).\n\n**Info**: To use this API, you must either assign a cloud license to the target Sor"
+        },
+        {
+          "info": {
+            "name": "Retrieve the settings for motion detection",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.soracom.io/v1/sora_cam/devices/:device_id/atom_cam/settings/motion",
+            "params": [
+              {
+                "name": "device_id",
+                "value": "",
+                "type": "path",
+                "description": "Device ID of the target SoraCam compatible camera device."
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-Soracom-API-Key",
+              "value": "{{X-Soracom-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Retrieve the settings for motion detection. If motion detection is enabled, recording will start when the SoraCam compatible camera device detects moving objects.\n\n**Warning**: Even if a Cloud Motion Detection \"Unlimited\" Recording License is assigned to the SoraCam compatible camera device, no recording will occur if motion detection is disabled, as it will not detect any moving objects.\n\n**Warning**: When calling this API using a SAM User's API key and API token, the SAM User must also have pe"
+        },
+        {
+          "info": {
+            "name": "Change the settings for motion",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.soracom.io/v1/sora_cam/devices/:device_id/atom_cam/settings/motion",
+            "params": [
+              {
+                "name": "device_id",
+                "value": "",
+                "type": "path",
+                "description": "Device ID of the target SoraCam compatible camera device."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-Soracom-API-Key",
+              "value": "{{X-Soracom-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Change the settings for motion detection. If motion detection is enabled, recording will start when the SoraCam compatible camera device detects moving objects.\n\n**Warning**: Even if a Cloud Motion Detection \"Unlimited\" Recording License is assigned to the SoraCam compatible camera device, no recording will occur if motion detection is disabled, as it will not detect any moving objects.\n\n**Warning**: When calling this API using a SAM User's API key and API token, the SAM User must also have perm"
+        },
+        {
+          "info": {
+            "name": "Retrieve the settings for motion sensitivity",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.soracom.io/v1/sora_cam/devices/:device_id/atom_cam/settings/motion_sensitivity",
+            "params": [
+              {
+                "name": "device_id",
+                "value": "",
+                "type": "path",
+                "description": "Device ID of the target SoraCam compatible camera device."
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-Soracom-API-Key",
+              "value": "{{X-Soracom-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Retrieve the settings for motion sensitivity.\n\n**Warning**: When calling this API using a SAM User's API key and API token, the SAM User must also have permission to call the `OAuth2:authorize` API in addition to permission to call this API. For more information on setting permissions, see [Access Levels](/en/docs/security/users-and-roles/#access-levels).\n\n**Info**: To use this API, you must either assign a cloud license to the target Soracom-compatible camera or enable real-time access.\n"
+        },
+        {
+          "info": {
+            "name": "Change the settings for motion sensitivity",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.soracom.io/v1/sora_cam/devices/:device_id/atom_cam/settings/motion_sensitivity",
+            "params": [
+              {
+                "name": "device_id",
+                "value": "",
+                "type": "path",
+                "description": "Device ID of the target SoraCam compatible camera device."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-Soracom-API-Key",
+              "value": "{{X-Soracom-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Change the settings for motion sensitivity.\n\n**Warning**: When calling this API using a SAM User's API key and API token, the SAM User must also have permission to call the `OAuth2:authorize` API in addition to permission to call this API. For more information on setting permissions, see [Access Levels](/en/docs/security/users-and-roles/#access-levels).\n\n**Info**: To use this API, you must either assign a cloud license to the target Soracom-compatible camera or enable real-time access.\n"
+        },
+        {
+          "info": {
+            "name": "Retrieve the display settings for motion tagging",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.soracom.io/v1/sora_cam/devices/:device_id/atom_cam/settings/motion_tagging",
+            "params": [
+              {
+                "name": "device_id",
+                "value": "",
+                "type": "path",
+                "description": "Device ID of the target SoraCam compatible camera device."
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-Soracom-API-Key",
+              "value": "{{X-Soracom-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Retrieve the display settings for motion tagging. Motion tagging is a green frame that is displayed when motion is detected.\n\n**Warning**: When calling this API using a SAM User's API key and API token, the SAM User must also have permission to call the `OAuth2:authorize` API in addition to permission to call this API. For more information on setting permissions, see [Access Levels](/en/docs/security/users-and-roles/#access-levels).\n\n**Info**: To use this API, you must either assign a cloud lice"
+        },
+        {
+          "info": {
+            "name": "Change the display settings for motion tagging",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.soracom.io/v1/sora_cam/devices/:device_id/atom_cam/settings/motion_tagging",
+            "params": [
+              {
+                "name": "device_id",
+                "value": "",
+                "type": "path",
+                "description": "Device ID of the target SoraCam compatible camera device."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-Soracom-API-Key",
+              "value": "{{X-Soracom-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Change the display settings for motion tagging. Motion tagging is a green frame that is displayed when motion is detected.\n\n**Warning**: When calling this API using a SAM User's API key and API token, the SAM User must also have permission to call the `OAuth2:authorize` API in addition to permission to call this API. For more information on setting permissions, see [Access Levels](/en/docs/security/users-and-roles/#access-levels).\n\n**Info**: To use this API, you must either assign a cloud licens"
+        },
+        {
+          "info": {
+            "name": "Retrieve the settings for night vision mode",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.soracom.io/v1/sora_cam/devices/:device_id/atom_cam/settings/night_vision",
+            "params": [
+              {
+                "name": "device_id",
+                "value": "",
+                "type": "path",
+                "description": "Device ID of the target SoraCam compatible camera device."
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-Soracom-API-Key",
+              "value": "{{X-Soracom-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Retrieve the settings for night vision mode.\n\n**Warning**: When calling this API using a SAM User's API key and API token, the SAM User must also have permission to call the `OAuth2:authorize` API in addition to permission to call this API. For more information on setting permissions, see [Access Levels](/en/docs/security/users-and-roles/#access-levels).\n\n**Info**: To use this API, you must either assign a cloud license to the target Soracom-compatible camera or enable real-time access.\n"
+        },
+        {
+          "info": {
+            "name": "Change the settings for night vision mode",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.soracom.io/v1/sora_cam/devices/:device_id/atom_cam/settings/night_vision",
+            "params": [
+              {
+                "name": "device_id",
+                "value": "",
+                "type": "path",
+                "description": "Device ID of the target SoraCam compatible camera device."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-Soracom-API-Key",
+              "value": "{{X-Soracom-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Change the settings for night vision mode.\n\n**Warning**: When calling this API using a SAM User's API key and API token, the SAM User must also have permission to call the `OAuth2:authorize` API in addition to permission to call this API. For more information on setting permissions, see [Access Levels](/en/docs/security/users-and-roles/#access-levels).\n\n**Info**: To use this API, you must either assign a cloud license to the target Soracom-compatible camera or enable real-time access.\n"
+        },
+        {
+          "info": {
+            "name": "Retrieve the quality settings",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.soracom.io/v1/sora_cam/devices/:device_id/atom_cam/settings/quality",
+            "params": [
+              {
+                "name": "device_id",
+                "value": "",
+                "type": "path",
+                "description": "Device ID of the target SoraCam compatible camera device."
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-Soracom-API-Key",
+              "value": "{{X-Soracom-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Retrieve the quality settings.\n\n**Warning**: When calling this API using a SAM User's API key and API token, the SAM User must also have permission to call the `OAuth2:authorize` API in addition to permission to call this API. For more information on setting permissions, see [Access Levels](/en/docs/security/users-and-roles/#access-levels).\n\n**Info**: To use this API, you must either assign a cloud license to the target Soracom-compatible camera or enable real-time access.\n"
+        },
+        {
+          "info": {
+            "name": "Change the quality settings",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.soracom.io/v1/sora_cam/devices/:device_id/atom_cam/settings/quality",
+            "params": [
+              {
+                "name": "device_id",
+                "value": "",
+                "type": "path",
+                "description": "Device ID of the target SoraCam compatible camera device."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-Soracom-API-Key",
+              "value": "{{X-Soracom-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Changes the quality settings. The quality settings will be applied to all videos and still images captured by the specified SoraCam compatible camera device. Note that if the Wi-Fi bandwidth is insufficient, the quality settings may automatically be adjusted.\n\n**Warning**: When calling this API using a SAM User's API key and API token, the SAM User must also have permission to call the `OAuth2:authorize` API in addition to permission to call this API. For more information on setting permissions,"
+        },
+        {
+          "info": {
+            "name": "Retrieve the settings for rotating the image by 180 degrees",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.soracom.io/v1/sora_cam/devices/:device_id/atom_cam/settings/rotation",
+            "params": [
+              {
+                "name": "device_id",
+                "value": "",
+                "type": "path",
+                "description": "Device ID of the target SoraCam compatible camera device."
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-Soracom-API-Key",
+              "value": "{{X-Soracom-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Retrieve the settings for rotating the image by 180 degrees.\n\n**Warning**: When calling this API using a SAM User's API key and API token, the SAM User must also have permission to call the `OAuth2:authorize` API in addition to permission to call this API. For more information on setting permissions, see [Access Levels](/en/docs/security/users-and-roles/#access-levels).\n\n**Info**: To use this API, you must either assign a cloud license to the target Soracom-compatible camera or enable real-time "
+        },
+        {
+          "info": {
+            "name": "Change the settings for rotating the image by 180 degrees",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.soracom.io/v1/sora_cam/devices/:device_id/atom_cam/settings/rotation",
+            "params": [
+              {
+                "name": "device_id",
+                "value": "",
+                "type": "path",
+                "description": "Device ID of the target SoraCam compatible camera device."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-Soracom-API-Key",
+              "value": "{{X-Soracom-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Change the settings for rotating the image by 180 degrees.\n\n**Warning**: When calling this API using a SAM User's API key and API token, the SAM User must also have permission to call the `OAuth2:authorize` API in addition to permission to call this API. For more information on setting permissions, see [Access Levels](/en/docs/security/users-and-roles/#access-levels).\n\n**Info**: To use this API, you must either assign a cloud license to the target Soracom-compatible camera or enable real-time ac"
+        },
+        {
+          "info": {
+            "name": "Retrieve the settings for sound detection",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.soracom.io/v1/sora_cam/devices/:device_id/atom_cam/settings/sound",
+            "params": [
+              {
+                "name": "device_id",
+                "value": "",
+                "type": "path",
+                "description": "Device ID of the target SoraCam compatible camera device."
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-Soracom-API-Key",
+              "value": "{{X-Soracom-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Retrieve the settings for sound detection. If sound detection is enabled, recording will start when the SoraCam compatible camera device detects sound.\n\n**Warning**: When calling this API using a SAM User's API key and API token, the SAM User must also have permission to call the `OAuth2:authorize` API in addition to permission to call this API. For more information on setting permissions, see [Access Levels](/en/docs/security/users-and-roles/#access-levels).\n\n**Warning**: Video recorded via sou"
+        },
+        {
+          "info": {
+            "name": "Change the settings for sound detection",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.soracom.io/v1/sora_cam/devices/:device_id/atom_cam/settings/sound",
+            "params": [
+              {
+                "name": "device_id",
+                "value": "",
+                "type": "path",
+                "description": "Device ID of the target SoraCam compatible camera device."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-Soracom-API-Key",
+              "value": "{{X-Soracom-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Change the settings for sound detection. If sound detection is enabled, recording will start when the SoraCam compatible camera device detects sound.\n\n**Warning**: When calling this API using a SAM User's API key and API token, the SAM User must also have permission to call the `OAuth2:authorize` API in addition to permission to call this API. For more information on setting permissions, see [Access Levels](/en/docs/security/users-and-roles/#access-levels).\n\n**Warning**: Video recorded via sound"
+        },
+        {
+          "info": {
+            "name": "Retrieve the settings for sound sensitivity",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.soracom.io/v1/sora_cam/devices/:device_id/atom_cam/settings/sound_sensitivity",
+            "params": [
+              {
+                "name": "device_id",
+                "value": "",
+                "type": "path",
+                "description": "Device ID of the target SoraCam compatible camera device."
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-Soracom-API-Key",
+              "value": "{{X-Soracom-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Retrieve the settings for sound sensitivity.\n\n**Warning**: When calling this API using a SAM User's API key and API token, the SAM User must also have permission to call the `OAuth2:authorize` API in addition to permission to call this API. For more information on setting permissions, see [Access Levels](/en/docs/security/users-and-roles/#access-levels).\n\n**Info**: To use this API, you must either assign a cloud license to the target Soracom-compatible camera or enable real-time access.\n"
+        },
+        {
+          "info": {
+            "name": "Change the settings for sound sensitivity",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.soracom.io/v1/sora_cam/devices/:device_id/atom_cam/settings/sound_sensitivity",
+            "params": [
+              {
+                "name": "device_id",
+                "value": "",
+                "type": "path",
+                "description": "Device ID of the target SoraCam compatible camera device."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-Soracom-API-Key",
+              "value": "{{X-Soracom-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Change the settings for sound sensitivity.\n\n**Warning**: When calling this API using a SAM User's API key and API token, the SAM User must also have permission to call the `OAuth2:authorize` API in addition to permission to call this API. For more information on setting permissions, see [Access Levels](/en/docs/security/users-and-roles/#access-levels).\n\n**Info**: To use this API, you must either assign a cloud license to the target Soracom-compatible camera or enable real-time access.\n"
+        },
+        {
+          "info": {
+            "name": "Retrieve the settings for the status light (indicator light that shows the status of the camera)",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.soracom.io/v1/sora_cam/devices/:device_id/atom_cam/settings/status_light",
+            "params": [
+              {
+                "name": "device_id",
+                "value": "",
+                "type": "path",
+                "description": "Device ID of the target SoraCam compatible camera device."
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-Soracom-API-Key",
+              "value": "{{X-Soracom-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Retrieve the settings for the status light (indicator light that shows the status of the camera).\n\n**Warning**: When calling this API using a SAM User's API key and API token, the SAM User must also have permission to call the `OAuth2:authorize` API in addition to permission to call this API. For more information on setting permissions, see [Access Levels](/en/docs/security/users-and-roles/#access-levels).\n\n**Info**: To use this API, you must either assign a cloud license to the target Soracom-c"
+        },
+        {
+          "info": {
+            "name": "Change the settings for the status light (indicator light that shows the status of the camera)",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.soracom.io/v1/sora_cam/devices/:device_id/atom_cam/settings/status_light",
+            "params": [
+              {
+                "name": "device_id",
+                "value": "",
+                "type": "path",
+                "description": "Device ID of the target SoraCam compatible camera device."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-Soracom-API-Key",
+              "value": "{{X-Soracom-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Change the settings for the status light (indicator light that shows the status of the camera).\n\n**Warning**: When calling this API using a SAM User's API key and API token, the SAM User must also have permission to call the `OAuth2:authorize` API in addition to permission to call this API. For more information on setting permissions, see [Access Levels](/en/docs/security/users-and-roles/#access-levels).\n\n**Info**: To use this API, you must either assign a cloud license to the target Soracom-com"
+        },
+        {
+          "info": {
+            "name": "Retrieve the display settings for the timestamp shown on the bottom right of the captured image",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.soracom.io/v1/sora_cam/devices/:device_id/atom_cam/settings/timestamp",
+            "params": [
+              {
+                "name": "device_id",
+                "value": "",
+                "type": "path",
+                "description": "Device ID of the target SoraCam compatible camera device."
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-Soracom-API-Key",
+              "value": "{{X-Soracom-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Retrieve the display settings for the timestamp shown on the bottom right of the captured image.\n\n**Warning**: When calling this API using a SAM User's API key and API token, the SAM User must also have permission to call the `OAuth2:authorize` API in addition to permission to call this API. For more information on setting permissions, see [Access Levels](/en/docs/security/users-and-roles/#access-levels).\n\n**Info**: To use this API, you must either assign a cloud license to the target Soracom-co"
+        },
+        {
+          "info": {
+            "name": "Change the display settings for the timestamp shown on the bottom right of the captured image",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.soracom.io/v1/sora_cam/devices/:device_id/atom_cam/settings/timestamp",
+            "params": [
+              {
+                "name": "device_id",
+                "value": "",
+                "type": "path",
+                "description": "Device ID of the target SoraCam compatible camera device."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-Soracom-API-Key",
+              "value": "{{X-Soracom-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Change the display settings for the timestamp shown on the bottom right of the captured image.\n\n**Warning**: When calling this API using a SAM User's API key and API token, the SAM User must also have permission to call the `OAuth2:authorize` API in addition to permission to call this API. For more information on setting permissions, see [Access Levels](/en/docs/security/users-and-roles/#access-levels).\n\n**Info**: To use this API, you must either assign a cloud license to the target Soracom-comp"
+        },
+        {
+          "info": {
+            "name": "Save arbitrary data to Harvest Data linked to a SoraCam compatible camera device",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.soracom.io/v1/sora_cam/devices/:device_id/data",
+            "headers": [
+              {
+                "name": "content-type",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "device_id",
+                "value": "",
+                "type": "path",
+                "description": "Device ID of the target SoraCam compatible camera device."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-Soracom-API-Key",
+              "value": "{{X-Soracom-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Saves arbitrary data to Harvest Data that will be associated to a SoraCam compatible camera device specified by its device ID (`device_id`).\n\nFor example, to save JSON data, set `Content-Type: application/json` in the header and specify `{ \"person_count\": 5 }` in the request body.\n\n**Warning**: When using a SAM user's API key and API token to execute this API, you must grant the SAM user the `OAuth2:authorize` permission in addition to the permissions required to call this API (e.g., `SoraCam:*`"
+        },
+        {
+          "info": {
+            "name": "Save arbitrary data to Harvest Data linked to a SoraCam compatible camera device and timestamp",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.soracom.io/v1/sora_cam/devices/:device_id/data/:time",
+            "headers": [
+              {
+                "name": "content-type",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "device_id",
+                "value": "",
+                "type": "path",
+                "description": "Device ID of the target SoraCam compatible camera device."
+              },
+              {
+                "name": "time",
+                "value": "",
+                "type": "path",
+                "description": "The timestamp of the target data entry (UNIX time in milliseconds)."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-Soracom-API-Key",
+              "value": "{{X-Soracom-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Saves arbitrary data to Harvest Data with a particular timestamp that will be associated to a SoraCam compatible camera device specified by its device ID (`device_id`).\n\n- If no data exists for the specified timestamp, a new data entry will be created.\n- If data already exists for the specified timestamp, it will be overwritten according to the specifications of Harvest Data.\n\nFor example, to save JSON data, set `Content-Type: application/json` in the header and specify `{ \"person_count\": 5 }` i"
+        },
+        {
+          "info": {
+            "name": "List SoraCam events for the specified device.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.soracom.io/v1/sora_cam/devices/:device_id/events",
+            "params": [
+              {
+                "name": "device_id",
+                "value": "",
+                "type": "path",
+                "description": "Device ID of the target SoraCam compatible camera device."
+              },
+              {
+                "name": "last_evaluated_key",
+                "value": "",
+                "type": "query",
+                "description": "Value of the `x-soracom-next-key` header in the previous response. Use this to continue pagination."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of events to retrieve in one request (value range is 1 to 1000). Note that the response may contain fewer events than the specified limit."
+              },
+              {
+                "name": "from",
+                "value": "",
+                "type": "query",
+                "description": "Start time of the events to retrieve (unix time in milliseconds). If not specified, `from` is set to the oldest event time."
+              },
+              {
+                "name": "to",
+                "value": "",
+                "type": "query",
+                "description": "End time of the events to retrieve (unix time in milliseconds). If not specified, `to` is set to the current time."
+              },
+              {
+                "name": "sort",
+                "value": "",
+                "type": "query",
+                "description": "Event list sort order.\n\n- `desc`: Descending order (newest events detected by target SoraCam compatible camera device first).\n- `asc`: Ascending order (oldest events detected by target SoraCam compatible camera device first).\n"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-Soracom-API-Key",
+              "value": "{{X-Soracom-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Returns list of SoraCam events for the specified device.\n\n**Warning**: When calling this API using a SAM User's API key and API token, the SAM User must also have permission to call the `OAuth2:authorize` API in addition to permission to call this API. For more information on setting permissions, see [Access Levels](/en/docs/security/users-and-roles/#access-levels).\n"
+        },
+        {
+          "info": {
+            "name": "Get the remaining number of still images that can be exported and the remaining exportable time of recorded video.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.soracom.io/v1/sora_cam/devices/:device_id/exports/usage",
+            "params": [
+              {
+                "name": "device_id",
+                "value": "",
+                "type": "path",
+                "description": "Device ID of the target SoraCam compatible camera device."
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-Soracom-API-Key",
+              "value": "{{X-Soracom-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Get the remaining number of still images that can be exported and the remaining exportable time of recorded video.\n\n**Warning**: Exporting either still images or recorded video will consume the available video viewing time (72 hours per month by default).\n\n**Warning**: When calling this API using a SAM User's API key and API token, the SAM User must also have permission to call the `OAuth2:authorize` API in addition to permission to call this API. For more information on setting permissions, see"
+        },
+        {
+          "info": {
+            "name": "Set the monthly limit on the recorded video time available for export for SoraCam compatible camera device.",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.soracom.io/v1/sora_cam/devices/:device_id/exports/usage/limit_override",
+            "params": [
+              {
+                "name": "device_id",
+                "value": "",
+                "type": "path",
+                "description": "Device ID of the target SoraCam compatible camera device."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-Soracom-API-Key",
+              "value": "{{X-Soracom-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Set the monthly limit on the recorded video time available for export. By default, the limit is set to 72 hours per month. A maximum of 1,500 hours can be set.\n\n**Warning**: Additional costs will be incurred for recorded video exported beyond 72 hours. Simply changing the monthly limit does not result in any charges.. However, exceeding 72 hours of export time consumption will incur charges regardless of the set export time limit. For more information about fees, see Soracom Cloud Camera Service"
+        },
+        {
+          "info": {
+            "name": "Reset the monthly limit on the recorded video time available for export for SoraCam compatible camera device to the default value.",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.soracom.io/v1/sora_cam/devices/:device_id/exports/usage/limit_override",
+            "params": [
+              {
+                "name": "device_id",
+                "value": "",
+                "type": "path",
+                "description": "Device ID of the target SoraCam compatible camera device."
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-Soracom-API-Key",
+              "value": "{{X-Soracom-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Reset the monthly limit on the recorded video time available for export to the default value. By default, the limit is set to 72 hours per month.\n\n**Warning**: When calling this API using a SAM User's API key and API token, the SAM User must also have permission to call the `OAuth2:authorize` API in addition to permission to call this API. For more information on setting permissions, see [Access Levels](/en/docs/security/users-and-roles/#access-levels).\n"
+        },
+        {
+          "info": {
+            "name": "Get a list of the current status of the process of exporting still image from recorded video taken with a SoraCam compatible camera device.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.soracom.io/v1/sora_cam/devices/:device_id/images/exports",
+            "params": [
+              {
+                "name": "device_id",
+                "value": "",
+                "type": "path",
+                "description": "Device ID of the target SoraCam compatible camera device."
+              },
+              {
+                "name": "last_evaluated_key",
+                "value": "",
+                "type": "query",
+                "description": "Value of the `x-soracom-next-key` header in the previous response. Use this to continue pagination."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of items to retrieve in one request. Note that the response may contain fewer items than the specified limit."
+              },
+              {
+                "name": "sort",
+                "value": "",
+                "type": "query",
+                "description": "Export list sort order.\n\n- `desc`: Descending order (newest export process first).\n- `asc`: Ascending order (oldest export process first).\n"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-Soracom-API-Key",
+              "value": "{{X-Soracom-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Gets the list of the current status of the process of exporting still image from recorded video taken with a SoraCam compatible camera device started by [SoraCam:exportSoraCamDeviceRecordedImage API](#!/SoraCam/exportSoraCamDeviceRecordedImage). This API limits the target to one SoraCam compatible camera device.\n\nIf the target is not limited to one SoraCam compatible camera device, but all SoraCam compatible camera devices owned by the operator, use [SoraCam:listSoraCamDeviceImageExports API](#!"
+        },
+        {
+          "info": {
+            "name": "Start the process of exporting still images from recorded video saved on the cloud",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.soracom.io/v1/sora_cam/devices/:device_id/images/exports",
+            "params": [
+              {
+                "name": "device_id",
+                "value": "",
+                "type": "path",
+                "description": "Device ID of the target SoraCam compatible camera device."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-Soracom-API-Key",
+              "value": "{{X-Soracom-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Starts the process of extracting and exporting still images from recorded video saved on the cloud. The export process is processed asynchronously. The progress of the export process and the URL of the exported file can be obtained with the [SoraCam:listSoraCamDeviceImageExports API](#!/SoraCam/listSoraCamDeviceImageExports). The URL has an expiration time.\n\n- At the time of obtaining the URL, the available video viewing time (72 hours per month by default) will be consumed regardless of whether"
+        },
+        {
+          "info": {
+            "name": "Get the current status of the process of exporting still images from recorded video taken with a SoraCam compatible camera device",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.soracom.io/v1/sora_cam/devices/:device_id/images/exports/:export_id",
+            "params": [
+              {
+                "name": "device_id",
+                "value": "",
+                "type": "path",
+                "description": "Device ID of the target SoraCam compatible camera device."
+              },
+              {
+                "name": "export_id",
+                "value": "",
+                "type": "path",
+                "description": "Export ID of the target export operation."
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-Soracom-API-Key",
+              "value": "{{X-Soracom-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Gets the current status of the process of exporting still image from recorded video taken with a SoraCam compatible camera device started by [SoraCam:exportSoraCamDeviceRecordedImage API](#!/SoraCam/exportSoraCamDeviceRecordedImage). This API limits the target to one export process.\n\n**Warning**: When calling this API using a SAM User's API key and API token, the SAM User must also have permission to call the `OAuth2:authorize` API in addition to permission to call this API. For more information"
+        },
+        {
+          "info": {
+            "name": "Get the current name of the SoraCam compatible camera device.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.soracom.io/v1/sora_cam/devices/:device_id/name",
+            "params": [
+              {
+                "name": "device_id",
+                "value": "",
+                "type": "path",
+                "description": "Device ID of the target SoraCam compatible camera device."
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-Soracom-API-Key",
+              "value": "{{X-Soracom-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Get the current name of the SoraCam compatible camera device."
+        },
+        {
+          "info": {
+            "name": "Changes the name of the SoraCam compatible camera device.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.soracom.io/v1/sora_cam/devices/:device_id/name",
+            "params": [
+              {
+                "name": "device_id",
+                "value": "",
+                "type": "path",
+                "description": "Device ID of the target SoraCam compatible camera device."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-Soracom-API-Key",
+              "value": "{{X-Soracom-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Changes the name of the SoraCam compatible camera device."
+        },
+        {
+          "info": {
+            "name": "Get the current power state of the SoraCam compatible camera device.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.soracom.io/v1/sora_cam/devices/:device_id/power_state",
+            "params": [
+              {
+                "name": "device_id",
+                "value": "",
+                "type": "path",
+                "description": "Device ID of the target SoraCam compatible camera device."
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-Soracom-API-Key",
+              "value": "{{X-Soracom-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Get the current power state of the SoraCam compatible camera device."
+        },
+        {
+          "info": {
+            "name": "Changes the power state of the SoraCam compatible camera device.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.soracom.io/v1/sora_cam/devices/:device_id/power_state",
+            "params": [
+              {
+                "name": "device_id",
+                "value": "",
+                "type": "path",
+                "description": "Device ID of the target SoraCam compatible camera device."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-Soracom-API-Key",
+              "value": "{{X-Soracom-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Changes the power state of the SoraCam compatible camera device."
+        },
+        {
+          "info": {
+            "name": "Reboot the SoraCam compatible camera device.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.soracom.io/v1/sora_cam/devices/:device_id/reboot",
+            "params": [
+              {
+                "name": "device_id",
+                "value": "",
+                "type": "path",
+                "description": "Device ID of the target SoraCam compatible camera device."
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-Soracom-API-Key",
+              "value": "{{X-Soracom-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Reboot the SoraCam compatible camera device."
+        },
+        {
+          "info": {
+            "name": "Retrieve a list of recording periods and events for a SoraCam compatible camera device",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.soracom.io/v1/sora_cam/devices/:device_id/recordings_and_events",
+            "params": [
+              {
+                "name": "device_id",
+                "value": "",
+                "type": "path",
+                "description": "Device ID of the target SoraCam compatible camera device."
+              },
+              {
+                "name": "last_evaluated_key",
+                "value": "",
+                "type": "query",
+                "description": "Value of the `x-soracom-next-key` header in the previous response. Use this to continue pagination."
+              },
+              {
+                "name": "from",
+                "value": "",
+                "type": "query",
+                "description": "Start time of the recordings and events to retrieve (unix time in milliseconds). If not specified, `from` is set to the oldest time within the retention period of the license that is assigned to the SoraCam compatible camera device."
+              },
+              {
+                "name": "to",
+                "value": "",
+                "type": "query",
+                "description": "End time of the recordings and events to retrieve (unix time in milliseconds). If not specified, `to` is set to the current time."
+              },
+              {
+                "name": "sort",
+                "value": "",
+                "type": "query",
+                "description": "Recordings and events list sort order.\n\n- `desc`: Descending order (newest data first).\n- `asc`: Ascending order (oldest data first).\n"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-Soracom-API-Key",
+              "value": "{{X-Soracom-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Returns a list of recordings and events for a SoraCam compatible camera device.\n\n**Warning**: If you will run this API with a SAM user's API key and API token, please add the `OAuth2:authorize` permission to the SAM user in addition to the permission required to call this API (e.g. `SoraCam:*`). For more information on setting permissions, see [Access Levels](/en/docs/security/users-and-roles/#access-levels).\n"
+        },
+        {
+          "info": {
+            "name": "Get information for streaming recorded video from the cloud.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.soracom.io/v1/sora_cam/devices/:device_id/stream",
+            "params": [
+              {
+                "name": "device_id",
+                "value": "",
+                "type": "path",
+                "description": "Device ID of the target SoraCam compatible camera device."
+              },
+              {
+                "name": "from",
+                "value": "",
+                "type": "query",
+                "description": "Start time of recorded video (UNIX time in milliseconds).\n\n- Omit both `from` and `to` to get information for streaming the latest video.\n"
+              },
+              {
+                "name": "to",
+                "value": "",
+                "type": "query",
+                "description": "End time of recorded video (UNIX time in milliseconds).\n\n- Omit both `from` and `to` to get information for streaming the latest video.\n- The maximum duration that can be viewed in a single API call is 900 seconds (15 minutes). Make sure the difference between `from` and `to` does not exceed 900 seconds.\n"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-Soracom-API-Key",
+              "value": "{{X-Soracom-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Get information for streaming recorded video from the cloud. Specifically, you can get an array of URLs that support a streaming method called MPEG-DASH (Dynamic Adaptive Streaming over HTTP). The URL has an expiration time.\n\n- To stream the latest video, omit both `from` and `to`. Please be aware of the following points in that case:\n  - You can get a URL to stream the latest 300 seconds (5 minutes) of video based on the time of the API called. To continue watching, call the API again to get th"
+        },
+        {
+          "info": {
+            "name": "Get a list of the current status of the process of exporting recorded video taken with a SoraCam compatible camera device.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.soracom.io/v1/sora_cam/devices/:device_id/videos/exports",
+            "params": [
+              {
+                "name": "device_id",
+                "value": "",
+                "type": "path",
+                "description": "Device ID of the target SoraCam compatible camera device."
+              },
+              {
+                "name": "last_evaluated_key",
+                "value": "",
+                "type": "query",
+                "description": "Value of the `x-soracom-next-key` header in the previous response. Use this to continue pagination."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of items to retrieve in one request. Note that the response may contain fewer items than the specified limit."
+              },
+              {
+                "name": "sort",
+                "value": "",
+                "type": "query",
+                "description": "Export list sort order.\n\n- `desc`: Descending order (newest export process first).\n- `asc`: Ascending order (oldest export process first).\n"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-Soracom-API-Key",
+              "value": "{{X-Soracom-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Gets the list of the current status of the process of exporting recorded video taken with a SoraCam compatible camera device started by [SoraCam:exportSoraCamDeviceRecordedVideo API](#!/SoraCam/exportSoraCamDeviceRecordedVideo). This API limits the target to one SoraCam compatible camera device.\n\nIf the target is not limited to one SoraCam compatible camera device, but all SoraCam compatible camera devices owned by the operator, use [SoraCam:listSoraCamDeviceVideoExports API](#!/SoraCam/listSora"
+        },
+        {
+          "info": {
+            "name": "Start the process of exporting recorded video saved on the cloud",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.soracom.io/v1/sora_cam/devices/:device_id/videos/exports",
+            "params": [
+              {
+                "name": "device_id",
+                "value": "",
+                "type": "path",
+                "description": "Device ID of the target SoraCam compatible camera device."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-Soracom-API-Key",
+              "value": "{{X-Soracom-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Starts the process of exporting recorded video saved on the cloud in a format that can be downloaded (zipped mp4 files). The export process is processed asynchronously. The progress of the export process and the URL of the exported file can be obtained with the [SoraCam:listSoraCamDeviceVideoExports API](#!/SoraCam/listSoraCamDeviceVideoExports). The URL has an expiration time.\n\n- The maximum export time for a single URL is 900 seconds (15 minutes).\n- At the time of obtaining the URL, the availa"
+        },
+        {
+          "info": {
+            "name": "Get the current status of the process of exporting recorded video taken with a SoraCam compatible camera device",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.soracom.io/v1/sora_cam/devices/:device_id/videos/exports/:export_id",
+            "params": [
+              {
+                "name": "device_id",
+                "value": "",
+                "type": "path",
+                "description": "Device ID of the target SoraCam compatible camera device."
+              },
+              {
+                "name": "export_id",
+                "value": "",
+                "type": "path",
+                "description": "Export ID of the target export operation."
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-Soracom-API-Key",
+              "value": "{{X-Soracom-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Gets the current status of the process of exporting recorded video taken with a SoraCam compatible camera device started by [SoraCam:exportSoraCamDeviceRecordedVideo API](#!/SoraCam/exportSoraCamDeviceRecordedVideo). This API limits the target to one export process.\n\n**Warning**: When calling this API using a SAM User's API key and API token, the SAM User must also have permission to call the `OAuth2:authorize` API in addition to permission to call this API. For more information on setting permi"
+        },
+        {
+          "info": {
+            "name": "Retrieve a list of SoraCam compatible camera devices that can update the firmware",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.soracom.io/v1/sora_cam/devices/atom_cam/firmware/updates",
+            "auth": {
+              "type": "apikey",
+              "key": "X-Soracom-API-Key",
+              "value": "{{X-Soracom-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Returns a list of SoraCam compatible camera devices that can update the firmware.\n\n**Warning**: If you will run this API with a SAM user's API key and API token, please add the `OAuth2:authorize` permission to the SAM user in addition to the permission required to call this API (e.g. `SoraCam:*`). For more information on setting permissions, see [Access Levels](/en/docs/security/users-and-roles/#access-levels).\n"
+        },
+        {
+          "info": {
+            "name": "List SoraCam events.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.soracom.io/v1/sora_cam/devices/events",
+            "params": [
+              {
+                "name": "device_id",
+                "value": "",
+                "type": "query",
+                "description": "Device ID of the target SoraCam compatible camera device. If not specified, retrieves event history for all SoraCam compatible camera devices owned by the operator."
+              },
+              {
+                "name": "last_evaluated_key",
+                "value": "",
+                "type": "query",
+                "description": "Value of the `x-soracom-next-key` header in the previous response. Use this to continue pagination."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of events to retrieve in one request (value range is 1 to 1000). Note that the response may contain fewer events than the specified limit."
+              },
+              {
+                "name": "from",
+                "value": "",
+                "type": "query",
+                "description": "Start time of the events to retrieve (unix time in milliseconds). If not specified, `from` is set to the oldest event time."
+              },
+              {
+                "name": "to",
+                "value": "",
+                "type": "query",
+                "description": "End time of the events to retrieve (unix time in milliseconds). If not specified, `to` is set to the current time."
+              },
+              {
+                "name": "sort",
+                "value": "",
+                "type": "query",
+                "description": "Event list sort order.\n\n- `desc`: Descending order (newest events detected by SoraCam compatible camera device first).\n- `asc`: Ascending order (oldest events detected by SoraCam compatible camera device first).\n"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-Soracom-API-Key",
+              "value": "{{X-Soracom-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Returns list of SoraCam events."
+        },
+        {
+          "info": {
+            "name": "Get a list of the current status of the process of exporting still image from recorded video taken with a SoraCam compatible camera device.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.soracom.io/v1/sora_cam/devices/images/exports",
+            "params": [
+              {
+                "name": "device_id",
+                "value": "",
+                "type": "query",
+                "description": "Device ID of the target SoraCam compatible camera device. If not specified, returns all SoraCam compatible camera devices owned by the operator."
+              },
+              {
+                "name": "last_evaluated_key",
+                "value": "",
+                "type": "query",
+                "description": "Value of the `x-soracom-next-key` header in the previous response. Use this to continue pagination."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of items to retrieve in one request. Note that the response may contain fewer items than the specified limit."
+              },
+              {
+                "name": "sort",
+                "value": "",
+                "type": "query",
+                "description": "Export list sort order.\n\n- `desc`: Descending order (newest export process first).\n- `asc`: Ascending order (oldest export process first).\n"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-Soracom-API-Key",
+              "value": "{{X-Soracom-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Gets the list of the current status of the process of exporting still image from recorded video taken with a SoraCam compatible camera device started by [SoraCam:exportSoraCamDeviceRecordedImage API](#!/SoraCam/exportSoraCamDeviceRecordedImage). This API can target all devices owned by the operator, or limit it to one SoraCam compatible camera device.\n\n**Warning**: The URL becomes unusable 10 minutes after export completion. The time until the URL becomes unusable can be checked with `expiryTime"
+        },
+        {
+          "info": {
+            "name": "Get a list of the current status of the process of exporting recorded video taken with a SoraCam compatible camera device.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.soracom.io/v1/sora_cam/devices/videos/exports",
+            "params": [
+              {
+                "name": "device_id",
+                "value": "",
+                "type": "query",
+                "description": "Device ID of the target SoraCam compatible camera device. If not specified, returns all SoraCam compatible camera devices owned by the operator."
+              },
+              {
+                "name": "last_evaluated_key",
+                "value": "",
+                "type": "query",
+                "description": "Value of the `x-soracom-next-key` header in the previous response. Use this to continue pagination."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of items to retrieve in one request. Note that the response may contain fewer items than the specified limit."
+              },
+              {
+                "name": "sort",
+                "value": "",
+                "type": "query",
+                "description": "Export list sort order.\n\n- `desc`: Descending order (newest export process first).\n- `asc`: Ascending order (oldest export process first).\n"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-Soracom-API-Key",
+              "value": "{{X-Soracom-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Gets the list of the current status of the process of exporting recorded video taken with a SoraCam compatible camera device started by [SoraCam:exportSoraCamDeviceRecordedVideo API](#!/SoraCam/exportSoraCamDeviceRecordedVideo). This API can target all devices owned by the operator, or limit it to one SoraCam compatible camera device.\n\n**Warning**: The URL becomes unusable 10 minutes after export completion. The time until the URL becomes unusable can be checked with `expiryTime`. Additionally, "
+        },
+        {
+          "info": {
+            "name": "List license packs of Soracom Cloud Camera Services",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.soracom.io/v1/sora_cam/license_packs",
+            "auth": {
+              "type": "apikey",
+              "key": "X-Soracom-API-Key",
+              "value": "{{X-Soracom-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Returns the list of license packs which you can use. Currently, this API is only available for Japan coverage."
+        },
+        {
+          "info": {
+            "name": "Update the license quantity of Soracom Cloud Camera Services",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.soracom.io/v1/sora_cam/license_packs/:license_pack_id/quantity",
+            "params": [
+              {
+                "name": "license_pack_id",
+                "value": "",
+                "type": "path",
+                "description": "ID of the license pack."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-Soracom-API-Key",
+              "value": "{{X-Soracom-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Updates the license quantity for the license pack identified by license_pack_id. This operation will cost you monthly fee based on number of licenses. Currently, this API is only available for Japan coverage."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Gadget",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List gadgets",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.soracom.io/v1/gadgets",
+            "params": [
+              {
+                "name": "product_id",
+                "value": "",
+                "type": "query",
+                "description": "Product ID of the target Gadget API compatible device for filtering the search.\n\n- `wimax`: Soracom Cloud Camera Services Cellular Pack.\n"
+              },
+              {
+                "name": "tag_name",
+                "value": "",
+                "type": "query",
+                "description": "Tag name for filtering the search. The search is always an exact match, regardless of the setting of `tag_value_match_mode`."
+              },
+              {
+                "name": "tag_value",
+                "value": "",
+                "type": "query",
+                "description": "Specifies a tag value to search for in a URL-encoded (percent-encoded) string. Required when `tag_name` has been specified."
+              },
+              {
+                "name": "tag_value_match_mode",
+                "value": "",
+                "type": "query",
+                "description": "Tag match mode.\n\n- `exact`: exact match.\n- `prefix`: prefix match.\n"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of Gadget API compatible devices data to retrieve."
+              },
+              {
+                "name": "last_evaluated_key",
+                "value": "",
+                "type": "query",
+                "description": "The ID (`{product_id}/{serial_number}`) of the last gadget retrieved on the previous page in URL encoding (percent encoding).\n\nBy specifying this parameter, you can continue to retrieve the list from the next Gadget API compatible device onward.\n\nThe value of the `last_evaluated_key` of `rel=next` returned in the `link` header when the API is called is expected to be specified in the next call, but any ID (`{productId}/{serialNumber}`) can be specified.\n"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-Soracom-API-Key",
+              "value": "{{X-Soracom-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Returns a list of gadgets that match certain criteria. If the total number of gadgets does not fit in one page, a URL for accessing the next page is returned in the `link` header of the response.\n"
+        },
+        {
+          "info": {
+            "name": "Get Gadget API compatible device",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.soracom.io/v1/gadgets/:product_id/:serial_number",
+            "params": [
+              {
+                "name": "product_id",
+                "value": "",
+                "type": "path",
+                "description": "Product ID of the target Gadget API compatible device.\n\n- `wimax`: Soracom Cloud Camera Services Cellular Pack.\n"
+              },
+              {
+                "name": "serial_number",
+                "value": "",
+                "type": "path",
+                "description": "Serial Number of the target Gadget API compatible device."
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-Soracom-API-Key",
+              "value": "{{X-Soracom-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Returns information about the specified Gadget API compatible device."
+        },
+        {
+          "info": {
+            "name": "Disables Termination of Gadget API compatible device",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.soracom.io/v1/gadgets/:product_id/:serial_number/disable_termination",
+            "params": [
+              {
+                "name": "product_id",
+                "value": "",
+                "type": "path",
+                "description": "Product ID of the target Gadget API compatible device.\n\n- `wimax`: Soracom Cloud Camera Services Cellular Pack.\n"
+              },
+              {
+                "name": "serial_number",
+                "value": "",
+                "type": "path",
+                "description": "Serial Number of the target Gadget API compatible device."
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-Soracom-API-Key",
+              "value": "{{X-Soracom-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Disables termination of specified Gadget API compatible device."
+        },
+        {
+          "info": {
+            "name": "Enables Termination of Gadget API compatible device",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.soracom.io/v1/gadgets/:product_id/:serial_number/enable_termination",
+            "params": [
+              {
+                "name": "product_id",
+                "value": "",
+                "type": "path",
+                "description": "Product ID of the target Gadget API compatible device.\n\n- `wimax`: Soracom Cloud Camera Services Cellular Pack.\n"
+              },
+              {
+                "name": "serial_number",
+                "value": "",
+                "type": "path",
+                "description": "Serial Number of the target Gadget API compatible device."
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-Soracom-API-Key",
+              "value": "{{X-Soracom-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Enables termination of specified Gadget API compatible device."
+        },
+        {
+          "info": {
+            "name": "Registers a Gadget API compatible device",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.soracom.io/v1/gadgets/:product_id/:serial_number/register",
+            "params": [
+              {
+                "name": "product_id",
+                "value": "",
+                "type": "path",
+                "description": "Product ID of the target Gadget API compatible device.\n\n- `wimax`: Soracom Cloud Camera Services Cellular Pack.\n"
+              },
+              {
+                "name": "serial_number",
+                "value": "",
+                "type": "path",
+                "description": "Serial Number of the target Gadget API compatible device."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-Soracom-API-Key",
+              "value": "{{X-Soracom-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Registers a Gadget API compatible device."
+        },
+        {
+          "info": {
+            "name": "Bulk Insert or Update Gadget API compatible device tags",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.soracom.io/v1/gadgets/:product_id/:serial_number/tags",
+            "params": [
+              {
+                "name": "product_id",
+                "value": "",
+                "type": "path",
+                "description": "Product ID of the target Gadget API compatible device.\n\n- `wimax`: Soracom Cloud Camera Services Cellular Pack.\n"
+              },
+              {
+                "name": "serial_number",
+                "value": "",
+                "type": "path",
+                "description": "Serial Number of the target Gadget API compatible device."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-Soracom-API-Key",
+              "value": "{{X-Soracom-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Inserts/updates tags for the specified Gadget API compatible device."
+        },
+        {
+          "info": {
+            "name": "Deletes tags from Gadget API compatible device",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.soracom.io/v1/gadgets/:product_id/:serial_number/tags/:tag_name",
+            "params": [
+              {
+                "name": "product_id",
+                "value": "",
+                "type": "path",
+                "description": "Product ID of the target Gadget API compatible device.\n\n- `wimax`: Soracom Cloud Camera Services Cellular Pack.\n"
+              },
+              {
+                "name": "serial_number",
+                "value": "",
+                "type": "path",
+                "description": "Serial Number of the target Gadget API compatible device."
+              },
+              {
+                "name": "tag_name",
+                "value": "",
+                "type": "path",
+                "description": "Tag name to be deleted. (This will be part of a URL path, so it needs to be percent-encoded. In JavaScript, specify the name after it has been encoded using encodeURIComponent().)"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-Soracom-API-Key",
+              "value": "{{X-Soracom-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Deletes a tag from the specified Gadget API compatible device."
+        },
+        {
+          "info": {
+            "name": "Terminates the specified Gadget API compatible device",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.soracom.io/v1/gadgets/:product_id/:serial_number/terminate",
+            "params": [
+              {
+                "name": "product_id",
+                "value": "",
+                "type": "path",
+                "description": "Product ID of the target Gadget API compatible device.\n\n- `wimax`: Soracom Cloud Camera Services Cellular Pack.\n"
+              },
+              {
+                "name": "serial_number",
+                "value": "",
+                "type": "path",
+                "description": "Serial Number of the target Gadget API compatible device."
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-Soracom-API-Key",
+              "value": "{{X-Soracom-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Terminates the specified Gadget API compatible device."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

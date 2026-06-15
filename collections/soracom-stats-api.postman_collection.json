@@ -1,0 +1,3209 @@
+{
+  "item": [
+    {
+      "id": "9c851fc9-2bce-44d2-aa30-a1d471dc1c50",
+      "name": "AuditLog",
+      "description": {
+        "content": "[Audit logs](/en/docs/api-audit-logs/)",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "a2e68036-93c5-45ad-8f25-062423c3856a",
+          "name": "Retrieve audit logs for Soracom API calls",
+          "request": {
+            "name": "Retrieve audit logs for Soracom API calls",
+            "description": {
+              "content": "Retrieve audit logs for Soracom API calls.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "audit_logs",
+                "api"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "api_kind",
+                  "value": "<string>",
+                  "description": "Filter item for audit log retrieval by API kind (e.g. `/v1/auth`)."
+                },
+                {
+                  "disabled": false,
+                  "key": "from_epoch_ms",
+                  "value": "<integer>",
+                  "description": "Start time for the log search range (unixtime milliseconds)."
+                },
+                {
+                  "disabled": false,
+                  "key": "to_epoch_ms",
+                  "value": "<integer>",
+                  "description": "End time for the log search range (unixtime milliseconds)."
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "<integer>",
+                  "description": "Maximum number of log entries to retrieve (value range is 1 to 1000)."
+                },
+                {
+                  "disabled": false,
+                  "key": "last_evaluated_key",
+                  "value": "<string>",
+                  "description": "The value of `requestedTimeEpochMs` in the last log entry retrieved in the previous page. By specifying this parameter, you can continue to retrieve the list from the next page onward."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-Soracom-API-Key"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "7df35639-8e1a-4189-94e1-b10317561e5c",
+              "name": "A list of Soracom API audit log entries.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "audit_logs",
+                    "api"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "api_kind",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "from_epoch_ms",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "to_epoch_ms",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "last_evaluated_key",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Soracom-API-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"apiKind\": \"/v1/bills\",\n    \"operatorId\": \"OPXXXXXXXXXX\",\n    \"remoteIpAddress\": \"xxx.xxx.xxx.xxx\",\n    \"requestPath\": \"/v1/bills\",\n    \"requestedTimeEpocMs\": 1234567890123,\n    \"statusCode\": 200,\n    \"userName\": \"SORACOMAPI\"\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "93aae4b4-a79d-4a44-8ceb-9ebf040d22e0",
+          "name": "Retrieve audit logs for Soracom Napter",
+          "request": {
+            "name": "Retrieve audit logs for Soracom Napter",
+            "description": {
+              "content": "Retrieve audit logs for Soracom Napter.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "audit_logs",
+                "napter"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "resource_type",
+                  "value": "<string>",
+                  "description": "Type of the target resource to query log entries."
+                },
+                {
+                  "disabled": false,
+                  "key": "resource_id",
+                  "value": "<string>",
+                  "description": "Identity of the target resource to query log entries."
+                },
+                {
+                  "disabled": false,
+                  "key": "from",
+                  "value": "<integer>",
+                  "description": "Start time for the log search range (unixtime milliseconds)."
+                },
+                {
+                  "disabled": false,
+                  "key": "to",
+                  "value": "<integer>",
+                  "description": "End time for the log search range (unixtime milliseconds)."
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "<integer>",
+                  "description": "Maximum number of log entries to retrieve (value range is 1 to 1000)."
+                },
+                {
+                  "disabled": false,
+                  "key": "last_evaluated_key",
+                  "value": "<string>",
+                  "description": "The value of `time` in the last log entry retrieved in the previous page. By specifying this parameter, you can continue to retrieve the list from the next page onward."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-Soracom-API-Key"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "97edf346-797f-47d2-98f6-eacbf1ba9c50",
+              "name": "A list of Napter audit log entries.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "audit_logs",
+                    "napter"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "resource_type",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "resource_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "from",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "to",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "last_evaluated_key",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Soracom-API-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"connectionId\": \"12345678-abcd-1234-abcd-123456789010\",\n    \"createdAt\": 1234567890123,\n    \"direction\": {\n      \"destinationIPAddress\": \"xxx.xxx.xxx.xxx\",\n      \"destinationPort\": 22,\n      \"sourceIPAddress\": \"xxx.xxx.xxx.xxx\",\n      \"sourcePort\": 51720\n    },\n    \"imsi\": \"123456789012345\",\n    \"operatorId\": \"OPXXXXXXXXXX\",\n    \"tls\": false,\n    \"type\": \"CLOSED\"\n  },\n  {\n    \"connectionId\": \"12345678-abcd-1234-abcd-123456789011\",\n    \"createdAt\": 1234567890123,\n    \"direction\": {\n      \"destinationIPAddress\": \"xxx.xxx.xxx.xxx\",\n      \"destinationPort\": 22,\n      \"sourceIPAddress\": \"xxx.xxx.xxx.xxx\",\n      \"sourcePort\": 51720\n    },\n    \"imsi\": \"234567890123456\",\n    \"operatorId\": \"OPXXXXXXXXXX\",\n    \"tls\": false,\n    \"type\": \"EXPIRED\"\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    },
+    {
+      "id": "6155dbdb-3a30-4036-8679-9cddda1c475b",
+      "name": "Diagnostic",
+      "description": {
+        "content": "[Diagnostic features](/en/guides/diagnostic/)",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "e99240f7-c6cf-449d-b520-2d5c54ca86da",
+          "name": "Send diagnostic request",
+          "request": {
+            "name": "Send diagnostic request",
+            "description": {
+              "content": "Send a diagnostic request.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "diagnostics"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-Soracom-API-Key"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"service\": \"<string>\",\n  \"resourceType\": \"<string>\",\n  \"resourceId\": \"<string>\",\n  \"from\": \"<long>\",\n  \"to\": \"<long>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "2c37a85d-3fd1-44ed-924f-c06b1a8af3f1",
+              "name": "Successfully accepted a diagnostic request.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "diagnostics"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Soracom-API-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"from\": 1655251200000,\n  \"resouceType\": \"sim\",\n  \"resourceId\": \"XXXXXXXXXXXXXXXXXXX\",\n  \"service\": \"Air\",\n  \"to\": 1655337600000\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"diagnosticId\": \"string\",\n  \"status\": \"done\",\n  \"service\": \"Air\",\n  \"resourceType\": \"sim\",\n  \"resourceId\": \"string\",\n  \"from\": 2055,\n  \"to\": 2049,\n  \"insights\": [\n    {\n      \"insightId\": \"string\",\n      \"message\": \"string\",\n      \"category\": \"sim\",\n      \"severity\": \"unknown\",\n      \"anomalyDetectedTimes\": [\n        \"string\",\n        \"string\"\n      ],\n      \"referenceUrls\": [\n        {\n          \"title\": \"string\",\n          \"url\": \"string\"\n        },\n        {\n          \"title\": \"string\",\n          \"url\": \"string\"\n        }\n      ]\n    },\n    {\n      \"insightId\": \"string\",\n      \"message\": \"string\",\n      \"category\": \"data\",\n      \"severity\": \"info\",\n      \"anomalyDetectedTimes\": [\n        \"string\",\n        \"string\"\n      ],\n      \"referenceUrls\": [\n        {\n          \"title\": \"string\",\n          \"url\": \"string\"\n        },\n        {\n          \"title\": \"string\",\n          \"url\": \"string\"\n        }\n      ]\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "5f58d57f-bee4-4543-8022-a0d8d536d8eb",
+              "name": "Bad definitions among diagnostic time range (from/to queries).",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "diagnostics"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Soracom-API-Key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"from\": 1655251200000,\n  \"resouceType\": \"sim\",\n  \"resourceId\": \"XXXXXXXXXXXXXXXXXXX\",\n  \"service\": \"Air\",\n  \"to\": 1655337600000\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "ea050d1b-f0ca-4b88-b360-ad407c4c1214",
+              "name": "The specified resource is not found.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "diagnostics"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Soracom-API-Key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"from\": 1655251200000,\n  \"resouceType\": \"sim\",\n  \"resourceId\": \"XXXXXXXXXXXXXXXXXXX\",\n  \"service\": \"Air\",\n  \"to\": 1655337600000\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "cc46375b-ec5c-4e2a-b242-dbec85b491d1",
+          "name": "Get diagnostic",
+          "request": {
+            "name": "Get diagnostic",
+            "description": {
+              "content": "Returns a diagnostic.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "diagnostics",
+                ":diagnostic_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "diagnostic_id",
+                  "description": "(Required) The identifier of diagnostic request."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-Soracom-API-Key"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "7a38115d-7149-40d3-aca5-cca8c79ab567",
+              "name": "OK.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "diagnostics",
+                    ":diagnostic_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "diagnostic_id",
+                      "description": "(Required) The identifier of diagnostic request."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Soracom-API-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"diagnosticId\": \"string\",\n  \"status\": \"diagnosing\",\n  \"service\": \"Air\",\n  \"resourceType\": \"sim\",\n  \"resourceId\": \"string\",\n  \"from\": 7298,\n  \"to\": 2348,\n  \"insights\": [\n    {\n      \"insightId\": \"string\",\n      \"message\": \"string\",\n      \"category\": \"sim\",\n      \"severity\": \"warning\",\n      \"anomalyDetectedTimes\": [\n        \"string\",\n        \"string\"\n      ],\n      \"referenceUrls\": [\n        {\n          \"title\": \"string\",\n          \"url\": \"string\"\n        },\n        {\n          \"title\": \"string\",\n          \"url\": \"string\"\n        }\n      ]\n    },\n    {\n      \"insightId\": \"string\",\n      \"message\": \"string\",\n      \"category\": \"data\",\n      \"severity\": \"error\",\n      \"anomalyDetectedTimes\": [\n        \"string\",\n        \"string\"\n      ],\n      \"referenceUrls\": [\n        {\n          \"title\": \"string\",\n          \"url\": \"string\"\n        },\n        {\n          \"title\": \"string\",\n          \"url\": \"string\"\n        }\n      ]\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "4c8f9cea-2b26-4cd6-88de-e242f33e950a",
+              "name": "The specified diagnostic_id is not found.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "diagnostics",
+                    ":diagnostic_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "diagnostic_id",
+                      "description": "(Required) The identifier of diagnostic request."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Soracom-API-Key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    },
+    {
+      "id": "8f3cec72-7c46-409d-8d00-bf4e2f60c179",
+      "name": "Log",
+      "description": {
+        "content": "Error logs",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "eaafef22-c920-4c00-aefa-a17abf7b610e",
+          "name": "Retrieve Error Logs",
+          "request": {
+            "name": "Retrieve Error Logs",
+            "description": {
+              "content": "Fetches error logs that meet specified criteria. If the error logs exceed one page, a URL to retrieve the next page under the same conditions is included in the `link` header of the response.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "logs"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "resource_type",
+                  "value": "<string>",
+                  "description": "The type of resource for which to retrieve error logs.\n\n- `Subscriber`: IoT SIM.\n- `Device`: Inventory device.\n- `LoraDevice`: LoRaWAN device.\n- `SigfoxDevice`: Sigfox device.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "resource_id",
+                  "value": "<string>",
+                  "description": "The ID of the resource for which to retrieve error logs. The ID to specify varies depending on the value of `resource_type`.\n\n| `resource_type` | ID to specify |\n|-|-|\n| `Subscriber` | The IMSI of the IoT SIM. The IMSI can be obtained from the [Sim:listSims API](#!/Sim/listSims). |\n| `Device` | The ID of the Inventory device. The ID can be obtained from the [Device:listDevices API](#!/Device/listDevices). |\n| `LoraDevice` | The ID of the LoRaWAN device. The ID can be obtained from the [LoraDevice:listLoraDevices API](#!/LoraDevice/listLoraDevices). |\n| `SigfoxDevice` | The ID of the Sigfox device. The ID can be obtained from the [SigfoxDevice:listSigfoxDevices API](#!/SigfoxDevice/listSigfoxDevices). |\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "service",
+                  "value": "<string>",
+                  "description": "The service name to filter error logs.\n\n- `Air`: SORACOM Air\n- `Beam`: SORACOM Beam\n- `Funk`: SORACOM Funk\n- `Funnel`: SORACOM Funnel\n- `Harvest`: SORACOM Harvest Data/Files\n- `Napter`: SORACOM Napter\n- `Orbit`: SORACOM Orbit\n- `Unified`: Unified Endpoint\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "from",
+                  "value": "<integer>",
+                  "description": "Start time of the period for which to retrieve error logs (UNIX time in milliseconds)."
+                },
+                {
+                  "disabled": false,
+                  "key": "to",
+                  "value": "<integer>",
+                  "description": "End time of the period for which to retrieve error logs (UNIX time in milliseconds)."
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "<integer>",
+                  "description": "The maximum number of error logs to retrieve."
+                },
+                {
+                  "disabled": false,
+                  "key": "last_evaluated_key",
+                  "value": "<string>",
+                  "description": "The value contained in the `x-soracom-next-key` header returned when fetching the previous page. Specify this to retrieve the next page. For more information, see [Retrieving Large Amounts of Data (Paging)](/en/docs/tools/api/paging/)."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-Soracom-API-Key"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "ce71a4b2-e56c-4175-832e-2a8c867904b0",
+              "name": "A list of error logs.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "logs"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "resource_type",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "resource_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "service",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "from",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "to",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "last_evaluated_key",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Soracom-API-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"body\": {},\n    \"logLevel\": \"debug\",\n    \"operatorId\": \"string\",\n    \"resourceId\": \"string\",\n    \"resourceType\": \"Subscriber\",\n    \"service\": \"Beam\",\n    \"time\": 7181\n  },\n  {\n    \"body\": {},\n    \"logLevel\": \"info\",\n    \"operatorId\": \"string\",\n    \"resourceId\": \"string\",\n    \"resourceType\": \"Device\",\n    \"service\": \"Napter\",\n    \"time\": 7471\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    },
+    {
+      "id": "2626b508-922c-4250-a067-3dc0aba353da",
+      "name": "Stats",
+      "description": {
+        "content": "[Data usage history](/en/docs/air/view-data-usage/) retrieval",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "df72eeca-6a9c-48c8-97a7-919a6b215356",
+          "name": "Get Air Usage Report of a Group.",
+          "request": {
+            "name": "Get Air Usage Report of a Group.",
+            "description": {
+              "content": "Retrieves the usage report aggregating all SIMs that belong to the specified Group.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "stats",
+                "air",
+                "groups",
+                ":group_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "from",
+                  "value": "<integer>",
+                  "description": "(Required) Specify the start month/day of the period to be aggregated in UNIX time in seconds."
+                },
+                {
+                  "disabled": false,
+                  "key": "to",
+                  "value": "<integer>",
+                  "description": "(Required) Specify the end month/day of the period to be aggregated in UNIX time in seconds."
+                },
+                {
+                  "disabled": false,
+                  "key": "period",
+                  "value": "<string>",
+                  "description": "(Required) Unit of aggregation.\n\n- `month`: Monthly.\n\n  The `from` and `to` should be UNIX time (in seconds) from 3 months before the current time to the current time. The actual period of interest is not the time specified by `from` and `to`.\n\n  | Item | Description |\n  |-|-|\n  | Actual start time | 00:00:00 on the first day of the month, including the specified UNIX time (in seconds). |\n  | Actual end time | 24:00:00 of the last day of the month containing the specified UNIX time (in seconds). |\n- `day`: Daily\n\n  The `from` and `to` should be UNIX time (in seconds) from 7 days before the current time to the current time. The actual period of interest is not the time specified by `from` and `to`.\n\n  | Item | Description |\n  |-|-|\n  | Actual start time | 00:00:00 of the day including the specified UNIX time (in seconds). |\n  | Actual end time | 24:00:00 of the day including the specified UNIX time (in seconds). |\n"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "group_id",
+                  "description": "(Required) Group ID"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-Soracom-API-Key"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "b009d2cd-1b78-480b-a48d-c08cc6ec8d76",
+              "name": "OK.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "stats",
+                    "air",
+                    "groups",
+                    ":group_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "from",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "to",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "period",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "group_id",
+                      "description": "(Required) Group ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Soracom-API-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"downloadByteSizeTotal\": 6272,\n    \"unixtime\": 1433,\n    \"uploadByteSizeTotal\": 1262\n  },\n  {\n    \"downloadByteSizeTotal\": 1171,\n    \"unixtime\": 1316,\n    \"uploadByteSizeTotal\": 8330\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "0508434a-03c5-4c97-a518-12a7700115b0",
+              "name": "Bad request.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "stats",
+                    "air",
+                    "groups",
+                    ":group_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "from",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "to",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "period",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "group_id",
+                      "description": "(Required) Group ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Soracom-API-Key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "e6f43ac1-d8fd-4d07-9673-9379c125a1c3",
+          "name": "Get Air Usage Report of an Operator.",
+          "request": {
+            "name": "Get Air Usage Report of an Operator.",
+            "description": {
+              "content": "Retrieves the usage report aggregating all SIMs that belong to the specified Operator.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "stats",
+                "air",
+                "operators",
+                ":operator_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "from",
+                  "value": "<integer>",
+                  "description": "(Required) Specify the start month/day of the period to be aggregated in UNIX time in seconds."
+                },
+                {
+                  "disabled": false,
+                  "key": "to",
+                  "value": "<integer>",
+                  "description": "(Required) Specify the end month/day of the period to be aggregated in UNIX time in seconds."
+                },
+                {
+                  "disabled": false,
+                  "key": "period",
+                  "value": "<string>",
+                  "description": "(Required) Unit of aggregation.\n\n- `month`: Monthly.\n\n  The `from` and `to` should be UNIX time (in seconds) from 3 months before the current time to the current time. The actual period of interest is not the time specified by `from` and `to`.\n\n  | Item | Description |\n  |-|-|\n  | Actual start time | 00:00:00 on the first day of the month, including the specified UNIX time (in seconds). |\n  | Actual end time | 24:00:00 of the last day of the month containing the specified UNIX time (in seconds). |\n- `day`: Daily\n\n  The `from` and `to` should be UNIX time (in seconds) from 7 days before the current time to the current time. The actual period of interest is not the time specified by `from` and `to`.\n\n  | Item | Description |\n  |-|-|\n  | Actual start time | 00:00:00 of the day including the specified UNIX time (in seconds). |\n  | Actual end time | 24:00:00 of the day including the specified UNIX time (in seconds). |\n"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "operator_id",
+                  "description": "(Required) Operator ID"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-Soracom-API-Key"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "6b31cfb5-83ed-4f50-974d-64176b53b754",
+              "name": "OK.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "stats",
+                    "air",
+                    "operators",
+                    ":operator_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "from",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "to",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "period",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "operator_id",
+                      "description": "(Required) Operator ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Soracom-API-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"downloadByteSizeTotal\": 6272,\n    \"unixtime\": 1433,\n    \"uploadByteSizeTotal\": 1262\n  },\n  {\n    \"downloadByteSizeTotal\": 1171,\n    \"unixtime\": 1316,\n    \"uploadByteSizeTotal\": 8330\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "e3c46aae-7cac-4867-b609-3d77059c0b38",
+              "name": "Bad request.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "stats",
+                    "air",
+                    "operators",
+                    ":operator_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "from",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "to",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "period",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "operator_id",
+                      "description": "(Required) Operator ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Soracom-API-Key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "7344e13f-49dd-4659-9b7e-f0289c34dcef",
+          "name": "Export Air Usage Report of All Subscribers",
+          "request": {
+            "name": "Export Air Usage Report of All Subscribers",
+            "description": {
+              "content": "Download the Air Data Traffic Actual Data CSV file that contains the usage report of all the IoT SIMs for the specified operator.\n\n**Warning**: If there is no data usage during the specified period, a CSV file with only a header row will be output.\n**Info**: You can also check the data usage of terminated IoT SIMs.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "stats",
+                "air",
+                "operators",
+                ":operator_id",
+                "export"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "export_mode",
+                  "value": "<string>",
+                  "description": "Specify how to obtain the URL to download the Air Data Usage Report CSV.\n\n- `async`: Get the `exportedFieldId` without waiting for the URL to be issued on the Soracom platform. Specify this `exportedFieldId` in [Files:getExportedFile API](#!/Files/getExportedFile) to get the URL. If the file size of the Air Data Usage Report CSV is huge, specify `async`.\n- `sync` (default): Wait for the URL to be issued on the Soracom platform. However, if the file size of the Air Data Usage Report CSV is huge, it may time out and the URL cannot be retrieved. If the timeout occurs, specify `async`.\n"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "operator_id",
+                  "description": "(Required) Operator ID. The operator ID can be obtained from the [Operator:getOperator API](#!/Operator/getOperator)."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-Soracom-API-Key"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"from\": \"<long>\",\n  \"period\": \"<string>\",\n  \"to\": \"<long>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "18854531-6c55-4449-9e20-eec573ab7155",
+              "name": "OK.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "stats",
+                    "air",
+                    "operators",
+                    ":operator_id",
+                    "export"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "export_mode",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "operator_id",
+                      "description": "(Required) Operator ID. The operator ID can be obtained from the [Operator:getOperator API](#!/Operator/getOperator)."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Soracom-API-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"from\": 1709218800,\n  \"period\": \"month\",\n  \"to\": 1714402800\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"exportedFileId\": \"fe_xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx\",\n  \"exportedFilePath\": \"//files/exported/fe_xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "912acf96-e26c-4f14-902e-43dae5cc05bd",
+          "name": "Get Air Usage Report of SIM.",
+          "request": {
+            "name": "Get Air Usage Report of SIM.",
+            "description": {
+              "content": "Retrieves the usage report for the SIM specified by the SIM ID.\n\n**Warning**: The data traffic of the terminated IoT SIM cannot be confirmed.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "stats",
+                "air",
+                "sims",
+                ":sim_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "from",
+                  "value": "<integer>",
+                  "description": "(Required) Specify the start month/day/minute of the period to be aggregated in UNIX time in seconds."
+                },
+                {
+                  "disabled": false,
+                  "key": "to",
+                  "value": "<integer>",
+                  "description": "(Required) Specify the end month/day/minute of the period to be aggregated in UNIX time in seconds."
+                },
+                {
+                  "disabled": false,
+                  "key": "period",
+                  "value": "<string>",
+                  "description": "(Required) Unit of aggregation.\n\n- `month`: Aggregate by month.\n\n  The `from` and `to` should be UNIX time (in seconds) from 18 months before the current time to the current time. The actual period of interest is not the time specified by `from` and `to`.\n\n  | Item | Description |\n  |-|-|\n  | Actual start time | 00:00:00 on the first day of the month, including the specified UNIX time (in seconds). |\n  | Actual end time | 24:00:00 of the last day of the month containing the specified UNIX time (in seconds). |\n- `day`: Aggregate by day.\n\n  The `from` and `to` should be UNIX time (in seconds) from 18 months before the current time to the current time. The actual period of interest is not the time specified by `from` and `to`.\n\n  | Item | Description |\n  |-|-|\n  | Actual start time | 00:00:00 of the day including the specified UNIX time (in seconds). |\n  | Actual end time | 24:00:00 of the day including the specified UNIX time (in seconds). |\n- `minutes`: Aggregate by approximately every 5 minutes.\n\n  The `from` and `to` must be between 32 days before the current time and the UNIX time (in seconds) of the current time. The actual period to be aggregated is not the time specified by `from` and `to`.\n\n  | Item | Description |\n  |-|-|\n  | Actual Start Time | Start time of approximately 5 minutes including the specified UNIX time (seconds). |\n  | Actual End Time | End time of approximately 5 minutes including the specified UNIX time (seconds). |\n"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "sim_id",
+                  "description": "(Required) SIM ID of the target SIM. The SIM ID can be obtained from the [Sim:listSims API](#!/Sim/listSims)."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-Soracom-API-Key"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "7d449f3b-e6c2-4fd5-8b71-bc35279aa951",
+              "name": "OK.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "stats",
+                    "air",
+                    "sims",
+                    ":sim_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "from",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "to",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "period",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "sim_id",
+                      "description": "(Required) SIM ID of the target SIM. The SIM ID can be obtained from the [Sim:listSims API](#!/Sim/listSims)."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Soracom-API-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"dataTrafficStatsMap\": {\n      \"key_0\": {\n        \"downloadByteSizeTotal\": 4043,\n        \"downloadPacketSizeTotal\": 5100,\n        \"uploadByteSizeTotal\": 798,\n        \"uploadPacketSizeTotal\": 3349\n      },\n      \"key_1\": {\n        \"downloadByteSizeTotal\": 3531,\n        \"downloadPacketSizeTotal\": 3935,\n        \"uploadByteSizeTotal\": 8246,\n        \"uploadPacketSizeTotal\": 6029\n      }\n    },\n    \"date\": \"string\",\n    \"unixtime\": 992\n  },\n  {\n    \"dataTrafficStatsMap\": {\n      \"key_0\": {\n        \"downloadByteSizeTotal\": 6709,\n        \"downloadPacketSizeTotal\": 5978,\n        \"uploadByteSizeTotal\": 2955,\n        \"uploadPacketSizeTotal\": 5866\n      }\n    },\n    \"date\": \"string\",\n    \"unixtime\": 5638\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "8b1046a8-6994-41d2-ac0b-d2d55cdc3cd6",
+          "name": "Get Air Usage Report of Subscriber.",
+          "request": {
+            "name": "Get Air Usage Report of Subscriber.",
+            "description": {
+              "content": "Retrieves the usage report for the subscriber specified by the IMSI.\n\n**Warning**: The data traffic of the terminated IoT SIM cannot be confirmed.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "stats",
+                "air",
+                "subscribers",
+                ":imsi"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "from",
+                  "value": "<integer>",
+                  "description": "(Required) Specify the start month/day/minute of the period to be aggregated in UNIX time in seconds."
+                },
+                {
+                  "disabled": false,
+                  "key": "to",
+                  "value": "<integer>",
+                  "description": "(Required) Specify the end month/day/minute of the period to be aggregated in UNIX time in seconds."
+                },
+                {
+                  "disabled": false,
+                  "key": "period",
+                  "value": "<string>",
+                  "description": "(Required) Unit of aggregation.\n\n- `month`: Aggregate by month.\n\n  The `from` and `to` should be UNIX time (in seconds) from 18 months before the current time to the current time. The actual period of interest is not the time specified by `from` and `to`.\n\n  | Item | Description |\n  |-|-|\n  | Actual start time | 00:00:00 on the first day of the month, including the specified UNIX time (in seconds). |\n  | Actual end time | 24:00:00 of the last day of the month containing the specified UNIX time (in seconds). |\n- `day`: Aggregate by day.\n\n  The `from` and `to` should be UNIX time (in seconds) from 18 months before the current time to the current time. The actual period of interest is not the time specified by `from` and `to`.\n\n  | Item | Description |\n  |-|-|\n  | Actual start time | 00:00:00 of the day including the specified UNIX time (in seconds). |\n  | Actual end time | 24:00:00 of the day including the specified UNIX time (in seconds). |\n- `minutes`: Aggregate by approximately every 5 minutes.\n\n  The `from` and `to` must be between 32 days before the current time and the UNIX time (in seconds) of the current time. The actual period to be aggregated is not the time specified by `from` and `to`.\n\n  | Item | Description |\n  |-|-|\n  | Actual Start Time | Start time of approximately 5 minutes including the specified UNIX time (seconds). |\n  | Actual End Time | End time of approximately 5 minutes including the specified UNIX time (seconds). |\n"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "imsi",
+                  "description": "(Required) The target IMSI. The IMSI can be obtained from the [Sim:listSims API](#!/Sim/listSims)."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-Soracom-API-Key"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "a6b897bf-44a3-467e-9145-5faf1bd10cae",
+              "name": "OK.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "stats",
+                    "air",
+                    "subscribers",
+                    ":imsi"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "from",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "to",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "period",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "imsi",
+                      "description": "(Required) The target IMSI. The IMSI can be obtained from the [Sim:listSims API](#!/Sim/listSims)."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Soracom-API-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"dataTrafficStatsMap\": {\n      \"key_0\": {\n        \"downloadByteSizeTotal\": 4043,\n        \"downloadPacketSizeTotal\": 5100,\n        \"uploadByteSizeTotal\": 798,\n        \"uploadPacketSizeTotal\": 3349\n      },\n      \"key_1\": {\n        \"downloadByteSizeTotal\": 3531,\n        \"downloadPacketSizeTotal\": 3935,\n        \"uploadByteSizeTotal\": 8246,\n        \"uploadPacketSizeTotal\": 6029\n      }\n    },\n    \"date\": \"string\",\n    \"unixtime\": 992\n  },\n  {\n    \"dataTrafficStatsMap\": {\n      \"key_0\": {\n        \"downloadByteSizeTotal\": 6709,\n        \"downloadPacketSizeTotal\": 5978,\n        \"uploadByteSizeTotal\": 2955,\n        \"uploadPacketSizeTotal\": 5866\n      }\n    },\n    \"date\": \"string\",\n    \"unixtime\": 5638\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "49b8bcc4-37bc-4272-97be-574476cf31cb",
+          "name": "Export Beam Usage Report of All Subscribers",
+          "request": {
+            "name": "Export Beam Usage Report of All Subscribers",
+            "description": {
+              "content": "Retrieves a file containing the Soracom Beam usage report of all subscribers for the specified operator. The report data range is specified with from, to in unixtime. The report contains monthly data. The file output destination is AWS S3. The file output format is CSV.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "stats",
+                "beam",
+                "operators",
+                ":operator_id",
+                "export"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "export_mode",
+                  "value": "<string>",
+                  "description": "export_mode (async, sync)"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "operator_id",
+                  "description": "(Required) Operator ID"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-Soracom-API-Key"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"from\": \"<long>\",\n  \"period\": \"<string>\",\n  \"to\": \"<long>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "9b85ef46-7ff0-47c4-bd4c-b0c038488ef2",
+              "name": "OK.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "stats",
+                    "beam",
+                    "operators",
+                    ":operator_id",
+                    "export"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "export_mode",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "operator_id",
+                      "description": "(Required) Operator ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Soracom-API-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"from\": 1709218800,\n  \"period\": \"<string>\",\n  \"to\": 1714402800\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"exportedFileId\": \"string\",\n  \"exportedFilePath\": \"string\",\n  \"url\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "7643a439-dc10-4e14-a58d-453a1c573348",
+          "name": "Get Beam Usage Report of Subscriber",
+          "request": {
+            "name": "Get Beam Usage Report of Subscriber",
+            "description": {
+              "content": "Retrieves the Soracom Beam usage report for the subscriber specified by the IMSI.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "stats",
+                "beam",
+                "subscribers",
+                ":imsi"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "from",
+                  "value": "<integer>",
+                  "description": "(Required) Specify the start month/day/minute of the period to be aggregated in UNIX time in seconds."
+                },
+                {
+                  "disabled": false,
+                  "key": "to",
+                  "value": "<integer>",
+                  "description": "(Required) Specify the end month/day/minute of the period to be aggregated in UNIX time in seconds."
+                },
+                {
+                  "disabled": false,
+                  "key": "period",
+                  "value": "<string>",
+                  "description": "(Required) Unit of aggregation.\n\n- `month`: Aggregate by month.\n\n  The `from` and `to` should be UNIX time (in seconds) from 18 months before the current time to the current time. The actual period of interest is not the time specified by `from` and `to`.\n\n  | Item | Description |\n  |-|-|\n  | Actual start time | 00:00:00 on the first day of the month, including the specified UNIX time (in seconds). |\n  | Actual end time | 24:00:00 of the last day of the month containing the specified UNIX time (in seconds). |\n- `day`: Aggregate by day.\n\n  The `from` and `to` should be UNIX time (in seconds) from 18 months before the current time to the current time. The actual period of interest is not the time specified by `from` and `to`.\n\n  | Item | Description |\n  |-|-|\n  | Actual start time | 00:00:00 of the day including the specified UNIX time (in seconds). |\n  | Actual end time | 24:00:00 of the day including the specified UNIX time (in seconds). |\n- `minutes`: Aggregate by approximately every 5 minutes.\n\n  The `from` and `to` must be between 32 days before the current time and the UNIX time (in seconds) of the current time. The actual period to be aggregated is not the time specified by `from` and `to`.\n\n  | Item | Description |\n  |-|-|\n  | Actual Start Time | Start time of approximately 5 minutes including the specified UNIX time (seconds). |\n  | Actual End Time | End time of approximately 5 minutes including the specified UNIX time (seconds). |\n"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "imsi",
+                  "description": "(Required) imsi"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-Soracom-API-Key"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "c25b2a46-eedd-4157-b56b-a7dffae6e88f",
+              "name": "OK.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "stats",
+                    "beam",
+                    "subscribers",
+                    ":imsi"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "from",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "to",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "period",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "imsi",
+                      "description": "(Required) imsi"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Soracom-API-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"beamStatsMap\": {\n      \"key_0\": {\n        \"count\": 5760\n      },\n      \"key_1\": {\n        \"count\": 4249\n      },\n      \"key_2\": {\n        \"count\": 4920\n      }\n    },\n    \"date\": \"string\",\n    \"unixtime\": 1688\n  },\n  {\n    \"beamStatsMap\": {\n      \"key_0\": {\n        \"count\": 3211\n      }\n    },\n    \"date\": \"string\",\n    \"unixtime\": 1776\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "f180529f-9b28-4e49-872f-9bb2f49f4102",
+          "name": "Export Funk Usage Report of All Subscribers",
+          "request": {
+            "name": "Export Funk Usage Report of All Subscribers",
+            "description": {
+              "content": "Retrieves a file containing the Soracom Funk usage report of all subscribers for the specified operator. The report data range is specified with from, to in unixtime. The report contains monthly data. The file output destination is AWS S3. The file output format is CSV.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "stats",
+                "funk",
+                "operators",
+                ":operator_id",
+                "export"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "export_mode",
+                  "value": "<string>",
+                  "description": "export_mode (async, sync)"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "operator_id",
+                  "description": "(Required) Operator ID"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-Soracom-API-Key"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"from\": \"<long>\",\n  \"period\": \"<string>\",\n  \"to\": \"<long>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "a6160964-85e1-4acb-a6dc-a63ab745076c",
+              "name": "OK.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "stats",
+                    "funk",
+                    "operators",
+                    ":operator_id",
+                    "export"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "export_mode",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "operator_id",
+                      "description": "(Required) Operator ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Soracom-API-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"from\": 1709218800,\n  \"period\": \"<string>\",\n  \"to\": 1714402800\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"exportedFileId\": \"string\",\n  \"exportedFilePath\": \"string\",\n  \"url\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "75ca2ff8-9baf-44f6-8ca6-da91a362cc63",
+          "name": "Get Funk Usage Report of Subscriber",
+          "request": {
+            "name": "Get Funk Usage Report of Subscriber",
+            "description": {
+              "content": "Retrieves the Soracom Funk usage report for the subscriber specified by the IMSI.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "stats",
+                "funk",
+                "subscribers",
+                ":imsi"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "from",
+                  "value": "<integer>",
+                  "description": "(Required) Specify the start month/day/minute of the period to be aggregated in UNIX time in seconds."
+                },
+                {
+                  "disabled": false,
+                  "key": "to",
+                  "value": "<integer>",
+                  "description": "(Required) Specify the end month/day/minute of the period to be aggregated in UNIX time in seconds."
+                },
+                {
+                  "disabled": false,
+                  "key": "period",
+                  "value": "<string>",
+                  "description": "(Required) Unit of aggregation.\n\n- `month`: Aggregate by month.\n\n  The `from` and `to` should be UNIX time (in seconds) from 18 months before the current time to the current time. The actual period of interest is not the time specified by `from` and `to`.\n\n  | Item | Description |\n  |-|-|\n  | Actual start time | 00:00:00 on the first day of the month, including the specified UNIX time (in seconds). |\n  | Actual end time | 24:00:00 of the last day of the month containing the specified UNIX time (in seconds). |\n- `day`: Aggregate by day.\n\n  The `from` and `to` should be UNIX time (in seconds) from 18 months before the current time to the current time. The actual period of interest is not the time specified by `from` and `to`.\n\n  | Item | Description |\n  |-|-|\n  | Actual start time | 00:00:00 of the day including the specified UNIX time (in seconds). |\n  | Actual end time | 24:00:00 of the day including the specified UNIX time (in seconds). |\n- `minutes`: Aggregate by approximately every 5 minutes.\n\n  The `from` and `to` must be between 32 days before the current time and the UNIX time (in seconds) of the current time. The actual period to be aggregated is not the time specified by `from` and `to`.\n\n  | Item | Description |\n  |-|-|\n  | Actual Start Time | Start time of approximately 5 minutes including the specified UNIX time (seconds). |\n  | Actual End Time | End time of approximately 5 minutes including the specified UNIX time (seconds). |\n"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "imsi",
+                  "description": "(Required) imsi"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-Soracom-API-Key"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "67ea015f-a10d-4c72-ae07-4d7aebea7363",
+              "name": "OK.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "stats",
+                    "funk",
+                    "subscribers",
+                    ":imsi"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "from",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "to",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "period",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "imsi",
+                      "description": "(Required) imsi"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Soracom-API-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"funkStatsMap\": {\n      \"key_0\": {\n        \"count\": 2300\n      }\n    },\n    \"unixtime\": 8649\n  },\n  {\n    \"funkStatsMap\": {\n      \"key_0\": {\n        \"count\": 7134\n      }\n    },\n    \"unixtime\": 7111\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "a13e0efc-edb9-4513-8640-adfd073d0698",
+          "name": "Export Funnel Usage Report of All Subscribers",
+          "request": {
+            "name": "Export Funnel Usage Report of All Subscribers",
+            "description": {
+              "content": "Retrieves a file containing the Soracom Funnel usage report of all subscribers for the specified operator. The report data range is specified with from, to in unixtime. The report contains monthly data. The file output destination is AWS S3. The file output format is CSV.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "stats",
+                "funnel",
+                "operators",
+                ":operator_id",
+                "export"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "export_mode",
+                  "value": "<string>",
+                  "description": "export_mode (async, sync)"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "operator_id",
+                  "description": "(Required) Operator ID"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-Soracom-API-Key"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"from\": \"<long>\",\n  \"period\": \"<string>\",\n  \"to\": \"<long>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "85cc624c-475e-4b03-adb5-c99b089d856c",
+              "name": "OK.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "stats",
+                    "funnel",
+                    "operators",
+                    ":operator_id",
+                    "export"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "export_mode",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "operator_id",
+                      "description": "(Required) Operator ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Soracom-API-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"from\": 1709218800,\n  \"period\": \"<string>\",\n  \"to\": 1714402800\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"exportedFileId\": \"string\",\n  \"exportedFilePath\": \"string\",\n  \"url\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "f0aa979c-bb11-4b64-bac4-1fd1eb078476",
+          "name": "Get Funnel Usage Report of Subscriber",
+          "request": {
+            "name": "Get Funnel Usage Report of Subscriber",
+            "description": {
+              "content": "Retrieves the Soracom Funnel usage report for the subscriber specified by the IMSI.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "stats",
+                "funnel",
+                "subscribers",
+                ":imsi"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "from",
+                  "value": "<integer>",
+                  "description": "(Required) Specify the start month/day/minute of the period to be aggregated in UNIX time in seconds."
+                },
+                {
+                  "disabled": false,
+                  "key": "to",
+                  "value": "<integer>",
+                  "description": "(Required) Specify the end month/day/minute of the period to be aggregated in UNIX time in seconds."
+                },
+                {
+                  "disabled": false,
+                  "key": "period",
+                  "value": "<string>",
+                  "description": "(Required) Unit of aggregation.\n\n- `month`: Aggregate by month.\n\n  The `from` and `to` should be UNIX time (in seconds) from 18 months before the current time to the current time. The actual period of interest is not the time specified by `from` and `to`.\n\n  | Item | Description |\n  |-|-|\n  | Actual start time | 00:00:00 on the first day of the month, including the specified UNIX time (in seconds). |\n  | Actual end time | 24:00:00 of the last day of the month containing the specified UNIX time (in seconds). |\n- `day`: Aggregate by day.\n\n  The `from` and `to` should be UNIX time (in seconds) from 18 months before the current time to the current time. The actual period of interest is not the time specified by `from` and `to`.\n\n  | Item | Description |\n  |-|-|\n  | Actual start time | 00:00:00 of the day including the specified UNIX time (in seconds). |\n  | Actual end time | 24:00:00 of the day including the specified UNIX time (in seconds). |\n- `minutes`: Aggregate by approximately every 5 minutes.\n\n  The `from` and `to` must be between 32 days before the current time and the UNIX time (in seconds) of the current time. The actual period to be aggregated is not the time specified by `from` and `to`.\n\n  | Item | Description |\n  |-|-|\n  | Actual Start Time | Start time of approximately 5 minutes including the specified UNIX time (seconds). |\n  | Actual End Time | End time of approximately 5 minutes including the specified UNIX time (seconds). |\n"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "imsi",
+                  "description": "(Required) imsi"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-Soracom-API-Key"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "9ed9e588-5bef-4336-833d-b0ae62b56af6",
+              "name": "OK.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "stats",
+                    "funnel",
+                    "subscribers",
+                    ":imsi"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "from",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "to",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "period",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "imsi",
+                      "description": "(Required) imsi"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Soracom-API-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"funnelStatsMap\": {\n      \"key_0\": {\n        \"count\": 6311\n      },\n      \"key_1\": {\n        \"count\": 8658\n      }\n    },\n    \"unixtime\": 9244\n  },\n  {\n    \"funnelStatsMap\": {\n      \"key_0\": {\n        \"count\": 6660\n      },\n      \"key_1\": {\n        \"count\": 4466\n      }\n    },\n    \"unixtime\": 1640\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "84140b7e-2d79-40e4-a334-b6084c6c470f",
+          "name": "Get 'Harvest usage report' for the specified operator.",
+          "request": {
+            "name": "Get 'Harvest usage report' for the specified operator.",
+            "description": {
+              "content": "Retrieves the Soracom Harvest usage report for the operator.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "stats",
+                "harvest",
+                "operators",
+                ":operator_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "year_month",
+                  "value": "<string>",
+                  "description": "Specify the year and month from 18 months before the current time to the current time in the YYYYMM format."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "operator_id",
+                  "description": "(Required) Operator ID"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-Soracom-API-Key"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "58e7cea4-193f-4dda-b697-de2b8b47f63f",
+              "name": "OK.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "stats",
+                    "harvest",
+                    "operators",
+                    ":operator_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "year_month",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "operator_id",
+                      "description": "(Required) Operator ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Soracom-API-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"exportedBytes\": 6215,\n  \"yearMonth\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "5c7e6c66-ff15-4cc5-9cf0-1aba1872b12c",
+          "name": "Export Harvest Data Write Counts Report of all IoT SIMs",
+          "request": {
+            "name": "Export Harvest Data Write Counts Report of all IoT SIMs",
+            "description": {
+              "content": "Download the Harvest Data Write Count Results Data CSV file that contains the usage report of all the IoT SIMs for the specified operator.\n\n**Info**: You can also check the Harvest Data write counts of the terminated IoT SIM.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "stats",
+                "harvest",
+                "operators",
+                ":operator_id",
+                "export"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "export_mode",
+                  "value": "<string>",
+                  "description": "Specify how to obtain the URL to download the Harvest Data Write Count Results Data CSV.\n\n- `async`: Get the `exportedFieldId` without waiting for the URL to be issued on the Soracom platform. Specify this `exportedFieldId` in [Files:getExportedFile API](#!/Files/getExportedFile) to get the URL for downloading. If the file size of the Harvest Data Write Count Results Data CSV is huge, specify `async`.\n- `sync` (default): Wait for the URL for downloading to be issued on the Soracom platform. However, if the file size of the Harvest Data Write Count Results Data CSV is huge, it may time out and the URL cannot be retrieved. If the timeout occurs, specify `async`.\n"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "operator_id",
+                  "description": "(Required) Operator ID."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-Soracom-API-Key"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"from\": \"<long>\",\n  \"period\": \"<string>\",\n  \"to\": \"<long>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "6ab2e15e-3f53-4cf4-b178-4b88822a0a61",
+              "name": "OK.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "stats",
+                    "harvest",
+                    "operators",
+                    ":operator_id",
+                    "export"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "export_mode",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "operator_id",
+                      "description": "(Required) Operator ID."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Soracom-API-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"from\": 1709218800,\n  \"period\": \"<string>\",\n  \"to\": 1714402800\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"exportedFileId\": \"string\",\n  \"exportedFilePath\": \"string\",\n  \"url\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "92793d6c-b9e8-4fa5-90e3-126f5f460cb8",
+          "name": "Get Harvest Usage Report of Subscriber",
+          "request": {
+            "name": "Get Harvest Usage Report of Subscriber",
+            "description": {
+              "content": "Retrieves the Soracom Harvest usage report for the subscriber specified by the IMSI.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "stats",
+                "harvest",
+                "subscribers",
+                ":imsi"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "from",
+                  "value": "<integer>",
+                  "description": "(Required) Specify the start month/day/minute of the period to be aggregated in UNIX time in seconds."
+                },
+                {
+                  "disabled": false,
+                  "key": "to",
+                  "value": "<integer>",
+                  "description": "(Required) Specify the end month/day/minute of the period to be aggregated in UNIX time in seconds."
+                },
+                {
+                  "disabled": false,
+                  "key": "period",
+                  "value": "<string>",
+                  "description": "(Required) Unit of aggregation.\n\n- `month`: Aggregate by month.\n\n  The `from` and `to` should be UNIX time (in seconds) from 18 months before the current time to the current time. The actual period of interest is not the time specified by `from` and `to`.\n\n  | Item | Description |\n  |-|-|\n  | Actual start time | 00:00:00 on the first day of the month, including the specified UNIX time (in seconds). |\n  | Actual end time | 24:00:00 of the last day of the month containing the specified UNIX time (in seconds). |\n- `day`: Aggregate by day.\n\n  The `from` and `to` should be UNIX time (in seconds) from 18 months before the current time to the current time. The actual period of interest is not the time specified by `from` and `to`.\n\n  | Item | Description |\n  |-|-|\n  | Actual start time | 00:00:00 of the day including the specified UNIX time (in seconds). |\n  | Actual end time | 24:00:00 of the day including the specified UNIX time (in seconds). |\n- `minutes`: Aggregate by approximately every 5 minutes.\n\n  The `from` and `to` must be between 32 days before the current time and the UNIX time (in seconds) of the current time. The actual period to be aggregated is not the time specified by `from` and `to`.\n\n  | Item | Description |\n  |-|-|\n  | Actual Start Time | Start time of approximately 5 minutes including the specified UNIX time (seconds). |\n  | Actual End Time | End time of approximately 5 minutes including the specified UNIX time (seconds). |\n"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "imsi",
+                  "description": "(Required) imsi"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-Soracom-API-Key"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "475f873d-5a0b-47e8-a682-52a64377111d",
+              "name": "OK.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "stats",
+                    "harvest",
+                    "subscribers",
+                    ":imsi"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "from",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "to",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "period",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "imsi",
+                      "description": "(Required) imsi"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Soracom-API-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"harvestStatsMap\": {\n      \"key_0\": {\n        \"count\": 3798\n      },\n      \"key_1\": {\n        \"count\": 37\n      },\n      \"key_2\": {\n        \"count\": 6132\n      }\n    },\n    \"unixtime\": 5827\n  },\n  {\n    \"harvestStatsMap\": {\n      \"key_0\": {\n        \"count\": 3767\n      },\n      \"key_1\": {\n        \"count\": 2956\n      },\n      \"key_2\": {\n        \"count\": 9141\n      }\n    },\n    \"unixtime\": 7201\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "8c8b5553-e87e-4b7b-bbfb-a9a26d402d2a",
+          "name": "Get Napter audit logs' monthly exported data stats.",
+          "request": {
+            "name": "Get Napter audit logs' monthly exported data stats.",
+            "description": {
+              "content": "Get Napter audit logs' monthly exported data stats.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "stats",
+                "napter",
+                "audit_logs"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "year_month",
+                  "value": "<string>",
+                  "description": "Specify the year and month from 18 months before the current time to the current time in the YYYYMM format."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-Soracom-API-Key"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "106f84f2-bd87-4b93-998b-bc701af6afa2",
+              "name": "OK.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "stats",
+                    "napter",
+                    "audit_logs"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "year_month",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Soracom-API-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"exportedBytes\": 6215,\n  \"yearMonth\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.soracom.io/v1",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "09983ef0-512e-4bfb-a1ee-f58a8a5ac866",
+    "name": "Soracom Stats and Diagnostics API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Air data usage statistics, audit logs, error logs, and diagnostic features.",
+      "type": "text/plain"
+    }
+  }
+}

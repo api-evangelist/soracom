@@ -1,0 +1,400 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Soracom Air for Sigfox API",
+    "version": "20250903-043502"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "SigfoxDevice",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Sigfox devices.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.soracom.io/v1/sigfox_devices",
+            "params": [
+              {
+                "name": "tag_name",
+                "value": "",
+                "type": "query",
+                "description": "Tag name for filtering the search (exact match)."
+              },
+              {
+                "name": "tag_value",
+                "value": "",
+                "type": "query",
+                "description": "Tag search string for filtering the search. Required when `tag_name` has been specified."
+              },
+              {
+                "name": "tag_value_match_mode",
+                "value": "",
+                "type": "query",
+                "description": "Tag match mode."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of Sigfox devices to retrieve."
+              },
+              {
+                "name": "last_evaluated_key",
+                "value": "",
+                "type": "query",
+                "description": "The device ID of the last Sigfox device retrieved on the previous page. By specifying this parameter, you can continue to retrieve the list from the next Sigfox device onward."
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-Soracom-API-Key",
+              "value": "{{X-Soracom-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Returns a list of Sigfox devices that match certain criteria. If the total number of Sigfox devices does not fit in one page, a URL for accessing the next page is returned in the `link` header of the response.\n"
+        },
+        {
+          "info": {
+            "name": "Get Sigfox device.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.soracom.io/v1/sigfox_devices/:device_id",
+            "params": [
+              {
+                "name": "device_id",
+                "value": "",
+                "type": "path",
+                "description": "Device ID of the target Sigfox device."
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-Soracom-API-Key",
+              "value": "{{X-Soracom-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Returns information about the specified Sigfox device."
+        },
+        {
+          "info": {
+            "name": "Retrieves data sent from a Sigfox device to Harvest Data",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.soracom.io/v1/sigfox_devices/:device_id/data",
+            "params": [
+              {
+                "name": "device_id",
+                "value": "",
+                "type": "path",
+                "description": "ID of the Sigfox device from which to retrieve data. The ID of a Sigfox device can be obtained using the [SigfoxDevice:listSigfoxDevices API](#!/SigfoxDevice/listSigfoxDevices)."
+              },
+              {
+                "name": "from",
+                "value": "",
+                "type": "query",
+                "description": "Start time of the target period (UNIX time in milliseconds)."
+              },
+              {
+                "name": "to",
+                "value": "",
+                "type": "query",
+                "description": "End time of the target period (UNIX time in milliseconds)."
+              },
+              {
+                "name": "sort",
+                "value": "",
+                "type": "query",
+                "description": "Sort order of data entries. Either descending order (latest data entry first) or ascending order (oldest data entry first)."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of data entries to retrieve (1 to 1000). The default is `10`."
+              },
+              {
+                "name": "last_evaluated_key",
+                "value": "",
+                "type": "query",
+                "description": "Timestamp of the last data entry retrieved on the previous page. By specifying this parameter, the list starting from the next data entry can be obtained."
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-Soracom-API-Key",
+              "value": "{{X-Soracom-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Retrieves data that matches the specified conditions from the data sent by the specified Sigfox device to Harvest Data. If the data entries do not fit in one page, a URL to retrieve the next page with the same conditions will be included in the `link` header of the response.\n"
+        },
+        {
+          "info": {
+            "name": "Send data to a Sigfox device.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.soracom.io/v1/sigfox_devices/:device_id/data",
+            "params": [
+              {
+                "name": "device_id",
+                "value": "",
+                "type": "path",
+                "description": "ID of the recipient device."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-Soracom-API-Key",
+              "value": "{{X-Soracom-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Sends data to the specified Sigfox device. The data will be stored until the device sends a next uplink message. If another message destined for the same Sigfox device ID is already waiting to be sent, the existing message will be discarded, and the new message will be sent instead."
+        },
+        {
+          "info": {
+            "name": "Disable Termination of Sigfox device.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.soracom.io/v1/sigfox_devices/:device_id/disable_termination",
+            "params": [
+              {
+                "name": "device_id",
+                "value": "",
+                "type": "path",
+                "description": "Device ID of the target Sigfox device."
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-Soracom-API-Key",
+              "value": "{{X-Soracom-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Disables termination of specified Sigfox device."
+        },
+        {
+          "info": {
+            "name": "Enable Termination of Sigfox device.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.soracom.io/v1/sigfox_devices/:device_id/enable_termination",
+            "params": [
+              {
+                "name": "device_id",
+                "value": "",
+                "type": "path",
+                "description": "Device ID of the target Sigfox device."
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-Soracom-API-Key",
+              "value": "{{X-Soracom-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Enables termination of specified Sigfox device."
+        },
+        {
+          "info": {
+            "name": "Registers a Sigfox device.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.soracom.io/v1/sigfox_devices/:device_id/register",
+            "params": [
+              {
+                "name": "device_id",
+                "value": "",
+                "type": "path",
+                "description": "Device ID of the target Sigfox device to register."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-Soracom-API-Key",
+              "value": "{{X-Soracom-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Registers a Sigfox device."
+        },
+        {
+          "info": {
+            "name": "Adds a Sigfox device to a Sigfox group",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.soracom.io/v1/sigfox_devices/:device_id/set_group",
+            "params": [
+              {
+                "name": "device_id",
+                "value": "",
+                "type": "path",
+                "description": "ID of the target Sigfox device. The ID of a Sigfox device can be obtained using the [SigfoxDevice:listSigfoxDevices API](#!/SigfoxDevice/listSigfoxDevices)."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-Soracom-API-Key",
+              "value": "{{X-Soracom-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Adds a Sigfox device to a Sigfox group."
+        },
+        {
+          "info": {
+            "name": "Bulk Insert or Update Sigfox device Tags.",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.soracom.io/v1/sigfox_devices/:device_id/tags",
+            "params": [
+              {
+                "name": "device_id",
+                "value": "",
+                "type": "path",
+                "description": "Device ID of the target Sigfox device."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-Soracom-API-Key",
+              "value": "{{X-Soracom-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Inserts/updates tags for the specified Sigfox device."
+        },
+        {
+          "info": {
+            "name": "Delete Sigfox device Tag.",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.soracom.io/v1/sigfox_devices/:device_id/tags/:tag_name",
+            "params": [
+              {
+                "name": "device_id",
+                "value": "",
+                "type": "path",
+                "description": "Device ID of the target Sigfox device."
+              },
+              {
+                "name": "tag_name",
+                "value": "",
+                "type": "path",
+                "description": "Tag name to be deleted. (This will be part of a URL path, so it needs to be percent-encoded. In JavaScript, specify the name after it has been encoded using encodeURIComponent().)"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-Soracom-API-Key",
+              "value": "{{X-Soracom-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Deletes a tag from the specified Sigfox device."
+        },
+        {
+          "info": {
+            "name": "Terminate Sigfox device.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.soracom.io/v1/sigfox_devices/:device_id/terminate",
+            "params": [
+              {
+                "name": "device_id",
+                "value": "",
+                "type": "path",
+                "description": "Device ID of the target Sigfox device."
+              },
+              {
+                "name": "delete_immediately",
+                "value": "",
+                "type": "query",
+                "description": "If the Sigfox device is deleted immediately."
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-Soracom-API-Key",
+              "value": "{{X-Soracom-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Terminates the specified Sigfox device."
+        },
+        {
+          "info": {
+            "name": "Removes a Sigfox device from a Sigfox group",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.soracom.io/v1/sigfox_devices/:device_id/unset_group",
+            "params": [
+              {
+                "name": "device_id",
+                "value": "",
+                "type": "path",
+                "description": "ID of the target Sigfox device. The ID of a Sigfox device can be obtained using the [SigfoxDevice:listSigfoxDevices API](#!/SigfoxDevice/listSigfoxDevices)."
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-Soracom-API-Key",
+              "value": "{{X-Soracom-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Removes a Sigfox device from a Sigfox group."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,1732 @@
+{
+  "item": [
+    {
+      "id": "89aca161-2016-4cac-9562-46ea855bfb19",
+      "name": "Batch",
+      "description": {
+        "content": "Batch processing",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "f537febf-1af2-4ae6-8bb6-00de1c594546",
+          "name": "List batch groups.",
+          "request": {
+            "name": "List batch groups.",
+            "description": {
+              "content": "Returns a list of batch groups.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "batch_groups"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "<integer>",
+                  "description": "Maximum number of batch groups to retrieve. The number of batch groups returned may be less than the specified value."
+                },
+                {
+                  "disabled": false,
+                  "key": "last_evaluated_key",
+                  "value": "<string>",
+                  "description": "The value of the `x-soracom-next-key` header returned in the response to the last request. Specify this to retrieve the next page of batch groups."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-Soracom-API-Key"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "21e680a1-c033-4da1-9d25-2436ff2b5bde",
+              "name": "A list of batch groups was retrieved successfully.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "batch_groups"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "10"
+                    },
+                    {
+                      "key": "last_evaluated_key",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Soracom-API-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"batchGroupId\": \"aaaa1111\",\n    \"batchGroupName\": \"Monthly SIM Tag Update\",\n    \"createdTime\": 1704067200,\n    \"description\": \"string\",\n    \"updatedTime\": 1704153600\n  },\n  {\n    \"batchGroupId\": \"aaaa1111\",\n    \"batchGroupName\": \"Monthly SIM Tag Update\",\n    \"createdTime\": 1704067200,\n    \"description\": \"string\",\n    \"updatedTime\": 1704153600\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "1ea57d7c-3c1e-4905-a0bb-b1406828b98c",
+          "name": "Create batch group.",
+          "request": {
+            "name": "Create batch group.",
+            "description": {
+              "content": "Create a new batch group for organizing and managing batch jobs. To create a batch job, use the [Batch:createBatchJob](#/Batch/createBatchJob) instead.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "batch_groups"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-Soracom-API-Key"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"batchGroupName\": \"<string>\",\n  \"description\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "8d3ebf09-1e9b-40c2-a1b9-01be962dacd0",
+              "name": "The batch group has been created.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "batch_groups"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Soracom-API-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"batchGroupName\": \"Monthly SIM Tag Update\",\n  \"description\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"batchGroupId\": \"aaaa1111\",\n  \"batchGroupName\": \"Monthly SIM Tag Update\",\n  \"createdTime\": 1704067200,\n  \"description\": \"string\",\n  \"updatedTime\": 1704153600\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "d44e0c37-b06d-4945-8e07-ca2570a8598a",
+          "name": "Delete batch group.",
+          "request": {
+            "name": "Delete batch group.",
+            "description": {
+              "content": "Delete the specified batch group. Batch groups can only be deleted if there are no running batch jobs in the group.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "batch_groups",
+                ":batch_group_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "batch_group_id",
+                  "description": "(Required) Batch group ID."
+                }
+              ]
+            },
+            "method": "DELETE",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-Soracom-API-Key"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "2bd1fe26-9e77-46df-9ec9-8d0d04a234b3",
+              "name": "The batch group has been deleted.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "batch_groups",
+                    ":batch_group_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "batch_group_id",
+                      "description": "(Required) Batch group ID."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Soracom-API-Key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "7bb34417-e463-4c24-885b-c3ebf73094ad",
+              "name": "The batch group cannot be deleted because there are running batch jobs.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "batch_groups",
+                    ":batch_group_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "batch_group_id",
+                      "description": "(Required) Batch group ID."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Soracom-API-Key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "52d3cbbf-36d2-4d12-8306-9183afb2085c",
+              "name": "Batch group not found.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "batch_groups",
+                    ":batch_group_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "batch_group_id",
+                      "description": "(Required) Batch group ID."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Soracom-API-Key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "bb246f04-86aa-4fe0-9a7c-4b6c5c4b1301",
+          "name": "Get batch group.",
+          "request": {
+            "name": "Get batch group.",
+            "description": {
+              "content": "Returns details of the specified batch group.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "batch_groups",
+                ":batch_group_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "batch_group_id",
+                  "description": "(Required) Batch group ID."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-Soracom-API-Key"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "ef497ef7-292a-4f77-bc8d-0cb86e51f402",
+              "name": "The batch group was found.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "batch_groups",
+                    ":batch_group_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "batch_group_id",
+                      "description": "(Required) Batch group ID."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Soracom-API-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"batchGroupId\": \"aaaa1111\",\n  \"batchGroupName\": \"Monthly SIM Tag Update\",\n  \"createdTime\": 1704067200,\n  \"description\": \"string\",\n  \"updatedTime\": 1704153600\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "28cd81fd-c6e9-4851-af23-b0b0fcd43643",
+              "name": "Batch group not found.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "batch_groups",
+                    ":batch_group_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "batch_group_id",
+                      "description": "(Required) Batch group ID."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Soracom-API-Key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "b072ebdf-41e3-43f3-9560-3229c5eea53c",
+          "name": "Update batch group.",
+          "request": {
+            "name": "Update batch group.",
+            "description": {
+              "content": "Updates the name or description of the specified batch group.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "batch_groups",
+                ":batch_group_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "batch_group_id",
+                  "description": "(Required) Batch group ID."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-Soracom-API-Key"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"batchGroupName\": \"<string>\",\n  \"description\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "c16cfb81-cc6c-41df-a32a-710ecf9ef8df",
+              "name": "The batch group was updated.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "batch_groups",
+                    ":batch_group_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "batch_group_id",
+                      "description": "(Required) Batch group ID."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Soracom-API-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"batchGroupName\": \"<string>\",\n  \"description\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"batchGroupId\": \"aaaa1111\",\n  \"batchGroupName\": \"Monthly SIM Tag Update\",\n  \"createdTime\": 1704067200,\n  \"description\": \"string\",\n  \"updatedTime\": 1704153600\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "a9f772b7-e407-4701-bfc7-56f8aa7d06df",
+              "name": "Batch group not found.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "batch_groups",
+                    ":batch_group_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "batch_group_id",
+                      "description": "(Required) Batch group ID."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Soracom-API-Key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"batchGroupName\": \"<string>\",\n  \"description\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "80942390-99f7-4b6d-83d0-e8d591305898",
+          "name": "List batch jobs.",
+          "request": {
+            "name": "List batch jobs.",
+            "description": {
+              "content": "Returns a list of batch jobs in the specified batch group.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "batch_groups",
+                ":batch_group_id",
+                "jobs"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "<integer>",
+                  "description": "Maximum number of batch jobs to retrieve. The number of batch jobs returned may be less than the specified value."
+                },
+                {
+                  "disabled": false,
+                  "key": "last_evaluated_key",
+                  "value": "<string>",
+                  "description": "The value of the `x-soracom-next-key` header returned in the response to the last request. Specify this to retrieve the next page of batch jobs."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "batch_group_id",
+                  "description": "(Required) Batch group ID."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-Soracom-API-Key"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "afa46f3e-3732-4f8f-a6da-cde0ebc1c145",
+              "name": "A list of batch jobs was retrieved successfully.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "batch_groups",
+                    ":batch_group_id",
+                    "jobs"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "10"
+                    },
+                    {
+                      "key": "last_evaluated_key",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "batch_group_id",
+                      "description": "(Required) Batch group ID."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Soracom-API-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"abortOnFailure\": true,\n    \"batchGroupId\": \"aaaa1111\",\n    \"createdTime\": 1704067200,\n    \"description\": \"string\",\n    \"errorMessage\": \"string\",\n    \"finishedTime\": 1704240000,\n    \"jobId\": \"bbbb2222\",\n    \"jobName\": \"July 16th 2025 Set group\",\n    \"status\": \"failed\",\n    \"summary\": {\n      \"error\": 0,\n      \"pending\": 5,\n      \"success\": 95\n    },\n    \"updatedTime\": 1704153600\n  },\n  {\n    \"abortOnFailure\": false,\n    \"batchGroupId\": \"aaaa1111\",\n    \"createdTime\": 1704067200,\n    \"description\": \"string\",\n    \"errorMessage\": \"string\",\n    \"finishedTime\": 1704240000,\n    \"jobId\": \"bbbb2222\",\n    \"jobName\": \"July 16th 2025 Set group\",\n    \"status\": \"aborted\",\n    \"summary\": {\n      \"error\": 0,\n      \"pending\": 5,\n      \"success\": 95\n    },\n    \"updatedTime\": 1704153600\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "5eb49d3b-dc1c-4b26-a043-33ee96a0ce36",
+              "name": "Batch group not found.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "batch_groups",
+                    ":batch_group_id",
+                    "jobs"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "10"
+                    },
+                    {
+                      "key": "last_evaluated_key",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "batch_group_id",
+                      "description": "(Required) Batch group ID."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Soracom-API-Key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "dc7db486-5e48-4cd0-b0c2-fba263600d01",
+          "name": "Create and run batch job.",
+          "request": {
+            "name": "Create and run batch job.",
+            "description": {
+              "content": "Create a new batch job and run it. A batch job consists of multiple tasks, each representing an API operation to be performed. Tasks are executed using the permissions of the user that created the batch job API. Batch job information is retained for 32 days.\n\n**System Limits:**\n\n- Each batch job is limited to a single API action. Mixing different APIs in the same job is not supported.\n- Each batch job is limited to a maximum of 10,000 tasks.\n- Only one batch job per API action can be created and processed at a time.\n- Batch jobs may be delayed or restricted if system load is high. If this occurs, please wait and try again later.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "batch_groups",
+                ":batch_group_id",
+                "jobs"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "batch_group_id",
+                  "description": "(Required) Batch group ID."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-Soracom-API-Key"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"tasks\": [\n    {\n      \"request\": {\n        \"path\": \"<string>\",\n        \"method\": \"<string>\",\n        \"body\": \"<object>\"\n      }\n    },\n    {\n      \"request\": {\n        \"path\": \"<string>\",\n        \"method\": \"<string>\",\n        \"body\": \"<object>\"\n      }\n    }\n  ],\n  \"abortOnFailure\": \"<boolean>\",\n  \"description\": \"<string>\",\n  \"jobName\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "e751e561-75e8-4681-84d1-8794c6d93403",
+              "name": "The batch job has been created and execution has started.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "batch_groups",
+                    ":batch_group_id",
+                    "jobs"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "batch_group_id",
+                      "description": "(Required) Batch group ID."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Soracom-API-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"tasks\": [\n    {\n      \"request\": {\n        \"path\": \"/v1/sims/8981100001234567890/set_group\",\n        \"method\": \"POST\",\n        \"body\": {\n          \"groupId\": \"11111111-2222-3333-4444-555555555555\"\n        }\n      }\n    },\n    {\n      \"request\": {\n        \"path\": \"/v1/sims/8981100001234567890/set_group\",\n        \"method\": \"POST\",\n        \"body\": {\n          \"groupId\": \"11111111-2222-3333-4444-555555555555\"\n        }\n      }\n    }\n  ],\n  \"abortOnFailure\": false,\n  \"description\": \"<string>\",\n  \"jobName\": \"July 16th 2025 Set group\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"abortOnFailure\": true,\n  \"batchGroupId\": \"aaaa1111\",\n  \"createdTime\": 1704067200,\n  \"description\": \"string\",\n  \"errorMessage\": \"string\",\n  \"finishedTime\": 1704240000,\n  \"jobId\": \"bbbb2222\",\n  \"jobName\": \"July 16th 2025 Set group\",\n  \"status\": \"aborted\",\n  \"summary\": {\n    \"error\": 0,\n    \"pending\": 5,\n    \"success\": 95\n  },\n  \"updatedTime\": 1704153600\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "6862126f-1fb1-4591-bf9c-6e560bfab9ba",
+              "name": "Bad request. This error can occur in the following cases:\n- Attempting to mix different APIs in a single batch job\n- Already running a batch job with the same API for this operator\n",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "batch_groups",
+                    ":batch_group_id",
+                    "jobs"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "batch_group_id",
+                      "description": "(Required) Batch group ID."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Soracom-API-Key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"tasks\": [\n    {\n      \"request\": {\n        \"path\": \"/v1/sims/8981100001234567890/set_group\",\n        \"method\": \"POST\",\n        \"body\": {\n          \"groupId\": \"11111111-2222-3333-4444-555555555555\"\n        }\n      }\n    },\n    {\n      \"request\": {\n        \"path\": \"/v1/sims/8981100001234567890/set_group\",\n        \"method\": \"POST\",\n        \"body\": {\n          \"groupId\": \"11111111-2222-3333-4444-555555555555\"\n        }\n      }\n    }\n  ],\n  \"abortOnFailure\": false,\n  \"description\": \"<string>\",\n  \"jobName\": \"July 16th 2025 Set group\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "cc84a253-c8c9-410b-8e4b-cfa731e68e63",
+              "name": "Batch group not found.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "batch_groups",
+                    ":batch_group_id",
+                    "jobs"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "batch_group_id",
+                      "description": "(Required) Batch group ID."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Soracom-API-Key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"tasks\": [\n    {\n      \"request\": {\n        \"path\": \"/v1/sims/8981100001234567890/set_group\",\n        \"method\": \"POST\",\n        \"body\": {\n          \"groupId\": \"11111111-2222-3333-4444-555555555555\"\n        }\n      }\n    },\n    {\n      \"request\": {\n        \"path\": \"/v1/sims/8981100001234567890/set_group\",\n        \"method\": \"POST\",\n        \"body\": {\n          \"groupId\": \"11111111-2222-3333-4444-555555555555\"\n        }\n      }\n    }\n  ],\n  \"abortOnFailure\": false,\n  \"description\": \"<string>\",\n  \"jobName\": \"July 16th 2025 Set group\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "d15f65fd-0b64-4460-85fa-2c1d41ef42fe",
+              "name": "Batch job execution is restricted due to high system load.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "batch_groups",
+                    ":batch_group_id",
+                    "jobs"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "batch_group_id",
+                      "description": "(Required) Batch group ID."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Soracom-API-Key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"tasks\": [\n    {\n      \"request\": {\n        \"path\": \"/v1/sims/8981100001234567890/set_group\",\n        \"method\": \"POST\",\n        \"body\": {\n          \"groupId\": \"11111111-2222-3333-4444-555555555555\"\n        }\n      }\n    },\n    {\n      \"request\": {\n        \"path\": \"/v1/sims/8981100001234567890/set_group\",\n        \"method\": \"POST\",\n        \"body\": {\n          \"groupId\": \"11111111-2222-3333-4444-555555555555\"\n        }\n      }\n    }\n  ],\n  \"abortOnFailure\": false,\n  \"description\": \"<string>\",\n  \"jobName\": \"July 16th 2025 Set group\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "5d65cea1-b567-40ec-894a-69f4c89a5222",
+          "name": "Get batch job.",
+          "request": {
+            "name": "Get batch job.",
+            "description": {
+              "content": "Returns information about the specified batch job.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "batch_groups",
+                ":batch_group_id",
+                "jobs",
+                ":job_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "batch_group_id",
+                  "description": "(Required) Batch group ID."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "job_id",
+                  "description": "(Required) Batch job ID."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-Soracom-API-Key"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "8f530bf1-6c9b-444f-917f-4b12f09bb930",
+              "name": "The batch job was found.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "batch_groups",
+                    ":batch_group_id",
+                    "jobs",
+                    ":job_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "batch_group_id",
+                      "description": "(Required) Batch group ID."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "job_id",
+                      "description": "(Required) Batch job ID."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Soracom-API-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"abortOnFailure\": true,\n  \"batchGroupId\": \"aaaa1111\",\n  \"createdTime\": 1704067200,\n  \"description\": \"string\",\n  \"errorMessage\": \"string\",\n  \"finishedTime\": 1704240000,\n  \"jobId\": \"bbbb2222\",\n  \"jobName\": \"July 16th 2025 Set group\",\n  \"status\": \"aborted\",\n  \"summary\": {\n    \"error\": 0,\n    \"pending\": 5,\n    \"success\": 95\n  },\n  \"updatedTime\": 1704153600\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "9bcb1741-bc42-4b97-85d7-d22d8f32a643",
+              "name": "Batch job not found.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "batch_groups",
+                    ":batch_group_id",
+                    "jobs",
+                    ":job_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "batch_group_id",
+                      "description": "(Required) Batch group ID."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "job_id",
+                      "description": "(Required) Batch job ID."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Soracom-API-Key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "c3c8d44d-8ae8-4071-9233-bb44543bdcf8",
+          "name": "List tasks.",
+          "request": {
+            "name": "List tasks.",
+            "description": {
+              "content": "Returns a list of tasks in the specified batch job. Each task represents an individual API operation executed as part of the batch job.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "batch_groups",
+                ":batch_group_id",
+                "jobs",
+                ":job_id",
+                "tasks"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "<integer>",
+                  "description": "Maximum number of tasks to retrieve. The number of tasks returned may be less than the specified value."
+                },
+                {
+                  "disabled": false,
+                  "key": "status",
+                  "value": "<string>",
+                  "description": "Filter by task status."
+                },
+                {
+                  "disabled": false,
+                  "key": "last_evaluated_key",
+                  "value": "<string>",
+                  "description": "The value of the `x-soracom-next-key` header returned in the response to the last request. Specify this to retrieve the next page of tasks."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "batch_group_id",
+                  "description": "(Required) Batch group ID."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "job_id",
+                  "description": "(Required) Batch job ID."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-Soracom-API-Key"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "f6e7bc86-21fc-4088-8aac-0992bf339b17",
+              "name": "A list of batch tasks was retrieved successfully.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "batch_groups",
+                    ":batch_group_id",
+                    "jobs",
+                    ":job_id",
+                    "tasks"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "10"
+                    },
+                    {
+                      "key": "status",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "last_evaluated_key",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "batch_group_id",
+                      "description": "(Required) Batch group ID."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "job_id",
+                      "description": "(Required) Batch job ID."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Soracom-API-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"finishedTime\": 1704067202,\n    \"request\": {\n      \"path\": \"/v1/sims/8981100001234567890/set_group\",\n      \"method\": \"POST\",\n      \"body\": {\n        \"groupId\": \"11111111-2222-3333-4444-555555555555\"\n      }\n    },\n    \"response\": {\n      \"body\": {},\n      \"statusCode\": 200\n    },\n    \"startedTime\": 1704067201,\n    \"status\": \"success\",\n    \"taskId\": 1\n  },\n  {\n    \"finishedTime\": 1704067202,\n    \"request\": {\n      \"path\": \"/v1/sims/8981100001234567890/set_group\",\n      \"method\": \"POST\",\n      \"body\": {\n        \"groupId\": \"11111111-2222-3333-4444-555555555555\"\n      }\n    },\n    \"response\": {\n      \"body\": {},\n      \"statusCode\": 200\n    },\n    \"startedTime\": 1704067201,\n    \"status\": \"error\",\n    \"taskId\": 1\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "4d9813ae-b6a5-4c88-b3f9-39533ec8a653",
+              "name": "Batch job not found.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "batch_groups",
+                    ":batch_group_id",
+                    "jobs",
+                    ":job_id",
+                    "tasks"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "10"
+                    },
+                    {
+                      "key": "status",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "last_evaluated_key",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "batch_group_id",
+                      "description": "(Required) Batch group ID."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "job_id",
+                      "description": "(Required) Batch job ID."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Soracom-API-Key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.soracom.io/v1",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "cbe65d24-7536-4823-876f-00b58c0b1e8d",
+    "name": "Soracom Batch API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Create and run batch jobs that apply API calls across multiple SIMs or devices.",
+      "type": "text/plain"
+    }
+  }
+}

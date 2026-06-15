@@ -1,0 +1,1333 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Soracom Virtual Private Gateway API",
+    "version": "20250903-043502"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "VirtualPrivateGateway",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Virtual Private Gateways",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.soracom.io/v1/virtual_private_gateways",
+            "params": [
+              {
+                "name": "tag_name",
+                "value": "",
+                "type": "query",
+                "description": "Tag name of the VPG. Filters through all VPGs that exactly match the tag name. When tag_name is specified, tag_value is required."
+              },
+              {
+                "name": "tag_value",
+                "value": "",
+                "type": "query",
+                "description": "Tag value of the VPG."
+              },
+              {
+                "name": "tag_value_match_mode",
+                "value": "",
+                "type": "query",
+                "description": "Tag match mode."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of results per response page."
+              },
+              {
+                "name": "last_evaluated_key",
+                "value": "",
+                "type": "query",
+                "description": "The last VPG ID retrieved on the current page. By specifying this parameter, you can continue to retrieve the list from the next VPG onward."
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-Soracom-API-Key",
+              "value": "{{X-Soracom-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Returns a list of VPGs."
+        },
+        {
+          "info": {
+            "name": "Create Virtual Private Gateway",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.soracom.io/v1/virtual_private_gateways",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-Soracom-API-Key",
+              "value": "{{X-Soracom-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Create a new VPG."
+        },
+        {
+          "info": {
+            "name": "Get Virtual Private Gateway",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.soracom.io/v1/virtual_private_gateways/:vpg_id",
+            "params": [
+              {
+                "name": "vpg_id",
+                "value": "",
+                "type": "path",
+                "description": "Target VPG ID."
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-Soracom-API-Key",
+              "value": "{{X-Soracom-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Retrieves information about the specified VPG."
+        },
+        {
+          "info": {
+            "name": "Create routing table entry",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.soracom.io/v1/virtual_private_gateways/:vpg_id/customer_routes",
+            "params": [
+              {
+                "name": "vpg_id",
+                "value": "",
+                "type": "path",
+                "description": "Target VPG ID."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-Soracom-API-Key",
+              "value": "{{X-Soracom-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Creates a routing table entry for the specified VPG."
+        },
+        {
+          "info": {
+            "name": "Update routing table entry",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.soracom.io/v1/virtual_private_gateways/:vpg_id/customer_routes/:route_id",
+            "params": [
+              {
+                "name": "vpg_id",
+                "value": "",
+                "type": "path",
+                "description": "Target VPG ID."
+              },
+              {
+                "name": "route_id",
+                "value": "",
+                "type": "path",
+                "description": "Target route ID"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-Soracom-API-Key",
+              "value": "{{X-Soracom-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Updates a routing table entry for the specified VPG."
+        },
+        {
+          "info": {
+            "name": "Delete routing table entry",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.soracom.io/v1/virtual_private_gateways/:vpg_id/customer_routes/:route_id",
+            "params": [
+              {
+                "name": "vpg_id",
+                "value": "",
+                "type": "path",
+                "description": "Target VPG ID."
+              },
+              {
+                "name": "route_id",
+                "value": "",
+                "type": "path",
+                "description": "Target route ID"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-Soracom-API-Key",
+              "value": "{{X-Soracom-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Deletes a routing table entry from the specified VPG."
+        },
+        {
+          "info": {
+            "name": "Enable the fixed global IP address option for the VPG",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.soracom.io/v1/virtual_private_gateways/:vpg_id/fixed_public_ip_addresses",
+            "params": [
+              {
+                "name": "vpg_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-Soracom-API-Key",
+              "value": "{{X-Soracom-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Enables the fixed global IP address option for the VPG."
+        },
+        {
+          "info": {
+            "name": "Disable the fixed global IP address option for the VPG",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.soracom.io/v1/virtual_private_gateways/:vpg_id/fixed_public_ip_addresses",
+            "params": [
+              {
+                "name": "vpg_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-Soracom-API-Key",
+              "value": "{{X-Soracom-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Disables the fixed global IP address option for the VPG."
+        },
+        {
+          "info": {
+            "name": "Close SORACOM Gate.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.soracom.io/v1/virtual_private_gateways/:vpg_id/gate/close",
+            "params": [
+              {
+                "name": "vpg_id",
+                "value": "",
+                "type": "path",
+                "description": "Target VPG ID."
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-Soracom-API-Key",
+              "value": "{{X-Soracom-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Close Soracom Gate on the specified VPG."
+        },
+        {
+          "info": {
+            "name": "Disables Soracom Gate's privacy separator feature on the specified VPG",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.soracom.io/v1/virtual_private_gateways/:vpg_id/gate/disable_privacy_separator",
+            "params": [
+              {
+                "name": "vpg_id",
+                "value": "",
+                "type": "path",
+                "description": "VPG ID"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-Soracom-API-Key",
+              "value": "{{X-Soracom-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Disables Soracom Gate's privacy separator feature on the specified VPG and enables the Gate D2D feature."
+        },
+        {
+          "info": {
+            "name": "Enables Soracom Gate privacy separator feature on the specified VPG",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.soracom.io/v1/virtual_private_gateways/:vpg_id/gate/enable_privacy_separator",
+            "params": [
+              {
+                "name": "vpg_id",
+                "value": "",
+                "type": "path",
+                "description": "VPG ID"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-Soracom-API-Key",
+              "value": "{{X-Soracom-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Enables Soracom Gate's privacy separator feature on the specified VPG and disables the Gate D2D feature."
+        },
+        {
+          "info": {
+            "name": "Open Soracom Gate",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.soracom.io/v1/virtual_private_gateways/:vpg_id/gate/open",
+            "params": [
+              {
+                "name": "vpg_id",
+                "value": "",
+                "type": "path",
+                "description": "Target VPG ID."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-Soracom-API-Key",
+              "value": "{{X-Soracom-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Open Soracom Gate on the specified VPG."
+        },
+        {
+          "info": {
+            "name": "List VPG Gate Peers",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.soracom.io/v1/virtual_private_gateways/:vpg_id/gate/peers",
+            "params": [
+              {
+                "name": "vpg_id",
+                "value": "",
+                "type": "path",
+                "description": "Target VPG ID."
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-Soracom-API-Key",
+              "value": "{{X-Soracom-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "List Gate Peers registered in the Virtual Private Gateway."
+        },
+        {
+          "info": {
+            "name": "Register VPG Gate Peer",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.soracom.io/v1/virtual_private_gateways/:vpg_id/gate/peers",
+            "params": [
+              {
+                "name": "vpg_id",
+                "value": "",
+                "type": "path",
+                "description": "Target VPG ID."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-Soracom-API-Key",
+              "value": "{{X-Soracom-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Register a host as a Gate Peer in the Virtual Private Gateway."
+        },
+        {
+          "info": {
+            "name": "Unregister VPG Gate Peer",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.soracom.io/v1/virtual_private_gateways/:vpg_id/gate/peers/:outer_ip_address",
+            "params": [
+              {
+                "name": "vpg_id",
+                "value": "",
+                "type": "path",
+                "description": "Target VPG ID."
+              },
+              {
+                "name": "outer_ip_address",
+                "value": "",
+                "type": "path",
+                "description": "ID of the target node."
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-Soracom-API-Key",
+              "value": "{{X-Soracom-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Unregister a Gate Peer from the Virtual Private Gateway."
+        },
+        {
+          "info": {
+            "name": "Disable SIM-Based Routing",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.soracom.io/v1/virtual_private_gateways/:vpg_id/gate/routing/static/sims/disable",
+            "params": [
+              {
+                "name": "vpg_id",
+                "value": "",
+                "type": "path",
+                "description": "Target VPG ID."
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-Soracom-API-Key",
+              "value": "{{X-Soracom-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Disables SIM-Based Routing."
+        },
+        {
+          "info": {
+            "name": "Enable SIM-Based Routing",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.soracom.io/v1/virtual_private_gateways/:vpg_id/gate/routing/static/sims/enable",
+            "params": [
+              {
+                "name": "vpg_id",
+                "value": "",
+                "type": "path",
+                "description": "Target VPG ID."
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-Soracom-API-Key",
+              "value": "{{X-Soracom-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Enables SIM-Based Routing."
+        },
+        {
+          "info": {
+            "name": "Associate a router's LAN IP address range with its SIM ID",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.soracom.io/v1/virtual_private_gateways/:vpg_id/gate/routing/static/sims/routes",
+            "params": [
+              {
+                "name": "vpg_id",
+                "value": "",
+                "type": "path",
+                "description": "Target VPG ID."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-Soracom-API-Key",
+              "value": "{{X-Soracom-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Associates a router's LAN IP address range with its SIM ID."
+        },
+        {
+          "info": {
+            "name": "Set VXLAN ID for Gate",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.soracom.io/v1/virtual_private_gateways/:vpg_id/gate/set_vxlan_id",
+            "params": [
+              {
+                "name": "vpg_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-Soracom-API-Key",
+              "value": "{{X-Soracom-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Set VXLAN ID for Gate."
+        },
+        {
+          "info": {
+            "name": "List VPG IP address map entries",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.soracom.io/v1/virtual_private_gateways/:vpg_id/ip_address_map",
+            "params": [
+              {
+                "name": "vpg_id",
+                "value": "",
+                "type": "path",
+                "description": "Target VPG ID."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "The maximum number of IP address map entries to retrieve. The response may contain fewer entries than the specified value."
+              },
+              {
+                "name": "last_evaluated_key",
+                "value": "",
+                "type": "query",
+                "description": "The last IP address retrieved in the previous page. Use this parameter to retrieve the next page of IP address map entries."
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-Soracom-API-Key",
+              "value": "{{X-Soracom-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Retrieves the list of IP address map entries for the specified VPG.\n"
+        },
+        {
+          "info": {
+            "name": "Adds or updates an entry in VPG IP address map",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.soracom.io/v1/virtual_private_gateways/:vpg_id/ip_address_map",
+            "params": [
+              {
+                "name": "vpg_id",
+                "value": "",
+                "type": "path",
+                "description": "Target VPG ID."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-Soracom-API-Key",
+              "value": "{{X-Soracom-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Adds or updates an IP address map entry for the specified VPG.\n\n**Warning**: The [VirtualPrivateGateway:listVirtualPrivateGatewayIpAddressMapEntries API](#/VirtualPrivateGateway/listVirtualPrivateGatewayIpAddressMapEntries) response includes entries that are automatically assigned to Gate Peers and the VPG, but these cannot be added or updated using the VirtualPrivateGateway:putVirtualPrivateGatewayIpAddressMapEntry API.\n"
+        },
+        {
+          "info": {
+            "name": "Delete VPG IP address map entry",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.soracom.io/v1/virtual_private_gateways/:vpg_id/ip_address_map/:key",
+            "params": [
+              {
+                "name": "vpg_id",
+                "value": "",
+                "type": "path",
+                "description": "Target VPG ID."
+              },
+              {
+                "name": "key",
+                "value": "",
+                "type": "path",
+                "description": "Identifier of the IP address map entry to delete (IMSI of the IoT SIM)."
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-Soracom-API-Key",
+              "value": "{{X-Soracom-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Deletes an entry from the IP address map of the specified VPG.\n\n**Warning**: The [VirtualPrivateGateway:listVirtualPrivateGatewayIpAddressMapEntries API](#/VirtualPrivateGateway/listVirtualPrivateGatewayIpAddressMapEntries) response includes automatically assigned entries for Gate Peers and the VPG. These entries cannot be deleted using the VirtualPrivateGateway:deleteVirtualPrivateGatewayIpAddressMapEntry API.\n"
+        },
+        {
+          "info": {
+            "name": "Adds node in the list of Junction mirroring peers",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.soracom.io/v1/virtual_private_gateways/:vpg_id/junction/mirroring/peers",
+            "params": [
+              {
+                "name": "vpg_id",
+                "value": "",
+                "type": "path",
+                "description": "VPG ID"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-Soracom-API-Key",
+              "value": "{{X-Soracom-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Adds node in the list of Junction mirroring peers."
+        },
+        {
+          "info": {
+            "name": "Updates a Junction mirroring peer",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.soracom.io/v1/virtual_private_gateways/:vpg_id/junction/mirroring/peers/:ipaddr",
+            "params": [
+              {
+                "name": "vpg_id",
+                "value": "",
+                "type": "path",
+                "description": "VPG ID"
+              },
+              {
+                "name": "ipaddr",
+                "value": "",
+                "type": "path",
+                "description": "Mirroring peer IP address"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-Soracom-API-Key",
+              "value": "{{X-Soracom-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Updates a Junction mirroring peer."
+        },
+        {
+          "info": {
+            "name": "Remove peer from the list of Junction mirroring peers",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.soracom.io/v1/virtual_private_gateways/:vpg_id/junction/mirroring/peers/:ipaddr",
+            "params": [
+              {
+                "name": "vpg_id",
+                "value": "",
+                "type": "path",
+                "description": "VPG ID"
+              },
+              {
+                "name": "ipaddr",
+                "value": "",
+                "type": "path",
+                "description": "IP address of mirroring peer"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-Soracom-API-Key",
+              "value": "{{X-Soracom-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Remove peer from the list of Junction mirroring peers."
+        },
+        {
+          "info": {
+            "name": "Sets configuration for Junction inspection feature",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.soracom.io/v1/virtual_private_gateways/:vpg_id/junction/set_inspection",
+            "params": [
+              {
+                "name": "vpg_id",
+                "value": "",
+                "type": "path",
+                "description": "VPG ID"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-Soracom-API-Key",
+              "value": "{{X-Soracom-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Sets configuration for Junction inspection feature."
+        },
+        {
+          "info": {
+            "name": "Sets configuration for Junction redirection feature",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.soracom.io/v1/virtual_private_gateways/:vpg_id/junction/set_redirection",
+            "params": [
+              {
+                "name": "vpg_id",
+                "value": "",
+                "type": "path",
+                "description": "VPG ID"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-Soracom-API-Key",
+              "value": "{{X-Soracom-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Sets configuration for Junction redirection feature."
+        },
+        {
+          "info": {
+            "name": "Unset configuration for Junction inspection feature",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.soracom.io/v1/virtual_private_gateways/:vpg_id/junction/unset_inspection",
+            "params": [
+              {
+                "name": "vpg_id",
+                "value": "",
+                "type": "path",
+                "description": "VPG ID"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-Soracom-API-Key",
+              "value": "{{X-Soracom-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Unset configuration for Junction inspection feature."
+        },
+        {
+          "info": {
+            "name": "Unset configuration for Junction redirection feature",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.soracom.io/v1/virtual_private_gateways/:vpg_id/junction/unset_redirection",
+            "params": [
+              {
+                "name": "vpg_id",
+                "value": "",
+                "type": "path",
+                "description": "VPG ID"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-Soracom-API-Key",
+              "value": "{{X-Soracom-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Unset configuration for Junction redirection feature."
+        },
+        {
+          "info": {
+            "name": "List Packet Capture Sessions associated with the VPG",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.soracom.io/v1/virtual_private_gateways/:vpg_id/packet_capture_sessions",
+            "params": [
+              {
+                "name": "vpg_id",
+                "value": "",
+                "type": "path",
+                "description": "VPG ID"
+              },
+              {
+                "name": "last_evaluated_key",
+                "value": "",
+                "type": "query",
+                "description": "ID of the last packet capture session in the previous page. By specifying this parameter, you can continue to retrieve the list from the next packet capture session onward."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Max number of results in a response."
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-Soracom-API-Key",
+              "value": "{{X-Soracom-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "List packet capture sessions associated with the VPG."
+        },
+        {
+          "info": {
+            "name": "Create a packet capture session associated with the VPG",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.soracom.io/v1/virtual_private_gateways/:vpg_id/packet_capture_sessions",
+            "params": [
+              {
+                "name": "vpg_id",
+                "value": "",
+                "type": "path",
+                "description": "VPG ID"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-Soracom-API-Key",
+              "value": "{{X-Soracom-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Create a packet capture session associated with the VPG."
+        },
+        {
+          "info": {
+            "name": "Get a packet capture session associated with the VPG",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.soracom.io/v1/virtual_private_gateways/:vpg_id/packet_capture_sessions/:session_id",
+            "params": [
+              {
+                "name": "vpg_id",
+                "value": "",
+                "type": "path",
+                "description": "VPG ID"
+              },
+              {
+                "name": "session_id",
+                "value": "",
+                "type": "path",
+                "description": "Packet capture session ID"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-Soracom-API-Key",
+              "value": "{{X-Soracom-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Get a packet capture session associated with the VPG."
+        },
+        {
+          "info": {
+            "name": "Delete a packet capture session associated with the VPG",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.soracom.io/v1/virtual_private_gateways/:vpg_id/packet_capture_sessions/:session_id",
+            "params": [
+              {
+                "name": "vpg_id",
+                "value": "",
+                "type": "path",
+                "description": "VPG ID"
+              },
+              {
+                "name": "session_id",
+                "value": "",
+                "type": "path",
+                "description": "Packet capture session ID"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-Soracom-API-Key",
+              "value": "{{X-Soracom-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Delete a packet capture session associated with the VPG."
+        },
+        {
+          "info": {
+            "name": "Stop a packet capture session associated with the VPG",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.soracom.io/v1/virtual_private_gateways/:vpg_id/packet_capture_sessions/:session_id/stop",
+            "params": [
+              {
+                "name": "vpg_id",
+                "value": "",
+                "type": "path",
+                "description": "VPG ID"
+              },
+              {
+                "name": "session_id",
+                "value": "",
+                "type": "path",
+                "description": "Packet capture session ID"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-Soracom-API-Key",
+              "value": "{{X-Soracom-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Stop a packet capture session associated with the VPG."
+        },
+        {
+          "info": {
+            "name": "Sets Virtual Private Gateway outbound routing filter",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.soracom.io/v1/virtual_private_gateways/:vpg_id/set_routing_filter",
+            "params": [
+              {
+                "name": "vpg_id",
+                "value": "",
+                "type": "path",
+                "description": "Target VPG ID."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-Soracom-API-Key",
+              "value": "{{X-Soracom-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Sets Virtual Private Gateway outbound routing filter."
+        },
+        {
+          "info": {
+            "name": "Update VPG tags",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.soracom.io/v1/virtual_private_gateways/:vpg_id/tags",
+            "params": [
+              {
+                "name": "vpg_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-Soracom-API-Key",
+              "value": "{{X-Soracom-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Adds/updates tags of the specified VPG."
+        },
+        {
+          "info": {
+            "name": "Delete a VPG Tag",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.soracom.io/v1/virtual_private_gateways/:vpg_id/tags/:tag_name",
+            "params": [
+              {
+                "name": "vpg_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "tag_name",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-Soracom-API-Key",
+              "value": "{{X-Soracom-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Deletes a tag from the specified VPG."
+        },
+        {
+          "info": {
+            "name": "Terminate Virtual Private Gateway",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.soracom.io/v1/virtual_private_gateways/:vpg_id/terminate",
+            "params": [
+              {
+                "name": "vpg_id",
+                "value": "",
+                "type": "path",
+                "description": "Target VPG ID."
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-Soracom-API-Key",
+              "value": "{{X-Soracom-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Terminates the specified VPG."
+        },
+        {
+          "info": {
+            "name": "Create transit gateway peering connection",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.soracom.io/v1/virtual_private_gateways/:vpg_id/transit_gateway_peering_connections",
+            "params": [
+              {
+                "name": "vpg_id",
+                "value": "",
+                "type": "path",
+                "description": "Target VPG ID."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-Soracom-API-Key",
+              "value": "{{X-Soracom-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Creates a transit gateway peering connection for the specified VPG."
+        },
+        {
+          "info": {
+            "name": "Delete transit gateway peering connection",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.soracom.io/v1/virtual_private_gateways/:vpg_id/transit_gateway_peering_connections/:soracom_tgw_peering_attachment_id",
+            "params": [
+              {
+                "name": "vpg_id",
+                "value": "",
+                "type": "path",
+                "description": "Target VPG ID."
+              },
+              {
+                "name": "soracom_tgw_peering_attachment_id",
+                "value": "",
+                "type": "path",
+                "description": "Transit gateway peering connection ID"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-Soracom-API-Key",
+              "value": "{{X-Soracom-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Deletes a transit gateway peering connection from the specified VPG."
+        },
+        {
+          "info": {
+            "name": "Create transit gateway VPC attachment",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.soracom.io/v1/virtual_private_gateways/:vpg_id/transit_gateway_vpc_attachments",
+            "params": [
+              {
+                "name": "vpg_id",
+                "value": "",
+                "type": "path",
+                "description": "Target VPG ID."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-Soracom-API-Key",
+              "value": "{{X-Soracom-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Creates a transit gateway VPC attachment for the specified VPG."
+        },
+        {
+          "info": {
+            "name": "Delete transit gateway VPC attachment",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.soracom.io/v1/virtual_private_gateways/:vpg_id/transit_gateway_vpc_attachments/:customer_tgw_vpc_attachment_id",
+            "params": [
+              {
+                "name": "vpg_id",
+                "value": "",
+                "type": "path",
+                "description": "Target VPG ID."
+              },
+              {
+                "name": "customer_tgw_vpc_attachment_id",
+                "value": "",
+                "type": "path",
+                "description": "Transit gateway VPC attachment ID"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-Soracom-API-Key",
+              "value": "{{X-Soracom-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Deletes a transit gateway VPC attachment from the specified VPG."
+        },
+        {
+          "info": {
+            "name": "Accept transit gateway VPC attachment connection request",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.soracom.io/v1/virtual_private_gateways/:vpg_id/transit_gateway_vpc_attachments/:customer_tgw_vpc_attachment_id/accept",
+            "params": [
+              {
+                "name": "vpg_id",
+                "value": "",
+                "type": "path",
+                "description": "Target VPG ID."
+              },
+              {
+                "name": "customer_tgw_vpc_attachment_id",
+                "value": "",
+                "type": "path",
+                "description": "Transit gateway VPC attachment ID"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-Soracom-API-Key",
+              "value": "{{X-Soracom-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Accepts the specified transit gateway VPC attachment connection request."
+        },
+        {
+          "info": {
+            "name": "Create VPC Peering Connection",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.soracom.io/v1/virtual_private_gateways/:vpg_id/vpc_peering_connections",
+            "params": [
+              {
+                "name": "vpg_id",
+                "value": "",
+                "type": "path",
+                "description": "Target VPG ID."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-Soracom-API-Key",
+              "value": "{{X-Soracom-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Creates a VPC peering connection for the specified VPG."
+        },
+        {
+          "info": {
+            "name": "Delete VPC Peering Connection",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.soracom.io/v1/virtual_private_gateways/:vpg_id/vpc_peering_connections/:pcx_id",
+            "params": [
+              {
+                "name": "vpg_id",
+                "value": "",
+                "type": "path",
+                "description": "Target VPG ID."
+              },
+              {
+                "name": "pcx_id",
+                "value": "",
+                "type": "path",
+                "description": "VPC peering connection ID to be deleted."
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-Soracom-API-Key",
+              "value": "{{X-Soracom-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Deletes the specified VPC peering connection."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

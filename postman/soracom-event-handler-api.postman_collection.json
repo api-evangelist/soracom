@@ -1,0 +1,3074 @@
+{
+  "info": {
+    "_postman_id": "6f3c29f4-08c6-4ddb-a80c-8d8baf0a302f",
+    "name": "Soracom Event Handler API",
+    "description": "Define event handlers, rule sets, and actions to drive workflows on SIM, billing, and data events; manage credentials and Soralets.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-06-05T15:18:33.000Z",
+    "updatedAt": "2026-06-05T15:18:34.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-6f3c29f4-08c6-4ddb-a80c-8d8baf0a302f"
+  },
+  "item": [
+    {
+      "name": "event_handlers",
+      "item": [
+        {
+          "name": "{handler_id}",
+          "item": [
+            {
+              "name": "subscribers",
+              "item": [
+                {
+                  "name": "{imsi}",
+                  "item": [
+                    {
+                      "name": "ignore",
+                      "item": [
+                        {
+                          "name": "Delete Ignore Event Handler",
+                          "id": "1b5ea239-e438-496a-839d-370c32102cca",
+                          "protocolProfileBehavior": {
+                            "disableBodyPruning": true
+                          },
+                          "request": {
+                            "auth": {
+                              "type": "apikey",
+                              "apikey": [
+                                {
+                                  "key": "key",
+                                  "value": "X-Soracom-API-Key",
+                                  "type": "string"
+                                },
+                                {
+                                  "key": "value",
+                                  "value": "{{apiKey}}",
+                                  "type": "string"
+                                },
+                                {
+                                  "key": "in",
+                                  "value": "header",
+                                  "type": "string"
+                                }
+                              ]
+                            },
+                            "method": "DELETE",
+                            "header": [],
+                            "url": {
+                              "raw": "{{baseUrl}}/event_handlers/:handler_id/subscribers/:imsi/ignore",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "event_handlers",
+                                ":handler_id",
+                                "subscribers",
+                                ":imsi",
+                                "ignore"
+                              ],
+                              "variable": [
+                                {
+                                  "id": "13b8cb62-2f94-4db0-b4b0-d9dfa31e2ab4",
+                                  "key": "handler_id",
+                                  "value": "<string>",
+                                  "description": "(Required) Event handler ID."
+                                },
+                                {
+                                  "id": "eb2fd26f-f0ac-4ef4-a005-81bd54cba5b4",
+                                  "key": "imsi",
+                                  "value": "<string>",
+                                  "description": "(Required) IMSI."
+                                }
+                              ]
+                            },
+                            "description": "Deletes the setting for ignoring the specified event handler of the specified IMSI."
+                          },
+                          "response": [
+                            {
+                              "id": "364e1a50-6d0a-448f-84af-bbd6456a6d13",
+                              "name": "OK.",
+                              "originalRequest": {
+                                "method": "DELETE",
+                                "header": [
+                                  {
+                                    "description": "Added as a part of security scheme: apikey",
+                                    "key": "X-Soracom-API-Key",
+                                    "value": "<API Key>"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/event_handlers/:handler_id/subscribers/:imsi/ignore",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "event_handlers",
+                                    ":handler_id",
+                                    "subscribers",
+                                    ":imsi",
+                                    "ignore"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "handler_id"
+                                    },
+                                    {
+                                      "key": "imsi"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "No Content",
+                              "code": 204,
+                              "_postman_previewlanguage": "text",
+                              "header": [],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": null,
+                              "createdAt": "2026-06-05T15:18:34.000Z",
+                              "updatedAt": "2026-06-05T15:18:34.000Z",
+                              "uid": "35240-364e1a50-6d0a-448f-84af-bbd6456a6d13"
+                            },
+                            {
+                              "id": "bb4cf911-5e36-45c5-b438-07c7c59a2b70",
+                              "name": "Event Handler not found.",
+                              "originalRequest": {
+                                "method": "DELETE",
+                                "header": [
+                                  {
+                                    "description": "Added as a part of security scheme: apikey",
+                                    "key": "X-Soracom-API-Key",
+                                    "value": "<API Key>"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/event_handlers/:handler_id/subscribers/:imsi/ignore",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "event_handlers",
+                                    ":handler_id",
+                                    "subscribers",
+                                    ":imsi",
+                                    "ignore"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "handler_id"
+                                    },
+                                    {
+                                      "key": "imsi"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "Not Found",
+                              "code": 404,
+                              "_postman_previewlanguage": "text",
+                              "header": [],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": null,
+                              "createdAt": "2026-06-05T15:18:34.000Z",
+                              "updatedAt": "2026-06-05T15:18:34.000Z",
+                              "uid": "35240-bb4cf911-5e36-45c5-b438-07c7c59a2b70"
+                            }
+                          ],
+                          "createdAt": "2026-06-05T15:18:34.000Z",
+                          "updatedAt": "2026-06-05T15:18:34.000Z",
+                          "uid": "35240-1b5ea239-e438-496a-839d-370c32102cca"
+                        },
+                        {
+                          "name": "Ignore Event Handler",
+                          "id": "e3d9edac-3728-45a9-a827-ad3d72829f8e",
+                          "protocolProfileBehavior": {
+                            "disableBodyPruning": true
+                          },
+                          "request": {
+                            "auth": {
+                              "type": "apikey",
+                              "apikey": [
+                                {
+                                  "key": "key",
+                                  "value": "X-Soracom-API-Key",
+                                  "type": "string"
+                                },
+                                {
+                                  "key": "value",
+                                  "value": "{{apiKey}}",
+                                  "type": "string"
+                                },
+                                {
+                                  "key": "in",
+                                  "value": "header",
+                                  "type": "string"
+                                }
+                              ]
+                            },
+                            "method": "POST",
+                            "header": [],
+                            "url": {
+                              "raw": "{{baseUrl}}/event_handlers/:handler_id/subscribers/:imsi/ignore",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "event_handlers",
+                                ":handler_id",
+                                "subscribers",
+                                ":imsi",
+                                "ignore"
+                              ],
+                              "variable": [
+                                {
+                                  "id": "31c15b33-d4cd-497c-a33a-18060522590f",
+                                  "key": "handler_id",
+                                  "value": "<string>",
+                                  "description": "(Required) Event handler ID."
+                                },
+                                {
+                                  "id": "c3f39965-d35c-4351-bdac-aba70b9c3ead",
+                                  "key": "imsi",
+                                  "value": "<string>",
+                                  "description": "(Required) IMSI."
+                                }
+                              ]
+                            },
+                            "description": "Adds a setting for ignoring the specified event handler of the specified IMSI."
+                          },
+                          "response": [
+                            {
+                              "id": "69766564-cbfa-41b9-988d-5259085fce5a",
+                              "name": "OK.",
+                              "originalRequest": {
+                                "method": "POST",
+                                "header": [
+                                  {
+                                    "description": "Added as a part of security scheme: apikey",
+                                    "key": "X-Soracom-API-Key",
+                                    "value": "<API Key>"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/event_handlers/:handler_id/subscribers/:imsi/ignore",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "event_handlers",
+                                    ":handler_id",
+                                    "subscribers",
+                                    ":imsi",
+                                    "ignore"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "handler_id"
+                                    },
+                                    {
+                                      "key": "imsi"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "OK",
+                              "code": 200,
+                              "_postman_previewlanguage": "text",
+                              "header": [],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": null,
+                              "createdAt": "2026-06-05T15:18:34.000Z",
+                              "updatedAt": "2026-06-05T15:18:34.000Z",
+                              "uid": "35240-69766564-cbfa-41b9-988d-5259085fce5a"
+                            }
+                          ],
+                          "createdAt": "2026-06-05T15:18:34.000Z",
+                          "updatedAt": "2026-06-05T15:18:34.000Z",
+                          "uid": "35240-e3d9edac-3728-45a9-a827-ad3d72829f8e"
+                        }
+                      ],
+                      "id": "9f60455f-4acf-4acb-a29f-c339c61a34df",
+                      "createdAt": "2026-06-05T15:18:34.000Z",
+                      "updatedAt": "2026-06-05T15:18:34.000Z",
+                      "uid": "35240-9f60455f-4acf-4acb-a29f-c339c61a34df"
+                    }
+                  ],
+                  "id": "41095f9d-c946-4f6e-992d-5ea3c6c056ce",
+                  "createdAt": "2026-06-05T15:18:34.000Z",
+                  "updatedAt": "2026-06-05T15:18:34.000Z",
+                  "uid": "35240-41095f9d-c946-4f6e-992d-5ea3c6c056ce"
+                }
+              ],
+              "id": "09f658de-4ca8-4254-af96-cf1d4fd889e1",
+              "createdAt": "2026-06-05T15:18:34.000Z",
+              "updatedAt": "2026-06-05T15:18:34.000Z",
+              "uid": "35240-09f658de-4ca8-4254-af96-cf1d4fd889e1"
+            },
+            {
+              "name": "Delete Event Handler",
+              "id": "b25fd954-13c2-43dc-bb98-d7e5a74d587b",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "auth": {
+                  "type": "apikey",
+                  "apikey": [
+                    {
+                      "key": "key",
+                      "value": "X-Soracom-API-Key",
+                      "type": "string"
+                    },
+                    {
+                      "key": "value",
+                      "value": "{{apiKey}}",
+                      "type": "string"
+                    },
+                    {
+                      "key": "in",
+                      "value": "header",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "DELETE",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/event_handlers/:handler_id",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "event_handlers",
+                    ":handler_id"
+                  ],
+                  "variable": [
+                    {
+                      "id": "e99fea23-1cc5-4d88-9350-fdc6b81e4b7c",
+                      "key": "handler_id",
+                      "value": "<string>",
+                      "description": "(Required) Event handler ID."
+                    }
+                  ]
+                },
+                "description": "Deletes the specified event handler."
+              },
+              "response": [
+                {
+                  "id": "71ae9aa1-eaac-44ee-b014-cf7e1a47ad06",
+                  "name": "OK.",
+                  "originalRequest": {
+                    "method": "DELETE",
+                    "header": [
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "X-Soracom-API-Key",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/event_handlers/:handler_id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "event_handlers",
+                        ":handler_id"
+                      ],
+                      "variable": [
+                        {
+                          "key": "handler_id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "No Content",
+                  "code": 204,
+                  "_postman_previewlanguage": "text",
+                  "header": [],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-06-05T15:18:34.000Z",
+                  "updatedAt": "2026-06-05T15:18:34.000Z",
+                  "uid": "35240-71ae9aa1-eaac-44ee-b014-cf7e1a47ad06"
+                },
+                {
+                  "id": "a896ba12-9b64-4b16-8c77-d2b19218a168",
+                  "name": "Event Handler not found.",
+                  "originalRequest": {
+                    "method": "DELETE",
+                    "header": [
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "X-Soracom-API-Key",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/event_handlers/:handler_id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "event_handlers",
+                        ":handler_id"
+                      ],
+                      "variable": [
+                        {
+                          "key": "handler_id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Not Found",
+                  "code": 404,
+                  "_postman_previewlanguage": "text",
+                  "header": [],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-06-05T15:18:34.000Z",
+                  "updatedAt": "2026-06-05T15:18:34.000Z",
+                  "uid": "35240-a896ba12-9b64-4b16-8c77-d2b19218a168"
+                }
+              ],
+              "createdAt": "2026-06-05T15:18:34.000Z",
+              "updatedAt": "2026-06-05T15:18:34.000Z",
+              "uid": "35240-b25fd954-13c2-43dc-bb98-d7e5a74d587b"
+            },
+            {
+              "name": "Get Event Handler",
+              "id": "d640a786-64e1-4f13-a8a2-e32c52a6cf45",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "auth": {
+                  "type": "apikey",
+                  "apikey": [
+                    {
+                      "key": "key",
+                      "value": "X-Soracom-API-Key",
+                      "type": "string"
+                    },
+                    {
+                      "key": "value",
+                      "value": "{{apiKey}}",
+                      "type": "string"
+                    },
+                    {
+                      "key": "in",
+                      "value": "header",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/event_handlers/:handler_id",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "event_handlers",
+                    ":handler_id"
+                  ],
+                  "variable": [
+                    {
+                      "id": "3ddc21cd-20c3-43b8-9e95-f7fae04fe8b4",
+                      "key": "handler_id",
+                      "value": "<string>",
+                      "description": "(Required) Event handler ID."
+                    }
+                  ]
+                },
+                "description": "Returns information about the specified event handler."
+              },
+              "response": [
+                {
+                  "id": "6b54c22b-def2-4ee9-b30a-21afc14c5488",
+                  "name": "OK.",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "X-Soracom-API-Key",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/event_handlers/:handler_id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "event_handlers",
+                        ":handler_id"
+                      ],
+                      "variable": [
+                        {
+                          "key": "handler_id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"actionConfigList\": [\n    {\n      \"properties\": {\n        \"executionDateTimeConst\": \"BEGINNING_OF_NEXT_DAY\",\n        \"accessKey\": \"<string>\",\n        \"body\": \"<string>\",\n        \"contentType\": \"<string>\",\n        \"credentialsId\": \"<string>\",\n        \"endpoint\": \"<string>\",\n        \"executionOffsetMinutes\": \"<string>\",\n        \"functionName\": \"<string>\",\n        \"headers\": {},\n        \"httpMethod\": \"PUT\",\n        \"message\": \"<string>\",\n        \"parameter1\": \"<string>\",\n        \"parameter2\": \"<string>\",\n        \"parameter3\": \"<string>\",\n        \"parameter4\": \"<string>\",\n        \"parameter5\": \"<string>\",\n        \"secretAccessKey\": \"<string>\",\n        \"speedClass\": \"s1.fast\",\n        \"title\": \"<string>\",\n        \"to\": \"<string>\",\n        \"url\": \"<string>\"\n      },\n      \"type\": \"DeactivationAction\"\n    },\n    {\n      \"properties\": {\n        \"executionDateTimeConst\": \"BEGINNING_OF_NEXT_DAY\",\n        \"accessKey\": \"<string>\",\n        \"body\": \"<string>\",\n        \"contentType\": \"<string>\",\n        \"credentialsId\": \"<string>\",\n        \"endpoint\": \"<string>\",\n        \"executionOffsetMinutes\": \"<string>\",\n        \"functionName\": \"<string>\",\n        \"headers\": {},\n        \"httpMethod\": \"PUT\",\n        \"message\": \"<string>\",\n        \"parameter1\": \"<string>\",\n        \"parameter2\": \"<string>\",\n        \"parameter3\": \"<string>\",\n        \"parameter4\": \"<string>\",\n        \"parameter5\": \"<string>\",\n        \"secretAccessKey\": \"<string>\",\n        \"speedClass\": \"s1.minimum\",\n        \"title\": \"<string>\",\n        \"to\": \"<string>\",\n        \"url\": \"<string>\"\n      },\n      \"type\": \"SendMailToOperatorAction\"\n    }\n  ],\n  \"handlerId\": \"<string>\",\n  \"ruleConfig\": {\n    \"properties\": {\n      \"inactiveTimeoutDateConst\": \"BEGINNING_OF_NEXT_MONTH\",\n      \"inactiveTimeoutOffsetMinutes\": \"<string>\",\n      \"limitTotalAmount\": \"<string>\",\n      \"limitTotalTrafficMegaByte\": \"<string>\",\n      \"runOnceAmongTarget\": \"true\",\n      \"sourceStatus\": \"ready\",\n      \"targetOtaStatus\": \"finished\",\n      \"targetSpeedClass\": \"u1.slow\",\n      \"targetStatus\": \"ready\"\n    },\n    \"type\": \"DailyTotalTrafficRule\"\n  },\n  \"status\": \"active\",\n  \"name\": \"<string>\",\n  \"description\": \"<string>\",\n  \"targetGroupId\": \"<string>\",\n  \"targetImsi\": \"<string>\",\n  \"targetOperatorId\": \"<string>\",\n  \"targetSimId\": \"<string>\"\n}",
+                  "createdAt": "2026-06-05T15:18:34.000Z",
+                  "updatedAt": "2026-06-05T15:18:34.000Z",
+                  "uid": "35240-6b54c22b-def2-4ee9-b30a-21afc14c5488"
+                },
+                {
+                  "id": "68d1ef10-4b97-4ea8-adc4-95a4d0d6962b",
+                  "name": "Event Handler not found.",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "X-Soracom-API-Key",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/event_handlers/:handler_id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "event_handlers",
+                        ":handler_id"
+                      ],
+                      "variable": [
+                        {
+                          "key": "handler_id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Not Found",
+                  "code": 404,
+                  "_postman_previewlanguage": "text",
+                  "header": [],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-06-05T15:18:34.000Z",
+                  "updatedAt": "2026-06-05T15:18:34.000Z",
+                  "uid": "35240-68d1ef10-4b97-4ea8-adc4-95a4d0d6962b"
+                }
+              ],
+              "createdAt": "2026-06-05T15:18:34.000Z",
+              "updatedAt": "2026-06-05T15:18:34.000Z",
+              "uid": "35240-d640a786-64e1-4f13-a8a2-e32c52a6cf45"
+            },
+            {
+              "name": "Update Event Handler",
+              "id": "b78bd380-71bf-4ceb-bfd5-869048f405e1",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "auth": {
+                  "type": "apikey",
+                  "apikey": [
+                    {
+                      "key": "key",
+                      "value": "X-Soracom-API-Key",
+                      "type": "string"
+                    },
+                    {
+                      "key": "value",
+                      "value": "{{apiKey}}",
+                      "type": "string"
+                    },
+                    {
+                      "key": "in",
+                      "value": "header",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "PUT",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"actionConfigList\": [\n    {\n      \"properties\": {\n        \"executionDateTimeConst\": \"AFTER_ONE_DAY\",\n        \"accessKey\": \"<string>\",\n        \"body\": \"<string>\",\n        \"contentType\": \"<string>\",\n        \"credentialsId\": \"<string>\",\n        \"endpoint\": \"<string>\",\n        \"executionOffsetMinutes\": \"<string>\",\n        \"functionName\": \"<string>\",\n        \"headers\": {},\n        \"httpMethod\": \"DELETE\",\n        \"message\": \"<string>\",\n        \"parameter1\": \"<string>\",\n        \"parameter2\": \"<string>\",\n        \"parameter3\": \"<string>\",\n        \"parameter4\": \"<string>\",\n        \"parameter5\": \"<string>\",\n        \"secretAccessKey\": \"<string>\",\n        \"speedClass\": \"s1.minimum\",\n        \"title\": \"<string>\",\n        \"to\": \"<string>\",\n        \"url\": \"<string>\"\n      },\n      \"type\": \"InvokeAWSLambdaAction\"\n    },\n    {\n      \"properties\": {\n        \"executionDateTimeConst\": \"BEGINNING_OF_NEXT_DAY\",\n        \"accessKey\": \"<string>\",\n        \"body\": \"<string>\",\n        \"contentType\": \"<string>\",\n        \"credentialsId\": \"<string>\",\n        \"endpoint\": \"<string>\",\n        \"executionOffsetMinutes\": \"<string>\",\n        \"functionName\": \"<string>\",\n        \"headers\": {},\n        \"httpMethod\": \"GET\",\n        \"message\": \"<string>\",\n        \"parameter1\": \"<string>\",\n        \"parameter2\": \"<string>\",\n        \"parameter3\": \"<string>\",\n        \"parameter4\": \"<string>\",\n        \"parameter5\": \"<string>\",\n        \"secretAccessKey\": \"<string>\",\n        \"speedClass\": \"s1.standard\",\n        \"title\": \"<string>\",\n        \"to\": \"<string>\",\n        \"url\": \"<string>\"\n      },\n      \"type\": \"ActivationAction\"\n    }\n  ],\n  \"name\": \"<string>\",\n  \"ruleConfig\": {\n    \"properties\": {\n      \"inactiveTimeoutDateConst\": \"NEVER\",\n      \"inactiveTimeoutOffsetMinutes\": \"<string>\",\n      \"limitTotalAmount\": \"<string>\",\n      \"limitTotalTrafficMegaByte\": \"<string>\",\n      \"runOnceAmongTarget\": \"false\",\n      \"sourceStatus\": \"standby\",\n      \"targetOtaStatus\": \"finished\",\n      \"targetSpeedClass\": \"s1.fast\",\n      \"targetStatus\": \"terminated\"\n    },\n    \"type\": \"SimExpiredRule\"\n  },\n  \"status\": \"inactive\",\n  \"description\": \"<string>\",\n  \"targetGroupId\": \"<string>\",\n  \"targetImsi\": \"<string>\",\n  \"targetOperatorId\": \"<string>\",\n  \"targetSimId\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/event_handlers/:handler_id",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "event_handlers",
+                    ":handler_id"
+                  ],
+                  "variable": [
+                    {
+                      "id": "9feb9538-8d1a-4a1f-af3f-e49598536adb",
+                      "key": "handler_id",
+                      "value": "<string>",
+                      "description": "(Required) Event handler ID."
+                    }
+                  ]
+                },
+                "description": "Updates the specified event handler. Please see also https://developers.soracom.io/en/docs/air/event-handler/."
+              },
+              "response": [
+                {
+                  "id": "3e6912d4-f7ec-4794-aca4-bcac1f23c890",
+                  "name": "OK.",
+                  "originalRequest": {
+                    "method": "PUT",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "X-Soracom-API-Key",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"actionConfigList\": [\n    {\n      \"properties\": {\n        \"executionDateTimeConst\": \"AFTER_ONE_DAY\",\n        \"accessKey\": \"<string>\",\n        \"body\": \"<string>\",\n        \"contentType\": \"<string>\",\n        \"credentialsId\": \"<string>\",\n        \"endpoint\": \"<string>\",\n        \"executionOffsetMinutes\": \"<string>\",\n        \"functionName\": \"<string>\",\n        \"headers\": {},\n        \"httpMethod\": \"DELETE\",\n        \"message\": \"<string>\",\n        \"parameter1\": \"<string>\",\n        \"parameter2\": \"<string>\",\n        \"parameter3\": \"<string>\",\n        \"parameter4\": \"<string>\",\n        \"parameter5\": \"<string>\",\n        \"secretAccessKey\": \"<string>\",\n        \"speedClass\": \"s1.minimum\",\n        \"title\": \"<string>\",\n        \"to\": \"<string>\",\n        \"url\": \"<string>\"\n      },\n      \"type\": \"InvokeAWSLambdaAction\"\n    },\n    {\n      \"properties\": {\n        \"executionDateTimeConst\": \"BEGINNING_OF_NEXT_DAY\",\n        \"accessKey\": \"<string>\",\n        \"body\": \"<string>\",\n        \"contentType\": \"<string>\",\n        \"credentialsId\": \"<string>\",\n        \"endpoint\": \"<string>\",\n        \"executionOffsetMinutes\": \"<string>\",\n        \"functionName\": \"<string>\",\n        \"headers\": {},\n        \"httpMethod\": \"GET\",\n        \"message\": \"<string>\",\n        \"parameter1\": \"<string>\",\n        \"parameter2\": \"<string>\",\n        \"parameter3\": \"<string>\",\n        \"parameter4\": \"<string>\",\n        \"parameter5\": \"<string>\",\n        \"secretAccessKey\": \"<string>\",\n        \"speedClass\": \"s1.standard\",\n        \"title\": \"<string>\",\n        \"to\": \"<string>\",\n        \"url\": \"<string>\"\n      },\n      \"type\": \"ActivationAction\"\n    }\n  ],\n  \"name\": \"<string>\",\n  \"ruleConfig\": {\n    \"properties\": {\n      \"inactiveTimeoutDateConst\": \"NEVER\",\n      \"inactiveTimeoutOffsetMinutes\": \"<string>\",\n      \"limitTotalAmount\": \"<string>\",\n      \"limitTotalTrafficMegaByte\": \"<string>\",\n      \"runOnceAmongTarget\": \"false\",\n      \"sourceStatus\": \"standby\",\n      \"targetOtaStatus\": \"finished\",\n      \"targetSpeedClass\": \"s1.fast\",\n      \"targetStatus\": \"terminated\"\n    },\n    \"type\": \"SimExpiredRule\"\n  },\n  \"status\": \"inactive\",\n  \"description\": \"<string>\",\n  \"targetGroupId\": \"<string>\",\n  \"targetImsi\": \"<string>\",\n  \"targetOperatorId\": \"<string>\",\n  \"targetSimId\": \"<string>\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/event_handlers/:handler_id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "event_handlers",
+                        ":handler_id"
+                      ],
+                      "variable": [
+                        {
+                          "key": "handler_id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "text",
+                  "header": [],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-06-05T15:18:34.000Z",
+                  "updatedAt": "2026-06-05T15:18:34.000Z",
+                  "uid": "35240-3e6912d4-f7ec-4794-aca4-bcac1f23c890"
+                },
+                {
+                  "id": "969e2460-c0dc-4123-937c-f0ce00e001c3",
+                  "name": "Invalid event handler ID.",
+                  "originalRequest": {
+                    "method": "PUT",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "X-Soracom-API-Key",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"actionConfigList\": [\n    {\n      \"properties\": {\n        \"executionDateTimeConst\": \"AFTER_ONE_DAY\",\n        \"accessKey\": \"<string>\",\n        \"body\": \"<string>\",\n        \"contentType\": \"<string>\",\n        \"credentialsId\": \"<string>\",\n        \"endpoint\": \"<string>\",\n        \"executionOffsetMinutes\": \"<string>\",\n        \"functionName\": \"<string>\",\n        \"headers\": {},\n        \"httpMethod\": \"DELETE\",\n        \"message\": \"<string>\",\n        \"parameter1\": \"<string>\",\n        \"parameter2\": \"<string>\",\n        \"parameter3\": \"<string>\",\n        \"parameter4\": \"<string>\",\n        \"parameter5\": \"<string>\",\n        \"secretAccessKey\": \"<string>\",\n        \"speedClass\": \"s1.minimum\",\n        \"title\": \"<string>\",\n        \"to\": \"<string>\",\n        \"url\": \"<string>\"\n      },\n      \"type\": \"InvokeAWSLambdaAction\"\n    },\n    {\n      \"properties\": {\n        \"executionDateTimeConst\": \"BEGINNING_OF_NEXT_DAY\",\n        \"accessKey\": \"<string>\",\n        \"body\": \"<string>\",\n        \"contentType\": \"<string>\",\n        \"credentialsId\": \"<string>\",\n        \"endpoint\": \"<string>\",\n        \"executionOffsetMinutes\": \"<string>\",\n        \"functionName\": \"<string>\",\n        \"headers\": {},\n        \"httpMethod\": \"GET\",\n        \"message\": \"<string>\",\n        \"parameter1\": \"<string>\",\n        \"parameter2\": \"<string>\",\n        \"parameter3\": \"<string>\",\n        \"parameter4\": \"<string>\",\n        \"parameter5\": \"<string>\",\n        \"secretAccessKey\": \"<string>\",\n        \"speedClass\": \"s1.standard\",\n        \"title\": \"<string>\",\n        \"to\": \"<string>\",\n        \"url\": \"<string>\"\n      },\n      \"type\": \"ActivationAction\"\n    }\n  ],\n  \"name\": \"<string>\",\n  \"ruleConfig\": {\n    \"properties\": {\n      \"inactiveTimeoutDateConst\": \"NEVER\",\n      \"inactiveTimeoutOffsetMinutes\": \"<string>\",\n      \"limitTotalAmount\": \"<string>\",\n      \"limitTotalTrafficMegaByte\": \"<string>\",\n      \"runOnceAmongTarget\": \"false\",\n      \"sourceStatus\": \"standby\",\n      \"targetOtaStatus\": \"finished\",\n      \"targetSpeedClass\": \"s1.fast\",\n      \"targetStatus\": \"terminated\"\n    },\n    \"type\": \"SimExpiredRule\"\n  },\n  \"status\": \"inactive\",\n  \"description\": \"<string>\",\n  \"targetGroupId\": \"<string>\",\n  \"targetImsi\": \"<string>\",\n  \"targetOperatorId\": \"<string>\",\n  \"targetSimId\": \"<string>\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/event_handlers/:handler_id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "event_handlers",
+                        ":handler_id"
+                      ],
+                      "variable": [
+                        {
+                          "key": "handler_id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Bad Request",
+                  "code": 400,
+                  "_postman_previewlanguage": "text",
+                  "header": [],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-06-05T15:18:34.000Z",
+                  "updatedAt": "2026-06-05T15:18:34.000Z",
+                  "uid": "35240-969e2460-c0dc-4123-937c-f0ce00e001c3"
+                }
+              ],
+              "createdAt": "2026-06-05T15:18:34.000Z",
+              "updatedAt": "2026-06-05T15:18:34.000Z",
+              "uid": "35240-b78bd380-71bf-4ceb-bfd5-869048f405e1"
+            }
+          ],
+          "id": "9273ed70-b380-4fc9-83de-1286a7475f62",
+          "createdAt": "2026-06-05T15:18:34.000Z",
+          "updatedAt": "2026-06-05T15:18:34.000Z",
+          "uid": "35240-9273ed70-b380-4fc9-83de-1286a7475f62"
+        },
+        {
+          "name": "subscribers",
+          "item": [
+            {
+              "name": "{imsi}",
+              "item": [
+                {
+                  "name": "List Event Handlers related to Subscriber",
+                  "id": "e47ac100-ed81-4540-952b-16c8ca2e5a01",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "auth": {
+                      "type": "apikey",
+                      "apikey": [
+                        {
+                          "key": "key",
+                          "value": "X-Soracom-API-Key",
+                          "type": "string"
+                        },
+                        {
+                          "key": "value",
+                          "value": "{{apiKey}}",
+                          "type": "string"
+                        },
+                        {
+                          "key": "in",
+                          "value": "header",
+                          "type": "string"
+                        }
+                      ]
+                    },
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/event_handlers/subscribers/:imsi",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "event_handlers",
+                        "subscribers",
+                        ":imsi"
+                      ],
+                      "variable": [
+                        {
+                          "id": "ff24c9bb-6444-4a78-bb2c-df6e79fc26bf",
+                          "key": "imsi",
+                          "value": "<string>",
+                          "description": "(Required) IMSI."
+                        }
+                      ]
+                    },
+                    "description": "Returns a list of event handlers related to the specified IMSI."
+                  },
+                  "response": [
+                    {
+                      "id": "9b594469-2f66-4107-9171-4941e08ade55",
+                      "name": "OK.",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "X-Soracom-API-Key",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/event_handlers/subscribers/:imsi",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "event_handlers",
+                            "subscribers",
+                            ":imsi"
+                          ],
+                          "variable": [
+                            {
+                              "key": "imsi"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "[\n  {\n    \"actionConfigList\": [\n      {\n        \"properties\": {\n          \"executionDateTimeConst\": \"IMMEDIATELY\",\n          \"accessKey\": \"<string>\",\n          \"body\": \"<string>\",\n          \"contentType\": \"<string>\",\n          \"credentialsId\": \"<string>\",\n          \"endpoint\": \"<string>\",\n          \"executionOffsetMinutes\": \"<string>\",\n          \"functionName\": \"<string>\",\n          \"headers\": {},\n          \"httpMethod\": \"DELETE\",\n          \"message\": \"<string>\",\n          \"parameter1\": \"<string>\",\n          \"parameter2\": \"<string>\",\n          \"parameter3\": \"<string>\",\n          \"parameter4\": \"<string>\",\n          \"parameter5\": \"<string>\",\n          \"secretAccessKey\": \"<string>\",\n          \"speedClass\": \"s1.fast\",\n          \"title\": \"<string>\",\n          \"to\": \"<string>\",\n          \"url\": \"<string>\"\n        },\n        \"type\": \"StandbyAction\"\n      },\n      {\n        \"properties\": {\n          \"executionDateTimeConst\": \"BEGINNING_OF_NEXT_DAY\",\n          \"accessKey\": \"<string>\",\n          \"body\": \"<string>\",\n          \"contentType\": \"<string>\",\n          \"credentialsId\": \"<string>\",\n          \"endpoint\": \"<string>\",\n          \"executionOffsetMinutes\": \"<string>\",\n          \"functionName\": \"<string>\",\n          \"headers\": {},\n          \"httpMethod\": \"DELETE\",\n          \"message\": \"<string>\",\n          \"parameter1\": \"<string>\",\n          \"parameter2\": \"<string>\",\n          \"parameter3\": \"<string>\",\n          \"parameter4\": \"<string>\",\n          \"parameter5\": \"<string>\",\n          \"secretAccessKey\": \"<string>\",\n          \"speedClass\": \"s1.8xfast\",\n          \"title\": \"<string>\",\n          \"to\": \"<string>\",\n          \"url\": \"<string>\"\n        },\n        \"type\": \"SendMailToOperatorAction\"\n      }\n    ],\n    \"handlerId\": \"<string>\",\n    \"ruleConfig\": {\n      \"properties\": {\n        \"inactiveTimeoutDateConst\": \"BEGINNING_OF_NEXT_DAY\",\n        \"inactiveTimeoutOffsetMinutes\": \"<string>\",\n        \"limitTotalAmount\": \"<string>\",\n        \"limitTotalTrafficMegaByte\": \"<string>\",\n        \"runOnceAmongTarget\": \"true\",\n        \"sourceStatus\": \"standby\",\n        \"targetOtaStatus\": \"finished\",\n        \"targetSpeedClass\": \"u1.standard\",\n        \"targetStatus\": \"ready\"\n      },\n      \"type\": \"SubscriberFirstTrafficRule\"\n    },\n    \"status\": \"inactive\",\n    \"name\": \"<string>\",\n    \"description\": \"<string>\",\n    \"targetGroupId\": \"<string>\",\n    \"targetImsi\": \"<string>\",\n    \"targetOperatorId\": \"<string>\",\n    \"targetSimId\": \"<string>\"\n  },\n  {\n    \"actionConfigList\": [\n      {\n        \"properties\": {\n          \"executionDateTimeConst\": \"BEGINNING_OF_NEXT_MONTH\",\n          \"accessKey\": \"<string>\",\n          \"body\": \"<string>\",\n          \"contentType\": \"<string>\",\n          \"credentialsId\": \"<string>\",\n          \"endpoint\": \"<string>\",\n          \"executionOffsetMinutes\": \"<string>\",\n          \"functionName\": \"<string>\",\n          \"headers\": {},\n          \"httpMethod\": \"PUT\",\n          \"message\": \"<string>\",\n          \"parameter1\": \"<string>\",\n          \"parameter2\": \"<string>\",\n          \"parameter3\": \"<string>\",\n          \"parameter4\": \"<string>\",\n          \"parameter5\": \"<string>\",\n          \"secretAccessKey\": \"<string>\",\n          \"speedClass\": \"u1.standard\",\n          \"title\": \"<string>\",\n          \"to\": \"<string>\",\n          \"url\": \"<string>\"\n        },\n        \"type\": \"SendMailAction\"\n      },\n      {\n        \"properties\": {\n          \"executionDateTimeConst\": \"BEGINNING_OF_NEXT_DAY\",\n          \"accessKey\": \"<string>\",\n          \"body\": \"<string>\",\n          \"contentType\": \"<string>\",\n          \"credentialsId\": \"<string>\",\n          \"endpoint\": \"<string>\",\n          \"executionOffsetMinutes\": \"<string>\",\n          \"functionName\": \"<string>\",\n          \"headers\": {},\n          \"httpMethod\": \"PUT\",\n          \"message\": \"<string>\",\n          \"parameter1\": \"<string>\",\n          \"parameter2\": \"<string>\",\n          \"parameter3\": \"<string>\",\n          \"parameter4\": \"<string>\",\n          \"parameter5\": \"<string>\",\n          \"secretAccessKey\": \"<string>\",\n          \"speedClass\": \"s1.4xfast\",\n          \"title\": \"<string>\",\n          \"to\": \"<string>\",\n          \"url\": \"<string>\"\n        },\n        \"type\": \"DeactivationAction\"\n      }\n    ],\n    \"handlerId\": \"<string>\",\n    \"ruleConfig\": {\n      \"properties\": {\n        \"inactiveTimeoutDateConst\": \"IMMEDIATELY\",\n        \"inactiveTimeoutOffsetMinutes\": \"<string>\",\n        \"limitTotalAmount\": \"<string>\",\n        \"limitTotalTrafficMegaByte\": \"<string>\",\n        \"runOnceAmongTarget\": \"true\",\n        \"sourceStatus\": \"active\",\n        \"targetOtaStatus\": \"started\",\n        \"targetSpeedClass\": \"s1.slow\",\n        \"targetStatus\": \"terminated\"\n      },\n      \"type\": \"SimExpiredRule\"\n    },\n    \"status\": \"active\",\n    \"name\": \"<string>\",\n    \"description\": \"<string>\",\n    \"targetGroupId\": \"<string>\",\n    \"targetImsi\": \"<string>\",\n    \"targetOperatorId\": \"<string>\",\n    \"targetSimId\": \"<string>\"\n  }\n]",
+                      "createdAt": "2026-06-05T15:18:34.000Z",
+                      "updatedAt": "2026-06-05T15:18:34.000Z",
+                      "uid": "35240-9b594469-2f66-4107-9171-4941e08ade55"
+                    },
+                    {
+                      "id": "c28ca890-d68c-4d49-a507-e16aed22255c",
+                      "name": "Event Handler not found.",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "X-Soracom-API-Key",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/event_handlers/subscribers/:imsi",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "event_handlers",
+                            "subscribers",
+                            ":imsi"
+                          ],
+                          "variable": [
+                            {
+                              "key": "imsi"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Not Found",
+                      "code": 404,
+                      "_postman_previewlanguage": "text",
+                      "header": [],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-06-05T15:18:34.000Z",
+                      "updatedAt": "2026-06-05T15:18:34.000Z",
+                      "uid": "35240-c28ca890-d68c-4d49-a507-e16aed22255c"
+                    }
+                  ],
+                  "createdAt": "2026-06-05T15:18:34.000Z",
+                  "updatedAt": "2026-06-05T15:18:34.000Z",
+                  "uid": "35240-e47ac100-ed81-4540-952b-16c8ca2e5a01"
+                }
+              ],
+              "id": "712a93d0-d052-482f-929e-3c98e1f93771",
+              "createdAt": "2026-06-05T15:18:34.000Z",
+              "updatedAt": "2026-06-05T15:18:34.000Z",
+              "uid": "35240-712a93d0-d052-482f-929e-3c98e1f93771"
+            }
+          ],
+          "id": "903b212c-988e-4f77-a317-a30716a8b3e6",
+          "createdAt": "2026-06-05T15:18:34.000Z",
+          "updatedAt": "2026-06-05T15:18:34.000Z",
+          "uid": "35240-903b212c-988e-4f77-a317-a30716a8b3e6"
+        },
+        {
+          "name": "List Event Handlers",
+          "id": "e3acf4e8-5254-44eb-88a7-61610cb37bdd",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-Soracom-API-Key",
+                  "type": "string"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}",
+                  "type": "string"
+                },
+                {
+                  "key": "in",
+                  "value": "header",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/event_handlers?target=sim",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "event_handlers"
+              ],
+              "query": [
+                {
+                  "description": "The event handler target (the target for executing events).",
+                  "key": "target",
+                  "value": "sim"
+                }
+              ]
+            },
+            "description": "Returns a list of event handlers."
+          },
+          "response": [
+            {
+              "id": "c3b041dd-7b0b-44c8-b4a9-9ab4057367fe",
+              "name": "OK.",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: apikey",
+                    "key": "X-Soracom-API-Key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/event_handlers?target=sim",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "event_handlers"
+                  ],
+                  "query": [
+                    {
+                      "description": "The event handler target (the target for executing events).",
+                      "key": "target",
+                      "value": "sim"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "[\n  {\n    \"actionConfigList\": [\n      {\n        \"properties\": {\n          \"executionDateTimeConst\": \"IMMEDIATELY\",\n          \"accessKey\": \"<string>\",\n          \"body\": \"<string>\",\n          \"contentType\": \"<string>\",\n          \"credentialsId\": \"<string>\",\n          \"endpoint\": \"<string>\",\n          \"executionOffsetMinutes\": \"<string>\",\n          \"functionName\": \"<string>\",\n          \"headers\": {},\n          \"httpMethod\": \"DELETE\",\n          \"message\": \"<string>\",\n          \"parameter1\": \"<string>\",\n          \"parameter2\": \"<string>\",\n          \"parameter3\": \"<string>\",\n          \"parameter4\": \"<string>\",\n          \"parameter5\": \"<string>\",\n          \"secretAccessKey\": \"<string>\",\n          \"speedClass\": \"s1.fast\",\n          \"title\": \"<string>\",\n          \"to\": \"<string>\",\n          \"url\": \"<string>\"\n        },\n        \"type\": \"StandbyAction\"\n      },\n      {\n        \"properties\": {\n          \"executionDateTimeConst\": \"BEGINNING_OF_NEXT_DAY\",\n          \"accessKey\": \"<string>\",\n          \"body\": \"<string>\",\n          \"contentType\": \"<string>\",\n          \"credentialsId\": \"<string>\",\n          \"endpoint\": \"<string>\",\n          \"executionOffsetMinutes\": \"<string>\",\n          \"functionName\": \"<string>\",\n          \"headers\": {},\n          \"httpMethod\": \"DELETE\",\n          \"message\": \"<string>\",\n          \"parameter1\": \"<string>\",\n          \"parameter2\": \"<string>\",\n          \"parameter3\": \"<string>\",\n          \"parameter4\": \"<string>\",\n          \"parameter5\": \"<string>\",\n          \"secretAccessKey\": \"<string>\",\n          \"speedClass\": \"s1.8xfast\",\n          \"title\": \"<string>\",\n          \"to\": \"<string>\",\n          \"url\": \"<string>\"\n        },\n        \"type\": \"SendMailToOperatorAction\"\n      }\n    ],\n    \"handlerId\": \"<string>\",\n    \"ruleConfig\": {\n      \"properties\": {\n        \"inactiveTimeoutDateConst\": \"BEGINNING_OF_NEXT_DAY\",\n        \"inactiveTimeoutOffsetMinutes\": \"<string>\",\n        \"limitTotalAmount\": \"<string>\",\n        \"limitTotalTrafficMegaByte\": \"<string>\",\n        \"runOnceAmongTarget\": \"true\",\n        \"sourceStatus\": \"standby\",\n        \"targetOtaStatus\": \"finished\",\n        \"targetSpeedClass\": \"u1.standard\",\n        \"targetStatus\": \"ready\"\n      },\n      \"type\": \"SubscriberFirstTrafficRule\"\n    },\n    \"status\": \"inactive\",\n    \"name\": \"<string>\",\n    \"description\": \"<string>\",\n    \"targetGroupId\": \"<string>\",\n    \"targetImsi\": \"<string>\",\n    \"targetOperatorId\": \"<string>\",\n    \"targetSimId\": \"<string>\"\n  },\n  {\n    \"actionConfigList\": [\n      {\n        \"properties\": {\n          \"executionDateTimeConst\": \"BEGINNING_OF_NEXT_MONTH\",\n          \"accessKey\": \"<string>\",\n          \"body\": \"<string>\",\n          \"contentType\": \"<string>\",\n          \"credentialsId\": \"<string>\",\n          \"endpoint\": \"<string>\",\n          \"executionOffsetMinutes\": \"<string>\",\n          \"functionName\": \"<string>\",\n          \"headers\": {},\n          \"httpMethod\": \"PUT\",\n          \"message\": \"<string>\",\n          \"parameter1\": \"<string>\",\n          \"parameter2\": \"<string>\",\n          \"parameter3\": \"<string>\",\n          \"parameter4\": \"<string>\",\n          \"parameter5\": \"<string>\",\n          \"secretAccessKey\": \"<string>\",\n          \"speedClass\": \"u1.standard\",\n          \"title\": \"<string>\",\n          \"to\": \"<string>\",\n          \"url\": \"<string>\"\n        },\n        \"type\": \"SendMailAction\"\n      },\n      {\n        \"properties\": {\n          \"executionDateTimeConst\": \"BEGINNING_OF_NEXT_DAY\",\n          \"accessKey\": \"<string>\",\n          \"body\": \"<string>\",\n          \"contentType\": \"<string>\",\n          \"credentialsId\": \"<string>\",\n          \"endpoint\": \"<string>\",\n          \"executionOffsetMinutes\": \"<string>\",\n          \"functionName\": \"<string>\",\n          \"headers\": {},\n          \"httpMethod\": \"PUT\",\n          \"message\": \"<string>\",\n          \"parameter1\": \"<string>\",\n          \"parameter2\": \"<string>\",\n          \"parameter3\": \"<string>\",\n          \"parameter4\": \"<string>\",\n          \"parameter5\": \"<string>\",\n          \"secretAccessKey\": \"<string>\",\n          \"speedClass\": \"s1.4xfast\",\n          \"title\": \"<string>\",\n          \"to\": \"<string>\",\n          \"url\": \"<string>\"\n        },\n        \"type\": \"DeactivationAction\"\n      }\n    ],\n    \"handlerId\": \"<string>\",\n    \"ruleConfig\": {\n      \"properties\": {\n        \"inactiveTimeoutDateConst\": \"IMMEDIATELY\",\n        \"inactiveTimeoutOffsetMinutes\": \"<string>\",\n        \"limitTotalAmount\": \"<string>\",\n        \"limitTotalTrafficMegaByte\": \"<string>\",\n        \"runOnceAmongTarget\": \"true\",\n        \"sourceStatus\": \"active\",\n        \"targetOtaStatus\": \"started\",\n        \"targetSpeedClass\": \"s1.slow\",\n        \"targetStatus\": \"terminated\"\n      },\n      \"type\": \"SimExpiredRule\"\n    },\n    \"status\": \"active\",\n    \"name\": \"<string>\",\n    \"description\": \"<string>\",\n    \"targetGroupId\": \"<string>\",\n    \"targetImsi\": \"<string>\",\n    \"targetOperatorId\": \"<string>\",\n    \"targetSimId\": \"<string>\"\n  }\n]",
+              "createdAt": "2026-06-05T15:18:34.000Z",
+              "updatedAt": "2026-06-05T15:18:34.000Z",
+              "uid": "35240-c3b041dd-7b0b-44c8-b4a9-9ab4057367fe"
+            }
+          ],
+          "createdAt": "2026-06-05T15:18:34.000Z",
+          "updatedAt": "2026-06-05T15:18:34.000Z",
+          "uid": "35240-e3acf4e8-5254-44eb-88a7-61610cb37bdd"
+        },
+        {
+          "name": "Create Event Handler",
+          "id": "f40e7f29-3fdd-4330-acf5-7f8e49a303be",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-Soracom-API-Key",
+                  "type": "string"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}",
+                  "type": "string"
+                },
+                {
+                  "key": "in",
+                  "value": "header",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"actionConfigList\": [\n    {\n      \"properties\": {\n        \"executionDateTimeConst\": \"AFTER_ONE_DAY\",\n        \"accessKey\": \"<string>\",\n        \"body\": \"<string>\",\n        \"contentType\": \"<string>\",\n        \"credentialsId\": \"<string>\",\n        \"endpoint\": \"<string>\",\n        \"executionOffsetMinutes\": \"<string>\",\n        \"functionName\": \"<string>\",\n        \"headers\": {},\n        \"httpMethod\": \"DELETE\",\n        \"message\": \"<string>\",\n        \"parameter1\": \"<string>\",\n        \"parameter2\": \"<string>\",\n        \"parameter3\": \"<string>\",\n        \"parameter4\": \"<string>\",\n        \"parameter5\": \"<string>\",\n        \"secretAccessKey\": \"<string>\",\n        \"speedClass\": \"s1.minimum\",\n        \"title\": \"<string>\",\n        \"to\": \"<string>\",\n        \"url\": \"<string>\"\n      },\n      \"type\": \"InvokeAWSLambdaAction\"\n    },\n    {\n      \"properties\": {\n        \"executionDateTimeConst\": \"BEGINNING_OF_NEXT_DAY\",\n        \"accessKey\": \"<string>\",\n        \"body\": \"<string>\",\n        \"contentType\": \"<string>\",\n        \"credentialsId\": \"<string>\",\n        \"endpoint\": \"<string>\",\n        \"executionOffsetMinutes\": \"<string>\",\n        \"functionName\": \"<string>\",\n        \"headers\": {},\n        \"httpMethod\": \"GET\",\n        \"message\": \"<string>\",\n        \"parameter1\": \"<string>\",\n        \"parameter2\": \"<string>\",\n        \"parameter3\": \"<string>\",\n        \"parameter4\": \"<string>\",\n        \"parameter5\": \"<string>\",\n        \"secretAccessKey\": \"<string>\",\n        \"speedClass\": \"s1.standard\",\n        \"title\": \"<string>\",\n        \"to\": \"<string>\",\n        \"url\": \"<string>\"\n      },\n      \"type\": \"ActivationAction\"\n    }\n  ],\n  \"name\": \"<string>\",\n  \"ruleConfig\": {\n    \"properties\": {\n      \"inactiveTimeoutDateConst\": \"NEVER\",\n      \"inactiveTimeoutOffsetMinutes\": \"<string>\",\n      \"limitTotalAmount\": \"<string>\",\n      \"limitTotalTrafficMegaByte\": \"<string>\",\n      \"runOnceAmongTarget\": \"false\",\n      \"sourceStatus\": \"standby\",\n      \"targetOtaStatus\": \"finished\",\n      \"targetSpeedClass\": \"s1.fast\",\n      \"targetStatus\": \"terminated\"\n    },\n    \"type\": \"SimExpiredRule\"\n  },\n  \"status\": \"inactive\",\n  \"description\": \"<string>\",\n  \"targetGroupId\": \"<string>\",\n  \"targetImsi\": \"<string>\",\n  \"targetOperatorId\": \"<string>\",\n  \"targetSimId\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "headerFamily": "json",
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/event_handlers",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "event_handlers"
+              ]
+            },
+            "description": "Creates a new event handler. Please see also https://developers.soracom.io/en/docs/air/event-handler/."
+          },
+          "response": [
+            {
+              "id": "15a47920-a573-486c-b99a-8fe4dbe41ef4",
+              "name": "Created.",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: apikey",
+                    "key": "X-Soracom-API-Key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"actionConfigList\": [\n    {\n      \"properties\": {\n        \"executionDateTimeConst\": \"AFTER_ONE_DAY\",\n        \"accessKey\": \"<string>\",\n        \"body\": \"<string>\",\n        \"contentType\": \"<string>\",\n        \"credentialsId\": \"<string>\",\n        \"endpoint\": \"<string>\",\n        \"executionOffsetMinutes\": \"<string>\",\n        \"functionName\": \"<string>\",\n        \"headers\": {},\n        \"httpMethod\": \"DELETE\",\n        \"message\": \"<string>\",\n        \"parameter1\": \"<string>\",\n        \"parameter2\": \"<string>\",\n        \"parameter3\": \"<string>\",\n        \"parameter4\": \"<string>\",\n        \"parameter5\": \"<string>\",\n        \"secretAccessKey\": \"<string>\",\n        \"speedClass\": \"s1.minimum\",\n        \"title\": \"<string>\",\n        \"to\": \"<string>\",\n        \"url\": \"<string>\"\n      },\n      \"type\": \"InvokeAWSLambdaAction\"\n    },\n    {\n      \"properties\": {\n        \"executionDateTimeConst\": \"BEGINNING_OF_NEXT_DAY\",\n        \"accessKey\": \"<string>\",\n        \"body\": \"<string>\",\n        \"contentType\": \"<string>\",\n        \"credentialsId\": \"<string>\",\n        \"endpoint\": \"<string>\",\n        \"executionOffsetMinutes\": \"<string>\",\n        \"functionName\": \"<string>\",\n        \"headers\": {},\n        \"httpMethod\": \"GET\",\n        \"message\": \"<string>\",\n        \"parameter1\": \"<string>\",\n        \"parameter2\": \"<string>\",\n        \"parameter3\": \"<string>\",\n        \"parameter4\": \"<string>\",\n        \"parameter5\": \"<string>\",\n        \"secretAccessKey\": \"<string>\",\n        \"speedClass\": \"s1.standard\",\n        \"title\": \"<string>\",\n        \"to\": \"<string>\",\n        \"url\": \"<string>\"\n      },\n      \"type\": \"ActivationAction\"\n    }\n  ],\n  \"name\": \"<string>\",\n  \"ruleConfig\": {\n    \"properties\": {\n      \"inactiveTimeoutDateConst\": \"NEVER\",\n      \"inactiveTimeoutOffsetMinutes\": \"<string>\",\n      \"limitTotalAmount\": \"<string>\",\n      \"limitTotalTrafficMegaByte\": \"<string>\",\n      \"runOnceAmongTarget\": \"false\",\n      \"sourceStatus\": \"standby\",\n      \"targetOtaStatus\": \"finished\",\n      \"targetSpeedClass\": \"s1.fast\",\n      \"targetStatus\": \"terminated\"\n    },\n    \"type\": \"SimExpiredRule\"\n  },\n  \"status\": \"inactive\",\n  \"description\": \"<string>\",\n  \"targetGroupId\": \"<string>\",\n  \"targetImsi\": \"<string>\",\n  \"targetOperatorId\": \"<string>\",\n  \"targetSimId\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/event_handlers",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "event_handlers"
+                  ]
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"actionConfigList\": [\n    {\n      \"properties\": {\n        \"executionDateTimeConst\": \"BEGINNING_OF_NEXT_DAY\",\n        \"accessKey\": \"<string>\",\n        \"body\": \"<string>\",\n        \"contentType\": \"<string>\",\n        \"credentialsId\": \"<string>\",\n        \"endpoint\": \"<string>\",\n        \"executionOffsetMinutes\": \"<string>\",\n        \"functionName\": \"<string>\",\n        \"headers\": {},\n        \"httpMethod\": \"PUT\",\n        \"message\": \"<string>\",\n        \"parameter1\": \"<string>\",\n        \"parameter2\": \"<string>\",\n        \"parameter3\": \"<string>\",\n        \"parameter4\": \"<string>\",\n        \"parameter5\": \"<string>\",\n        \"secretAccessKey\": \"<string>\",\n        \"speedClass\": \"s1.fast\",\n        \"title\": \"<string>\",\n        \"to\": \"<string>\",\n        \"url\": \"<string>\"\n      },\n      \"type\": \"DeactivationAction\"\n    },\n    {\n      \"properties\": {\n        \"executionDateTimeConst\": \"BEGINNING_OF_NEXT_DAY\",\n        \"accessKey\": \"<string>\",\n        \"body\": \"<string>\",\n        \"contentType\": \"<string>\",\n        \"credentialsId\": \"<string>\",\n        \"endpoint\": \"<string>\",\n        \"executionOffsetMinutes\": \"<string>\",\n        \"functionName\": \"<string>\",\n        \"headers\": {},\n        \"httpMethod\": \"PUT\",\n        \"message\": \"<string>\",\n        \"parameter1\": \"<string>\",\n        \"parameter2\": \"<string>\",\n        \"parameter3\": \"<string>\",\n        \"parameter4\": \"<string>\",\n        \"parameter5\": \"<string>\",\n        \"secretAccessKey\": \"<string>\",\n        \"speedClass\": \"s1.minimum\",\n        \"title\": \"<string>\",\n        \"to\": \"<string>\",\n        \"url\": \"<string>\"\n      },\n      \"type\": \"SendMailToOperatorAction\"\n    }\n  ],\n  \"handlerId\": \"<string>\",\n  \"ruleConfig\": {\n    \"properties\": {\n      \"inactiveTimeoutDateConst\": \"BEGINNING_OF_NEXT_MONTH\",\n      \"inactiveTimeoutOffsetMinutes\": \"<string>\",\n      \"limitTotalAmount\": \"<string>\",\n      \"limitTotalTrafficMegaByte\": \"<string>\",\n      \"runOnceAmongTarget\": \"true\",\n      \"sourceStatus\": \"ready\",\n      \"targetOtaStatus\": \"finished\",\n      \"targetSpeedClass\": \"u1.slow\",\n      \"targetStatus\": \"ready\"\n    },\n    \"type\": \"DailyTotalTrafficRule\"\n  },\n  \"status\": \"active\",\n  \"name\": \"<string>\",\n  \"description\": \"<string>\",\n  \"targetGroupId\": \"<string>\",\n  \"targetImsi\": \"<string>\",\n  \"targetOperatorId\": \"<string>\",\n  \"targetSimId\": \"<string>\"\n}",
+              "createdAt": "2026-06-05T15:18:34.000Z",
+              "updatedAt": "2026-06-05T15:18:34.000Z",
+              "uid": "35240-15a47920-a573-486c-b99a-8fe4dbe41ef4"
+            }
+          ],
+          "createdAt": "2026-06-05T15:18:34.000Z",
+          "updatedAt": "2026-06-05T15:18:34.000Z",
+          "uid": "35240-f40e7f29-3fdd-4330-acf5-7f8e49a303be"
+        }
+      ],
+      "id": "c1e31b51-5826-4812-a112-49c2f3b2ab80",
+      "createdAt": "2026-06-05T15:18:34.000Z",
+      "updatedAt": "2026-06-05T15:18:34.000Z",
+      "uid": "35240-c1e31b51-5826-4812-a112-49c2f3b2ab80"
+    },
+    {
+      "name": "credentials",
+      "item": [
+        {
+          "name": "{credentials_id}",
+          "item": [
+            {
+              "name": "Delete a credential set",
+              "id": "f5f98149-68ba-4298-9edf-e72013dd5a55",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "auth": {
+                  "type": "apikey",
+                  "apikey": [
+                    {
+                      "key": "key",
+                      "value": "X-Soracom-API-Key",
+                      "type": "string"
+                    },
+                    {
+                      "key": "value",
+                      "value": "{{apiKey}}",
+                      "type": "string"
+                    },
+                    {
+                      "key": "in",
+                      "value": "header",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "DELETE",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/credentials/:credentials_id",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "credentials",
+                    ":credentials_id"
+                  ],
+                  "variable": [
+                    {
+                      "id": "b2d7856b-bb8e-4caf-8be6-6dc3bcb30fa4",
+                      "key": "credentials_id",
+                      "value": "<string>",
+                      "description": "(Required) Credential set ID."
+                    }
+                  ]
+                },
+                "description": "Deletes a credential set."
+              },
+              "response": [
+                {
+                  "id": "8a20c3fc-60e5-4088-adf2-a5b4d29cd0ad",
+                  "name": "Credential set has been deleted.",
+                  "originalRequest": {
+                    "method": "DELETE",
+                    "header": [
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "X-Soracom-API-Key",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/credentials/:credentials_id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "credentials",
+                        ":credentials_id"
+                      ],
+                      "variable": [
+                        {
+                          "key": "credentials_id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "No Content",
+                  "code": 204,
+                  "_postman_previewlanguage": "text",
+                  "header": [],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-06-05T15:18:34.000Z",
+                  "updatedAt": "2026-06-05T15:18:34.000Z",
+                  "uid": "35240-8a20c3fc-60e5-4088-adf2-a5b4d29cd0ad"
+                },
+                {
+                  "id": "28c7f02a-52aa-4cce-aea1-5d231b8e6d35",
+                  "name": "Not Found.",
+                  "originalRequest": {
+                    "method": "DELETE",
+                    "header": [
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "X-Soracom-API-Key",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/credentials/:credentials_id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "credentials",
+                        ":credentials_id"
+                      ],
+                      "variable": [
+                        {
+                          "key": "credentials_id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Not Found",
+                  "code": 404,
+                  "_postman_previewlanguage": "text",
+                  "header": [],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-06-05T15:18:34.000Z",
+                  "updatedAt": "2026-06-05T15:18:34.000Z",
+                  "uid": "35240-28c7f02a-52aa-4cce-aea1-5d231b8e6d35"
+                }
+              ],
+              "createdAt": "2026-06-05T15:18:34.000Z",
+              "updatedAt": "2026-06-05T15:18:34.000Z",
+              "uid": "35240-f5f98149-68ba-4298-9edf-e72013dd5a55"
+            },
+            {
+              "name": "Create a credential set",
+              "id": "d40783c1-bcc0-4ec1-abcc-2511f9e8581e",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "auth": {
+                  "type": "apikey",
+                  "apikey": [
+                    {
+                      "key": "key",
+                      "value": "X-Soracom-API-Key",
+                      "type": "string"
+                    },
+                    {
+                      "key": "value",
+                      "value": "{{apiKey}}",
+                      "type": "string"
+                    },
+                    {
+                      "key": "in",
+                      "value": "header",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"credentials\": {},\n  \"description\": \"<string>\",\n  \"type\": \"azure-credentials\"\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/credentials/:credentials_id",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "credentials",
+                    ":credentials_id"
+                  ],
+                  "variable": [
+                    {
+                      "id": "7e5ef665-3232-410b-a254-96407c47c484",
+                      "key": "credentials_id",
+                      "value": "<string>",
+                      "description": "(Required) Credential set ID."
+                    }
+                  ]
+                },
+                "description": "Creates a new credential set."
+              },
+              "response": [
+                {
+                  "id": "ade75a95-3bb2-42b6-93ab-28e682acc9ed",
+                  "name": "Credential set has been created.",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "X-Soracom-API-Key",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"credentials\": {},\n  \"description\": \"<string>\",\n  \"type\": \"azure-credentials\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/credentials/:credentials_id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "credentials",
+                        ":credentials_id"
+                      ],
+                      "variable": [
+                        {
+                          "key": "credentials_id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Created",
+                  "code": 201,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"createDateTime\": \"<long>\",\n  \"credentials\": {},\n  \"credentialsId\": \"<string>\",\n  \"lastUsedDateTime\": \"<long>\",\n  \"type\": \"aws-credentials\",\n  \"updateDateTime\": \"<long>\",\n  \"description\": \"<string>\"\n}",
+                  "createdAt": "2026-06-05T15:18:34.000Z",
+                  "updatedAt": "2026-06-05T15:18:34.000Z",
+                  "uid": "35240-ade75a95-3bb2-42b6-93ab-28e682acc9ed"
+                }
+              ],
+              "createdAt": "2026-06-05T15:18:34.000Z",
+              "updatedAt": "2026-06-05T15:18:34.000Z",
+              "uid": "35240-d40783c1-bcc0-4ec1-abcc-2511f9e8581e"
+            },
+            {
+              "name": "Update a credential set",
+              "id": "2205cd4b-93f7-49ca-891c-9a55c2113ef3",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "auth": {
+                  "type": "apikey",
+                  "apikey": [
+                    {
+                      "key": "key",
+                      "value": "X-Soracom-API-Key",
+                      "type": "string"
+                    },
+                    {
+                      "key": "value",
+                      "value": "{{apiKey}}",
+                      "type": "string"
+                    },
+                    {
+                      "key": "in",
+                      "value": "header",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "PUT",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"credentials\": {},\n  \"description\": \"<string>\",\n  \"type\": \"azure-credentials\"\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/credentials/:credentials_id",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "credentials",
+                    ":credentials_id"
+                  ],
+                  "variable": [
+                    {
+                      "id": "2d8512c8-5783-4229-9ff1-0d19ab71f31c",
+                      "key": "credentials_id",
+                      "value": "<string>",
+                      "description": "(Required) Credential set ID."
+                    }
+                  ]
+                },
+                "description": "Updates a credential set."
+              },
+              "response": [
+                {
+                  "id": "a70de123-6456-4568-a35f-5e8521a82afc",
+                  "name": "OK.",
+                  "originalRequest": {
+                    "method": "PUT",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "X-Soracom-API-Key",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"credentials\": {},\n  \"description\": \"<string>\",\n  \"type\": \"azure-credentials\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/credentials/:credentials_id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "credentials",
+                        ":credentials_id"
+                      ],
+                      "variable": [
+                        {
+                          "key": "credentials_id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"createDateTime\": \"<long>\",\n  \"credentials\": {},\n  \"credentialsId\": \"<string>\",\n  \"lastUsedDateTime\": \"<long>\",\n  \"type\": \"aws-credentials\",\n  \"updateDateTime\": \"<long>\",\n  \"description\": \"<string>\"\n}",
+                  "createdAt": "2026-06-05T15:18:34.000Z",
+                  "updatedAt": "2026-06-05T15:18:34.000Z",
+                  "uid": "35240-a70de123-6456-4568-a35f-5e8521a82afc"
+                },
+                {
+                  "id": "af62e219-d512-4165-b974-d7285a7f7967",
+                  "name": "There was an error in the request or the specified token has already expired. (In the latter case, you will need to use the /auth API to do authentication once again.)",
+                  "originalRequest": {
+                    "method": "PUT",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "X-Soracom-API-Key",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"credentials\": {},\n  \"description\": \"<string>\",\n  \"type\": \"azure-credentials\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/credentials/:credentials_id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "credentials",
+                        ":credentials_id"
+                      ],
+                      "variable": [
+                        {
+                          "key": "credentials_id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Bad Request",
+                  "code": 400,
+                  "_postman_previewlanguage": "text",
+                  "header": [],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-06-05T15:18:34.000Z",
+                  "updatedAt": "2026-06-05T15:18:34.000Z",
+                  "uid": "35240-af62e219-d512-4165-b974-d7285a7f7967"
+                }
+              ],
+              "createdAt": "2026-06-05T15:18:34.000Z",
+              "updatedAt": "2026-06-05T15:18:34.000Z",
+              "uid": "35240-2205cd4b-93f7-49ca-891c-9a55c2113ef3"
+            }
+          ],
+          "id": "7da5fdb4-110f-4cd4-900c-75013714ce37",
+          "createdAt": "2026-06-05T15:18:34.000Z",
+          "updatedAt": "2026-06-05T15:18:34.000Z",
+          "uid": "35240-7da5fdb4-110f-4cd4-900c-75013714ce37"
+        },
+        {
+          "name": "List credential sets",
+          "id": "e3048711-d782-48e2-b43d-1d0daeef01cf",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-Soracom-API-Key",
+                  "type": "string"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}",
+                  "type": "string"
+                },
+                {
+                  "key": "in",
+                  "value": "header",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/credentials",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "credentials"
+              ]
+            },
+            "description": "Returns a list of credential sets."
+          },
+          "response": [
+            {
+              "id": "59b40de3-4bb2-4830-b5e5-cc76d680cbac",
+              "name": "OK.",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: apikey",
+                    "key": "X-Soracom-API-Key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/credentials",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "credentials"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "[\n  {\n    \"createDateTime\": \"<long>\",\n    \"credentials\": {},\n    \"credentialsId\": \"<string>\",\n    \"lastUsedDateTime\": \"<long>\",\n    \"type\": \"api-token-credentials\",\n    \"updateDateTime\": \"<long>\",\n    \"description\": \"<string>\"\n  },\n  {\n    \"createDateTime\": \"<long>\",\n    \"credentials\": {},\n    \"credentialsId\": \"<string>\",\n    \"lastUsedDateTime\": \"<long>\",\n    \"type\": \"username-password-credentials\",\n    \"updateDateTime\": \"<long>\",\n    \"description\": \"<string>\"\n  }\n]",
+              "createdAt": "2026-06-05T15:18:34.000Z",
+              "updatedAt": "2026-06-05T15:18:34.000Z",
+              "uid": "35240-59b40de3-4bb2-4830-b5e5-cc76d680cbac"
+            }
+          ],
+          "createdAt": "2026-06-05T15:18:34.000Z",
+          "updatedAt": "2026-06-05T15:18:34.000Z",
+          "uid": "35240-e3048711-d782-48e2-b43d-1d0daeef01cf"
+        }
+      ],
+      "id": "8ae6d8bf-721b-48f2-a530-2727f7d749fe",
+      "createdAt": "2026-06-05T15:18:34.000Z",
+      "updatedAt": "2026-06-05T15:18:34.000Z",
+      "uid": "35240-8ae6d8bf-721b-48f2-a530-2727f7d749fe"
+    },
+    {
+      "name": "soralets",
+      "item": [
+        {
+          "name": "{soralet_id}",
+          "item": [
+            {
+              "name": "logs",
+              "item": [
+                {
+                  "name": "Get log messages from Soralet",
+                  "id": "4c7aefe7-60ff-41ca-b756-87796115322d",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "auth": {
+                      "type": "apikey",
+                      "apikey": [
+                        {
+                          "key": "key",
+                          "value": "X-Soracom-API-Key",
+                          "type": "string"
+                        },
+                        {
+                          "key": "value",
+                          "value": "{{apiKey}}",
+                          "type": "string"
+                        },
+                        {
+                          "key": "in",
+                          "value": "header",
+                          "type": "string"
+                        }
+                      ]
+                    },
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/soralets/:soralet_id/logs?sort=desc&limit=<integer>&last_evaluated_key=<string>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "soralets",
+                        ":soralet_id",
+                        "logs"
+                      ],
+                      "query": [
+                        {
+                          "description": "Sort order of the data entries. Either descending (latest data entry first) or ascending (oldest data entry first).",
+                          "key": "sort",
+                          "value": "desc"
+                        },
+                        {
+                          "description": "The maximum number of items in a response.",
+                          "key": "limit",
+                          "value": "<integer>"
+                        },
+                        {
+                          "description": "The identifier of the last log message retrieved on the current page. By specifying this parameter, you can continue to retrieve the list from the next log message onward.",
+                          "key": "last_evaluated_key",
+                          "value": "<string>"
+                        }
+                      ],
+                      "variable": [
+                        {
+                          "id": "f11c8ebf-80ec-438a-82cd-e7c0e361ef9f",
+                          "key": "soralet_id",
+                          "value": "<string>",
+                          "description": "(Required) The identifier of Soralet."
+                        }
+                      ]
+                    },
+                    "description": "Returns a list of log messages from the specified Soralet."
+                  },
+                  "response": [
+                    {
+                      "id": "b7c5f359-1b0a-465c-a7c6-38ae3d19bbd7",
+                      "name": "OK.",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "X-Soracom-API-Key",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/soralets/:soralet_id/logs?sort=desc&limit=<integer>&last_evaluated_key=<string>",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "soralets",
+                            ":soralet_id",
+                            "logs"
+                          ],
+                          "query": [
+                            {
+                              "description": "Sort order of the data entries. Either descending (latest data entry first) or ascending (oldest data entry first).",
+                              "key": "sort",
+                              "value": "desc"
+                            },
+                            {
+                              "description": "The maximum number of items in a response.",
+                              "key": "limit",
+                              "value": "<integer>"
+                            },
+                            {
+                              "description": "The identifier of the last log message retrieved on the current page. By specifying this parameter, you can continue to retrieve the list from the next log message onward.",
+                              "key": "last_evaluated_key",
+                              "value": "<string>"
+                            }
+                          ],
+                          "variable": [
+                            {
+                              "key": "soralet_id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "[\n  {\n    \"createdTime\": \"<long>\",\n    \"message\": \"<string>\",\n    \"operatorId\": \"<string>\",\n    \"soraletId\": \"<string>\",\n    \"version\": \"<long>\"\n  },\n  {\n    \"createdTime\": \"<long>\",\n    \"message\": \"<string>\",\n    \"operatorId\": \"<string>\",\n    \"soraletId\": \"<string>\",\n    \"version\": \"<long>\"\n  }\n]",
+                      "createdAt": "2026-06-05T15:18:34.000Z",
+                      "updatedAt": "2026-06-05T15:18:34.000Z",
+                      "uid": "35240-b7c5f359-1b0a-465c-a7c6-38ae3d19bbd7"
+                    }
+                  ],
+                  "createdAt": "2026-06-05T15:18:34.000Z",
+                  "updatedAt": "2026-06-05T15:18:34.000Z",
+                  "uid": "35240-4c7aefe7-60ff-41ca-b756-87796115322d"
+                }
+              ],
+              "id": "3739b964-5bbd-4881-9fb0-6708c297ffea",
+              "createdAt": "2026-06-05T15:18:34.000Z",
+              "updatedAt": "2026-06-05T15:18:34.000Z",
+              "uid": "35240-3739b964-5bbd-4881-9fb0-6708c297ffea"
+            },
+            {
+              "name": "test",
+              "item": [
+                {
+                  "name": "Execute Soralet with arguments",
+                  "id": "244f1c80-acd7-4f0a-82ad-de7b74dbf98c",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "auth": {
+                      "type": "apikey",
+                      "apikey": [
+                        {
+                          "key": "key",
+                          "value": "X-Soracom-API-Key",
+                          "type": "string"
+                        },
+                        {
+                          "key": "value",
+                          "value": "{{apiKey}}",
+                          "type": "string"
+                        },
+                        {
+                          "key": "in",
+                          "value": "header",
+                          "type": "string"
+                        }
+                      ]
+                    },
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"version\": \"<string>\",\n  \"direction\": \"uplink\",\n  \"contentType\": \"<string>\",\n  \"payload\": \"<string>\",\n  \"source\": {\n    \"ete2\": {\n      \"resourceType\": \"<string>\",\n      \"resourceId\": \"<string>\"\n    },\n    \"velit_7d\": {\n      \"resourceType\": \"<string>\",\n      \"resourceId\": \"<string>\"\n    },\n    \"cupidatat_1\": {\n      \"resourceType\": \"<string>\",\n      \"resourceId\": \"<string>\"\n    }\n  },\n  \"encodingType\": \"binary\",\n  \"userdata\": \"<string>\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/soralets/:soralet_id/test",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "soralets",
+                        ":soralet_id",
+                        "test"
+                      ],
+                      "variable": [
+                        {
+                          "id": "71f24dae-4ad9-474a-9810-0ba19197c283",
+                          "key": "soralet_id",
+                          "value": "<string>",
+                          "description": "(Required) The identifier of Soralet."
+                        }
+                      ]
+                    },
+                    "description": "Execute the specified Soralet with the specified arguments."
+                  },
+                  "response": [
+                    {
+                      "id": "aeee8078-8f23-4373-8b08-8dfb791dfc6c",
+                      "name": "OK.",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "X-Soracom-API-Key",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"version\": \"<string>\",\n  \"direction\": \"uplink\",\n  \"contentType\": \"<string>\",\n  \"payload\": \"<string>\",\n  \"source\": {\n    \"ete2\": {\n      \"resourceType\": \"<string>\",\n      \"resourceId\": \"<string>\"\n    },\n    \"velit_7d\": {\n      \"resourceType\": \"<string>\",\n      \"resourceId\": \"<string>\"\n    },\n    \"cupidatat_1\": {\n      \"resourceType\": \"<string>\",\n      \"resourceId\": \"<string>\"\n    }\n  },\n  \"encodingType\": \"binary\",\n  \"userdata\": \"<string>\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/soralets/:soralet_id/test",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "soralets",
+                            ":soralet_id",
+                            "test"
+                          ],
+                          "variable": [
+                            {
+                              "key": "soralet_id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"body\": \"<string>\",\n  \"contentType\": \"<string>\",\n  \"encodingType\": \"<string>\",\n  \"resultCode\": \"<integer>\"\n}",
+                      "createdAt": "2026-06-05T15:18:34.000Z",
+                      "updatedAt": "2026-06-05T15:18:34.000Z",
+                      "uid": "35240-aeee8078-8f23-4373-8b08-8dfb791dfc6c"
+                    }
+                  ],
+                  "createdAt": "2026-06-05T15:18:34.000Z",
+                  "updatedAt": "2026-06-05T15:18:34.000Z",
+                  "uid": "35240-244f1c80-acd7-4f0a-82ad-de7b74dbf98c"
+                }
+              ],
+              "id": "94f93c0e-ceba-4654-ba87-416e4c0b3f94",
+              "createdAt": "2026-06-05T15:18:34.000Z",
+              "updatedAt": "2026-06-05T15:18:34.000Z",
+              "uid": "35240-94f93c0e-ceba-4654-ba87-416e4c0b3f94"
+            },
+            {
+              "name": "versions",
+              "item": [
+                {
+                  "name": "{version}",
+                  "item": [
+                    {
+                      "name": "Delete a Soralet version",
+                      "id": "2e9cf909-3ceb-401f-976f-42e87ceb5f8b",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "auth": {
+                          "type": "apikey",
+                          "apikey": [
+                            {
+                              "key": "key",
+                              "value": "X-Soracom-API-Key",
+                              "type": "string"
+                            },
+                            {
+                              "key": "value",
+                              "value": "{{apiKey}}",
+                              "type": "string"
+                            },
+                            {
+                              "key": "in",
+                              "value": "header",
+                              "type": "string"
+                            }
+                          ]
+                        },
+                        "method": "DELETE",
+                        "header": [],
+                        "url": {
+                          "raw": "{{baseUrl}}/soralets/:soralet_id/versions/:version",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "soralets",
+                            ":soralet_id",
+                            "versions",
+                            ":version"
+                          ],
+                          "variable": [
+                            {
+                              "id": "905d580f-475b-4324-b7c8-855c38c7fbb9",
+                              "key": "soralet_id",
+                              "value": "<string>",
+                              "description": "(Required) The identifier of Soralet."
+                            },
+                            {
+                              "id": "5e2c0b2a-8c1e-40d0-92e9-794430d61133",
+                              "key": "version",
+                              "value": "<integer>",
+                              "description": "(Required) Soralet version."
+                            }
+                          ]
+                        },
+                        "description": "Delete the specified Soralet version."
+                      },
+                      "response": [
+                        {
+                          "id": "289da2f4-0ab2-496f-937f-47137b17c585",
+                          "name": "Successfully deleted the specified Soralet version.",
+                          "originalRequest": {
+                            "method": "DELETE",
+                            "header": [
+                              {
+                                "description": "Added as a part of security scheme: apikey",
+                                "key": "X-Soracom-API-Key",
+                                "value": "<API Key>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/soralets/:soralet_id/versions/:version",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "soralets",
+                                ":soralet_id",
+                                "versions",
+                                ":version"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "soralet_id"
+                                },
+                                {
+                                  "key": "version"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "No Content",
+                          "code": 204,
+                          "_postman_previewlanguage": "text",
+                          "header": [],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": null,
+                          "createdAt": "2026-06-05T15:18:34.000Z",
+                          "updatedAt": "2026-06-05T15:18:34.000Z",
+                          "uid": "35240-289da2f4-0ab2-496f-937f-47137b17c585"
+                        },
+                        {
+                          "id": "11f6d130-3e58-499f-b514-b6100210d5be",
+                          "name": "The specified Soralet version is not found.",
+                          "originalRequest": {
+                            "method": "DELETE",
+                            "header": [
+                              {
+                                "description": "Added as a part of security scheme: apikey",
+                                "key": "X-Soracom-API-Key",
+                                "value": "<API Key>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/soralets/:soralet_id/versions/:version",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "soralets",
+                                ":soralet_id",
+                                "versions",
+                                ":version"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "soralet_id"
+                                },
+                                {
+                                  "key": "version"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Not Found",
+                          "code": 404,
+                          "_postman_previewlanguage": "text",
+                          "header": [],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": null,
+                          "createdAt": "2026-06-05T15:18:34.000Z",
+                          "updatedAt": "2026-06-05T15:18:34.000Z",
+                          "uid": "35240-11f6d130-3e58-499f-b514-b6100210d5be"
+                        }
+                      ],
+                      "createdAt": "2026-06-05T15:18:34.000Z",
+                      "updatedAt": "2026-06-05T15:18:34.000Z",
+                      "uid": "35240-2e9cf909-3ceb-401f-976f-42e87ceb5f8b"
+                    }
+                  ],
+                  "id": "e1ed437c-3357-45b5-922f-695481fa2d21",
+                  "createdAt": "2026-06-05T15:18:34.000Z",
+                  "updatedAt": "2026-06-05T15:18:34.000Z",
+                  "uid": "35240-e1ed437c-3357-45b5-922f-695481fa2d21"
+                },
+                {
+                  "name": "List versions of Soralet",
+                  "id": "45022166-5025-4a59-b9f0-0b7b7a61462d",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "auth": {
+                      "type": "apikey",
+                      "apikey": [
+                        {
+                          "key": "key",
+                          "value": "X-Soracom-API-Key",
+                          "type": "string"
+                        },
+                        {
+                          "key": "value",
+                          "value": "{{apiKey}}",
+                          "type": "string"
+                        },
+                        {
+                          "key": "in",
+                          "value": "header",
+                          "type": "string"
+                        }
+                      ]
+                    },
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/soralets/:soralet_id/versions?sort=desc&limit=<integer>&last_evaluated_key=<string>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "soralets",
+                        ":soralet_id",
+                        "versions"
+                      ],
+                      "query": [
+                        {
+                          "description": "Sort order of the data entries. Either descending (latest data entry first) or ascending (oldest data entry first).",
+                          "key": "sort",
+                          "value": "desc"
+                        },
+                        {
+                          "description": "The maximum number of items in a response.",
+                          "key": "limit",
+                          "value": "<integer>"
+                        },
+                        {
+                          "description": "The identifier of the last version retrieved on the current page. By specifying this parameter, you can continue to retrieve the list from the next version onward.",
+                          "key": "last_evaluated_key",
+                          "value": "<string>"
+                        }
+                      ],
+                      "variable": [
+                        {
+                          "id": "4a09cc40-04f7-45b7-afe4-a33a918af4a9",
+                          "key": "soralet_id",
+                          "value": "<string>",
+                          "description": "(Required) The identifier of Soralet."
+                        }
+                      ]
+                    },
+                    "description": "Returns a list of Soralet versions."
+                  },
+                  "response": [
+                    {
+                      "id": "d9cad9c4-2d2c-4505-9d3b-77ea4bca46ac",
+                      "name": "OK.",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "X-Soracom-API-Key",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/soralets/:soralet_id/versions?sort=desc&limit=<integer>&last_evaluated_key=<string>",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "soralets",
+                            ":soralet_id",
+                            "versions"
+                          ],
+                          "query": [
+                            {
+                              "description": "Sort order of the data entries. Either descending (latest data entry first) or ascending (oldest data entry first).",
+                              "key": "sort",
+                              "value": "desc"
+                            },
+                            {
+                              "description": "The maximum number of items in a response.",
+                              "key": "limit",
+                              "value": "<integer>"
+                            },
+                            {
+                              "description": "The identifier of the last version retrieved on the current page. By specifying this parameter, you can continue to retrieve the list from the next version onward.",
+                              "key": "last_evaluated_key",
+                              "value": "<string>"
+                            }
+                          ],
+                          "variable": [
+                            {
+                              "key": "soralet_id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "[\n  {\n    \"createdTime\": \"<long>\",\n    \"hash\": \"<string>\",\n    \"operatorId\": \"<string>\",\n    \"size\": \"<long>\",\n    \"soraletId\": \"<string>\",\n    \"srn\": \"<string>\",\n    \"version\": \"<long>\"\n  },\n  {\n    \"createdTime\": \"<long>\",\n    \"hash\": \"<string>\",\n    \"operatorId\": \"<string>\",\n    \"size\": \"<long>\",\n    \"soraletId\": \"<string>\",\n    \"srn\": \"<string>\",\n    \"version\": \"<long>\"\n  }\n]",
+                      "createdAt": "2026-06-05T15:18:34.000Z",
+                      "updatedAt": "2026-06-05T15:18:34.000Z",
+                      "uid": "35240-d9cad9c4-2d2c-4505-9d3b-77ea4bca46ac"
+                    }
+                  ],
+                  "createdAt": "2026-06-05T15:18:34.000Z",
+                  "updatedAt": "2026-06-05T15:18:34.000Z",
+                  "uid": "35240-45022166-5025-4a59-b9f0-0b7b7a61462d"
+                },
+                {
+                  "name": "Upload code and create a new version",
+                  "id": "b50009a0-f8af-4eec-a061-86edf07ea526",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "auth": {
+                      "type": "apikey",
+                      "apikey": [
+                        {
+                          "key": "key",
+                          "value": "X-Soracom-API-Key",
+                          "type": "string"
+                        },
+                        {
+                          "key": "value",
+                          "value": "{{apiKey}}",
+                          "type": "string"
+                        },
+                        {
+                          "key": "in",
+                          "value": "header",
+                          "type": "string"
+                        }
+                      ]
+                    },
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "body": {
+                      "mode": "file",
+                      "file": {}
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/soralets/:soralet_id/versions",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "soralets",
+                        ":soralet_id",
+                        "versions"
+                      ],
+                      "variable": [
+                        {
+                          "id": "e33bd056-b251-4a9a-bee0-78b398eba94f",
+                          "key": "soralet_id",
+                          "value": "<string>",
+                          "description": "(Required) The identifier of Soralet."
+                        }
+                      ]
+                    },
+                    "description": "Upload code and create a new version."
+                  },
+                  "response": [
+                    {
+                      "id": "e55066bd-a8e6-4d31-8a2d-75a22cabe18c",
+                      "name": "Successfully created a new version.",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "X-Soracom-API-Key",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "file",
+                          "file": {},
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/soralets/:soralet_id/versions",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "soralets",
+                            ":soralet_id",
+                            "versions"
+                          ],
+                          "variable": [
+                            {
+                              "key": "soralet_id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Created",
+                      "code": 201,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"createdTime\": \"<long>\",\n  \"hash\": \"<string>\",\n  \"operatorId\": \"<string>\",\n  \"size\": \"<long>\",\n  \"soraletId\": \"<string>\",\n  \"srn\": \"<string>\",\n  \"version\": \"<long>\"\n}",
+                      "createdAt": "2026-06-05T15:18:34.000Z",
+                      "updatedAt": "2026-06-05T15:18:34.000Z",
+                      "uid": "35240-e55066bd-a8e6-4d31-8a2d-75a22cabe18c"
+                    }
+                  ],
+                  "createdAt": "2026-06-05T15:18:34.000Z",
+                  "updatedAt": "2026-06-05T15:18:34.000Z",
+                  "uid": "35240-b50009a0-f8af-4eec-a061-86edf07ea526"
+                }
+              ],
+              "id": "c31f61c0-7183-40b8-94cb-83fa5fc44645",
+              "createdAt": "2026-06-05T15:18:34.000Z",
+              "updatedAt": "2026-06-05T15:18:34.000Z",
+              "uid": "35240-c31f61c0-7183-40b8-94cb-83fa5fc44645"
+            },
+            {
+              "name": "Delete Soralet",
+              "id": "9ade4dbd-db30-41bb-97d7-a6927893254d",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "auth": {
+                  "type": "apikey",
+                  "apikey": [
+                    {
+                      "key": "key",
+                      "value": "X-Soracom-API-Key",
+                      "type": "string"
+                    },
+                    {
+                      "key": "value",
+                      "value": "{{apiKey}}",
+                      "type": "string"
+                    },
+                    {
+                      "key": "in",
+                      "value": "header",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "DELETE",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/soralets/:soralet_id",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "soralets",
+                    ":soralet_id"
+                  ],
+                  "variable": [
+                    {
+                      "id": "47e6c130-9c41-45ce-bbcb-a9e2858dd277",
+                      "key": "soralet_id",
+                      "value": "<string>",
+                      "description": "(Required) The identifier of Soralet."
+                    }
+                  ]
+                },
+                "description": "Delete the specified Soralet."
+              },
+              "response": [
+                {
+                  "id": "170c63da-08e2-4c58-89d4-2d2c9726358d",
+                  "name": "Successfully deleted the specified Soralet.",
+                  "originalRequest": {
+                    "method": "DELETE",
+                    "header": [
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "X-Soracom-API-Key",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/soralets/:soralet_id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "soralets",
+                        ":soralet_id"
+                      ],
+                      "variable": [
+                        {
+                          "key": "soralet_id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "No Content",
+                  "code": 204,
+                  "_postman_previewlanguage": "text",
+                  "header": [],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-06-05T15:18:34.000Z",
+                  "updatedAt": "2026-06-05T15:18:34.000Z",
+                  "uid": "35240-170c63da-08e2-4c58-89d4-2d2c9726358d"
+                },
+                {
+                  "id": "535e3af6-66fb-4ae6-96c9-893063b79798",
+                  "name": "The specified Soralet is not found.",
+                  "originalRequest": {
+                    "method": "DELETE",
+                    "header": [
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "X-Soracom-API-Key",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/soralets/:soralet_id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "soralets",
+                        ":soralet_id"
+                      ],
+                      "variable": [
+                        {
+                          "key": "soralet_id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Not Found",
+                  "code": 404,
+                  "_postman_previewlanguage": "text",
+                  "header": [],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-06-05T15:18:34.000Z",
+                  "updatedAt": "2026-06-05T15:18:34.000Z",
+                  "uid": "35240-535e3af6-66fb-4ae6-96c9-893063b79798"
+                }
+              ],
+              "createdAt": "2026-06-05T15:18:34.000Z",
+              "updatedAt": "2026-06-05T15:18:34.000Z",
+              "uid": "35240-9ade4dbd-db30-41bb-97d7-a6927893254d"
+            },
+            {
+              "name": "Get a Soralet",
+              "id": "5d3907e8-4a8f-4884-85e1-70009720ae20",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "auth": {
+                  "type": "apikey",
+                  "apikey": [
+                    {
+                      "key": "key",
+                      "value": "X-Soracom-API-Key",
+                      "type": "string"
+                    },
+                    {
+                      "key": "value",
+                      "value": "{{apiKey}}",
+                      "type": "string"
+                    },
+                    {
+                      "key": "in",
+                      "value": "header",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/soralets/:soralet_id",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "soralets",
+                    ":soralet_id"
+                  ],
+                  "variable": [
+                    {
+                      "id": "d959a6e8-aa93-42a8-8521-5ebc1126dce2",
+                      "key": "soralet_id",
+                      "value": "<string>",
+                      "description": "(Required) The identifier of Soralet."
+                    }
+                  ]
+                },
+                "description": "Returns a Soralet."
+              },
+              "response": [
+                {
+                  "id": "83d7961e-3aa4-4623-9e84-62f566c585d4",
+                  "name": "OK.",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "X-Soracom-API-Key",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/soralets/:soralet_id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "soralets",
+                        ":soralet_id"
+                      ],
+                      "variable": [
+                        {
+                          "key": "soralet_id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"createdTime\": \"<long>\",\n  \"description\": \"<string>\",\n  \"operatorId\": \"<string>\",\n  \"soraletId\": \"<string>\",\n  \"updatedTime\": \"<long>\"\n}",
+                  "createdAt": "2026-06-05T15:18:34.000Z",
+                  "updatedAt": "2026-06-05T15:18:34.000Z",
+                  "uid": "35240-83d7961e-3aa4-4623-9e84-62f566c585d4"
+                },
+                {
+                  "id": "ec1184ef-4a54-4772-907e-277befe388c1",
+                  "name": "The specified Soralet is not found.",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "X-Soracom-API-Key",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/soralets/:soralet_id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "soralets",
+                        ":soralet_id"
+                      ],
+                      "variable": [
+                        {
+                          "key": "soralet_id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Not Found",
+                  "code": 404,
+                  "_postman_previewlanguage": "text",
+                  "header": [],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-06-05T15:18:34.000Z",
+                  "updatedAt": "2026-06-05T15:18:34.000Z",
+                  "uid": "35240-ec1184ef-4a54-4772-907e-277befe388c1"
+                }
+              ],
+              "createdAt": "2026-06-05T15:18:34.000Z",
+              "updatedAt": "2026-06-05T15:18:34.000Z",
+              "uid": "35240-5d3907e8-4a8f-4884-85e1-70009720ae20"
+            }
+          ],
+          "id": "aac07b8a-53f6-4347-8d9e-860e35dd83db",
+          "createdAt": "2026-06-05T15:18:34.000Z",
+          "updatedAt": "2026-06-05T15:18:34.000Z",
+          "uid": "35240-aac07b8a-53f6-4347-8d9e-860e35dd83db"
+        },
+        {
+          "name": "List Soralets",
+          "id": "d19ba20a-e587-47f7-8550-8385b64a2838",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-Soracom-API-Key",
+                  "type": "string"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}",
+                  "type": "string"
+                },
+                {
+                  "key": "in",
+                  "value": "header",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/soralets?sort=asc&limit=<integer>&last_evaluated_key=<string>",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "soralets"
+              ],
+              "query": [
+                {
+                  "description": "Sort order of the data entries. Either descending (latest data entry first) or ascending (oldest data entry first).",
+                  "key": "sort",
+                  "value": "asc"
+                },
+                {
+                  "description": "The maximum number of items in a response.",
+                  "key": "limit",
+                  "value": "<integer>"
+                },
+                {
+                  "description": "The identifier of the last Soralet retrieved on the current page. By specifying this parameter, you can continue to retrieve the list from the next Soralet onward.",
+                  "key": "last_evaluated_key",
+                  "value": "<string>"
+                }
+              ]
+            },
+            "description": "Returns a list of Soralets."
+          },
+          "response": [
+            {
+              "id": "67f42f5c-7f99-41cc-b919-b29ef190845b",
+              "name": "OK.",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: apikey",
+                    "key": "X-Soracom-API-Key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/soralets?sort=asc&limit=<integer>&last_evaluated_key=<string>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "soralets"
+                  ],
+                  "query": [
+                    {
+                      "description": "Sort order of the data entries. Either descending (latest data entry first) or ascending (oldest data entry first).",
+                      "key": "sort",
+                      "value": "asc"
+                    },
+                    {
+                      "description": "The maximum number of items in a response.",
+                      "key": "limit",
+                      "value": "<integer>"
+                    },
+                    {
+                      "description": "The identifier of the last Soralet retrieved on the current page. By specifying this parameter, you can continue to retrieve the list from the next Soralet onward.",
+                      "key": "last_evaluated_key",
+                      "value": "<string>"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "[\n  {\n    \"createdTime\": \"<long>\",\n    \"description\": \"<string>\",\n    \"operatorId\": \"<string>\",\n    \"soraletId\": \"<string>\",\n    \"updatedTime\": \"<long>\"\n  },\n  {\n    \"createdTime\": \"<long>\",\n    \"description\": \"<string>\",\n    \"operatorId\": \"<string>\",\n    \"soraletId\": \"<string>\",\n    \"updatedTime\": \"<long>\"\n  }\n]",
+              "createdAt": "2026-06-05T15:18:34.000Z",
+              "updatedAt": "2026-06-05T15:18:34.000Z",
+              "uid": "35240-67f42f5c-7f99-41cc-b919-b29ef190845b"
+            }
+          ],
+          "createdAt": "2026-06-05T15:18:34.000Z",
+          "updatedAt": "2026-06-05T15:18:34.000Z",
+          "uid": "35240-d19ba20a-e587-47f7-8550-8385b64a2838"
+        },
+        {
+          "name": "Create a Soralet",
+          "id": "2512db2a-8fad-40e6-b89f-64bd9481751f",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-Soracom-API-Key",
+                  "type": "string"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}",
+                  "type": "string"
+                },
+                {
+                  "key": "in",
+                  "value": "header",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"soraletId\": \"<string>\",\n  \"description\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "headerFamily": "json",
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/soralets",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "soralets"
+              ]
+            },
+            "description": "Create a Soralet."
+          },
+          "response": [
+            {
+              "id": "bb21c292-eb78-4f69-9c89-25e1f7103f8e",
+              "name": "Successfully created a new Soralet.",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: apikey",
+                    "key": "X-Soracom-API-Key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"soraletId\": \"<string>\",\n  \"description\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/soralets",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "soralets"
+                  ]
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "_postman_previewlanguage": "text",
+              "header": [],
+              "cookie": [],
+              "responseTime": null,
+              "body": null,
+              "createdAt": "2026-06-05T15:18:34.000Z",
+              "updatedAt": "2026-06-05T15:18:34.000Z",
+              "uid": "35240-bb21c292-eb78-4f69-9c89-25e1f7103f8e"
+            },
+            {
+              "id": "c422c4a2-799f-42c4-b07d-15a5188bd178",
+              "name": "The specified Soralet already exists or the specified soralet_id was invalid.",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: apikey",
+                    "key": "X-Soracom-API-Key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"soraletId\": \"<string>\",\n  \"description\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/soralets",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "soralets"
+                  ]
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "_postman_previewlanguage": "text",
+              "header": [],
+              "cookie": [],
+              "responseTime": null,
+              "body": null,
+              "createdAt": "2026-06-05T15:18:34.000Z",
+              "updatedAt": "2026-06-05T15:18:34.000Z",
+              "uid": "35240-c422c4a2-799f-42c4-b07d-15a5188bd178"
+            }
+          ],
+          "createdAt": "2026-06-05T15:18:34.000Z",
+          "updatedAt": "2026-06-05T15:18:34.000Z",
+          "uid": "35240-2512db2a-8fad-40e6-b89f-64bd9481751f"
+        }
+      ],
+      "id": "648a6f34-a281-4b79-bc09-7b13b7f4126c",
+      "createdAt": "2026-06-05T15:18:34.000Z",
+      "updatedAt": "2026-06-05T15:18:34.000Z",
+      "uid": "35240-648a6f34-a281-4b79-bc09-7b13b7f4126c"
+    }
+  ],
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://api.soracom.io/v1"
+    }
+  ]
+}

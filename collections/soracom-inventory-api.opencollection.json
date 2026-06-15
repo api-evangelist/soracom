@@ -1,0 +1,839 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Soracom Inventory API",
+    "version": "20250903-043502"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Device",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Returns a list of Devices",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.soracom.io/v1/devices",
+            "params": [
+              {
+                "name": "tag_name",
+                "value": "",
+                "type": "query",
+                "description": "Tag name"
+              },
+              {
+                "name": "tag_value",
+                "value": "",
+                "type": "query",
+                "description": "Tag value"
+              },
+              {
+                "name": "tag_value_match_mode",
+                "value": "",
+                "type": "query",
+                "description": "Tag value match mode (exact | prefix)"
+              },
+              {
+                "name": "last_evaluated_key",
+                "value": "",
+                "type": "query",
+                "description": "ID of the last Device in the previous page. By specifying this parameter, you can continue to retrieve the list from the next device onward."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Max number of Devices in a response"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-Soracom-API-Key",
+              "value": "{{X-Soracom-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Returns a list of Devices"
+        },
+        {
+          "info": {
+            "name": "Creates a new Device",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.soracom.io/v1/devices",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-Soracom-API-Key",
+              "value": "{{X-Soracom-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Creates a new Device"
+        },
+        {
+          "info": {
+            "name": "Returns a Device identified by device ID",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.soracom.io/v1/devices/:device_id",
+            "params": [
+              {
+                "name": "device_id",
+                "value": "",
+                "type": "path",
+                "description": "Device ID"
+              },
+              {
+                "name": "model",
+                "value": "",
+                "type": "query",
+                "description": "Whether or not to add model information"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-Soracom-API-Key",
+              "value": "{{X-Soracom-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Returns a Device identified by device ID"
+        },
+        {
+          "info": {
+            "name": "Delete Device",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.soracom.io/v1/devices/:device_id",
+            "params": [
+              {
+                "name": "device_id",
+                "value": "",
+                "type": "path",
+                "description": "Device to delete"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-Soracom-API-Key",
+              "value": "{{X-Soracom-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Delete Device"
+        },
+        {
+          "info": {
+            "name": "Get resources under an object instance of a device",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.soracom.io/v1/devices/:device_id/:object/:instance",
+            "params": [
+              {
+                "name": "device_id",
+                "value": "",
+                "type": "path",
+                "description": "Target device"
+              },
+              {
+                "name": "object",
+                "value": "",
+                "type": "path",
+                "description": "Object ID"
+              },
+              {
+                "name": "instance",
+                "value": "",
+                "type": "path",
+                "description": "Instance ID"
+              },
+              {
+                "name": "model",
+                "value": "",
+                "type": "query",
+                "description": "Whether or not to add model information"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-Soracom-API-Key",
+              "value": "{{X-Soracom-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Get resources under an object instance of a device"
+        },
+        {
+          "info": {
+            "name": "Get the specified resource of a device",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.soracom.io/v1/devices/:device_id/:object/:instance/:resource",
+            "params": [
+              {
+                "name": "device_id",
+                "value": "",
+                "type": "path",
+                "description": "Target device"
+              },
+              {
+                "name": "object",
+                "value": "",
+                "type": "path",
+                "description": "Object ID"
+              },
+              {
+                "name": "instance",
+                "value": "",
+                "type": "path",
+                "description": "Instance ID"
+              },
+              {
+                "name": "resource",
+                "value": "",
+                "type": "path",
+                "description": "Resource ID"
+              },
+              {
+                "name": "model",
+                "value": "",
+                "type": "query",
+                "description": "Whether or not to add model information"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-Soracom-API-Key",
+              "value": "{{X-Soracom-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Get the specified resource of a device"
+        },
+        {
+          "info": {
+            "name": "Write value to a resource of a device",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.soracom.io/v1/devices/:device_id/:object/:instance/:resource",
+            "params": [
+              {
+                "name": "device_id",
+                "value": "",
+                "type": "path",
+                "description": "Target device"
+              },
+              {
+                "name": "object",
+                "value": "",
+                "type": "path",
+                "description": "Object ID"
+              },
+              {
+                "name": "instance",
+                "value": "",
+                "type": "path",
+                "description": "Instance ID"
+              },
+              {
+                "name": "resource",
+                "value": "",
+                "type": "path",
+                "description": "Resource ID"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-Soracom-API-Key",
+              "value": "{{X-Soracom-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Write value to a resource of a device"
+        },
+        {
+          "info": {
+            "name": "Executes a resource of a device",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.soracom.io/v1/devices/:device_id/:object/:instance/:resource/execute",
+            "params": [
+              {
+                "name": "device_id",
+                "value": "",
+                "type": "path",
+                "description": "Target device"
+              },
+              {
+                "name": "object",
+                "value": "",
+                "type": "path",
+                "description": "Object ID"
+              },
+              {
+                "name": "instance",
+                "value": "",
+                "type": "path",
+                "description": "Instance ID"
+              },
+              {
+                "name": "resource",
+                "value": "",
+                "type": "path",
+                "description": "Resource ID"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-Soracom-API-Key",
+              "value": "{{X-Soracom-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Executes a resource of a device"
+        },
+        {
+          "info": {
+            "name": "Triggers observation of the specified resource of a device",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.soracom.io/v1/devices/:device_id/:object/:instance/:resource/observe",
+            "params": [
+              {
+                "name": "device_id",
+                "value": "",
+                "type": "path",
+                "description": "Target device"
+              },
+              {
+                "name": "object",
+                "value": "",
+                "type": "path",
+                "description": "Object ID"
+              },
+              {
+                "name": "instance",
+                "value": "",
+                "type": "path",
+                "description": "Instance ID"
+              },
+              {
+                "name": "resource",
+                "value": "",
+                "type": "path",
+                "description": "Resource ID"
+              },
+              {
+                "name": "model",
+                "value": "",
+                "type": "query",
+                "description": "Whether or not to add model information"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-Soracom-API-Key",
+              "value": "{{X-Soracom-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Triggers observation of the specified resource of a device. Once observation is started, the server will be notified when there is a change in value on the device side."
+        },
+        {
+          "info": {
+            "name": "Stops observation of a resource of a device",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.soracom.io/v1/devices/:device_id/:object/:instance/:resource/unobserve",
+            "params": [
+              {
+                "name": "device_id",
+                "value": "",
+                "type": "path",
+                "description": "Target device"
+              },
+              {
+                "name": "object",
+                "value": "",
+                "type": "path",
+                "description": "Object ID"
+              },
+              {
+                "name": "instance",
+                "value": "",
+                "type": "path",
+                "description": "Instance ID"
+              },
+              {
+                "name": "resource",
+                "value": "",
+                "type": "path",
+                "description": "Resource ID"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-Soracom-API-Key",
+              "value": "{{X-Soracom-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Stops observation of a resource of a device"
+        },
+        {
+          "info": {
+            "name": "Triggers observation of resources under an object instance of a device",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.soracom.io/v1/devices/:device_id/:object/:instance/observe",
+            "params": [
+              {
+                "name": "device_id",
+                "value": "",
+                "type": "path",
+                "description": "Target device"
+              },
+              {
+                "name": "object",
+                "value": "",
+                "type": "path",
+                "description": "Object ID"
+              },
+              {
+                "name": "instance",
+                "value": "",
+                "type": "path",
+                "description": "Instance ID"
+              },
+              {
+                "name": "model",
+                "value": "",
+                "type": "query",
+                "description": "Whether or not to add model information"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-Soracom-API-Key",
+              "value": "{{X-Soracom-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Triggers observation of resources under an object instance of a device"
+        },
+        {
+          "info": {
+            "name": "Stops observation of resources under an object instance of a device",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.soracom.io/v1/devices/:device_id/:object/:instance/unobserve",
+            "params": [
+              {
+                "name": "device_id",
+                "value": "",
+                "type": "path",
+                "description": "Target device"
+              },
+              {
+                "name": "object",
+                "value": "",
+                "type": "path",
+                "description": "Object ID"
+              },
+              {
+                "name": "instance",
+                "value": "",
+                "type": "path",
+                "description": "Instance ID"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-Soracom-API-Key",
+              "value": "{{X-Soracom-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Stops observation of resources under an object instance of a device"
+        },
+        {
+          "info": {
+            "name": "Retrieves data sent from an Inventory device to Harvest Data",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.soracom.io/v1/devices/:device_id/data",
+            "params": [
+              {
+                "name": "device_id",
+                "value": "",
+                "type": "path",
+                "description": "ID of the Inventory device from which to retrieve data. The ID of an Inventory device can be obtained using the [Device:listDevices API](#!/Device/listDevices)."
+              },
+              {
+                "name": "from",
+                "value": "",
+                "type": "query",
+                "description": "Start time of the target period (UNIX time in milliseconds)."
+              },
+              {
+                "name": "to",
+                "value": "",
+                "type": "query",
+                "description": "End time of the target period (UNIX time in milliseconds)."
+              },
+              {
+                "name": "sort",
+                "value": "",
+                "type": "query",
+                "description": "Sort order of data entries. Either descending order (latest data entry first) or ascending order (oldest data entry first)."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of data entries to retrieve (1 to 1000). The default is `10`."
+              },
+              {
+                "name": "last_evaluated_key",
+                "value": "",
+                "type": "query",
+                "description": "Timestamp of the last data entry retrieved on the previous page. By specifying this parameter, the list starting from the next data entry can be obtained."
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-Soracom-API-Key",
+              "value": "{{X-Soracom-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Retrieves data that matches the specified conditions from the data sent by the specified Inventory device to Harvest Data. If the data entries do not fit in one page, a URL to retrieve the next page with the same conditions will be included in the `link` header of the response.\n"
+        },
+        {
+          "info": {
+            "name": "Adds an Inventory device to an Inventory group",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.soracom.io/v1/devices/:device_id/set_group",
+            "params": [
+              {
+                "name": "device_id",
+                "value": "",
+                "type": "path",
+                "description": "Device ID of the target Inventory device."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-Soracom-API-Key",
+              "value": "{{X-Soracom-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Adds an Inventory device to an Inventory group."
+        },
+        {
+          "info": {
+            "name": "Updates device tags",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.soracom.io/v1/devices/:device_id/tags",
+            "params": [
+              {
+                "name": "device_id",
+                "value": "",
+                "type": "path",
+                "description": "Device to update"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-Soracom-API-Key",
+              "value": "{{X-Soracom-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Updates device tags"
+        },
+        {
+          "info": {
+            "name": "Delete device tag",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.soracom.io/v1/devices/:device_id/tags/:tag_name",
+            "params": [
+              {
+                "name": "device_id",
+                "value": "",
+                "type": "path",
+                "description": "Device to update"
+              },
+              {
+                "name": "tag_name",
+                "value": "",
+                "type": "path",
+                "description": "Name of tag to delete"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-Soracom-API-Key",
+              "value": "{{X-Soracom-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Delete device tag"
+        },
+        {
+          "info": {
+            "name": "Removes an Inventory device from an Inventory group",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.soracom.io/v1/devices/:device_id/unset_group",
+            "params": [
+              {
+                "name": "device_id",
+                "value": "",
+                "type": "path",
+                "description": "Device ID of the target Inventory device."
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-Soracom-API-Key",
+              "value": "{{X-Soracom-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Removes an Inventory device from an Inventory group."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "DeviceObjectModel",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Returns a list of device object models",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.soracom.io/v1/device_object_models",
+            "params": [
+              {
+                "name": "last_evaluated_key",
+                "value": "",
+                "type": "query",
+                "description": "ID of the last device object model in the previous page. By specifying this parameter, you can continue to retrieve the list from the next device object models onward."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Max number of device object models in a response"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-Soracom-API-Key",
+              "value": "{{X-Soracom-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Returns a list of device object models"
+        },
+        {
+          "info": {
+            "name": "Creates a new device object model",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.soracom.io/v1/device_object_models",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-Soracom-API-Key",
+              "value": "{{X-Soracom-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Creates a new device object model"
+        },
+        {
+          "info": {
+            "name": "Gets a device object model",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.soracom.io/v1/device_object_models/:model_id",
+            "params": [
+              {
+                "name": "model_id",
+                "value": "",
+                "type": "path",
+                "description": "Target device object model ID"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-Soracom-API-Key",
+              "value": "{{X-Soracom-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Gets a device object model"
+        },
+        {
+          "info": {
+            "name": "Updates a device object model",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.soracom.io/v1/device_object_models/:model_id",
+            "params": [
+              {
+                "name": "model_id",
+                "value": "",
+                "type": "path",
+                "description": "Target device object model ID"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-Soracom-API-Key",
+              "value": "{{X-Soracom-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Updates a device object model"
+        },
+        {
+          "info": {
+            "name": "Deletes a device object model",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.soracom.io/v1/device_object_models/:model_id",
+            "params": [
+              {
+                "name": "model_id",
+                "value": "",
+                "type": "path",
+                "description": "Target device object model ID"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-Soracom-API-Key",
+              "value": "{{X-Soracom-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Deletes a device object model"
+        },
+        {
+          "info": {
+            "name": "Sets scope for a device object model",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.soracom.io/v1/device_object_models/:model_id/set_scope",
+            "params": [
+              {
+                "name": "model_id",
+                "value": "",
+                "type": "path",
+                "description": "Target device object model ID"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-Soracom-API-Key",
+              "value": "{{X-Soracom-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Sets scope for a device object model"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

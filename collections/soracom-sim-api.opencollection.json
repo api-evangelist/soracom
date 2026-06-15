@@ -1,0 +1,2534 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Soracom SIM Management API",
+    "version": "20250903-043502"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Sim",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List SIMs",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.soracom.io/v1/sims",
+            "params": [
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of SIMs to retrieve. However, the number of SIMs returned may be less than the specified value."
+              },
+              {
+                "name": "last_evaluated_key",
+                "value": "",
+                "type": "query",
+                "description": "The value of the `x-soracom-next-key` header from the previous response. Specify this to retrieve the next page."
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-Soracom-API-Key",
+              "value": "{{X-Soracom-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Returns a list of SIMs. If the total number of SIMs does not fit in one page, a URL for accessing the next page is returned in the `link` header of the response.\n"
+        },
+        {
+          "info": {
+            "name": "Creates a new virtual SIM/Subscriber",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.soracom.io/v1/sims",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-Soracom-API-Key",
+              "value": "{{X-Soracom-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Creates a new Soracom Arc virtual SIM/Subscriber. For details, please refer to [Creating Virtual SIMs](/en/docs/arc/configuration/)."
+        },
+        {
+          "info": {
+            "name": "Gets information about the IoT SIM",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.soracom.io/v1/sims/:sim_id",
+            "params": [
+              {
+                "name": "sim_id",
+                "value": "",
+                "type": "path",
+                "description": "SIM ID of the target SIM. The SIM ID can be obtained from the [Sim:listSims API](#/Sim/listSims)."
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-Soracom-API-Key",
+              "value": "{{X-Soracom-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Gets information about the IoT SIM."
+        },
+        {
+          "info": {
+            "name": "Activate SIM",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.soracom.io/v1/sims/:sim_id/activate",
+            "params": [
+              {
+                "name": "sim_id",
+                "value": "",
+                "type": "path",
+                "description": "SIM ID of the target SIM. The SIM ID can be obtained from the [Sim:listSims API](#/Sim/listSims)."
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-Soracom-API-Key",
+              "value": "{{X-Soracom-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Changes status of specified SIM to \"active\"."
+        },
+        {
+          "info": {
+            "name": "(DEPRECATED) Attaches the credentials for Arc to a SIM",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.soracom.io/v1/sims/:sim_id/credentials/arc",
+            "params": [
+              {
+                "name": "sim_id",
+                "value": "",
+                "type": "path",
+                "description": "SIM ID of the target SIM."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-Soracom-API-Key",
+              "value": "{{X-Soracom-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "(DEPRECATED) Attaches the credentials (public key) for Soracom Arc to the SIM.\n\n**Warning**: Please use the `renewArcSimCredentials` API instead.\n"
+        },
+        {
+          "info": {
+            "name": "Renew the credentials for Arc to a SIM",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.soracom.io/v1/sims/:sim_id/credentials/arc",
+            "params": [
+              {
+                "name": "sim_id",
+                "value": "",
+                "type": "path",
+                "description": "SIM ID of the target SIM."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-Soracom-API-Key",
+              "value": "{{X-Soracom-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Attaches Arc credential to a SIM and re-initialize a session at once."
+        },
+        {
+          "info": {
+            "name": "(DEPRECATED) Removes the credentials for Arc from a SIM",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.soracom.io/v1/sims/:sim_id/credentials/arc",
+            "params": [
+              {
+                "name": "sim_id",
+                "value": "",
+                "type": "path",
+                "description": "SIM ID of the target SIM."
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-Soracom-API-Key",
+              "value": "{{X-Soracom-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "(DEPRECATED) Removes the credentials (public key) for Soracom Arc from the SIM.\n\n**Warning**: Do not use this API.\n"
+        },
+        {
+          "info": {
+            "name": "Get data sent from a SIM to Harvest Data.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.soracom.io/v1/sims/:sim_id/data",
+            "params": [
+              {
+                "name": "sim_id",
+                "value": "",
+                "type": "path",
+                "description": "SIM ID of the target SIM. The SIM ID can be obtained from the [Sim:listSims API](#/Sim/listSims)."
+              },
+              {
+                "name": "from",
+                "value": "",
+                "type": "query",
+                "description": "Start time for the data entries search range (UNIX time in milliseconds)."
+              },
+              {
+                "name": "to",
+                "value": "",
+                "type": "query",
+                "description": "End time for the data entries search range (UNIX time in milliseconds)."
+              },
+              {
+                "name": "sort",
+                "value": "",
+                "type": "query",
+                "description": "Sort order of the data entries. Either descending (latest data entry first) or ascending (oldest data entry first)."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of data entries to retrieve (value range is 1 to 1000). The default is `10`."
+              },
+              {
+                "name": "last_evaluated_key",
+                "value": "",
+                "type": "query",
+                "description": "The value of the `x-soracom-next-key` header from the previous response. Specify this to retrieve the next page."
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-Soracom-API-Key",
+              "value": "{{X-Soracom-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Returns a list of data entries sent to Harvest Data from a SIM that match certain criteria. If the total number of data entries does not fit in one page, a URL for accessing the next page is returned in the `link` header of the response.\n"
+        },
+        {
+          "info": {
+            "name": "Deactivate SIM",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.soracom.io/v1/sims/:sim_id/deactivate",
+            "params": [
+              {
+                "name": "sim_id",
+                "value": "",
+                "type": "path",
+                "description": "SIM ID of the target SIM. The SIM ID can be obtained from the [Sim:listSims API](#/Sim/listSims)."
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-Soracom-API-Key",
+              "value": "{{X-Soracom-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Changes status of specified SIM to \"inactive\"."
+        },
+        {
+          "info": {
+            "name": "Delete and reconnect the Session",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.soracom.io/v1/sims/:sim_id/delete_session",
+            "params": [
+              {
+                "name": "sim_id",
+                "value": "",
+                "type": "path",
+                "description": "SIM ID of the target SIM. The SIM ID can be obtained from the [Sim:listSims API](#/Sim/listSims)."
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-Soracom-API-Key",
+              "value": "{{X-Soracom-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Deletes and then reconnects the session for the specified SIM.\n\n**Warning**: If you attempt to delete the session for an offline IoT SIM, the following error message will be returned:\n\n```\nError: {\"code\":\"SEM0016\",\"message\":\"The specified subscriber is offline\"}\n```\n"
+        },
+        {
+          "info": {
+            "name": "Disables termination of the SIM",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.soracom.io/v1/sims/:sim_id/disable_termination",
+            "params": [
+              {
+                "name": "sim_id",
+                "value": "",
+                "type": "path",
+                "description": "SIM ID of the target SIM. The SIM ID can be obtained from the [Sim:listSims API](#/Sim/listSims)."
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-Soracom-API-Key",
+              "value": "{{X-Soracom-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Enables termination protection for the specified IoT SIM (disables termination)."
+        },
+        {
+          "info": {
+            "name": "Send an HTTP request to a device using an IoT SIM",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.soracom.io/v1/sims/:sim_id/downlink/http",
+            "params": [
+              {
+                "name": "sim_id",
+                "value": "",
+                "type": "path",
+                "description": "SIM ID of the target IoT SIM. The SIM ID can be obtained from the [Sim:listSims API](#/Sim/listSims)."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-Soracom-API-Key",
+              "value": "{{X-Soracom-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Sends an HTTP request to a device using an IoT SIM and returns the HTTP response from the device in the API response body.\n"
+        },
+        {
+          "info": {
+            "name": "Sends ping requests to a SIM.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.soracom.io/v1/sims/:sim_id/downlink/ping",
+            "params": [
+              {
+                "name": "sim_id",
+                "value": "",
+                "type": "path",
+                "description": "SIM ID of the target SIM. The SIM ID can be obtained from the [Sim:listSims API](#/Sim/listSims)."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-Soracom-API-Key",
+              "value": "{{X-Soracom-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Sends ICMP ping requests to a SIM."
+        },
+        {
+          "info": {
+            "name": "Send a command to a RTSP stream to a device using an IoT SIM",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.soracom.io/v1/sims/:sim_id/downlink/rtsp",
+            "params": [
+              {
+                "name": "sim_id",
+                "value": "",
+                "type": "path",
+                "description": "SIM ID of the target IoT SIM. The SIM ID can be obtained from the [Sim:listSims API](#/Sim/listSims)."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-Soracom-API-Key",
+              "value": "{{X-Soracom-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Sends a command to a device using an IoT SIM and returns a response based on specified command and options in request.\n\n- An error occurs if the command does not complete within 10 seconds.\n"
+        },
+        {
+          "info": {
+            "name": "Connect to a device using an IoT SIM via SSH and execute a specified command",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.soracom.io/v1/sims/:sim_id/downlink/ssh",
+            "params": [
+              {
+                "name": "sim_id",
+                "value": "",
+                "type": "path",
+                "description": "SIM ID of the target IoT SIM. The SIM ID can be obtained from the [Sim:listSims API](#/Sim/listSims).\n"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-Soracom-API-Key",
+              "value": "{{X-Soracom-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Connects to a device using an IoT SIM via SSH, executes a specified command, and returns the standard output and standard error output in the API response body.\n"
+        },
+        {
+          "info": {
+            "name": "Connect to a device using an IoT SIM via TCP and send/receive data",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.soracom.io/v1/sims/:sim_id/downlink/tcp",
+            "params": [
+              {
+                "name": "sim_id",
+                "value": "",
+                "type": "path",
+                "description": "SIM ID of the target IoT SIM. The SIM ID can be obtained from the [Sim:listSims API](#/Sim/listSims).\n"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-Soracom-API-Key",
+              "value": "{{X-Soracom-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Connects to a device using an IoT SIM via TCP, sends specified data, and returns data received from the device.\n\n- The maximum size of sent and received data is 5 MiB each.\n- If sending and receiving data is not completed within the time specified by `timeout`, an error will occur.\n"
+        },
+        {
+          "info": {
+            "name": "Send data using IoT SIM via UDP",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.soracom.io/v1/sims/:sim_id/downlink/udp",
+            "params": [
+              {
+                "name": "sim_id",
+                "value": "",
+                "type": "path",
+                "description": "SIM ID of the target IoT SIM. The SIM ID can be obtained from the [Sim:listSims API](#/Sim/listSims).\n"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-Soracom-API-Key",
+              "value": "{{X-Soracom-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Sends specified data to a device using an IoT SIM via UDP.\n\n**Warning**: Unlike TCP, UDP communication lacks retransmission and sequencing mechanisms, which may lead to packet loss or out-of-order arrival.\n"
+        },
+        {
+          "info": {
+            "name": "Enables termination of the SIM.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.soracom.io/v1/sims/:sim_id/enable_termination",
+            "params": [
+              {
+                "name": "sim_id",
+                "value": "",
+                "type": "path",
+                "description": "SIM ID of the target SIM. The SIM ID can be obtained from the [Sim:listSims API](#/Sim/listSims)."
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-Soracom-API-Key",
+              "value": "{{X-Soracom-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Disables termination protection for the specified IoT SIM (enables termination)."
+        },
+        {
+          "info": {
+            "name": "Retrieves session event history (session history)",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.soracom.io/v1/sims/:sim_id/events/sessions",
+            "params": [
+              {
+                "name": "sim_id",
+                "value": "",
+                "type": "path",
+                "description": "SIM ID of the target SIM. The SIM ID can be obtained from the [Sim:listSims API](#/Sim/listSims)."
+              },
+              {
+                "name": "from",
+                "value": "",
+                "type": "query",
+                "description": "Start time (UNIX time in milliseconds) of the period to retrieve the session event history."
+              },
+              {
+                "name": "to",
+                "value": "",
+                "type": "query",
+                "description": "End time (UNIX time in milliseconds) of the period to retrieve the session event history."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of event histories to retrieve. However, the number of event histories returned may be less than the specified value."
+              },
+              {
+                "name": "last_evaluated_key",
+                "value": "",
+                "type": "query",
+                "description": "The value of the `x-soracom-next-key` header from the previous response. Specify this to retrieve the next page."
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-Soracom-API-Key",
+              "value": "{{X-Soracom-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Retrieves event history of session creation/modification/disconnection for the past 32 days for the specified SIM. If the total number of events does not fit in one page, a URL for accessing the next page is returned in the `link` header of the response.\n\nCheck the current session using the [Sim:getSim API](#!/Sim/getSim). To check the current session with this API, check the value of `event` in the latest session history. Refer to [Subscriber Status](/en/docs/air/subscriber-status/) for the mea"
+        },
+        {
+          "info": {
+            "name": "Lists packet capture sessions associated with the SIM",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.soracom.io/v1/sims/:sim_id/packet_capture_sessions",
+            "params": [
+              {
+                "name": "sim_id",
+                "value": "",
+                "type": "path",
+                "description": "SIM ID of the target SIM."
+              },
+              {
+                "name": "last_evaluated_key",
+                "value": "",
+                "type": "query",
+                "description": "The value of the `x-soracom-next-key` header from the previous response. Specify this to retrieve the next page."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Max number of results in a response."
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-Soracom-API-Key",
+              "value": "{{X-Soracom-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Lists packet capture sessions associated with the SIM."
+        },
+        {
+          "info": {
+            "name": "Creates a packet capture session associated with the SIM",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.soracom.io/v1/sims/:sim_id/packet_capture_sessions",
+            "params": [
+              {
+                "name": "sim_id",
+                "value": "",
+                "type": "path",
+                "description": "SIM ID of the target SIM."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-Soracom-API-Key",
+              "value": "{{X-Soracom-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Creates a packet capture session associated with the SIM."
+        },
+        {
+          "info": {
+            "name": "Gets a packet capture session associated with the SIM",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.soracom.io/v1/sims/:sim_id/packet_capture_sessions/:session_id",
+            "params": [
+              {
+                "name": "sim_id",
+                "value": "",
+                "type": "path",
+                "description": "SIM ID of the target SIM."
+              },
+              {
+                "name": "session_id",
+                "value": "",
+                "type": "path",
+                "description": "Packet capture session ID"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-Soracom-API-Key",
+              "value": "{{X-Soracom-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Gets a packet capture session associated with the SIM."
+        },
+        {
+          "info": {
+            "name": "Deletes a packet capture session associated with the SIM",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.soracom.io/v1/sims/:sim_id/packet_capture_sessions/:session_id",
+            "params": [
+              {
+                "name": "sim_id",
+                "value": "",
+                "type": "path",
+                "description": "SIM ID of the target SIM."
+              },
+              {
+                "name": "session_id",
+                "value": "",
+                "type": "path",
+                "description": "Packet capture session ID"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-Soracom-API-Key",
+              "value": "{{X-Soracom-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Deletes a packet capture session associated with the SIM."
+        },
+        {
+          "info": {
+            "name": "Stops a packet capture session associated with the SIM",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.soracom.io/v1/sims/:sim_id/packet_capture_sessions/:session_id/stop",
+            "params": [
+              {
+                "name": "sim_id",
+                "value": "",
+                "type": "path",
+                "description": "SIM ID of the target SIM."
+              },
+              {
+                "name": "session_id",
+                "value": "",
+                "type": "path",
+                "description": "Packet capture session ID"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-Soracom-API-Key",
+              "value": "{{X-Soracom-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Stops a packet capture session associated with the SIM."
+        },
+        {
+          "info": {
+            "name": "Adds a new secondary subscription to an IoT SIM",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.soracom.io/v1/sims/:sim_id/profiles/:iccid/add_subscription",
+            "params": [
+              {
+                "name": "sim_id",
+                "value": "",
+                "type": "path",
+                "description": "SIM ID of the target SIM."
+              },
+              {
+                "name": "iccid",
+                "value": "",
+                "type": "path",
+                "description": "ICCID of the target IoT SIM. For IoT SIMs that do not support eUICC, the ICCID and SIM ID are the same."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-Soracom-API-Key",
+              "value": "{{X-Soracom-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Add a new secondary subscription ([additional subscription](/en/docs/air/subscription-containers/#adding-a-subscription) or [virtual SIM/Subscriber](/en/docs/arc/configuration/#adding-a-virtual-sim-to-an-air-sim)) to the IoT SIM."
+        },
+        {
+          "info": {
+            "name": "Cancel the OTA to the subscription container for an additional subscription",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.soracom.io/v1/sims/:sim_id/profiles/:iccid/subscribers/:imsi/cancel_download",
+            "params": [
+              {
+                "name": "sim_id",
+                "value": "",
+                "type": "path",
+                "description": "The SIM ID of the target SIM."
+              },
+              {
+                "name": "iccid",
+                "value": "",
+                "type": "path",
+                "description": "The ICCID of the target subscription container."
+              },
+              {
+                "name": "imsi",
+                "value": "",
+                "type": "path",
+                "description": "The IMSI of the target additional subscription."
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-Soracom-API-Key",
+              "value": "{{X-Soracom-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Cancel the OTA of the additional subscription before the OTA starts. Note that once the IoT SIM goes online and the OTA begins, it cannot be canceled."
+        },
+        {
+          "info": {
+            "name": "Terminates subscription container",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.soracom.io/v1/sims/:sim_id/profiles/:iccid/subscribers/:imsi/terminate",
+            "params": [
+              {
+                "name": "sim_id",
+                "value": "",
+                "type": "path",
+                "description": "SIM ID of the target subscription container."
+              },
+              {
+                "name": "iccid",
+                "value": "",
+                "type": "path",
+                "description": "ICCID of the target subscription container."
+              },
+              {
+                "name": "imsi",
+                "value": "",
+                "type": "path",
+                "description": "IMSI of the target subscription container."
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-Soracom-API-Key",
+              "value": "{{X-Soracom-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Terminates subscription container. Currently this API supports only for virtual SIM/Subscribers for Soracom Arc."
+        },
+        {
+          "info": {
+            "name": "Registers an IoT SIM to an operator",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.soracom.io/v1/sims/:sim_id/register",
+            "params": [
+              {
+                "name": "sim_id",
+                "value": "",
+                "type": "path",
+                "description": "SIM ID of the target SIM."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-Soracom-API-Key",
+              "value": "{{X-Soracom-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Registers an IoT SIM to an operator."
+        },
+        {
+          "info": {
+            "name": "Gets SIM local information report",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.soracom.io/v1/sims/:sim_id/report_local_info",
+            "params": [
+              {
+                "name": "sim_id",
+                "value": "",
+                "type": "path",
+                "description": "SIM ID of the target SIM."
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-Soracom-API-Key",
+              "value": "{{X-Soracom-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Gets SIM local information report.\n\n**Alert**: One SMS will be sent to the IoT device per request for SIM local information report. Sending SMS to IoT devices is charged. For more information on fees, refer to the following page\n- [Pricing & Fee Schedule](/en/docs/reference/fees/)\n"
+        },
+        {
+          "info": {
+            "name": "Send an SMS to an IoT SIM",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.soracom.io/v1/sims/:sim_id/send_sms",
+            "params": [
+              {
+                "name": "sim_id",
+                "value": "",
+                "type": "path",
+                "description": "SIM ID of the target SIM to which the SMS will be sent. The SIM ID can be obtained from the [Sim:listSims API](#/Sim/listSims)."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-Soracom-API-Key",
+              "value": "{{X-Soracom-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Sends an SMS to the specified IoT SIM."
+        },
+        {
+          "info": {
+            "name": "Creates a Soracom Arc session",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.soracom.io/v1/sims/:sim_id/sessions/arc",
+            "params": [
+              {
+                "name": "sim_id",
+                "value": "",
+                "type": "path",
+                "description": "SIM ID of the target SIM."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-Soracom-API-Key",
+              "value": "{{X-Soracom-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Creates a Soracom Arc session. If the session already exists, re-create it."
+        },
+        {
+          "info": {
+            "name": "Sets expiry time of IoT SIM",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.soracom.io/v1/sims/:sim_id/set_expiry_time",
+            "params": [
+              {
+                "name": "sim_id",
+                "value": "",
+                "type": "path",
+                "description": "SIM ID of the target SIM. The SIM ID can be obtained from the [Sim:listSims API](#/Sim/listSims)."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-Soracom-API-Key",
+              "value": "{{X-Soracom-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Sets the expiration date and action for the specified IoT SIM."
+        },
+        {
+          "info": {
+            "name": "Adds a SIM to a SIM group",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.soracom.io/v1/sims/:sim_id/set_group",
+            "params": [
+              {
+                "name": "sim_id",
+                "value": "",
+                "type": "path",
+                "description": "ID of the target SIM. The SIM ID can be obtained using the [Sim:listSims API](#/Sim/listSims)."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-Soracom-API-Key",
+              "value": "{{X-Soracom-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Adds a SIM to a SIM group."
+        },
+        {
+          "info": {
+            "name": "Sets IMEI lock configuration for the SIM",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.soracom.io/v1/sims/:sim_id/set_imei_lock",
+            "params": [
+              {
+                "name": "sim_id",
+                "value": "",
+                "type": "path",
+                "description": "SIM ID of the target SIM."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-Soracom-API-Key",
+              "value": "{{X-Soracom-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Sets IMEI that the SIM should be locked to."
+        },
+        {
+          "info": {
+            "name": "Set SIM to standby mode.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.soracom.io/v1/sims/:sim_id/set_to_standby",
+            "params": [
+              {
+                "name": "sim_id",
+                "value": "",
+                "type": "path",
+                "description": "SIM ID of the target SIM. The SIM ID can be obtained from the [Sim:listSims API](#/Sim/listSims)."
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-Soracom-API-Key",
+              "value": "{{X-Soracom-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Changes status of specified SIM to \"standby\"."
+        },
+        {
+          "info": {
+            "name": "List IoT SIM status operation history",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.soracom.io/v1/sims/:sim_id/statuses/history",
+            "params": [
+              {
+                "name": "sim_id",
+                "value": "",
+                "type": "path",
+                "description": "SIM ID of the target SIM."
+              },
+              {
+                "name": "from",
+                "value": "",
+                "type": "query",
+                "description": "Start time of the status operation history entry to be searched (UNIX time in milliseconds). If not specified, `from` is set to the oldest status operation history entry time of the target IoT SIM."
+              },
+              {
+                "name": "to",
+                "value": "",
+                "type": "query",
+                "description": "End time of the status operation history entry to be searched (UNIX time in milliseconds). If not specified, `to` is set to the current time."
+              },
+              {
+                "name": "last_evaluated_key",
+                "value": "",
+                "type": "query",
+                "description": "The value of the `x-soracom-next-key` header from the previous response. Specify this to retrieve the next page."
+              },
+              {
+                "name": "sort",
+                "value": "",
+                "type": "query",
+                "description": "Sort order of status operation history entry. Either descending (latest data entry first) or ascending (oldest data entry first)."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of items to retrieve in one request. The response may contain fewer items than the specified limit."
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-Soracom-API-Key",
+              "value": "{{X-Soracom-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "List IoT SIM status operation history. Status operation history entry records what status operations were performed for which IMSI and which subscriptions, along with the operation time. It includes speed class, group ID, IoT SIM status, etc. If the total number of status operation history entry does not fit in one page, a URL for accessing the next page is returned in the `link` header of the response."
+        },
+        {
+          "info": {
+            "name": "Suspend SIM",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.soracom.io/v1/sims/:sim_id/suspend",
+            "params": [
+              {
+                "name": "sim_id",
+                "value": "",
+                "type": "path",
+                "description": "SIM ID of the target SIM. The SIM ID can be obtained from the [Sim:listSims API](#/Sim/listSims)."
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-Soracom-API-Key",
+              "value": "{{X-Soracom-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Changes status of specified SIM to \"suspended\"."
+        },
+        {
+          "info": {
+            "name": "Bulk Add or Update tags for an IoT SIM",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.soracom.io/v1/sims/:sim_id/tags",
+            "params": [
+              {
+                "name": "sim_id",
+                "value": "",
+                "type": "path",
+                "description": "SIM ID of the target SIM. The SIM ID can be obtained from the [Sim:listSims API](#/Sim/listSims)."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-Soracom-API-Key",
+              "value": "{{X-Soracom-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Adds or updates tags for the specified IoT SIM.\n\nThe name of the IoT SIM is registered as a tag with the key `name`.\n"
+        },
+        {
+          "info": {
+            "name": "Deletes a tag from the specified SIM",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.soracom.io/v1/sims/:sim_id/tags/:tag_name",
+            "params": [
+              {
+                "name": "sim_id",
+                "value": "",
+                "type": "path",
+                "description": "SIM ID of the target SIM. The SIM ID can be obtained from the [Sim:listSims API](#/Sim/listSims)."
+              },
+              {
+                "name": "tag_name",
+                "value": "",
+                "type": "path",
+                "description": "Tag name to be deleted. This will be part of a URL path, so it needs to be percent-encoded. In JavaScript, specify the name after it has been encoded using encodeURIComponent().\n\n**Warning**: If you are using Soracom CLI, do not use URL encoding (percent-encoding).\n"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-Soracom-API-Key",
+              "value": "{{X-Soracom-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Deletes a tag from the specified IoT SIM."
+        },
+        {
+          "info": {
+            "name": "Terminate an IoT SIM",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.soracom.io/v1/sims/:sim_id/terminate",
+            "params": [
+              {
+                "name": "sim_id",
+                "value": "",
+                "type": "path",
+                "description": "SIM ID of the target SIM. The SIM ID can be obtained from the [Sim:listSims API](#/Sim/listSims)."
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-Soracom-API-Key",
+              "value": "{{X-Soracom-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Terminates the specified IoT SIM. Please use the [Sim:enableSimTermination API](#!/Sim/enableSimTermination) in advance to enable termination (remove termination protection).\n"
+        },
+        {
+          "info": {
+            "name": "Get usage of IoT SIM in testing status",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.soracom.io/v1/sims/:sim_id/testing/usage",
+            "params": [
+              {
+                "name": "sim_id",
+                "value": "",
+                "type": "path",
+                "description": "SIM ID of the target IoT SIM."
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-Soracom-API-Key",
+              "value": "{{X-Soracom-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Retrieves the usage information of \"testing\" status of the IoT SIM. Data can only be retrieved while the IoT SIM is in \"testing\" status."
+        },
+        {
+          "info": {
+            "name": "Deletes expiry time of the SIM",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.soracom.io/v1/sims/:sim_id/unset_expiry_time",
+            "params": [
+              {
+                "name": "sim_id",
+                "value": "",
+                "type": "path",
+                "description": "SIM ID of the target SIM. The SIM ID can be obtained from the [Sim:listSims API](#/Sim/listSims)."
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-Soracom-API-Key",
+              "value": "{{X-Soracom-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Deletes expiry time of specified SIM and changes it to indefinite."
+        },
+        {
+          "info": {
+            "name": "Removes a SIM from a SIM group",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.soracom.io/v1/sims/:sim_id/unset_group",
+            "params": [
+              {
+                "name": "sim_id",
+                "value": "",
+                "type": "path",
+                "description": "ID of the target SIM. The SIM ID can be obtained using the [Sim:listSims API](#/Sim/listSims)."
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-Soracom-API-Key",
+              "value": "{{X-Soracom-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Removes a SIM from a SIM group."
+        },
+        {
+          "info": {
+            "name": "Unsets IMEI lock of SIM",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.soracom.io/v1/sims/:sim_id/unset_imei_lock",
+            "params": [
+              {
+                "name": "sim_id",
+                "value": "",
+                "type": "path",
+                "description": "SIM ID of the target SIM."
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-Soracom-API-Key",
+              "value": "{{X-Soracom-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Unsets the IMEI lock of the specified SIM."
+        },
+        {
+          "info": {
+            "name": "Updates the IoT SIM speed class",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.soracom.io/v1/sims/:sim_id/update_speed_class",
+            "params": [
+              {
+                "name": "sim_id",
+                "value": "",
+                "type": "path",
+                "description": "SIM ID of the target SIM."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-Soracom-API-Key",
+              "value": "{{X-Soracom-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Updates the IoT SIM speed class."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Subscriber",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Subscribers.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.soracom.io/v1/subscribers",
+            "params": [
+              {
+                "name": "tag_name",
+                "value": "",
+                "type": "query",
+                "description": "Tag name for filtering the search (exact match)."
+              },
+              {
+                "name": "tag_value",
+                "value": "",
+                "type": "query",
+                "description": "Tag search string for filtering the search. Required when `tag_name` has been specified."
+              },
+              {
+                "name": "tag_value_match_mode",
+                "value": "",
+                "type": "query",
+                "description": "Tag match mode."
+              },
+              {
+                "name": "status_filter",
+                "value": "",
+                "type": "query",
+                "description": "Status for filtering the search. Can specify multiple values delimited by `|`. Valid values include: `active`, `inactive`, `ready`, `instock`, `shipped`, `suspended`, and `terminated`."
+              },
+              {
+                "name": "speed_class_filter",
+                "value": "",
+                "type": "query",
+                "description": "Speed class for filtering the search. Can specify multiple values delimited by `|`. Valid values include:\n\n- `s1.minimum`\n- `s1.slow`\n- `s1.standard`\n- `s1.fast`\n- `s1.4xfast`\n- `s1.8xfast`\n- `u1.standard`\n- `u1.slow`\n- `t1.standard`\n- `arc.standard`\n"
+              },
+              {
+                "name": "serial_number_filter",
+                "value": "",
+                "type": "query",
+                "description": "Serial number for filtering the search. Can specify multiple values delimited by `|`. Returns subscribers with serial number starting with the specified value(s)."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of subscribers to retrieve (value range is 1 to 100). However, the number of subscribers returned may be less than the specified value."
+              },
+              {
+                "name": "last_evaluated_key",
+                "value": "",
+                "type": "query",
+                "description": "The IMSI of the last subscriber retrieved on the previous page. By specifying this parameter, you can continue to retrieve the list from the next subscriber onward."
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-Soracom-API-Key",
+              "value": "{{X-Soracom-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Returns a list of subscribers that match certain criteria. If the total number of subscribers does not fit in one page, a URL for accessing the next page is returned in the `link` header of the response.\n"
+        },
+        {
+          "info": {
+            "name": "Get Subscriber.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.soracom.io/v1/subscribers/:imsi",
+            "params": [
+              {
+                "name": "imsi",
+                "value": "",
+                "type": "path",
+                "description": "IMSI of the target subscriber."
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-Soracom-API-Key",
+              "value": "{{X-Soracom-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Returns information about the specified subscriber."
+        },
+        {
+          "info": {
+            "name": "Activate Subscriber.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.soracom.io/v1/subscribers/:imsi/activate",
+            "params": [
+              {
+                "name": "imsi",
+                "value": "",
+                "type": "path",
+                "description": "IMSI of the target subscriber."
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-Soracom-API-Key",
+              "value": "{{X-Soracom-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Activates status of specified subscriber."
+        },
+        {
+          "info": {
+            "name": "Set Bundles to Subscriber.",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.soracom.io/v1/subscribers/:imsi/bundles",
+            "params": [
+              {
+                "name": "imsi",
+                "value": "",
+                "type": "path",
+                "description": "IMSI of the target subscriber. The IMSI can be obtained from the [Sim:listSims API](#!/Sim/listSims)."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-Soracom-API-Key",
+              "value": "{{X-Soracom-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Sets bundles to the specified subscriber."
+        },
+        {
+          "info": {
+            "name": "Get data sent from a subscriber to Harvest Data.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.soracom.io/v1/subscribers/:imsi/data",
+            "params": [
+              {
+                "name": "imsi",
+                "value": "",
+                "type": "path",
+                "description": "IMSI of the target subscriber that generated data entries."
+              },
+              {
+                "name": "from",
+                "value": "",
+                "type": "query",
+                "description": "Start time for the data entries search range (UNIX time in milliseconds)."
+              },
+              {
+                "name": "to",
+                "value": "",
+                "type": "query",
+                "description": "End time for the data entries search range (UNIX time in milliseconds)."
+              },
+              {
+                "name": "sort",
+                "value": "",
+                "type": "query",
+                "description": "Sort order of the data entries. Either descending (latest data entry first) or ascending (oldest data entry first)."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of data entries to retrieve (value range is 1 to 1000). The default is `10`."
+              },
+              {
+                "name": "last_evaluated_key",
+                "value": "",
+                "type": "query",
+                "description": "Key in the last data entry retrieved in the previous page. The key for data entries in this API is `${UNIX time in milliseconds}_${IMSI}`. By specifying this parameter, you can continue to retrieve the list from the next page onward.\n"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-Soracom-API-Key",
+              "value": "{{X-Soracom-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Returns a list of data entries sent to Harvest Data from a subscriber that match certain criteria. If the total number of data entries does not fit in one page, a URL for accessing the next page is returned in the `link` header of the response.\n"
+        },
+        {
+          "info": {
+            "name": "Deactivate Subscriber.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.soracom.io/v1/subscribers/:imsi/deactivate",
+            "params": [
+              {
+                "name": "imsi",
+                "value": "",
+                "type": "path",
+                "description": "IMSI of the target subscriber."
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-Soracom-API-Key",
+              "value": "{{X-Soracom-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Deactivates specified subscriber."
+        },
+        {
+          "info": {
+            "name": "Delete Session",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.soracom.io/v1/subscribers/:imsi/delete_session",
+            "params": [
+              {
+                "name": "imsi",
+                "value": "",
+                "type": "path",
+                "description": "IMSI of the target subscriber."
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-Soracom-API-Key",
+              "value": "{{X-Soracom-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Deletes session for the specified subscriber."
+        },
+        {
+          "info": {
+            "name": "Disable Termination of Subscriber.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.soracom.io/v1/subscribers/:imsi/disable_termination",
+            "params": [
+              {
+                "name": "imsi",
+                "value": "",
+                "type": "path",
+                "description": "IMSI of the target subscriber."
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-Soracom-API-Key",
+              "value": "{{X-Soracom-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Disables termination of specified subscriber."
+        },
+        {
+          "info": {
+            "name": "Send ping requests to a subscriber.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.soracom.io/v1/subscribers/:imsi/downlink/ping",
+            "params": [
+              {
+                "name": "imsi",
+                "value": "",
+                "type": "path",
+                "description": "IMSI of the target subscriber."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-Soracom-API-Key",
+              "value": "{{X-Soracom-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Send ICMP ping requests to a subscriber."
+        },
+        {
+          "info": {
+            "name": "Enable Termination of Subscriber.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.soracom.io/v1/subscribers/:imsi/enable_termination",
+            "params": [
+              {
+                "name": "imsi",
+                "value": "",
+                "type": "path",
+                "description": "IMSI of the target subscriber."
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-Soracom-API-Key",
+              "value": "{{X-Soracom-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Enables termination of specified subscriber."
+        },
+        {
+          "info": {
+            "name": "List Session Events.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.soracom.io/v1/subscribers/:imsi/events/sessions",
+            "params": [
+              {
+                "name": "imsi",
+                "value": "",
+                "type": "path",
+                "description": "IMSI of the target subscriber."
+              },
+              {
+                "name": "from",
+                "value": "",
+                "type": "query",
+                "description": "Start time for the events search range (UNIX time in milliseconds)."
+              },
+              {
+                "name": "to",
+                "value": "",
+                "type": "query",
+                "description": "End time for the events search range (UNIX time in milliseconds)."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of events to retrieve."
+              },
+              {
+                "name": "last_evaluated_key",
+                "value": "",
+                "type": "query",
+                "description": "The time stamp of the last event retrieved on the previous page. By specifying this parameter, you can continue to retrieve the list from the next event onward."
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-Soracom-API-Key",
+              "value": "{{X-Soracom-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Returns the event history of session creation/modification/disconnection on the specified subscriber in the last 32 days. If the total number of events does not fit in one page, a URL for accessing the next page is returned in the `link` header of the response.\n"
+        },
+        {
+          "info": {
+            "name": "Register Subscriber.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.soracom.io/v1/subscribers/:imsi/register",
+            "params": [
+              {
+                "name": "imsi",
+                "value": "",
+                "type": "path",
+                "description": "IMSI of the target subscriber."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-Soracom-API-Key",
+              "value": "{{X-Soracom-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Registers a subscriber."
+        },
+        {
+          "info": {
+            "name": "Triggers Subscriber to report SIM local info.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.soracom.io/v1/subscribers/:imsi/report_local_info",
+            "params": [
+              {
+                "name": "imsi",
+                "value": "",
+                "type": "path",
+                "description": "IMSI of the target subscriber."
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-Soracom-API-Key",
+              "value": "{{X-Soracom-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Triggers Subscriber to report SIM local info."
+        },
+        {
+          "info": {
+            "name": "Send SMS to Subscriber",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.soracom.io/v1/subscribers/:imsi/send_sms",
+            "params": [
+              {
+                "name": "imsi",
+                "value": "",
+                "type": "path",
+                "description": "IMSI of the target subscriber."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-Soracom-API-Key",
+              "value": "{{X-Soracom-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Send SMS to the specified subscriber."
+        },
+        {
+          "info": {
+            "name": "Update Expiry Time of Subscriber.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.soracom.io/v1/subscribers/:imsi/set_expiry_time",
+            "params": [
+              {
+                "name": "imsi",
+                "value": "",
+                "type": "path",
+                "description": "IMSI of the target subscriber."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-Soracom-API-Key",
+              "value": "{{X-Soracom-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Updates expiry time of specified subscriber."
+        },
+        {
+          "info": {
+            "name": "Adds a SIM to a SIM group",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.soracom.io/v1/subscribers/:imsi/set_group",
+            "params": [
+              {
+                "name": "imsi",
+                "value": "",
+                "type": "path",
+                "description": "IMSI of the target SIM. The IMSI can be obtained using the [Sim:listSims API](#!/Sim/listSims)."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-Soracom-API-Key",
+              "value": "{{X-Soracom-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Adds a SIM to a SIM group."
+        },
+        {
+          "info": {
+            "name": "Set IMEI lock configuration for Subscriber.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.soracom.io/v1/subscribers/:imsi/set_imei_lock",
+            "params": [
+              {
+                "name": "imsi",
+                "value": "",
+                "type": "path",
+                "description": "IMSI of the target subscriber."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-Soracom-API-Key",
+              "value": "{{X-Soracom-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Set IMEI that the subscriber should be locked to."
+        },
+        {
+          "info": {
+            "name": "Set Subscriber to standby mode.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.soracom.io/v1/subscribers/:imsi/set_to_standby",
+            "params": [
+              {
+                "name": "imsi",
+                "value": "",
+                "type": "path",
+                "description": "IMSI of the target subscriber."
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-Soracom-API-Key",
+              "value": "{{X-Soracom-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Set the specified subscriber to standby mode."
+        },
+        {
+          "info": {
+            "name": "Suspend Subscriber.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.soracom.io/v1/subscribers/:imsi/suspend",
+            "params": [
+              {
+                "name": "imsi",
+                "value": "",
+                "type": "path",
+                "description": "IMSI of the target subscriber."
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-Soracom-API-Key",
+              "value": "{{X-Soracom-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Suspends the specified subscriber."
+        },
+        {
+          "info": {
+            "name": "Bulk Insert or Update Subscriber Tags.",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.soracom.io/v1/subscribers/:imsi/tags",
+            "params": [
+              {
+                "name": "imsi",
+                "value": "",
+                "type": "path",
+                "description": "IMSI of the target subscriber."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-Soracom-API-Key",
+              "value": "{{X-Soracom-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Inserts/updates tags for the specified subscriber."
+        },
+        {
+          "info": {
+            "name": "Delete Subscriber Tag.",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.soracom.io/v1/subscribers/:imsi/tags/:tag_name",
+            "params": [
+              {
+                "name": "imsi",
+                "value": "",
+                "type": "path",
+                "description": "IMSI of the target subscriber."
+              },
+              {
+                "name": "tag_name",
+                "value": "",
+                "type": "path",
+                "description": "Tag name to be deleted. (This will be part of a URL path, so it needs to be percent-encoded. In JavaScript, specify the name after it has been encoded using encodeURIComponent().)"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-Soracom-API-Key",
+              "value": "{{X-Soracom-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Deletes a tag from the specified subscriber."
+        },
+        {
+          "info": {
+            "name": "Terminate Subscriber.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.soracom.io/v1/subscribers/:imsi/terminate",
+            "params": [
+              {
+                "name": "imsi",
+                "value": "",
+                "type": "path",
+                "description": "IMSI of the target subscriber."
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-Soracom-API-Key",
+              "value": "{{X-Soracom-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Terminates the specified subscriber"
+        },
+        {
+          "info": {
+            "name": "Delete Expiry Time of Subscriber.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.soracom.io/v1/subscribers/:imsi/unset_expiry_time",
+            "params": [
+              {
+                "name": "imsi",
+                "value": "",
+                "type": "path",
+                "description": "IMSI of the target subscriber."
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-Soracom-API-Key",
+              "value": "{{X-Soracom-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Deletes expiry time of specified subscriber and changes it to indefinite."
+        },
+        {
+          "info": {
+            "name": "Removes a SIM from a SIM group",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.soracom.io/v1/subscribers/:imsi/unset_group",
+            "params": [
+              {
+                "name": "imsi",
+                "value": "",
+                "type": "path",
+                "description": "IMSI of the target SIM. The IMSI can be obtained using the [Sim:listSims API](#!/Sim/listSims)."
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-Soracom-API-Key",
+              "value": "{{X-Soracom-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Removes a SIM from a SIM group."
+        },
+        {
+          "info": {
+            "name": "Unset IMEI lock configuration for Subscriber.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.soracom.io/v1/subscribers/:imsi/unset_imei_lock",
+            "params": [
+              {
+                "name": "imsi",
+                "value": "",
+                "type": "path",
+                "description": "IMSI of the target subscriber."
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-Soracom-API-Key",
+              "value": "{{X-Soracom-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Remove any existing IMEI lock configuration for the subscriber."
+        },
+        {
+          "info": {
+            "name": "Update Subscriber speed class.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.soracom.io/v1/subscribers/:imsi/update_speed_class",
+            "params": [
+              {
+                "name": "imsi",
+                "value": "",
+                "type": "path",
+                "description": "IMSI of the target subscriber."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-Soracom-API-Key",
+              "value": "{{X-Soracom-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Changes the speed class of the specified subscriber."
+        },
+        {
+          "info": {
+            "name": "Export all subscribers.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.soracom.io/v1/subscribers/export",
+            "params": [
+              {
+                "name": "export_mode",
+                "value": "",
+                "type": "query",
+                "description": "export mode (async, sync)"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-Soracom-API-Key",
+              "value": "{{X-Soracom-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Export all subscribers as a CSV file."
+        },
+        {
+          "info": {
+            "name": "Send SMS to Subscriber by MSISDN",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.soracom.io/v1/subscribers/msisdn/:msisdn/send_sms",
+            "params": [
+              {
+                "name": "msisdn",
+                "value": "",
+                "type": "path",
+                "description": "MSISDN of the target subscriber."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-Soracom-API-Key",
+              "value": "{{X-Soracom-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Send SMS to a subscriber specified with MSISDN."
+        },
+        {
+          "info": {
+            "name": "Cancel the transfer of Ready status SIMs (Invalidate the transfer token)",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.soracom.io/v1/subscribers/transfer_token/:token",
+            "params": [
+              {
+                "name": "token",
+                "value": "",
+                "type": "path",
+                "description": "Transfer token. The transfer token can be obtained from [Subscriber:issueSubscriberTransferToken](#!/Subscriber/issueSubscriberTransferToken)."
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-Soracom-API-Key",
+              "value": "{{X-Soracom-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Invalidate the transfer token for SIMs and cancels the transfer of all SIMs associated with the transfer token. To use this API, you need an API key and token issued with the source operator."
+        },
+        {
+          "info": {
+            "name": "Initiate the transfer of Ready status SIMs (Issue a transfer token)",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.soracom.io/v1/subscribers/transfer_token/issue",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-Soracom-API-Key",
+              "value": "{{X-Soracom-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Initiates the transfer of Ready status SIMs. To use this API, you need an API key and token issued with the source operator. When this API is executed, a transfer token is issued and sent to the destination operator via email. For more information about SIM transfers, please refer to [Transferring Ready Status SIMs](/en/docs/air/transfer/#transferring-ready-status-sims).\n\n- To cancel a transfer, cancel each transfer token individually. If there is a possibility of canceling SIMs one by one, spec"
+        },
+        {
+          "info": {
+            "name": "Accept the transfer of Ready status SIMs (Verify the transfer token)",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.soracom.io/v1/subscribers/transfer_token/verify",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-Soracom-API-Key",
+              "value": "{{X-Soracom-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Verifies the transfer token for SIMs and accepts the transfer. To use this API, you need an API key and token issued with the destination operator."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "SimProfileOrder",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List eSIM profile orders",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.soracom.io/v1/sim_profile_orders",
+            "params": [
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of eSIM profile orders to retrieve. However, the number of eSIM profile orders returned may be less than the specified value."
+              },
+              {
+                "name": "last_evaluated_key",
+                "value": "",
+                "type": "query",
+                "description": "The ID of the last eSIM profile order retrieved on the previous page. By repeating the API call while specifying this parameter, the next page of eSIM profile orders will be returned."
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-Soracom-API-Key",
+              "value": "{{X-Soracom-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Returns a list of eSIM profile orders. If the total number of orders does not fit in one page, a URL for accessing the next page is returned in the `link` header of the response.\n"
+        },
+        {
+          "info": {
+            "name": "Create a new eSIM profile order",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.soracom.io/v1/sim_profile_orders",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-Soracom-API-Key",
+              "value": "{{X-Soracom-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Creates a new eSIM profile order without confirming it. An unconfirmed order is valid for 1 day, after which it is automatically canceled.\nUse the [SimProfileOrder:confirmProfileOrder API](#/SimProfileOrder/confirmProfileOrder) to confirm the order.\n"
+        },
+        {
+          "info": {
+            "name": "Get an eSIM profile order",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.soracom.io/v1/sim_profile_orders/:profile_order_id",
+            "params": [
+              {
+                "name": "profile_order_id",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the eSIM profile order."
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-Soracom-API-Key",
+              "value": "{{X-Soracom-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Get an eSIM profile order.\n"
+        },
+        {
+          "info": {
+            "name": "Cancel an eSIM profile order",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.soracom.io/v1/sim_profile_orders/:profile_order_id",
+            "params": [
+              {
+                "name": "profile_order_id",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the eSIM profile order."
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-Soracom-API-Key",
+              "value": "{{X-Soracom-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Cancels an unconfirmed eSIM profile order.\n"
+        },
+        {
+          "info": {
+            "name": "Confirm an eSIM profile order",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.soracom.io/v1/sim_profile_orders/:profile_order_id/confirm",
+            "params": [
+              {
+                "name": "profile_order_id",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the eSIM profile order."
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-Soracom-API-Key",
+              "value": "{{X-Soracom-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Confirms an unconfirmed eSIM profile order and completes the order.\nOnce confirmed, an eSIM profile order cannot be canceled.\n"
+        },
+        {
+          "info": {
+            "name": "List eSIM profiles created by the eSIM profile order",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.soracom.io/v1/sim_profile_orders/:profile_order_id/profiles",
+            "params": [
+              {
+                "name": "profile_order_id",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the eSIM profile order."
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-Soracom-API-Key",
+              "value": "{{X-Soracom-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Returns a list of eSIM profiles created by the specified eSIM profile order.\n"
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "CellLocation",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get location information for a cell tower",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.soracom.io/v1/cell_locations",
+            "params": [
+              {
+                "name": "mcc",
+                "value": "440",
+                "type": "query",
+                "description": "MCC - Mobile Country Code."
+              },
+              {
+                "name": "mnc",
+                "value": "10",
+                "type": "query",
+                "description": "MNC - Mobile Network Code."
+              },
+              {
+                "name": "lac",
+                "value": "",
+                "type": "query",
+                "description": "LAC - Location Area Code (for 3G)."
+              },
+              {
+                "name": "cid",
+                "value": "",
+                "type": "query",
+                "description": "CID - Cell ID (for 3G)."
+              },
+              {
+                "name": "tac",
+                "value": "5680",
+                "type": "query",
+                "description": "TAC - Tracking Area Code (for 4G)."
+              },
+              {
+                "name": "ecid",
+                "value": "48872466",
+                "type": "query",
+                "description": "ECID - Enhanced Cell ID (for 4G) - specify either `ecid` or `eci`. The result is the same regardless of which value is specified."
+              },
+              {
+                "name": "eci",
+                "value": "",
+                "type": "query",
+                "description": "ECID - Enhanced Cell ID (for 4G) - specify either `ecid` or `eci`. The result is the same regardless of which value is specified."
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-Soracom-API-Key",
+              "value": "{{X-Soracom-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Retrieves location information (latitude/longitude) for a cell tower based on cell information such as Cell ID.\n\n- For 3G, please specify MCC, MNC, LAC, and CID. It is possible to retrieve approximate location information without CID, but the accuracy will be low.\n\n    3G example\n    ```\n    $ curl -X GET \"https://api.soracom.io/v1/cell_locations?mcc=440&mnc=10&lac=196\" \\\n    -H \"X-Soracom-API-Key: $X_SORACOM_API_KEY\" \\\n    -H \"X-Soracom-Token: $X_SORACOM_TOKEN\"\n    ```\n\n- For LTE (4G), please s"
+        },
+        {
+          "info": {
+            "name": "List location information for multiple cell towers.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.soracom.io/v1/cell_locations",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-Soracom-API-Key",
+              "value": "{{X-Soracom-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Retrieves a list of location information (latitude/longitude) for multiple cell towers based on cell information such as Cell ID. For 3G, please specify MCC, MNC, LAC, and CID. It is possible to retrieve approximate location information without CID, but the accuracy will be low. For LTE (4G), please specify MCC, MNC, TAC, and ECID. The conversion of cell tower information to location information uses the OpenCelliD Project database, so it is possible that the information may not exist or may be "
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

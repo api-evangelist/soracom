@@ -1,0 +1,828 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Soracom Stats and Diagnostics API",
+    "version": "20250903-043502"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Stats",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get Air Usage Report of a Group.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.soracom.io/v1/stats/air/groups/:group_id",
+            "params": [
+              {
+                "name": "group_id",
+                "value": "",
+                "type": "path",
+                "description": "Group ID"
+              },
+              {
+                "name": "from",
+                "value": "",
+                "type": "query",
+                "description": "Specify the start month/day of the period to be aggregated in UNIX time in seconds."
+              },
+              {
+                "name": "to",
+                "value": "",
+                "type": "query",
+                "description": "Specify the end month/day of the period to be aggregated in UNIX time in seconds."
+              },
+              {
+                "name": "period",
+                "value": "",
+                "type": "query",
+                "description": "Unit of aggregation.\n\n- `month`: Monthly.\n\n  The `from` and `to` should be UNIX time (in seconds) from 3 months before the current time to the current time. The actual period of interest is not the time specified by `from` and `to`.\n\n  | Item | Description |\n  |-|-|\n  | Actual start time | 00:00:00 on the first day of the month, including the specified UNIX time (in seconds). |\n  | Actual end time | 24:00:00 of the last day of the month containing the specified UNIX time (in seconds). |\n- `day`: Daily\n\n  The `from` and `to` should be UNIX time (in seconds) from 7 days before the current time to the current time. The actual period of interest is not the time specified by `from` and `to`.\n\n  | Item | Description |\n  |-|-|\n  | Actual start time | 00:00:00 of the day including the specified UNIX time (in seconds). |\n  | Actual end time | 24:00:00 of the day including the specified UNIX time (in seconds). |\n"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-Soracom-API-Key",
+              "value": "{{X-Soracom-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Retrieves the usage report aggregating all SIMs that belong to the specified Group."
+        },
+        {
+          "info": {
+            "name": "Get Air Usage Report of an Operator.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.soracom.io/v1/stats/air/operators/:operator_id",
+            "params": [
+              {
+                "name": "operator_id",
+                "value": "",
+                "type": "path",
+                "description": "Operator ID"
+              },
+              {
+                "name": "from",
+                "value": "",
+                "type": "query",
+                "description": "Specify the start month/day of the period to be aggregated in UNIX time in seconds."
+              },
+              {
+                "name": "to",
+                "value": "",
+                "type": "query",
+                "description": "Specify the end month/day of the period to be aggregated in UNIX time in seconds."
+              },
+              {
+                "name": "period",
+                "value": "",
+                "type": "query",
+                "description": "Unit of aggregation.\n\n- `month`: Monthly.\n\n  The `from` and `to` should be UNIX time (in seconds) from 3 months before the current time to the current time. The actual period of interest is not the time specified by `from` and `to`.\n\n  | Item | Description |\n  |-|-|\n  | Actual start time | 00:00:00 on the first day of the month, including the specified UNIX time (in seconds). |\n  | Actual end time | 24:00:00 of the last day of the month containing the specified UNIX time (in seconds). |\n- `day`: Daily\n\n  The `from` and `to` should be UNIX time (in seconds) from 7 days before the current time to the current time. The actual period of interest is not the time specified by `from` and `to`.\n\n  | Item | Description |\n  |-|-|\n  | Actual start time | 00:00:00 of the day including the specified UNIX time (in seconds). |\n  | Actual end time | 24:00:00 of the day including the specified UNIX time (in seconds). |\n"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-Soracom-API-Key",
+              "value": "{{X-Soracom-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Retrieves the usage report aggregating all SIMs that belong to the specified Operator."
+        },
+        {
+          "info": {
+            "name": "Export Air Usage Report of All Subscribers",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.soracom.io/v1/stats/air/operators/:operator_id/export",
+            "params": [
+              {
+                "name": "operator_id",
+                "value": "",
+                "type": "path",
+                "description": "Operator ID. The operator ID can be obtained from the [Operator:getOperator API](#!/Operator/getOperator)."
+              },
+              {
+                "name": "export_mode",
+                "value": "",
+                "type": "query",
+                "description": "Specify how to obtain the URL to download the Air Data Usage Report CSV.\n\n- `async`: Get the `exportedFieldId` without waiting for the URL to be issued on the Soracom platform. Specify this `exportedFieldId` in [Files:getExportedFile API](#!/Files/getExportedFile) to get the URL. If the file size of the Air Data Usage Report CSV is huge, specify `async`.\n- `sync` (default): Wait for the URL to be issued on the Soracom platform. However, if the file size of the Air Data Usage Report CSV is huge, it may time out and the URL cannot be retrieved. If the timeout occurs, specify `async`.\n"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-Soracom-API-Key",
+              "value": "{{X-Soracom-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Download the Air Data Traffic Actual Data CSV file that contains the usage report of all the IoT SIMs for the specified operator.\n\n**Warning**: If there is no data usage during the specified period, a CSV file with only a header row will be output.\n**Info**: You can also check the data usage of terminated IoT SIMs.\n"
+        },
+        {
+          "info": {
+            "name": "Get Air Usage Report of SIM.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.soracom.io/v1/stats/air/sims/:sim_id",
+            "params": [
+              {
+                "name": "sim_id",
+                "value": "",
+                "type": "path",
+                "description": "SIM ID of the target SIM. The SIM ID can be obtained from the [Sim:listSims API](#!/Sim/listSims)."
+              },
+              {
+                "name": "from",
+                "value": "",
+                "type": "query",
+                "description": "Specify the start month/day/minute of the period to be aggregated in UNIX time in seconds."
+              },
+              {
+                "name": "to",
+                "value": "",
+                "type": "query",
+                "description": "Specify the end month/day/minute of the period to be aggregated in UNIX time in seconds."
+              },
+              {
+                "name": "period",
+                "value": "",
+                "type": "query",
+                "description": "Unit of aggregation.\n\n- `month`: Aggregate by month.\n\n  The `from` and `to` should be UNIX time (in seconds) from 18 months before the current time to the current time. The actual period of interest is not the time specified by `from` and `to`.\n\n  | Item | Description |\n  |-|-|\n  | Actual start time | 00:00:00 on the first day of the month, including the specified UNIX time (in seconds). |\n  | Actual end time | 24:00:00 of the last day of the month containing the specified UNIX time (in seconds). |\n- `day`: Aggregate by day.\n\n  The `from` and `to` should be UNIX time (in seconds) from 18 months before the current time to the current time. The actual period of interest is not the time specified by `from` and `to`.\n\n  | Item | Description |\n  |-|-|\n  | Actual start time | 00:00:00 of the day including the specified UNIX time (in seconds). |\n  | Actual end time | 24:00:00 of the day including the specified UNIX time (in seconds). |\n- `minutes`: Aggregate by approximately every 5 minutes.\n\n  The `from` and `to` must be between 32 days before the current time and the UNIX time (in seconds) of the current time. The actual period to be aggregated is not the time specified by `from` and `to`.\n\n  | Item | Description |\n  |-|-|\n  | Actual Start Time | Start time of approximately 5 minutes including the specified UNIX time (seconds). |\n  | Actual End Time | End time of approximately 5 minutes including the specified UNIX time (seconds). |\n"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-Soracom-API-Key",
+              "value": "{{X-Soracom-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Retrieves the usage report for the SIM specified by the SIM ID.\n\n**Warning**: The data traffic of the terminated IoT SIM cannot be confirmed.\n"
+        },
+        {
+          "info": {
+            "name": "Get Air Usage Report of Subscriber.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.soracom.io/v1/stats/air/subscribers/:imsi",
+            "params": [
+              {
+                "name": "imsi",
+                "value": "",
+                "type": "path",
+                "description": "The target IMSI. The IMSI can be obtained from the [Sim:listSims API](#!/Sim/listSims)."
+              },
+              {
+                "name": "from",
+                "value": "",
+                "type": "query",
+                "description": "Specify the start month/day/minute of the period to be aggregated in UNIX time in seconds."
+              },
+              {
+                "name": "to",
+                "value": "",
+                "type": "query",
+                "description": "Specify the end month/day/minute of the period to be aggregated in UNIX time in seconds."
+              },
+              {
+                "name": "period",
+                "value": "",
+                "type": "query",
+                "description": "Unit of aggregation.\n\n- `month`: Aggregate by month.\n\n  The `from` and `to` should be UNIX time (in seconds) from 18 months before the current time to the current time. The actual period of interest is not the time specified by `from` and `to`.\n\n  | Item | Description |\n  |-|-|\n  | Actual start time | 00:00:00 on the first day of the month, including the specified UNIX time (in seconds). |\n  | Actual end time | 24:00:00 of the last day of the month containing the specified UNIX time (in seconds). |\n- `day`: Aggregate by day.\n\n  The `from` and `to` should be UNIX time (in seconds) from 18 months before the current time to the current time. The actual period of interest is not the time specified by `from` and `to`.\n\n  | Item | Description |\n  |-|-|\n  | Actual start time | 00:00:00 of the day including the specified UNIX time (in seconds). |\n  | Actual end time | 24:00:00 of the day including the specified UNIX time (in seconds). |\n- `minutes`: Aggregate by approximately every 5 minutes.\n\n  The `from` and `to` must be between 32 days before the current time and the UNIX time (in seconds) of the current time. The actual period to be aggregated is not the time specified by `from` and `to`.\n\n  | Item | Description |\n  |-|-|\n  | Actual Start Time | Start time of approximately 5 minutes including the specified UNIX time (seconds). |\n  | Actual End Time | End time of approximately 5 minutes including the specified UNIX time (seconds). |\n"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-Soracom-API-Key",
+              "value": "{{X-Soracom-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Retrieves the usage report for the subscriber specified by the IMSI.\n\n**Warning**: The data traffic of the terminated IoT SIM cannot be confirmed.\n"
+        },
+        {
+          "info": {
+            "name": "Export Beam Usage Report of All Subscribers",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.soracom.io/v1/stats/beam/operators/:operator_id/export",
+            "params": [
+              {
+                "name": "operator_id",
+                "value": "",
+                "type": "path",
+                "description": "Operator ID"
+              },
+              {
+                "name": "export_mode",
+                "value": "",
+                "type": "query",
+                "description": "export_mode (async, sync)"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-Soracom-API-Key",
+              "value": "{{X-Soracom-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Retrieves a file containing the Soracom Beam usage report of all subscribers for the specified operator. The report data range is specified with from, to in unixtime. The report contains monthly data. The file output destination is AWS S3. The file output format is CSV."
+        },
+        {
+          "info": {
+            "name": "Get Beam Usage Report of Subscriber",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.soracom.io/v1/stats/beam/subscribers/:imsi",
+            "params": [
+              {
+                "name": "imsi",
+                "value": "",
+                "type": "path",
+                "description": "imsi"
+              },
+              {
+                "name": "from",
+                "value": "",
+                "type": "query",
+                "description": "Specify the start month/day/minute of the period to be aggregated in UNIX time in seconds."
+              },
+              {
+                "name": "to",
+                "value": "",
+                "type": "query",
+                "description": "Specify the end month/day/minute of the period to be aggregated in UNIX time in seconds."
+              },
+              {
+                "name": "period",
+                "value": "",
+                "type": "query",
+                "description": "Unit of aggregation.\n\n- `month`: Aggregate by month.\n\n  The `from` and `to` should be UNIX time (in seconds) from 18 months before the current time to the current time. The actual period of interest is not the time specified by `from` and `to`.\n\n  | Item | Description |\n  |-|-|\n  | Actual start time | 00:00:00 on the first day of the month, including the specified UNIX time (in seconds). |\n  | Actual end time | 24:00:00 of the last day of the month containing the specified UNIX time (in seconds). |\n- `day`: Aggregate by day.\n\n  The `from` and `to` should be UNIX time (in seconds) from 18 months before the current time to the current time. The actual period of interest is not the time specified by `from` and `to`.\n\n  | Item | Description |\n  |-|-|\n  | Actual start time | 00:00:00 of the day including the specified UNIX time (in seconds). |\n  | Actual end time | 24:00:00 of the day including the specified UNIX time (in seconds). |\n- `minutes`: Aggregate by approximately every 5 minutes.\n\n  The `from` and `to` must be between 32 days before the current time and the UNIX time (in seconds) of the current time. The actual period to be aggregated is not the time specified by `from` and `to`.\n\n  | Item | Description |\n  |-|-|\n  | Actual Start Time | Start time of approximately 5 minutes including the specified UNIX time (seconds). |\n  | Actual End Time | End time of approximately 5 minutes including the specified UNIX time (seconds). |\n"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-Soracom-API-Key",
+              "value": "{{X-Soracom-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Retrieves the Soracom Beam usage report for the subscriber specified by the IMSI."
+        },
+        {
+          "info": {
+            "name": "Export Funk Usage Report of All Subscribers",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.soracom.io/v1/stats/funk/operators/:operator_id/export",
+            "params": [
+              {
+                "name": "operator_id",
+                "value": "",
+                "type": "path",
+                "description": "Operator ID"
+              },
+              {
+                "name": "export_mode",
+                "value": "",
+                "type": "query",
+                "description": "export_mode (async, sync)"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-Soracom-API-Key",
+              "value": "{{X-Soracom-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Retrieves a file containing the Soracom Funk usage report of all subscribers for the specified operator. The report data range is specified with from, to in unixtime. The report contains monthly data. The file output destination is AWS S3. The file output format is CSV."
+        },
+        {
+          "info": {
+            "name": "Get Funk Usage Report of Subscriber",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.soracom.io/v1/stats/funk/subscribers/:imsi",
+            "params": [
+              {
+                "name": "imsi",
+                "value": "",
+                "type": "path",
+                "description": "imsi"
+              },
+              {
+                "name": "from",
+                "value": "",
+                "type": "query",
+                "description": "Specify the start month/day/minute of the period to be aggregated in UNIX time in seconds."
+              },
+              {
+                "name": "to",
+                "value": "",
+                "type": "query",
+                "description": "Specify the end month/day/minute of the period to be aggregated in UNIX time in seconds."
+              },
+              {
+                "name": "period",
+                "value": "",
+                "type": "query",
+                "description": "Unit of aggregation.\n\n- `month`: Aggregate by month.\n\n  The `from` and `to` should be UNIX time (in seconds) from 18 months before the current time to the current time. The actual period of interest is not the time specified by `from` and `to`.\n\n  | Item | Description |\n  |-|-|\n  | Actual start time | 00:00:00 on the first day of the month, including the specified UNIX time (in seconds). |\n  | Actual end time | 24:00:00 of the last day of the month containing the specified UNIX time (in seconds). |\n- `day`: Aggregate by day.\n\n  The `from` and `to` should be UNIX time (in seconds) from 18 months before the current time to the current time. The actual period of interest is not the time specified by `from` and `to`.\n\n  | Item | Description |\n  |-|-|\n  | Actual start time | 00:00:00 of the day including the specified UNIX time (in seconds). |\n  | Actual end time | 24:00:00 of the day including the specified UNIX time (in seconds). |\n- `minutes`: Aggregate by approximately every 5 minutes.\n\n  The `from` and `to` must be between 32 days before the current time and the UNIX time (in seconds) of the current time. The actual period to be aggregated is not the time specified by `from` and `to`.\n\n  | Item | Description |\n  |-|-|\n  | Actual Start Time | Start time of approximately 5 minutes including the specified UNIX time (seconds). |\n  | Actual End Time | End time of approximately 5 minutes including the specified UNIX time (seconds). |\n"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-Soracom-API-Key",
+              "value": "{{X-Soracom-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Retrieves the Soracom Funk usage report for the subscriber specified by the IMSI."
+        },
+        {
+          "info": {
+            "name": "Export Funnel Usage Report of All Subscribers",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.soracom.io/v1/stats/funnel/operators/:operator_id/export",
+            "params": [
+              {
+                "name": "operator_id",
+                "value": "",
+                "type": "path",
+                "description": "Operator ID"
+              },
+              {
+                "name": "export_mode",
+                "value": "",
+                "type": "query",
+                "description": "export_mode (async, sync)"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-Soracom-API-Key",
+              "value": "{{X-Soracom-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Retrieves a file containing the Soracom Funnel usage report of all subscribers for the specified operator. The report data range is specified with from, to in unixtime. The report contains monthly data. The file output destination is AWS S3. The file output format is CSV."
+        },
+        {
+          "info": {
+            "name": "Get Funnel Usage Report of Subscriber",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.soracom.io/v1/stats/funnel/subscribers/:imsi",
+            "params": [
+              {
+                "name": "imsi",
+                "value": "",
+                "type": "path",
+                "description": "imsi"
+              },
+              {
+                "name": "from",
+                "value": "",
+                "type": "query",
+                "description": "Specify the start month/day/minute of the period to be aggregated in UNIX time in seconds."
+              },
+              {
+                "name": "to",
+                "value": "",
+                "type": "query",
+                "description": "Specify the end month/day/minute of the period to be aggregated in UNIX time in seconds."
+              },
+              {
+                "name": "period",
+                "value": "",
+                "type": "query",
+                "description": "Unit of aggregation.\n\n- `month`: Aggregate by month.\n\n  The `from` and `to` should be UNIX time (in seconds) from 18 months before the current time to the current time. The actual period of interest is not the time specified by `from` and `to`.\n\n  | Item | Description |\n  |-|-|\n  | Actual start time | 00:00:00 on the first day of the month, including the specified UNIX time (in seconds). |\n  | Actual end time | 24:00:00 of the last day of the month containing the specified UNIX time (in seconds). |\n- `day`: Aggregate by day.\n\n  The `from` and `to` should be UNIX time (in seconds) from 18 months before the current time to the current time. The actual period of interest is not the time specified by `from` and `to`.\n\n  | Item | Description |\n  |-|-|\n  | Actual start time | 00:00:00 of the day including the specified UNIX time (in seconds). |\n  | Actual end time | 24:00:00 of the day including the specified UNIX time (in seconds). |\n- `minutes`: Aggregate by approximately every 5 minutes.\n\n  The `from` and `to` must be between 32 days before the current time and the UNIX time (in seconds) of the current time. The actual period to be aggregated is not the time specified by `from` and `to`.\n\n  | Item | Description |\n  |-|-|\n  | Actual Start Time | Start time of approximately 5 minutes including the specified UNIX time (seconds). |\n  | Actual End Time | End time of approximately 5 minutes including the specified UNIX time (seconds). |\n"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-Soracom-API-Key",
+              "value": "{{X-Soracom-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Retrieves the Soracom Funnel usage report for the subscriber specified by the IMSI."
+        },
+        {
+          "info": {
+            "name": "Get 'Harvest usage report' for the specified operator.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.soracom.io/v1/stats/harvest/operators/:operator_id",
+            "params": [
+              {
+                "name": "operator_id",
+                "value": "",
+                "type": "path",
+                "description": "Operator ID"
+              },
+              {
+                "name": "year_month",
+                "value": "",
+                "type": "query",
+                "description": "Specify the year and month from 18 months before the current time to the current time in the YYYYMM format."
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-Soracom-API-Key",
+              "value": "{{X-Soracom-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Retrieves the Soracom Harvest usage report for the operator."
+        },
+        {
+          "info": {
+            "name": "Export Harvest Data Write Counts Report of all IoT SIMs",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.soracom.io/v1/stats/harvest/operators/:operator_id/export",
+            "params": [
+              {
+                "name": "operator_id",
+                "value": "",
+                "type": "path",
+                "description": "Operator ID."
+              },
+              {
+                "name": "export_mode",
+                "value": "",
+                "type": "query",
+                "description": "Specify how to obtain the URL to download the Harvest Data Write Count Results Data CSV.\n\n- `async`: Get the `exportedFieldId` without waiting for the URL to be issued on the Soracom platform. Specify this `exportedFieldId` in [Files:getExportedFile API](#!/Files/getExportedFile) to get the URL for downloading. If the file size of the Harvest Data Write Count Results Data CSV is huge, specify `async`.\n- `sync` (default): Wait for the URL for downloading to be issued on the Soracom platform. However, if the file size of the Harvest Data Write Count Results Data CSV is huge, it may time out and the URL cannot be retrieved. If the timeout occurs, specify `async`.\n"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-Soracom-API-Key",
+              "value": "{{X-Soracom-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Download the Harvest Data Write Count Results Data CSV file that contains the usage report of all the IoT SIMs for the specified operator.\n\n**Info**: You can also check the Harvest Data write counts of the terminated IoT SIM.\n"
+        },
+        {
+          "info": {
+            "name": "Get Harvest Usage Report of Subscriber",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.soracom.io/v1/stats/harvest/subscribers/:imsi",
+            "params": [
+              {
+                "name": "imsi",
+                "value": "",
+                "type": "path",
+                "description": "imsi"
+              },
+              {
+                "name": "from",
+                "value": "",
+                "type": "query",
+                "description": "Specify the start month/day/minute of the period to be aggregated in UNIX time in seconds."
+              },
+              {
+                "name": "to",
+                "value": "",
+                "type": "query",
+                "description": "Specify the end month/day/minute of the period to be aggregated in UNIX time in seconds."
+              },
+              {
+                "name": "period",
+                "value": "",
+                "type": "query",
+                "description": "Unit of aggregation.\n\n- `month`: Aggregate by month.\n\n  The `from` and `to` should be UNIX time (in seconds) from 18 months before the current time to the current time. The actual period of interest is not the time specified by `from` and `to`.\n\n  | Item | Description |\n  |-|-|\n  | Actual start time | 00:00:00 on the first day of the month, including the specified UNIX time (in seconds). |\n  | Actual end time | 24:00:00 of the last day of the month containing the specified UNIX time (in seconds). |\n- `day`: Aggregate by day.\n\n  The `from` and `to` should be UNIX time (in seconds) from 18 months before the current time to the current time. The actual period of interest is not the time specified by `from` and `to`.\n\n  | Item | Description |\n  |-|-|\n  | Actual start time | 00:00:00 of the day including the specified UNIX time (in seconds). |\n  | Actual end time | 24:00:00 of the day including the specified UNIX time (in seconds). |\n- `minutes`: Aggregate by approximately every 5 minutes.\n\n  The `from` and `to` must be between 32 days before the current time and the UNIX time (in seconds) of the current time. The actual period to be aggregated is not the time specified by `from` and `to`.\n\n  | Item | Description |\n  |-|-|\n  | Actual Start Time | Start time of approximately 5 minutes including the specified UNIX time (seconds). |\n  | Actual End Time | End time of approximately 5 minutes including the specified UNIX time (seconds). |\n"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-Soracom-API-Key",
+              "value": "{{X-Soracom-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Retrieves the Soracom Harvest usage report for the subscriber specified by the IMSI."
+        },
+        {
+          "info": {
+            "name": "Get Napter audit logs' monthly exported data stats.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.soracom.io/v1/stats/napter/audit_logs",
+            "params": [
+              {
+                "name": "year_month",
+                "value": "",
+                "type": "query",
+                "description": "Specify the year and month from 18 months before the current time to the current time in the YYYYMM format."
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-Soracom-API-Key",
+              "value": "{{X-Soracom-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Get Napter audit logs' monthly exported data stats."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "AuditLog",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Retrieve audit logs for Soracom API calls",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.soracom.io/v1/audit_logs/api",
+            "params": [
+              {
+                "name": "api_kind",
+                "value": "",
+                "type": "query",
+                "description": "Filter item for audit log retrieval by API kind (e.g. `/v1/auth`)."
+              },
+              {
+                "name": "from_epoch_ms",
+                "value": "",
+                "type": "query",
+                "description": "Start time for the log search range (unixtime milliseconds)."
+              },
+              {
+                "name": "to_epoch_ms",
+                "value": "",
+                "type": "query",
+                "description": "End time for the log search range (unixtime milliseconds)."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of log entries to retrieve (value range is 1 to 1000)."
+              },
+              {
+                "name": "last_evaluated_key",
+                "value": "",
+                "type": "query",
+                "description": "The value of `requestedTimeEpochMs` in the last log entry retrieved in the previous page. By specifying this parameter, you can continue to retrieve the list from the next page onward."
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-Soracom-API-Key",
+              "value": "{{X-Soracom-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Retrieve audit logs for Soracom API calls."
+        },
+        {
+          "info": {
+            "name": "Retrieve audit logs for Soracom Napter",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.soracom.io/v1/audit_logs/napter",
+            "params": [
+              {
+                "name": "resource_type",
+                "value": "",
+                "type": "query",
+                "description": "Type of the target resource to query log entries."
+              },
+              {
+                "name": "resource_id",
+                "value": "",
+                "type": "query",
+                "description": "Identity of the target resource to query log entries."
+              },
+              {
+                "name": "from",
+                "value": "",
+                "type": "query",
+                "description": "Start time for the log search range (unixtime milliseconds)."
+              },
+              {
+                "name": "to",
+                "value": "",
+                "type": "query",
+                "description": "End time for the log search range (unixtime milliseconds)."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of log entries to retrieve (value range is 1 to 1000)."
+              },
+              {
+                "name": "last_evaluated_key",
+                "value": "",
+                "type": "query",
+                "description": "The value of `time` in the last log entry retrieved in the previous page. By specifying this parameter, you can continue to retrieve the list from the next page onward."
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-Soracom-API-Key",
+              "value": "{{X-Soracom-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Retrieve audit logs for Soracom Napter."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Log",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Retrieve Error Logs",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.soracom.io/v1/logs",
+            "params": [
+              {
+                "name": "resource_type",
+                "value": "",
+                "type": "query",
+                "description": "The type of resource for which to retrieve error logs.\n\n- `Subscriber`: IoT SIM.\n- `Device`: Inventory device.\n- `LoraDevice`: LoRaWAN device.\n- `SigfoxDevice`: Sigfox device.\n"
+              },
+              {
+                "name": "resource_id",
+                "value": "",
+                "type": "query",
+                "description": "The ID of the resource for which to retrieve error logs. The ID to specify varies depending on the value of `resource_type`.\n\n| `resource_type` | ID to specify |\n|-|-|\n| `Subscriber` | The IMSI of the IoT SIM. The IMSI can be obtained from the [Sim:listSims API](#!/Sim/listSims). |\n| `Device` | The ID of the Inventory device. The ID can be obtained from the [Device:listDevices API](#!/Device/listDevices). |\n| `LoraDevice` | The ID of the LoRaWAN device. The ID can be obtained from the [LoraDevice:listLoraDevices API](#!/LoraDevice/listLoraDevices). |\n| `SigfoxDevice` | The ID of the Sigfox device. The ID can be obtained from the [SigfoxDevice:listSigfoxDevices API](#!/SigfoxDevice/listSigfoxDevices). |\n"
+              },
+              {
+                "name": "service",
+                "value": "",
+                "type": "query",
+                "description": "The service name to filter error logs.\n\n- `Air`: SORACOM Air\n- `Beam`: SORACOM Beam\n- `Funk`: SORACOM Funk\n- `Funnel`: SORACOM Funnel\n- `Harvest`: SORACOM Harvest Data/Files\n- `Napter`: SORACOM Napter\n- `Orbit`: SORACOM Orbit\n- `Unified`: Unified Endpoint\n"
+              },
+              {
+                "name": "from",
+                "value": "",
+                "type": "query",
+                "description": "Start time of the period for which to retrieve error logs (UNIX time in milliseconds)."
+              },
+              {
+                "name": "to",
+                "value": "",
+                "type": "query",
+                "description": "End time of the period for which to retrieve error logs (UNIX time in milliseconds)."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "The maximum number of error logs to retrieve."
+              },
+              {
+                "name": "last_evaluated_key",
+                "value": "",
+                "type": "query",
+                "description": "The value contained in the `x-soracom-next-key` header returned when fetching the previous page. Specify this to retrieve the next page. For more information, see [Retrieving Large Amounts of Data (Paging)](/en/docs/tools/api/paging/)."
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-Soracom-API-Key",
+              "value": "{{X-Soracom-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Fetches error logs that meet specified criteria. If the error logs exceed one page, a URL to retrieve the next page under the same conditions is included in the `link` header of the response.\n"
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Diagnostic",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Send diagnostic request",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.soracom.io/v1/diagnostics",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-Soracom-API-Key",
+              "value": "{{X-Soracom-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Send a diagnostic request."
+        },
+        {
+          "info": {
+            "name": "Get diagnostic",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.soracom.io/v1/diagnostics/:diagnostic_id",
+            "params": [
+              {
+                "name": "diagnostic_id",
+                "value": "",
+                "type": "path",
+                "description": "The identifier of diagnostic request."
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-Soracom-API-Key",
+              "value": "{{X-Soracom-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Returns a diagnostic."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,3545 @@
+{
+  "info": {
+    "_postman_id": "7bc09247-9c55-4375-8d48-e0e09d5313fb",
+    "name": "Soracom Stats and Diagnostics API",
+    "description": "Air data usage statistics, audit logs, error logs, and diagnostic features.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-06-05T15:18:41.000Z",
+    "updatedAt": "2026-06-05T15:18:41.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-7bc09247-9c55-4375-8d48-e0e09d5313fb"
+  },
+  "item": [
+    {
+      "name": "stats",
+      "item": [
+        {
+          "name": "air",
+          "item": [
+            {
+              "name": "groups",
+              "item": [
+                {
+                  "name": "{group_id}",
+                  "item": [
+                    {
+                      "name": "Get Air Usage Report of a Group.",
+                      "id": "5b514281-86a0-4eb9-8e51-a455757a3805",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "auth": {
+                          "type": "apikey",
+                          "apikey": [
+                            {
+                              "key": "key",
+                              "value": "X-Soracom-API-Key",
+                              "type": "string"
+                            },
+                            {
+                              "key": "value",
+                              "value": "{{apiKey}}",
+                              "type": "string"
+                            },
+                            {
+                              "key": "in",
+                              "value": "header",
+                              "type": "string"
+                            }
+                          ]
+                        },
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/stats/air/groups/:group_id?from=<integer>&to=<integer>&period=day",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "stats",
+                            "air",
+                            "groups",
+                            ":group_id"
+                          ],
+                          "query": [
+                            {
+                              "description": "(Required) Specify the start month/day of the period to be aggregated in UNIX time in seconds.",
+                              "key": "from",
+                              "value": "<integer>"
+                            },
+                            {
+                              "description": "(Required) Specify the end month/day of the period to be aggregated in UNIX time in seconds.",
+                              "key": "to",
+                              "value": "<integer>"
+                            },
+                            {
+                              "description": "(Required) Unit of aggregation.\n\n- `month`: Monthly.\n\n  The `from` and `to` should be UNIX time (in seconds) from 3 months before the current time to the current time. The actual period of interest is not the time specified by `from` and `to`.\n\n  | Item | Description |\n  |-|-|\n  | Actual start time | 00:00:00 on the first day of the month, including the specified UNIX time (in seconds). |\n  | Actual end time | 24:00:00 of the last day of the month containing the specified UNIX time (in seconds). |\n- `day`: Daily\n\n  The `from` and `to` should be UNIX time (in seconds) from 7 days before the current time to the current time. The actual period of interest is not the time specified by `from` and `to`.\n\n  | Item | Description |\n  |-|-|\n  | Actual start time | 00:00:00 of the day including the specified UNIX time (in seconds). |\n  | Actual end time | 24:00:00 of the day including the specified UNIX time (in seconds). |\n",
+                              "key": "period",
+                              "value": "day"
+                            }
+                          ],
+                          "variable": [
+                            {
+                              "id": "c0db04d1-2487-487d-9aa4-43a8f6685f89",
+                              "key": "group_id",
+                              "value": "<string>",
+                              "description": "(Required) Group ID"
+                            }
+                          ]
+                        },
+                        "description": "Retrieves the usage report aggregating all SIMs that belong to the specified Group."
+                      },
+                      "response": [
+                        {
+                          "id": "525d3dc7-6d0d-4e0f-a2d6-a5d1ae6369aa",
+                          "name": "OK.",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: apikey",
+                                "key": "X-Soracom-API-Key",
+                                "value": "<API Key>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/stats/air/groups/:group_id?from=<integer>&to=<integer>&period=day",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "stats",
+                                "air",
+                                "groups",
+                                ":group_id"
+                              ],
+                              "query": [
+                                {
+                                  "description": "(Required) Specify the start month/day of the period to be aggregated in UNIX time in seconds.",
+                                  "key": "from",
+                                  "value": "<integer>"
+                                },
+                                {
+                                  "description": "(Required) Specify the end month/day of the period to be aggregated in UNIX time in seconds.",
+                                  "key": "to",
+                                  "value": "<integer>"
+                                },
+                                {
+                                  "description": "(Required) Unit of aggregation.\n\n- `month`: Monthly.\n\n  The `from` and `to` should be UNIX time (in seconds) from 3 months before the current time to the current time. The actual period of interest is not the time specified by `from` and `to`.\n\n  | Item | Description |\n  |-|-|\n  | Actual start time | 00:00:00 on the first day of the month, including the specified UNIX time (in seconds). |\n  | Actual end time | 24:00:00 of the last day of the month containing the specified UNIX time (in seconds). |\n- `day`: Daily\n\n  The `from` and `to` should be UNIX time (in seconds) from 7 days before the current time to the current time. The actual period of interest is not the time specified by `from` and `to`.\n\n  | Item | Description |\n  |-|-|\n  | Actual start time | 00:00:00 of the day including the specified UNIX time (in seconds). |\n  | Actual end time | 24:00:00 of the day including the specified UNIX time (in seconds). |\n",
+                                  "key": "period",
+                                  "value": "day"
+                                }
+                              ],
+                              "variable": [
+                                {
+                                  "key": "group_id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "OK",
+                          "code": 200,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "[\n  {\n    \"downloadByteSizeTotal\": \"<long>\",\n    \"unixtime\": \"<long>\",\n    \"uploadByteSizeTotal\": \"<long>\"\n  },\n  {\n    \"downloadByteSizeTotal\": \"<long>\",\n    \"unixtime\": \"<long>\",\n    \"uploadByteSizeTotal\": \"<long>\"\n  }\n]",
+                          "createdAt": "2026-06-05T15:18:42.000Z",
+                          "updatedAt": "2026-06-05T15:18:42.000Z",
+                          "uid": "35240-525d3dc7-6d0d-4e0f-a2d6-a5d1ae6369aa"
+                        },
+                        {
+                          "id": "ff00c4a5-27de-45a4-b98b-bb4c99a3efe0",
+                          "name": "Bad request.",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "description": "Added as a part of security scheme: apikey",
+                                "key": "X-Soracom-API-Key",
+                                "value": "<API Key>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/stats/air/groups/:group_id?from=<integer>&to=<integer>&period=day",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "stats",
+                                "air",
+                                "groups",
+                                ":group_id"
+                              ],
+                              "query": [
+                                {
+                                  "description": "(Required) Specify the start month/day of the period to be aggregated in UNIX time in seconds.",
+                                  "key": "from",
+                                  "value": "<integer>"
+                                },
+                                {
+                                  "description": "(Required) Specify the end month/day of the period to be aggregated in UNIX time in seconds.",
+                                  "key": "to",
+                                  "value": "<integer>"
+                                },
+                                {
+                                  "description": "(Required) Unit of aggregation.\n\n- `month`: Monthly.\n\n  The `from` and `to` should be UNIX time (in seconds) from 3 months before the current time to the current time. The actual period of interest is not the time specified by `from` and `to`.\n\n  | Item | Description |\n  |-|-|\n  | Actual start time | 00:00:00 on the first day of the month, including the specified UNIX time (in seconds). |\n  | Actual end time | 24:00:00 of the last day of the month containing the specified UNIX time (in seconds). |\n- `day`: Daily\n\n  The `from` and `to` should be UNIX time (in seconds) from 7 days before the current time to the current time. The actual period of interest is not the time specified by `from` and `to`.\n\n  | Item | Description |\n  |-|-|\n  | Actual start time | 00:00:00 of the day including the specified UNIX time (in seconds). |\n  | Actual end time | 24:00:00 of the day including the specified UNIX time (in seconds). |\n",
+                                  "key": "period",
+                                  "value": "day"
+                                }
+                              ],
+                              "variable": [
+                                {
+                                  "key": "group_id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Bad Request",
+                          "code": 400,
+                          "_postman_previewlanguage": "text",
+                          "header": [],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": null,
+                          "createdAt": "2026-06-05T15:18:42.000Z",
+                          "updatedAt": "2026-06-05T15:18:42.000Z",
+                          "uid": "35240-ff00c4a5-27de-45a4-b98b-bb4c99a3efe0"
+                        }
+                      ],
+                      "createdAt": "2026-06-05T15:18:42.000Z",
+                      "updatedAt": "2026-06-05T15:18:42.000Z",
+                      "uid": "35240-5b514281-86a0-4eb9-8e51-a455757a3805"
+                    }
+                  ],
+                  "id": "a20b8239-7753-44f0-9fb2-8aa280e82bf0",
+                  "createdAt": "2026-06-05T15:18:42.000Z",
+                  "updatedAt": "2026-06-05T15:18:42.000Z",
+                  "uid": "35240-a20b8239-7753-44f0-9fb2-8aa280e82bf0"
+                }
+              ],
+              "id": "eaa2131a-ef27-4758-b938-1b6f71701b1d",
+              "createdAt": "2026-06-05T15:18:42.000Z",
+              "updatedAt": "2026-06-05T15:18:42.000Z",
+              "uid": "35240-eaa2131a-ef27-4758-b938-1b6f71701b1d"
+            },
+            {
+              "name": "operators",
+              "item": [
+                {
+                  "name": "{operator_id}",
+                  "item": [
+                    {
+                      "name": "export",
+                      "item": [
+                        {
+                          "name": "Export Air Usage Report of All Subscribers",
+                          "id": "beb6a9be-a22d-4421-a498-8a2313598d76",
+                          "protocolProfileBehavior": {
+                            "disableBodyPruning": true
+                          },
+                          "request": {
+                            "auth": {
+                              "type": "apikey",
+                              "apikey": [
+                                {
+                                  "key": "key",
+                                  "value": "X-Soracom-API-Key",
+                                  "type": "string"
+                                },
+                                {
+                                  "key": "value",
+                                  "value": "{{apiKey}}",
+                                  "type": "string"
+                                },
+                                {
+                                  "key": "in",
+                                  "value": "header",
+                                  "type": "string"
+                                }
+                              ]
+                            },
+                            "method": "POST",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"from\": \"<long>\",\n  \"period\": \"month\",\n  \"to\": \"<long>\"\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/stats/air/operators/:operator_id/export?export_mode=sync",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "stats",
+                                "air",
+                                "operators",
+                                ":operator_id",
+                                "export"
+                              ],
+                              "query": [
+                                {
+                                  "description": "Specify how to obtain the URL to download the Air Data Usage Report CSV.\n\n- `async`: Get the `exportedFieldId` without waiting for the URL to be issued on the Soracom platform. Specify this `exportedFieldId` in [Files:getExportedFile API](#!/Files/getExportedFile) to get the URL. If the file size of the Air Data Usage Report CSV is huge, specify `async`.\n- `sync` (default): Wait for the URL to be issued on the Soracom platform. However, if the file size of the Air Data Usage Report CSV is huge, it may time out and the URL cannot be retrieved. If the timeout occurs, specify `async`.\n",
+                                  "key": "export_mode",
+                                  "value": "sync"
+                                }
+                              ],
+                              "variable": [
+                                {
+                                  "id": "b75175e7-a550-4e15-985e-e47478c4c5c8",
+                                  "key": "operator_id",
+                                  "value": "<string>",
+                                  "description": "(Required) Operator ID. The operator ID can be obtained from the [Operator:getOperator API](#!/Operator/getOperator)."
+                                }
+                              ]
+                            },
+                            "description": "Download the Air Data Traffic Actual Data CSV file that contains the usage report of all the IoT SIMs for the specified operator.\n\n**Warning**: If there is no data usage during the specified period, a CSV file with only a header row will be output.\n**Info**: You can also check the data usage of terminated IoT SIMs.\n"
+                          },
+                          "response": [
+                            {
+                              "id": "eeece469-d02f-4914-b2e1-9f169ed196ff",
+                              "name": "OK.",
+                              "originalRequest": {
+                                "method": "POST",
+                                "header": [
+                                  {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: apikey",
+                                    "key": "X-Soracom-API-Key",
+                                    "value": "<API Key>"
+                                  }
+                                ],
+                                "body": {
+                                  "mode": "raw",
+                                  "raw": "{\n  \"from\": \"<long>\",\n  \"period\": \"month\",\n  \"to\": \"<long>\"\n}",
+                                  "options": {
+                                    "raw": {
+                                      "headerFamily": "json",
+                                      "language": "json"
+                                    }
+                                  }
+                                },
+                                "url": {
+                                  "raw": "{{baseUrl}}/stats/air/operators/:operator_id/export?export_mode=sync",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "stats",
+                                    "air",
+                                    "operators",
+                                    ":operator_id",
+                                    "export"
+                                  ],
+                                  "query": [
+                                    {
+                                      "description": "Specify how to obtain the URL to download the Air Data Usage Report CSV.\n\n- `async`: Get the `exportedFieldId` without waiting for the URL to be issued on the Soracom platform. Specify this `exportedFieldId` in [Files:getExportedFile API](#!/Files/getExportedFile) to get the URL. If the file size of the Air Data Usage Report CSV is huge, specify `async`.\n- `sync` (default): Wait for the URL to be issued on the Soracom platform. However, if the file size of the Air Data Usage Report CSV is huge, it may time out and the URL cannot be retrieved. If the timeout occurs, specify `async`.\n",
+                                      "key": "export_mode",
+                                      "value": "sync"
+                                    }
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "operator_id"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "OK",
+                              "code": 200,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"exportedFileId\": \"<string>\",\n  \"exportedFilePath\": \"<string>\",\n  \"url\": \"<string>\"\n}",
+                              "createdAt": "2026-06-05T15:18:42.000Z",
+                              "updatedAt": "2026-06-05T15:18:42.000Z",
+                              "uid": "35240-eeece469-d02f-4914-b2e1-9f169ed196ff"
+                            }
+                          ],
+                          "createdAt": "2026-06-05T15:18:42.000Z",
+                          "updatedAt": "2026-06-05T15:18:42.000Z",
+                          "uid": "35240-beb6a9be-a22d-4421-a498-8a2313598d76"
+                        }
+                      ],
+                      "id": "c99f91af-9e3a-4517-87ef-1cf1c5c24807",
+                      "createdAt": "2026-06-05T15:18:42.000Z",
+                      "updatedAt": "2026-06-05T15:18:42.000Z",
+                      "uid": "35240-c99f91af-9e3a-4517-87ef-1cf1c5c24807"
+                    },
+                    {
+                      "name": "Get Air Usage Report of an Operator.",
+                      "id": "537f9f46-926c-4005-bc83-941e3c11e706",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "auth": {
+                          "type": "apikey",
+                          "apikey": [
+                            {
+                              "key": "key",
+                              "value": "X-Soracom-API-Key",
+                              "type": "string"
+                            },
+                            {
+                              "key": "value",
+                              "value": "{{apiKey}}",
+                              "type": "string"
+                            },
+                            {
+                              "key": "in",
+                              "value": "header",
+                              "type": "string"
+                            }
+                          ]
+                        },
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/stats/air/operators/:operator_id?from=<integer>&to=<integer>&period=day",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "stats",
+                            "air",
+                            "operators",
+                            ":operator_id"
+                          ],
+                          "query": [
+                            {
+                              "description": "(Required) Specify the start month/day of the period to be aggregated in UNIX time in seconds.",
+                              "key": "from",
+                              "value": "<integer>"
+                            },
+                            {
+                              "description": "(Required) Specify the end month/day of the period to be aggregated in UNIX time in seconds.",
+                              "key": "to",
+                              "value": "<integer>"
+                            },
+                            {
+                              "description": "(Required) Unit of aggregation.\n\n- `month`: Monthly.\n\n  The `from` and `to` should be UNIX time (in seconds) from 3 months before the current time to the current time. The actual period of interest is not the time specified by `from` and `to`.\n\n  | Item | Description |\n  |-|-|\n  | Actual start time | 00:00:00 on the first day of the month, including the specified UNIX time (in seconds). |\n  | Actual end time | 24:00:00 of the last day of the month containing the specified UNIX time (in seconds). |\n- `day`: Daily\n\n  The `from` and `to` should be UNIX time (in seconds) from 7 days before the current time to the current time. The actual period of interest is not the time specified by `from` and `to`.\n\n  | Item | Description |\n  |-|-|\n  | Actual start time | 00:00:00 of the day including the specified UNIX time (in seconds). |\n  | Actual end time | 24:00:00 of the day including the specified UNIX time (in seconds). |\n",
+                              "key": "period",
+                              "value": "day"
+                            }
+                          ],
+                          "variable": [
+                            {
+                              "id": "33446abe-6136-4dc3-9267-d27f493241e6",
+                              "key": "operator_id",
+                              "value": "<string>",
+                              "description": "(Required) Operator ID"
+                            }
+                          ]
+                        },
+                        "description": "Retrieves the usage report aggregating all SIMs that belong to the specified Operator."
+                      },
+                      "response": [
+                        {
+                          "id": "eceac6a7-01eb-4288-9046-c0fb094e2f87",
+                          "name": "OK.",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: apikey",
+                                "key": "X-Soracom-API-Key",
+                                "value": "<API Key>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/stats/air/operators/:operator_id?from=<integer>&to=<integer>&period=day",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "stats",
+                                "air",
+                                "operators",
+                                ":operator_id"
+                              ],
+                              "query": [
+                                {
+                                  "description": "(Required) Specify the start month/day of the period to be aggregated in UNIX time in seconds.",
+                                  "key": "from",
+                                  "value": "<integer>"
+                                },
+                                {
+                                  "description": "(Required) Specify the end month/day of the period to be aggregated in UNIX time in seconds.",
+                                  "key": "to",
+                                  "value": "<integer>"
+                                },
+                                {
+                                  "description": "(Required) Unit of aggregation.\n\n- `month`: Monthly.\n\n  The `from` and `to` should be UNIX time (in seconds) from 3 months before the current time to the current time. The actual period of interest is not the time specified by `from` and `to`.\n\n  | Item | Description |\n  |-|-|\n  | Actual start time | 00:00:00 on the first day of the month, including the specified UNIX time (in seconds). |\n  | Actual end time | 24:00:00 of the last day of the month containing the specified UNIX time (in seconds). |\n- `day`: Daily\n\n  The `from` and `to` should be UNIX time (in seconds) from 7 days before the current time to the current time. The actual period of interest is not the time specified by `from` and `to`.\n\n  | Item | Description |\n  |-|-|\n  | Actual start time | 00:00:00 of the day including the specified UNIX time (in seconds). |\n  | Actual end time | 24:00:00 of the day including the specified UNIX time (in seconds). |\n",
+                                  "key": "period",
+                                  "value": "day"
+                                }
+                              ],
+                              "variable": [
+                                {
+                                  "key": "operator_id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "OK",
+                          "code": 200,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "[\n  {\n    \"downloadByteSizeTotal\": \"<long>\",\n    \"unixtime\": \"<long>\",\n    \"uploadByteSizeTotal\": \"<long>\"\n  },\n  {\n    \"downloadByteSizeTotal\": \"<long>\",\n    \"unixtime\": \"<long>\",\n    \"uploadByteSizeTotal\": \"<long>\"\n  }\n]",
+                          "createdAt": "2026-06-05T15:18:42.000Z",
+                          "updatedAt": "2026-06-05T15:18:42.000Z",
+                          "uid": "35240-eceac6a7-01eb-4288-9046-c0fb094e2f87"
+                        },
+                        {
+                          "id": "a3bdf459-6f28-4c4a-b20e-3cf6c55d7816",
+                          "name": "Bad request.",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "description": "Added as a part of security scheme: apikey",
+                                "key": "X-Soracom-API-Key",
+                                "value": "<API Key>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/stats/air/operators/:operator_id?from=<integer>&to=<integer>&period=day",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "stats",
+                                "air",
+                                "operators",
+                                ":operator_id"
+                              ],
+                              "query": [
+                                {
+                                  "description": "(Required) Specify the start month/day of the period to be aggregated in UNIX time in seconds.",
+                                  "key": "from",
+                                  "value": "<integer>"
+                                },
+                                {
+                                  "description": "(Required) Specify the end month/day of the period to be aggregated in UNIX time in seconds.",
+                                  "key": "to",
+                                  "value": "<integer>"
+                                },
+                                {
+                                  "description": "(Required) Unit of aggregation.\n\n- `month`: Monthly.\n\n  The `from` and `to` should be UNIX time (in seconds) from 3 months before the current time to the current time. The actual period of interest is not the time specified by `from` and `to`.\n\n  | Item | Description |\n  |-|-|\n  | Actual start time | 00:00:00 on the first day of the month, including the specified UNIX time (in seconds). |\n  | Actual end time | 24:00:00 of the last day of the month containing the specified UNIX time (in seconds). |\n- `day`: Daily\n\n  The `from` and `to` should be UNIX time (in seconds) from 7 days before the current time to the current time. The actual period of interest is not the time specified by `from` and `to`.\n\n  | Item | Description |\n  |-|-|\n  | Actual start time | 00:00:00 of the day including the specified UNIX time (in seconds). |\n  | Actual end time | 24:00:00 of the day including the specified UNIX time (in seconds). |\n",
+                                  "key": "period",
+                                  "value": "day"
+                                }
+                              ],
+                              "variable": [
+                                {
+                                  "key": "operator_id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Bad Request",
+                          "code": 400,
+                          "_postman_previewlanguage": "text",
+                          "header": [],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": null,
+                          "createdAt": "2026-06-05T15:18:42.000Z",
+                          "updatedAt": "2026-06-05T15:18:42.000Z",
+                          "uid": "35240-a3bdf459-6f28-4c4a-b20e-3cf6c55d7816"
+                        }
+                      ],
+                      "createdAt": "2026-06-05T15:18:42.000Z",
+                      "updatedAt": "2026-06-05T15:18:42.000Z",
+                      "uid": "35240-537f9f46-926c-4005-bc83-941e3c11e706"
+                    }
+                  ],
+                  "id": "90c86806-c7c6-4c0e-a741-6925a05f6455",
+                  "createdAt": "2026-06-05T15:18:42.000Z",
+                  "updatedAt": "2026-06-05T15:18:42.000Z",
+                  "uid": "35240-90c86806-c7c6-4c0e-a741-6925a05f6455"
+                }
+              ],
+              "id": "20e5c51f-50ec-40fa-8432-1e2f74060267",
+              "createdAt": "2026-06-05T15:18:42.000Z",
+              "updatedAt": "2026-06-05T15:18:42.000Z",
+              "uid": "35240-20e5c51f-50ec-40fa-8432-1e2f74060267"
+            },
+            {
+              "name": "sims",
+              "item": [
+                {
+                  "name": "{sim_id}",
+                  "item": [
+                    {
+                      "name": "Get Air Usage Report of SIM.",
+                      "id": "3d1631c0-70ce-4453-bdaa-fbdcd2dac5d9",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "auth": {
+                          "type": "apikey",
+                          "apikey": [
+                            {
+                              "key": "key",
+                              "value": "X-Soracom-API-Key",
+                              "type": "string"
+                            },
+                            {
+                              "key": "value",
+                              "value": "{{apiKey}}",
+                              "type": "string"
+                            },
+                            {
+                              "key": "in",
+                              "value": "header",
+                              "type": "string"
+                            }
+                          ]
+                        },
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/stats/air/sims/:sim_id?from=<integer>&to=<integer>&period=day",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "stats",
+                            "air",
+                            "sims",
+                            ":sim_id"
+                          ],
+                          "query": [
+                            {
+                              "description": "(Required) Specify the start month/day/minute of the period to be aggregated in UNIX time in seconds.",
+                              "key": "from",
+                              "value": "<integer>"
+                            },
+                            {
+                              "description": "(Required) Specify the end month/day/minute of the period to be aggregated in UNIX time in seconds.",
+                              "key": "to",
+                              "value": "<integer>"
+                            },
+                            {
+                              "description": "(Required) Unit of aggregation.\n\n- `month`: Aggregate by month.\n\n  The `from` and `to` should be UNIX time (in seconds) from 18 months before the current time to the current time. The actual period of interest is not the time specified by `from` and `to`.\n\n  | Item | Description |\n  |-|-|\n  | Actual start time | 00:00:00 on the first day of the month, including the specified UNIX time (in seconds). |\n  | Actual end time | 24:00:00 of the last day of the month containing the specified UNIX time (in seconds). |\n- `day`: Aggregate by day.\n\n  The `from` and `to` should be UNIX time (in seconds) from 18 months before the current time to the current time. The actual period of interest is not the time specified by `from` and `to`.\n\n  | Item | Description |\n  |-|-|\n  | Actual start time | 00:00:00 of the day including the specified UNIX time (in seconds). |\n  | Actual end time | 24:00:00 of the day including the specified UNIX time (in seconds). |\n- `minutes`: Aggregate by approximately every 5 minutes.\n\n  The `from` and `to` must be between 32 days before the current time and the UNIX time (in seconds) of the current time. The actual period to be aggregated is not the time specified by `from` and `to`.\n\n  | Item | Description |\n  |-|-|\n  | Actual Start Time | Start time of approximately 5 minutes including the specified UNIX time (seconds). |\n  | Actual End Time | End time of approximately 5 minutes including the specified UNIX time (seconds). |\n",
+                              "key": "period",
+                              "value": "day"
+                            }
+                          ],
+                          "variable": [
+                            {
+                              "id": "ecf16a2a-03b6-4358-b82d-6105b16e5511",
+                              "key": "sim_id",
+                              "value": "<string>",
+                              "description": "(Required) SIM ID of the target SIM. The SIM ID can be obtained from the [Sim:listSims API](#!/Sim/listSims)."
+                            }
+                          ]
+                        },
+                        "description": "Retrieves the usage report for the SIM specified by the SIM ID.\n\n**Warning**: The data traffic of the terminated IoT SIM cannot be confirmed.\n"
+                      },
+                      "response": [
+                        {
+                          "id": "f6e07e59-ca69-494f-aa5a-7e8cf90eacfd",
+                          "name": "OK.",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: apikey",
+                                "key": "X-Soracom-API-Key",
+                                "value": "<API Key>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/stats/air/sims/:sim_id?from=<integer>&to=<integer>&period=day",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "stats",
+                                "air",
+                                "sims",
+                                ":sim_id"
+                              ],
+                              "query": [
+                                {
+                                  "description": "(Required) Specify the start month/day/minute of the period to be aggregated in UNIX time in seconds.",
+                                  "key": "from",
+                                  "value": "<integer>"
+                                },
+                                {
+                                  "description": "(Required) Specify the end month/day/minute of the period to be aggregated in UNIX time in seconds.",
+                                  "key": "to",
+                                  "value": "<integer>"
+                                },
+                                {
+                                  "description": "(Required) Unit of aggregation.\n\n- `month`: Aggregate by month.\n\n  The `from` and `to` should be UNIX time (in seconds) from 18 months before the current time to the current time. The actual period of interest is not the time specified by `from` and `to`.\n\n  | Item | Description |\n  |-|-|\n  | Actual start time | 00:00:00 on the first day of the month, including the specified UNIX time (in seconds). |\n  | Actual end time | 24:00:00 of the last day of the month containing the specified UNIX time (in seconds). |\n- `day`: Aggregate by day.\n\n  The `from` and `to` should be UNIX time (in seconds) from 18 months before the current time to the current time. The actual period of interest is not the time specified by `from` and `to`.\n\n  | Item | Description |\n  |-|-|\n  | Actual start time | 00:00:00 of the day including the specified UNIX time (in seconds). |\n  | Actual end time | 24:00:00 of the day including the specified UNIX time (in seconds). |\n- `minutes`: Aggregate by approximately every 5 minutes.\n\n  The `from` and `to` must be between 32 days before the current time and the UNIX time (in seconds) of the current time. The actual period to be aggregated is not the time specified by `from` and `to`.\n\n  | Item | Description |\n  |-|-|\n  | Actual Start Time | Start time of approximately 5 minutes including the specified UNIX time (seconds). |\n  | Actual End Time | End time of approximately 5 minutes including the specified UNIX time (seconds). |\n",
+                                  "key": "period",
+                                  "value": "day"
+                                }
+                              ],
+                              "variable": [
+                                {
+                                  "key": "sim_id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "OK",
+                          "code": 200,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "[\n  {\n    \"dataTrafficStatsMap\": {\n      \"Excepteur___9\": {\n        \"downloadByteSizeTotal\": \"<long>\",\n        \"downloadPacketSizeTotal\": \"<long>\",\n        \"uploadByteSizeTotal\": \"<long>\",\n        \"uploadPacketSizeTotal\": \"<long>\"\n      }\n    },\n    \"date\": \"<string>\",\n    \"unixtime\": \"<long>\"\n  },\n  {\n    \"dataTrafficStatsMap\": {\n      \"aliquip_7\": {\n        \"downloadByteSizeTotal\": \"<long>\",\n        \"downloadPacketSizeTotal\": \"<long>\",\n        \"uploadByteSizeTotal\": \"<long>\",\n        \"uploadPacketSizeTotal\": \"<long>\"\n      },\n      \"nulla_35\": {\n        \"downloadByteSizeTotal\": \"<long>\",\n        \"downloadPacketSizeTotal\": \"<long>\",\n        \"uploadByteSizeTotal\": \"<long>\",\n        \"uploadPacketSizeTotal\": \"<long>\"\n      },\n      \"fugiat_0\": {\n        \"downloadByteSizeTotal\": \"<long>\",\n        \"downloadPacketSizeTotal\": \"<long>\",\n        \"uploadByteSizeTotal\": \"<long>\",\n        \"uploadPacketSizeTotal\": \"<long>\"\n      },\n      \"et_c6\": {\n        \"downloadByteSizeTotal\": \"<long>\",\n        \"downloadPacketSizeTotal\": \"<long>\",\n        \"uploadByteSizeTotal\": \"<long>\",\n        \"uploadPacketSizeTotal\": \"<long>\"\n      }\n    },\n    \"date\": \"<string>\",\n    \"unixtime\": \"<long>\"\n  }\n]",
+                          "createdAt": "2026-06-05T15:18:42.000Z",
+                          "updatedAt": "2026-06-05T15:18:42.000Z",
+                          "uid": "35240-f6e07e59-ca69-494f-aa5a-7e8cf90eacfd"
+                        }
+                      ],
+                      "createdAt": "2026-06-05T15:18:42.000Z",
+                      "updatedAt": "2026-06-05T15:18:42.000Z",
+                      "uid": "35240-3d1631c0-70ce-4453-bdaa-fbdcd2dac5d9"
+                    }
+                  ],
+                  "id": "78d2a140-6464-436a-8217-82a0fbff5038",
+                  "createdAt": "2026-06-05T15:18:42.000Z",
+                  "updatedAt": "2026-06-05T15:18:42.000Z",
+                  "uid": "35240-78d2a140-6464-436a-8217-82a0fbff5038"
+                }
+              ],
+              "id": "b015ccc6-8e6f-43b6-8988-305b33c1c870",
+              "createdAt": "2026-06-05T15:18:42.000Z",
+              "updatedAt": "2026-06-05T15:18:42.000Z",
+              "uid": "35240-b015ccc6-8e6f-43b6-8988-305b33c1c870"
+            },
+            {
+              "name": "subscribers",
+              "item": [
+                {
+                  "name": "{imsi}",
+                  "item": [
+                    {
+                      "name": "Get Air Usage Report of Subscriber.",
+                      "id": "9557c6e5-b6bf-415b-968d-2ae58af1a8a0",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "auth": {
+                          "type": "apikey",
+                          "apikey": [
+                            {
+                              "key": "key",
+                              "value": "X-Soracom-API-Key",
+                              "type": "string"
+                            },
+                            {
+                              "key": "value",
+                              "value": "{{apiKey}}",
+                              "type": "string"
+                            },
+                            {
+                              "key": "in",
+                              "value": "header",
+                              "type": "string"
+                            }
+                          ]
+                        },
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/stats/air/subscribers/:imsi?from=<integer>&to=<integer>&period=day",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "stats",
+                            "air",
+                            "subscribers",
+                            ":imsi"
+                          ],
+                          "query": [
+                            {
+                              "description": "(Required) Specify the start month/day/minute of the period to be aggregated in UNIX time in seconds.",
+                              "key": "from",
+                              "value": "<integer>"
+                            },
+                            {
+                              "description": "(Required) Specify the end month/day/minute of the period to be aggregated in UNIX time in seconds.",
+                              "key": "to",
+                              "value": "<integer>"
+                            },
+                            {
+                              "description": "(Required) Unit of aggregation.\n\n- `month`: Aggregate by month.\n\n  The `from` and `to` should be UNIX time (in seconds) from 18 months before the current time to the current time. The actual period of interest is not the time specified by `from` and `to`.\n\n  | Item | Description |\n  |-|-|\n  | Actual start time | 00:00:00 on the first day of the month, including the specified UNIX time (in seconds). |\n  | Actual end time | 24:00:00 of the last day of the month containing the specified UNIX time (in seconds). |\n- `day`: Aggregate by day.\n\n  The `from` and `to` should be UNIX time (in seconds) from 18 months before the current time to the current time. The actual period of interest is not the time specified by `from` and `to`.\n\n  | Item | Description |\n  |-|-|\n  | Actual start time | 00:00:00 of the day including the specified UNIX time (in seconds). |\n  | Actual end time | 24:00:00 of the day including the specified UNIX time (in seconds). |\n- `minutes`: Aggregate by approximately every 5 minutes.\n\n  The `from` and `to` must be between 32 days before the current time and the UNIX time (in seconds) of the current time. The actual period to be aggregated is not the time specified by `from` and `to`.\n\n  | Item | Description |\n  |-|-|\n  | Actual Start Time | Start time of approximately 5 minutes including the specified UNIX time (seconds). |\n  | Actual End Time | End time of approximately 5 minutes including the specified UNIX time (seconds). |\n",
+                              "key": "period",
+                              "value": "day"
+                            }
+                          ],
+                          "variable": [
+                            {
+                              "id": "69366110-16ae-4bab-967e-d05b097be070",
+                              "key": "imsi",
+                              "value": "<string>",
+                              "description": "(Required) The target IMSI. The IMSI can be obtained from the [Sim:listSims API](#!/Sim/listSims)."
+                            }
+                          ]
+                        },
+                        "description": "Retrieves the usage report for the subscriber specified by the IMSI.\n\n**Warning**: The data traffic of the terminated IoT SIM cannot be confirmed.\n"
+                      },
+                      "response": [
+                        {
+                          "id": "cad8fdbe-283b-46c3-aa92-a73afafba451",
+                          "name": "OK.",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: apikey",
+                                "key": "X-Soracom-API-Key",
+                                "value": "<API Key>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/stats/air/subscribers/:imsi?from=<integer>&to=<integer>&period=day",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "stats",
+                                "air",
+                                "subscribers",
+                                ":imsi"
+                              ],
+                              "query": [
+                                {
+                                  "description": "(Required) Specify the start month/day/minute of the period to be aggregated in UNIX time in seconds.",
+                                  "key": "from",
+                                  "value": "<integer>"
+                                },
+                                {
+                                  "description": "(Required) Specify the end month/day/minute of the period to be aggregated in UNIX time in seconds.",
+                                  "key": "to",
+                                  "value": "<integer>"
+                                },
+                                {
+                                  "description": "(Required) Unit of aggregation.\n\n- `month`: Aggregate by month.\n\n  The `from` and `to` should be UNIX time (in seconds) from 18 months before the current time to the current time. The actual period of interest is not the time specified by `from` and `to`.\n\n  | Item | Description |\n  |-|-|\n  | Actual start time | 00:00:00 on the first day of the month, including the specified UNIX time (in seconds). |\n  | Actual end time | 24:00:00 of the last day of the month containing the specified UNIX time (in seconds). |\n- `day`: Aggregate by day.\n\n  The `from` and `to` should be UNIX time (in seconds) from 18 months before the current time to the current time. The actual period of interest is not the time specified by `from` and `to`.\n\n  | Item | Description |\n  |-|-|\n  | Actual start time | 00:00:00 of the day including the specified UNIX time (in seconds). |\n  | Actual end time | 24:00:00 of the day including the specified UNIX time (in seconds). |\n- `minutes`: Aggregate by approximately every 5 minutes.\n\n  The `from` and `to` must be between 32 days before the current time and the UNIX time (in seconds) of the current time. The actual period to be aggregated is not the time specified by `from` and `to`.\n\n  | Item | Description |\n  |-|-|\n  | Actual Start Time | Start time of approximately 5 minutes including the specified UNIX time (seconds). |\n  | Actual End Time | End time of approximately 5 minutes including the specified UNIX time (seconds). |\n",
+                                  "key": "period",
+                                  "value": "day"
+                                }
+                              ],
+                              "variable": [
+                                {
+                                  "key": "imsi"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "OK",
+                          "code": 200,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "[\n  {\n    \"dataTrafficStatsMap\": {\n      \"Excepteur___9\": {\n        \"downloadByteSizeTotal\": \"<long>\",\n        \"downloadPacketSizeTotal\": \"<long>\",\n        \"uploadByteSizeTotal\": \"<long>\",\n        \"uploadPacketSizeTotal\": \"<long>\"\n      }\n    },\n    \"date\": \"<string>\",\n    \"unixtime\": \"<long>\"\n  },\n  {\n    \"dataTrafficStatsMap\": {\n      \"aliquip_7\": {\n        \"downloadByteSizeTotal\": \"<long>\",\n        \"downloadPacketSizeTotal\": \"<long>\",\n        \"uploadByteSizeTotal\": \"<long>\",\n        \"uploadPacketSizeTotal\": \"<long>\"\n      },\n      \"nulla_35\": {\n        \"downloadByteSizeTotal\": \"<long>\",\n        \"downloadPacketSizeTotal\": \"<long>\",\n        \"uploadByteSizeTotal\": \"<long>\",\n        \"uploadPacketSizeTotal\": \"<long>\"\n      },\n      \"fugiat_0\": {\n        \"downloadByteSizeTotal\": \"<long>\",\n        \"downloadPacketSizeTotal\": \"<long>\",\n        \"uploadByteSizeTotal\": \"<long>\",\n        \"uploadPacketSizeTotal\": \"<long>\"\n      },\n      \"et_c6\": {\n        \"downloadByteSizeTotal\": \"<long>\",\n        \"downloadPacketSizeTotal\": \"<long>\",\n        \"uploadByteSizeTotal\": \"<long>\",\n        \"uploadPacketSizeTotal\": \"<long>\"\n      }\n    },\n    \"date\": \"<string>\",\n    \"unixtime\": \"<long>\"\n  }\n]",
+                          "createdAt": "2026-06-05T15:18:42.000Z",
+                          "updatedAt": "2026-06-05T15:18:42.000Z",
+                          "uid": "35240-cad8fdbe-283b-46c3-aa92-a73afafba451"
+                        }
+                      ],
+                      "createdAt": "2026-06-05T15:18:42.000Z",
+                      "updatedAt": "2026-06-05T15:18:42.000Z",
+                      "uid": "35240-9557c6e5-b6bf-415b-968d-2ae58af1a8a0"
+                    }
+                  ],
+                  "id": "4e33e051-184b-4fa2-804d-d397a016eac3",
+                  "createdAt": "2026-06-05T15:18:42.000Z",
+                  "updatedAt": "2026-06-05T15:18:42.000Z",
+                  "uid": "35240-4e33e051-184b-4fa2-804d-d397a016eac3"
+                }
+              ],
+              "id": "ffae6c47-bd2a-4c5a-a234-5a8125274e75",
+              "createdAt": "2026-06-05T15:18:42.000Z",
+              "updatedAt": "2026-06-05T15:18:42.000Z",
+              "uid": "35240-ffae6c47-bd2a-4c5a-a234-5a8125274e75"
+            }
+          ],
+          "id": "609b1ef9-1aeb-42e4-a677-71189a4dc9d0",
+          "createdAt": "2026-06-05T15:18:42.000Z",
+          "updatedAt": "2026-06-05T15:18:42.000Z",
+          "uid": "35240-609b1ef9-1aeb-42e4-a677-71189a4dc9d0"
+        },
+        {
+          "name": "beam",
+          "item": [
+            {
+              "name": "operators",
+              "item": [
+                {
+                  "name": "{operator_id}",
+                  "item": [
+                    {
+                      "name": "export",
+                      "item": [
+                        {
+                          "name": "Export Beam Usage Report of All Subscribers",
+                          "id": "8310af1e-8267-464f-b80c-886a4553ddcc",
+                          "protocolProfileBehavior": {
+                            "disableBodyPruning": true
+                          },
+                          "request": {
+                            "auth": {
+                              "type": "apikey",
+                              "apikey": [
+                                {
+                                  "key": "key",
+                                  "value": "X-Soracom-API-Key",
+                                  "type": "string"
+                                },
+                                {
+                                  "key": "value",
+                                  "value": "{{apiKey}}",
+                                  "type": "string"
+                                },
+                                {
+                                  "key": "in",
+                                  "value": "header",
+                                  "type": "string"
+                                }
+                              ]
+                            },
+                            "method": "POST",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"from\": \"<long>\",\n  \"period\": \"month\",\n  \"to\": \"<long>\"\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/stats/beam/operators/:operator_id/export?export_mode=sync",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "stats",
+                                "beam",
+                                "operators",
+                                ":operator_id",
+                                "export"
+                              ],
+                              "query": [
+                                {
+                                  "description": "export_mode (async, sync)",
+                                  "key": "export_mode",
+                                  "value": "sync"
+                                }
+                              ],
+                              "variable": [
+                                {
+                                  "id": "c446ee5e-132a-4f6f-9410-940541bf27b2",
+                                  "key": "operator_id",
+                                  "value": "<string>",
+                                  "description": "(Required) Operator ID"
+                                }
+                              ]
+                            },
+                            "description": "Retrieves a file containing the Soracom Beam usage report of all subscribers for the specified operator. The report data range is specified with from, to in unixtime. The report contains monthly data. The file output destination is AWS S3. The file output format is CSV."
+                          },
+                          "response": [
+                            {
+                              "id": "7c108e3e-bb37-4cb6-a860-e0348f5d7e05",
+                              "name": "OK.",
+                              "originalRequest": {
+                                "method": "POST",
+                                "header": [
+                                  {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: apikey",
+                                    "key": "X-Soracom-API-Key",
+                                    "value": "<API Key>"
+                                  }
+                                ],
+                                "body": {
+                                  "mode": "raw",
+                                  "raw": "{\n  \"from\": \"<long>\",\n  \"period\": \"month\",\n  \"to\": \"<long>\"\n}",
+                                  "options": {
+                                    "raw": {
+                                      "headerFamily": "json",
+                                      "language": "json"
+                                    }
+                                  }
+                                },
+                                "url": {
+                                  "raw": "{{baseUrl}}/stats/beam/operators/:operator_id/export?export_mode=sync",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "stats",
+                                    "beam",
+                                    "operators",
+                                    ":operator_id",
+                                    "export"
+                                  ],
+                                  "query": [
+                                    {
+                                      "description": "export_mode (async, sync)",
+                                      "key": "export_mode",
+                                      "value": "sync"
+                                    }
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "operator_id"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "OK",
+                              "code": 200,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"exportedFileId\": \"<string>\",\n  \"exportedFilePath\": \"<string>\",\n  \"url\": \"<string>\"\n}",
+                              "createdAt": "2026-06-05T15:18:42.000Z",
+                              "updatedAt": "2026-06-05T15:18:42.000Z",
+                              "uid": "35240-7c108e3e-bb37-4cb6-a860-e0348f5d7e05"
+                            }
+                          ],
+                          "createdAt": "2026-06-05T15:18:42.000Z",
+                          "updatedAt": "2026-06-05T15:18:42.000Z",
+                          "uid": "35240-8310af1e-8267-464f-b80c-886a4553ddcc"
+                        }
+                      ],
+                      "id": "6dee506d-9ea7-4fb0-9ea7-9e0426afb677",
+                      "createdAt": "2026-06-05T15:18:42.000Z",
+                      "updatedAt": "2026-06-05T15:18:42.000Z",
+                      "uid": "35240-6dee506d-9ea7-4fb0-9ea7-9e0426afb677"
+                    }
+                  ],
+                  "id": "226ec5a1-900f-4b11-8854-87c9462780b0",
+                  "createdAt": "2026-06-05T15:18:42.000Z",
+                  "updatedAt": "2026-06-05T15:18:42.000Z",
+                  "uid": "35240-226ec5a1-900f-4b11-8854-87c9462780b0"
+                }
+              ],
+              "id": "c4d150ef-fde0-4ba4-972a-9cf521fdc323",
+              "createdAt": "2026-06-05T15:18:42.000Z",
+              "updatedAt": "2026-06-05T15:18:42.000Z",
+              "uid": "35240-c4d150ef-fde0-4ba4-972a-9cf521fdc323"
+            },
+            {
+              "name": "subscribers",
+              "item": [
+                {
+                  "name": "{imsi}",
+                  "item": [
+                    {
+                      "name": "Get Beam Usage Report of Subscriber",
+                      "id": "05ea7d6a-5fba-4ef3-80e1-0f1ef9a30ba0",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "auth": {
+                          "type": "apikey",
+                          "apikey": [
+                            {
+                              "key": "key",
+                              "value": "X-Soracom-API-Key",
+                              "type": "string"
+                            },
+                            {
+                              "key": "value",
+                              "value": "{{apiKey}}",
+                              "type": "string"
+                            },
+                            {
+                              "key": "in",
+                              "value": "header",
+                              "type": "string"
+                            }
+                          ]
+                        },
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/stats/beam/subscribers/:imsi?from=<integer>&to=<integer>&period=day",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "stats",
+                            "beam",
+                            "subscribers",
+                            ":imsi"
+                          ],
+                          "query": [
+                            {
+                              "description": "(Required) Specify the start month/day/minute of the period to be aggregated in UNIX time in seconds.",
+                              "key": "from",
+                              "value": "<integer>"
+                            },
+                            {
+                              "description": "(Required) Specify the end month/day/minute of the period to be aggregated in UNIX time in seconds.",
+                              "key": "to",
+                              "value": "<integer>"
+                            },
+                            {
+                              "description": "(Required) Unit of aggregation.\n\n- `month`: Aggregate by month.\n\n  The `from` and `to` should be UNIX time (in seconds) from 18 months before the current time to the current time. The actual period of interest is not the time specified by `from` and `to`.\n\n  | Item | Description |\n  |-|-|\n  | Actual start time | 00:00:00 on the first day of the month, including the specified UNIX time (in seconds). |\n  | Actual end time | 24:00:00 of the last day of the month containing the specified UNIX time (in seconds). |\n- `day`: Aggregate by day.\n\n  The `from` and `to` should be UNIX time (in seconds) from 18 months before the current time to the current time. The actual period of interest is not the time specified by `from` and `to`.\n\n  | Item | Description |\n  |-|-|\n  | Actual start time | 00:00:00 of the day including the specified UNIX time (in seconds). |\n  | Actual end time | 24:00:00 of the day including the specified UNIX time (in seconds). |\n- `minutes`: Aggregate by approximately every 5 minutes.\n\n  The `from` and `to` must be between 32 days before the current time and the UNIX time (in seconds) of the current time. The actual period to be aggregated is not the time specified by `from` and `to`.\n\n  | Item | Description |\n  |-|-|\n  | Actual Start Time | Start time of approximately 5 minutes including the specified UNIX time (seconds). |\n  | Actual End Time | End time of approximately 5 minutes including the specified UNIX time (seconds). |\n",
+                              "key": "period",
+                              "value": "day"
+                            }
+                          ],
+                          "variable": [
+                            {
+                              "id": "a02bb209-028a-48f7-ac20-523644851e92",
+                              "key": "imsi",
+                              "value": "<string>",
+                              "description": "(Required) imsi"
+                            }
+                          ]
+                        },
+                        "description": "Retrieves the Soracom Beam usage report for the subscriber specified by the IMSI."
+                      },
+                      "response": [
+                        {
+                          "id": "b4039cbd-f3a1-4bf6-83e7-ae0bcdfb4c69",
+                          "name": "OK.",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: apikey",
+                                "key": "X-Soracom-API-Key",
+                                "value": "<API Key>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/stats/beam/subscribers/:imsi?from=<integer>&to=<integer>&period=day",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "stats",
+                                "beam",
+                                "subscribers",
+                                ":imsi"
+                              ],
+                              "query": [
+                                {
+                                  "description": "(Required) Specify the start month/day/minute of the period to be aggregated in UNIX time in seconds.",
+                                  "key": "from",
+                                  "value": "<integer>"
+                                },
+                                {
+                                  "description": "(Required) Specify the end month/day/minute of the period to be aggregated in UNIX time in seconds.",
+                                  "key": "to",
+                                  "value": "<integer>"
+                                },
+                                {
+                                  "description": "(Required) Unit of aggregation.\n\n- `month`: Aggregate by month.\n\n  The `from` and `to` should be UNIX time (in seconds) from 18 months before the current time to the current time. The actual period of interest is not the time specified by `from` and `to`.\n\n  | Item | Description |\n  |-|-|\n  | Actual start time | 00:00:00 on the first day of the month, including the specified UNIX time (in seconds). |\n  | Actual end time | 24:00:00 of the last day of the month containing the specified UNIX time (in seconds). |\n- `day`: Aggregate by day.\n\n  The `from` and `to` should be UNIX time (in seconds) from 18 months before the current time to the current time. The actual period of interest is not the time specified by `from` and `to`.\n\n  | Item | Description |\n  |-|-|\n  | Actual start time | 00:00:00 of the day including the specified UNIX time (in seconds). |\n  | Actual end time | 24:00:00 of the day including the specified UNIX time (in seconds). |\n- `minutes`: Aggregate by approximately every 5 minutes.\n\n  The `from` and `to` must be between 32 days before the current time and the UNIX time (in seconds) of the current time. The actual period to be aggregated is not the time specified by `from` and `to`.\n\n  | Item | Description |\n  |-|-|\n  | Actual Start Time | Start time of approximately 5 minutes including the specified UNIX time (seconds). |\n  | Actual End Time | End time of approximately 5 minutes including the specified UNIX time (seconds). |\n",
+                                  "key": "period",
+                                  "value": "day"
+                                }
+                              ],
+                              "variable": [
+                                {
+                                  "key": "imsi"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "OK",
+                          "code": 200,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "[\n  {\n    \"beamStatsMap\": {\n      \"proidenta\": {\n        \"count\": \"<long>\"\n      },\n      \"dolore_7\": {\n        \"count\": \"<long>\"\n      },\n      \"officia_b\": {\n        \"count\": \"<long>\"\n      }\n    },\n    \"date\": \"<string>\",\n    \"unixtime\": \"<long>\"\n  },\n  {\n    \"beamStatsMap\": {\n      \"Duis_20\": {\n        \"count\": \"<long>\"\n      },\n      \"elit_0\": {\n        \"count\": \"<long>\"\n      },\n      \"exercitation_3\": {\n        \"count\": \"<long>\"\n      },\n      \"Duis_fab\": {\n        \"count\": \"<long>\"\n      },\n      \"magna_3\": {\n        \"count\": \"<long>\"\n      }\n    },\n    \"date\": \"<string>\",\n    \"unixtime\": \"<long>\"\n  }\n]",
+                          "createdAt": "2026-06-05T15:18:42.000Z",
+                          "updatedAt": "2026-06-05T15:18:42.000Z",
+                          "uid": "35240-b4039cbd-f3a1-4bf6-83e7-ae0bcdfb4c69"
+                        }
+                      ],
+                      "createdAt": "2026-06-05T15:18:42.000Z",
+                      "updatedAt": "2026-06-05T15:18:42.000Z",
+                      "uid": "35240-05ea7d6a-5fba-4ef3-80e1-0f1ef9a30ba0"
+                    }
+                  ],
+                  "id": "9964cee5-e316-4db3-8685-05c933b62351",
+                  "createdAt": "2026-06-05T15:18:42.000Z",
+                  "updatedAt": "2026-06-05T15:18:42.000Z",
+                  "uid": "35240-9964cee5-e316-4db3-8685-05c933b62351"
+                }
+              ],
+              "id": "1ddbbc90-8a55-433c-ac0e-8f895b467234",
+              "createdAt": "2026-06-05T15:18:42.000Z",
+              "updatedAt": "2026-06-05T15:18:42.000Z",
+              "uid": "35240-1ddbbc90-8a55-433c-ac0e-8f895b467234"
+            }
+          ],
+          "id": "16f07ee1-ae47-44e1-a7b6-831beef72b64",
+          "createdAt": "2026-06-05T15:18:42.000Z",
+          "updatedAt": "2026-06-05T15:18:42.000Z",
+          "uid": "35240-16f07ee1-ae47-44e1-a7b6-831beef72b64"
+        },
+        {
+          "name": "funk",
+          "item": [
+            {
+              "name": "operators",
+              "item": [
+                {
+                  "name": "{operator_id}",
+                  "item": [
+                    {
+                      "name": "export",
+                      "item": [
+                        {
+                          "name": "Export Funk Usage Report of All Subscribers",
+                          "id": "444a06da-c25a-4fdb-aa58-ebb97a6eb87e",
+                          "protocolProfileBehavior": {
+                            "disableBodyPruning": true
+                          },
+                          "request": {
+                            "auth": {
+                              "type": "apikey",
+                              "apikey": [
+                                {
+                                  "key": "key",
+                                  "value": "X-Soracom-API-Key",
+                                  "type": "string"
+                                },
+                                {
+                                  "key": "value",
+                                  "value": "{{apiKey}}",
+                                  "type": "string"
+                                },
+                                {
+                                  "key": "in",
+                                  "value": "header",
+                                  "type": "string"
+                                }
+                              ]
+                            },
+                            "method": "POST",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"from\": \"<long>\",\n  \"period\": \"month\",\n  \"to\": \"<long>\"\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/stats/funk/operators/:operator_id/export?export_mode=sync",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "stats",
+                                "funk",
+                                "operators",
+                                ":operator_id",
+                                "export"
+                              ],
+                              "query": [
+                                {
+                                  "description": "export_mode (async, sync)",
+                                  "key": "export_mode",
+                                  "value": "sync"
+                                }
+                              ],
+                              "variable": [
+                                {
+                                  "id": "812bfe73-d77a-4052-a56f-56e2790ab12d",
+                                  "key": "operator_id",
+                                  "value": "<string>",
+                                  "description": "(Required) Operator ID"
+                                }
+                              ]
+                            },
+                            "description": "Retrieves a file containing the Soracom Funk usage report of all subscribers for the specified operator. The report data range is specified with from, to in unixtime. The report contains monthly data. The file output destination is AWS S3. The file output format is CSV."
+                          },
+                          "response": [
+                            {
+                              "id": "e469c189-4f5c-44c2-955f-1ff9db46bdd2",
+                              "name": "OK.",
+                              "originalRequest": {
+                                "method": "POST",
+                                "header": [
+                                  {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: apikey",
+                                    "key": "X-Soracom-API-Key",
+                                    "value": "<API Key>"
+                                  }
+                                ],
+                                "body": {
+                                  "mode": "raw",
+                                  "raw": "{\n  \"from\": \"<long>\",\n  \"period\": \"month\",\n  \"to\": \"<long>\"\n}",
+                                  "options": {
+                                    "raw": {
+                                      "headerFamily": "json",
+                                      "language": "json"
+                                    }
+                                  }
+                                },
+                                "url": {
+                                  "raw": "{{baseUrl}}/stats/funk/operators/:operator_id/export?export_mode=sync",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "stats",
+                                    "funk",
+                                    "operators",
+                                    ":operator_id",
+                                    "export"
+                                  ],
+                                  "query": [
+                                    {
+                                      "description": "export_mode (async, sync)",
+                                      "key": "export_mode",
+                                      "value": "sync"
+                                    }
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "operator_id"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "OK",
+                              "code": 200,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"exportedFileId\": \"<string>\",\n  \"exportedFilePath\": \"<string>\",\n  \"url\": \"<string>\"\n}",
+                              "createdAt": "2026-06-05T15:18:42.000Z",
+                              "updatedAt": "2026-06-05T15:18:42.000Z",
+                              "uid": "35240-e469c189-4f5c-44c2-955f-1ff9db46bdd2"
+                            }
+                          ],
+                          "createdAt": "2026-06-05T15:18:42.000Z",
+                          "updatedAt": "2026-06-05T15:18:42.000Z",
+                          "uid": "35240-444a06da-c25a-4fdb-aa58-ebb97a6eb87e"
+                        }
+                      ],
+                      "id": "19952768-f87c-40d2-ab99-eb96918e5475",
+                      "createdAt": "2026-06-05T15:18:42.000Z",
+                      "updatedAt": "2026-06-05T15:18:42.000Z",
+                      "uid": "35240-19952768-f87c-40d2-ab99-eb96918e5475"
+                    }
+                  ],
+                  "id": "3dc7db05-eb2a-4466-83d1-4b3fde07a951",
+                  "createdAt": "2026-06-05T15:18:42.000Z",
+                  "updatedAt": "2026-06-05T15:18:42.000Z",
+                  "uid": "35240-3dc7db05-eb2a-4466-83d1-4b3fde07a951"
+                }
+              ],
+              "id": "89cae0b2-fc20-499c-9c47-b3ab858436b4",
+              "createdAt": "2026-06-05T15:18:42.000Z",
+              "updatedAt": "2026-06-05T15:18:42.000Z",
+              "uid": "35240-89cae0b2-fc20-499c-9c47-b3ab858436b4"
+            },
+            {
+              "name": "subscribers",
+              "item": [
+                {
+                  "name": "{imsi}",
+                  "item": [
+                    {
+                      "name": "Get Funk Usage Report of Subscriber",
+                      "id": "67327cf0-612b-4211-a799-c169694a373d",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "auth": {
+                          "type": "apikey",
+                          "apikey": [
+                            {
+                              "key": "key",
+                              "value": "X-Soracom-API-Key",
+                              "type": "string"
+                            },
+                            {
+                              "key": "value",
+                              "value": "{{apiKey}}",
+                              "type": "string"
+                            },
+                            {
+                              "key": "in",
+                              "value": "header",
+                              "type": "string"
+                            }
+                          ]
+                        },
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/stats/funk/subscribers/:imsi?from=<integer>&to=<integer>&period=day",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "stats",
+                            "funk",
+                            "subscribers",
+                            ":imsi"
+                          ],
+                          "query": [
+                            {
+                              "description": "(Required) Specify the start month/day/minute of the period to be aggregated in UNIX time in seconds.",
+                              "key": "from",
+                              "value": "<integer>"
+                            },
+                            {
+                              "description": "(Required) Specify the end month/day/minute of the period to be aggregated in UNIX time in seconds.",
+                              "key": "to",
+                              "value": "<integer>"
+                            },
+                            {
+                              "description": "(Required) Unit of aggregation.\n\n- `month`: Aggregate by month.\n\n  The `from` and `to` should be UNIX time (in seconds) from 18 months before the current time to the current time. The actual period of interest is not the time specified by `from` and `to`.\n\n  | Item | Description |\n  |-|-|\n  | Actual start time | 00:00:00 on the first day of the month, including the specified UNIX time (in seconds). |\n  | Actual end time | 24:00:00 of the last day of the month containing the specified UNIX time (in seconds). |\n- `day`: Aggregate by day.\n\n  The `from` and `to` should be UNIX time (in seconds) from 18 months before the current time to the current time. The actual period of interest is not the time specified by `from` and `to`.\n\n  | Item | Description |\n  |-|-|\n  | Actual start time | 00:00:00 of the day including the specified UNIX time (in seconds). |\n  | Actual end time | 24:00:00 of the day including the specified UNIX time (in seconds). |\n- `minutes`: Aggregate by approximately every 5 minutes.\n\n  The `from` and `to` must be between 32 days before the current time and the UNIX time (in seconds) of the current time. The actual period to be aggregated is not the time specified by `from` and `to`.\n\n  | Item | Description |\n  |-|-|\n  | Actual Start Time | Start time of approximately 5 minutes including the specified UNIX time (seconds). |\n  | Actual End Time | End time of approximately 5 minutes including the specified UNIX time (seconds). |\n",
+                              "key": "period",
+                              "value": "day"
+                            }
+                          ],
+                          "variable": [
+                            {
+                              "id": "e12e0e8b-0843-4cc5-acaa-eb191734391f",
+                              "key": "imsi",
+                              "value": "<string>",
+                              "description": "(Required) imsi"
+                            }
+                          ]
+                        },
+                        "description": "Retrieves the Soracom Funk usage report for the subscriber specified by the IMSI."
+                      },
+                      "response": [
+                        {
+                          "id": "3ffb6dee-f2f1-4a2c-b87e-58b0b7fd4855",
+                          "name": "OK.",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: apikey",
+                                "key": "X-Soracom-API-Key",
+                                "value": "<API Key>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/stats/funk/subscribers/:imsi?from=<integer>&to=<integer>&period=day",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "stats",
+                                "funk",
+                                "subscribers",
+                                ":imsi"
+                              ],
+                              "query": [
+                                {
+                                  "description": "(Required) Specify the start month/day/minute of the period to be aggregated in UNIX time in seconds.",
+                                  "key": "from",
+                                  "value": "<integer>"
+                                },
+                                {
+                                  "description": "(Required) Specify the end month/day/minute of the period to be aggregated in UNIX time in seconds.",
+                                  "key": "to",
+                                  "value": "<integer>"
+                                },
+                                {
+                                  "description": "(Required) Unit of aggregation.\n\n- `month`: Aggregate by month.\n\n  The `from` and `to` should be UNIX time (in seconds) from 18 months before the current time to the current time. The actual period of interest is not the time specified by `from` and `to`.\n\n  | Item | Description |\n  |-|-|\n  | Actual start time | 00:00:00 on the first day of the month, including the specified UNIX time (in seconds). |\n  | Actual end time | 24:00:00 of the last day of the month containing the specified UNIX time (in seconds). |\n- `day`: Aggregate by day.\n\n  The `from` and `to` should be UNIX time (in seconds) from 18 months before the current time to the current time. The actual period of interest is not the time specified by `from` and `to`.\n\n  | Item | Description |\n  |-|-|\n  | Actual start time | 00:00:00 of the day including the specified UNIX time (in seconds). |\n  | Actual end time | 24:00:00 of the day including the specified UNIX time (in seconds). |\n- `minutes`: Aggregate by approximately every 5 minutes.\n\n  The `from` and `to` must be between 32 days before the current time and the UNIX time (in seconds) of the current time. The actual period to be aggregated is not the time specified by `from` and `to`.\n\n  | Item | Description |\n  |-|-|\n  | Actual Start Time | Start time of approximately 5 minutes including the specified UNIX time (seconds). |\n  | Actual End Time | End time of approximately 5 minutes including the specified UNIX time (seconds). |\n",
+                                  "key": "period",
+                                  "value": "day"
+                                }
+                              ],
+                              "variable": [
+                                {
+                                  "key": "imsi"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "OK",
+                          "code": 200,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "[\n  {\n    \"funkStatsMap\": {\n      \"eaf\": {\n        \"count\": \"<long>\"\n      },\n      \"minima2\": {\n        \"count\": \"<long>\"\n      },\n      \"ipsum_7ef\": {\n        \"count\": \"<long>\"\n      }\n    },\n    \"unixtime\": \"<long>\"\n  },\n  {\n    \"funkStatsMap\": {\n      \"ipsum_500\": {\n        \"count\": \"<long>\"\n      },\n      \"ullamco_66\": {\n        \"count\": \"<long>\"\n      },\n      \"ex_4e\": {\n        \"count\": \"<long>\"\n      },\n      \"voluptate_6c4\": {\n        \"count\": \"<long>\"\n      }\n    },\n    \"unixtime\": \"<long>\"\n  }\n]",
+                          "createdAt": "2026-06-05T15:18:42.000Z",
+                          "updatedAt": "2026-06-05T15:18:42.000Z",
+                          "uid": "35240-3ffb6dee-f2f1-4a2c-b87e-58b0b7fd4855"
+                        }
+                      ],
+                      "createdAt": "2026-06-05T15:18:42.000Z",
+                      "updatedAt": "2026-06-05T15:18:42.000Z",
+                      "uid": "35240-67327cf0-612b-4211-a799-c169694a373d"
+                    }
+                  ],
+                  "id": "b6549202-05e7-49d8-bcea-762816f7f4ae",
+                  "createdAt": "2026-06-05T15:18:42.000Z",
+                  "updatedAt": "2026-06-05T15:18:42.000Z",
+                  "uid": "35240-b6549202-05e7-49d8-bcea-762816f7f4ae"
+                }
+              ],
+              "id": "01dbb5df-d100-4950-b8a8-9de7aaf0f9dc",
+              "createdAt": "2026-06-05T15:18:42.000Z",
+              "updatedAt": "2026-06-05T15:18:42.000Z",
+              "uid": "35240-01dbb5df-d100-4950-b8a8-9de7aaf0f9dc"
+            }
+          ],
+          "id": "4d184b03-8b56-4e99-88ca-25cdcb97c35b",
+          "createdAt": "2026-06-05T15:18:42.000Z",
+          "updatedAt": "2026-06-05T15:18:42.000Z",
+          "uid": "35240-4d184b03-8b56-4e99-88ca-25cdcb97c35b"
+        },
+        {
+          "name": "funnel",
+          "item": [
+            {
+              "name": "operators",
+              "item": [
+                {
+                  "name": "{operator_id}",
+                  "item": [
+                    {
+                      "name": "export",
+                      "item": [
+                        {
+                          "name": "Export Funnel Usage Report of All Subscribers",
+                          "id": "ed9d4ca0-cc2f-420a-8d8c-fafd9c089e30",
+                          "protocolProfileBehavior": {
+                            "disableBodyPruning": true
+                          },
+                          "request": {
+                            "auth": {
+                              "type": "apikey",
+                              "apikey": [
+                                {
+                                  "key": "key",
+                                  "value": "X-Soracom-API-Key",
+                                  "type": "string"
+                                },
+                                {
+                                  "key": "value",
+                                  "value": "{{apiKey}}",
+                                  "type": "string"
+                                },
+                                {
+                                  "key": "in",
+                                  "value": "header",
+                                  "type": "string"
+                                }
+                              ]
+                            },
+                            "method": "POST",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"from\": \"<long>\",\n  \"period\": \"month\",\n  \"to\": \"<long>\"\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/stats/funnel/operators/:operator_id/export?export_mode=sync",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "stats",
+                                "funnel",
+                                "operators",
+                                ":operator_id",
+                                "export"
+                              ],
+                              "query": [
+                                {
+                                  "description": "export_mode (async, sync)",
+                                  "key": "export_mode",
+                                  "value": "sync"
+                                }
+                              ],
+                              "variable": [
+                                {
+                                  "id": "a4a23f4b-acc4-4483-b30f-a56492ebab13",
+                                  "key": "operator_id",
+                                  "value": "<string>",
+                                  "description": "(Required) Operator ID"
+                                }
+                              ]
+                            },
+                            "description": "Retrieves a file containing the Soracom Funnel usage report of all subscribers for the specified operator. The report data range is specified with from, to in unixtime. The report contains monthly data. The file output destination is AWS S3. The file output format is CSV."
+                          },
+                          "response": [
+                            {
+                              "id": "ac5fd118-057d-411d-b5b3-7e9c21f2dd0a",
+                              "name": "OK.",
+                              "originalRequest": {
+                                "method": "POST",
+                                "header": [
+                                  {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: apikey",
+                                    "key": "X-Soracom-API-Key",
+                                    "value": "<API Key>"
+                                  }
+                                ],
+                                "body": {
+                                  "mode": "raw",
+                                  "raw": "{\n  \"from\": \"<long>\",\n  \"period\": \"month\",\n  \"to\": \"<long>\"\n}",
+                                  "options": {
+                                    "raw": {
+                                      "headerFamily": "json",
+                                      "language": "json"
+                                    }
+                                  }
+                                },
+                                "url": {
+                                  "raw": "{{baseUrl}}/stats/funnel/operators/:operator_id/export?export_mode=sync",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "stats",
+                                    "funnel",
+                                    "operators",
+                                    ":operator_id",
+                                    "export"
+                                  ],
+                                  "query": [
+                                    {
+                                      "description": "export_mode (async, sync)",
+                                      "key": "export_mode",
+                                      "value": "sync"
+                                    }
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "operator_id"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "OK",
+                              "code": 200,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"exportedFileId\": \"<string>\",\n  \"exportedFilePath\": \"<string>\",\n  \"url\": \"<string>\"\n}",
+                              "createdAt": "2026-06-05T15:18:42.000Z",
+                              "updatedAt": "2026-06-05T15:18:42.000Z",
+                              "uid": "35240-ac5fd118-057d-411d-b5b3-7e9c21f2dd0a"
+                            }
+                          ],
+                          "createdAt": "2026-06-05T15:18:42.000Z",
+                          "updatedAt": "2026-06-05T15:18:42.000Z",
+                          "uid": "35240-ed9d4ca0-cc2f-420a-8d8c-fafd9c089e30"
+                        }
+                      ],
+                      "id": "9e79cce7-fa57-4e9b-82f8-44d413d2d945",
+                      "createdAt": "2026-06-05T15:18:42.000Z",
+                      "updatedAt": "2026-06-05T15:18:42.000Z",
+                      "uid": "35240-9e79cce7-fa57-4e9b-82f8-44d413d2d945"
+                    }
+                  ],
+                  "id": "dae17565-aae0-4693-ab21-d6e9775d89e2",
+                  "createdAt": "2026-06-05T15:18:42.000Z",
+                  "updatedAt": "2026-06-05T15:18:42.000Z",
+                  "uid": "35240-dae17565-aae0-4693-ab21-d6e9775d89e2"
+                }
+              ],
+              "id": "ad6589e7-bef0-4053-a909-5f34a3ca0f6b",
+              "createdAt": "2026-06-05T15:18:42.000Z",
+              "updatedAt": "2026-06-05T15:18:42.000Z",
+              "uid": "35240-ad6589e7-bef0-4053-a909-5f34a3ca0f6b"
+            },
+            {
+              "name": "subscribers",
+              "item": [
+                {
+                  "name": "{imsi}",
+                  "item": [
+                    {
+                      "name": "Get Funnel Usage Report of Subscriber",
+                      "id": "b1982197-cdb5-48cf-b0f7-d8e37e49f580",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "auth": {
+                          "type": "apikey",
+                          "apikey": [
+                            {
+                              "key": "key",
+                              "value": "X-Soracom-API-Key",
+                              "type": "string"
+                            },
+                            {
+                              "key": "value",
+                              "value": "{{apiKey}}",
+                              "type": "string"
+                            },
+                            {
+                              "key": "in",
+                              "value": "header",
+                              "type": "string"
+                            }
+                          ]
+                        },
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/stats/funnel/subscribers/:imsi?from=<integer>&to=<integer>&period=day",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "stats",
+                            "funnel",
+                            "subscribers",
+                            ":imsi"
+                          ],
+                          "query": [
+                            {
+                              "description": "(Required) Specify the start month/day/minute of the period to be aggregated in UNIX time in seconds.",
+                              "key": "from",
+                              "value": "<integer>"
+                            },
+                            {
+                              "description": "(Required) Specify the end month/day/minute of the period to be aggregated in UNIX time in seconds.",
+                              "key": "to",
+                              "value": "<integer>"
+                            },
+                            {
+                              "description": "(Required) Unit of aggregation.\n\n- `month`: Aggregate by month.\n\n  The `from` and `to` should be UNIX time (in seconds) from 18 months before the current time to the current time. The actual period of interest is not the time specified by `from` and `to`.\n\n  | Item | Description |\n  |-|-|\n  | Actual start time | 00:00:00 on the first day of the month, including the specified UNIX time (in seconds). |\n  | Actual end time | 24:00:00 of the last day of the month containing the specified UNIX time (in seconds). |\n- `day`: Aggregate by day.\n\n  The `from` and `to` should be UNIX time (in seconds) from 18 months before the current time to the current time. The actual period of interest is not the time specified by `from` and `to`.\n\n  | Item | Description |\n  |-|-|\n  | Actual start time | 00:00:00 of the day including the specified UNIX time (in seconds). |\n  | Actual end time | 24:00:00 of the day including the specified UNIX time (in seconds). |\n- `minutes`: Aggregate by approximately every 5 minutes.\n\n  The `from` and `to` must be between 32 days before the current time and the UNIX time (in seconds) of the current time. The actual period to be aggregated is not the time specified by `from` and `to`.\n\n  | Item | Description |\n  |-|-|\n  | Actual Start Time | Start time of approximately 5 minutes including the specified UNIX time (seconds). |\n  | Actual End Time | End time of approximately 5 minutes including the specified UNIX time (seconds). |\n",
+                              "key": "period",
+                              "value": "day"
+                            }
+                          ],
+                          "variable": [
+                            {
+                              "id": "dbdee72a-2db5-4e32-96f5-2c66ee35c980",
+                              "key": "imsi",
+                              "value": "<string>",
+                              "description": "(Required) imsi"
+                            }
+                          ]
+                        },
+                        "description": "Retrieves the Soracom Funnel usage report for the subscriber specified by the IMSI."
+                      },
+                      "response": [
+                        {
+                          "id": "6dc7f2ab-745a-47ee-932c-a1ac964cb654",
+                          "name": "OK.",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: apikey",
+                                "key": "X-Soracom-API-Key",
+                                "value": "<API Key>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/stats/funnel/subscribers/:imsi?from=<integer>&to=<integer>&period=day",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "stats",
+                                "funnel",
+                                "subscribers",
+                                ":imsi"
+                              ],
+                              "query": [
+                                {
+                                  "description": "(Required) Specify the start month/day/minute of the period to be aggregated in UNIX time in seconds.",
+                                  "key": "from",
+                                  "value": "<integer>"
+                                },
+                                {
+                                  "description": "(Required) Specify the end month/day/minute of the period to be aggregated in UNIX time in seconds.",
+                                  "key": "to",
+                                  "value": "<integer>"
+                                },
+                                {
+                                  "description": "(Required) Unit of aggregation.\n\n- `month`: Aggregate by month.\n\n  The `from` and `to` should be UNIX time (in seconds) from 18 months before the current time to the current time. The actual period of interest is not the time specified by `from` and `to`.\n\n  | Item | Description |\n  |-|-|\n  | Actual start time | 00:00:00 on the first day of the month, including the specified UNIX time (in seconds). |\n  | Actual end time | 24:00:00 of the last day of the month containing the specified UNIX time (in seconds). |\n- `day`: Aggregate by day.\n\n  The `from` and `to` should be UNIX time (in seconds) from 18 months before the current time to the current time. The actual period of interest is not the time specified by `from` and `to`.\n\n  | Item | Description |\n  |-|-|\n  | Actual start time | 00:00:00 of the day including the specified UNIX time (in seconds). |\n  | Actual end time | 24:00:00 of the day including the specified UNIX time (in seconds). |\n- `minutes`: Aggregate by approximately every 5 minutes.\n\n  The `from` and `to` must be between 32 days before the current time and the UNIX time (in seconds) of the current time. The actual period to be aggregated is not the time specified by `from` and `to`.\n\n  | Item | Description |\n  |-|-|\n  | Actual Start Time | Start time of approximately 5 minutes including the specified UNIX time (seconds). |\n  | Actual End Time | End time of approximately 5 minutes including the specified UNIX time (seconds). |\n",
+                                  "key": "period",
+                                  "value": "day"
+                                }
+                              ],
+                              "variable": [
+                                {
+                                  "key": "imsi"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "OK",
+                          "code": 200,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "[\n  {\n    \"funnelStatsMap\": {\n      \"reprehenderit7\": {\n        \"count\": \"<long>\"\n      }\n    },\n    \"unixtime\": \"<long>\"\n  },\n  {\n    \"funnelStatsMap\": {\n      \"in_5d_\": {\n        \"count\": \"<long>\"\n      }\n    },\n    \"unixtime\": \"<long>\"\n  }\n]",
+                          "createdAt": "2026-06-05T15:18:42.000Z",
+                          "updatedAt": "2026-06-05T15:18:42.000Z",
+                          "uid": "35240-6dc7f2ab-745a-47ee-932c-a1ac964cb654"
+                        }
+                      ],
+                      "createdAt": "2026-06-05T15:18:42.000Z",
+                      "updatedAt": "2026-06-05T15:18:42.000Z",
+                      "uid": "35240-b1982197-cdb5-48cf-b0f7-d8e37e49f580"
+                    }
+                  ],
+                  "id": "e039b6f2-bd40-4402-bd79-6e5700a44fb9",
+                  "createdAt": "2026-06-05T15:18:42.000Z",
+                  "updatedAt": "2026-06-05T15:18:42.000Z",
+                  "uid": "35240-e039b6f2-bd40-4402-bd79-6e5700a44fb9"
+                }
+              ],
+              "id": "1a3415c1-30ce-4172-83e8-dbd346ddac0a",
+              "createdAt": "2026-06-05T15:18:42.000Z",
+              "updatedAt": "2026-06-05T15:18:42.000Z",
+              "uid": "35240-1a3415c1-30ce-4172-83e8-dbd346ddac0a"
+            }
+          ],
+          "id": "b5da704f-d7e0-487e-8408-bcf236aeb3d4",
+          "createdAt": "2026-06-05T15:18:42.000Z",
+          "updatedAt": "2026-06-05T15:18:42.000Z",
+          "uid": "35240-b5da704f-d7e0-487e-8408-bcf236aeb3d4"
+        },
+        {
+          "name": "harvest",
+          "item": [
+            {
+              "name": "operators",
+              "item": [
+                {
+                  "name": "{operator_id}",
+                  "item": [
+                    {
+                      "name": "export",
+                      "item": [
+                        {
+                          "name": "Export Harvest Data Write Counts Report of all IoT SIMs",
+                          "id": "4d6493c2-e2b7-4558-9106-9c948ab93da4",
+                          "protocolProfileBehavior": {
+                            "disableBodyPruning": true
+                          },
+                          "request": {
+                            "auth": {
+                              "type": "apikey",
+                              "apikey": [
+                                {
+                                  "key": "key",
+                                  "value": "X-Soracom-API-Key",
+                                  "type": "string"
+                                },
+                                {
+                                  "key": "value",
+                                  "value": "{{apiKey}}",
+                                  "type": "string"
+                                },
+                                {
+                                  "key": "in",
+                                  "value": "header",
+                                  "type": "string"
+                                }
+                              ]
+                            },
+                            "method": "POST",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"from\": \"<long>\",\n  \"period\": \"month\",\n  \"to\": \"<long>\"\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/stats/harvest/operators/:operator_id/export?export_mode=sync",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "stats",
+                                "harvest",
+                                "operators",
+                                ":operator_id",
+                                "export"
+                              ],
+                              "query": [
+                                {
+                                  "description": "Specify how to obtain the URL to download the Harvest Data Write Count Results Data CSV.\n\n- `async`: Get the `exportedFieldId` without waiting for the URL to be issued on the Soracom platform. Specify this `exportedFieldId` in [Files:getExportedFile API](#!/Files/getExportedFile) to get the URL for downloading. If the file size of the Harvest Data Write Count Results Data CSV is huge, specify `async`.\n- `sync` (default): Wait for the URL for downloading to be issued on the Soracom platform. However, if the file size of the Harvest Data Write Count Results Data CSV is huge, it may time out and the URL cannot be retrieved. If the timeout occurs, specify `async`.\n",
+                                  "key": "export_mode",
+                                  "value": "sync"
+                                }
+                              ],
+                              "variable": [
+                                {
+                                  "id": "94ad180a-e6f1-4fa6-acbb-39560d0f8b52",
+                                  "key": "operator_id",
+                                  "value": "<string>",
+                                  "description": "(Required) Operator ID."
+                                }
+                              ]
+                            },
+                            "description": "Download the Harvest Data Write Count Results Data CSV file that contains the usage report of all the IoT SIMs for the specified operator.\n\n**Info**: You can also check the Harvest Data write counts of the terminated IoT SIM.\n"
+                          },
+                          "response": [
+                            {
+                              "id": "be7e7b09-8554-4f1b-9c24-9d66054e51a7",
+                              "name": "OK.",
+                              "originalRequest": {
+                                "method": "POST",
+                                "header": [
+                                  {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: apikey",
+                                    "key": "X-Soracom-API-Key",
+                                    "value": "<API Key>"
+                                  }
+                                ],
+                                "body": {
+                                  "mode": "raw",
+                                  "raw": "{\n  \"from\": \"<long>\",\n  \"period\": \"month\",\n  \"to\": \"<long>\"\n}",
+                                  "options": {
+                                    "raw": {
+                                      "headerFamily": "json",
+                                      "language": "json"
+                                    }
+                                  }
+                                },
+                                "url": {
+                                  "raw": "{{baseUrl}}/stats/harvest/operators/:operator_id/export?export_mode=sync",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "stats",
+                                    "harvest",
+                                    "operators",
+                                    ":operator_id",
+                                    "export"
+                                  ],
+                                  "query": [
+                                    {
+                                      "description": "Specify how to obtain the URL to download the Harvest Data Write Count Results Data CSV.\n\n- `async`: Get the `exportedFieldId` without waiting for the URL to be issued on the Soracom platform. Specify this `exportedFieldId` in [Files:getExportedFile API](#!/Files/getExportedFile) to get the URL for downloading. If the file size of the Harvest Data Write Count Results Data CSV is huge, specify `async`.\n- `sync` (default): Wait for the URL for downloading to be issued on the Soracom platform. However, if the file size of the Harvest Data Write Count Results Data CSV is huge, it may time out and the URL cannot be retrieved. If the timeout occurs, specify `async`.\n",
+                                      "key": "export_mode",
+                                      "value": "sync"
+                                    }
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "operator_id"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "OK",
+                              "code": 200,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"exportedFileId\": \"<string>\",\n  \"exportedFilePath\": \"<string>\",\n  \"url\": \"<string>\"\n}",
+                              "createdAt": "2026-06-05T15:18:42.000Z",
+                              "updatedAt": "2026-06-05T15:18:42.000Z",
+                              "uid": "35240-be7e7b09-8554-4f1b-9c24-9d66054e51a7"
+                            }
+                          ],
+                          "createdAt": "2026-06-05T15:18:42.000Z",
+                          "updatedAt": "2026-06-05T15:18:42.000Z",
+                          "uid": "35240-4d6493c2-e2b7-4558-9106-9c948ab93da4"
+                        }
+                      ],
+                      "id": "ea2d0543-f716-4c01-8349-874e3e34a36e",
+                      "createdAt": "2026-06-05T15:18:42.000Z",
+                      "updatedAt": "2026-06-05T15:18:42.000Z",
+                      "uid": "35240-ea2d0543-f716-4c01-8349-874e3e34a36e"
+                    },
+                    {
+                      "name": "Get 'Harvest usage report' for the specified operator.",
+                      "id": "051286df-026d-447e-9c0b-0f8a4b9b3acf",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "auth": {
+                          "type": "apikey",
+                          "apikey": [
+                            {
+                              "key": "key",
+                              "value": "X-Soracom-API-Key",
+                              "type": "string"
+                            },
+                            {
+                              "key": "value",
+                              "value": "{{apiKey}}",
+                              "type": "string"
+                            },
+                            {
+                              "key": "in",
+                              "value": "header",
+                              "type": "string"
+                            }
+                          ]
+                        },
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/stats/harvest/operators/:operator_id?year_month=<string>",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "stats",
+                            "harvest",
+                            "operators",
+                            ":operator_id"
+                          ],
+                          "query": [
+                            {
+                              "description": "Specify the year and month from 18 months before the current time to the current time in the YYYYMM format.",
+                              "key": "year_month",
+                              "value": "<string>"
+                            }
+                          ],
+                          "variable": [
+                            {
+                              "id": "b7dc70d2-29af-4dbb-ae8d-0238437d4534",
+                              "key": "operator_id",
+                              "value": "<string>",
+                              "description": "(Required) Operator ID"
+                            }
+                          ]
+                        },
+                        "description": "Retrieves the Soracom Harvest usage report for the operator."
+                      },
+                      "response": [
+                        {
+                          "id": "be82458c-9f75-4194-8679-b69ee01766cf",
+                          "name": "OK.",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: apikey",
+                                "key": "X-Soracom-API-Key",
+                                "value": "<API Key>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/stats/harvest/operators/:operator_id?year_month=<string>",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "stats",
+                                "harvest",
+                                "operators",
+                                ":operator_id"
+                              ],
+                              "query": [
+                                {
+                                  "description": "Specify the year and month from 18 months before the current time to the current time in the YYYYMM format.",
+                                  "key": "year_month",
+                                  "value": "<string>"
+                                }
+                              ],
+                              "variable": [
+                                {
+                                  "key": "operator_id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "OK",
+                          "code": 200,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"exportedBytes\": \"<integer>\",\n  \"yearMonth\": \"<string>\"\n}",
+                          "createdAt": "2026-06-05T15:18:42.000Z",
+                          "updatedAt": "2026-06-05T15:18:42.000Z",
+                          "uid": "35240-be82458c-9f75-4194-8679-b69ee01766cf"
+                        }
+                      ],
+                      "createdAt": "2026-06-05T15:18:42.000Z",
+                      "updatedAt": "2026-06-05T15:18:42.000Z",
+                      "uid": "35240-051286df-026d-447e-9c0b-0f8a4b9b3acf"
+                    }
+                  ],
+                  "id": "5b13987f-5d75-4270-ad1b-357daa192bcc",
+                  "createdAt": "2026-06-05T15:18:42.000Z",
+                  "updatedAt": "2026-06-05T15:18:42.000Z",
+                  "uid": "35240-5b13987f-5d75-4270-ad1b-357daa192bcc"
+                }
+              ],
+              "id": "b02c6046-4da9-4801-a01c-28d8dce239ee",
+              "createdAt": "2026-06-05T15:18:42.000Z",
+              "updatedAt": "2026-06-05T15:18:42.000Z",
+              "uid": "35240-b02c6046-4da9-4801-a01c-28d8dce239ee"
+            },
+            {
+              "name": "subscribers",
+              "item": [
+                {
+                  "name": "{imsi}",
+                  "item": [
+                    {
+                      "name": "Get Harvest Usage Report of Subscriber",
+                      "id": "7fc65283-b749-4127-89b5-a504a576b2a7",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "auth": {
+                          "type": "apikey",
+                          "apikey": [
+                            {
+                              "key": "key",
+                              "value": "X-Soracom-API-Key",
+                              "type": "string"
+                            },
+                            {
+                              "key": "value",
+                              "value": "{{apiKey}}",
+                              "type": "string"
+                            },
+                            {
+                              "key": "in",
+                              "value": "header",
+                              "type": "string"
+                            }
+                          ]
+                        },
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/stats/harvest/subscribers/:imsi?from=<integer>&to=<integer>&period=day",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "stats",
+                            "harvest",
+                            "subscribers",
+                            ":imsi"
+                          ],
+                          "query": [
+                            {
+                              "description": "(Required) Specify the start month/day/minute of the period to be aggregated in UNIX time in seconds.",
+                              "key": "from",
+                              "value": "<integer>"
+                            },
+                            {
+                              "description": "(Required) Specify the end month/day/minute of the period to be aggregated in UNIX time in seconds.",
+                              "key": "to",
+                              "value": "<integer>"
+                            },
+                            {
+                              "description": "(Required) Unit of aggregation.\n\n- `month`: Aggregate by month.\n\n  The `from` and `to` should be UNIX time (in seconds) from 18 months before the current time to the current time. The actual period of interest is not the time specified by `from` and `to`.\n\n  | Item | Description |\n  |-|-|\n  | Actual start time | 00:00:00 on the first day of the month, including the specified UNIX time (in seconds). |\n  | Actual end time | 24:00:00 of the last day of the month containing the specified UNIX time (in seconds). |\n- `day`: Aggregate by day.\n\n  The `from` and `to` should be UNIX time (in seconds) from 18 months before the current time to the current time. The actual period of interest is not the time specified by `from` and `to`.\n\n  | Item | Description |\n  |-|-|\n  | Actual start time | 00:00:00 of the day including the specified UNIX time (in seconds). |\n  | Actual end time | 24:00:00 of the day including the specified UNIX time (in seconds). |\n- `minutes`: Aggregate by approximately every 5 minutes.\n\n  The `from` and `to` must be between 32 days before the current time and the UNIX time (in seconds) of the current time. The actual period to be aggregated is not the time specified by `from` and `to`.\n\n  | Item | Description |\n  |-|-|\n  | Actual Start Time | Start time of approximately 5 minutes including the specified UNIX time (seconds). |\n  | Actual End Time | End time of approximately 5 minutes including the specified UNIX time (seconds). |\n",
+                              "key": "period",
+                              "value": "day"
+                            }
+                          ],
+                          "variable": [
+                            {
+                              "id": "6ebd1bc5-387f-4707-9cac-27ebebbb9780",
+                              "key": "imsi",
+                              "value": "<string>",
+                              "description": "(Required) imsi"
+                            }
+                          ]
+                        },
+                        "description": "Retrieves the Soracom Harvest usage report for the subscriber specified by the IMSI."
+                      },
+                      "response": [
+                        {
+                          "id": "5aea4fae-e20d-466e-a3eb-a66928f7fad9",
+                          "name": "OK.",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: apikey",
+                                "key": "X-Soracom-API-Key",
+                                "value": "<API Key>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/stats/harvest/subscribers/:imsi?from=<integer>&to=<integer>&period=day",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "stats",
+                                "harvest",
+                                "subscribers",
+                                ":imsi"
+                              ],
+                              "query": [
+                                {
+                                  "description": "(Required) Specify the start month/day/minute of the period to be aggregated in UNIX time in seconds.",
+                                  "key": "from",
+                                  "value": "<integer>"
+                                },
+                                {
+                                  "description": "(Required) Specify the end month/day/minute of the period to be aggregated in UNIX time in seconds.",
+                                  "key": "to",
+                                  "value": "<integer>"
+                                },
+                                {
+                                  "description": "(Required) Unit of aggregation.\n\n- `month`: Aggregate by month.\n\n  The `from` and `to` should be UNIX time (in seconds) from 18 months before the current time to the current time. The actual period of interest is not the time specified by `from` and `to`.\n\n  | Item | Description |\n  |-|-|\n  | Actual start time | 00:00:00 on the first day of the month, including the specified UNIX time (in seconds). |\n  | Actual end time | 24:00:00 of the last day of the month containing the specified UNIX time (in seconds). |\n- `day`: Aggregate by day.\n\n  The `from` and `to` should be UNIX time (in seconds) from 18 months before the current time to the current time. The actual period of interest is not the time specified by `from` and `to`.\n\n  | Item | Description |\n  |-|-|\n  | Actual start time | 00:00:00 of the day including the specified UNIX time (in seconds). |\n  | Actual end time | 24:00:00 of the day including the specified UNIX time (in seconds). |\n- `minutes`: Aggregate by approximately every 5 minutes.\n\n  The `from` and `to` must be between 32 days before the current time and the UNIX time (in seconds) of the current time. The actual period to be aggregated is not the time specified by `from` and `to`.\n\n  | Item | Description |\n  |-|-|\n  | Actual Start Time | Start time of approximately 5 minutes including the specified UNIX time (seconds). |\n  | Actual End Time | End time of approximately 5 minutes including the specified UNIX time (seconds). |\n",
+                                  "key": "period",
+                                  "value": "day"
+                                }
+                              ],
+                              "variable": [
+                                {
+                                  "key": "imsi"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "OK",
+                          "code": 200,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "[\n  {\n    \"harvestStatsMap\": {\n      \"eu__b4\": {\n        \"count\": \"<long>\"\n      }\n    },\n    \"unixtime\": \"<long>\"\n  },\n  {\n    \"harvestStatsMap\": {\n      \"Excepteur1f7\": {\n        \"count\": \"<long>\"\n      },\n      \"elit_22\": {\n        \"count\": \"<long>\"\n      }\n    },\n    \"unixtime\": \"<long>\"\n  }\n]",
+                          "createdAt": "2026-06-05T15:18:42.000Z",
+                          "updatedAt": "2026-06-05T15:18:42.000Z",
+                          "uid": "35240-5aea4fae-e20d-466e-a3eb-a66928f7fad9"
+                        }
+                      ],
+                      "createdAt": "2026-06-05T15:18:42.000Z",
+                      "updatedAt": "2026-06-05T15:18:42.000Z",
+                      "uid": "35240-7fc65283-b749-4127-89b5-a504a576b2a7"
+                    }
+                  ],
+                  "id": "ac640d90-c5d4-4897-ab9a-5a9fb55866c5",
+                  "createdAt": "2026-06-05T15:18:42.000Z",
+                  "updatedAt": "2026-06-05T15:18:42.000Z",
+                  "uid": "35240-ac640d90-c5d4-4897-ab9a-5a9fb55866c5"
+                }
+              ],
+              "id": "c12355c3-b47d-4b63-a786-4d2a8e683b22",
+              "createdAt": "2026-06-05T15:18:42.000Z",
+              "updatedAt": "2026-06-05T15:18:42.000Z",
+              "uid": "35240-c12355c3-b47d-4b63-a786-4d2a8e683b22"
+            }
+          ],
+          "id": "4f34661b-037e-479d-aed1-affa7a0594d2",
+          "createdAt": "2026-06-05T15:18:42.000Z",
+          "updatedAt": "2026-06-05T15:18:42.000Z",
+          "uid": "35240-4f34661b-037e-479d-aed1-affa7a0594d2"
+        },
+        {
+          "name": "napter",
+          "item": [
+            {
+              "name": "audit_logs",
+              "item": [
+                {
+                  "name": "Get Napter audit logs' monthly exported data stats.",
+                  "id": "381378ff-3062-4f9a-9114-8d6bedb8400f",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "auth": {
+                      "type": "apikey",
+                      "apikey": [
+                        {
+                          "key": "key",
+                          "value": "X-Soracom-API-Key",
+                          "type": "string"
+                        },
+                        {
+                          "key": "value",
+                          "value": "{{apiKey}}",
+                          "type": "string"
+                        },
+                        {
+                          "key": "in",
+                          "value": "header",
+                          "type": "string"
+                        }
+                      ]
+                    },
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/stats/napter/audit_logs?year_month=<string>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "stats",
+                        "napter",
+                        "audit_logs"
+                      ],
+                      "query": [
+                        {
+                          "description": "Specify the year and month from 18 months before the current time to the current time in the YYYYMM format.",
+                          "key": "year_month",
+                          "value": "<string>"
+                        }
+                      ]
+                    },
+                    "description": "Get Napter audit logs' monthly exported data stats."
+                  },
+                  "response": [
+                    {
+                      "id": "a3627b7d-515c-4af8-b614-b3a58333ab08",
+                      "name": "OK.",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "X-Soracom-API-Key",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/stats/napter/audit_logs?year_month=<string>",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "stats",
+                            "napter",
+                            "audit_logs"
+                          ],
+                          "query": [
+                            {
+                              "description": "Specify the year and month from 18 months before the current time to the current time in the YYYYMM format.",
+                              "key": "year_month",
+                              "value": "<string>"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"exportedBytes\": \"<integer>\",\n  \"yearMonth\": \"<string>\"\n}",
+                      "createdAt": "2026-06-05T15:18:42.000Z",
+                      "updatedAt": "2026-06-05T15:18:42.000Z",
+                      "uid": "35240-a3627b7d-515c-4af8-b614-b3a58333ab08"
+                    }
+                  ],
+                  "createdAt": "2026-06-05T15:18:42.000Z",
+                  "updatedAt": "2026-06-05T15:18:42.000Z",
+                  "uid": "35240-381378ff-3062-4f9a-9114-8d6bedb8400f"
+                }
+              ],
+              "id": "3ff78ab6-9452-4c2b-af97-168b1ed3656c",
+              "createdAt": "2026-06-05T15:18:42.000Z",
+              "updatedAt": "2026-06-05T15:18:42.000Z",
+              "uid": "35240-3ff78ab6-9452-4c2b-af97-168b1ed3656c"
+            }
+          ],
+          "id": "9dc64d1d-82c0-40a9-898a-28688b364f9f",
+          "createdAt": "2026-06-05T15:18:42.000Z",
+          "updatedAt": "2026-06-05T15:18:42.000Z",
+          "uid": "35240-9dc64d1d-82c0-40a9-898a-28688b364f9f"
+        }
+      ],
+      "id": "74d8d1e4-0ddf-4957-b988-c7a4585ac5ba",
+      "createdAt": "2026-06-05T15:18:42.000Z",
+      "updatedAt": "2026-06-05T15:18:42.000Z",
+      "uid": "35240-74d8d1e4-0ddf-4957-b988-c7a4585ac5ba"
+    },
+    {
+      "name": "audit_logs",
+      "item": [
+        {
+          "name": "api",
+          "item": [
+            {
+              "name": "Retrieve audit logs for Soracom API calls",
+              "id": "37235362-5f1c-46d2-82d2-1f0a7c15068c",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "auth": {
+                  "type": "apikey",
+                  "apikey": [
+                    {
+                      "key": "key",
+                      "value": "X-Soracom-API-Key",
+                      "type": "string"
+                    },
+                    {
+                      "key": "value",
+                      "value": "{{apiKey}}",
+                      "type": "string"
+                    },
+                    {
+                      "key": "in",
+                      "value": "header",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/audit_logs/api?api_kind=<string>&from_epoch_ms=<integer>&to_epoch_ms=<integer>&limit=<integer>&last_evaluated_key=<string>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "audit_logs",
+                    "api"
+                  ],
+                  "query": [
+                    {
+                      "description": "Filter item for audit log retrieval by API kind (e.g. `/v1/auth`).",
+                      "key": "api_kind",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Start time for the log search range (unixtime milliseconds).",
+                      "key": "from_epoch_ms",
+                      "value": "<integer>"
+                    },
+                    {
+                      "description": "End time for the log search range (unixtime milliseconds).",
+                      "key": "to_epoch_ms",
+                      "value": "<integer>"
+                    },
+                    {
+                      "description": "Maximum number of log entries to retrieve (value range is 1 to 1000).",
+                      "key": "limit",
+                      "value": "<integer>"
+                    },
+                    {
+                      "description": "The value of `requestedTimeEpochMs` in the last log entry retrieved in the previous page. By specifying this parameter, you can continue to retrieve the list from the next page onward.",
+                      "key": "last_evaluated_key",
+                      "value": "<string>"
+                    }
+                  ]
+                },
+                "description": "Retrieve audit logs for Soracom API calls."
+              },
+              "response": [
+                {
+                  "id": "a1d53e06-a312-49a5-bf2e-95b0931256b1",
+                  "name": "A list of Soracom API audit log entries.",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "X-Soracom-API-Key",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/audit_logs/api?api_kind=<string>&from_epoch_ms=<integer>&to_epoch_ms=<integer>&limit=<integer>&last_evaluated_key=<string>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "audit_logs",
+                        "api"
+                      ],
+                      "query": [
+                        {
+                          "description": "Filter item for audit log retrieval by API kind (e.g. `/v1/auth`).",
+                          "key": "api_kind",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "Start time for the log search range (unixtime milliseconds).",
+                          "key": "from_epoch_ms",
+                          "value": "<integer>"
+                        },
+                        {
+                          "description": "End time for the log search range (unixtime milliseconds).",
+                          "key": "to_epoch_ms",
+                          "value": "<integer>"
+                        },
+                        {
+                          "description": "Maximum number of log entries to retrieve (value range is 1 to 1000).",
+                          "key": "limit",
+                          "value": "<integer>"
+                        },
+                        {
+                          "description": "The value of `requestedTimeEpochMs` in the last log entry retrieved in the previous page. By specifying this parameter, you can continue to retrieve the list from the next page onward.",
+                          "key": "last_evaluated_key",
+                          "value": "<string>"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "[\n  {\n    \"apiKind\": \"<string>\",\n    \"operatorId\": \"<string>\",\n    \"remoteIpAddress\": \"<string>\",\n    \"requestPath\": \"<string>\",\n    \"requestedTimeEpochMs\": \"<long>\",\n    \"userName\": \"<string>\"\n  },\n  {\n    \"apiKind\": \"<string>\",\n    \"operatorId\": \"<string>\",\n    \"remoteIpAddress\": \"<string>\",\n    \"requestPath\": \"<string>\",\n    \"requestedTimeEpochMs\": \"<long>\",\n    \"userName\": \"<string>\"\n  }\n]",
+                  "createdAt": "2026-06-05T15:18:42.000Z",
+                  "updatedAt": "2026-06-05T15:18:42.000Z",
+                  "uid": "35240-a1d53e06-a312-49a5-bf2e-95b0931256b1"
+                }
+              ],
+              "createdAt": "2026-06-05T15:18:42.000Z",
+              "updatedAt": "2026-06-05T15:18:42.000Z",
+              "uid": "35240-37235362-5f1c-46d2-82d2-1f0a7c15068c"
+            }
+          ],
+          "id": "07757a36-25f7-4fee-aec8-3d070092a8d0",
+          "createdAt": "2026-06-05T15:18:42.000Z",
+          "updatedAt": "2026-06-05T15:18:42.000Z",
+          "uid": "35240-07757a36-25f7-4fee-aec8-3d070092a8d0"
+        },
+        {
+          "name": "napter",
+          "item": [
+            {
+              "name": "Retrieve audit logs for Soracom Napter",
+              "id": "b5598c04-91c2-4bc8-92f3-11114635b65b",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "auth": {
+                  "type": "apikey",
+                  "apikey": [
+                    {
+                      "key": "key",
+                      "value": "X-Soracom-API-Key",
+                      "type": "string"
+                    },
+                    {
+                      "key": "value",
+                      "value": "{{apiKey}}",
+                      "type": "string"
+                    },
+                    {
+                      "key": "in",
+                      "value": "header",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/audit_logs/napter?resource_type=Subscriber&resource_id=<string>&from=<integer>&to=<integer>&limit=<integer>&last_evaluated_key=<string>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "audit_logs",
+                    "napter"
+                  ],
+                  "query": [
+                    {
+                      "description": "Type of the target resource to query log entries.",
+                      "key": "resource_type",
+                      "value": "Subscriber"
+                    },
+                    {
+                      "description": "Identity of the target resource to query log entries.",
+                      "key": "resource_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Start time for the log search range (unixtime milliseconds).",
+                      "key": "from",
+                      "value": "<integer>"
+                    },
+                    {
+                      "description": "End time for the log search range (unixtime milliseconds).",
+                      "key": "to",
+                      "value": "<integer>"
+                    },
+                    {
+                      "description": "Maximum number of log entries to retrieve (value range is 1 to 1000).",
+                      "key": "limit",
+                      "value": "<integer>"
+                    },
+                    {
+                      "description": "The value of `time` in the last log entry retrieved in the previous page. By specifying this parameter, you can continue to retrieve the list from the next page onward.",
+                      "key": "last_evaluated_key",
+                      "value": "<string>"
+                    }
+                  ]
+                },
+                "description": "Retrieve audit logs for Soracom Napter."
+              },
+              "response": [
+                {
+                  "id": "6c034f32-0ad5-45cf-af5d-53cc98000d20",
+                  "name": "A list of Napter audit log entries.",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "X-Soracom-API-Key",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/audit_logs/napter?resource_type=Subscriber&resource_id=<string>&from=<integer>&to=<integer>&limit=<integer>&last_evaluated_key=<string>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "audit_logs",
+                        "napter"
+                      ],
+                      "query": [
+                        {
+                          "description": "Type of the target resource to query log entries.",
+                          "key": "resource_type",
+                          "value": "Subscriber"
+                        },
+                        {
+                          "description": "Identity of the target resource to query log entries.",
+                          "key": "resource_id",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "Start time for the log search range (unixtime milliseconds).",
+                          "key": "from",
+                          "value": "<integer>"
+                        },
+                        {
+                          "description": "End time for the log search range (unixtime milliseconds).",
+                          "key": "to",
+                          "value": "<integer>"
+                        },
+                        {
+                          "description": "Maximum number of log entries to retrieve (value range is 1 to 1000).",
+                          "key": "limit",
+                          "value": "<integer>"
+                        },
+                        {
+                          "description": "The value of `time` in the last log entry retrieved in the previous page. By specifying this parameter, you can continue to retrieve the list from the next page onward.",
+                          "key": "last_evaluated_key",
+                          "value": "<string>"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "[\n  {\n    \"connectionId\": \"<string>\",\n    \"createdAt\": \"<long>\",\n    \"direction\": {\n      \"destinationIPAddress\": \"<string>\",\n      \"destinationPort\": \"<long>\",\n      \"sourceIPAddress\": \"<string>\",\n      \"sourcePort\": \"<long>\"\n    },\n    \"imsi\": \"<string>\",\n    \"operatorId\": \"<string>\",\n    \"tls\": \"<boolean>\",\n    \"type\": \"DENIED\"\n  },\n  {\n    \"connectionId\": \"<string>\",\n    \"createdAt\": \"<long>\",\n    \"direction\": {\n      \"destinationIPAddress\": \"<string>\",\n      \"destinationPort\": \"<long>\",\n      \"sourceIPAddress\": \"<string>\",\n      \"sourcePort\": \"<long>\"\n    },\n    \"imsi\": \"<string>\",\n    \"operatorId\": \"<string>\",\n    \"tls\": \"<boolean>\",\n    \"type\": \"DELETED\"\n  }\n]",
+                  "createdAt": "2026-06-05T15:18:42.000Z",
+                  "updatedAt": "2026-06-05T15:18:42.000Z",
+                  "uid": "35240-6c034f32-0ad5-45cf-af5d-53cc98000d20"
+                }
+              ],
+              "createdAt": "2026-06-05T15:18:42.000Z",
+              "updatedAt": "2026-06-05T15:18:42.000Z",
+              "uid": "35240-b5598c04-91c2-4bc8-92f3-11114635b65b"
+            }
+          ],
+          "id": "57b033f0-96f7-45f9-91c8-6ef7995874df",
+          "createdAt": "2026-06-05T15:18:42.000Z",
+          "updatedAt": "2026-06-05T15:18:42.000Z",
+          "uid": "35240-57b033f0-96f7-45f9-91c8-6ef7995874df"
+        }
+      ],
+      "id": "b7d7f9ad-9001-43a2-b01b-78d68341ab37",
+      "createdAt": "2026-06-05T15:18:42.000Z",
+      "updatedAt": "2026-06-05T15:18:42.000Z",
+      "uid": "35240-b7d7f9ad-9001-43a2-b01b-78d68341ab37"
+    },
+    {
+      "name": "logs",
+      "item": [
+        {
+          "name": "Retrieve Error Logs",
+          "id": "b283456f-d148-475d-9dce-17c99f5cf100",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-Soracom-API-Key",
+                  "type": "string"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}",
+                  "type": "string"
+                },
+                {
+                  "key": "in",
+                  "value": "header",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/logs?resource_type=SigfoxDevice&resource_id=<string>&service=Harvest&from=<integer>&to=<integer>&limit=<integer>&last_evaluated_key=<string>",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "logs"
+              ],
+              "query": [
+                {
+                  "description": "The type of resource for which to retrieve error logs.\n\n- `Subscriber`: IoT SIM.\n- `Device`: Inventory device.\n- `LoraDevice`: LoRaWAN device.\n- `SigfoxDevice`: Sigfox device.\n",
+                  "key": "resource_type",
+                  "value": "SigfoxDevice"
+                },
+                {
+                  "description": "The ID of the resource for which to retrieve error logs. The ID to specify varies depending on the value of `resource_type`.\n\n| `resource_type` | ID to specify |\n|-|-|\n| `Subscriber` | The IMSI of the IoT SIM. The IMSI can be obtained from the [Sim:listSims API](#!/Sim/listSims). |\n| `Device` | The ID of the Inventory device. The ID can be obtained from the [Device:listDevices API](#!/Device/listDevices). |\n| `LoraDevice` | The ID of the LoRaWAN device. The ID can be obtained from the [LoraDevice:listLoraDevices API](#!/LoraDevice/listLoraDevices). |\n| `SigfoxDevice` | The ID of the Sigfox device. The ID can be obtained from the [SigfoxDevice:listSigfoxDevices API](#!/SigfoxDevice/listSigfoxDevices). |\n",
+                  "key": "resource_id",
+                  "value": "<string>"
+                },
+                {
+                  "description": "The service name to filter error logs.\n\n- `Air`: SORACOM Air\n- `Beam`: SORACOM Beam\n- `Funk`: SORACOM Funk\n- `Funnel`: SORACOM Funnel\n- `Harvest`: SORACOM Harvest Data/Files\n- `Napter`: SORACOM Napter\n- `Orbit`: SORACOM Orbit\n- `Unified`: Unified Endpoint\n",
+                  "key": "service",
+                  "value": "Harvest"
+                },
+                {
+                  "description": "Start time of the period for which to retrieve error logs (UNIX time in milliseconds).",
+                  "key": "from",
+                  "value": "<integer>"
+                },
+                {
+                  "description": "End time of the period for which to retrieve error logs (UNIX time in milliseconds).",
+                  "key": "to",
+                  "value": "<integer>"
+                },
+                {
+                  "description": "The maximum number of error logs to retrieve.",
+                  "key": "limit",
+                  "value": "<integer>"
+                },
+                {
+                  "description": "The value contained in the `x-soracom-next-key` header returned when fetching the previous page. Specify this to retrieve the next page. For more information, see [Retrieving Large Amounts of Data (Paging)](/en/docs/tools/api/paging/).",
+                  "key": "last_evaluated_key",
+                  "value": "<string>"
+                }
+              ]
+            },
+            "description": "Fetches error logs that meet specified criteria. If the error logs exceed one page, a URL to retrieve the next page under the same conditions is included in the `link` header of the response.\n"
+          },
+          "response": [
+            {
+              "id": "f9074b6b-fa25-47e6-9eb4-cbabf223995b",
+              "name": "A list of error logs.",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: apikey",
+                    "key": "X-Soracom-API-Key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/logs?resource_type=SigfoxDevice&resource_id=<string>&service=Harvest&from=<integer>&to=<integer>&limit=<integer>&last_evaluated_key=<string>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "logs"
+                  ],
+                  "query": [
+                    {
+                      "description": "The type of resource for which to retrieve error logs.\n\n- `Subscriber`: IoT SIM.\n- `Device`: Inventory device.\n- `LoraDevice`: LoRaWAN device.\n- `SigfoxDevice`: Sigfox device.\n",
+                      "key": "resource_type",
+                      "value": "SigfoxDevice"
+                    },
+                    {
+                      "description": "The ID of the resource for which to retrieve error logs. The ID to specify varies depending on the value of `resource_type`.\n\n| `resource_type` | ID to specify |\n|-|-|\n| `Subscriber` | The IMSI of the IoT SIM. The IMSI can be obtained from the [Sim:listSims API](#!/Sim/listSims). |\n| `Device` | The ID of the Inventory device. The ID can be obtained from the [Device:listDevices API](#!/Device/listDevices). |\n| `LoraDevice` | The ID of the LoRaWAN device. The ID can be obtained from the [LoraDevice:listLoraDevices API](#!/LoraDevice/listLoraDevices). |\n| `SigfoxDevice` | The ID of the Sigfox device. The ID can be obtained from the [SigfoxDevice:listSigfoxDevices API](#!/SigfoxDevice/listSigfoxDevices). |\n",
+                      "key": "resource_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "The service name to filter error logs.\n\n- `Air`: SORACOM Air\n- `Beam`: SORACOM Beam\n- `Funk`: SORACOM Funk\n- `Funnel`: SORACOM Funnel\n- `Harvest`: SORACOM Harvest Data/Files\n- `Napter`: SORACOM Napter\n- `Orbit`: SORACOM Orbit\n- `Unified`: Unified Endpoint\n",
+                      "key": "service",
+                      "value": "Harvest"
+                    },
+                    {
+                      "description": "Start time of the period for which to retrieve error logs (UNIX time in milliseconds).",
+                      "key": "from",
+                      "value": "<integer>"
+                    },
+                    {
+                      "description": "End time of the period for which to retrieve error logs (UNIX time in milliseconds).",
+                      "key": "to",
+                      "value": "<integer>"
+                    },
+                    {
+                      "description": "The maximum number of error logs to retrieve.",
+                      "key": "limit",
+                      "value": "<integer>"
+                    },
+                    {
+                      "description": "The value contained in the `x-soracom-next-key` header returned when fetching the previous page. Specify this to retrieve the next page. For more information, see [Retrieving Large Amounts of Data (Paging)](/en/docs/tools/api/paging/).",
+                      "key": "last_evaluated_key",
+                      "value": "<string>"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "[\n  {\n    \"body\": {},\n    \"logLevel\": \"error\",\n    \"operatorId\": \"<string>\",\n    \"resourceId\": \"<string>\",\n    \"resourceType\": \"LoraDevice\",\n    \"service\": \"Orbit\",\n    \"time\": \"<long>\"\n  },\n  {\n    \"body\": {},\n    \"logLevel\": \"warning\",\n    \"operatorId\": \"<string>\",\n    \"resourceId\": \"<string>\",\n    \"resourceType\": \"LoraDevice\",\n    \"service\": \"Orbit\",\n    \"time\": \"<long>\"\n  }\n]",
+              "createdAt": "2026-06-05T15:18:42.000Z",
+              "updatedAt": "2026-06-05T15:18:42.000Z",
+              "uid": "35240-f9074b6b-fa25-47e6-9eb4-cbabf223995b"
+            }
+          ],
+          "createdAt": "2026-06-05T15:18:42.000Z",
+          "updatedAt": "2026-06-05T15:18:42.000Z",
+          "uid": "35240-b283456f-d148-475d-9dce-17c99f5cf100"
+        }
+      ],
+      "id": "50c213c2-26c2-4c78-85a0-f952e4b09fc8",
+      "createdAt": "2026-06-05T15:18:42.000Z",
+      "updatedAt": "2026-06-05T15:18:42.000Z",
+      "uid": "35240-50c213c2-26c2-4c78-85a0-f952e4b09fc8"
+    },
+    {
+      "name": "diagnostics",
+      "item": [
+        {
+          "name": "{diagnostic_id}",
+          "item": [
+            {
+              "name": "Get diagnostic",
+              "id": "a861c189-0aa4-40ec-a24b-c6dea32d7f9c",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "auth": {
+                  "type": "apikey",
+                  "apikey": [
+                    {
+                      "key": "key",
+                      "value": "X-Soracom-API-Key",
+                      "type": "string"
+                    },
+                    {
+                      "key": "value",
+                      "value": "{{apiKey}}",
+                      "type": "string"
+                    },
+                    {
+                      "key": "in",
+                      "value": "header",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/diagnostics/:diagnostic_id",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "diagnostics",
+                    ":diagnostic_id"
+                  ],
+                  "variable": [
+                    {
+                      "id": "dd7b6920-3fc6-465e-b76c-915ffa22add6",
+                      "key": "diagnostic_id",
+                      "value": "<string>",
+                      "description": "(Required) The identifier of diagnostic request."
+                    }
+                  ]
+                },
+                "description": "Returns a diagnostic."
+              },
+              "response": [
+                {
+                  "id": "6e107288-b099-42be-8227-f228ec500ab2",
+                  "name": "OK.",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "X-Soracom-API-Key",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/diagnostics/:diagnostic_id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "diagnostics",
+                        ":diagnostic_id"
+                      ],
+                      "variable": [
+                        {
+                          "key": "diagnostic_id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"diagnosticId\": \"<string>\",\n  \"status\": \"failed\",\n  \"service\": \"Air\",\n  \"resourceType\": \"sim\",\n  \"resourceId\": \"<string>\",\n  \"from\": \"<long>\",\n  \"to\": \"<long>\",\n  \"insights\": [\n    {\n      \"insightId\": \"<string>\",\n      \"message\": \"<string>\",\n      \"category\": \"sim\",\n      \"severity\": \"error\",\n      \"anomalyDetectedTimes\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"referenceUrls\": [\n        {\n          \"title\": \"<string>\",\n          \"url\": \"<string>\"\n        },\n        {\n          \"title\": \"<string>\",\n          \"url\": \"<string>\"\n        }\n      ]\n    },\n    {\n      \"insightId\": \"<string>\",\n      \"message\": \"<string>\",\n      \"category\": \"others\",\n      \"severity\": \"warning\",\n      \"anomalyDetectedTimes\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"referenceUrls\": [\n        {\n          \"title\": \"<string>\",\n          \"url\": \"<string>\"\n        },\n        {\n          \"title\": \"<string>\",\n          \"url\": \"<string>\"\n        }\n      ]\n    }\n  ]\n}",
+                  "createdAt": "2026-06-05T15:18:42.000Z",
+                  "updatedAt": "2026-06-05T15:18:42.000Z",
+                  "uid": "35240-6e107288-b099-42be-8227-f228ec500ab2"
+                },
+                {
+                  "id": "af181d66-f378-49e9-af1a-fc06a71b8b01",
+                  "name": "The specified diagnostic_id is not found.",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "X-Soracom-API-Key",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/diagnostics/:diagnostic_id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "diagnostics",
+                        ":diagnostic_id"
+                      ],
+                      "variable": [
+                        {
+                          "key": "diagnostic_id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Not Found",
+                  "code": 404,
+                  "_postman_previewlanguage": "text",
+                  "header": [],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-06-05T15:18:42.000Z",
+                  "updatedAt": "2026-06-05T15:18:42.000Z",
+                  "uid": "35240-af181d66-f378-49e9-af1a-fc06a71b8b01"
+                }
+              ],
+              "createdAt": "2026-06-05T15:18:42.000Z",
+              "updatedAt": "2026-06-05T15:18:42.000Z",
+              "uid": "35240-a861c189-0aa4-40ec-a24b-c6dea32d7f9c"
+            }
+          ],
+          "id": "8e318184-c298-4177-8691-d01145bf60a4",
+          "createdAt": "2026-06-05T15:18:42.000Z",
+          "updatedAt": "2026-06-05T15:18:42.000Z",
+          "uid": "35240-8e318184-c298-4177-8691-d01145bf60a4"
+        },
+        {
+          "name": "Send diagnostic request",
+          "id": "e05de88e-d011-4e09-a88b-515b042d082d",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-Soracom-API-Key",
+                  "type": "string"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}",
+                  "type": "string"
+                },
+                {
+                  "key": "in",
+                  "value": "header",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"service\": \"Air\",\n  \"resourceType\": \"sim\",\n  \"resourceId\": \"<string>\",\n  \"from\": \"<long>\",\n  \"to\": \"<long>\"\n}",
+              "options": {
+                "raw": {
+                  "headerFamily": "json",
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/diagnostics",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "diagnostics"
+              ]
+            },
+            "description": "Send a diagnostic request."
+          },
+          "response": [
+            {
+              "id": "1766ec31-a2e2-46e4-b14f-5ff593b10024",
+              "name": "Successfully accepted a diagnostic request.",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: apikey",
+                    "key": "X-Soracom-API-Key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"service\": \"Air\",\n  \"resourceType\": \"sim\",\n  \"resourceId\": \"<string>\",\n  \"from\": \"<long>\",\n  \"to\": \"<long>\"\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/diagnostics",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "diagnostics"
+                  ]
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"diagnosticId\": \"<string>\",\n  \"status\": \"failed\",\n  \"service\": \"Air\",\n  \"resourceType\": \"sim\",\n  \"resourceId\": \"<string>\",\n  \"from\": \"<long>\",\n  \"to\": \"<long>\",\n  \"insights\": [\n    {\n      \"insightId\": \"<string>\",\n      \"message\": \"<string>\",\n      \"category\": \"sim\",\n      \"severity\": \"error\",\n      \"anomalyDetectedTimes\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"referenceUrls\": [\n        {\n          \"title\": \"<string>\",\n          \"url\": \"<string>\"\n        },\n        {\n          \"title\": \"<string>\",\n          \"url\": \"<string>\"\n        }\n      ]\n    },\n    {\n      \"insightId\": \"<string>\",\n      \"message\": \"<string>\",\n      \"category\": \"others\",\n      \"severity\": \"warning\",\n      \"anomalyDetectedTimes\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"referenceUrls\": [\n        {\n          \"title\": \"<string>\",\n          \"url\": \"<string>\"\n        },\n        {\n          \"title\": \"<string>\",\n          \"url\": \"<string>\"\n        }\n      ]\n    }\n  ]\n}",
+              "createdAt": "2026-06-05T15:18:42.000Z",
+              "updatedAt": "2026-06-05T15:18:42.000Z",
+              "uid": "35240-1766ec31-a2e2-46e4-b14f-5ff593b10024"
+            },
+            {
+              "id": "a71dcff9-bce9-4461-92d7-9edebf21d7ba",
+              "name": "Bad definitions among diagnostic time range (from/to queries).",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: apikey",
+                    "key": "X-Soracom-API-Key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"service\": \"Air\",\n  \"resourceType\": \"sim\",\n  \"resourceId\": \"<string>\",\n  \"from\": \"<long>\",\n  \"to\": \"<long>\"\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/diagnostics",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "diagnostics"
+                  ]
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "_postman_previewlanguage": "text",
+              "header": [],
+              "cookie": [],
+              "responseTime": null,
+              "body": null,
+              "createdAt": "2026-06-05T15:18:42.000Z",
+              "updatedAt": "2026-06-05T15:18:42.000Z",
+              "uid": "35240-a71dcff9-bce9-4461-92d7-9edebf21d7ba"
+            },
+            {
+              "id": "c059d848-9127-4659-bb6f-001db3d0036b",
+              "name": "The specified resource is not found.",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: apikey",
+                    "key": "X-Soracom-API-Key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"service\": \"Air\",\n  \"resourceType\": \"sim\",\n  \"resourceId\": \"<string>\",\n  \"from\": \"<long>\",\n  \"to\": \"<long>\"\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/diagnostics",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "diagnostics"
+                  ]
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "_postman_previewlanguage": "text",
+              "header": [],
+              "cookie": [],
+              "responseTime": null,
+              "body": null,
+              "createdAt": "2026-06-05T15:18:42.000Z",
+              "updatedAt": "2026-06-05T15:18:42.000Z",
+              "uid": "35240-c059d848-9127-4659-bb6f-001db3d0036b"
+            }
+          ],
+          "createdAt": "2026-06-05T15:18:42.000Z",
+          "updatedAt": "2026-06-05T15:18:42.000Z",
+          "uid": "35240-e05de88e-d011-4e09-a88b-515b042d082d"
+        }
+      ],
+      "id": "f7c39651-9043-4e0a-837c-410289cb5308",
+      "createdAt": "2026-06-05T15:18:42.000Z",
+      "updatedAt": "2026-06-05T15:18:42.000Z",
+      "uid": "35240-f7c39651-9043-4e0a-837c-410289cb5308"
+    }
+  ],
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://api.soracom.io/v1"
+    }
+  ]
+}

@@ -1,0 +1,535 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Soracom Analysis and Query API",
+    "version": "20250903-043502"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Analysis",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Execute a new SQL query asynchronously",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.soracom.io/v1/analysis/queries",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-Soracom-API-Key",
+              "value": "{{X-Soracom-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Executes a SQL query asynchronously. You can check the status of a SQL query execution with the [Analysis:getAnalysisQueries API](#/Analysis/getAnalysisQueries)."
+        },
+        {
+          "info": {
+            "name": "Retrieve the execution status of a SQL query",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.soracom.io/v1/analysis/queries/:query_id",
+            "params": [
+              {
+                "name": "query_id",
+                "value": "",
+                "type": "path",
+                "description": "SQL query ID."
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-Soracom-API-Key",
+              "value": "{{X-Soracom-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Retrieve the execution status of a SQL query."
+        },
+        {
+          "info": {
+            "name": "Retrieve available database schemas",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.soracom.io/v1/analysis/schemas",
+            "auth": {
+              "type": "apikey",
+              "key": "X-Soracom-API-Key",
+              "value": "{{X-Soracom-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Retrieves the available schemas and their column information within the database. You can use this information as a reference when converting data types of data retrieved with the [Analysis:startAnalysisQueries API](#/Analysis/startAnalysisQueries).\nExample: If the column `type` is `string` as shown below, it can be treated as a string.\n```json\n{\n  \"name\": \"SIM_SESSION_EVENTS\",\n  \"columnInfo\": [\n      {\n          \"name\": \"APN\",\n          \"type\": \"string\",\n          \"databaseType\": \"TEXT\",\n      "
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Query",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Search Soracom Inventory devices by query",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.soracom.io/v1/query/devices",
+            "params": [
+              {
+                "name": "name",
+                "value": "",
+                "type": "query",
+                "description": "Name to search."
+              },
+              {
+                "name": "group",
+                "value": "",
+                "type": "query",
+                "description": "Group name to search."
+              },
+              {
+                "name": "group_id",
+                "value": "",
+                "type": "query",
+                "description": "Group ID to search."
+              },
+              {
+                "name": "deviceId",
+                "value": "",
+                "type": "query",
+                "description": "Soracom Inventory device ID to search."
+              },
+              {
+                "name": "tag",
+                "value": "",
+                "type": "query",
+                "description": "String of tag values to search."
+              },
+              {
+                "name": "imsi",
+                "value": "",
+                "type": "query",
+                "description": "IMSI of the device that was used on bootstrapping."
+              },
+              {
+                "name": "imei",
+                "value": "",
+                "type": "query",
+                "description": "IMEI of the device that was used on bootstrapping."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "The maximum number of items to retrieve."
+              },
+              {
+                "name": "last_evaluated_key",
+                "value": "",
+                "type": "query",
+                "description": "The Soracom Inventory device ID of the last Inventory device retrieved on the previous page. By specifying this parameter, you can continue to retrieve the list from the next Inventory device onward."
+              },
+              {
+                "name": "search_type",
+                "value": "",
+                "type": "query",
+                "description": "Type of the search ('AND searching' or 'OR searching')."
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-Soracom-API-Key",
+              "value": "{{X-Soracom-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Search Soracom Inventory devices by query terms. It returns partial match results. When this API permission is allowed, it grants the authority to search and retrieve all Soracom Inventory devices that include their group information.\n\n**Warning**: Use this API when the device ID of the target Inventory device is unknown, or when you want to retrieve a list of Inventory devices that match conditions. If you know the device ID, use the [Device:getDevice API](#/Device/getDevice).\n"
+        },
+        {
+          "info": {
+            "name": "Search Sigfox devices by query",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.soracom.io/v1/query/sigfox_devices",
+            "params": [
+              {
+                "name": "name",
+                "value": "",
+                "type": "query",
+                "description": "Name to search."
+              },
+              {
+                "name": "group",
+                "value": "",
+                "type": "query",
+                "description": "Group name to search."
+              },
+              {
+                "name": "group_id",
+                "value": "",
+                "type": "query",
+                "description": "Group ID to search."
+              },
+              {
+                "name": "deviceId",
+                "value": "",
+                "type": "query",
+                "description": "Sigfox device ID to search."
+              },
+              {
+                "name": "tag",
+                "value": "",
+                "type": "query",
+                "description": "String of tag values to search."
+              },
+              {
+                "name": "status",
+                "value": "",
+                "type": "query",
+                "description": "Status of Sigfox devices."
+              },
+              {
+                "name": "registration",
+                "value": "",
+                "type": "query",
+                "description": "Registration status of Sigfox devices."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "The maximum number of items to retrieve."
+              },
+              {
+                "name": "last_evaluated_key",
+                "value": "",
+                "type": "query",
+                "description": "The Sigfox device ID of the last Sigfox device retrieved on the previous page. By specifying this parameter, you can continue to retrieve the list from the next Sigfox device onward."
+              },
+              {
+                "name": "search_type",
+                "value": "",
+                "type": "query",
+                "description": "Type of the search ('AND searching' or 'OR searching')."
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-Soracom-API-Key",
+              "value": "{{X-Soracom-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Search Sigfox devices by query terms. It returns partial match results. When this API permission is allowed, it grants the authority to search and retrieve all Sigfox devices that includes their group information.\n\n**Warning**: Use this API when the device ID of the target Sigfox device is unknown, or when you want to retrieve a list of Sigfox devices that match conditions. If you know the device ID, use the [SigfoxDevice:getSigfoxDevice API](#/SigfoxDevice/getSigfoxDevice).\n"
+        },
+        {
+          "info": {
+            "name": "Search SIMs by query terms",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.soracom.io/v1/query/sims",
+            "params": [
+              {
+                "name": "name",
+                "value": "",
+                "type": "query",
+                "description": "Name to search."
+              },
+              {
+                "name": "group",
+                "value": "",
+                "type": "query",
+                "description": "Name of the [group](/en/docs/groups/) to which the IoT SIM belongs."
+              },
+              {
+                "name": "group_id",
+                "value": "",
+                "type": "query",
+                "description": "Search for IoT SIMs whose group ID matches the specified value."
+              },
+              {
+                "name": "sim_id",
+                "value": "",
+                "type": "query",
+                "description": "Identifier of the SIM to search."
+              },
+              {
+                "name": "imsi",
+                "value": "",
+                "type": "query",
+                "description": "IMSI to search."
+              },
+              {
+                "name": "msisdn",
+                "value": "",
+                "type": "query",
+                "description": "MSISDN to search."
+              },
+              {
+                "name": "iccid",
+                "value": "",
+                "type": "query",
+                "description": "ICCID to search. An identifier used to identify a SIM card or virtual IoT SIM (Virtual SIM/Subscriber)."
+              },
+              {
+                "name": "serial_number",
+                "value": "",
+                "type": "query",
+                "description": "Serial number to search. This is set only for IoT SIMs for specific regions."
+              },
+              {
+                "name": "tag",
+                "value": "",
+                "type": "query",
+                "description": "String of tag values to search. For more information, please refer to [Using Tags with Soracom Air](/docs/air/tags)."
+              },
+              {
+                "name": "bundles",
+                "value": "",
+                "type": "query",
+                "description": "Bundles type to search."
+              },
+              {
+                "name": "status",
+                "value": "",
+                "type": "query",
+                "description": "Status of the IoT SIM to search.\n\n- `ready`\n- `active`\n- `inactive`\n- `standby`\n- `suspended`\n- `terminated`\n- `shipped`\n"
+              },
+              {
+                "name": "session_status",
+                "value": "",
+                "type": "query",
+                "description": "Status of the session to search. Specify one of the following:\n\n- `NA`: Any.\n- `ONLINE`: Online.\n- `OFFLINE`: Offline.\n"
+              },
+              {
+                "name": "subscription",
+                "value": "",
+                "type": "query",
+                "description": "Subscription to search. Use exact match for the search. If specifying multiple subscriptions, please set `search_type` to `OR`.\n\n- For Japan coverage, specify one of the following:\n  - `plan-D`: plan-D (without bundle), plan-D (D-300MB).\n  - `plan-K2`: plan-K2 (K2-300MB).\n  - `plan-DU`\n  - `plan-KM1`\n  - `plan-K`\n  - `planArc01`: Virtual SIM/Subscriber.\n- For global coverage, specify one of the following:\n  - `plan01s`\n  - `plan01s-low_data_volume`: plan01s - Low Data Volume.\n  - `planX3`: planX3 (X3-5MB), planX3.\n  - `planP1`\n  - `plan-US`\n  - `plan-US-max`\n  - `planX1`\n  - `planX2`\n  - `planX3-EU`\n  - `plan-US-NA`\n  - `planArc01`: Virtual SIM/Subscriber.\n"
+              },
+              {
+                "name": "module_type",
+                "value": "",
+                "type": "query",
+                "description": "The form factor of the physical SIM to search.\n\n- `mini`: standard (2FF) size.\n- `micro`: micro (3FF) size.\n- `nano`: nano (4FF) size.\n- `trio`: 3 in 1 (can be cut into 2FF/3FF/4FF depending on how you cut it).\n- `embedded`: Embedded (MFF2).\n- `virtual`: Virtual SIM/Subscriber.\n- `integrated`: Embedded (iSIM).\n- `profilePackage`: Profile Package (eSIM profile).\n"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "The maximum number of items to retrieve."
+              },
+              {
+                "name": "last_evaluated_key",
+                "value": "",
+                "type": "query",
+                "description": "The SIM ID of the last SIM retrieved on the previous page. By specifying this parameter, you can continue to retrieve the list from the next SIM onward."
+              },
+              {
+                "name": "search_type",
+                "value": "",
+                "type": "query",
+                "description": "The type of search condition.\n\n- AND: SIMs which match all of the search parameters will be returned (default).\n- OR: SIMs which match any of the search parameters will be returned.\n\nIf the value of a search parameter contains a comma `,` (or `%2C` when URL-encoded), the value will be split at each comma and treated as multiple search values, each of which will be evaluated based on the specified AND or OR condition.\n"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-Soracom-API-Key",
+              "value": "{{X-Soracom-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Searches for SIMs using specified query parameters.\n\n- Supports partial matching.\n- Case-insensitive.\n- Multiple search values can be specified for the following parameters by separating each value with a comma `,` (or `%2C` when URL-encoded). Note that the literal character `,` itself cannot be used as part of a search value.\n    - `name`\n    - `group`\n    - `sim_id`\n    - `imsi`\n    - `msisdn`\n    - `iccid`\n    - `serial_number`\n    - `tag`\n    - `status`\n    - `subscription`\n    - `module_typ"
+        },
+        {
+          "info": {
+            "name": "(DEPRECATED) Search subscribers by query terms",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.soracom.io/v1/query/subscribers",
+            "params": [
+              {
+                "name": "name",
+                "value": "",
+                "type": "query",
+                "description": "Name to search."
+              },
+              {
+                "name": "group",
+                "value": "",
+                "type": "query",
+                "description": "Group name to search."
+              },
+              {
+                "name": "imsi",
+                "value": "",
+                "type": "query",
+                "description": "IMSI to search."
+              },
+              {
+                "name": "msisdn",
+                "value": "",
+                "type": "query",
+                "description": "MSISDN to search."
+              },
+              {
+                "name": "iccid",
+                "value": "",
+                "type": "query",
+                "description": "ICCID to search."
+              },
+              {
+                "name": "serial_number",
+                "value": "",
+                "type": "query",
+                "description": "Serial number to search."
+              },
+              {
+                "name": "tag",
+                "value": "",
+                "type": "query",
+                "description": "String of tag values to search."
+              },
+              {
+                "name": "subscription",
+                "value": "",
+                "type": "query",
+                "description": "Subscription to search. Use exact match for the search. If specifying multiple subscriptions, please set `search_type` to `OR`.\n\n- For Japan coverage, specify one of the following:\n  - `plan-D`: plan-D (without bundle), plan-D (D-300MB).\n  - `plan-K2`: plan-K2 (K2-300MB).\n  - `plan-DU`\n  - `plan-KM1`\n  - `plan-K`\n  - `planArc01`: Virtual SIM/Subscriber.\n- For global coverage, specify one of the following:\n  - `plan01s`\n  - `plan01s-low_data_volume`: plan01s - Low Data Volume.\n  - `planX3`: planX3 (X3-5MB), planX3.\n  - `planP1`\n  - `plan-US`\n  - `plan-US-max`\n  - `planX1`\n  - `planX2`\n  - `planX3-EU`\n  - `plan-US-NA`\n  - `planArc01`: Virtual SIM/Subscriber.\n"
+              },
+              {
+                "name": "module_type",
+                "value": "",
+                "type": "query",
+                "description": "Module type (e.g. `mini`, `virtual`) to search."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "The maximum number of item to retrieve."
+              },
+              {
+                "name": "last_evaluated_key",
+                "value": "",
+                "type": "query",
+                "description": "The IMSI of the last subscriber retrieved on the previous page. By specifying this parameter, you can continue to retrieve the list from the next subscriber onward."
+              },
+              {
+                "name": "search_type",
+                "value": "",
+                "type": "query",
+                "description": "Type of the search ('AND searching' or 'OR searching')."
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-Soracom-API-Key",
+              "value": "{{X-Soracom-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "(DEPRECATED: please consider to use `/query/sims` API instead ) Search subscribers by query terms. It returns partial match results. When this API permission is allowed, it grants the authority to search and retrieve all SIMs that includes their group information."
+        },
+        {
+          "info": {
+            "name": "Search traffic volume ranking of subscribers",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.soracom.io/v1/query/subscribers/traffic_volume/ranking",
+            "params": [
+              {
+                "name": "from",
+                "value": "",
+                "type": "query",
+                "description": "The beginning point of searching range (UNIX time in milliseconds)."
+              },
+              {
+                "name": "to",
+                "value": "",
+                "type": "query",
+                "description": "The end point of searching range (UNIX time in milliseconds)."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "The maximum number of item to retrieve."
+              },
+              {
+                "name": "order",
+                "value": "",
+                "type": "query",
+                "description": "The order of ranking."
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-Soracom-API-Key",
+              "value": "{{X-Soracom-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Search traffic volume ranking of subscribers."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "ResourceSummary",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get the resource summary identified by resource_summary_type",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.soracom.io/v1/resource_summaries/:resource_summary_type",
+            "params": [
+              {
+                "name": "resource_summary_type",
+                "value": "",
+                "type": "path",
+                "description": "The type of the resource summary.\n\n- `simsPerStatus`: The number of IoT SIMs per status.\n"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-Soracom-API-Key",
+              "value": "{{X-Soracom-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Obtain a resource summary information identified by resource_summary_type."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,1140 @@
+{
+  "item": [
+    {
+      "id": "387f2e38-e976-4d0f-bb10-85876e7a5bd0",
+      "name": "API Sandbox: Coupon",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "ecfc173f-8df2-4a45-a554-949913ef4295",
+          "name": "Creates a coupon",
+          "request": {
+            "name": "Creates a coupon",
+            "description": {
+              "content": "Creates a coupon.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "sandbox",
+                "coupons",
+                "create"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"amount\": \"<integer>\",\n  \"applicableBillItemName\": \"<string>\",\n  \"expiryYearMonth\": \"<yyyyMM>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "68a2a39d-0781-4493-a62d-41251618b6ee",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "sandbox",
+                    "coupons",
+                    "create"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"amount\": 1000,\n  \"applicableBillItemName\": \"dailyDataTrafficChargeTotal\",\n  \"expiryYearMonth\": \"<yyyyMM>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"amount\": 9505.931258042134,\n  \"balance\": 9037.385929474172,\n  \"billItemName\": \"string\",\n  \"couponCode\": \"string\",\n  \"expiryYearMonth\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "6fa49c6c-ac44-47d5-9602-c0b83e835e43",
+              "name": "Request is not correct.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "sandbox",
+                    "coupons",
+                    "create"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"amount\": 1000,\n  \"applicableBillItemName\": \"dailyDataTrafficChargeTotal\",\n  \"expiryYearMonth\": \"<yyyyMM>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    },
+    {
+      "id": "c2bdc41d-7b41-4347-aaba-2a3f89d72ba9",
+      "name": "API Sandbox: Operator",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "9a2e7746-33d8-4ce5-bb9f-27dfa97519ec",
+          "name": "Creates an operator account",
+          "request": {
+            "name": "Creates an operator account",
+            "description": {
+              "content": "Performs complex signup process at once, including registering dummy payment method. Specify `email` and `password` for an operator which will be created on sandbox, `authKeyId` and `authKey` for a real operator on the production environment. An API Key and an API Token will be included in the response if successful. Use the API Key and the API Token to requests afterwards.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "sandbox",
+                "init"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"<string>\",\n  \"password\": \"<string>\",\n  \"authKeyId\": \"<string>\",\n  \"authKey\": \"<string>\",\n  \"coverageTypes\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"registerPaymentMethod\": true\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "b2a1869f-5737-4865-9d72-dcfaffd63600",
+              "name": "Successfully created a sandbox operator.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "sandbox",
+                    "init"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"email\": \"<string>\",\n  \"password\": \"<string>\",\n  \"authKeyId\": \"<string>\",\n  \"authKey\": \"<string>\",\n  \"coverageTypes\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"registerPaymentMethod\": true\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"apiKey\": \"string\",\n  \"operatorId\": \"string\",\n  \"token\": \"string\",\n  \"userName\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "3e55d572-941f-4945-a013-f44797c813ae",
+              "name": "Email address, AuthKeyId, or AuthKey is not correct.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "sandbox",
+                    "init"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"email\": \"<string>\",\n  \"password\": \"<string>\",\n  \"authKeyId\": \"<string>\",\n  \"authKey\": \"<string>\",\n  \"coverageTypes\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"registerPaymentMethod\": true\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "f584f218-5487-4e62-bfe0-036d7a74f2c4",
+          "name": "Deletes an operator",
+          "request": {
+            "name": "Deletes an operator",
+            "description": {
+              "content": "Deletes the specified operator.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "sandbox",
+                "operators",
+                ":operator_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "operator_id",
+                  "description": "(Required) Operator ID"
+                }
+              ]
+            },
+            "method": "DELETE"
+          },
+          "response": [
+            {
+              "id": "e2eba189-5636-476f-b8d3-dd41dc88ce2d",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "sandbox",
+                    "operators",
+                    ":operator_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "operator_id",
+                      "description": "(Required) Operator ID"
+                    }
+                  ]
+                },
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "d9ea8fd7-21e3-4292-a93b-f7d1f66affa4",
+              "name": "Operator does not exist.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "sandbox",
+                    "operators",
+                    ":operator_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "operator_id",
+                      "description": "(Required) Operator ID"
+                    }
+                  ]
+                },
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "5ede8880-5dcd-4b17-978c-7799455be147",
+          "name": "Gets a signup token",
+          "request": {
+            "name": "Gets a signup token",
+            "description": {
+              "content": "Retrieves a 'signup token' for registration confirmation. Please specify a pair of AuthKeyId and AuthKey of a SAM user on the production environment to check if the caller has a valid account on it.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "sandbox",
+                "operators",
+                "token",
+                ":email"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "email",
+                  "description": "(Required) Email"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"authKey\": \"<string>\",\n  \"authKeyId\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "582d2ecf-398f-4134-a7d9-9366deacc99f",
+              "name": "Successfully retrieved signup token.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "sandbox",
+                    "operators",
+                    "token",
+                    ":email"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "email",
+                      "description": "(Required) Email"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"authKey\": \"<string>\",\n  \"authKeyId\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"token\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "36e9fe7d-7ff3-452c-8f9d-71cb6207889c",
+              "name": "Email address, AuthKeyId, or AuthKey is not correct.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "sandbox",
+                    "operators",
+                    "token",
+                    ":email"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "email",
+                      "description": "(Required) Email"
+                    }
+                  ]
+                },
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"authKey\": \"<string>\",\n  \"authKeyId\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    },
+    {
+      "id": "72815db0-30c8-4442-99eb-6fca17e9c2c8",
+      "name": "API Sandbox: Order",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "588be0b8-3038-4543-a97b-c4bd7a5b2807",
+          "name": "Ships the specified order",
+          "request": {
+            "name": "Ships the specified order",
+            "description": {
+              "content": "Changes the shipping status to 'shipped' and gets ready the subscribers included in the order.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "sandbox",
+                "orders",
+                "ship"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"orderId\": \"<string>\",\n  \"operatorId\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "9f50277b-1e57-4f7e-9f04-68568766fb26",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "sandbox",
+                    "orders",
+                    "ship"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"orderId\": \"<string>\",\n  \"operatorId\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "2f64bed3-25e1-4246-a2fa-d4c7fdedd6d3",
+              "name": "Order does not exist.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "sandbox",
+                    "orders",
+                    "ship"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"orderId\": \"<string>\",\n  \"operatorId\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    },
+    {
+      "id": "af490bb1-96c4-49fb-ba03-472f4a012ec5",
+      "name": "API Sandbox: Stats",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "dc9bf0e3-779b-4d77-8668-404f12b54539",
+          "name": "Inserts Air stats for testing",
+          "request": {
+            "name": "Inserts Air stats for testing",
+            "description": {
+              "content": "Populates Air stats for testing purpose. Inserted data are going to be automatically accumulated. It is not possible to put the data multiple times with the same timestamp.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "sandbox",
+                "stats",
+                "air",
+                "subscribers",
+                ":imsi"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "imsi",
+                  "description": "(Required) IMSI."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"dataTrafficStatsMap\": {\n    \"key_0\": {\n      \"downloadByteSizeTotal\": \"<long>\",\n      \"downloadPacketSizeTotal\": \"<long>\",\n      \"uploadByteSizeTotal\": \"<long>\",\n      \"uploadPacketSizeTotal\": \"<long>\"\n    },\n    \"key_1\": {\n      \"downloadByteSizeTotal\": \"<long>\",\n      \"downloadPacketSizeTotal\": \"<long>\",\n      \"uploadByteSizeTotal\": \"<long>\",\n      \"uploadPacketSizeTotal\": \"<long>\"\n    }\n  },\n  \"unixtime\": \"<long>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "44ac36c6-e2f6-40d3-aae0-e4abc8905a8f",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "sandbox",
+                    "stats",
+                    "air",
+                    "subscribers",
+                    ":imsi"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "imsi",
+                      "description": "(Required) IMSI."
+                    }
+                  ]
+                },
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"dataTrafficStatsMap\": {\n    \"key_0\": {\n      \"downloadByteSizeTotal\": \"<long>\",\n      \"downloadPacketSizeTotal\": \"<long>\",\n      \"uploadByteSizeTotal\": \"<long>\",\n      \"uploadPacketSizeTotal\": \"<long>\"\n    }\n  },\n  \"unixtime\": \"<long>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "0ba84720-b17f-451c-a770-358fd17ee273",
+              "name": "Data with the same timestamp already exists.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "sandbox",
+                    "stats",
+                    "air",
+                    "subscribers",
+                    ":imsi"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "imsi",
+                      "description": "(Required) IMSI."
+                    }
+                  ]
+                },
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"dataTrafficStatsMap\": {\n    \"key_0\": {\n      \"downloadByteSizeTotal\": \"<long>\",\n      \"downloadPacketSizeTotal\": \"<long>\",\n      \"uploadByteSizeTotal\": \"<long>\",\n      \"uploadPacketSizeTotal\": \"<long>\"\n    }\n  },\n  \"unixtime\": \"<long>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "6b524958-f0b0-4ad5-8af6-c0f169f9da0c",
+          "name": "Inserts Beam stats for testing",
+          "request": {
+            "name": "Inserts Beam stats for testing",
+            "description": {
+              "content": "Populates Beam stats for testing purpose. Inserted data are going to be automatically accumulated. It is not possible to put the data multiple times with the same timestamp.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "sandbox",
+                "stats",
+                "beam",
+                "subscribers",
+                ":imsi"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "imsi",
+                  "description": "(Required) IMSI."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"beamStatsMap\": {\n    \"inHttp\": {\n      \"count\": \"<long>\"\n    },\n    \"inMqtt\": {\n      \"count\": \"<long>\"\n    },\n    \"inTcp\": {\n      \"count\": \"<long>\"\n    },\n    \"inUdp\": {\n      \"count\": \"<long>\"\n    },\n    \"outHttp\": {\n      \"count\": \"<long>\"\n    },\n    \"outHttps\": {\n      \"count\": \"<long>\"\n    },\n    \"outMqtt\": {\n      \"count\": \"<long>\"\n    },\n    \"outMqtts\": {\n      \"count\": \"<long>\"\n    },\n    \"outTcp\": {\n      \"count\": \"<long>\"\n    },\n    \"outTcps\": {\n      \"count\": \"<long>\"\n    },\n    \"outUdp\": {\n      \"count\": \"<long>\"\n    }\n  },\n  \"unixtime\": \"<long>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "566ee4ef-30f7-41d5-b10e-4bcbcd1f7891",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "sandbox",
+                    "stats",
+                    "beam",
+                    "subscribers",
+                    ":imsi"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "imsi",
+                      "description": "(Required) IMSI."
+                    }
+                  ]
+                },
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"beamStatsMap\": {\n    \"inHttp\": {\n      \"count\": \"<long>\"\n    },\n    \"inMqtt\": {\n      \"count\": \"<long>\"\n    },\n    \"inTcp\": {\n      \"count\": \"<long>\"\n    },\n    \"inUdp\": {\n      \"count\": \"<long>\"\n    },\n    \"outHttp\": {\n      \"count\": \"<long>\"\n    },\n    \"outHttps\": {\n      \"count\": \"<long>\"\n    },\n    \"outMqtt\": {\n      \"count\": \"<long>\"\n    },\n    \"outMqtts\": {\n      \"count\": \"<long>\"\n    },\n    \"outTcp\": {\n      \"count\": \"<long>\"\n    },\n    \"outTcps\": {\n      \"count\": \"<long>\"\n    },\n    \"outUdp\": {\n      \"count\": \"<long>\"\n    }\n  },\n  \"unixtime\": \"<long>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "9177cd95-156a-4cb7-a458-2a311cadec58",
+              "name": "Data with the same timestamp already exists.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "sandbox",
+                    "stats",
+                    "beam",
+                    "subscribers",
+                    ":imsi"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "imsi",
+                      "description": "(Required) IMSI."
+                    }
+                  ]
+                },
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"beamStatsMap\": {\n    \"inHttp\": {\n      \"count\": \"<long>\"\n    },\n    \"inMqtt\": {\n      \"count\": \"<long>\"\n    },\n    \"inTcp\": {\n      \"count\": \"<long>\"\n    },\n    \"inUdp\": {\n      \"count\": \"<long>\"\n    },\n    \"outHttp\": {\n      \"count\": \"<long>\"\n    },\n    \"outHttps\": {\n      \"count\": \"<long>\"\n    },\n    \"outMqtt\": {\n      \"count\": \"<long>\"\n    },\n    \"outMqtts\": {\n      \"count\": \"<long>\"\n    },\n    \"outTcp\": {\n      \"count\": \"<long>\"\n    },\n    \"outTcps\": {\n      \"count\": \"<long>\"\n    },\n    \"outUdp\": {\n      \"count\": \"<long>\"\n    }\n  },\n  \"unixtime\": \"<long>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    },
+    {
+      "id": "3054475a-4e25-40f0-aeb0-c3e1cada3a9e",
+      "name": "API Sandbox: Subscriber",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "4c029858-8456-4684-9dcc-aacfe6e7aa66",
+          "name": "Creates a new subscriber for sandbox",
+          "request": {
+            "name": "Creates a new subscriber for sandbox",
+            "description": {
+              "content": "Creates a new subscriber for sandbox.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "sandbox",
+                "subscribers",
+                "create"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"bundles\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"subscription\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "28289bf5-8550-441f-9ce8-b371a325f89f",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "sandbox",
+                    "subscribers",
+                    "create"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"bundle\": [\n    \"D-300MB\"\n  ],\n  \"subscription\": \"plan-D\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"apn\": \"string\",\n  \"createdAt\": 3044,\n  \"expiryTime\": 9896,\n  \"imsi\": \"string\",\n  \"ipAddress\": \"string\",\n  \"lastModifiedAt\": 6732,\n  \"msisdn\": \"string\",\n  \"operatorId\": \"string\",\n  \"registrationSecret\": \"string\",\n  \"serialNumber\": \"string\",\n  \"speedClass\": \"string\",\n  \"status\": \"string\",\n  \"subscription\": \"string\",\n  \"tags\": {\n    \"key_0\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api-sandbox.soracom.io/v1",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "dba66b4a-086d-4192-aa32-fba81d5c64cd",
+    "name": "SORACOM SANDBOX API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "SORACOM SANDBOX API v1",
+      "type": "text/plain"
+    }
+  }
+}

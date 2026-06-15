@@ -1,0 +1,1737 @@
+{
+  "info": {
+    "_postman_id": "4305aee7-bd67-4db4-b945-f98665d003ac",
+    "name": "Soracom Group Configuration API",
+    "description": "Manage groups and per-service configuration for Soracom Air, Beam, Funnel, Funk, Harvest, Junction, and Orbit.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-06-05T15:18:27.000Z",
+    "updatedAt": "2026-06-05T15:18:27.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-4305aee7-bd67-4db4-b945-f98665d003ac"
+  },
+  "item": [
+    {
+      "name": "groups",
+      "item": [
+        {
+          "name": "{group_id}",
+          "item": [
+            {
+              "name": "configuration",
+              "item": [
+                {
+                  "name": "{namespace}",
+                  "item": [
+                    {
+                      "name": "{name}",
+                      "item": [
+                        {
+                          "name": "Delete Group Configuration Parameters",
+                          "id": "2c4decdd-a25d-47b3-8c2b-620e95c8043e",
+                          "protocolProfileBehavior": {
+                            "disableBodyPruning": true
+                          },
+                          "request": {
+                            "auth": {
+                              "type": "apikey",
+                              "apikey": [
+                                {
+                                  "key": "key",
+                                  "value": "X-Soracom-API-Key",
+                                  "type": "string"
+                                },
+                                {
+                                  "key": "value",
+                                  "value": "{{apiKey}}",
+                                  "type": "string"
+                                },
+                                {
+                                  "key": "in",
+                                  "value": "header",
+                                  "type": "string"
+                                }
+                              ]
+                            },
+                            "method": "DELETE",
+                            "header": [],
+                            "url": {
+                              "raw": "{{baseUrl}}/groups/:group_id/configuration/:namespace/:name",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "groups",
+                                ":group_id",
+                                "configuration",
+                                ":namespace",
+                                ":name"
+                              ],
+                              "variable": [
+                                {
+                                  "id": "f04c17fc-3bf1-44b1-9afa-a38417ab0ffe",
+                                  "key": "group_id",
+                                  "value": "<string>",
+                                  "description": "(Required) ID of the target Group."
+                                },
+                                {
+                                  "id": "3379d9b2-ff46-4984-a9d1-1908df06e7ca",
+                                  "key": "namespace",
+                                  "value": "SoracomEndorse",
+                                  "description": "(Required) Namespace of target parameters."
+                                },
+                                {
+                                  "id": "1c9f1c6b-2c25-4506-b7ac-5ac03c1f3993",
+                                  "key": "name",
+                                  "value": "<string>",
+                                  "description": "(Required) Parameter name to be deleted. (This will be part of a URL path, so it needs to be percent-encoded. In JavaScript, specify the name after it has been encoded using encodeURIComponent().)"
+                                }
+                              ]
+                            },
+                            "description": "Delete parameters for the specified group."
+                          },
+                          "response": [
+                            {
+                              "id": "fd486e88-19e8-44d2-836f-cf45b3468cd5",
+                              "name": "The parameter was successfully deleted.",
+                              "originalRequest": {
+                                "method": "DELETE",
+                                "header": [
+                                  {
+                                    "description": "Added as a part of security scheme: apikey",
+                                    "key": "X-Soracom-API-Key",
+                                    "value": "<API Key>"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/groups/:group_id/configuration/:namespace/:name",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "groups",
+                                    ":group_id",
+                                    "configuration",
+                                    ":namespace",
+                                    ":name"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "group_id"
+                                    },
+                                    {
+                                      "key": "namespace"
+                                    },
+                                    {
+                                      "key": "name"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "No Content",
+                              "code": 204,
+                              "_postman_previewlanguage": "text",
+                              "header": [],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": null,
+                              "createdAt": "2026-06-05T15:18:27.000Z",
+                              "updatedAt": "2026-06-05T15:18:27.000Z",
+                              "uid": "35240-fd486e88-19e8-44d2-836f-cf45b3468cd5"
+                            },
+                            {
+                              "id": "256ee391-e674-4cc0-9d78-44400a9ab623",
+                              "name": "The specified group does not exist.",
+                              "originalRequest": {
+                                "method": "DELETE",
+                                "header": [
+                                  {
+                                    "description": "Added as a part of security scheme: apikey",
+                                    "key": "X-Soracom-API-Key",
+                                    "value": "<API Key>"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/groups/:group_id/configuration/:namespace/:name",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "groups",
+                                    ":group_id",
+                                    "configuration",
+                                    ":namespace",
+                                    ":name"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "group_id"
+                                    },
+                                    {
+                                      "key": "namespace"
+                                    },
+                                    {
+                                      "key": "name"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "Not Found",
+                              "code": 404,
+                              "_postman_previewlanguage": "text",
+                              "header": [],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": null,
+                              "createdAt": "2026-06-05T15:18:27.000Z",
+                              "updatedAt": "2026-06-05T15:18:27.000Z",
+                              "uid": "35240-256ee391-e674-4cc0-9d78-44400a9ab623"
+                            }
+                          ],
+                          "createdAt": "2026-06-05T15:18:27.000Z",
+                          "updatedAt": "2026-06-05T15:18:27.000Z",
+                          "uid": "35240-2c4decdd-a25d-47b3-8c2b-620e95c8043e"
+                        }
+                      ],
+                      "id": "39069ff4-56da-45cd-93ff-ea596a8e38b0",
+                      "createdAt": "2026-06-05T15:18:27.000Z",
+                      "updatedAt": "2026-06-05T15:18:27.000Z",
+                      "uid": "35240-39069ff4-56da-45cd-93ff-ea596a8e38b0"
+                    },
+                    {
+                      "name": "Delete Group Configuration Namespace",
+                      "id": "87dca45a-c9c2-4558-ab32-17257e33aa84",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "auth": {
+                          "type": "apikey",
+                          "apikey": [
+                            {
+                              "key": "key",
+                              "value": "X-Soracom-API-Key",
+                              "type": "string"
+                            },
+                            {
+                              "key": "value",
+                              "value": "{{apiKey}}",
+                              "type": "string"
+                            },
+                            {
+                              "key": "in",
+                              "value": "header",
+                              "type": "string"
+                            }
+                          ]
+                        },
+                        "method": "DELETE",
+                        "header": [],
+                        "url": {
+                          "raw": "{{baseUrl}}/groups/:group_id/configuration/:namespace",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "groups",
+                            ":group_id",
+                            "configuration",
+                            ":namespace"
+                          ],
+                          "variable": [
+                            {
+                              "id": "b7e2931f-c8f1-482d-947d-7aa604de6137",
+                              "key": "group_id",
+                              "value": "<string>",
+                              "description": "(Required) ID of the target Group."
+                            },
+                            {
+                              "id": "39267010-ce52-4a4a-b444-531c7ba168c3",
+                              "key": "namespace",
+                              "value": "SoracomBeam",
+                              "description": "(Required) Namespace to be deleted."
+                            }
+                          ]
+                        },
+                        "description": "Delete a namespace for the specified group."
+                      },
+                      "response": [
+                        {
+                          "id": "f3f4c763-5ea7-4e24-9a5c-c69ff9eebf09",
+                          "name": "The namespace was successfully deleted.",
+                          "originalRequest": {
+                            "method": "DELETE",
+                            "header": [
+                              {
+                                "description": "Added as a part of security scheme: apikey",
+                                "key": "X-Soracom-API-Key",
+                                "value": "<API Key>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/groups/:group_id/configuration/:namespace",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "groups",
+                                ":group_id",
+                                "configuration",
+                                ":namespace"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "group_id"
+                                },
+                                {
+                                  "key": "namespace"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "No Content",
+                          "code": 204,
+                          "_postman_previewlanguage": "text",
+                          "header": [],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": null,
+                          "createdAt": "2026-06-05T15:18:27.000Z",
+                          "updatedAt": "2026-06-05T15:18:27.000Z",
+                          "uid": "35240-f3f4c763-5ea7-4e24-9a5c-c69ff9eebf09"
+                        },
+                        {
+                          "id": "f52d6d70-f96c-4b39-ba5a-65e07d65a038",
+                          "name": "The specified namespace does not exist.",
+                          "originalRequest": {
+                            "method": "DELETE",
+                            "header": [
+                              {
+                                "description": "Added as a part of security scheme: apikey",
+                                "key": "X-Soracom-API-Key",
+                                "value": "<API Key>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/groups/:group_id/configuration/:namespace",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "groups",
+                                ":group_id",
+                                "configuration",
+                                ":namespace"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "group_id"
+                                },
+                                {
+                                  "key": "namespace"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Bad Request",
+                          "code": 400,
+                          "_postman_previewlanguage": "text",
+                          "header": [],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": null,
+                          "createdAt": "2026-06-05T15:18:27.000Z",
+                          "updatedAt": "2026-06-05T15:18:27.000Z",
+                          "uid": "35240-f52d6d70-f96c-4b39-ba5a-65e07d65a038"
+                        },
+                        {
+                          "id": "150d888d-3a4b-4b0d-95e6-de1ba97b12f9",
+                          "name": "The specified group does not exist.",
+                          "originalRequest": {
+                            "method": "DELETE",
+                            "header": [
+                              {
+                                "description": "Added as a part of security scheme: apikey",
+                                "key": "X-Soracom-API-Key",
+                                "value": "<API Key>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/groups/:group_id/configuration/:namespace",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "groups",
+                                ":group_id",
+                                "configuration",
+                                ":namespace"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "group_id"
+                                },
+                                {
+                                  "key": "namespace"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Not Found",
+                          "code": 404,
+                          "_postman_previewlanguage": "text",
+                          "header": [],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": null,
+                          "createdAt": "2026-06-05T15:18:27.000Z",
+                          "updatedAt": "2026-06-05T15:18:27.000Z",
+                          "uid": "35240-150d888d-3a4b-4b0d-95e6-de1ba97b12f9"
+                        }
+                      ],
+                      "createdAt": "2026-06-05T15:18:27.000Z",
+                      "updatedAt": "2026-06-05T15:18:27.000Z",
+                      "uid": "35240-87dca45a-c9c2-4558-ab32-17257e33aa84"
+                    },
+                    {
+                      "name": "Update group configuration",
+                      "id": "90340574-e471-4d9f-b879-764e46f42e2b",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "auth": {
+                          "type": "apikey",
+                          "apikey": [
+                            {
+                              "key": "key",
+                              "value": "X-Soracom-API-Key",
+                              "type": "string"
+                            },
+                            {
+                              "key": "value",
+                              "value": "{{apiKey}}",
+                              "type": "string"
+                            },
+                            {
+                              "key": "in",
+                              "value": "header",
+                              "type": "string"
+                            }
+                          ]
+                        },
+                        "method": "PUT",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "[\n  {\n    \"key\": \"<string>\",\n    \"value\": {}\n  },\n  {\n    \"key\": \"<string>\",\n    \"value\": {}\n  }\n]",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/groups/:group_id/configuration/:namespace",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "groups",
+                            ":group_id",
+                            "configuration",
+                            ":namespace"
+                          ],
+                          "variable": [
+                            {
+                              "id": "eab0c9d8-d63f-40fa-a613-081b2383074d",
+                              "key": "group_id",
+                              "value": "<string>",
+                              "description": "(Required) ID of the target group. The group ID can be obtained via the [Group:listGroups API](#!/Group/listGroups)."
+                            },
+                            {
+                              "id": "ed074980-6fd9-4014-ba59-1a728c945a37",
+                              "key": "namespace",
+                              "value": "SoracomEndorse",
+                              "description": "(Required) A string indicating the configuration target. It varies depending on the configuration content.\n\n- `SoracomAir`: Custom DNS, Metadata service, VPG (Virtual Private Gateway), CHAP authentication, Simple Location function, Binary Parser.\n- `SoracomBeam`: SORACOM Beam.\n- `SoracomEndorse`: SORACOM Endorse.\n- `SoracomFunk`: SORACOM Funk.\n- `SoracomFunnel`: SORACOM Funnel.\n- `SoracomHarvest`: SORACOM Harvest Data.\n- `SoracomHarvestFiles`: SORACOM Harvest Files.\n- `SoracomKrypton`: SORACOM Krypton.\n- `SoracomOrbit`: SORACOM Orbit.\n- `UnifiedEndpoint`: Unified Endpoint.\n"
+                            }
+                          ]
+                        },
+                        "description": "Updates the configuration of the specified group."
+                      },
+                      "response": [
+                        {
+                          "id": "71f191d0-04fa-4e63-988f-a1e9d7f4aba2",
+                          "name": "The Group after the update.",
+                          "originalRequest": {
+                            "method": "PUT",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: apikey",
+                                "key": "X-Soracom-API-Key",
+                                "value": "<API Key>"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "[\n  {\n    \"key\": \"<string>\",\n    \"value\": {}\n  },\n  {\n    \"key\": \"<string>\",\n    \"value\": {}\n  }\n]",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/groups/:group_id/configuration/:namespace",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "groups",
+                                ":group_id",
+                                "configuration",
+                                ":namespace"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "group_id"
+                                },
+                                {
+                                  "key": "namespace"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "OK",
+                          "code": 200,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"configuration\": {\n    \"amet_3b\": {},\n    \"labore16\": {}\n  },\n  \"createdTime\": \"<long>\",\n  \"groupId\": \"<string>\",\n  \"lastModifiedTime\": \"<long>\",\n  \"operatorId\": \"<string>\",\n  \"tags\": {\n    \"officia_3\": \"<string>\",\n    \"dolore_a6c\": \"<string>\",\n    \"Ut_8\": \"<string>\"\n  }\n}",
+                          "createdAt": "2026-06-05T15:18:27.000Z",
+                          "updatedAt": "2026-06-05T15:18:27.000Z",
+                          "uid": "35240-71f191d0-04fa-4e63-988f-a1e9d7f4aba2"
+                        },
+                        {
+                          "id": "bfdcd58c-2b2d-4c37-9403-6176b7534167",
+                          "name": "The specified Group does not exist.",
+                          "originalRequest": {
+                            "method": "PUT",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: apikey",
+                                "key": "X-Soracom-API-Key",
+                                "value": "<API Key>"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "[\n  {\n    \"key\": \"<string>\",\n    \"value\": {}\n  },\n  {\n    \"key\": \"<string>\",\n    \"value\": {}\n  }\n]",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/groups/:group_id/configuration/:namespace",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "groups",
+                                ":group_id",
+                                "configuration",
+                                ":namespace"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "group_id"
+                                },
+                                {
+                                  "key": "namespace"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Not Found",
+                          "code": 404,
+                          "_postman_previewlanguage": "text",
+                          "header": [],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": null,
+                          "createdAt": "2026-06-05T15:18:27.000Z",
+                          "updatedAt": "2026-06-05T15:18:27.000Z",
+                          "uid": "35240-bfdcd58c-2b2d-4c37-9403-6176b7534167"
+                        }
+                      ],
+                      "createdAt": "2026-06-05T15:18:27.000Z",
+                      "updatedAt": "2026-06-05T15:18:27.000Z",
+                      "uid": "35240-90340574-e471-4d9f-b879-764e46f42e2b"
+                    }
+                  ],
+                  "id": "6c51b247-f23f-4b6b-b4f7-8d88b78feca1",
+                  "createdAt": "2026-06-05T15:18:27.000Z",
+                  "updatedAt": "2026-06-05T15:18:27.000Z",
+                  "uid": "35240-6c51b247-f23f-4b6b-b4f7-8d88b78feca1"
+                }
+              ],
+              "id": "60e2e436-42eb-4e87-a346-79fc1e4ff766",
+              "createdAt": "2026-06-05T15:18:27.000Z",
+              "updatedAt": "2026-06-05T15:18:27.000Z",
+              "uid": "35240-60e2e436-42eb-4e87-a346-79fc1e4ff766"
+            },
+            {
+              "name": "subscribers",
+              "item": [
+                {
+                  "name": "List Subscribers in a group",
+                  "id": "b6d6c980-857a-4320-acde-fe2801a917da",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "auth": {
+                      "type": "apikey",
+                      "apikey": [
+                        {
+                          "key": "key",
+                          "value": "X-Soracom-API-Key",
+                          "type": "string"
+                        },
+                        {
+                          "key": "value",
+                          "value": "{{apiKey}}",
+                          "type": "string"
+                        },
+                        {
+                          "key": "in",
+                          "value": "header",
+                          "type": "string"
+                        }
+                      ]
+                    },
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/groups/:group_id/subscribers?limit=<integer>&last_evaluated_key=<string>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "groups",
+                        ":group_id",
+                        "subscribers"
+                      ],
+                      "query": [
+                        {
+                          "description": "Maximum number of results per response page.",
+                          "key": "limit",
+                          "value": "<integer>"
+                        },
+                        {
+                          "description": "The IMSI of the last subscriber retrieved on the previous page. By specifying this parameter, you can continue to retrieve the list from the next subscriber onward.",
+                          "key": "last_evaluated_key",
+                          "value": "<string>"
+                        }
+                      ],
+                      "variable": [
+                        {
+                          "id": "6aeaa1a0-ad2b-495b-8517-19702a269c06",
+                          "key": "group_id",
+                          "value": "<string>",
+                          "description": "(Required) ID of the target Group."
+                        }
+                      ]
+                    },
+                    "description": "Returns a list of subscribers that belong to the specified group by group ID."
+                  },
+                  "response": [
+                    {
+                      "id": "4c09ef98-11b6-4e0d-9d4e-22ea7adc3601",
+                      "name": "Specified Group.",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "X-Soracom-API-Key",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/groups/:group_id/subscribers?limit=<integer>&last_evaluated_key=<string>",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "groups",
+                            ":group_id",
+                            "subscribers"
+                          ],
+                          "query": [
+                            {
+                              "description": "Maximum number of results per response page.",
+                              "key": "limit",
+                              "value": "<integer>"
+                            },
+                            {
+                              "description": "The IMSI of the last subscriber retrieved on the previous page. By specifying this parameter, you can continue to retrieve the list from the next subscriber onward.",
+                              "key": "last_evaluated_key",
+                              "value": "<string>"
+                            }
+                          ],
+                          "variable": [
+                            {
+                              "key": "group_id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "[\n  {\n    \"activeProfileId\": \"<string>\",\n    \"arcSessionStatus\": {\n      \"arcAllowedIPs\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"arcClientPeerIpAddress\": \"<string>\",\n      \"arcClientPeerPublicKey\": \"<string>\",\n      \"arcServerEndpoint\": \"<string>\",\n      \"arcServerPeerPublicKey\": \"<string>\",\n      \"gatewayPrivateIpAddress\": \"<string>\",\n      \"gatewayPublicIpAddress\": \"<string>\",\n      \"lastUpdatedAt\": \"<long>\",\n      \"placement\": {\n        \"infrastructureProvider\": \"aws\",\n        \"region\": \"eu-central-1\"\n      },\n      \"vpgId\": \"<string>\"\n    },\n    \"capabilities\": {\n      \"data\": \"<boolean>\",\n      \"sms\": \"<boolean>\"\n    },\n    \"createdTime\": \"<long>\",\n    \"expiryAction\": \"(null value)\",\n    \"expiryTime\": \"<long>\",\n    \"groupId\": \"<string>\",\n    \"imeiLock\": {\n      \"imei\": \"<string>\"\n    },\n    \"lastModifiedTime\": \"<long>\",\n    \"lastPortMappingCreatedTime\": \"<long>\",\n    \"localInfo\": {\n      \"aliquip18\": \"<string>\",\n      \"dolore_b\": \"<string>\",\n      \"ea_26f\": \"<string>\",\n      \"magna_4fe\": \"<string>\"\n    },\n    \"moduleType\": \"mini\",\n    \"operatorId\": \"<string>\",\n    \"otaSerialNumber\": \"<string>\",\n    \"pcapEndTime\": \"<long>\",\n    \"pcapStartTime\": \"<long>\",\n    \"previousSession\": {\n      \"cell\": {\n        \"ci\": \"<integer>\",\n        \"eci\": \"<integer>\",\n        \"lac\": \"<integer>\",\n        \"mcc\": \"<integer>\",\n        \"mnc\": \"<integer>\",\n        \"rac\": \"<integer>\",\n        \"radioType\": \"NB-IoT\",\n        \"sac\": \"<integer>\",\n        \"tac\": \"<integer>\"\n      },\n      \"createdTime\": \"<long>\",\n      \"deletedTime\": \"<long>\",\n      \"dnsServers\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"gatewayPrivateIpAddress\": \"<string>\",\n      \"gatewayPublicIpAddress\": \"<string>\",\n      \"imei\": \"<string>\",\n      \"imsi\": \"<string>\",\n      \"sessionId\": \"<string>\",\n      \"subscription\": \"<string>\",\n      \"ueIpAddress\": \"<string>\",\n      \"vpgId\": \"<string>\"\n    },\n    \"profiles\": {\n      \"pariatur_e\": {\n        \"arcClientPeerPrivateKey\": \"<string>\",\n        \"arcClientPeerPublicKey\": \"<string>\",\n        \"iccid\": \"<string>\",\n        \"otaSupported\": \"<boolean>\",\n        \"primaryImsi\": \"<string>\",\n        \"subscribers\": {\n          \"sit428\": {\n            \"bundles\": [\n              \"<string>\",\n              \"<string>\"\n            ],\n            \"capabilities\": {\n              \"data\": \"<boolean>\",\n              \"sms\": \"<boolean>\"\n            },\n            \"imsi\": \"<string>\",\n            \"msisdn\": \"<string>\",\n            \"status\": \"delivered\",\n            \"subscription\": \"<string>\"\n          }\n        }\n      }\n    },\n    \"renewalFeeStatusSetTime\": \"<long>\",\n    \"serialNumber\": \"<string>\",\n    \"sessionStatus\": {\n      \"cell\": {\n        \"ci\": \"<integer>\",\n        \"eci\": \"<integer>\",\n        \"lac\": \"<integer>\",\n        \"mcc\": \"<integer>\",\n        \"mnc\": \"<integer>\",\n        \"rac\": \"<integer>\",\n        \"radioType\": \"GSM\",\n        \"sac\": \"<integer>\",\n        \"tac\": \"<integer>\"\n      },\n      \"dnsServers\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"gatewayPrivateIpAddress\": \"<string>\",\n      \"gatewayPublicIpAddress\": \"<string>\",\n      \"imei\": \"<string>\",\n      \"imsi\": \"<string>\",\n      \"lastUpdatedAt\": \"<long>\",\n      \"location\": {},\n      \"online\": \"<boolean>\",\n      \"placement\": {\n        \"infrastructureProvider\": \"aws\",\n        \"region\": \"us-west-2\"\n      },\n      \"sessionId\": \"<string>\",\n      \"subscription\": \"<string>\",\n      \"ueIpAddress\": \"<string>\",\n      \"vpgId\": \"<string>\"\n    },\n    \"simId\": \"<string>\",\n    \"speedClass\": \"<string>\",\n    \"status\": \"inactive\",\n    \"tags\": {\n      \"non78\": \"<string>\",\n      \"do88\": \"<string>\",\n      \"et404\": \"<string>\",\n      \"do8\": \"<string>\",\n      \"proident_f\": \"<string>\"\n    },\n    \"terminationEnabled\": \"<boolean>\",\n    \"testmodeExhaustedTime\": \"<long>\",\n    \"type\": \"virtual\"\n  },\n  {\n    \"activeProfileId\": \"<string>\",\n    \"arcSessionStatus\": {\n      \"arcAllowedIPs\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"arcClientPeerIpAddress\": \"<string>\",\n      \"arcClientPeerPublicKey\": \"<string>\",\n      \"arcServerEndpoint\": \"<string>\",\n      \"arcServerPeerPublicKey\": \"<string>\",\n      \"gatewayPrivateIpAddress\": \"<string>\",\n      \"gatewayPublicIpAddress\": \"<string>\",\n      \"lastUpdatedAt\": \"<long>\",\n      \"placement\": {\n        \"infrastructureProvider\": \"aws\",\n        \"region\": \"us-west-2\"\n      },\n      \"vpgId\": \"<string>\"\n    },\n    \"capabilities\": {\n      \"data\": \"<boolean>\",\n      \"sms\": \"<boolean>\"\n    },\n    \"createdTime\": \"<long>\",\n    \"expiryAction\": \"terminate\",\n    \"expiryTime\": \"<long>\",\n    \"groupId\": \"<string>\",\n    \"imeiLock\": {\n      \"imei\": \"<string>\"\n    },\n    \"lastModifiedTime\": \"<long>\",\n    \"lastPortMappingCreatedTime\": \"<long>\",\n    \"localInfo\": {\n      \"velitfd\": \"<string>\",\n      \"reprehenderit_8_2\": \"<string>\"\n    },\n    \"moduleType\": \"virtual\",\n    \"operatorId\": \"<string>\",\n    \"otaSerialNumber\": \"<string>\",\n    \"pcapEndTime\": \"<long>\",\n    \"pcapStartTime\": \"<long>\",\n    \"previousSession\": {\n      \"cell\": {\n        \"ci\": \"<integer>\",\n        \"eci\": \"<integer>\",\n        \"lac\": \"<integer>\",\n        \"mcc\": \"<integer>\",\n        \"mnc\": \"<integer>\",\n        \"rac\": \"<integer>\",\n        \"radioType\": \"NB-IoT\",\n        \"sac\": \"<integer>\",\n        \"tac\": \"<integer>\"\n      },\n      \"createdTime\": \"<long>\",\n      \"deletedTime\": \"<long>\",\n      \"dnsServers\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"gatewayPrivateIpAddress\": \"<string>\",\n      \"gatewayPublicIpAddress\": \"<string>\",\n      \"imei\": \"<string>\",\n      \"imsi\": \"<string>\",\n      \"sessionId\": \"<string>\",\n      \"subscription\": \"<string>\",\n      \"ueIpAddress\": \"<string>\",\n      \"vpgId\": \"<string>\"\n    },\n    \"profiles\": {\n      \"laborum_47\": {\n        \"arcClientPeerPrivateKey\": \"<string>\",\n        \"arcClientPeerPublicKey\": \"<string>\",\n        \"iccid\": \"<string>\",\n        \"otaSupported\": \"<boolean>\",\n        \"primaryImsi\": \"<string>\",\n        \"subscribers\": {\n          \"voluptate5\": {\n            \"bundles\": [\n              \"<string>\",\n              \"<string>\"\n            ],\n            \"capabilities\": {\n              \"data\": \"<boolean>\",\n              \"sms\": \"<boolean>\"\n            },\n            \"imsi\": \"<string>\",\n            \"msisdn\": \"<string>\",\n            \"status\": \"terminated\",\n            \"subscription\": \"<string>\"\n          },\n          \"enim6\": {\n            \"bundles\": [\n              \"<string>\",\n              \"<string>\"\n            ],\n            \"capabilities\": {\n              \"data\": \"<boolean>\",\n              \"sms\": \"<boolean>\"\n            },\n            \"imsi\": \"<string>\",\n            \"msisdn\": \"<string>\",\n            \"status\": \"delivered\",\n            \"subscription\": \"<string>\"\n          }\n        }\n      },\n      \"in_9\": {\n        \"arcClientPeerPrivateKey\": \"<string>\",\n        \"arcClientPeerPublicKey\": \"<string>\",\n        \"iccid\": \"<string>\",\n        \"otaSupported\": \"<boolean>\",\n        \"primaryImsi\": \"<string>\",\n        \"subscribers\": {\n          \"laborum_6\": {\n            \"bundles\": [\n              \"<string>\",\n              \"<string>\"\n            ],\n            \"capabilities\": {\n              \"data\": \"<boolean>\",\n              \"sms\": \"<boolean>\"\n            },\n            \"imsi\": \"<string>\",\n            \"msisdn\": \"<string>\",\n            \"status\": \"terminated\",\n            \"subscription\": \"<string>\"\n          },\n          \"proident9a\": {\n            \"bundles\": [\n              \"<string>\",\n              \"<string>\"\n            ],\n            \"capabilities\": {\n              \"data\": \"<boolean>\",\n              \"sms\": \"<boolean>\"\n            },\n            \"imsi\": \"<string>\",\n            \"msisdn\": \"<string>\",\n            \"status\": \"delivered\",\n            \"subscription\": \"<string>\"\n          }\n        }\n      }\n    },\n    \"renewalFeeStatusSetTime\": \"<long>\",\n    \"serialNumber\": \"<string>\",\n    \"sessionStatus\": {\n      \"cell\": {\n        \"ci\": \"<integer>\",\n        \"eci\": \"<integer>\",\n        \"lac\": \"<integer>\",\n        \"mcc\": \"<integer>\",\n        \"mnc\": \"<integer>\",\n        \"rac\": \"<integer>\",\n        \"radioType\": \"NB-IoT\",\n        \"sac\": \"<integer>\",\n        \"tac\": \"<integer>\"\n      },\n      \"dnsServers\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"gatewayPrivateIpAddress\": \"<string>\",\n      \"gatewayPublicIpAddress\": \"<string>\",\n      \"imei\": \"<string>\",\n      \"imsi\": \"<string>\",\n      \"lastUpdatedAt\": \"<long>\",\n      \"location\": {},\n      \"online\": \"<boolean>\",\n      \"placement\": {\n        \"infrastructureProvider\": \"aws\",\n        \"region\": \"eu-central-1\"\n      },\n      \"sessionId\": \"<string>\",\n      \"subscription\": \"<string>\",\n      \"ueIpAddress\": \"<string>\",\n      \"vpgId\": \"<string>\"\n    },\n    \"simId\": \"<string>\",\n    \"speedClass\": \"<string>\",\n    \"status\": \"standby\",\n    \"tags\": {\n      \"Duis__97\": \"<string>\"\n    },\n    \"terminationEnabled\": \"<boolean>\",\n    \"testmodeExhaustedTime\": \"<long>\",\n    \"type\": \"euicc\"\n  }\n]",
+                      "createdAt": "2026-06-05T15:18:27.000Z",
+                      "updatedAt": "2026-06-05T15:18:27.000Z",
+                      "uid": "35240-4c09ef98-11b6-4e0d-9d4e-22ea7adc3601"
+                    },
+                    {
+                      "id": "8dcdf0ca-2a95-4d09-972e-0894d6a54c28",
+                      "name": "The specified group does not exist.",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "X-Soracom-API-Key",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/groups/:group_id/subscribers?limit=<integer>&last_evaluated_key=<string>",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "groups",
+                            ":group_id",
+                            "subscribers"
+                          ],
+                          "query": [
+                            {
+                              "description": "Maximum number of results per response page.",
+                              "key": "limit",
+                              "value": "<integer>"
+                            },
+                            {
+                              "description": "The IMSI of the last subscriber retrieved on the previous page. By specifying this parameter, you can continue to retrieve the list from the next subscriber onward.",
+                              "key": "last_evaluated_key",
+                              "value": "<string>"
+                            }
+                          ],
+                          "variable": [
+                            {
+                              "key": "group_id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Not Found",
+                      "code": 404,
+                      "_postman_previewlanguage": "text",
+                      "header": [],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-06-05T15:18:27.000Z",
+                      "updatedAt": "2026-06-05T15:18:27.000Z",
+                      "uid": "35240-8dcdf0ca-2a95-4d09-972e-0894d6a54c28"
+                    }
+                  ],
+                  "createdAt": "2026-06-05T15:18:27.000Z",
+                  "updatedAt": "2026-06-05T15:18:27.000Z",
+                  "uid": "35240-b6d6c980-857a-4320-acde-fe2801a917da"
+                }
+              ],
+              "id": "8fe682a8-ab4d-45a1-a85b-ebb843274e6e",
+              "createdAt": "2026-06-05T15:18:27.000Z",
+              "updatedAt": "2026-06-05T15:18:27.000Z",
+              "uid": "35240-8fe682a8-ab4d-45a1-a85b-ebb843274e6e"
+            },
+            {
+              "name": "tags",
+              "item": [
+                {
+                  "name": "{tag_name}",
+                  "item": [
+                    {
+                      "name": "Delete Group Tag",
+                      "id": "88a73924-31b9-4a0e-ae4b-c97a9fda9d55",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "auth": {
+                          "type": "apikey",
+                          "apikey": [
+                            {
+                              "key": "key",
+                              "value": "X-Soracom-API-Key",
+                              "type": "string"
+                            },
+                            {
+                              "key": "value",
+                              "value": "{{apiKey}}",
+                              "type": "string"
+                            },
+                            {
+                              "key": "in",
+                              "value": "header",
+                              "type": "string"
+                            }
+                          ]
+                        },
+                        "method": "DELETE",
+                        "header": [],
+                        "url": {
+                          "raw": "{{baseUrl}}/groups/:group_id/tags/:tag_name",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "groups",
+                            ":group_id",
+                            "tags",
+                            ":tag_name"
+                          ],
+                          "variable": [
+                            {
+                              "id": "2ec1eb7d-8aa4-4596-9f1e-e0d814559d0c",
+                              "key": "group_id",
+                              "value": "<string>",
+                              "description": "(Required) ID of the target Group."
+                            },
+                            {
+                              "id": "b6e44a08-9041-43ed-b5cb-be0054f60f83",
+                              "key": "tag_name",
+                              "value": "<string>",
+                              "description": "(Required) Tag name to be deleted. (This will be part of a URL path, so it needs to be percent-encoded. In JavaScript, specify the name after it has been encoded using encodeURIComponent().)"
+                            }
+                          ]
+                        },
+                        "description": "Deletes tag from the specified group."
+                      },
+                      "response": [
+                        {
+                          "id": "fd9409a3-7cc3-4a12-9066-0c8b75deb86a",
+                          "name": "Tag deletion complete.",
+                          "originalRequest": {
+                            "method": "DELETE",
+                            "header": [
+                              {
+                                "description": "Added as a part of security scheme: apikey",
+                                "key": "X-Soracom-API-Key",
+                                "value": "<API Key>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/groups/:group_id/tags/:tag_name",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "groups",
+                                ":group_id",
+                                "tags",
+                                ":tag_name"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "group_id"
+                                },
+                                {
+                                  "key": "tag_name"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "No Content",
+                          "code": 204,
+                          "_postman_previewlanguage": "text",
+                          "header": [],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": null,
+                          "createdAt": "2026-06-05T15:18:27.000Z",
+                          "updatedAt": "2026-06-05T15:18:27.000Z",
+                          "uid": "35240-fd9409a3-7cc3-4a12-9066-0c8b75deb86a"
+                        },
+                        {
+                          "id": "a22b5c58-1876-4c2f-9193-0d18deebfee7",
+                          "name": "The specified group or the tag does not exist.",
+                          "originalRequest": {
+                            "method": "DELETE",
+                            "header": [
+                              {
+                                "description": "Added as a part of security scheme: apikey",
+                                "key": "X-Soracom-API-Key",
+                                "value": "<API Key>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/groups/:group_id/tags/:tag_name",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "groups",
+                                ":group_id",
+                                "tags",
+                                ":tag_name"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "group_id"
+                                },
+                                {
+                                  "key": "tag_name"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Not Found",
+                          "code": 404,
+                          "_postman_previewlanguage": "text",
+                          "header": [],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": null,
+                          "createdAt": "2026-06-05T15:18:27.000Z",
+                          "updatedAt": "2026-06-05T15:18:27.000Z",
+                          "uid": "35240-a22b5c58-1876-4c2f-9193-0d18deebfee7"
+                        }
+                      ],
+                      "createdAt": "2026-06-05T15:18:27.000Z",
+                      "updatedAt": "2026-06-05T15:18:27.000Z",
+                      "uid": "35240-88a73924-31b9-4a0e-ae4b-c97a9fda9d55"
+                    }
+                  ],
+                  "id": "afd10a7d-50d6-4fb6-93eb-3a21a2acc992",
+                  "createdAt": "2026-06-05T15:18:27.000Z",
+                  "updatedAt": "2026-06-05T15:18:27.000Z",
+                  "uid": "35240-afd10a7d-50d6-4fb6-93eb-3a21a2acc992"
+                },
+                {
+                  "name": "Update Group Tags",
+                  "id": "4c2e965d-9c68-459b-95b8-ff613ee4a50d",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "auth": {
+                      "type": "apikey",
+                      "apikey": [
+                        {
+                          "key": "key",
+                          "value": "X-Soracom-API-Key",
+                          "type": "string"
+                        },
+                        {
+                          "key": "value",
+                          "value": "{{apiKey}}",
+                          "type": "string"
+                        },
+                        {
+                          "key": "in",
+                          "value": "header",
+                          "type": "string"
+                        }
+                      ]
+                    },
+                    "method": "PUT",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "[\n  {\n    \"tagName\": \"<string>\",\n    \"tagValue\": \"<string>\"\n  },\n  {\n    \"tagName\": \"<string>\",\n    \"tagValue\": \"<string>\"\n  }\n]",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/groups/:group_id/tags",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "groups",
+                        ":group_id",
+                        "tags"
+                      ],
+                      "variable": [
+                        {
+                          "id": "8a6cf753-8b9c-4928-b6f5-a1713f620d44",
+                          "key": "group_id",
+                          "value": "<string>",
+                          "description": "(Required) ID of the target Group."
+                        }
+                      ]
+                    },
+                    "description": "Adds/updates tags of specified configuration group."
+                  },
+                  "response": [
+                    {
+                      "id": "8cb77882-fc34-4b93-913c-f9db3bfba0dc",
+                      "name": "The group after the update.",
+                      "originalRequest": {
+                        "method": "PUT",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "X-Soracom-API-Key",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "[\n  {\n    \"tagName\": \"<string>\",\n    \"tagValue\": \"<string>\"\n  },\n  {\n    \"tagName\": \"<string>\",\n    \"tagValue\": \"<string>\"\n  }\n]",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/groups/:group_id/tags",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "groups",
+                            ":group_id",
+                            "tags"
+                          ],
+                          "variable": [
+                            {
+                              "key": "group_id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"configuration\": {\n    \"amet_3b\": {},\n    \"labore16\": {}\n  },\n  \"createdTime\": \"<long>\",\n  \"groupId\": \"<string>\",\n  \"lastModifiedTime\": \"<long>\",\n  \"operatorId\": \"<string>\",\n  \"tags\": {\n    \"officia_3\": \"<string>\",\n    \"dolore_a6c\": \"<string>\",\n    \"Ut_8\": \"<string>\"\n  }\n}",
+                      "createdAt": "2026-06-05T15:18:27.000Z",
+                      "updatedAt": "2026-06-05T15:18:27.000Z",
+                      "uid": "35240-8cb77882-fc34-4b93-913c-f9db3bfba0dc"
+                    },
+                    {
+                      "id": "c2109ddd-6c5f-4500-b5d2-f44a4da63087",
+                      "name": "The specified group does not exist.",
+                      "originalRequest": {
+                        "method": "PUT",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "X-Soracom-API-Key",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "[\n  {\n    \"tagName\": \"<string>\",\n    \"tagValue\": \"<string>\"\n  },\n  {\n    \"tagName\": \"<string>\",\n    \"tagValue\": \"<string>\"\n  }\n]",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/groups/:group_id/tags",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "groups",
+                            ":group_id",
+                            "tags"
+                          ],
+                          "variable": [
+                            {
+                              "key": "group_id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Not Found",
+                      "code": 404,
+                      "_postman_previewlanguage": "text",
+                      "header": [],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-06-05T15:18:27.000Z",
+                      "updatedAt": "2026-06-05T15:18:27.000Z",
+                      "uid": "35240-c2109ddd-6c5f-4500-b5d2-f44a4da63087"
+                    }
+                  ],
+                  "createdAt": "2026-06-05T15:18:27.000Z",
+                  "updatedAt": "2026-06-05T15:18:27.000Z",
+                  "uid": "35240-4c2e965d-9c68-459b-95b8-ff613ee4a50d"
+                }
+              ],
+              "id": "990bf06d-998e-48de-a61d-b02ae926bd8a",
+              "createdAt": "2026-06-05T15:18:27.000Z",
+              "updatedAt": "2026-06-05T15:18:27.000Z",
+              "uid": "35240-990bf06d-998e-48de-a61d-b02ae926bd8a"
+            },
+            {
+              "name": "Delete Group",
+              "id": "37736fae-ae86-4696-bf41-70ef7710ba55",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "auth": {
+                  "type": "apikey",
+                  "apikey": [
+                    {
+                      "key": "key",
+                      "value": "X-Soracom-API-Key",
+                      "type": "string"
+                    },
+                    {
+                      "key": "value",
+                      "value": "{{apiKey}}",
+                      "type": "string"
+                    },
+                    {
+                      "key": "in",
+                      "value": "header",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "DELETE",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/groups/:group_id",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "groups",
+                    ":group_id"
+                  ],
+                  "variable": [
+                    {
+                      "id": "f0276710-1468-4d9b-acda-face41bee372",
+                      "key": "group_id",
+                      "value": "<string>",
+                      "description": "(Required) ID of the target Group."
+                    }
+                  ]
+                },
+                "description": "Deletes the group specified by Group ID."
+              },
+              "response": [
+                {
+                  "id": "ea87beec-3af7-4c94-835b-39811abfaabb",
+                  "name": "Deletion of specified group complete.",
+                  "originalRequest": {
+                    "method": "DELETE",
+                    "header": [
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "X-Soracom-API-Key",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/groups/:group_id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "groups",
+                        ":group_id"
+                      ],
+                      "variable": [
+                        {
+                          "key": "group_id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "No Content",
+                  "code": 204,
+                  "_postman_previewlanguage": "text",
+                  "header": [],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-06-05T15:18:27.000Z",
+                  "updatedAt": "2026-06-05T15:18:27.000Z",
+                  "uid": "35240-ea87beec-3af7-4c94-835b-39811abfaabb"
+                },
+                {
+                  "id": "895d2d27-dc89-4fcf-b008-c61e71b3902d",
+                  "name": "The specified group does not exist.",
+                  "originalRequest": {
+                    "method": "DELETE",
+                    "header": [
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "X-Soracom-API-Key",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/groups/:group_id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "groups",
+                        ":group_id"
+                      ],
+                      "variable": [
+                        {
+                          "key": "group_id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Not Found",
+                  "code": 404,
+                  "_postman_previewlanguage": "text",
+                  "header": [],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-06-05T15:18:27.000Z",
+                  "updatedAt": "2026-06-05T15:18:27.000Z",
+                  "uid": "35240-895d2d27-dc89-4fcf-b008-c61e71b3902d"
+                }
+              ],
+              "createdAt": "2026-06-05T15:18:27.000Z",
+              "updatedAt": "2026-06-05T15:18:27.000Z",
+              "uid": "35240-37736fae-ae86-4696-bf41-70ef7710ba55"
+            },
+            {
+              "name": "Get Group",
+              "id": "13a1ae37-ce65-4c05-9374-074814180ccd",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "auth": {
+                  "type": "apikey",
+                  "apikey": [
+                    {
+                      "key": "key",
+                      "value": "X-Soracom-API-Key",
+                      "type": "string"
+                    },
+                    {
+                      "key": "value",
+                      "value": "{{apiKey}}",
+                      "type": "string"
+                    },
+                    {
+                      "key": "in",
+                      "value": "header",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/groups/:group_id",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "groups",
+                    ":group_id"
+                  ],
+                  "variable": [
+                    {
+                      "id": "66b026fe-ddee-46a7-9d6b-fd9c2f2949ef",
+                      "key": "group_id",
+                      "value": "<string>",
+                      "description": "(Required) ID of the target Group."
+                    }
+                  ]
+                },
+                "description": "Returns the group specified by the group ID."
+              },
+              "response": [
+                {
+                  "id": "29479c4e-db4e-44e0-8aad-48c2bf691dec",
+                  "name": "Specified Group.",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "X-Soracom-API-Key",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/groups/:group_id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "groups",
+                        ":group_id"
+                      ],
+                      "variable": [
+                        {
+                          "key": "group_id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"configuration\": {\n    \"amet_3b\": {},\n    \"labore16\": {}\n  },\n  \"createdTime\": \"<long>\",\n  \"groupId\": \"<string>\",\n  \"lastModifiedTime\": \"<long>\",\n  \"operatorId\": \"<string>\",\n  \"tags\": {\n    \"officia_3\": \"<string>\",\n    \"dolore_a6c\": \"<string>\",\n    \"Ut_8\": \"<string>\"\n  }\n}",
+                  "createdAt": "2026-06-05T15:18:27.000Z",
+                  "updatedAt": "2026-06-05T15:18:27.000Z",
+                  "uid": "35240-29479c4e-db4e-44e0-8aad-48c2bf691dec"
+                },
+                {
+                  "id": "275736b0-9057-41c7-890f-efdf88ead335",
+                  "name": "The specified group does not exist.",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "X-Soracom-API-Key",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/groups/:group_id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "groups",
+                        ":group_id"
+                      ],
+                      "variable": [
+                        {
+                          "key": "group_id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Not Found",
+                  "code": 404,
+                  "_postman_previewlanguage": "text",
+                  "header": [],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-06-05T15:18:27.000Z",
+                  "updatedAt": "2026-06-05T15:18:27.000Z",
+                  "uid": "35240-275736b0-9057-41c7-890f-efdf88ead335"
+                }
+              ],
+              "createdAt": "2026-06-05T15:18:27.000Z",
+              "updatedAt": "2026-06-05T15:18:27.000Z",
+              "uid": "35240-13a1ae37-ce65-4c05-9374-074814180ccd"
+            }
+          ],
+          "id": "d9c6a053-4050-4e7c-a5c8-cddb881cd4b2",
+          "createdAt": "2026-06-05T15:18:27.000Z",
+          "updatedAt": "2026-06-05T15:18:27.000Z",
+          "uid": "35240-d9c6a053-4050-4e7c-a5c8-cddb881cd4b2"
+        },
+        {
+          "name": "List Groups.",
+          "id": "13656d1d-8918-442b-b18b-0ad9292a1f4d",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-Soracom-API-Key",
+                  "type": "string"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}",
+                  "type": "string"
+                },
+                {
+                  "key": "in",
+                  "value": "header",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/groups?tag_name=<string>&tag_value=<string>&tag_value_match_mode=exact&limit=<integer>&last_evaluated_key=<string>",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "groups"
+              ],
+              "query": [
+                {
+                  "description": "Tag name of the group. Filters through all groups that exactly match the tag name. When tag_name is specified, tag_value is required.",
+                  "key": "tag_name",
+                  "value": "<string>"
+                },
+                {
+                  "description": "Tag value of the groups.",
+                  "key": "tag_value",
+                  "value": "<string>"
+                },
+                {
+                  "description": "Search criteria for tag strings (`tag_value`).",
+                  "key": "tag_value_match_mode",
+                  "value": "exact"
+                },
+                {
+                  "description": "Maximum number of results per response page.",
+                  "key": "limit",
+                  "value": "<integer>"
+                },
+                {
+                  "description": "The last Group ID retrieved on the current page. By specifying this parameter, you can continue to retrieve the list from the next group onward.",
+                  "key": "last_evaluated_key",
+                  "value": "<string>"
+                }
+              ]
+            },
+            "description": "Returns a list of Groups."
+          },
+          "response": [
+            {
+              "id": "e995c057-b87b-4bdf-a7e1-bdbb14e1dd16",
+              "name": "A list of groups.",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: apikey",
+                    "key": "X-Soracom-API-Key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/groups?tag_name=<string>&tag_value=<string>&tag_value_match_mode=exact&limit=<integer>&last_evaluated_key=<string>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "groups"
+                  ],
+                  "query": [
+                    {
+                      "description": "Tag name of the group. Filters through all groups that exactly match the tag name. When tag_name is specified, tag_value is required.",
+                      "key": "tag_name",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Tag value of the groups.",
+                      "key": "tag_value",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Search criteria for tag strings (`tag_value`).",
+                      "key": "tag_value_match_mode",
+                      "value": "exact"
+                    },
+                    {
+                      "description": "Maximum number of results per response page.",
+                      "key": "limit",
+                      "value": "<integer>"
+                    },
+                    {
+                      "description": "The last Group ID retrieved on the current page. By specifying this parameter, you can continue to retrieve the list from the next group onward.",
+                      "key": "last_evaluated_key",
+                      "value": "<string>"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "[\n  {\n    \"configuration\": {\n      \"incididunt_a\": {}\n    },\n    \"createdTime\": \"<long>\",\n    \"groupId\": \"<string>\",\n    \"lastModifiedTime\": \"<long>\",\n    \"operatorId\": \"<string>\",\n    \"tags\": {\n      \"consequat_af1\": \"<string>\",\n      \"minim_983\": \"<string>\"\n    }\n  },\n  {\n    \"configuration\": {\n      \"mollit_e_4\": {},\n      \"enim_9\": {}\n    },\n    \"createdTime\": \"<long>\",\n    \"groupId\": \"<string>\",\n    \"lastModifiedTime\": \"<long>\",\n    \"operatorId\": \"<string>\",\n    \"tags\": {\n      \"sit1b\": \"<string>\"\n    }\n  }\n]",
+              "createdAt": "2026-06-05T15:18:27.000Z",
+              "updatedAt": "2026-06-05T15:18:27.000Z",
+              "uid": "35240-e995c057-b87b-4bdf-a7e1-bdbb14e1dd16"
+            }
+          ],
+          "createdAt": "2026-06-05T15:18:27.000Z",
+          "updatedAt": "2026-06-05T15:18:27.000Z",
+          "uid": "35240-13656d1d-8918-442b-b18b-0ad9292a1f4d"
+        },
+        {
+          "name": "Create Group",
+          "id": "22eb142b-560c-4eeb-a735-e8579ae0c2bc",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-Soracom-API-Key",
+                  "type": "string"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}",
+                  "type": "string"
+                },
+                {
+                  "key": "in",
+                  "value": "header",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"configuration\": {\n    \"ad_084\": {}\n  },\n  \"tags\": {\n    \"dolore_6\": \"<string>\",\n    \"estd9b\": \"<string>\"\n  }\n}",
+              "options": {
+                "raw": {
+                  "headerFamily": "json",
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/groups",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "groups"
+              ]
+            },
+            "description": "Create a new group."
+          },
+          "response": [
+            {
+              "id": "256b930b-758d-466c-a722-ba8e7011a3c5",
+              "name": "Created.",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: apikey",
+                    "key": "X-Soracom-API-Key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"configuration\": {\n    \"ad_084\": {}\n  },\n  \"tags\": {\n    \"dolore_6\": \"<string>\",\n    \"estd9b\": \"<string>\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/groups",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "groups"
+                  ]
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"configuration\": {\n    \"amet_3b\": {},\n    \"labore16\": {}\n  },\n  \"createdTime\": \"<long>\",\n  \"groupId\": \"<string>\",\n  \"lastModifiedTime\": \"<long>\",\n  \"operatorId\": \"<string>\",\n  \"tags\": {\n    \"officia_3\": \"<string>\",\n    \"dolore_a6c\": \"<string>\",\n    \"Ut_8\": \"<string>\"\n  }\n}",
+              "createdAt": "2026-06-05T15:18:27.000Z",
+              "updatedAt": "2026-06-05T15:18:27.000Z",
+              "uid": "35240-256b930b-758d-466c-a722-ba8e7011a3c5"
+            }
+          ],
+          "createdAt": "2026-06-05T15:18:27.000Z",
+          "updatedAt": "2026-06-05T15:18:27.000Z",
+          "uid": "35240-22eb142b-560c-4eeb-a735-e8579ae0c2bc"
+        }
+      ],
+      "id": "da9319f3-dcb1-44d3-8d8a-1cb2ec424067",
+      "createdAt": "2026-06-05T15:18:27.000Z",
+      "updatedAt": "2026-06-05T15:18:27.000Z",
+      "uid": "35240-da9319f3-dcb1-44d3-8d8a-1cb2ec424067"
+    }
+  ],
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://api.soracom.io/v1"
+    }
+  ]
+}

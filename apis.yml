@@ -1,667 +1,634 @@
 aid: soracom
 url: https://raw.githubusercontent.com/api-evangelist/soracom/refs/heads/main/apis.yml
 apis:
-- aid: soracom:soracom-sim-api
-  name: Soracom SIM Management API
-  tags:
-  - IoT
-  - Cellular
-  - SIM
-  - Subscriber
-  humanURL: https://users.soracom.io/ja-jp/tools/api/reference/#/Sim
-  baseURL: https://api.soracom.io/v1
-  properties:
-  - url: https://developers.soracom.io/en/docs/air/
-    type: Documentation
-  - url: https://users.soracom.io/ja-jp/tools/api/reference/#/Sim
-    type: Documentation
-  - url: openapi/soracom-sim-api-openapi.yml
-    type: OpenAPI
-  - url: json-schema/soracom-sim-schema.json
-    type: JSONSchema
-  - url: json-structure/soracom-sim-structure.json
-    type: JSONStructure
-  - url: examples/soracom-sim-list-example.json
-    type: Examples
-  - type: NaftikoCapability
-    url: capabilities/sim-management.yaml
-  description: Manage Soracom Air for Cellular SIMs (and Subscribers) — list, get, create Arc virtual SIMs,
-    activate/deactivate/suspend/terminate, set group binding, set IMEI lock, view session events, manage SIM
-    profiles for multi-IMSI eSIM, and read cell-tower location info.
-
-- aid: soracom:soracom-group-api
-  name: Soracom Group Configuration API
-  tags:
-  - IoT
-  - Groups
-  - Configuration
-  humanURL: https://users.soracom.io/ja-jp/tools/api/reference/#/Group
-  baseURL: https://api.soracom.io/v1
-  properties:
-  - url: https://developers.soracom.io/en/docs/group-configuration/
-    type: Documentation
-  - url: openapi/soracom-group-api-openapi.yml
-    type: OpenAPI
-  - url: json-schema/soracom-group-schema.json
-    type: JSONSchema
-  - type: NaftikoCapability
-    url: capabilities/group-configuration.yaml
-  description: Manage Soracom groups and per-service configuration. Groups bind SIMs and devices to
-    namespaced configuration for SoracomAir, SoracomBeam, SoracomFunnel, SoracomFunk, SoracomHarvest,
-    SoracomJunction, SoracomOrbit, and metadata services.
-
-- aid: soracom:soracom-harvest-api
-  name: Soracom Harvest API
-  tags:
-  - IoT
-  - Harvest
-  - Data
-  - Telemetry
-  - Files
-  humanURL: https://users.soracom.io/ja-jp/tools/api/reference/#/DataEntry
-  baseURL: https://api.soracom.io/v1
-  properties:
-  - url: https://developers.soracom.io/en/docs/harvest/
-    type: Documentation
-  - url: openapi/soracom-harvest-api-openapi.yml
-    type: OpenAPI
-  - url: json-schema/soracom-data-entry-schema.json
-    type: JSONSchema
-  - url: examples/soracom-harvest-data-example.json
-    type: Examples
-  - type: NaftikoCapability
-    url: capabilities/harvest-data.yaml
-  description: Soracom Harvest is a managed time-series and file store for IoT device payloads. The API
-    retrieves data entries by Subscriber/Device/SigfoxDevice/LoraDevice, lists indexed resources, and
-    uploads/downloads binary Harvest Files.
-
-- aid: soracom:soracom-inventory-api
-  name: Soracom Inventory API
-  tags:
-  - IoT
-  - LwM2M
-  - Devices
-  - Inventory
-  humanURL: https://users.soracom.io/ja-jp/tools/api/reference/#/Device
-  baseURL: https://api.soracom.io/v1
-  properties:
-  - url: https://developers.soracom.io/en/docs/inventory/
-    type: Documentation
-  - url: openapi/soracom-inventory-api-openapi.yml
-    type: OpenAPI
-  - url: json-schema/soracom-device-schema.json
-    type: JSONSchema
-  - url: json-structure/soracom-device-structure.json
-    type: JSONStructure
-  - type: NaftikoCapability
-    url: capabilities/inventory-devices.yaml
-  description: Soracom Inventory provides LwM2M-based registration, object models, resource read/write,
-    observe/notify subscriptions, and remote execution against IoT devices.
-
-- aid: soracom:soracom-napter-api
-  name: Soracom Napter API
-  tags:
-  - IoT
-  - Remote Access
-  - Napter
-  - Security
-  humanURL: https://users.soracom.io/ja-jp/tools/api/reference/#/PortMapping
-  baseURL: https://api.soracom.io/v1
-  properties:
-  - url: https://developers.soracom.io/en/docs/napter/
-    type: Documentation
-  - url: openapi/soracom-napter-api-openapi.yml
-    type: OpenAPI
-  - url: json-schema/soracom-port-mapping-schema.json
-    type: JSONSchema
-  - url: examples/soracom-napter-create-example.json
-    type: Examples
-  - type: NaftikoCapability
-    url: capabilities/napter-portmappings.yaml
-  description: Soracom Napter creates on-demand TCP port mappings (with optional TLS) that allow a defined
-    source CIDR to reach a SIM-attached device's TCP port for SSH, HTTP(S), VNC, or RDP-style remote access,
-    auditable in audit_logs/napter.
-
-- aid: soracom:soracom-event-handler-api
-  name: Soracom Event Handler API
-  tags:
-  - IoT
-  - Automation
-  - Event Handler
-  - Soralet
-  - Credentials
-  humanURL: https://users.soracom.io/ja-jp/tools/api/reference/#/EventHandler
-  baseURL: https://api.soracom.io/v1
-  properties:
-  - url: https://developers.soracom.io/en/docs/event-handler/
-    type: Documentation
-  - url: openapi/soracom-event-handler-api-openapi.yml
-    type: OpenAPI
-  - type: NaftikoCapability
-    url: capabilities/event-handler.yaml
-  description: Configure event handlers (rules + actions) on SIM, data, and billing events; manage the
-    Credentials Store; and deploy Orbit Soralets (WebAssembly inline payload transforms).
-
-- aid: soracom:soracom-vpg-api
-  name: Soracom Virtual Private Gateway API
-  tags:
-  - IoT
-  - Networking
-  - VPG
-  - Canal
-  - Door
-  - Gate
-  - Junction
-  - Peek
-  humanURL: https://users.soracom.io/ja-jp/tools/api/reference/#/VirtualPrivateGateway
-  baseURL: https://api.soracom.io/v1
-  properties:
-  - url: https://developers.soracom.io/en/docs/vpg/
-    type: Documentation
-  - url: openapi/soracom-vpg-api-openapi.yml
-    type: OpenAPI
-  - type: NaftikoCapability
-    url: capabilities/vpg-management.yaml
-  description: Provision and manage Soracom Virtual Private Gateways (VPG) including Canal (AWS VPC peering),
-    Direct (AWS Direct Connect), Door (IPSec VPN), Gate (reverse-NAT), Junction (packet rules), and Peek
-    (packet capture).
-
-- aid: soracom:soracom-billing-api
-  name: Soracom Billing API
-  tags:
-  - IoT
-  - Billing
-  - FinOps
-  - Payment
-  - Coupons
-  - Orders
-  humanURL: https://users.soracom.io/ja-jp/tools/api/reference/#/Billing
-  baseURL: https://api.soracom.io/v1
-  properties:
-  - url: https://developers.soracom.io/en/docs/reference/fees/
-    type: Documentation
-  - url: openapi/soracom-billing-api-openapi.yml
-    type: OpenAPI
-  - url: examples/soracom-bill-latest-example.json
-    type: Examples
-  - type: NaftikoCapability
-    url: capabilities/billing.yaml
-  description: Retrieve usage charges (monthly bills, daily bill items, per-SIM and per-bill-item
-    summaries), export bills to CSV, manage payment methods, register coupons, manage orders, and configure
-    shipping addresses.
-
-- aid: soracom:soracom-stats-api
-  name: Soracom Stats and Diagnostics API
-  tags:
-  - IoT
-  - Stats
-  - Audit
-  - Diagnostics
-  - Observability
-  humanURL: https://users.soracom.io/ja-jp/tools/api/reference/#/Stats
-  baseURL: https://api.soracom.io/v1
-  properties:
-  - url: https://developers.soracom.io/en/docs/air/view-data-usage/
-    type: Documentation
-  - url: openapi/soracom-stats-api-openapi.yml
-    type: OpenAPI
-  - type: NaftikoCapability
-    url: capabilities/stats-diagnostics.yaml
-  description: Retrieve cellular data usage statistics (per SIM/subscriber/group/account), API and Napter
-    audit logs, operator error logs, and diagnostic features.
-
-- aid: soracom:soracom-auth-api
-  name: Soracom Auth and Access Management API
-  tags:
-  - IoT
-  - Auth
-  - SAM
-  - Access Management
-  - MFA
-  - Users
-  - Roles
-  humanURL: https://users.soracom.io/ja-jp/tools/api/reference/#/Auth
-  baseURL: https://api.soracom.io/v1
-  properties:
-  - url: https://developers.soracom.io/en/tools/api/key-and-token/
-    type: Documentation
-  - url: https://developers.soracom.io/en/docs/sam/
-    type: Documentation
-  - url: openapi/soracom-auth-api-openapi.yml
-    type: OpenAPI
-  - url: examples/soracom-auth-example.json
-    type: Examples
-  - type: NaftikoCapability
-    url: capabilities/auth-access.yaml
-  description: Authenticate operators (email/password or AuthKey), issue short-lived API Keys + Tokens,
-    manage operator profile, SAM (Soracom Access Management) users and roles, MFA settings, registered
-    email addresses, switch-user (cross-operator) flows, and system notifications.
-
-- aid: soracom:soracom-analysis-query-api
-  name: Soracom Analysis and Query API
-  tags:
-  - IoT
-  - Query
-  - Analysis
-  - SQL
-  - Search
-  humanURL: https://users.soracom.io/ja-jp/tools/api/reference/#/Analysis
-  baseURL: https://api.soracom.io/v1
-  properties:
-  - url: https://developers.soracom.io/en/docs/query/
-    type: Documentation
-  - url: openapi/soracom-analysis-query-api-openapi.yml
-    type: OpenAPI
-  - type: NaftikoCapability
-    url: capabilities/analysis-query.yaml
-  description: Asynchronous SQL query execution over Soracom Query tables (SIM_SESSION_EVENTS,
-    SIM_LOCATIONS, BILLING, and more) and search across SIMs, Inventory devices, and Sigfox devices.
-
-- aid: soracom:soracom-lagoon-api
-  name: Soracom Lagoon API
-  tags:
-  - IoT
-  - Lagoon
-  - Dashboards
-  - Visualization
-  humanURL: https://users.soracom.io/ja-jp/tools/api/reference/#/Lagoon
-  baseURL: https://api.soracom.io/v1
-  properties:
-  - url: https://developers.soracom.io/en/docs/lagoon-v3/
-    type: Documentation
-  - url: openapi/soracom-lagoon-api-openapi.yml
-    type: OpenAPI
-  - type: NaftikoCapability
-    url: capabilities/lagoon-dashboards.yaml
-  description: Manage Soracom Lagoon (managed Grafana) subscription, plan tier, organization, dashboards,
-    users, licenses, and data sources.
-
-- aid: soracom:soracom-lorawan-api
-  name: Soracom Air for LoRaWAN API
-  tags:
-  - IoT
-  - LoRaWAN
-  - LPWAN
-  - Devices
-  - Gateways
-  humanURL: https://users.soracom.io/ja-jp/tools/api/reference/#/LoraDevice
-  baseURL: https://api.soracom.io/v1
-  properties:
-  - url: https://developers.soracom.io/en/docs/air-for-lorawan/
-    type: Documentation
-  - url: openapi/soracom-lorawan-api-openapi.yml
-    type: OpenAPI
-  - type: NaftikoCapability
-    url: capabilities/lorawan-devices.yaml
-  description: Manage Soracom Air for LoRaWAN — devices, gateways, network sets, session keys, and group
-    binding for LoRaWAN deployments.
-
-- aid: soracom:soracom-sigfox-api
-  name: Soracom Air for Sigfox API
-  tags:
-  - IoT
-  - Sigfox
-  - LPWAN
-  - Devices
-  humanURL: https://users.soracom.io/ja-jp/tools/api/reference/#/SigfoxDevice
-  baseURL: https://api.soracom.io/v1
-  properties:
-  - url: https://developers.soracom.io/en/docs/air-for-sigfox/
-    type: Documentation
-  - url: openapi/soracom-sigfox-api-openapi.yml
-    type: OpenAPI
-  - type: NaftikoCapability
-    url: capabilities/sigfox-devices.yaml
-  description: Manage Soracom Air for Sigfox devices.
-
-- aid: soracom:soracom-soracam-api
-  name: Soracom Cloud Camera Services API
-  tags:
-  - IoT
-  - SoraCam
-  - Camera
-  - Video
-  humanURL: https://users.soracom.io/ja-jp/tools/api/reference/#/SoraCam
-  baseURL: https://api.soracom.io/v1
-  properties:
-  - url: https://developers.soracom.io/en/guides/soracom-cloud-camera-services/
-    type: Documentation
-  - url: openapi/soracom-soracam-api-openapi.yml
-    type: OpenAPI
-  - type: NaftikoCapability
-    url: capabilities/soracam.yaml
-  description: Manage Soracom Cloud Camera Services (SoraCam) devices, livestream URLs, image exports,
-    recording exports, motion events, atomic timestamps, and dedicated cellular pack provisioning.
-
-- aid: soracom:soracom-batch-api
-  name: Soracom Batch API
-  tags:
-  - IoT
-  - Batch
-  - Automation
-  humanURL: https://users.soracom.io/ja-jp/tools/api/reference/#/Batch
-  baseURL: https://api.soracom.io/v1
-  properties:
-  - url: openapi/soracom-batch-api-openapi.yml
-    type: OpenAPI
-  - type: NaftikoCapability
-    url: capabilities/batch-jobs.yaml
-  description: Batch processing — create batch groups, define jobs that invoke API operations across many
-    SIMs or devices, and inspect tasks for status and results.
-
-- aid: soracom:soracom-platform-api
-  name: Soracom Platform API (Aggregate)
-  tags:
-  - IoT
-  - Platform
-  - Aggregate
-  humanURL: https://users.soracom.io/ja-jp/tools/api/reference/
-  baseURL: https://api.soracom.io/v1
-  properties:
-  - url: https://users.soracom.io/ja-jp/tools/api/reference/
-    type: Documentation
-  - url: openapi/soracom-platform-api-openapi.yml
-    type: OpenAPI
-  - url: json-ld/soracom-context.jsonld
-    type: JSONLD
-  description: The full monolithic Soracom Platform OpenAPI spec — 487 operations across 40 tags covering
-    every Soracom service surface (Sim, Subscriber, Group, Harvest, Inventory, Napter, EventHandler, VPG,
-    Billing, Auth, Query, Lagoon, LoRaWAN, Sigfox, SoraCam, Batch). Source of truth maintained in the
-    soracom-cli repo.
-
-- aid: soracom:soracom-sandbox-api
-  name: Soracom Sandbox API
-  tags:
-  - IoT
-  - Sandbox
-  - Testing
-  humanURL: https://users.soracom.io/ja-jp/tools/api/sandbox/
-  baseURL: https://api-sandbox.soracom.io/v1
-  properties:
-  - url: openapi/soracom-sandbox-api-openapi.yml
-    type: OpenAPI
-  description: Soracom Sandbox API for safely exercising platform workflows. Lets developers create test
-    coupons, fake SIMs, and dummy subscriber records, then run normal API calls against the sandbox
-    endpoint without billing.
-
+  - aid: soracom:soracom-sim-api
+    name: Soracom SIM Management API
+    tags:
+      - IoT
+      - Cellular
+      - SIM
+      - Subscriber
+    humanURL: https://users.soracom.io/ja-jp/tools/api/reference/#/Sim
+    baseURL: https://api.soracom.io/v1
+    properties:
+      - url: https://developers.soracom.io/en/docs/air/
+        type: Documentation
+      - url: https://users.soracom.io/ja-jp/tools/api/reference/#/Sim
+        type: Documentation
+      - url: openapi/soracom-sim-api-openapi.yml
+        type: OpenAPI
+      - url: json-schema/soracom-sim-schema.json
+        type: JSONSchema
+      - url: json-structure/soracom-sim-structure.json
+        type: JSONStructure
+      - url: examples/soracom-sim-list-example.json
+        type: Examples
+    description: >-
+      Manage Soracom Air for Cellular SIMs (and Subscribers) — list, get, create Arc virtual SIMs,
+      activate/deactivate/suspend/terminate, set group binding, set IMEI lock, view session events, manage SIM profiles
+      for multi-IMSI eSIM, and read cell-tower location info.
+  - aid: soracom:soracom-group-api
+    name: Soracom Group Configuration API
+    tags:
+      - IoT
+      - Groups
+      - Configuration
+    humanURL: https://users.soracom.io/ja-jp/tools/api/reference/#/Group
+    baseURL: https://api.soracom.io/v1
+    properties:
+      - url: https://developers.soracom.io/en/docs/group-configuration/
+        type: Documentation
+      - url: openapi/soracom-group-api-openapi.yml
+        type: OpenAPI
+      - url: json-schema/soracom-group-schema.json
+        type: JSONSchema
+    description: >-
+      Manage Soracom groups and per-service configuration. Groups bind SIMs and devices to namespaced configuration for
+      SoracomAir, SoracomBeam, SoracomFunnel, SoracomFunk, SoracomHarvest, SoracomJunction, SoracomOrbit, and metadata
+      services.
+  - aid: soracom:soracom-harvest-api
+    name: Soracom Harvest API
+    tags:
+      - IoT
+      - Harvest
+      - Data
+      - Telemetry
+      - Files
+    humanURL: https://users.soracom.io/ja-jp/tools/api/reference/#/DataEntry
+    baseURL: https://api.soracom.io/v1
+    properties:
+      - url: https://developers.soracom.io/en/docs/harvest/
+        type: Documentation
+      - url: openapi/soracom-harvest-api-openapi.yml
+        type: OpenAPI
+      - url: json-schema/soracom-data-entry-schema.json
+        type: JSONSchema
+      - url: examples/soracom-harvest-data-example.json
+        type: Examples
+    description: >-
+      Soracom Harvest is a managed time-series and file store for IoT device payloads. The API retrieves data entries by
+      Subscriber/Device/SigfoxDevice/LoraDevice, lists indexed resources, and uploads/downloads binary Harvest Files.
+  - aid: soracom:soracom-inventory-api
+    name: Soracom Inventory API
+    tags:
+      - IoT
+      - LwM2M
+      - Devices
+      - Inventory
+    humanURL: https://users.soracom.io/ja-jp/tools/api/reference/#/Device
+    baseURL: https://api.soracom.io/v1
+    properties:
+      - url: https://developers.soracom.io/en/docs/inventory/
+        type: Documentation
+      - url: openapi/soracom-inventory-api-openapi.yml
+        type: OpenAPI
+      - url: json-schema/soracom-device-schema.json
+        type: JSONSchema
+      - url: json-structure/soracom-device-structure.json
+        type: JSONStructure
+    description: >-
+      Soracom Inventory provides LwM2M-based registration, object models, resource read/write, observe/notify
+      subscriptions, and remote execution against IoT devices.
+  - aid: soracom:soracom-napter-api
+    name: Soracom Napter API
+    tags:
+      - IoT
+      - Remote Access
+      - Napter
+      - Security
+    humanURL: https://users.soracom.io/ja-jp/tools/api/reference/#/PortMapping
+    baseURL: https://api.soracom.io/v1
+    properties:
+      - url: https://developers.soracom.io/en/docs/napter/
+        type: Documentation
+      - url: openapi/soracom-napter-api-openapi.yml
+        type: OpenAPI
+      - url: json-schema/soracom-port-mapping-schema.json
+        type: JSONSchema
+      - url: examples/soracom-napter-create-example.json
+        type: Examples
+    description: >-
+      Soracom Napter creates on-demand TCP port mappings (with optional TLS) that allow a defined source CIDR to reach a
+      SIM-attached device's TCP port for SSH, HTTP(S), VNC, or RDP-style remote access, auditable in audit_logs/napter.
+  - aid: soracom:soracom-event-handler-api
+    name: Soracom Event Handler API
+    tags:
+      - IoT
+      - Automation
+      - Event Handler
+      - Soralet
+      - Credentials
+    humanURL: https://users.soracom.io/ja-jp/tools/api/reference/#/EventHandler
+    baseURL: https://api.soracom.io/v1
+    properties:
+      - url: https://developers.soracom.io/en/docs/event-handler/
+        type: Documentation
+      - url: openapi/soracom-event-handler-api-openapi.yml
+        type: OpenAPI
+    description: >-
+      Configure event handlers (rules + actions) on SIM, data, and billing events; manage the Credentials Store; and
+      deploy Orbit Soralets (WebAssembly inline payload transforms).
+  - aid: soracom:soracom-vpg-api
+    name: Soracom Virtual Private Gateway API
+    tags:
+      - IoT
+      - Networking
+      - VPG
+      - Canal
+      - Door
+      - Gate
+      - Junction
+      - Peek
+    humanURL: https://users.soracom.io/ja-jp/tools/api/reference/#/VirtualPrivateGateway
+    baseURL: https://api.soracom.io/v1
+    properties:
+      - url: https://developers.soracom.io/en/docs/vpg/
+        type: Documentation
+      - url: openapi/soracom-vpg-api-openapi.yml
+        type: OpenAPI
+    description: >-
+      Provision and manage Soracom Virtual Private Gateways (VPG) including Canal (AWS VPC peering), Direct (AWS Direct
+      Connect), Door (IPSec VPN), Gate (reverse-NAT), Junction (packet rules), and Peek (packet capture).
+  - aid: soracom:soracom-billing-api
+    name: Soracom Billing API
+    tags:
+      - IoT
+      - Billing
+      - FinOps
+      - Payment
+      - Coupons
+      - Orders
+    humanURL: https://users.soracom.io/ja-jp/tools/api/reference/#/Billing
+    baseURL: https://api.soracom.io/v1
+    properties:
+      - url: https://developers.soracom.io/en/docs/reference/fees/
+        type: Documentation
+      - url: openapi/soracom-billing-api-openapi.yml
+        type: OpenAPI
+      - url: examples/soracom-bill-latest-example.json
+        type: Examples
+    description: >-
+      Retrieve usage charges (monthly bills, daily bill items, per-SIM and per-bill-item summaries), export bills to
+      CSV, manage payment methods, register coupons, manage orders, and configure shipping addresses.
+  - aid: soracom:soracom-stats-api
+    name: Soracom Stats and Diagnostics API
+    tags:
+      - IoT
+      - Stats
+      - Audit
+      - Diagnostics
+      - Observability
+    humanURL: https://users.soracom.io/ja-jp/tools/api/reference/#/Stats
+    baseURL: https://api.soracom.io/v1
+    properties:
+      - url: https://developers.soracom.io/en/docs/air/view-data-usage/
+        type: Documentation
+      - url: openapi/soracom-stats-api-openapi.yml
+        type: OpenAPI
+    description: >-
+      Retrieve cellular data usage statistics (per SIM/subscriber/group/account), API and Napter audit logs, operator
+      error logs, and diagnostic features.
+  - aid: soracom:soracom-auth-api
+    name: Soracom Auth and Access Management API
+    tags:
+      - IoT
+      - Auth
+      - SAM
+      - Access Management
+      - MFA
+      - Users
+      - Roles
+    humanURL: https://users.soracom.io/ja-jp/tools/api/reference/#/Auth
+    baseURL: https://api.soracom.io/v1
+    properties:
+      - url: https://developers.soracom.io/en/tools/api/key-and-token/
+        type: Documentation
+      - url: https://developers.soracom.io/en/docs/sam/
+        type: Documentation
+      - url: openapi/soracom-auth-api-openapi.yml
+        type: OpenAPI
+      - url: examples/soracom-auth-example.json
+        type: Examples
+    description: >-
+      Authenticate operators (email/password or AuthKey), issue short-lived API Keys + Tokens, manage operator profile,
+      SAM (Soracom Access Management) users and roles, MFA settings, registered email addresses, switch-user
+      (cross-operator) flows, and system notifications.
+  - aid: soracom:soracom-analysis-query-api
+    name: Soracom Analysis and Query API
+    tags:
+      - IoT
+      - Query
+      - Analysis
+      - SQL
+      - Search
+    humanURL: https://users.soracom.io/ja-jp/tools/api/reference/#/Analysis
+    baseURL: https://api.soracom.io/v1
+    properties:
+      - url: https://developers.soracom.io/en/docs/query/
+        type: Documentation
+      - url: openapi/soracom-analysis-query-api-openapi.yml
+        type: OpenAPI
+    description: >-
+      Asynchronous SQL query execution over Soracom Query tables (SIM_SESSION_EVENTS, SIM_LOCATIONS, BILLING, and more)
+      and search across SIMs, Inventory devices, and Sigfox devices.
+  - aid: soracom:soracom-lagoon-api
+    name: Soracom Lagoon API
+    tags:
+      - IoT
+      - Lagoon
+      - Dashboards
+      - Visualization
+    humanURL: https://users.soracom.io/ja-jp/tools/api/reference/#/Lagoon
+    baseURL: https://api.soracom.io/v1
+    properties:
+      - url: https://developers.soracom.io/en/docs/lagoon-v3/
+        type: Documentation
+      - url: openapi/soracom-lagoon-api-openapi.yml
+        type: OpenAPI
+    description: >-
+      Manage Soracom Lagoon (managed Grafana) subscription, plan tier, organization, dashboards, users, licenses, and
+      data sources.
+  - aid: soracom:soracom-lorawan-api
+    name: Soracom Air for LoRaWAN API
+    tags:
+      - IoT
+      - LoRaWAN
+      - LPWAN
+      - Devices
+      - Gateways
+    humanURL: https://users.soracom.io/ja-jp/tools/api/reference/#/LoraDevice
+    baseURL: https://api.soracom.io/v1
+    properties:
+      - url: https://developers.soracom.io/en/docs/air-for-lorawan/
+        type: Documentation
+      - url: openapi/soracom-lorawan-api-openapi.yml
+        type: OpenAPI
+    description: >-
+      Manage Soracom Air for LoRaWAN — devices, gateways, network sets, session keys, and group binding for LoRaWAN
+      deployments.
+  - aid: soracom:soracom-sigfox-api
+    name: Soracom Air for Sigfox API
+    tags:
+      - IoT
+      - Sigfox
+      - LPWAN
+      - Devices
+    humanURL: https://users.soracom.io/ja-jp/tools/api/reference/#/SigfoxDevice
+    baseURL: https://api.soracom.io/v1
+    properties:
+      - url: https://developers.soracom.io/en/docs/air-for-sigfox/
+        type: Documentation
+      - url: openapi/soracom-sigfox-api-openapi.yml
+        type: OpenAPI
+    description: Manage Soracom Air for Sigfox devices.
+  - aid: soracom:soracom-soracam-api
+    name: Soracom Cloud Camera Services API
+    tags:
+      - IoT
+      - SoraCam
+      - Camera
+      - Video
+    humanURL: https://users.soracom.io/ja-jp/tools/api/reference/#/SoraCam
+    baseURL: https://api.soracom.io/v1
+    properties:
+      - url: https://developers.soracom.io/en/guides/soracom-cloud-camera-services/
+        type: Documentation
+      - url: openapi/soracom-soracam-api-openapi.yml
+        type: OpenAPI
+    description: >-
+      Manage Soracom Cloud Camera Services (SoraCam) devices, livestream URLs, image exports, recording exports, motion
+      events, atomic timestamps, and dedicated cellular pack provisioning.
+  - aid: soracom:soracom-batch-api
+    name: Soracom Batch API
+    tags:
+      - IoT
+      - Batch
+      - Automation
+    humanURL: https://users.soracom.io/ja-jp/tools/api/reference/#/Batch
+    baseURL: https://api.soracom.io/v1
+    properties:
+      - url: openapi/soracom-batch-api-openapi.yml
+        type: OpenAPI
+    description: >-
+      Batch processing — create batch groups, define jobs that invoke API operations across many SIMs or devices, and
+      inspect tasks for status and results.
+  - aid: soracom:soracom-platform-api
+    name: Soracom Platform API (Aggregate)
+    tags:
+      - IoT
+      - Platform
+      - Aggregate
+    humanURL: https://users.soracom.io/ja-jp/tools/api/reference/
+    baseURL: https://api.soracom.io/v1
+    properties:
+      - url: https://users.soracom.io/ja-jp/tools/api/reference/
+        type: Documentation
+      - url: openapi/soracom-platform-api-openapi.yml
+        type: OpenAPI
+      - url: json-ld/soracom-context.jsonld
+        type: JSONLD
+    description: >-
+      The full monolithic Soracom Platform OpenAPI spec — 487 operations across 40 tags covering every Soracom service
+      surface (Sim, Subscriber, Group, Harvest, Inventory, Napter, EventHandler, VPG, Billing, Auth, Query, Lagoon,
+      LoRaWAN, Sigfox, SoraCam, Batch). Source of truth maintained in the soracom-cli repo.
+  - aid: soracom:soracom-sandbox-api
+    name: Soracom Sandbox API
+    tags:
+      - IoT
+      - Sandbox
+      - Testing
+    humanURL: https://users.soracom.io/ja-jp/tools/api/sandbox/
+    baseURL: https://api-sandbox.soracom.io/v1
+    properties:
+      - url: openapi/soracom-sandbox-api-openapi.yml
+        type: OpenAPI
+    description: >-
+      Soracom Sandbox API for safely exercising platform workflows. Lets developers create test coupons, fake SIMs, and
+      dummy subscriber records, then run normal API calls against the sandbox endpoint without billing.
 name: Soracom
 tags:
-- IoT
-- Cellular
-- LPWAN
-- SIM
-- LoRaWAN
-- Sigfox
-- MVNO
-- Connectivity
-- Edge
-- Japan
+  - IoT
+  - Cellular
+  - LPWAN
+  - SIM
+  - LoRaWAN
+  - Sigfox
+  - MVNO
+  - Connectivity
+  - Edge
+  - Japan
 image: https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
 common:
-- type: ArazzoWorkflows
-  url: arazzo/
-  workflows:
-  - url: arazzo/soracom-audit-sim-session-events-workflow.yml
-    name: Soracom Audit SIM Session Events
-    summary: Confirm a SIM exists, read its current session status, and pull its session event history for an audit window.
-  - url: arazzo/soracom-collect-sim-harvest-data-workflow.yml
-    name: Soracom Collect SIM Harvest Data
-    summary: Confirm a SIM exists, pull its Harvest Data entries, and fall back to the generic Harvest endpoint when empty.
-  - url: arazzo/soracom-create-traffic-event-handler-workflow.yml
-    name: Soracom Create Monthly Traffic Event Handler
-    summary: Create an event handler that caps a group's monthly traffic and notifies the operator, then verify it.
-  - url: arazzo/soracom-deactivate-sim-with-guard-workflow.yml
-    name: Soracom Deactivate IoT SIM with Guard
-    summary: Read a SIM, deactivate it only when it is currently active, then confirm the inactive status.
-  - url: arazzo/soracom-export-monthly-billing-workflow.yml
-    name: Soracom Export Monthly Billing CSV
-    summary: Read a finalized monthly bill, kick off an async detailed-billing CSV export, and poll until the download URL is ready.
-  - url: arazzo/soracom-provision-group-and-attach-sim-workflow.yml
-    name: Soracom Provision Group and Attach SIM
-    summary: Create a SIM group, apply a service configuration, attach an existing SIM, and verify the binding.
-  - url: arazzo/soracom-register-and-activate-sim-workflow.yml
-    name: Soracom Register and Activate IoT SIM
-    summary: Register a physical IoT SIM to the operator, activate it, bind it to a SIM group, and confirm its state.
-  - url: arazzo/soracom-register-and-verify-coupon-workflow.yml
-    name: Soracom Register and Verify Coupon
-    summary: List currently registered coupons, register a new coupon code, then re-list to confirm the credit applied.
-  - url: arazzo/soracom-register-device-to-group-workflow.yml
-    name: Soracom Register Inventory Device to Group
-    summary: Create a Soracom Inventory device, bind it to an Inventory group, and confirm the binding.
-  - url: arazzo/soracom-register-subscriber-to-group-workflow.yml
-    name: Soracom Register Subscriber to Group
-    summary: Register a subscriber by IMSI, activate it, bind it to a group, and confirm its state.
-  - url: arazzo/soracom-send-sms-to-active-sim-workflow.yml
-    name: Soracom Send SMS to Active IoT SIM
-    summary: Look up a SIM, branch on whether it is active, and send a downlink SMS only when it can receive one.
-- type: Portal
-  url: https://www.soracom.io
-- type: Documentation
-  url: https://developers.soracom.io/en/
-- type: Documentation
-  url: https://users.soracom.io/ja-jp/tools/api/reference/
-  name: Interactive API Reference
-- type: GettingStarted
-  url: https://developers.soracom.io/en/start/
-- type: SignUp
-  url: https://console.soracom.io/#/signup
-- type: Login
-  url: https://console.soracom.io
-- type: Pricing
-  url: https://www.soracom.io/pricing/
-- type: Pricing
-  url: https://developers.soracom.io/en/docs/reference/fees/
-  name: Pricing & Fee Schedule
-- type: StatusPage
-  url: https://status.soracom.io/
-- type: Blog
-  url: https://soracom.io/blog/
-- type: ChangeLog
-  url: https://changelog.soracom.io/
-- type: Press
-  url: https://www.soracom.io/press-releases/
-- type: TermsOfService
-  url: https://www.soracom.io/terms_of_service/
-- type: PrivacyPolicy
-  url: https://www.soracom.io/privacy_policy/
-- type: Support
-  url: https://support.soracom.io
-- type: Contact
-  url: https://www.soracom.io/contact/
-- type: Forum
-  url: https://discuss.soracom.io
-- type: Coverage
-  url: https://www.soracom.io/pricing/countries/
-- type: Documentation
-  url: https://developers.soracom.io/en/docs/air/sim-types/
-  name: IoT SIM Types and Plans
-- type: Documentation
-  url: https://developers.soracom.io/en/tools/api/endpoints/
-  name: API Endpoints (Japan vs Global Coverage)
-- type: Documentation
-  url: https://developers.soracom.io/en/tools/api/key-and-token/
-  name: Generate API Key and Token
-- type: Documentation
-  url: https://developers.soracom.io/en/tools/api/how-to-read-api-reference/
-  name: How To Read the API Reference
-- type: GitHubOrganization
-  url: https://github.com/soracom
-- type: GitHubOrganization
-  url: https://github.com/soracom-labs
-  name: Soracom Labs (samples)
-- type: CLI
-  url: https://github.com/soracom/soracom-cli
-  name: soracom CLI
-- type: SDK
-  url: https://github.com/soracom/soracom-sdk-go
-  name: Go SDK
-- type: SDK
-  url: https://github.com/soracom/soracom-sdk-ruby
-  name: Ruby SDK
-- type: SDK
-  url: https://github.com/soracom/soracom-sdk-swift
-  name: Swift SDK (archived)
-- type: SDK
-  url: https://github.com/soracom/soracom-inventory-agent-for-java
-  name: Inventory Agent for Java
-- type: SDK
-  url: https://github.com/soracom/krypton-client-go
-  name: Krypton client (Go)
-- type: SDK
-  url: https://github.com/soracom/endorse-client-go
-  name: Endorse client (Go)
-- type: SDK
-  url: https://github.com/soracom/soracom-krypton-client-for-java
-  name: Krypton client (Java)
-- type: SDK
-  url: https://github.com/soracom/soracom-endorse-client-for-java
-  name: Endorse client (Java)
-- type: Tool
-  url: https://github.com/soracom/soratun
-  name: soratun (Arc client, wireguard-go)
-- type: Tool
-  url: https://github.com/soracom/soraql
-  name: soraql (Soracom Query CLI)
-- type: Tool
-  url: https://github.com/soracom/homebrew-soracom-cli
-  name: Homebrew tap for soracom-cli
-- type: Tool
-  url: https://github.com/soracom/multus-multivpc-cni
-  name: Multus VPC CNI for Amazon EKS
-- type: Tool
-  url: https://github.com/soracom/orbit-sdk-rust
-  name: Orbit SDK (Rust)
-- type: Tool
-  url: https://github.com/soracom/orbit-sdk-tinygo
-  name: Orbit SDK (TinyGo)
-- type: Tool
-  url: https://github.com/soracom/orbit-sdk-c
-  name: Orbit SDK (C)
-- type: Tool
-  url: https://github.com/soracom/orbit-sdk-assemblyscript
-  name: Orbit SDK (AssemblyScript)
-- type: CodeExamples
-  url: https://github.com/soracom/handson
-  name: Hands-on training materials
-- type: Library
-  url: https://github.com/soracom/SORACOM-LoRaWAN
-  name: Arduino library for SORACOM LoRaWAN shield
-- type: Documentation
-  url: https://developers.soracom.io/en/start/
-- type: Documentation
-  url: https://developers.soracom.io/en/docs/air/
-  name: Soracom Air documentation
-- type: Documentation
-  url: https://developers.soracom.io/en/docs/beam/
-  name: Soracom Beam documentation
-- type: Documentation
-  url: https://developers.soracom.io/en/docs/funnel/
-  name: Soracom Funnel documentation
-- type: Documentation
-  url: https://developers.soracom.io/en/docs/funk/
-  name: Soracom Funk documentation
-- type: Documentation
-  url: https://developers.soracom.io/en/docs/harvest/
-  name: Soracom Harvest documentation
-- type: Documentation
-  url: https://developers.soracom.io/en/docs/lagoon-v3/
-  name: Soracom Lagoon documentation
-- type: Documentation
-  url: https://developers.soracom.io/en/docs/inventory/
-  name: Soracom Inventory documentation
-- type: Documentation
-  url: https://developers.soracom.io/en/docs/napter/
-  name: Soracom Napter documentation
-- type: Documentation
-  url: https://developers.soracom.io/en/docs/orbit/
-  name: Soracom Orbit documentation
-- type: Documentation
-  url: https://developers.soracom.io/en/docs/vpg/
-  name: Virtual Private Gateway documentation
-- type: Documentation
-  url: https://developers.soracom.io/en/docs/sam/
-  name: Soracom Access Management (SAM)
-- type: Documentation
-  url: https://developers.soracom.io/en/docs/event-handler/
-  name: Event Handler documentation
-- type: Documentation
-  url: https://developers.soracom.io/en/docs/query/
-  name: Soracom Query documentation
-- type: Documentation
-  url: https://developers.soracom.io/en/docs/credentials-store/
-  name: Credentials Store documentation
-- type: Coverage
-  url: https://developers.soracom.io/en/docs/air/speed-class/
-  name: SIM speed classes
-- type: Plans
-  url: plans/soracom-plans-pricing.yml
-- type: RateLimits
-  url: rate-limits/soracom-rate-limits.yml
-- type: FinOps
-  url: finops/soracom-finops.yml
-- type: Vocabulary
-  url: vocabulary/soracom-vocabulary.yml
-- type: SpectralRules
-  url: rules/soracom-rules.yml
-- type: Features
-  data:
-  - Global multicarrier cellular IoT connectivity spanning 170+ countries on Air for Cellular (plan01s)
-  - Region-specific plans — plan-US, plan-D, plan-K, plan-DU (Japan), planP1 (60+ countries eSIM), planX
-    series, plan-NL1 — for tuned coverage and price
-  - eSIM and iSIM (planP1/planX1/planX2) with multi-IMSI profile management
-  - Soracom Arc — Wireguard-based virtual SIM that joins non-cellular IP devices via soratun
-  - Soracom Air for LoRaWAN and Air for Sigfox — managed LPWAN connectivity
-  - Soracom Beam — cloud proxy for TLS termination and HTTP/MQTT/TCP/UDP/WebSocket protocol conversion
-  - Soracom Funnel — adapter that forwards device payloads to AWS Kinesis/IoT, Azure Event Hubs, GCP
-    Pub/Sub, and more
-  - Soracom Funk — serverless invocation of AWS Lambda / Azure Functions / Google Cloud Functions from
-    device payloads
-  - Soracom Harvest Data — managed time-series store; Harvest Files for binary uploads
-  - Soracom Orbit — inline WebAssembly Soralets that transform device payloads in flight
-  - Soracom Lagoon — managed Grafana-style dashboards (Free / Maker $9.80/mo / Pro $49.80/mo)
-  - Soracom Query — columnar SQL analytics over SIM session, location, and data history
-  - Soracom Napter — on-demand secure remote TCP port mapping into SIM-attached devices
-  - Soracom Inventory — LwM2M device registration, object models, observe/notify, and remote execution
-  - Soracom Endorse — hardware-rooted SIM-based device authentication
-  - Soracom Krypton — credential and certificate provisioning rooted in SIM identity
-  - Virtual Private Gateway (VPG) — Canal (AWS VPC peering), Direct (AWS Direct Connect), Door (IPSec
-    VPN), Gate (reverse-NAT to cloud)
-  - Soracom Junction — Layer-3 packet rule engine (mirror/inspect/redirect) attached to VPG
-  - Soracom Peek — managed packet capture per SIM or per VPG
-  - Soracom Flux — visual workflow automation across Soracom data
-  - Soracom Access Management (SAM) — sub-users, roles, IAM-style policy documents, MFA
-  - Switch-user (cross-operator delegation) for distributors and managed-service providers
-  - Coverage-aware API endpoints — api.soracom.io / jp.api.soracom.io (Japan) and g.api.soracom.io
-    (global)
-  - Soracom Sandbox API at api-sandbox.soracom.io for safe integration testing
-  - Auto-generated soracom CLI built directly from the OpenAPI spec
-  - Official SDKs in Go and Ruby; community SDKs and clients in Java, Swift, JavaScript
-  - Orbit SDKs for Rust, TinyGo, C, and AssemblyScript
-  - Soracom Cloud Camera Services (SoraCam) — managed cameras with livestream, image exports, motion
-    events
-  - Reverse-NAT, IMEI lock, IP whitelisting, and TLS-everywhere posture for industrial IoT
-  - Audit logs for all API calls and all Napter sessions
-  - Direct billing endpoints (/v1/bills) with daily and monthly granularity and CSV export
-  sources:
-  - https://www.soracom.io/
-  - https://developers.soracom.io/en/
-  - https://developers.soracom.io/en/docs/reference/fees/
-  - https://users.soracom.io/ja-jp/tools/api/reference/
-  - https://changelog.soracom.io/
-  updated: '2026-05-25'
+  - type: PostmanWorkspace
+    url: https://www.postman.com/kinlaneapi/soracom/overview
+  - type: ArazzoWorkflows
+    url: arazzo/
+    workflows:
+      - url: arazzo/soracom-audit-sim-session-events-workflow.yml
+        name: Soracom Audit SIM Session Events
+        summary: Confirm a SIM exists, read its current session status, and pull its session event history for an audit window.
+      - url: arazzo/soracom-collect-sim-harvest-data-workflow.yml
+        name: Soracom Collect SIM Harvest Data
+        summary: Confirm a SIM exists, pull its Harvest Data entries, and fall back to the generic Harvest endpoint when empty.
+      - url: arazzo/soracom-create-traffic-event-handler-workflow.yml
+        name: Soracom Create Monthly Traffic Event Handler
+        summary: Create an event handler that caps a group's monthly traffic and notifies the operator, then verify it.
+      - url: arazzo/soracom-deactivate-sim-with-guard-workflow.yml
+        name: Soracom Deactivate IoT SIM with Guard
+        summary: Read a SIM, deactivate it only when it is currently active, then confirm the inactive status.
+      - url: arazzo/soracom-export-monthly-billing-workflow.yml
+        name: Soracom Export Monthly Billing CSV
+        summary: >-
+          Read a finalized monthly bill, kick off an async detailed-billing CSV export, and poll until the download URL
+          is ready.
+      - url: arazzo/soracom-provision-group-and-attach-sim-workflow.yml
+        name: Soracom Provision Group and Attach SIM
+        summary: Create a SIM group, apply a service configuration, attach an existing SIM, and verify the binding.
+      - url: arazzo/soracom-register-and-activate-sim-workflow.yml
+        name: Soracom Register and Activate IoT SIM
+        summary: Register a physical IoT SIM to the operator, activate it, bind it to a SIM group, and confirm its state.
+      - url: arazzo/soracom-register-and-verify-coupon-workflow.yml
+        name: Soracom Register and Verify Coupon
+        summary: List currently registered coupons, register a new coupon code, then re-list to confirm the credit applied.
+      - url: arazzo/soracom-register-device-to-group-workflow.yml
+        name: Soracom Register Inventory Device to Group
+        summary: Create a Soracom Inventory device, bind it to an Inventory group, and confirm the binding.
+      - url: arazzo/soracom-register-subscriber-to-group-workflow.yml
+        name: Soracom Register Subscriber to Group
+        summary: Register a subscriber by IMSI, activate it, bind it to a group, and confirm its state.
+      - url: arazzo/soracom-send-sms-to-active-sim-workflow.yml
+        name: Soracom Send SMS to Active IoT SIM
+        summary: Look up a SIM, branch on whether it is active, and send a downlink SMS only when it can receive one.
+  - type: Portal
+    url: https://www.soracom.io
+  - type: Documentation
+    url: https://developers.soracom.io/en/
+  - type: Documentation
+    url: https://users.soracom.io/ja-jp/tools/api/reference/
+    name: Interactive API Reference
+  - type: GettingStarted
+    url: https://developers.soracom.io/en/start/
+  - type: SignUp
+    url: https://console.soracom.io/#/signup
+  - type: Login
+    url: https://console.soracom.io
+  - type: Pricing
+    url: https://www.soracom.io/pricing/
+  - type: Pricing
+    url: https://developers.soracom.io/en/docs/reference/fees/
+    name: Pricing & Fee Schedule
+  - type: StatusPage
+    url: https://status.soracom.io/
+  - type: Blog
+    url: https://soracom.io/blog/
+  - type: ChangeLog
+    url: https://changelog.soracom.io/
+  - type: Press
+    url: https://www.soracom.io/press-releases/
+  - type: TermsOfService
+    url: https://www.soracom.io/terms_of_service/
+  - type: PrivacyPolicy
+    url: https://www.soracom.io/privacy_policy/
+  - type: Support
+    url: https://support.soracom.io
+  - type: Contact
+    url: https://www.soracom.io/contact/
+  - type: Forum
+    url: https://discuss.soracom.io
+  - type: Coverage
+    url: https://www.soracom.io/pricing/countries/
+  - type: Documentation
+    url: https://developers.soracom.io/en/docs/air/sim-types/
+    name: IoT SIM Types and Plans
+  - type: Documentation
+    url: https://developers.soracom.io/en/tools/api/endpoints/
+    name: API Endpoints (Japan vs Global Coverage)
+  - type: Documentation
+    url: https://developers.soracom.io/en/tools/api/key-and-token/
+    name: Generate API Key and Token
+  - type: Documentation
+    url: https://developers.soracom.io/en/tools/api/how-to-read-api-reference/
+    name: How To Read the API Reference
+  - type: GitHubOrganization
+    url: https://github.com/soracom
+  - type: GitHubOrganization
+    url: https://github.com/soracom-labs
+    name: Soracom Labs (samples)
+  - type: CLI
+    url: https://github.com/soracom/soracom-cli
+    name: soracom CLI
+  - type: SDK
+    url: https://github.com/soracom/soracom-sdk-go
+    name: Go SDK
+  - type: SDK
+    url: https://github.com/soracom/soracom-sdk-ruby
+    name: Ruby SDK
+  - type: SDK
+    url: https://github.com/soracom/soracom-sdk-swift
+    name: Swift SDK (archived)
+  - type: SDK
+    url: https://github.com/soracom/soracom-inventory-agent-for-java
+    name: Inventory Agent for Java
+  - type: SDK
+    url: https://github.com/soracom/krypton-client-go
+    name: Krypton client (Go)
+  - type: SDK
+    url: https://github.com/soracom/endorse-client-go
+    name: Endorse client (Go)
+  - type: SDK
+    url: https://github.com/soracom/soracom-krypton-client-for-java
+    name: Krypton client (Java)
+  - type: SDK
+    url: https://github.com/soracom/soracom-endorse-client-for-java
+    name: Endorse client (Java)
+  - type: Tool
+    url: https://github.com/soracom/soratun
+    name: soratun (Arc client, wireguard-go)
+  - type: Tool
+    url: https://github.com/soracom/soraql
+    name: soraql (Soracom Query CLI)
+  - type: Tool
+    url: https://github.com/soracom/homebrew-soracom-cli
+    name: Homebrew tap for soracom-cli
+  - type: Tool
+    url: https://github.com/soracom/multus-multivpc-cni
+    name: Multus VPC CNI for Amazon EKS
+  - type: Tool
+    url: https://github.com/soracom/orbit-sdk-rust
+    name: Orbit SDK (Rust)
+  - type: Tool
+    url: https://github.com/soracom/orbit-sdk-tinygo
+    name: Orbit SDK (TinyGo)
+  - type: Tool
+    url: https://github.com/soracom/orbit-sdk-c
+    name: Orbit SDK (C)
+  - type: Tool
+    url: https://github.com/soracom/orbit-sdk-assemblyscript
+    name: Orbit SDK (AssemblyScript)
+  - type: CodeExamples
+    url: https://github.com/soracom/handson
+    name: Hands-on training materials
+  - type: Library
+    url: https://github.com/soracom/SORACOM-LoRaWAN
+    name: Arduino library for SORACOM LoRaWAN shield
+  - type: Documentation
+    url: https://developers.soracom.io/en/start/
+  - type: Documentation
+    url: https://developers.soracom.io/en/docs/air/
+    name: Soracom Air documentation
+  - type: Documentation
+    url: https://developers.soracom.io/en/docs/beam/
+    name: Soracom Beam documentation
+  - type: Documentation
+    url: https://developers.soracom.io/en/docs/funnel/
+    name: Soracom Funnel documentation
+  - type: Documentation
+    url: https://developers.soracom.io/en/docs/funk/
+    name: Soracom Funk documentation
+  - type: Documentation
+    url: https://developers.soracom.io/en/docs/harvest/
+    name: Soracom Harvest documentation
+  - type: Documentation
+    url: https://developers.soracom.io/en/docs/lagoon-v3/
+    name: Soracom Lagoon documentation
+  - type: Documentation
+    url: https://developers.soracom.io/en/docs/inventory/
+    name: Soracom Inventory documentation
+  - type: Documentation
+    url: https://developers.soracom.io/en/docs/napter/
+    name: Soracom Napter documentation
+  - type: Documentation
+    url: https://developers.soracom.io/en/docs/orbit/
+    name: Soracom Orbit documentation
+  - type: Documentation
+    url: https://developers.soracom.io/en/docs/vpg/
+    name: Virtual Private Gateway documentation
+  - type: Documentation
+    url: https://developers.soracom.io/en/docs/sam/
+    name: Soracom Access Management (SAM)
+  - type: Documentation
+    url: https://developers.soracom.io/en/docs/event-handler/
+    name: Event Handler documentation
+  - type: Documentation
+    url: https://developers.soracom.io/en/docs/query/
+    name: Soracom Query documentation
+  - type: Documentation
+    url: https://developers.soracom.io/en/docs/credentials-store/
+    name: Credentials Store documentation
+  - type: Coverage
+    url: https://developers.soracom.io/en/docs/air/speed-class/
+    name: SIM speed classes
+  - type: Plans
+    url: plans/soracom-plans-pricing.yml
+  - type: RateLimits
+    url: rate-limits/soracom-rate-limits.yml
+  - type: FinOps
+    url: finops/soracom-finops.yml
+  - type: Vocabulary
+    url: vocabulary/soracom-vocabulary.yml
+  - type: SpectralRules
+    url: rules/soracom-rules.yml
+  - type: Features
+    data:
+      - Global multicarrier cellular IoT connectivity spanning 170+ countries on Air for Cellular (plan01s)
+      - >-
+        Region-specific plans — plan-US, plan-D, plan-K, plan-DU (Japan), planP1 (60+ countries eSIM), planX series,
+        plan-NL1 — for tuned coverage and price
+      - eSIM and iSIM (planP1/planX1/planX2) with multi-IMSI profile management
+      - Soracom Arc — Wireguard-based virtual SIM that joins non-cellular IP devices via soratun
+      - Soracom Air for LoRaWAN and Air for Sigfox — managed LPWAN connectivity
+      - Soracom Beam — cloud proxy for TLS termination and HTTP/MQTT/TCP/UDP/WebSocket protocol conversion
+      - >-
+        Soracom Funnel — adapter that forwards device payloads to AWS Kinesis/IoT, Azure Event Hubs, GCP Pub/Sub, and
+        more
+      - >-
+        Soracom Funk — serverless invocation of AWS Lambda / Azure Functions / Google Cloud Functions from device
+        payloads
+      - Soracom Harvest Data — managed time-series store; Harvest Files for binary uploads
+      - Soracom Orbit — inline WebAssembly Soralets that transform device payloads in flight
+      - Soracom Lagoon — managed Grafana-style dashboards (Free / Maker $9.80/mo / Pro $49.80/mo)
+      - Soracom Query — columnar SQL analytics over SIM session, location, and data history
+      - Soracom Napter — on-demand secure remote TCP port mapping into SIM-attached devices
+      - Soracom Inventory — LwM2M device registration, object models, observe/notify, and remote execution
+      - Soracom Endorse — hardware-rooted SIM-based device authentication
+      - Soracom Krypton — credential and certificate provisioning rooted in SIM identity
+      - >-
+        Virtual Private Gateway (VPG) — Canal (AWS VPC peering), Direct (AWS Direct Connect), Door (IPSec VPN), Gate
+        (reverse-NAT to cloud)
+      - Soracom Junction — Layer-3 packet rule engine (mirror/inspect/redirect) attached to VPG
+      - Soracom Peek — managed packet capture per SIM or per VPG
+      - Soracom Flux — visual workflow automation across Soracom data
+      - Soracom Access Management (SAM) — sub-users, roles, IAM-style policy documents, MFA
+      - Switch-user (cross-operator delegation) for distributors and managed-service providers
+      - Coverage-aware API endpoints — api.soracom.io / jp.api.soracom.io (Japan) and g.api.soracom.io (global)
+      - Soracom Sandbox API at api-sandbox.soracom.io for safe integration testing
+      - Auto-generated soracom CLI built directly from the OpenAPI spec
+      - Official SDKs in Go and Ruby; community SDKs and clients in Java, Swift, JavaScript
+      - Orbit SDKs for Rust, TinyGo, C, and AssemblyScript
+      - Soracom Cloud Camera Services (SoraCam) — managed cameras with livestream, image exports, motion events
+      - Reverse-NAT, IMEI lock, IP whitelisting, and TLS-everywhere posture for industrial IoT
+      - Audit logs for all API calls and all Napter sessions
+      - Direct billing endpoints (/v1/bills) with daily and monthly granularity and CSV export
+    sources:
+      - https://www.soracom.io/
+      - https://developers.soracom.io/en/
+      - https://developers.soracom.io/en/docs/reference/fees/
+      - https://users.soracom.io/ja-jp/tools/api/reference/
+      - https://changelog.soracom.io/
+    updated: '2026-05-25'
 created: '2026-05-25T00:00:00.000Z'
 modified: '2026-05-25'
 position: Provider
-description: Soracom is a global IoT cellular connectivity and platform provider headquartered in Tokyo,
-  founded in 2014, with regional operations in the US (Soracom Global) and EU. The platform pairs
-  multicarrier SIMs (physical, eSIM, iSIM) across 170+ countries with a deep platform of cloud
-  integration services (Beam, Funnel, Funk), data services (Harvest, Lagoon, Query, Orbit), device
-  management (Inventory, Krypton, Endorse, Napter), and network gateways (VPG / Canal / Direct / Door /
-  Gate / Junction / Peek). Soracom exposes the entire stack through a coverage-aware REST API documented
+description: >-
+  Soracom is a global IoT cellular connectivity and platform provider headquartered in Tokyo, founded in 2014, with
+  regional operations in the US (Soracom Global) and EU. The platform pairs multicarrier SIMs (physical, eSIM, iSIM)
+  across 170+ countries with a deep platform of cloud integration services (Beam, Funnel, Funk), data services (Harvest,
+  Lagoon, Query, Orbit), device management (Inventory, Krypton, Endorse, Napter), and network gateways (VPG / Canal /
+  Direct / Door / Gate / Junction / Peek). Soracom exposes the entire stack through a coverage-aware REST API documented
   at users.soracom.io and maintained as a public OpenAPI 3.0 specification in the soracom-cli GitHub repo.
 maintainers:
-- FN: Kin Lane
-  email: info@apievangelist.com
-  X: apievangelist
-  url: https://apievangelist.com
+  - FN: Kin Lane
+    email: info@apievangelist.com
+    X: apievangelist
+    url: https://apievangelist.com
 specificationVersion: '0.16'

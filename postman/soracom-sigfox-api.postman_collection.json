@@ -1,0 +1,2104 @@
+{
+  "info": {
+    "_postman_id": "379bf60d-81d3-4ed0-9518-7e62fa3fc269",
+    "name": "Soracom Air for Sigfox API",
+    "description": "Manage Soracom Air for Sigfox devices.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-06-05T15:18:51.000Z",
+    "updatedAt": "2026-06-05T15:18:51.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-379bf60d-81d3-4ed0-9518-7e62fa3fc269"
+  },
+  "item": [
+    {
+      "name": "sigfox_devices",
+      "item": [
+        {
+          "name": "{device_id}",
+          "item": [
+            {
+              "name": "data",
+              "item": [
+                {
+                  "name": "Retrieves data sent from a Sigfox device to Harvest Data",
+                  "id": "58269aa8-0797-4db4-951b-6d48974ee5da",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "auth": {
+                      "type": "apikey",
+                      "apikey": [
+                        {
+                          "key": "key",
+                          "value": "X-Soracom-API-Key",
+                          "type": "string"
+                        },
+                        {
+                          "key": "value",
+                          "value": "{{apiKey}}",
+                          "type": "string"
+                        },
+                        {
+                          "key": "in",
+                          "value": "header",
+                          "type": "string"
+                        }
+                      ]
+                    },
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/sigfox_devices/:device_id/data?from=<integer>&to=<integer>&sort=desc&limit=<integer>&last_evaluated_key=<string>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "sigfox_devices",
+                        ":device_id",
+                        "data"
+                      ],
+                      "query": [
+                        {
+                          "description": "Start time of the target period (UNIX time in milliseconds).",
+                          "key": "from",
+                          "value": "<integer>"
+                        },
+                        {
+                          "description": "End time of the target period (UNIX time in milliseconds).",
+                          "key": "to",
+                          "value": "<integer>"
+                        },
+                        {
+                          "description": "Sort order of data entries. Either descending order (latest data entry first) or ascending order (oldest data entry first).",
+                          "key": "sort",
+                          "value": "desc"
+                        },
+                        {
+                          "description": "Maximum number of data entries to retrieve (1 to 1000). The default is `10`.",
+                          "key": "limit",
+                          "value": "<integer>"
+                        },
+                        {
+                          "description": "Timestamp of the last data entry retrieved on the previous page. By specifying this parameter, the list starting from the next data entry can be obtained.",
+                          "key": "last_evaluated_key",
+                          "value": "<string>"
+                        }
+                      ],
+                      "variable": [
+                        {
+                          "id": "947ad5ac-0f75-4d40-a38a-78170d257b73",
+                          "key": "device_id",
+                          "value": "<string>",
+                          "description": "(Required) ID of the Sigfox device from which to retrieve data. The ID of a Sigfox device can be obtained using the [SigfoxDevice:listSigfoxDevices API](#!/SigfoxDevice/listSigfoxDevices)."
+                        }
+                      ]
+                    },
+                    "description": "Retrieves data that matches the specified conditions from the data sent by the specified Sigfox device to Harvest Data. If the data entries do not fit in one page, a URL to retrieve the next page with the same conditions will be included in the `link` header of the response.\n"
+                  },
+                  "response": [
+                    {
+                      "id": "f0c72282-152f-43f5-8f68-9ac1f6a2922c",
+                      "name": "A list of data entries.",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "X-Soracom-API-Key",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/sigfox_devices/:device_id/data?from=<integer>&to=<integer>&sort=desc&limit=<integer>&last_evaluated_key=<string>",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "sigfox_devices",
+                            ":device_id",
+                            "data"
+                          ],
+                          "query": [
+                            {
+                              "description": "Start time of the target period (UNIX time in milliseconds).",
+                              "key": "from",
+                              "value": "<integer>"
+                            },
+                            {
+                              "description": "End time of the target period (UNIX time in milliseconds).",
+                              "key": "to",
+                              "value": "<integer>"
+                            },
+                            {
+                              "description": "Sort order of data entries. Either descending order (latest data entry first) or ascending order (oldest data entry first).",
+                              "key": "sort",
+                              "value": "desc"
+                            },
+                            {
+                              "description": "Maximum number of data entries to retrieve (1 to 1000). The default is `10`.",
+                              "key": "limit",
+                              "value": "<integer>"
+                            },
+                            {
+                              "description": "Timestamp of the last data entry retrieved on the previous page. By specifying this parameter, the list starting from the next data entry can be obtained.",
+                              "key": "last_evaluated_key",
+                              "value": "<string>"
+                            }
+                          ],
+                          "variable": [
+                            {
+                              "key": "device_id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "[\n  {\n    \"category\": \"<string>\",\n    \"content\": \"<string>\",\n    \"contentType\": \"<string>\",\n    \"resourceId\": \"<string>\",\n    \"resourceType\": \"SigfoxDevice\",\n    \"time\": \"<long>\"\n  },\n  {\n    \"category\": \"<string>\",\n    \"content\": \"<string>\",\n    \"contentType\": \"<string>\",\n    \"resourceId\": \"<string>\",\n    \"resourceType\": \"Subscriber\",\n    \"time\": \"<long>\"\n  }\n]",
+                      "createdAt": "2026-06-05T15:18:52.000Z",
+                      "updatedAt": "2026-06-05T15:18:52.000Z",
+                      "uid": "35240-f0c72282-152f-43f5-8f68-9ac1f6a2922c"
+                    }
+                  ],
+                  "createdAt": "2026-06-05T15:18:52.000Z",
+                  "updatedAt": "2026-06-05T15:18:52.000Z",
+                  "uid": "35240-58269aa8-0797-4db4-951b-6d48974ee5da"
+                },
+                {
+                  "name": "Send data to a Sigfox device.",
+                  "id": "7216364e-8646-4b0d-982e-8bbe54a0132e",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "auth": {
+                      "type": "apikey",
+                      "apikey": [
+                        {
+                          "key": "key",
+                          "value": "X-Soracom-API-Key",
+                          "type": "string"
+                        },
+                        {
+                          "key": "value",
+                          "value": "{{apiKey}}",
+                          "type": "string"
+                        },
+                        {
+                          "key": "in",
+                          "value": "header",
+                          "type": "string"
+                        }
+                      ]
+                    },
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"data\": \"<string>\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/sigfox_devices/:device_id/data",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "sigfox_devices",
+                        ":device_id",
+                        "data"
+                      ],
+                      "variable": [
+                        {
+                          "id": "3a7bfecc-f00b-4972-b249-5c2e53c9e1e9",
+                          "key": "device_id",
+                          "value": "<string>",
+                          "description": "(Required) ID of the recipient device."
+                        }
+                      ]
+                    },
+                    "description": "Sends data to the specified Sigfox device. The data will be stored until the device sends a next uplink message. If another message destined for the same Sigfox device ID is already waiting to be sent, the existing message will be discarded, and the new message will be sent instead."
+                  },
+                  "response": [
+                    {
+                      "id": "4d08b310-b05a-45a9-9eee-f13d18e1d0ea",
+                      "name": "Data has been received by server and waiting for the recipient device to retrieve.",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "X-Soracom-API-Key",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"data\": \"<string>\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/sigfox_devices/:device_id/data",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "sigfox_devices",
+                            ":device_id",
+                            "data"
+                          ],
+                          "variable": [
+                            {
+                              "key": "device_id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Accepted",
+                      "code": 202,
+                      "_postman_previewlanguage": "text",
+                      "header": [],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-06-05T15:18:52.000Z",
+                      "updatedAt": "2026-06-05T15:18:52.000Z",
+                      "uid": "35240-4d08b310-b05a-45a9-9eee-f13d18e1d0ea"
+                    },
+                    {
+                      "id": "78f84fea-0eda-4f94-a688-5c9db953cf28",
+                      "name": "No such device found.",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "X-Soracom-API-Key",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"data\": \"<string>\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/sigfox_devices/:device_id/data",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "sigfox_devices",
+                            ":device_id",
+                            "data"
+                          ],
+                          "variable": [
+                            {
+                              "key": "device_id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Not Found",
+                      "code": 404,
+                      "_postman_previewlanguage": "text",
+                      "header": [],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-06-05T15:18:52.000Z",
+                      "updatedAt": "2026-06-05T15:18:52.000Z",
+                      "uid": "35240-78f84fea-0eda-4f94-a688-5c9db953cf28"
+                    }
+                  ],
+                  "createdAt": "2026-06-05T15:18:52.000Z",
+                  "updatedAt": "2026-06-05T15:18:52.000Z",
+                  "uid": "35240-7216364e-8646-4b0d-982e-8bbe54a0132e"
+                }
+              ],
+              "id": "0d197432-c925-4da3-9793-4052c57485ae",
+              "createdAt": "2026-06-05T15:18:52.000Z",
+              "updatedAt": "2026-06-05T15:18:52.000Z",
+              "uid": "35240-0d197432-c925-4da3-9793-4052c57485ae"
+            },
+            {
+              "name": "disable_termination",
+              "item": [
+                {
+                  "name": "Disable Termination of Sigfox device.",
+                  "id": "eddd4feb-83b4-40cd-a267-5e2b37641e6f",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "auth": {
+                      "type": "apikey",
+                      "apikey": [
+                        {
+                          "key": "key",
+                          "value": "X-Soracom-API-Key",
+                          "type": "string"
+                        },
+                        {
+                          "key": "value",
+                          "value": "{{apiKey}}",
+                          "type": "string"
+                        },
+                        {
+                          "key": "in",
+                          "value": "header",
+                          "type": "string"
+                        }
+                      ]
+                    },
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/sigfox_devices/:device_id/disable_termination",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "sigfox_devices",
+                        ":device_id",
+                        "disable_termination"
+                      ],
+                      "variable": [
+                        {
+                          "id": "44c36eed-2ab5-48ee-9e2f-4d8c92ec8008",
+                          "key": "device_id",
+                          "value": "<string>",
+                          "description": "(Required) Device ID of the target Sigfox device."
+                        }
+                      ]
+                    },
+                    "description": "Disables termination of specified Sigfox device."
+                  },
+                  "response": [
+                    {
+                      "id": "4ab15871-fb4d-4007-8da2-41b033f4e34c",
+                      "name": "The Sigfox device's detailed information after the update.",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "X-Soracom-API-Key",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/sigfox_devices/:device_id/disable_termination",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "sigfox_devices",
+                            ":device_id",
+                            "disable_termination"
+                          ],
+                          "variable": [
+                            {
+                              "key": "device_id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"device_id\": \"<string>\",\n  \"groupId\": \"<string>\",\n  \"lastModifiedTime\": \"<dateTime>\",\n  \"lastSeen\": {\n    \"rssi\": \"<integer>\",\n    \"snr\": \"<integer>\",\n    \"time\": \"<dateTime>\"\n  },\n  \"operatorId\": \"<string>\",\n  \"status\": \"ready\",\n  \"tags\": {\n    \"deserunt6\": \"<string>\",\n    \"occaecat_3\": \"<string>\",\n    \"aliquae9\": \"<string>\"\n  },\n  \"terminationEnabled\": false\n}",
+                      "createdAt": "2026-06-05T15:18:52.000Z",
+                      "updatedAt": "2026-06-05T15:18:52.000Z",
+                      "uid": "35240-4ab15871-fb4d-4007-8da2-41b033f4e34c"
+                    },
+                    {
+                      "id": "5262c10d-738c-438b-8088-8e0c545f09d0",
+                      "name": "The specified Sigfox device does not exist.",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "X-Soracom-API-Key",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/sigfox_devices/:device_id/disable_termination",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "sigfox_devices",
+                            ":device_id",
+                            "disable_termination"
+                          ],
+                          "variable": [
+                            {
+                              "key": "device_id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Not Found",
+                      "code": 404,
+                      "_postman_previewlanguage": "text",
+                      "header": [],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-06-05T15:18:52.000Z",
+                      "updatedAt": "2026-06-05T15:18:52.000Z",
+                      "uid": "35240-5262c10d-738c-438b-8088-8e0c545f09d0"
+                    }
+                  ],
+                  "createdAt": "2026-06-05T15:18:52.000Z",
+                  "updatedAt": "2026-06-05T15:18:52.000Z",
+                  "uid": "35240-eddd4feb-83b4-40cd-a267-5e2b37641e6f"
+                }
+              ],
+              "id": "4cccaaf1-09f7-40f6-ae4e-146c88c5e00c",
+              "createdAt": "2026-06-05T15:18:52.000Z",
+              "updatedAt": "2026-06-05T15:18:52.000Z",
+              "uid": "35240-4cccaaf1-09f7-40f6-ae4e-146c88c5e00c"
+            },
+            {
+              "name": "enable_termination",
+              "item": [
+                {
+                  "name": "Enable Termination of Sigfox device.",
+                  "id": "3d03b80e-de70-4695-8a3f-a5cf65d6bc70",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "auth": {
+                      "type": "apikey",
+                      "apikey": [
+                        {
+                          "key": "key",
+                          "value": "X-Soracom-API-Key",
+                          "type": "string"
+                        },
+                        {
+                          "key": "value",
+                          "value": "{{apiKey}}",
+                          "type": "string"
+                        },
+                        {
+                          "key": "in",
+                          "value": "header",
+                          "type": "string"
+                        }
+                      ]
+                    },
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/sigfox_devices/:device_id/enable_termination",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "sigfox_devices",
+                        ":device_id",
+                        "enable_termination"
+                      ],
+                      "variable": [
+                        {
+                          "id": "f27201ad-7878-456b-a10e-14806b7c1e5b",
+                          "key": "device_id",
+                          "value": "<string>",
+                          "description": "(Required) Device ID of the target Sigfox device."
+                        }
+                      ]
+                    },
+                    "description": "Enables termination of specified Sigfox device."
+                  },
+                  "response": [
+                    {
+                      "id": "7f1f8e5a-42df-4672-9cc7-18829d082c68",
+                      "name": "The Sigfox device's detailed information after the update.",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "X-Soracom-API-Key",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/sigfox_devices/:device_id/enable_termination",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "sigfox_devices",
+                            ":device_id",
+                            "enable_termination"
+                          ],
+                          "variable": [
+                            {
+                              "key": "device_id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"device_id\": \"<string>\",\n  \"groupId\": \"<string>\",\n  \"lastModifiedTime\": \"<dateTime>\",\n  \"lastSeen\": {\n    \"rssi\": \"<integer>\",\n    \"snr\": \"<integer>\",\n    \"time\": \"<dateTime>\"\n  },\n  \"operatorId\": \"<string>\",\n  \"status\": \"ready\",\n  \"tags\": {\n    \"deserunt6\": \"<string>\",\n    \"occaecat_3\": \"<string>\",\n    \"aliquae9\": \"<string>\"\n  },\n  \"terminationEnabled\": false\n}",
+                      "createdAt": "2026-06-05T15:18:52.000Z",
+                      "updatedAt": "2026-06-05T15:18:52.000Z",
+                      "uid": "35240-7f1f8e5a-42df-4672-9cc7-18829d082c68"
+                    },
+                    {
+                      "id": "c366eb29-f8f8-4937-a458-a470cd4f925b",
+                      "name": "The specified Sigfox device does not exist.",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "X-Soracom-API-Key",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/sigfox_devices/:device_id/enable_termination",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "sigfox_devices",
+                            ":device_id",
+                            "enable_termination"
+                          ],
+                          "variable": [
+                            {
+                              "key": "device_id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Not Found",
+                      "code": 404,
+                      "_postman_previewlanguage": "text",
+                      "header": [],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-06-05T15:18:52.000Z",
+                      "updatedAt": "2026-06-05T15:18:52.000Z",
+                      "uid": "35240-c366eb29-f8f8-4937-a458-a470cd4f925b"
+                    }
+                  ],
+                  "createdAt": "2026-06-05T15:18:52.000Z",
+                  "updatedAt": "2026-06-05T15:18:52.000Z",
+                  "uid": "35240-3d03b80e-de70-4695-8a3f-a5cf65d6bc70"
+                }
+              ],
+              "id": "f4295fad-205a-451f-b597-107ff63f48c5",
+              "createdAt": "2026-06-05T15:18:52.000Z",
+              "updatedAt": "2026-06-05T15:18:52.000Z",
+              "uid": "35240-f4295fad-205a-451f-b597-107ff63f48c5"
+            },
+            {
+              "name": "register",
+              "item": [
+                {
+                  "name": "Registers a Sigfox device.",
+                  "id": "db9f7220-0f8b-40f6-9c8a-45404a1bb835",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "auth": {
+                      "type": "apikey",
+                      "apikey": [
+                        {
+                          "key": "key",
+                          "value": "X-Soracom-API-Key",
+                          "type": "string"
+                        },
+                        {
+                          "key": "value",
+                          "value": "{{apiKey}}",
+                          "type": "string"
+                        },
+                        {
+                          "key": "in",
+                          "value": "header",
+                          "type": "string"
+                        }
+                      ]
+                    },
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"registrationSecret\": \"<string>\",\n  \"tags\": {\n    \"minim_884\": \"<string>\",\n    \"essef8\": \"<string>\"\n  }\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/sigfox_devices/:device_id/register",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "sigfox_devices",
+                        ":device_id",
+                        "register"
+                      ],
+                      "variable": [
+                        {
+                          "id": "aaf1067c-e74c-4540-b9ee-0891bf3cd9c2",
+                          "key": "device_id",
+                          "value": "<string>",
+                          "description": "(Required) Device ID of the target Sigfox device to register."
+                        }
+                      ]
+                    },
+                    "description": "Registers a Sigfox device."
+                  },
+                  "response": [
+                    {
+                      "id": "de3e549d-b640-429c-bb26-a462e42bc872",
+                      "name": "Sigfox device successfully registered.",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "X-Soracom-API-Key",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"registrationSecret\": \"<string>\",\n  \"tags\": {\n    \"minim_884\": \"<string>\",\n    \"essef8\": \"<string>\"\n  }\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/sigfox_devices/:device_id/register",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "sigfox_devices",
+                            ":device_id",
+                            "register"
+                          ],
+                          "variable": [
+                            {
+                              "key": "device_id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"device_id\": \"<string>\",\n  \"groupId\": \"<string>\",\n  \"lastModifiedTime\": \"<dateTime>\",\n  \"lastSeen\": {\n    \"rssi\": \"<integer>\",\n    \"snr\": \"<integer>\",\n    \"time\": \"<dateTime>\"\n  },\n  \"operatorId\": \"<string>\",\n  \"status\": \"ready\",\n  \"tags\": {\n    \"deserunt6\": \"<string>\",\n    \"occaecat_3\": \"<string>\",\n    \"aliquae9\": \"<string>\"\n  },\n  \"terminationEnabled\": false\n}",
+                      "createdAt": "2026-06-05T15:18:52.000Z",
+                      "updatedAt": "2026-06-05T15:18:52.000Z",
+                      "uid": "35240-de3e549d-b640-429c-bb26-a462e42bc872"
+                    },
+                    {
+                      "id": "53d98e94-18d6-47a9-9328-78a662838d89",
+                      "name": "PAC code is missing.",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "X-Soracom-API-Key",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"registrationSecret\": \"<string>\",\n  \"tags\": {\n    \"minim_884\": \"<string>\",\n    \"essef8\": \"<string>\"\n  }\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/sigfox_devices/:device_id/register",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "sigfox_devices",
+                            ":device_id",
+                            "register"
+                          ],
+                          "variable": [
+                            {
+                              "key": "device_id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Bad Request",
+                      "code": 400,
+                      "_postman_previewlanguage": "text",
+                      "header": [],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-06-05T15:18:52.000Z",
+                      "updatedAt": "2026-06-05T15:18:52.000Z",
+                      "uid": "35240-53d98e94-18d6-47a9-9328-78a662838d89"
+                    }
+                  ],
+                  "createdAt": "2026-06-05T15:18:52.000Z",
+                  "updatedAt": "2026-06-05T15:18:52.000Z",
+                  "uid": "35240-db9f7220-0f8b-40f6-9c8a-45404a1bb835"
+                }
+              ],
+              "id": "bb51ae16-0f2e-4d46-bcfd-731cb2f52e38",
+              "createdAt": "2026-06-05T15:18:52.000Z",
+              "updatedAt": "2026-06-05T15:18:52.000Z",
+              "uid": "35240-bb51ae16-0f2e-4d46-bcfd-731cb2f52e38"
+            },
+            {
+              "name": "set_group",
+              "item": [
+                {
+                  "name": "Adds a Sigfox device to a Sigfox group",
+                  "id": "f9738b17-0ead-4bae-aa5b-80ada777b319",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "auth": {
+                      "type": "apikey",
+                      "apikey": [
+                        {
+                          "key": "key",
+                          "value": "X-Soracom-API-Key",
+                          "type": "string"
+                        },
+                        {
+                          "key": "value",
+                          "value": "{{apiKey}}",
+                          "type": "string"
+                        },
+                        {
+                          "key": "in",
+                          "value": "header",
+                          "type": "string"
+                        }
+                      ]
+                    },
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"groupId\": \"<string>\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/sigfox_devices/:device_id/set_group",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "sigfox_devices",
+                        ":device_id",
+                        "set_group"
+                      ],
+                      "variable": [
+                        {
+                          "id": "04434705-d0a0-4981-a3c6-8dc3e7470879",
+                          "key": "device_id",
+                          "value": "<string>",
+                          "description": "(Required) ID of the target Sigfox device. The ID of a Sigfox device can be obtained using the [SigfoxDevice:listSigfoxDevices API](#!/SigfoxDevice/listSigfoxDevices)."
+                        }
+                      ]
+                    },
+                    "description": "Adds a Sigfox device to a Sigfox group."
+                  },
+                  "response": [
+                    {
+                      "id": "ff2dfb1c-5e68-4fef-9837-d98e2fbf4ac5",
+                      "name": "Detailed information of the updated Sigfox device.",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "X-Soracom-API-Key",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"groupId\": \"<string>\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/sigfox_devices/:device_id/set_group",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "sigfox_devices",
+                            ":device_id",
+                            "set_group"
+                          ],
+                          "variable": [
+                            {
+                              "key": "device_id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"device_id\": \"<string>\",\n  \"groupId\": \"<string>\",\n  \"lastModifiedTime\": \"<dateTime>\",\n  \"lastSeen\": {\n    \"rssi\": \"<integer>\",\n    \"snr\": \"<integer>\",\n    \"time\": \"<dateTime>\"\n  },\n  \"operatorId\": \"<string>\",\n  \"status\": \"ready\",\n  \"tags\": {\n    \"deserunt6\": \"<string>\",\n    \"occaecat_3\": \"<string>\",\n    \"aliquae9\": \"<string>\"\n  },\n  \"terminationEnabled\": false\n}",
+                      "createdAt": "2026-06-05T15:18:52.000Z",
+                      "updatedAt": "2026-06-05T15:18:52.000Z",
+                      "uid": "35240-ff2dfb1c-5e68-4fef-9837-d98e2fbf4ac5"
+                    },
+                    {
+                      "id": "2ae1b4cb-29cd-4bf2-ba4b-5ccfea992291",
+                      "name": "The specified Sigfox device does not exist.",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "X-Soracom-API-Key",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"groupId\": \"<string>\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/sigfox_devices/:device_id/set_group",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "sigfox_devices",
+                            ":device_id",
+                            "set_group"
+                          ],
+                          "variable": [
+                            {
+                              "key": "device_id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Not Found",
+                      "code": 404,
+                      "_postman_previewlanguage": "text",
+                      "header": [],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-06-05T15:18:52.000Z",
+                      "updatedAt": "2026-06-05T15:18:52.000Z",
+                      "uid": "35240-2ae1b4cb-29cd-4bf2-ba4b-5ccfea992291"
+                    }
+                  ],
+                  "createdAt": "2026-06-05T15:18:52.000Z",
+                  "updatedAt": "2026-06-05T15:18:52.000Z",
+                  "uid": "35240-f9738b17-0ead-4bae-aa5b-80ada777b319"
+                }
+              ],
+              "id": "cabfee66-b9a6-4627-8730-730049bc74fb",
+              "createdAt": "2026-06-05T15:18:52.000Z",
+              "updatedAt": "2026-06-05T15:18:52.000Z",
+              "uid": "35240-cabfee66-b9a6-4627-8730-730049bc74fb"
+            },
+            {
+              "name": "tags",
+              "item": [
+                {
+                  "name": "{tag_name}",
+                  "item": [
+                    {
+                      "name": "Delete Sigfox device Tag.",
+                      "id": "3c5226bb-175d-4b0b-832b-5efa087d2198",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "auth": {
+                          "type": "apikey",
+                          "apikey": [
+                            {
+                              "key": "key",
+                              "value": "X-Soracom-API-Key",
+                              "type": "string"
+                            },
+                            {
+                              "key": "value",
+                              "value": "{{apiKey}}",
+                              "type": "string"
+                            },
+                            {
+                              "key": "in",
+                              "value": "header",
+                              "type": "string"
+                            }
+                          ]
+                        },
+                        "method": "DELETE",
+                        "header": [],
+                        "url": {
+                          "raw": "{{baseUrl}}/sigfox_devices/:device_id/tags/:tag_name",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "sigfox_devices",
+                            ":device_id",
+                            "tags",
+                            ":tag_name"
+                          ],
+                          "variable": [
+                            {
+                              "id": "f782f555-a1e0-44fb-a1c1-e98440fc5bf7",
+                              "key": "device_id",
+                              "value": "<string>",
+                              "description": "(Required) Device ID of the target Sigfox device."
+                            },
+                            {
+                              "id": "7df8fe73-a51b-4730-b31e-df06bcca8f62",
+                              "key": "tag_name",
+                              "value": "<string>",
+                              "description": "(Required) Tag name to be deleted. (This will be part of a URL path, so it needs to be percent-encoded. In JavaScript, specify the name after it has been encoded using encodeURIComponent().)"
+                            }
+                          ]
+                        },
+                        "description": "Deletes a tag from the specified Sigfox device."
+                      },
+                      "response": [
+                        {
+                          "id": "9eadc960-3670-4313-8ed5-c6089333384e",
+                          "name": "Deletion of specified tag complete.",
+                          "originalRequest": {
+                            "method": "DELETE",
+                            "header": [
+                              {
+                                "description": "Added as a part of security scheme: apikey",
+                                "key": "X-Soracom-API-Key",
+                                "value": "<API Key>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/sigfox_devices/:device_id/tags/:tag_name",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "sigfox_devices",
+                                ":device_id",
+                                "tags",
+                                ":tag_name"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "device_id"
+                                },
+                                {
+                                  "key": "tag_name"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "No Content",
+                          "code": 204,
+                          "_postman_previewlanguage": "text",
+                          "header": [],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": null,
+                          "createdAt": "2026-06-05T15:18:52.000Z",
+                          "updatedAt": "2026-06-05T15:18:52.000Z",
+                          "uid": "35240-9eadc960-3670-4313-8ed5-c6089333384e"
+                        },
+                        {
+                          "id": "92447f0a-6ae0-46af-957f-323bb7443d7b",
+                          "name": "The specified Sigfox device or the tag does not exist.",
+                          "originalRequest": {
+                            "method": "DELETE",
+                            "header": [
+                              {
+                                "description": "Added as a part of security scheme: apikey",
+                                "key": "X-Soracom-API-Key",
+                                "value": "<API Key>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/sigfox_devices/:device_id/tags/:tag_name",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "sigfox_devices",
+                                ":device_id",
+                                "tags",
+                                ":tag_name"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "device_id"
+                                },
+                                {
+                                  "key": "tag_name"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Not Found",
+                          "code": 404,
+                          "_postman_previewlanguage": "text",
+                          "header": [],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": null,
+                          "createdAt": "2026-06-05T15:18:52.000Z",
+                          "updatedAt": "2026-06-05T15:18:52.000Z",
+                          "uid": "35240-92447f0a-6ae0-46af-957f-323bb7443d7b"
+                        }
+                      ],
+                      "createdAt": "2026-06-05T15:18:52.000Z",
+                      "updatedAt": "2026-06-05T15:18:52.000Z",
+                      "uid": "35240-3c5226bb-175d-4b0b-832b-5efa087d2198"
+                    }
+                  ],
+                  "id": "4b754ec9-a0bc-45c0-beec-09a571c31214",
+                  "createdAt": "2026-06-05T15:18:52.000Z",
+                  "updatedAt": "2026-06-05T15:18:52.000Z",
+                  "uid": "35240-4b754ec9-a0bc-45c0-beec-09a571c31214"
+                },
+                {
+                  "name": "Bulk Insert or Update Sigfox device Tags.",
+                  "id": "79081322-8f40-40df-b861-e7977cb5683b",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "auth": {
+                      "type": "apikey",
+                      "apikey": [
+                        {
+                          "key": "key",
+                          "value": "X-Soracom-API-Key",
+                          "type": "string"
+                        },
+                        {
+                          "key": "value",
+                          "value": "{{apiKey}}",
+                          "type": "string"
+                        },
+                        {
+                          "key": "in",
+                          "value": "header",
+                          "type": "string"
+                        }
+                      ]
+                    },
+                    "method": "PUT",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "[\n  {\n    \"tagName\": \"<string>\",\n    \"tagValue\": \"<string>\"\n  },\n  {\n    \"tagName\": \"<string>\",\n    \"tagValue\": \"<string>\"\n  }\n]",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/sigfox_devices/:device_id/tags",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "sigfox_devices",
+                        ":device_id",
+                        "tags"
+                      ],
+                      "variable": [
+                        {
+                          "id": "5814f22d-6383-4ac6-99c6-653e70f86d71",
+                          "key": "device_id",
+                          "value": "<string>",
+                          "description": "(Required) Device ID of the target Sigfox device."
+                        }
+                      ]
+                    },
+                    "description": "Inserts/updates tags for the specified Sigfox device."
+                  },
+                  "response": [
+                    {
+                      "id": "0b45885c-2410-428f-9e65-ae1c99cc4b32",
+                      "name": "The Sigfox device's detailed information after the update.",
+                      "originalRequest": {
+                        "method": "PUT",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "X-Soracom-API-Key",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "[\n  {\n    \"tagName\": \"<string>\",\n    \"tagValue\": \"<string>\"\n  },\n  {\n    \"tagName\": \"<string>\",\n    \"tagValue\": \"<string>\"\n  }\n]",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/sigfox_devices/:device_id/tags",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "sigfox_devices",
+                            ":device_id",
+                            "tags"
+                          ],
+                          "variable": [
+                            {
+                              "key": "device_id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"device_id\": \"<string>\",\n  \"groupId\": \"<string>\",\n  \"lastModifiedTime\": \"<dateTime>\",\n  \"lastSeen\": {\n    \"rssi\": \"<integer>\",\n    \"snr\": \"<integer>\",\n    \"time\": \"<dateTime>\"\n  },\n  \"operatorId\": \"<string>\",\n  \"status\": \"ready\",\n  \"tags\": {\n    \"deserunt6\": \"<string>\",\n    \"occaecat_3\": \"<string>\",\n    \"aliquae9\": \"<string>\"\n  },\n  \"terminationEnabled\": false\n}",
+                      "createdAt": "2026-06-05T15:18:52.000Z",
+                      "updatedAt": "2026-06-05T15:18:52.000Z",
+                      "uid": "35240-0b45885c-2410-428f-9e65-ae1c99cc4b32"
+                    },
+                    {
+                      "id": "94f559a8-f7a8-47da-9e52-fc3591281af7",
+                      "name": "The specified Sigfox device does not exist.",
+                      "originalRequest": {
+                        "method": "PUT",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "X-Soracom-API-Key",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "[\n  {\n    \"tagName\": \"<string>\",\n    \"tagValue\": \"<string>\"\n  },\n  {\n    \"tagName\": \"<string>\",\n    \"tagValue\": \"<string>\"\n  }\n]",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/sigfox_devices/:device_id/tags",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "sigfox_devices",
+                            ":device_id",
+                            "tags"
+                          ],
+                          "variable": [
+                            {
+                              "key": "device_id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Not Found",
+                      "code": 404,
+                      "_postman_previewlanguage": "text",
+                      "header": [],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-06-05T15:18:52.000Z",
+                      "updatedAt": "2026-06-05T15:18:52.000Z",
+                      "uid": "35240-94f559a8-f7a8-47da-9e52-fc3591281af7"
+                    }
+                  ],
+                  "createdAt": "2026-06-05T15:18:52.000Z",
+                  "updatedAt": "2026-06-05T15:18:52.000Z",
+                  "uid": "35240-79081322-8f40-40df-b861-e7977cb5683b"
+                }
+              ],
+              "id": "388a6e44-a6c5-4861-b83f-2121b569d95c",
+              "createdAt": "2026-06-05T15:18:52.000Z",
+              "updatedAt": "2026-06-05T15:18:52.000Z",
+              "uid": "35240-388a6e44-a6c5-4861-b83f-2121b569d95c"
+            },
+            {
+              "name": "terminate",
+              "item": [
+                {
+                  "name": "Terminate Sigfox device.",
+                  "id": "06e5463e-5ecf-440d-87f4-741f380aef9a",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "auth": {
+                      "type": "apikey",
+                      "apikey": [
+                        {
+                          "key": "key",
+                          "value": "X-Soracom-API-Key",
+                          "type": "string"
+                        },
+                        {
+                          "key": "value",
+                          "value": "{{apiKey}}",
+                          "type": "string"
+                        },
+                        {
+                          "key": "in",
+                          "value": "header",
+                          "type": "string"
+                        }
+                      ]
+                    },
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/sigfox_devices/:device_id/terminate?delete_immediately=false",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "sigfox_devices",
+                        ":device_id",
+                        "terminate"
+                      ],
+                      "query": [
+                        {
+                          "description": "If the Sigfox device is deleted immediately.",
+                          "key": "delete_immediately",
+                          "value": "false"
+                        }
+                      ],
+                      "variable": [
+                        {
+                          "id": "bfa0a866-a317-4577-99d8-d6a101cbd3ec",
+                          "key": "device_id",
+                          "value": "<string>",
+                          "description": "(Required) Device ID of the target Sigfox device."
+                        }
+                      ]
+                    },
+                    "description": "Terminates the specified Sigfox device."
+                  },
+                  "response": [
+                    {
+                      "id": "33567bf1-5bc7-4782-b158-358b14918cc3",
+                      "name": "The Sigfox device's detailed information after the update.",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "X-Soracom-API-Key",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/sigfox_devices/:device_id/terminate?delete_immediately=false",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "sigfox_devices",
+                            ":device_id",
+                            "terminate"
+                          ],
+                          "query": [
+                            {
+                              "description": "If the Sigfox device is deleted immediately.",
+                              "key": "delete_immediately",
+                              "value": "false"
+                            }
+                          ],
+                          "variable": [
+                            {
+                              "key": "device_id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"device_id\": \"<string>\",\n  \"groupId\": \"<string>\",\n  \"lastModifiedTime\": \"<dateTime>\",\n  \"lastSeen\": {\n    \"rssi\": \"<integer>\",\n    \"snr\": \"<integer>\",\n    \"time\": \"<dateTime>\"\n  },\n  \"operatorId\": \"<string>\",\n  \"status\": \"ready\",\n  \"tags\": {\n    \"deserunt6\": \"<string>\",\n    \"occaecat_3\": \"<string>\",\n    \"aliquae9\": \"<string>\"\n  },\n  \"terminationEnabled\": false\n}",
+                      "createdAt": "2026-06-05T15:18:52.000Z",
+                      "updatedAt": "2026-06-05T15:18:52.000Z",
+                      "uid": "35240-33567bf1-5bc7-4782-b158-358b14918cc3"
+                    },
+                    {
+                      "id": "29270757-4833-4853-be77-bf447868b593",
+                      "name": "The specified Sigfox device does not exist.",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "X-Soracom-API-Key",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/sigfox_devices/:device_id/terminate?delete_immediately=false",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "sigfox_devices",
+                            ":device_id",
+                            "terminate"
+                          ],
+                          "query": [
+                            {
+                              "description": "If the Sigfox device is deleted immediately.",
+                              "key": "delete_immediately",
+                              "value": "false"
+                            }
+                          ],
+                          "variable": [
+                            {
+                              "key": "device_id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Not Found",
+                      "code": 404,
+                      "_postman_previewlanguage": "text",
+                      "header": [],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-06-05T15:18:52.000Z",
+                      "updatedAt": "2026-06-05T15:18:52.000Z",
+                      "uid": "35240-29270757-4833-4853-be77-bf447868b593"
+                    }
+                  ],
+                  "createdAt": "2026-06-05T15:18:52.000Z",
+                  "updatedAt": "2026-06-05T15:18:52.000Z",
+                  "uid": "35240-06e5463e-5ecf-440d-87f4-741f380aef9a"
+                }
+              ],
+              "id": "be2c09d8-f2c5-4dc2-9bb0-776512a6e8af",
+              "createdAt": "2026-06-05T15:18:52.000Z",
+              "updatedAt": "2026-06-05T15:18:52.000Z",
+              "uid": "35240-be2c09d8-f2c5-4dc2-9bb0-776512a6e8af"
+            },
+            {
+              "name": "unset_group",
+              "item": [
+                {
+                  "name": "Removes a Sigfox device from a Sigfox group",
+                  "id": "65f9bd39-b0ab-46a1-99fd-121e525a0984",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "auth": {
+                      "type": "apikey",
+                      "apikey": [
+                        {
+                          "key": "key",
+                          "value": "X-Soracom-API-Key",
+                          "type": "string"
+                        },
+                        {
+                          "key": "value",
+                          "value": "{{apiKey}}",
+                          "type": "string"
+                        },
+                        {
+                          "key": "in",
+                          "value": "header",
+                          "type": "string"
+                        }
+                      ]
+                    },
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/sigfox_devices/:device_id/unset_group",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "sigfox_devices",
+                        ":device_id",
+                        "unset_group"
+                      ],
+                      "variable": [
+                        {
+                          "id": "53960494-c782-4b2b-9a7d-29fe94d9accd",
+                          "key": "device_id",
+                          "value": "<string>",
+                          "description": "(Required) ID of the target Sigfox device. The ID of a Sigfox device can be obtained using the [SigfoxDevice:listSigfoxDevices API](#!/SigfoxDevice/listSigfoxDevices)."
+                        }
+                      ]
+                    },
+                    "description": "Removes a Sigfox device from a Sigfox group."
+                  },
+                  "response": [
+                    {
+                      "id": "6540b661-5655-4284-b7dd-9f9df05aa527",
+                      "name": "Detailed information of the updated Sigfox device.",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "X-Soracom-API-Key",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/sigfox_devices/:device_id/unset_group",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "sigfox_devices",
+                            ":device_id",
+                            "unset_group"
+                          ],
+                          "variable": [
+                            {
+                              "key": "device_id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"device_id\": \"<string>\",\n  \"groupId\": \"<string>\",\n  \"lastModifiedTime\": \"<dateTime>\",\n  \"lastSeen\": {\n    \"rssi\": \"<integer>\",\n    \"snr\": \"<integer>\",\n    \"time\": \"<dateTime>\"\n  },\n  \"operatorId\": \"<string>\",\n  \"status\": \"ready\",\n  \"tags\": {\n    \"deserunt6\": \"<string>\",\n    \"occaecat_3\": \"<string>\",\n    \"aliquae9\": \"<string>\"\n  },\n  \"terminationEnabled\": false\n}",
+                      "createdAt": "2026-06-05T15:18:52.000Z",
+                      "updatedAt": "2026-06-05T15:18:52.000Z",
+                      "uid": "35240-6540b661-5655-4284-b7dd-9f9df05aa527"
+                    },
+                    {
+                      "id": "2308ea66-f452-43dd-83d3-9f2d28bffac7",
+                      "name": "The specified Sigfox device does not exist.",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "X-Soracom-API-Key",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/sigfox_devices/:device_id/unset_group",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "sigfox_devices",
+                            ":device_id",
+                            "unset_group"
+                          ],
+                          "variable": [
+                            {
+                              "key": "device_id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Not Found",
+                      "code": 404,
+                      "_postman_previewlanguage": "text",
+                      "header": [],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-06-05T15:18:52.000Z",
+                      "updatedAt": "2026-06-05T15:18:52.000Z",
+                      "uid": "35240-2308ea66-f452-43dd-83d3-9f2d28bffac7"
+                    }
+                  ],
+                  "createdAt": "2026-06-05T15:18:52.000Z",
+                  "updatedAt": "2026-06-05T15:18:52.000Z",
+                  "uid": "35240-65f9bd39-b0ab-46a1-99fd-121e525a0984"
+                }
+              ],
+              "id": "f3907424-54a0-4643-8b06-b7319b953721",
+              "createdAt": "2026-06-05T15:18:52.000Z",
+              "updatedAt": "2026-06-05T15:18:52.000Z",
+              "uid": "35240-f3907424-54a0-4643-8b06-b7319b953721"
+            },
+            {
+              "name": "Get Sigfox device.",
+              "id": "5fdae2ca-f762-4e60-b1cf-514edc189970",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "auth": {
+                  "type": "apikey",
+                  "apikey": [
+                    {
+                      "key": "key",
+                      "value": "X-Soracom-API-Key",
+                      "type": "string"
+                    },
+                    {
+                      "key": "value",
+                      "value": "{{apiKey}}",
+                      "type": "string"
+                    },
+                    {
+                      "key": "in",
+                      "value": "header",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/sigfox_devices/:device_id",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "sigfox_devices",
+                    ":device_id"
+                  ],
+                  "variable": [
+                    {
+                      "id": "b3fc5898-0739-4b6b-ae79-038b31b1e3f4",
+                      "key": "device_id",
+                      "value": "<string>",
+                      "description": "(Required) Device ID of the target Sigfox device."
+                    }
+                  ]
+                },
+                "description": "Returns information about the specified Sigfox device."
+              },
+              "response": [
+                {
+                  "id": "3f8facf4-dfd0-440c-85c0-52edd0e5ee15",
+                  "name": "The Sigfox device's detailed information.",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "X-Soracom-API-Key",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/sigfox_devices/:device_id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "sigfox_devices",
+                        ":device_id"
+                      ],
+                      "variable": [
+                        {
+                          "key": "device_id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"device_id\": \"<string>\",\n  \"groupId\": \"<string>\",\n  \"lastModifiedTime\": \"<dateTime>\",\n  \"lastSeen\": {\n    \"rssi\": \"<integer>\",\n    \"snr\": \"<integer>\",\n    \"time\": \"<dateTime>\"\n  },\n  \"operatorId\": \"<string>\",\n  \"status\": \"ready\",\n  \"tags\": {\n    \"deserunt6\": \"<string>\",\n    \"occaecat_3\": \"<string>\",\n    \"aliquae9\": \"<string>\"\n  },\n  \"terminationEnabled\": false\n}",
+                  "createdAt": "2026-06-05T15:18:52.000Z",
+                  "updatedAt": "2026-06-05T15:18:52.000Z",
+                  "uid": "35240-3f8facf4-dfd0-440c-85c0-52edd0e5ee15"
+                },
+                {
+                  "id": "41e81bc6-07df-41d0-a44c-b30cdffac71c",
+                  "name": "The specified Sigfox device does not exist.",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "X-Soracom-API-Key",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/sigfox_devices/:device_id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "sigfox_devices",
+                        ":device_id"
+                      ],
+                      "variable": [
+                        {
+                          "key": "device_id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Not Found",
+                  "code": 404,
+                  "_postman_previewlanguage": "text",
+                  "header": [],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-06-05T15:18:52.000Z",
+                  "updatedAt": "2026-06-05T15:18:52.000Z",
+                  "uid": "35240-41e81bc6-07df-41d0-a44c-b30cdffac71c"
+                }
+              ],
+              "createdAt": "2026-06-05T15:18:52.000Z",
+              "updatedAt": "2026-06-05T15:18:52.000Z",
+              "uid": "35240-5fdae2ca-f762-4e60-b1cf-514edc189970"
+            }
+          ],
+          "id": "70d20e18-8154-4e30-882b-fd2be3b8904c",
+          "createdAt": "2026-06-05T15:18:52.000Z",
+          "updatedAt": "2026-06-05T15:18:52.000Z",
+          "uid": "35240-70d20e18-8154-4e30-882b-fd2be3b8904c"
+        },
+        {
+          "name": "List Sigfox devices.",
+          "id": "0f48fddf-a4c9-46a7-9075-e4a765353562",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-Soracom-API-Key",
+                  "type": "string"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}",
+                  "type": "string"
+                },
+                {
+                  "key": "in",
+                  "value": "header",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/sigfox_devices?tag_name=<string>&tag_value=<string>&tag_value_match_mode=exact&limit=<integer>&last_evaluated_key=<string>",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "sigfox_devices"
+              ],
+              "query": [
+                {
+                  "description": "Tag name for filtering the search (exact match).",
+                  "key": "tag_name",
+                  "value": "<string>"
+                },
+                {
+                  "description": "Tag search string for filtering the search. Required when `tag_name` has been specified.",
+                  "key": "tag_value",
+                  "value": "<string>"
+                },
+                {
+                  "description": "Tag match mode.",
+                  "key": "tag_value_match_mode",
+                  "value": "exact"
+                },
+                {
+                  "description": "Maximum number of Sigfox devices to retrieve.",
+                  "key": "limit",
+                  "value": "<integer>"
+                },
+                {
+                  "description": "The device ID of the last Sigfox device retrieved on the previous page. By specifying this parameter, you can continue to retrieve the list from the next Sigfox device onward.",
+                  "key": "last_evaluated_key",
+                  "value": "<string>"
+                }
+              ]
+            },
+            "description": "Returns a list of Sigfox devices that match certain criteria. If the total number of Sigfox devices does not fit in one page, a URL for accessing the next page is returned in the `link` header of the response.\n"
+          },
+          "response": [
+            {
+              "id": "846c6c75-6a29-43a1-b667-177187934a7e",
+              "name": "A list of Sigfox devices.",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: apikey",
+                    "key": "X-Soracom-API-Key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/sigfox_devices?tag_name=<string>&tag_value=<string>&tag_value_match_mode=exact&limit=<integer>&last_evaluated_key=<string>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "sigfox_devices"
+                  ],
+                  "query": [
+                    {
+                      "description": "Tag name for filtering the search (exact match).",
+                      "key": "tag_name",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Tag search string for filtering the search. Required when `tag_name` has been specified.",
+                      "key": "tag_value",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Tag match mode.",
+                      "key": "tag_value_match_mode",
+                      "value": "exact"
+                    },
+                    {
+                      "description": "Maximum number of Sigfox devices to retrieve.",
+                      "key": "limit",
+                      "value": "<integer>"
+                    },
+                    {
+                      "description": "The device ID of the last Sigfox device retrieved on the previous page. By specifying this parameter, you can continue to retrieve the list from the next Sigfox device onward.",
+                      "key": "last_evaluated_key",
+                      "value": "<string>"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "[\n  {\n    \"device_id\": \"<string>\",\n    \"groupId\": \"<string>\",\n    \"lastModifiedTime\": \"<dateTime>\",\n    \"lastSeen\": {\n      \"rssi\": \"<integer>\",\n      \"snr\": \"<integer>\",\n      \"time\": \"<dateTime>\"\n    },\n    \"operatorId\": \"<string>\",\n    \"status\": \"ready\",\n    \"tags\": {\n      \"proident2b\": \"<string>\",\n      \"ex7d\": \"<string>\"\n    },\n    \"terminationEnabled\": false\n  },\n  {\n    \"device_id\": \"<string>\",\n    \"groupId\": \"<string>\",\n    \"lastModifiedTime\": \"<dateTime>\",\n    \"lastSeen\": {\n      \"rssi\": \"<integer>\",\n      \"snr\": \"<integer>\",\n      \"time\": \"<dateTime>\"\n    },\n    \"operatorId\": \"<string>\",\n    \"status\": \"instock\",\n    \"tags\": {\n      \"fugiat_e\": \"<string>\",\n      \"veniam_182\": \"<string>\",\n      \"dolore_e9\": \"<string>\"\n    },\n    \"terminationEnabled\": false\n  }\n]",
+              "createdAt": "2026-06-05T15:18:52.000Z",
+              "updatedAt": "2026-06-05T15:18:52.000Z",
+              "uid": "35240-846c6c75-6a29-43a1-b667-177187934a7e"
+            }
+          ],
+          "createdAt": "2026-06-05T15:18:52.000Z",
+          "updatedAt": "2026-06-05T15:18:52.000Z",
+          "uid": "35240-0f48fddf-a4c9-46a7-9075-e4a765353562"
+        }
+      ],
+      "id": "642fe5b7-85b6-4180-9f3d-8a024539a605",
+      "createdAt": "2026-06-05T15:18:52.000Z",
+      "updatedAt": "2026-06-05T15:18:52.000Z",
+      "uid": "35240-642fe5b7-85b6-4180-9f3d-8a024539a605"
+    }
+  ],
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://api.soracom.io/v1"
+    }
+  ]
+}

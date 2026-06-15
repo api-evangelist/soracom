@@ -1,0 +1,2369 @@
+{
+  "item": [
+    {
+      "id": "fd84fdcc-9753-4456-b370-d1aaa85774d4",
+      "name": "Analysis",
+      "description": {
+        "content": "[Soracom Query](/en/docs/query/)",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "fbfa1dd1-3584-4a3d-9460-731d8c8e2a99",
+          "name": "Execute a new SQL query asynchronously",
+          "request": {
+            "name": "Execute a new SQL query asynchronously",
+            "description": {
+              "content": "Executes a SQL query asynchronously. You can check the status of a SQL query execution with the [Analysis:getAnalysisQueries API](#/Analysis/getAnalysisQueries).",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "analysis",
+                "queries"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-Soracom-API-Key"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"from\": \"<integer>\",\n  \"sql\": \"<string>\",\n  \"to\": \"<integer>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "3965d970-ec3c-4fe5-8e7d-dfe34c3ac0e8",
+              "name": "A new SQL query execution has started.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "analysis",
+                    "queries"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Soracom-API-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"from\": 1743465600,\n  \"sql\": \"SELECT * FROM SIM_SESSION_EVENTS LIMIT 10\",\n  \"to\": 1743552000\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"queryId\": \"ffa91d0c371d45c4bf53d55ab5c14955\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "e9f484a9-6d93-435d-a171-8fc5093caabb",
+          "name": "Retrieve the execution status of a SQL query",
+          "request": {
+            "name": "Retrieve the execution status of a SQL query",
+            "description": {
+              "content": "Retrieve the execution status of a SQL query.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "analysis",
+                "queries",
+                ":query_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "query_id",
+                  "description": "(Required) SQL query ID."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-Soracom-API-Key"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "8d778721-feca-4615-993d-33505dccfdfa",
+              "name": "The execution status, results, and download URL of the SQL query.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "analysis",
+                    "queries",
+                    ":query_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "query_id",
+                      "description": "(Required) SQL query ID."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Soracom-API-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"columnInfo\": [\n    {\n      \"databaseType\": \"FIXED\",\n      \"name\": \"ICCID\",\n      \"type\": \"string\"\n    },\n    {\n      \"databaseType\": \"TEXT\",\n      \"name\": \"IMEI\",\n      \"type\": \"string\"\n    },\n    {\n      \"databaseType\": \"NUMBER\",\n      \"name\": \"IMSI\",\n      \"type\": \"number\"\n    }\n  ],\n  \"fileSize\": 12345678,\n  \"rowCount\": 12345,\n  \"status\": \"COMPLETED\",\n  \"url\": \"https://soracom-analysis-export.s3.amazonaws.com/ffa91d0c-371d-45c4-bf53-d55ab5c14955.csv.gz\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "fc1db135-99bc-4b81-959e-483d1b8fe839",
+          "name": "Retrieve available database schemas",
+          "request": {
+            "name": "Retrieve available database schemas",
+            "description": {
+              "content": "Retrieves the available schemas and their column information within the database. You can use this information as a reference when converting data types of data retrieved with the [Analysis:startAnalysisQueries API](#/Analysis/startAnalysisQueries).\nExample: If the column `type` is `string` as shown below, it can be treated as a string.\n```json\n{\n  \"name\": \"SIM_SESSION_EVENTS\",\n  \"columnInfo\": [\n      {\n          \"name\": \"APN\",\n          \"type\": \"string\",\n          \"databaseType\": \"TEXT\",\n          \"description\": \"Access Point Name indicating the network gateway for the SIM session.\"\n      }\n  ]\n}\n```\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "analysis",
+                "schemas"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-Soracom-API-Key"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "c5eb1c64-34db-4157-b3d0-f94d3bea8b0b",
+              "name": "A list of available database schemas and their column information.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "analysis",
+                    "schemas"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Soracom-API-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"columnInfo\": [\n      {\n        \"databaseType\": \"TEXT\",\n        \"description\": \"Access Point Name indicating the network gateway for the SIM session.\",\n        \"name\": \"APN\",\n        \"type\": \"string\"\n      },\n      {\n        \"databaseType\": \"TEXT\",\n        \"description\": \"The primary DNS server IP address used during the SIM session.\",\n        \"name\": \"DNS0\",\n        \"type\": \"string\"\n      },\n      {\n        \"databaseType\": \"TEXT\",\n        \"description\": \"The secondary DNS server IP address used during the SIM session.\",\n        \"name\": \"DNS1\",\n        \"type\": \"string\"\n      },\n      {\n        \"databaseType\": \"TEXT\",\n        \"description\": \"Describes the type of event associated with the SIM session, such as Created, Deleted, or Updated.\",\n        \"name\": \"EVENT\",\n        \"type\": \"string\"\n      },\n      {\n        \"databaseType\": \"TEXT\",\n        \"description\": \"Home Public Land Mobile Network code that identifies the home network operator.\",\n        \"name\": \"HPLMN\",\n        \"type\": \"string\"\n      },\n      {\n        \"databaseType\": \"TEXT\",\n        \"description\": \"The Integrated Circuit Card Identifier, a unique number assigned to the SIM card.\",\n        \"name\": \"ICCID\",\n        \"type\": \"string\"\n      }\n    ],\n    \"name\": \"SIM_SESSION_EVENTS\"\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    },
+    {
+      "id": "ca4ab614-4feb-4578-8321-a9cb2dde2ab1",
+      "name": "Query",
+      "description": {
+        "content": "Search SIMs, Soracom Inventory devices, and Sigfox devices",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "93481fd7-b8fd-40fb-bd16-92185ef654e8",
+          "name": "Search Soracom Inventory devices by query",
+          "request": {
+            "name": "Search Soracom Inventory devices by query",
+            "description": {
+              "content": "Search Soracom Inventory devices by query terms. It returns partial match results. When this API permission is allowed, it grants the authority to search and retrieve all Soracom Inventory devices that include their group information.\n\n**Warning**: Use this API when the device ID of the target Inventory device is unknown, or when you want to retrieve a list of Inventory devices that match conditions. If you know the device ID, use the [Device:getDevice API](#/Device/getDevice).\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "query",
+                "devices"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "name",
+                  "value": "<string>",
+                  "description": "Name to search."
+                },
+                {
+                  "disabled": false,
+                  "key": "name",
+                  "value": "<string>",
+                  "description": "Name to search."
+                },
+                {
+                  "disabled": false,
+                  "key": "group",
+                  "value": "<string>",
+                  "description": "Group name to search."
+                },
+                {
+                  "disabled": false,
+                  "key": "group",
+                  "value": "<string>",
+                  "description": "Group name to search."
+                },
+                {
+                  "disabled": false,
+                  "key": "group_id",
+                  "value": "<string>",
+                  "description": "Group ID to search."
+                },
+                {
+                  "disabled": false,
+                  "key": "group_id",
+                  "value": "<string>",
+                  "description": "Group ID to search."
+                },
+                {
+                  "disabled": false,
+                  "key": "deviceId",
+                  "value": "<string>",
+                  "description": "Soracom Inventory device ID to search."
+                },
+                {
+                  "disabled": false,
+                  "key": "deviceId",
+                  "value": "<string>",
+                  "description": "Soracom Inventory device ID to search."
+                },
+                {
+                  "disabled": false,
+                  "key": "tag",
+                  "value": "<string>",
+                  "description": "String of tag values to search."
+                },
+                {
+                  "disabled": false,
+                  "key": "tag",
+                  "value": "<string>",
+                  "description": "String of tag values to search."
+                },
+                {
+                  "disabled": false,
+                  "key": "imsi",
+                  "value": "<string>",
+                  "description": "IMSI of the device that was used on bootstrapping."
+                },
+                {
+                  "disabled": false,
+                  "key": "imsi",
+                  "value": "<string>",
+                  "description": "IMSI of the device that was used on bootstrapping."
+                },
+                {
+                  "disabled": false,
+                  "key": "imei",
+                  "value": "<string>",
+                  "description": "IMEI of the device that was used on bootstrapping."
+                },
+                {
+                  "disabled": false,
+                  "key": "imei",
+                  "value": "<string>",
+                  "description": "IMEI of the device that was used on bootstrapping."
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "10",
+                  "description": "The maximum number of items to retrieve."
+                },
+                {
+                  "disabled": false,
+                  "key": "last_evaluated_key",
+                  "value": "<string>",
+                  "description": "The Soracom Inventory device ID of the last Inventory device retrieved on the previous page. By specifying this parameter, you can continue to retrieve the list from the next Inventory device onward."
+                },
+                {
+                  "disabled": false,
+                  "key": "search_type",
+                  "value": "and",
+                  "description": "Type of the search ('AND searching' or 'OR searching')."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-Soracom-API-Key"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "ea4ef974-0d48-4c2a-9b74-1b1e3235cc3f",
+              "name": "Returns result of searching.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "query",
+                    "devices"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "name",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "name",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "group",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "group",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "group_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "group_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "deviceId",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "deviceId",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "tag",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "tag",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "imsi",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "imsi",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "imei",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "imei",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "10"
+                    },
+                    {
+                      "key": "last_evaluated_key",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "search_type",
+                      "value": "and"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Soracom-API-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"device_id\": \"string\",\n    \"endpoint\": \"string\",\n    \"firmwareVersion\": \"string\",\n    \"groupId\": \"string\",\n    \"ipAddress\": \"string\",\n    \"lastModifiedTime\": \"1951-08-06T03:14:10.241Z\",\n    \"lastRegistrationUpdate\": \"1988-10-18T12:07:01.604Z\",\n    \"manufacturer\": \"string\",\n    \"modelNumber\": \"string\",\n    \"objects\": {},\n    \"online\": false,\n    \"operatorId\": \"string\",\n    \"registrationId\": \"string\",\n    \"registrationLifeTime\": 9748,\n    \"serialNumber\": \"string\",\n    \"tags\": {\n      \"key_0\": \"string\",\n      \"key_1\": \"string\"\n    }\n  },\n  {\n    \"device_id\": \"string\",\n    \"endpoint\": \"string\",\n    \"firmwareVersion\": \"string\",\n    \"groupId\": \"string\",\n    \"ipAddress\": \"string\",\n    \"lastModifiedTime\": \"1973-11-25T03:19:16.750Z\",\n    \"lastRegistrationUpdate\": \"1964-07-04T11:54:44.721Z\",\n    \"manufacturer\": \"string\",\n    \"modelNumber\": \"string\",\n    \"objects\": {},\n    \"online\": false,\n    \"operatorId\": \"string\",\n    \"registrationId\": \"string\",\n    \"registrationLifeTime\": 6290,\n    \"serialNumber\": \"string\",\n    \"tags\": {\n      \"key_0\": \"string\",\n      \"key_1\": \"string\"\n    }\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "aa53a12c-93a0-433f-b486-2740b7941d1a",
+              "name": "Invalid search queries.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "query",
+                    "devices"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "name",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "name",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "group",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "group",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "group_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "group_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "deviceId",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "deviceId",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "tag",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "tag",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "imsi",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "imsi",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "imei",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "imei",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "10"
+                    },
+                    {
+                      "key": "last_evaluated_key",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "search_type",
+                      "value": "and"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Soracom-API-Key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "da2c9183-fc44-4c71-baff-aeceb574d9ca",
+          "name": "Search Sigfox devices by query",
+          "request": {
+            "name": "Search Sigfox devices by query",
+            "description": {
+              "content": "Search Sigfox devices by query terms. It returns partial match results. When this API permission is allowed, it grants the authority to search and retrieve all Sigfox devices that includes their group information.\n\n**Warning**: Use this API when the device ID of the target Sigfox device is unknown, or when you want to retrieve a list of Sigfox devices that match conditions. If you know the device ID, use the [SigfoxDevice:getSigfoxDevice API](#/SigfoxDevice/getSigfoxDevice).\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "query",
+                "sigfox_devices"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "name",
+                  "value": "<string>",
+                  "description": "Name to search."
+                },
+                {
+                  "disabled": false,
+                  "key": "name",
+                  "value": "<string>",
+                  "description": "Name to search."
+                },
+                {
+                  "disabled": false,
+                  "key": "group",
+                  "value": "<string>",
+                  "description": "Group name to search."
+                },
+                {
+                  "disabled": false,
+                  "key": "group",
+                  "value": "<string>",
+                  "description": "Group name to search."
+                },
+                {
+                  "disabled": false,
+                  "key": "group_id",
+                  "value": "<string>",
+                  "description": "Group ID to search."
+                },
+                {
+                  "disabled": false,
+                  "key": "group_id",
+                  "value": "<string>",
+                  "description": "Group ID to search."
+                },
+                {
+                  "disabled": false,
+                  "key": "deviceId",
+                  "value": "<string>",
+                  "description": "Sigfox device ID to search."
+                },
+                {
+                  "disabled": false,
+                  "key": "deviceId",
+                  "value": "<string>",
+                  "description": "Sigfox device ID to search."
+                },
+                {
+                  "disabled": false,
+                  "key": "tag",
+                  "value": "<string>",
+                  "description": "String of tag values to search."
+                },
+                {
+                  "disabled": false,
+                  "key": "tag",
+                  "value": "<string>",
+                  "description": "String of tag values to search."
+                },
+                {
+                  "disabled": false,
+                  "key": "status",
+                  "value": "and",
+                  "description": "Status of Sigfox devices."
+                },
+                {
+                  "disabled": false,
+                  "key": "registration",
+                  "value": "and",
+                  "description": "Registration status of Sigfox devices."
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "10",
+                  "description": "The maximum number of items to retrieve."
+                },
+                {
+                  "disabled": false,
+                  "key": "last_evaluated_key",
+                  "value": "<string>",
+                  "description": "The Sigfox device ID of the last Sigfox device retrieved on the previous page. By specifying this parameter, you can continue to retrieve the list from the next Sigfox device onward."
+                },
+                {
+                  "disabled": false,
+                  "key": "search_type",
+                  "value": "and",
+                  "description": "Type of the search ('AND searching' or 'OR searching')."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-Soracom-API-Key"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "c02c19cb-6a9f-47c8-a05e-c959e449802e",
+              "name": "Returns result of searching.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "query",
+                    "sigfox_devices"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "name",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "name",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "group",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "group",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "group_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "group_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "deviceId",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "deviceId",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "tag",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "tag",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "status",
+                      "value": "and"
+                    },
+                    {
+                      "key": "registration",
+                      "value": "and"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "10"
+                    },
+                    {
+                      "key": "last_evaluated_key",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "search_type",
+                      "value": "and"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Soracom-API-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"device_id\": \"string\",\n    \"groupId\": \"string\",\n    \"lastModifiedTime\": \"2018-12-21T06:40:32.972Z\",\n    \"lastSeen\": {\n      \"rssi\": 6121,\n      \"snr\": 3110,\n      \"time\": \"1988-05-20T02:20:05.937Z\"\n    },\n    \"operatorId\": \"string\",\n    \"status\": \"ready\",\n    \"tags\": {\n      \"key_0\": \"string\",\n      \"key_1\": \"string\"\n    },\n    \"terminationEnabled\": false\n  },\n  {\n    \"device_id\": \"string\",\n    \"groupId\": \"string\",\n    \"lastModifiedTime\": \"2022-10-30T14:07:26.914Z\",\n    \"lastSeen\": {\n      \"rssi\": 6560,\n      \"snr\": 9909,\n      \"time\": \"1975-12-25T06:35:53.432Z\"\n    },\n    \"operatorId\": \"string\",\n    \"status\": \"ready\",\n    \"tags\": {\n      \"key_0\": \"string\",\n      \"key_1\": \"string\"\n    },\n    \"terminationEnabled\": false\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "7336bee4-39b8-4358-8ba4-6b22b466bbee",
+              "name": "Invalid search queries.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "query",
+                    "sigfox_devices"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "name",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "name",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "group",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "group",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "group_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "group_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "deviceId",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "deviceId",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "tag",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "tag",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "status",
+                      "value": "and"
+                    },
+                    {
+                      "key": "registration",
+                      "value": "and"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "10"
+                    },
+                    {
+                      "key": "last_evaluated_key",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "search_type",
+                      "value": "and"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Soracom-API-Key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "cad3d487-826a-487c-9a0f-0e17d3e6827d",
+          "name": "Search SIMs by query terms",
+          "request": {
+            "name": "Search SIMs by query terms",
+            "description": {
+              "content": "Searches for SIMs using specified query parameters.\n\n- Supports partial matching.\n- Case-insensitive.\n- Multiple search values can be specified for the following parameters by separating each value with a comma `,` (or `%2C` when URL-encoded). Note that the literal character `,` itself cannot be used as part of a search value.\n    - `name`\n    - `group`\n    - `sim_id`\n    - `imsi`\n    - `msisdn`\n    - `iccid`\n    - `serial_number`\n    - `tag`\n    - `status`\n    - `subscription`\n    - `module_type`\n- Each search value must be at least 2 characters long. When using a comma `,` to specify multiple search values, each value must also be at least 2 characters long (e.g., `ab,c` is invalid because `c` is only 1 character long).\n- When multiple query parameters are specified, the search type (AND search or OR search) can be specified using `search_type`.\n\n**Warning**: When this API permission is allowed, it grants the authority to search and retrieve all SIMs that include their group information.\n\n**Warning**: Use this API when the SIM ID of the target IoT SIM is unknown, or when you want to retrieve a list of SIMs that match certain conditions. If you know the SIM ID, please use the [Sim:getSim API](#/Sim/getSim) instead.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "query",
+                "sims"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "name",
+                  "value": "<string>",
+                  "description": "Name to search."
+                },
+                {
+                  "disabled": false,
+                  "key": "name",
+                  "value": "<string>",
+                  "description": "Name to search."
+                },
+                {
+                  "disabled": false,
+                  "key": "group",
+                  "value": "<string>",
+                  "description": "Name of the [group](/en/docs/groups/) to which the IoT SIM belongs."
+                },
+                {
+                  "disabled": false,
+                  "key": "group",
+                  "value": "<string>",
+                  "description": "Name of the [group](/en/docs/groups/) to which the IoT SIM belongs."
+                },
+                {
+                  "disabled": false,
+                  "key": "group_id",
+                  "value": "<string>",
+                  "description": "Search for IoT SIMs whose group ID matches the specified value."
+                },
+                {
+                  "disabled": false,
+                  "key": "group_id",
+                  "value": "<string>",
+                  "description": "Search for IoT SIMs whose group ID matches the specified value."
+                },
+                {
+                  "disabled": false,
+                  "key": "sim_id",
+                  "value": "<string>",
+                  "description": "Identifier of the SIM to search."
+                },
+                {
+                  "disabled": false,
+                  "key": "sim_id",
+                  "value": "<string>",
+                  "description": "Identifier of the SIM to search."
+                },
+                {
+                  "disabled": false,
+                  "key": "imsi",
+                  "value": "<string>",
+                  "description": "IMSI to search."
+                },
+                {
+                  "disabled": false,
+                  "key": "imsi",
+                  "value": "<string>",
+                  "description": "IMSI to search."
+                },
+                {
+                  "disabled": false,
+                  "key": "msisdn",
+                  "value": "<string>",
+                  "description": "MSISDN to search."
+                },
+                {
+                  "disabled": false,
+                  "key": "msisdn",
+                  "value": "<string>",
+                  "description": "MSISDN to search."
+                },
+                {
+                  "disabled": false,
+                  "key": "iccid",
+                  "value": "<string>",
+                  "description": "ICCID to search. An identifier used to identify a SIM card or virtual IoT SIM (Virtual SIM/Subscriber)."
+                },
+                {
+                  "disabled": false,
+                  "key": "iccid",
+                  "value": "<string>",
+                  "description": "ICCID to search. An identifier used to identify a SIM card or virtual IoT SIM (Virtual SIM/Subscriber)."
+                },
+                {
+                  "disabled": false,
+                  "key": "serial_number",
+                  "value": "<string>",
+                  "description": "Serial number to search. This is set only for IoT SIMs for specific regions."
+                },
+                {
+                  "disabled": false,
+                  "key": "serial_number",
+                  "value": "<string>",
+                  "description": "Serial number to search. This is set only for IoT SIMs for specific regions."
+                },
+                {
+                  "disabled": false,
+                  "key": "tag",
+                  "value": "<string>",
+                  "description": "String of tag values to search. For more information, please refer to [Using Tags with Soracom Air](/docs/air/tags)."
+                },
+                {
+                  "disabled": false,
+                  "key": "tag",
+                  "value": "<string>",
+                  "description": "String of tag values to search. For more information, please refer to [Using Tags with Soracom Air](/docs/air/tags)."
+                },
+                {
+                  "disabled": false,
+                  "key": "bundles",
+                  "value": "<string>",
+                  "description": "Bundles type to search."
+                },
+                {
+                  "disabled": false,
+                  "key": "bundles",
+                  "value": "<string>",
+                  "description": "Bundles type to search."
+                },
+                {
+                  "disabled": false,
+                  "key": "status",
+                  "value": "<string>",
+                  "description": "Status of the IoT SIM to search.\n\n- `ready`\n- `active`\n- `inactive`\n- `standby`\n- `suspended`\n- `terminated`\n- `shipped`\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "status",
+                  "value": "<string>",
+                  "description": "Status of the IoT SIM to search.\n\n- `ready`\n- `active`\n- `inactive`\n- `standby`\n- `suspended`\n- `terminated`\n- `shipped`\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "session_status",
+                  "value": "NA",
+                  "description": "Status of the session to search. Specify one of the following:\n\n- `NA`: Any.\n- `ONLINE`: Online.\n- `OFFLINE`: Offline.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "subscription",
+                  "value": "<string>",
+                  "description": "Subscription to search. Use exact match for the search. If specifying multiple subscriptions, please set `search_type` to `OR`.\n\n- For Japan coverage, specify one of the following:\n  - `plan-D`: plan-D (without bundle), plan-D (D-300MB).\n  - `plan-K2`: plan-K2 (K2-300MB).\n  - `plan-DU`\n  - `plan-KM1`\n  - `plan-K`\n  - `planArc01`: Virtual SIM/Subscriber.\n- For global coverage, specify one of the following:\n  - `plan01s`\n  - `plan01s-low_data_volume`: plan01s - Low Data Volume.\n  - `planX3`: planX3 (X3-5MB), planX3.\n  - `planP1`\n  - `plan-US`\n  - `plan-US-max`\n  - `planX1`\n  - `planX2`\n  - `planX3-EU`\n  - `plan-US-NA`\n  - `planArc01`: Virtual SIM/Subscriber.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "subscription",
+                  "value": "<string>",
+                  "description": "Subscription to search. Use exact match for the search. If specifying multiple subscriptions, please set `search_type` to `OR`.\n\n- For Japan coverage, specify one of the following:\n  - `plan-D`: plan-D (without bundle), plan-D (D-300MB).\n  - `plan-K2`: plan-K2 (K2-300MB).\n  - `plan-DU`\n  - `plan-KM1`\n  - `plan-K`\n  - `planArc01`: Virtual SIM/Subscriber.\n- For global coverage, specify one of the following:\n  - `plan01s`\n  - `plan01s-low_data_volume`: plan01s - Low Data Volume.\n  - `planX3`: planX3 (X3-5MB), planX3.\n  - `planP1`\n  - `plan-US`\n  - `plan-US-max`\n  - `planX1`\n  - `planX2`\n  - `planX3-EU`\n  - `plan-US-NA`\n  - `planArc01`: Virtual SIM/Subscriber.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "module_type",
+                  "value": "<string>",
+                  "description": "The form factor of the physical SIM to search.\n\n- `mini`: standard (2FF) size.\n- `micro`: micro (3FF) size.\n- `nano`: nano (4FF) size.\n- `trio`: 3 in 1 (can be cut into 2FF/3FF/4FF depending on how you cut it).\n- `embedded`: Embedded (MFF2).\n- `virtual`: Virtual SIM/Subscriber.\n- `integrated`: Embedded (iSIM).\n- `profilePackage`: Profile Package (eSIM profile).\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "module_type",
+                  "value": "<string>",
+                  "description": "The form factor of the physical SIM to search.\n\n- `mini`: standard (2FF) size.\n- `micro`: micro (3FF) size.\n- `nano`: nano (4FF) size.\n- `trio`: 3 in 1 (can be cut into 2FF/3FF/4FF depending on how you cut it).\n- `embedded`: Embedded (MFF2).\n- `virtual`: Virtual SIM/Subscriber.\n- `integrated`: Embedded (iSIM).\n- `profilePackage`: Profile Package (eSIM profile).\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "10",
+                  "description": "The maximum number of items to retrieve."
+                },
+                {
+                  "disabled": false,
+                  "key": "last_evaluated_key",
+                  "value": "<string>",
+                  "description": "The SIM ID of the last SIM retrieved on the previous page. By specifying this parameter, you can continue to retrieve the list from the next SIM onward."
+                },
+                {
+                  "disabled": false,
+                  "key": "search_type",
+                  "value": "and",
+                  "description": "The type of search condition.\n\n- AND: SIMs which match all of the search parameters will be returned (default).\n- OR: SIMs which match any of the search parameters will be returned.\n\nIf the value of a search parameter contains a comma `,` (or `%2C` when URL-encoded), the value will be split at each comma and treated as multiple search values, each of which will be evaluated based on the specified AND or OR condition.\n"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-Soracom-API-Key"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "914e86b9-1274-453f-bc16-2b889bd3d045",
+              "name": "Returns result of searching.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "query",
+                    "sims"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "group_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "group_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sim_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sim_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "imsi",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "imsi",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "msisdn",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "msisdn",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "iccid",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "iccid",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "serial_number",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "serial_number",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "tag",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "tag",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "bundles",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "bundles",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "status",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "status",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "session_status",
+                      "value": "NA"
+                    },
+                    {
+                      "key": "subscription",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "subscription",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "module_type",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "module_type",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "10"
+                    },
+                    {
+                      "key": "last_evaluated_key",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "search_type",
+                      "value": "and"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Soracom-API-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"activeProfileId\": \"string\",\n    \"arcSessionStatus\": {\n      \"arcAllowedIPs\": [\n        \"string\",\n        \"string\"\n      ],\n      \"arcClientPeerIpAddress\": \"string\",\n      \"arcClientPeerPublicKey\": \"string\",\n      \"arcServerEndpoint\": \"string\",\n      \"arcServerPeerPublicKey\": \"string\",\n      \"gatewayPrivateIpAddress\": \"string\",\n      \"gatewayPublicIpAddress\": \"string\",\n      \"lastUpdatedAt\": 4618,\n      \"placement\": {\n        \"infrastructureProvider\": \"aws\",\n        \"region\": \"us-west-2\"\n      },\n      \"vpgId\": \"string\"\n    },\n    \"capabilities\": {\n      \"data\": false,\n      \"sms\": false\n    },\n    \"createdTime\": 476,\n    \"expiryAction\": \"(null value)\",\n    \"expiryTime\": 5940,\n    \"groupId\": \"string\",\n    \"imeiLock\": {\n      \"imei\": \"string\"\n    },\n    \"lastModifiedTime\": 7107,\n    \"lastPortMappingCreatedTime\": 7514,\n    \"localInfo\": {\n      \"key_0\": \"string\"\n    },\n    \"moduleType\": \"embedded\",\n    \"operatorId\": \"string\",\n    \"otaSerialNumber\": \"string\",\n    \"pcapEndTime\": 9033,\n    \"pcapStartTime\": 873,\n    \"previousSession\": {\n      \"cell\": {\n        \"ci\": 8320,\n        \"eci\": 7878,\n        \"lac\": 2653,\n        \"mcc\": 446,\n        \"mnc\": 4297,\n        \"rac\": 4162,\n        \"radioType\": \"NB-IoT\",\n        \"sac\": 1935,\n        \"tac\": 4013\n      },\n      \"createdTime\": 4313,\n      \"deletedTime\": 9871,\n      \"dnsServers\": [\n        \"string\",\n        \"string\"\n      ],\n      \"gatewayPrivateIpAddress\": \"string\",\n      \"gatewayPublicIpAddress\": \"string\",\n      \"imei\": \"string\",\n      \"imsi\": \"string\",\n      \"sessionId\": \"string\",\n      \"subscription\": \"string\",\n      \"ueIpAddress\": \"string\",\n      \"vpgId\": \"string\"\n    },\n    \"profiles\": {\n      \"key_0\": {\n        \"arcClientPeerPrivateKey\": \"string\",\n        \"arcClientPeerPublicKey\": \"string\",\n        \"iccid\": \"string\",\n        \"otaSupported\": false,\n        \"primaryImsi\": \"string\",\n        \"subscribers\": {\n          \"key_0\": {\n            \"bundles\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ],\n            \"capabilities\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"imsi\": \"string\",\n            \"msisdn\": \"string\",\n            \"status\": \"delivered\",\n            \"subscription\": \"string\"\n          },\n          \"key_1\": {\n            \"bundles\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ],\n            \"capabilities\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"imsi\": \"string\",\n            \"msisdn\": \"string\",\n            \"status\": \"terminated\",\n            \"subscription\": \"string\"\n          },\n          \"key_2\": {\n            \"bundles\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ],\n            \"capabilities\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"imsi\": \"string\",\n            \"msisdn\": \"string\",\n            \"status\": \"delivered\",\n            \"subscription\": \"string\"\n          }\n        }\n      }\n    },\n    \"renewalFeeStatusSetTime\": 4113,\n    \"serialNumber\": \"string\",\n    \"sessionStatus\": {\n      \"cell\": {\n        \"ci\": 9685,\n        \"eci\": 674,\n        \"lac\": 1040,\n        \"mcc\": 8467,\n        \"mnc\": 3711,\n        \"rac\": 9067,\n        \"radioType\": \"LTE\",\n        \"sac\": 5290,\n        \"tac\": 7861\n      },\n      \"dnsServers\": [\n        \"string\",\n        \"string\"\n      ],\n      \"gatewayPrivateIpAddress\": \"string\",\n      \"gatewayPublicIpAddress\": \"string\",\n      \"imei\": \"string\",\n      \"imsi\": \"string\",\n      \"lastUpdatedAt\": 2039,\n      \"location\": {},\n      \"online\": true,\n      \"placement\": {\n        \"infrastructureProvider\": \"aws\",\n        \"region\": \"us-west-2\"\n      },\n      \"sessionId\": \"string\",\n      \"subscription\": \"string\",\n      \"ueIpAddress\": \"string\",\n      \"vpgId\": \"string\"\n    },\n    \"simId\": \"string\",\n    \"speedClass\": \"string\",\n    \"status\": \"standby\",\n    \"tags\": {\n      \"tagName1\": \"tagValue1\",\n      \"tagName2\": \"tagValue2...\"\n    },\n    \"terminationEnabled\": true,\n    \"testmodeExhaustedTime\": 9335,\n    \"type\": \"euicc\"\n  },\n  {\n    \"activeProfileId\": \"string\",\n    \"arcSessionStatus\": {\n      \"arcAllowedIPs\": [\n        \"string\",\n        \"string\"\n      ],\n      \"arcClientPeerIpAddress\": \"string\",\n      \"arcClientPeerPublicKey\": \"string\",\n      \"arcServerEndpoint\": \"string\",\n      \"arcServerPeerPublicKey\": \"string\",\n      \"gatewayPrivateIpAddress\": \"string\",\n      \"gatewayPublicIpAddress\": \"string\",\n      \"lastUpdatedAt\": 7254,\n      \"placement\": {\n        \"infrastructureProvider\": \"aws\",\n        \"region\": \"us-west-2\"\n      },\n      \"vpgId\": \"string\"\n    },\n    \"capabilities\": {\n      \"data\": false,\n      \"sms\": false\n    },\n    \"createdTime\": 9360,\n    \"expiryAction\": \"(null value)\",\n    \"expiryTime\": 8935,\n    \"groupId\": \"string\",\n    \"imeiLock\": {\n      \"imei\": \"string\"\n    },\n    \"lastModifiedTime\": 7864,\n    \"lastPortMappingCreatedTime\": 8881,\n    \"localInfo\": {\n      \"key_0\": \"string\",\n      \"key_1\": \"string\",\n      \"key_2\": \"string\",\n      \"key_3\": \"string\"\n    },\n    \"moduleType\": \"mini\",\n    \"operatorId\": \"string\",\n    \"otaSerialNumber\": \"string\",\n    \"pcapEndTime\": 8053,\n    \"pcapStartTime\": 761,\n    \"previousSession\": {\n      \"cell\": {\n        \"ci\": 3141,\n        \"eci\": 1180,\n        \"lac\": 5005,\n        \"mcc\": 1067,\n        \"mnc\": 8553,\n        \"rac\": 7814,\n        \"radioType\": \"3G\",\n        \"sac\": 8290,\n        \"tac\": 7732\n      },\n      \"createdTime\": 2697,\n      \"deletedTime\": 5474,\n      \"dnsServers\": [\n        \"string\",\n        \"string\"\n      ],\n      \"gatewayPrivateIpAddress\": \"string\",\n      \"gatewayPublicIpAddress\": \"string\",\n      \"imei\": \"string\",\n      \"imsi\": \"string\",\n      \"sessionId\": \"string\",\n      \"subscription\": \"string\",\n      \"ueIpAddress\": \"string\",\n      \"vpgId\": \"string\"\n    },\n    \"profiles\": {\n      \"key_0\": {\n        \"arcClientPeerPrivateKey\": \"string\",\n        \"arcClientPeerPublicKey\": \"string\",\n        \"iccid\": \"string\",\n        \"otaSupported\": false,\n        \"primaryImsi\": \"string\",\n        \"subscribers\": {\n          \"key_0\": {\n            \"bundles\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ],\n            \"capabilities\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"imsi\": \"string\",\n            \"msisdn\": \"string\",\n            \"status\": \"ready\",\n            \"subscription\": \"string\"\n          },\n          \"key_1\": {\n            \"bundles\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ],\n            \"capabilities\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"imsi\": \"string\",\n            \"msisdn\": \"string\",\n            \"status\": \"ready\",\n            \"subscription\": \"string\"\n          }\n        }\n      },\n      \"key_1\": {\n        \"arcClientPeerPrivateKey\": \"string\",\n        \"arcClientPeerPublicKey\": \"string\",\n        \"iccid\": \"string\",\n        \"otaSupported\": true,\n        \"primaryImsi\": \"string\",\n        \"subscribers\": {\n          \"key_0\": {\n            \"bundles\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ],\n            \"capabilities\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"imsi\": \"string\",\n            \"msisdn\": \"string\",\n            \"status\": \"active\",\n            \"subscription\": \"string\"\n          },\n          \"key_1\": {\n            \"bundles\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ],\n            \"capabilities\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"imsi\": \"string\",\n            \"msisdn\": \"string\",\n            \"status\": \"shipped\",\n            \"subscription\": \"string\"\n          },\n          \"key_2\": {\n            \"bundles\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ],\n            \"capabilities\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"imsi\": \"string\",\n            \"msisdn\": \"string\",\n            \"status\": \"active\",\n            \"subscription\": \"string\"\n          }\n        }\n      },\n      \"key_2\": {\n        \"arcClientPeerPrivateKey\": \"string\",\n        \"arcClientPeerPublicKey\": \"string\",\n        \"iccid\": \"string\",\n        \"otaSupported\": true,\n        \"primaryImsi\": \"string\",\n        \"subscribers\": {\n          \"key_0\": {\n            \"bundles\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ],\n            \"capabilities\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"imsi\": \"string\",\n            \"msisdn\": \"string\",\n            \"status\": \"terminated\",\n            \"subscription\": \"string\"\n          },\n          \"key_1\": {\n            \"bundles\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ],\n            \"capabilities\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"imsi\": \"string\",\n            \"msisdn\": \"string\",\n            \"status\": \"active\",\n            \"subscription\": \"string\"\n          },\n          \"key_2\": {\n            \"bundles\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ],\n            \"capabilities\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"imsi\": \"string\",\n            \"msisdn\": \"string\",\n            \"status\": \"active\",\n            \"subscription\": \"string\"\n          }\n        }\n      }\n    },\n    \"renewalFeeStatusSetTime\": 4086,\n    \"serialNumber\": \"string\",\n    \"sessionStatus\": {\n      \"cell\": {\n        \"ci\": 8086,\n        \"eci\": 7549,\n        \"lac\": 8736,\n        \"mcc\": 1939,\n        \"mnc\": 1895,\n        \"rac\": 5292,\n        \"radioType\": \"LTE\",\n        \"sac\": 4179,\n        \"tac\": 3396\n      },\n      \"dnsServers\": [\n        \"string\",\n        \"string\"\n      ],\n      \"gatewayPrivateIpAddress\": \"string\",\n      \"gatewayPublicIpAddress\": \"string\",\n      \"imei\": \"string\",\n      \"imsi\": \"string\",\n      \"lastUpdatedAt\": 5826,\n      \"location\": {},\n      \"online\": false,\n      \"placement\": {\n        \"infrastructureProvider\": \"aws\",\n        \"region\": \"ap-southeast-2\"\n      },\n      \"sessionId\": \"string\",\n      \"subscription\": \"string\",\n      \"ueIpAddress\": \"string\",\n      \"vpgId\": \"string\"\n    },\n    \"simId\": \"string\",\n    \"speedClass\": \"string\",\n    \"status\": \"ready\",\n    \"tags\": {\n      \"tagName1\": \"tagValue1\",\n      \"tagName2\": \"tagValue2...\"\n    },\n    \"terminationEnabled\": false,\n    \"testmodeExhaustedTime\": 7986,\n    \"type\": \"virtual\"\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "408c2807-2cfb-472d-a1b5-385e237d32bc",
+              "name": "Invalid search queries.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "query",
+                    "sims"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "group_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "group_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sim_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sim_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "imsi",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "imsi",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "msisdn",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "msisdn",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "iccid",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "iccid",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "serial_number",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "serial_number",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "tag",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "tag",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "bundles",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "bundles",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "status",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "status",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "session_status",
+                      "value": "NA"
+                    },
+                    {
+                      "key": "subscription",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "subscription",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "module_type",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "module_type",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "10"
+                    },
+                    {
+                      "key": "last_evaluated_key",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "search_type",
+                      "value": "and"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Soracom-API-Key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "a60c4720-af4d-4547-bb62-d8dbc870580f",
+          "name": "(DEPRECATED) Search subscribers by query terms",
+          "request": {
+            "name": "(DEPRECATED) Search subscribers by query terms",
+            "description": {
+              "content": "(DEPRECATED: please consider to use `/query/sims` API instead ) Search subscribers by query terms. It returns partial match results. When this API permission is allowed, it grants the authority to search and retrieve all SIMs that includes their group information.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "query",
+                "subscribers"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "name",
+                  "value": "<string>",
+                  "description": "Name to search."
+                },
+                {
+                  "disabled": false,
+                  "key": "name",
+                  "value": "<string>",
+                  "description": "Name to search."
+                },
+                {
+                  "disabled": false,
+                  "key": "group",
+                  "value": "<string>",
+                  "description": "Group name to search."
+                },
+                {
+                  "disabled": false,
+                  "key": "group",
+                  "value": "<string>",
+                  "description": "Group name to search."
+                },
+                {
+                  "disabled": false,
+                  "key": "imsi",
+                  "value": "<string>",
+                  "description": "IMSI to search."
+                },
+                {
+                  "disabled": false,
+                  "key": "imsi",
+                  "value": "<string>",
+                  "description": "IMSI to search."
+                },
+                {
+                  "disabled": false,
+                  "key": "msisdn",
+                  "value": "<string>",
+                  "description": "MSISDN to search."
+                },
+                {
+                  "disabled": false,
+                  "key": "msisdn",
+                  "value": "<string>",
+                  "description": "MSISDN to search."
+                },
+                {
+                  "disabled": false,
+                  "key": "iccid",
+                  "value": "<string>",
+                  "description": "ICCID to search."
+                },
+                {
+                  "disabled": false,
+                  "key": "iccid",
+                  "value": "<string>",
+                  "description": "ICCID to search."
+                },
+                {
+                  "disabled": false,
+                  "key": "serial_number",
+                  "value": "<string>",
+                  "description": "Serial number to search."
+                },
+                {
+                  "disabled": false,
+                  "key": "serial_number",
+                  "value": "<string>",
+                  "description": "Serial number to search."
+                },
+                {
+                  "disabled": false,
+                  "key": "tag",
+                  "value": "<string>",
+                  "description": "String of tag values to search."
+                },
+                {
+                  "disabled": false,
+                  "key": "tag",
+                  "value": "<string>",
+                  "description": "String of tag values to search."
+                },
+                {
+                  "disabled": false,
+                  "key": "subscription",
+                  "value": "<string>",
+                  "description": "Subscription to search. Use exact match for the search. If specifying multiple subscriptions, please set `search_type` to `OR`.\n\n- For Japan coverage, specify one of the following:\n  - `plan-D`: plan-D (without bundle), plan-D (D-300MB).\n  - `plan-K2`: plan-K2 (K2-300MB).\n  - `plan-DU`\n  - `plan-KM1`\n  - `plan-K`\n  - `planArc01`: Virtual SIM/Subscriber.\n- For global coverage, specify one of the following:\n  - `plan01s`\n  - `plan01s-low_data_volume`: plan01s - Low Data Volume.\n  - `planX3`: planX3 (X3-5MB), planX3.\n  - `planP1`\n  - `plan-US`\n  - `plan-US-max`\n  - `planX1`\n  - `planX2`\n  - `planX3-EU`\n  - `plan-US-NA`\n  - `planArc01`: Virtual SIM/Subscriber.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "subscription",
+                  "value": "<string>",
+                  "description": "Subscription to search. Use exact match for the search. If specifying multiple subscriptions, please set `search_type` to `OR`.\n\n- For Japan coverage, specify one of the following:\n  - `plan-D`: plan-D (without bundle), plan-D (D-300MB).\n  - `plan-K2`: plan-K2 (K2-300MB).\n  - `plan-DU`\n  - `plan-KM1`\n  - `plan-K`\n  - `planArc01`: Virtual SIM/Subscriber.\n- For global coverage, specify one of the following:\n  - `plan01s`\n  - `plan01s-low_data_volume`: plan01s - Low Data Volume.\n  - `planX3`: planX3 (X3-5MB), planX3.\n  - `planP1`\n  - `plan-US`\n  - `plan-US-max`\n  - `planX1`\n  - `planX2`\n  - `planX3-EU`\n  - `plan-US-NA`\n  - `planArc01`: Virtual SIM/Subscriber.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "module_type",
+                  "value": "<string>",
+                  "description": "Module type (e.g. `mini`, `virtual`) to search."
+                },
+                {
+                  "disabled": false,
+                  "key": "module_type",
+                  "value": "<string>",
+                  "description": "Module type (e.g. `mini`, `virtual`) to search."
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "10",
+                  "description": "The maximum number of item to retrieve."
+                },
+                {
+                  "disabled": false,
+                  "key": "last_evaluated_key",
+                  "value": "<string>",
+                  "description": "The IMSI of the last subscriber retrieved on the previous page. By specifying this parameter, you can continue to retrieve the list from the next subscriber onward."
+                },
+                {
+                  "disabled": false,
+                  "key": "search_type",
+                  "value": "and",
+                  "description": "Type of the search ('AND searching' or 'OR searching')."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-Soracom-API-Key"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "9618e7d7-2397-4650-a2ec-f11cbc434e22",
+              "name": "Returns result of searching.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "query",
+                    "subscribers"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "name",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "name",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "group",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "group",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "imsi",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "imsi",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "msisdn",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "msisdn",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "iccid",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "iccid",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "serial_number",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "serial_number",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "tag",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "tag",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "subscription",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "subscription",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "module_type",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "module_type",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "10"
+                    },
+                    {
+                      "key": "last_evaluated_key",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "search_type",
+                      "value": "and"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Soracom-API-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"apn\": \"string\",\n    \"bundles\": [\n      \"string\",\n      \"string\"\n    ],\n    \"createdAt\": 7740,\n    \"createdTime\": 7694,\n    \"expiredAt\": 7765,\n    \"expiryAction\": \"suspend\",\n    \"expiryTime\": 752,\n    \"groupId\": \"string\",\n    \"iccid\": \"string\",\n    \"imeiLock\": {\n      \"imei\": \"string\"\n    },\n    \"imsi\": \"string\",\n    \"ipAddress\": \"string\",\n    \"lastModifiedAt\": 2834,\n    \"lastModifiedTime\": 7630,\n    \"lastPortMappingCreatedTime\": 1737,\n    \"locationRegistrationStatus\": {\n      \"cs\": {\n        \"lastModifiedTime\": 8528,\n        \"vplmn\": \"string\"\n      },\n      \"eps\": {\n        \"lastModifiedTime\": 1792,\n        \"vplmn\": \"string\"\n      },\n      \"ps\": {\n        \"lastModifiedTime\": 5513,\n        \"vplmn\": \"string\"\n      }\n    },\n    \"moduleType\": \"mini\",\n    \"msisdn\": \"string\",\n    \"operatorId\": \"string\",\n    \"plan\": 8820,\n    \"previousSession\": {\n      \"cell\": {\n        \"ci\": 5398,\n        \"eci\": 6519,\n        \"lac\": 4190,\n        \"mcc\": 6046,\n        \"mnc\": 7734,\n        \"rac\": 668,\n        \"radioType\": \"LTE\",\n        \"sac\": 173,\n        \"tac\": 6360\n      },\n      \"createdTime\": 9204,\n      \"deletedTime\": 220,\n      \"dnsServers\": [\n        \"string\",\n        \"string\"\n      ],\n      \"gatewayPrivateIpAddress\": \"string\",\n      \"gatewayPublicIpAddress\": \"string\",\n      \"imei\": \"string\",\n      \"imsi\": \"string\",\n      \"sessionId\": \"string\",\n      \"subscription\": \"string\",\n      \"ueIpAddress\": \"string\",\n      \"vpgId\": \"string\"\n    },\n    \"registeredTime\": 8005,\n    \"renewalFeeStatusSetTime\": 5973,\n    \"serialNumber\": \"string\",\n    \"sessionStatus\": {\n      \"cell\": {\n        \"ci\": 4547,\n        \"eci\": 821,\n        \"lac\": 1060,\n        \"mcc\": 683,\n        \"mnc\": 7703,\n        \"rac\": 4602,\n        \"radioType\": \"GSM\",\n        \"sac\": 234,\n        \"tac\": 7340\n      },\n      \"dnsServers\": [\n        \"string\",\n        \"string\"\n      ],\n      \"gatewayPrivateIpAddress\": \"string\",\n      \"gatewayPublicIpAddress\": \"string\",\n      \"imei\": \"string\",\n      \"imsi\": \"string\",\n      \"lastUpdatedAt\": 5427,\n      \"location\": {},\n      \"online\": false,\n      \"placement\": {\n        \"infrastructureProvider\": \"aws\",\n        \"region\": \"eu-central-1\"\n      },\n      \"sessionId\": \"string\",\n      \"subscription\": \"string\",\n      \"ueIpAddress\": \"string\",\n      \"vpgId\": \"string\"\n    },\n    \"simId\": \"string\",\n    \"speedClass\": \"string\",\n    \"status\": \"suspended\",\n    \"subscription\": \"string\",\n    \"tags\": {\n      \"tagName1\": \"tagValue1\",\n      \"tagName2\": \"tagValue2...\"\n    },\n    \"terminationEnabled\": true,\n    \"type\": \"string\"\n  },\n  {\n    \"apn\": \"string\",\n    \"bundles\": [\n      \"string\",\n      \"string\"\n    ],\n    \"createdAt\": 5921,\n    \"createdTime\": 6514,\n    \"expiredAt\": 2335,\n    \"expiryAction\": \"terminate\",\n    \"expiryTime\": 3180,\n    \"groupId\": \"string\",\n    \"iccid\": \"string\",\n    \"imeiLock\": {\n      \"imei\": \"string\"\n    },\n    \"imsi\": \"string\",\n    \"ipAddress\": \"string\",\n    \"lastModifiedAt\": 8027,\n    \"lastModifiedTime\": 9481,\n    \"lastPortMappingCreatedTime\": 1371,\n    \"locationRegistrationStatus\": {\n      \"cs\": {\n        \"lastModifiedTime\": 7686,\n        \"vplmn\": \"string\"\n      },\n      \"eps\": {\n        \"lastModifiedTime\": 7941,\n        \"vplmn\": \"string\"\n      },\n      \"ps\": {\n        \"lastModifiedTime\": 6480,\n        \"vplmn\": \"string\"\n      }\n    },\n    \"moduleType\": \"virtual\",\n    \"msisdn\": \"string\",\n    \"operatorId\": \"string\",\n    \"plan\": 680,\n    \"previousSession\": {\n      \"cell\": {\n        \"ci\": 4391,\n        \"eci\": 8467,\n        \"lac\": 8853,\n        \"mcc\": 4686,\n        \"mnc\": 5349,\n        \"rac\": 1195,\n        \"radioType\": \"GSM\",\n        \"sac\": 4652,\n        \"tac\": 9258\n      },\n      \"createdTime\": 4872,\n      \"deletedTime\": 6546,\n      \"dnsServers\": [\n        \"string\",\n        \"string\"\n      ],\n      \"gatewayPrivateIpAddress\": \"string\",\n      \"gatewayPublicIpAddress\": \"string\",\n      \"imei\": \"string\",\n      \"imsi\": \"string\",\n      \"sessionId\": \"string\",\n      \"subscription\": \"string\",\n      \"ueIpAddress\": \"string\",\n      \"vpgId\": \"string\"\n    },\n    \"registeredTime\": 6423,\n    \"renewalFeeStatusSetTime\": 1573,\n    \"serialNumber\": \"string\",\n    \"sessionStatus\": {\n      \"cell\": {\n        \"ci\": 2582,\n        \"eci\": 5117,\n        \"lac\": 4836,\n        \"mcc\": 1997,\n        \"mnc\": 2787,\n        \"rac\": 3467,\n        \"radioType\": \"NB-IoT\",\n        \"sac\": 2707,\n        \"tac\": 9748\n      },\n      \"dnsServers\": [\n        \"string\",\n        \"string\"\n      ],\n      \"gatewayPrivateIpAddress\": \"string\",\n      \"gatewayPublicIpAddress\": \"string\",\n      \"imei\": \"string\",\n      \"imsi\": \"string\",\n      \"lastUpdatedAt\": 3333,\n      \"location\": {},\n      \"online\": true,\n      \"placement\": {\n        \"infrastructureProvider\": \"aws\",\n        \"region\": \"ap-northeast-1\"\n      },\n      \"sessionId\": \"string\",\n      \"subscription\": \"string\",\n      \"ueIpAddress\": \"string\",\n      \"vpgId\": \"string\"\n    },\n    \"simId\": \"string\",\n    \"speedClass\": \"string\",\n    \"status\": \"inactive\",\n    \"subscription\": \"string\",\n    \"tags\": {\n      \"tagName1\": \"tagValue1\",\n      \"tagName2\": \"tagValue2...\"\n    },\n    \"terminationEnabled\": false,\n    \"type\": \"string\"\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "48d2d8b3-4e24-44e1-8461-a0bde26f92b2",
+              "name": "Invalid search queries.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "query",
+                    "subscribers"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "name",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "name",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "group",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "group",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "imsi",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "imsi",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "msisdn",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "msisdn",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "iccid",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "iccid",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "serial_number",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "serial_number",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "tag",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "tag",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "subscription",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "subscription",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "module_type",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "module_type",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "10"
+                    },
+                    {
+                      "key": "last_evaluated_key",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "search_type",
+                      "value": "and"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Soracom-API-Key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "35b1669f-5002-467a-8d68-801f5ab8743a",
+          "name": "Search traffic volume ranking of subscribers",
+          "request": {
+            "name": "Search traffic volume ranking of subscribers",
+            "description": {
+              "content": "Search traffic volume ranking of subscribers.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "query",
+                "subscribers",
+                "traffic_volume",
+                "ranking"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "from",
+                  "value": "<long>",
+                  "description": "(Required) The beginning point of searching range (UNIX time in milliseconds)."
+                },
+                {
+                  "disabled": false,
+                  "key": "to",
+                  "value": "<long>",
+                  "description": "(Required) The end point of searching range (UNIX time in milliseconds)."
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "10",
+                  "description": "The maximum number of item to retrieve."
+                },
+                {
+                  "disabled": false,
+                  "key": "order",
+                  "value": "desc",
+                  "description": "The order of ranking."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-Soracom-API-Key"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "1289196f-b13f-4d52-8674-862a22f094cd",
+              "name": "OK.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "query",
+                    "subscribers",
+                    "traffic_volume",
+                    "ranking"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "from",
+                      "value": "<long>"
+                    },
+                    {
+                      "key": "to",
+                      "value": "<long>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "10"
+                    },
+                    {
+                      "key": "order",
+                      "value": "desc"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Soracom-API-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"imsi\": \"string\",\n    \"trafficVolume\": 9974\n  },\n  {\n    \"imsi\": \"string\",\n    \"trafficVolume\": 3104\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    },
+    {
+      "id": "0375d024-c38f-41e5-a8c0-69868f1c4277",
+      "name": "ResourceSummary",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "e38bec8f-0f41-4ce7-be4f-6c3bb104c488",
+          "name": "Get the resource summary identified by resource_summary_type",
+          "request": {
+            "name": "Get the resource summary identified by resource_summary_type",
+            "description": {
+              "content": "Obtain a resource summary information identified by resource_summary_type.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "resource_summaries",
+                ":resource_summary_type"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "resource_summary_type",
+                  "description": "(Required) The type of the resource summary.\n\n- `simsPerStatus`: The number of IoT SIMs per status.\n"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-Soracom-API-Key"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "737168c2-c4c5-4ba2-8676-8ac54b5c436e",
+              "name": "The resource summary was found.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "resource_summaries",
+                    ":resource_summary_type"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "resource_summary_type",
+                      "description": "(Required) The type of the resource summary.\n\n- `simsPerStatus`: The number of IoT SIMs per status.\n"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Soracom-API-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"resourceSummaryItems\": [\n    {\n      \"updatedTime\": 1654007722000,\n      \"values\": [\n        {\n          \"name\": \"activeSims\",\n          \"value\": 1\n        },\n        {\n          \"name\": \"activeSims\",\n          \"value\": 1\n        }\n      ]\n    },\n    {\n      \"updatedTime\": 1654007722000,\n      \"values\": [\n        {\n          \"name\": \"activeSims\",\n          \"value\": 1\n        },\n        {\n          \"name\": \"activeSims\",\n          \"value\": 1\n        }\n      ]\n    }\n  ],\n  \"resourceSummaryType\": \"simsPerStatus\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "10fd0e52-88c0-4ee6-90ee-47f38d6967b2",
+              "name": "No such resource summary.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "resource_summaries",
+                    ":resource_summary_type"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "resource_summary_type",
+                      "description": "(Required) The type of the resource summary.\n\n- `simsPerStatus`: The number of IoT SIMs per status.\n"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Soracom-API-Key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.soracom.io/v1",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "ef4f1216-34c1-4191-a0b4-d1c59c17e116",
+    "name": "Soracom Analysis and Query API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Run SQL queries against Soracom Query, fetch query schemas, and search SIMs, Inventory devices, and Sigfox devices.",
+      "type": "text/plain"
+    }
+  }
+}

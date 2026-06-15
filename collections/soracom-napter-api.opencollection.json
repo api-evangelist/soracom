@@ -1,0 +1,180 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Soracom Napter API",
+    "version": "20250903-043502"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "PortMapping",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Retrieve a list of Napter On-Demand Remote Access entries",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.soracom.io/v1/port_mappings",
+            "params": [
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of results per response page."
+              },
+              {
+                "name": "last_evaluated_key",
+                "value": "",
+                "type": "query",
+                "description": "The last On-Demand Remote Access ID retrieved on the previous page. By specifying this parameter, you can continue to retrieve the list from the next entry onward."
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-Soracom-API-Key",
+              "value": "{{X-Soracom-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Returns a list of Napter On-Demand Remote Access entries."
+        },
+        {
+          "info": {
+            "name": "Create Napter On-Demand Remote Access entry",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.soracom.io/v1/port_mappings",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-Soracom-API-Key",
+              "value": "{{X-Soracom-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Create a new Napter On-Demand Remote Access entry."
+        },
+        {
+          "info": {
+            "name": "Delete Napter On-Demand Remote Access entry",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.soracom.io/v1/port_mappings/:ip_address/:port",
+            "params": [
+              {
+                "name": "ip_address",
+                "value": "",
+                "type": "path",
+                "description": "IP address of the On-Demand Remote Access entry to be deleted."
+              },
+              {
+                "name": "port",
+                "value": "",
+                "type": "path",
+                "description": "Port number of the On-Demand Remote Access entry to be deleted."
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-Soracom-API-Key",
+              "value": "{{X-Soracom-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Deletes the specified Napter On-Demand Remote Access entry."
+        },
+        {
+          "info": {
+            "name": "Retrieve a list of Napter On-Demand Remote Access entries created with specified SIM ID",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.soracom.io/v1/port_mappings/sims/:sim_id",
+            "params": [
+              {
+                "name": "sim_id",
+                "value": "",
+                "type": "path",
+                "description": "SIM ID of the target IoT SIM."
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-Soracom-API-Key",
+              "value": "{{X-Soracom-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Retrieves a list of Napter On-Demand Remote Access entries created with the specified SIM ID."
+        },
+        {
+          "info": {
+            "name": "Create Napter On-Demand Remote Access entry with specified SIM ID",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.soracom.io/v1/port_mappings/sims/:sim_id",
+            "params": [
+              {
+                "name": "sim_id",
+                "value": "",
+                "type": "path",
+                "description": "SIM ID of the target IoT SIM."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-Soracom-API-Key",
+              "value": "{{X-Soracom-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Create a new Napter On-Demand Remote Access entry with the specified SIM ID."
+        },
+        {
+          "info": {
+            "name": "Retrieve a list of Napter On-Demand Remote Access entries created with specified IMSI",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.soracom.io/v1/port_mappings/subscribers/:imsi",
+            "params": [
+              {
+                "name": "imsi",
+                "value": "",
+                "type": "path",
+                "description": "IMSI of the target."
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-Soracom-API-Key",
+              "value": "{{X-Soracom-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Retrieves a list of Napter On-Demand Remote Access entries where `destinationChoosingStrategy` is `IMSI_PRIORITIZED` (entries created with specified IMSI).\n"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,295 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Soracom Batch API",
+    "version": "20250903-043502"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Batch",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List batch groups.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.soracom.io/v1/batch_groups",
+            "params": [
+              {
+                "name": "limit",
+                "value": "10",
+                "type": "query",
+                "description": "Maximum number of batch groups to retrieve. The number of batch groups returned may be less than the specified value."
+              },
+              {
+                "name": "last_evaluated_key",
+                "value": "",
+                "type": "query",
+                "description": "The value of the `x-soracom-next-key` header returned in the response to the last request. Specify this to retrieve the next page of batch groups."
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-Soracom-API-Key",
+              "value": "{{X-Soracom-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Returns a list of batch groups."
+        },
+        {
+          "info": {
+            "name": "Create batch group.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.soracom.io/v1/batch_groups",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-Soracom-API-Key",
+              "value": "{{X-Soracom-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Create a new batch group for organizing and managing batch jobs. To create a batch job, use the [Batch:createBatchJob](#/Batch/createBatchJob) instead.\n"
+        },
+        {
+          "info": {
+            "name": "Get batch group.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.soracom.io/v1/batch_groups/:batch_group_id",
+            "params": [
+              {
+                "name": "batch_group_id",
+                "value": "",
+                "type": "path",
+                "description": "Batch group ID."
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-Soracom-API-Key",
+              "value": "{{X-Soracom-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Returns details of the specified batch group.\n"
+        },
+        {
+          "info": {
+            "name": "Update batch group.",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.soracom.io/v1/batch_groups/:batch_group_id",
+            "params": [
+              {
+                "name": "batch_group_id",
+                "value": "",
+                "type": "path",
+                "description": "Batch group ID."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-Soracom-API-Key",
+              "value": "{{X-Soracom-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Updates the name or description of the specified batch group.\n"
+        },
+        {
+          "info": {
+            "name": "Delete batch group.",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.soracom.io/v1/batch_groups/:batch_group_id",
+            "params": [
+              {
+                "name": "batch_group_id",
+                "value": "",
+                "type": "path",
+                "description": "Batch group ID."
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-Soracom-API-Key",
+              "value": "{{X-Soracom-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Delete the specified batch group. Batch groups can only be deleted if there are no running batch jobs in the group.\n"
+        },
+        {
+          "info": {
+            "name": "List batch jobs.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.soracom.io/v1/batch_groups/:batch_group_id/jobs",
+            "params": [
+              {
+                "name": "batch_group_id",
+                "value": "",
+                "type": "path",
+                "description": "Batch group ID."
+              },
+              {
+                "name": "limit",
+                "value": "10",
+                "type": "query",
+                "description": "Maximum number of batch jobs to retrieve. The number of batch jobs returned may be less than the specified value."
+              },
+              {
+                "name": "last_evaluated_key",
+                "value": "",
+                "type": "query",
+                "description": "The value of the `x-soracom-next-key` header returned in the response to the last request. Specify this to retrieve the next page of batch jobs."
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-Soracom-API-Key",
+              "value": "{{X-Soracom-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Returns a list of batch jobs in the specified batch group."
+        },
+        {
+          "info": {
+            "name": "Create and run batch job.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.soracom.io/v1/batch_groups/:batch_group_id/jobs",
+            "params": [
+              {
+                "name": "batch_group_id",
+                "value": "",
+                "type": "path",
+                "description": "Batch group ID."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-Soracom-API-Key",
+              "value": "{{X-Soracom-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Create a new batch job and run it. A batch job consists of multiple tasks, each representing an API operation to be performed. Tasks are executed using the permissions of the user that created the batch job API. Batch job information is retained for 32 days.\n\n**System Limits:**\n\n- Each batch job is limited to a single API action. Mixing different APIs in the same job is not supported.\n- Each batch job is limited to a maximum of 10,000 tasks.\n- Only one batch job per API action can be created and"
+        },
+        {
+          "info": {
+            "name": "Get batch job.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.soracom.io/v1/batch_groups/:batch_group_id/jobs/:job_id",
+            "params": [
+              {
+                "name": "batch_group_id",
+                "value": "",
+                "type": "path",
+                "description": "Batch group ID."
+              },
+              {
+                "name": "job_id",
+                "value": "",
+                "type": "path",
+                "description": "Batch job ID."
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-Soracom-API-Key",
+              "value": "{{X-Soracom-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Returns information about the specified batch job.\n"
+        },
+        {
+          "info": {
+            "name": "List tasks.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.soracom.io/v1/batch_groups/:batch_group_id/jobs/:job_id/tasks",
+            "params": [
+              {
+                "name": "batch_group_id",
+                "value": "",
+                "type": "path",
+                "description": "Batch group ID."
+              },
+              {
+                "name": "job_id",
+                "value": "",
+                "type": "path",
+                "description": "Batch job ID."
+              },
+              {
+                "name": "limit",
+                "value": "10",
+                "type": "query",
+                "description": "Maximum number of tasks to retrieve. The number of tasks returned may be less than the specified value."
+              },
+              {
+                "name": "status",
+                "value": "",
+                "type": "query",
+                "description": "Filter by task status."
+              },
+              {
+                "name": "last_evaluated_key",
+                "value": "",
+                "type": "query",
+                "description": "The value of the `x-soracom-next-key` header returned in the response to the last request. Specify this to retrieve the next page of tasks."
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-Soracom-API-Key",
+              "value": "{{X-Soracom-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Returns a list of tasks in the specified batch job. Each task represents an individual API operation executed as part of the batch job.\n"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

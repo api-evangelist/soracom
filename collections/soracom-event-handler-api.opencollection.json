@@ -1,0 +1,635 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Soracom Event Handler API",
+    "version": "20250903-043502"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "EventHandler",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Event Handlers",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.soracom.io/v1/event_handlers",
+            "params": [
+              {
+                "name": "target",
+                "value": "",
+                "type": "query",
+                "description": "The event handler target (the target for executing events)."
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-Soracom-API-Key",
+              "value": "{{X-Soracom-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Returns a list of event handlers."
+        },
+        {
+          "info": {
+            "name": "Create Event Handler",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.soracom.io/v1/event_handlers",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-Soracom-API-Key",
+              "value": "{{X-Soracom-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Creates a new event handler. Please see also https://developers.soracom.io/en/docs/air/event-handler/."
+        },
+        {
+          "info": {
+            "name": "Get Event Handler",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.soracom.io/v1/event_handlers/:handler_id",
+            "params": [
+              {
+                "name": "handler_id",
+                "value": "",
+                "type": "path",
+                "description": "Event handler ID."
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-Soracom-API-Key",
+              "value": "{{X-Soracom-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Returns information about the specified event handler."
+        },
+        {
+          "info": {
+            "name": "Update Event Handler",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.soracom.io/v1/event_handlers/:handler_id",
+            "params": [
+              {
+                "name": "handler_id",
+                "value": "",
+                "type": "path",
+                "description": "Event handler ID."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-Soracom-API-Key",
+              "value": "{{X-Soracom-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Updates the specified event handler. Please see also https://developers.soracom.io/en/docs/air/event-handler/."
+        },
+        {
+          "info": {
+            "name": "Delete Event Handler",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.soracom.io/v1/event_handlers/:handler_id",
+            "params": [
+              {
+                "name": "handler_id",
+                "value": "",
+                "type": "path",
+                "description": "Event handler ID."
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-Soracom-API-Key",
+              "value": "{{X-Soracom-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Deletes the specified event handler."
+        },
+        {
+          "info": {
+            "name": "Ignore Event Handler",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.soracom.io/v1/event_handlers/:handler_id/subscribers/:imsi/ignore",
+            "params": [
+              {
+                "name": "imsi",
+                "value": "",
+                "type": "path",
+                "description": "IMSI."
+              },
+              {
+                "name": "handler_id",
+                "value": "",
+                "type": "path",
+                "description": "Event handler ID."
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-Soracom-API-Key",
+              "value": "{{X-Soracom-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Adds a setting for ignoring the specified event handler of the specified IMSI."
+        },
+        {
+          "info": {
+            "name": "Delete Ignore Event Handler",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.soracom.io/v1/event_handlers/:handler_id/subscribers/:imsi/ignore",
+            "params": [
+              {
+                "name": "imsi",
+                "value": "",
+                "type": "path",
+                "description": "IMSI."
+              },
+              {
+                "name": "handler_id",
+                "value": "",
+                "type": "path",
+                "description": "Event handler ID."
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-Soracom-API-Key",
+              "value": "{{X-Soracom-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Deletes the setting for ignoring the specified event handler of the specified IMSI."
+        },
+        {
+          "info": {
+            "name": "List Event Handlers related to Subscriber",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.soracom.io/v1/event_handlers/subscribers/:imsi",
+            "params": [
+              {
+                "name": "imsi",
+                "value": "",
+                "type": "path",
+                "description": "IMSI."
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-Soracom-API-Key",
+              "value": "{{X-Soracom-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Returns a list of event handlers related to the specified IMSI."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Credential",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List credential sets",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.soracom.io/v1/credentials",
+            "auth": {
+              "type": "apikey",
+              "key": "X-Soracom-API-Key",
+              "value": "{{X-Soracom-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Returns a list of credential sets."
+        },
+        {
+          "info": {
+            "name": "Create a credential set",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.soracom.io/v1/credentials/:credentials_id",
+            "params": [
+              {
+                "name": "credentials_id",
+                "value": "",
+                "type": "path",
+                "description": "Credential set ID."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-Soracom-API-Key",
+              "value": "{{X-Soracom-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Creates a new credential set."
+        },
+        {
+          "info": {
+            "name": "Update a credential set",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.soracom.io/v1/credentials/:credentials_id",
+            "params": [
+              {
+                "name": "credentials_id",
+                "value": "",
+                "type": "path",
+                "description": "Credential set ID."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-Soracom-API-Key",
+              "value": "{{X-Soracom-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Updates a credential set."
+        },
+        {
+          "info": {
+            "name": "Delete a credential set",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.soracom.io/v1/credentials/:credentials_id",
+            "params": [
+              {
+                "name": "credentials_id",
+                "value": "",
+                "type": "path",
+                "description": "Credential set ID."
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-Soracom-API-Key",
+              "value": "{{X-Soracom-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Deletes a credential set."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Soralet",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Soralets",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.soracom.io/v1/soralets",
+            "params": [
+              {
+                "name": "sort",
+                "value": "",
+                "type": "query",
+                "description": "Sort order of the data entries. Either descending (latest data entry first) or ascending (oldest data entry first)."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "The maximum number of items in a response."
+              },
+              {
+                "name": "last_evaluated_key",
+                "value": "",
+                "type": "query",
+                "description": "The identifier of the last Soralet retrieved on the current page. By specifying this parameter, you can continue to retrieve the list from the next Soralet onward."
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-Soracom-API-Key",
+              "value": "{{X-Soracom-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Returns a list of Soralets."
+        },
+        {
+          "info": {
+            "name": "Create a Soralet",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.soracom.io/v1/soralets",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-Soracom-API-Key",
+              "value": "{{X-Soracom-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Create a Soralet."
+        },
+        {
+          "info": {
+            "name": "Get a Soralet",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.soracom.io/v1/soralets/:soralet_id",
+            "params": [
+              {
+                "name": "soralet_id",
+                "value": "",
+                "type": "path",
+                "description": "The identifier of Soralet."
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-Soracom-API-Key",
+              "value": "{{X-Soracom-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Returns a Soralet."
+        },
+        {
+          "info": {
+            "name": "Delete Soralet",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.soracom.io/v1/soralets/:soralet_id",
+            "params": [
+              {
+                "name": "soralet_id",
+                "value": "",
+                "type": "path",
+                "description": "The identifier of Soralet."
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-Soracom-API-Key",
+              "value": "{{X-Soracom-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Delete the specified Soralet."
+        },
+        {
+          "info": {
+            "name": "Get log messages from Soralet",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.soracom.io/v1/soralets/:soralet_id/logs",
+            "params": [
+              {
+                "name": "soralet_id",
+                "value": "",
+                "type": "path",
+                "description": "The identifier of Soralet."
+              },
+              {
+                "name": "sort",
+                "value": "",
+                "type": "query",
+                "description": "Sort order of the data entries. Either descending (latest data entry first) or ascending (oldest data entry first)."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "The maximum number of items in a response."
+              },
+              {
+                "name": "last_evaluated_key",
+                "value": "",
+                "type": "query",
+                "description": "The identifier of the last log message retrieved on the current page. By specifying this parameter, you can continue to retrieve the list from the next log message onward."
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-Soracom-API-Key",
+              "value": "{{X-Soracom-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Returns a list of log messages from the specified Soralet."
+        },
+        {
+          "info": {
+            "name": "Execute Soralet with arguments",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.soracom.io/v1/soralets/:soralet_id/test",
+            "params": [
+              {
+                "name": "soralet_id",
+                "value": "",
+                "type": "path",
+                "description": "The identifier of Soralet."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-Soracom-API-Key",
+              "value": "{{X-Soracom-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Execute the specified Soralet with the specified arguments."
+        },
+        {
+          "info": {
+            "name": "List versions of Soralet",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.soracom.io/v1/soralets/:soralet_id/versions",
+            "params": [
+              {
+                "name": "soralet_id",
+                "value": "",
+                "type": "path",
+                "description": "The identifier of Soralet."
+              },
+              {
+                "name": "sort",
+                "value": "",
+                "type": "query",
+                "description": "Sort order of the data entries. Either descending (latest data entry first) or ascending (oldest data entry first)."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "The maximum number of items in a response."
+              },
+              {
+                "name": "last_evaluated_key",
+                "value": "",
+                "type": "query",
+                "description": "The identifier of the last version retrieved on the current page. By specifying this parameter, you can continue to retrieve the list from the next version onward."
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-Soracom-API-Key",
+              "value": "{{X-Soracom-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Returns a list of Soralet versions."
+        },
+        {
+          "info": {
+            "name": "Upload code and create a new version",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.soracom.io/v1/soralets/:soralet_id/versions",
+            "headers": [
+              {
+                "name": "content-type",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "soralet_id",
+                "value": "",
+                "type": "path",
+                "description": "The identifier of Soralet."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-Soracom-API-Key",
+              "value": "{{X-Soracom-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Upload code and create a new version."
+        },
+        {
+          "info": {
+            "name": "Delete a Soralet version",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.soracom.io/v1/soralets/:soralet_id/versions/:version",
+            "params": [
+              {
+                "name": "soralet_id",
+                "value": "",
+                "type": "path",
+                "description": "The identifier of Soralet."
+              },
+              {
+                "name": "version",
+                "value": "",
+                "type": "path",
+                "description": "Soralet version."
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-Soracom-API-Key",
+              "value": "{{X-Soracom-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Delete the specified Soralet version."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

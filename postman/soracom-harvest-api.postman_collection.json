@@ -1,0 +1,2083 @@
+{
+  "info": {
+    "_postman_id": "00019540-cb77-42a9-ad83-d13972070693",
+    "name": "Soracom Harvest API",
+    "description": "Soracom Harvest data and file ingest, storage, retrieval, and export for time-series and binary device payloads.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-06-05T15:18:29.000Z",
+    "updatedAt": "2026-06-05T15:18:29.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-00019540-cb77-42a9-ad83-d13972070693"
+  },
+  "item": [
+    {
+      "name": "data",
+      "item": [
+        {
+          "name": "{resource_type}",
+          "item": [
+            {
+              "name": "{resource_id}",
+              "item": [
+                {
+                  "name": "{time}",
+                  "item": [
+                    {
+                      "name": "Deletes a data entry",
+                      "id": "090ccf30-fce0-4fc1-b609-b2e756ff5e0b",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "auth": {
+                          "type": "apikey",
+                          "apikey": [
+                            {
+                              "key": "key",
+                              "value": "X-Soracom-API-Key",
+                              "type": "string"
+                            },
+                            {
+                              "key": "value",
+                              "value": "{{apiKey}}",
+                              "type": "string"
+                            },
+                            {
+                              "key": "in",
+                              "value": "header",
+                              "type": "string"
+                            }
+                          ]
+                        },
+                        "method": "DELETE",
+                        "header": [],
+                        "url": {
+                          "raw": "{{baseUrl}}/data/:resource_type/:resource_id/:time",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "data",
+                            ":resource_type",
+                            ":resource_id",
+                            ":time"
+                          ],
+                          "variable": [
+                            {
+                              "id": "876c7aa3-045c-4b65-9d06-d831aa5714da",
+                              "key": "resource_type",
+                              "value": "Sim",
+                              "description": "(Required) Type of data source resource."
+                            },
+                            {
+                              "id": "245efb79-104e-48dd-a8f2-2b252ccf08a8",
+                              "key": "resource_id",
+                              "value": "<string>",
+                              "description": "(Required) ID of data source resource. The ID to be specified depends on the value of `resource_type`.\n\n| `resource_type` | The ID you specify |\n|-|-|\n| `Subscriber` | IMSI of the IoT SIM |\n| `LoraDevice` | ID of the LoRaWAN device |\n| `Sim` | SIM ID of the IoT SIM |\n| `SigfoxDevice` | ID of the Sigfox device |\n| `Device` | ID of the Inventory device |\n| `SoraCam` | Device ID of the compatible camera device |\n"
+                            },
+                            {
+                              "id": "b7c85e61-7cee-48ce-82d6-a14fad5cd372",
+                              "key": "time",
+                              "value": "<integer>",
+                              "description": "(Required) Timestamp of the target data entry to delete (UNIX time in milliseconds)."
+                            }
+                          ]
+                        },
+                        "description": "Deletes a data entry identified with resource ID and timestamp"
+                      },
+                      "response": [
+                        {
+                          "id": "08e79c54-8eda-4f10-8039-939019b868d0",
+                          "name": "The data entry has been successfully deleted",
+                          "originalRequest": {
+                            "method": "DELETE",
+                            "header": [
+                              {
+                                "description": "Added as a part of security scheme: apikey",
+                                "key": "X-Soracom-API-Key",
+                                "value": "<API Key>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/data/:resource_type/:resource_id/:time",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "data",
+                                ":resource_type",
+                                ":resource_id",
+                                ":time"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "resource_type"
+                                },
+                                {
+                                  "key": "resource_id"
+                                },
+                                {
+                                  "key": "time"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "No Content",
+                          "code": 204,
+                          "_postman_previewlanguage": "text",
+                          "header": [],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": null,
+                          "createdAt": "2026-06-05T15:18:29.000Z",
+                          "updatedAt": "2026-06-05T15:18:29.000Z",
+                          "uid": "35240-08e79c54-8eda-4f10-8039-939019b868d0"
+                        }
+                      ],
+                      "createdAt": "2026-06-05T15:18:29.000Z",
+                      "updatedAt": "2026-06-05T15:18:29.000Z",
+                      "uid": "35240-090ccf30-fce0-4fc1-b609-b2e756ff5e0b"
+                    },
+                    {
+                      "name": "Gets a data entry",
+                      "id": "ff75cce3-3e59-42ba-a612-03c54511aa05",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "auth": {
+                          "type": "apikey",
+                          "apikey": [
+                            {
+                              "key": "key",
+                              "value": "X-Soracom-API-Key",
+                              "type": "string"
+                            },
+                            {
+                              "key": "value",
+                              "value": "{{apiKey}}",
+                              "type": "string"
+                            },
+                            {
+                              "key": "in",
+                              "value": "header",
+                              "type": "string"
+                            }
+                          ]
+                        },
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/data/:resource_type/:resource_id/:time",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "data",
+                            ":resource_type",
+                            ":resource_id",
+                            ":time"
+                          ],
+                          "variable": [
+                            {
+                              "id": "4187e90a-486d-4f79-b889-533542c4b078",
+                              "key": "resource_type",
+                              "value": "Sim",
+                              "description": "(Required) Type of data source resource."
+                            },
+                            {
+                              "id": "a905324f-3907-4fff-b529-83fb564f992e",
+                              "key": "resource_id",
+                              "value": "<string>",
+                              "description": "(Required) ID of data source resource. The ID to be specified depends on the value of `resource_type`.\n\n| `resource_type` | The ID you specify |\n|-|-|\n| `Subscriber` | IMSI of the IoT SIM |\n| `LoraDevice` | ID of the LoRaWAN device |\n| `Sim` | SIM ID of the IoT SIM |\n| `SigfoxDevice` | ID of the Sigfox device |\n| `Device` | ID of the Inventory device |\n| `SoraCam` | Device ID of the compatible camera device |\n"
+                            },
+                            {
+                              "id": "cd2ca160-8186-483d-905d-846152be572e",
+                              "key": "time",
+                              "value": "<integer>",
+                              "description": "(Required) Timestamp of the target data entry to get (UNIX time in milliseconds)."
+                            }
+                          ]
+                        },
+                        "description": "Gets a data entry identified with resource ID and timestamp"
+                      },
+                      "response": [
+                        {
+                          "id": "2f1c364f-47dc-4148-ad82-039843f9d51d",
+                          "name": "The data entry specified with resource ID and timestamp",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: apikey",
+                                "key": "X-Soracom-API-Key",
+                                "value": "<API Key>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/data/:resource_type/:resource_id/:time",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "data",
+                                ":resource_type",
+                                ":resource_id",
+                                ":time"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "resource_type"
+                                },
+                                {
+                                  "key": "resource_id"
+                                },
+                                {
+                                  "key": "time"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "OK",
+                          "code": 200,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"category\": \"<string>\",\n  \"content\": \"<string>\",\n  \"contentType\": \"<string>\",\n  \"resourceId\": \"<string>\",\n  \"resourceType\": \"SoraCam\",\n  \"time\": \"<long>\"\n}",
+                          "createdAt": "2026-06-05T15:18:29.000Z",
+                          "updatedAt": "2026-06-05T15:18:29.000Z",
+                          "uid": "35240-2f1c364f-47dc-4148-ad82-039843f9d51d"
+                        },
+                        {
+                          "id": "a5dd595b-c2b8-4a25-9b2c-df14ec4a5336",
+                          "name": "No such entry found",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "description": "Added as a part of security scheme: apikey",
+                                "key": "X-Soracom-API-Key",
+                                "value": "<API Key>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/data/:resource_type/:resource_id/:time",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "data",
+                                ":resource_type",
+                                ":resource_id",
+                                ":time"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "resource_type"
+                                },
+                                {
+                                  "key": "resource_id"
+                                },
+                                {
+                                  "key": "time"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Not Found",
+                          "code": 404,
+                          "_postman_previewlanguage": "text",
+                          "header": [],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": null,
+                          "createdAt": "2026-06-05T15:18:29.000Z",
+                          "updatedAt": "2026-06-05T15:18:29.000Z",
+                          "uid": "35240-a5dd595b-c2b8-4a25-9b2c-df14ec4a5336"
+                        }
+                      ],
+                      "createdAt": "2026-06-05T15:18:29.000Z",
+                      "updatedAt": "2026-06-05T15:18:29.000Z",
+                      "uid": "35240-ff75cce3-3e59-42ba-a612-03c54511aa05"
+                    }
+                  ],
+                  "id": "511528f8-57ea-4bc3-84d4-b5e72ff0ce4c",
+                  "createdAt": "2026-06-05T15:18:29.000Z",
+                  "updatedAt": "2026-06-05T15:18:29.000Z",
+                  "uid": "35240-511528f8-57ea-4bc3-84d4-b5e72ff0ce4c"
+                },
+                {
+                  "name": "Get data sent to Harvest Data from a resource.",
+                  "id": "8786c695-154d-4dbd-ab2e-e69b00c56c58",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "auth": {
+                      "type": "apikey",
+                      "apikey": [
+                        {
+                          "key": "key",
+                          "value": "X-Soracom-API-Key",
+                          "type": "string"
+                        },
+                        {
+                          "key": "value",
+                          "value": "{{apiKey}}",
+                          "type": "string"
+                        },
+                        {
+                          "key": "in",
+                          "value": "header",
+                          "type": "string"
+                        }
+                      ]
+                    },
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/data/:resource_type/:resource_id?from=<integer>&to=<integer>&sort=desc&limit=<integer>&last_evaluated_key=<string>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "data",
+                        ":resource_type",
+                        ":resource_id"
+                      ],
+                      "query": [
+                        {
+                          "description": "Start time for the data entries search range (UNIX time in milliseconds).",
+                          "key": "from",
+                          "value": "<integer>"
+                        },
+                        {
+                          "description": "End time for the data entries search range (UNIX time in milliseconds).",
+                          "key": "to",
+                          "value": "<integer>"
+                        },
+                        {
+                          "description": "Sort order of the data entries. Either descending (latest data entry first) or ascending (oldest data entry first).",
+                          "key": "sort",
+                          "value": "desc"
+                        },
+                        {
+                          "description": "Maximum number of data entries to retrieve (value range is 1 to 1000). The default is `10`.",
+                          "key": "limit",
+                          "value": "<integer>"
+                        },
+                        {
+                          "description": "The value of the `x-soracom-next-key` header from the previous response. Specify this to retrieve the next page.",
+                          "key": "last_evaluated_key",
+                          "value": "<string>"
+                        }
+                      ],
+                      "variable": [
+                        {
+                          "id": "5a3f57d9-5c04-4619-a237-7fa8aa9ff00b",
+                          "key": "resource_type",
+                          "value": "Sim",
+                          "description": "(Required) Type of data source resource."
+                        },
+                        {
+                          "id": "0b447849-7486-45ab-9e26-8db670561dec",
+                          "key": "resource_id",
+                          "value": "<string>",
+                          "description": "(Required) ID of data source resource. The ID to be specified depends on the value of `resource_type`.\n\n| `resource_type` | The ID you specify |\n|-|-|\n| `Subscriber` | IMSI of the IoT SIM |\n| `LoraDevice` | ID of the LoRaWAN device |\n| `Sim` | SIM ID of the IoT SIM |\n| `SigfoxDevice` | ID of the Sigfox device |\n| `Device` | ID of the Inventory device |\n| `SoraCam` | Device ID of the compatible camera device |\n"
+                        }
+                      ]
+                    },
+                    "description": "Returns a list of data entries sent to Harvest Data from a device that match certain criteria. If the total number of entries does not fit in one page, a URL for accessing the next page is returned in the `link` header of the response.\n"
+                  },
+                  "response": [
+                    {
+                      "id": "a88991cf-44cb-4684-bdbb-842afc95a6f5",
+                      "name": "A list of data entries sent to Harvest Data from the specified resource.",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "X-Soracom-API-Key",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/data/:resource_type/:resource_id?from=<integer>&to=<integer>&sort=desc&limit=<integer>&last_evaluated_key=<string>",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "data",
+                            ":resource_type",
+                            ":resource_id"
+                          ],
+                          "query": [
+                            {
+                              "description": "Start time for the data entries search range (UNIX time in milliseconds).",
+                              "key": "from",
+                              "value": "<integer>"
+                            },
+                            {
+                              "description": "End time for the data entries search range (UNIX time in milliseconds).",
+                              "key": "to",
+                              "value": "<integer>"
+                            },
+                            {
+                              "description": "Sort order of the data entries. Either descending (latest data entry first) or ascending (oldest data entry first).",
+                              "key": "sort",
+                              "value": "desc"
+                            },
+                            {
+                              "description": "Maximum number of data entries to retrieve (value range is 1 to 1000). The default is `10`.",
+                              "key": "limit",
+                              "value": "<integer>"
+                            },
+                            {
+                              "description": "The value of the `x-soracom-next-key` header from the previous response. Specify this to retrieve the next page.",
+                              "key": "last_evaluated_key",
+                              "value": "<string>"
+                            }
+                          ],
+                          "variable": [
+                            {
+                              "key": "resource_type"
+                            },
+                            {
+                              "key": "resource_id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "[\n  {\n    \"category\": \"<string>\",\n    \"content\": \"<string>\",\n    \"contentType\": \"<string>\",\n    \"resourceId\": \"<string>\",\n    \"resourceType\": \"Sim\",\n    \"time\": \"<long>\"\n  },\n  {\n    \"category\": \"<string>\",\n    \"content\": \"<string>\",\n    \"contentType\": \"<string>\",\n    \"resourceId\": \"<string>\",\n    \"resourceType\": \"Sim\",\n    \"time\": \"<long>\"\n  }\n]",
+                      "createdAt": "2026-06-05T15:18:29.000Z",
+                      "updatedAt": "2026-06-05T15:18:29.000Z",
+                      "uid": "35240-a88991cf-44cb-4684-bdbb-842afc95a6f5"
+                    }
+                  ],
+                  "createdAt": "2026-06-05T15:18:29.000Z",
+                  "updatedAt": "2026-06-05T15:18:29.000Z",
+                  "uid": "35240-8786c695-154d-4dbd-ab2e-e69b00c56c58"
+                }
+              ],
+              "id": "12124ae1-e2dd-4eb8-83bd-3e097cc94a24",
+              "createdAt": "2026-06-05T15:18:29.000Z",
+              "updatedAt": "2026-06-05T15:18:29.000Z",
+              "uid": "35240-12124ae1-e2dd-4eb8-83bd-3e097cc94a24"
+            }
+          ],
+          "id": "e1353c6d-c676-458e-b812-c4476611e70c",
+          "createdAt": "2026-06-05T15:18:29.000Z",
+          "updatedAt": "2026-06-05T15:18:29.000Z",
+          "uid": "35240-e1353c6d-c676-458e-b812-c4476611e70c"
+        },
+        {
+          "name": "categories",
+          "item": [
+            {
+              "name": "{category}",
+              "item": [
+                {
+                  "name": "Get data entries for a specific category",
+                  "id": "df12e22e-f68e-44c8-9b3f-ce74a0225632",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "auth": {
+                      "type": "apikey",
+                      "apikey": [
+                        {
+                          "key": "key",
+                          "value": "X-Soracom-API-Key",
+                          "type": "string"
+                        },
+                        {
+                          "key": "value",
+                          "value": "{{apiKey}}",
+                          "type": "string"
+                        },
+                        {
+                          "key": "in",
+                          "value": "header",
+                          "type": "string"
+                        }
+                      ]
+                    },
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/data/categories/:category?from=<integer>&to=<integer>&sort=desc&limit=<integer>&last_evaluated_key=<string>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "data",
+                        "categories",
+                        ":category"
+                      ],
+                      "query": [
+                        {
+                          "description": "Start time for the data entries search range (UNIX time in milliseconds).",
+                          "key": "from",
+                          "value": "<integer>"
+                        },
+                        {
+                          "description": "End time for the data entries search range (UNIX time in milliseconds).",
+                          "key": "to",
+                          "value": "<integer>"
+                        },
+                        {
+                          "description": "Sort order of the data entries. Either descending (latest data entry first) or ascending (oldest data entry first).",
+                          "key": "sort",
+                          "value": "desc"
+                        },
+                        {
+                          "description": "Maximum number of data entries to retrieve (value range is 1 to 1000). The default is `10`.",
+                          "key": "limit",
+                          "value": "<integer>"
+                        },
+                        {
+                          "description": "The value of the `x-soracom-next-key` header from the previous response. Specify this to retrieve the next page.",
+                          "key": "last_evaluated_key",
+                          "value": "<string>"
+                        }
+                      ],
+                      "variable": [
+                        {
+                          "id": "d6be689d-ba62-47e0-8dae-7c0b47052100",
+                          "key": "category",
+                          "value": "<string>",
+                          "description": "(Required) Name of the category to filter data entries."
+                        }
+                      ]
+                    },
+                    "description": "Returns a list of data entries that belong to a specific category. If the total number of entries does not fit in one page, a URL for accessing the next page is returned in the `link` header of the response.\n"
+                  },
+                  "response": [
+                    {
+                      "id": "0cbf6566-e50d-4034-85ae-cb19ae3e1d3d",
+                      "name": "A list of data entries belonging to the specified category.",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "X-Soracom-API-Key",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/data/categories/:category?from=<integer>&to=<integer>&sort=desc&limit=<integer>&last_evaluated_key=<string>",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "data",
+                            "categories",
+                            ":category"
+                          ],
+                          "query": [
+                            {
+                              "description": "Start time for the data entries search range (UNIX time in milliseconds).",
+                              "key": "from",
+                              "value": "<integer>"
+                            },
+                            {
+                              "description": "End time for the data entries search range (UNIX time in milliseconds).",
+                              "key": "to",
+                              "value": "<integer>"
+                            },
+                            {
+                              "description": "Sort order of the data entries. Either descending (latest data entry first) or ascending (oldest data entry first).",
+                              "key": "sort",
+                              "value": "desc"
+                            },
+                            {
+                              "description": "Maximum number of data entries to retrieve (value range is 1 to 1000). The default is `10`.",
+                              "key": "limit",
+                              "value": "<integer>"
+                            },
+                            {
+                              "description": "The value of the `x-soracom-next-key` header from the previous response. Specify this to retrieve the next page.",
+                              "key": "last_evaluated_key",
+                              "value": "<string>"
+                            }
+                          ],
+                          "variable": [
+                            {
+                              "key": "category"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "[\n  {\n    \"category\": \"<string>\",\n    \"content\": \"<string>\",\n    \"contentType\": \"<string>\",\n    \"resourceId\": \"<string>\",\n    \"resourceType\": \"Sim\",\n    \"time\": \"<long>\"\n  },\n  {\n    \"category\": \"<string>\",\n    \"content\": \"<string>\",\n    \"contentType\": \"<string>\",\n    \"resourceId\": \"<string>\",\n    \"resourceType\": \"Sim\",\n    \"time\": \"<long>\"\n  }\n]",
+                      "createdAt": "2026-06-05T15:18:29.000Z",
+                      "updatedAt": "2026-06-05T15:18:29.000Z",
+                      "uid": "35240-0cbf6566-e50d-4034-85ae-cb19ae3e1d3d"
+                    }
+                  ],
+                  "createdAt": "2026-06-05T15:18:29.000Z",
+                  "updatedAt": "2026-06-05T15:18:29.000Z",
+                  "uid": "35240-df12e22e-f68e-44c8-9b3f-ce74a0225632"
+                }
+              ],
+              "id": "8e385a40-c55d-42d8-94d8-0cfcfb7608f7",
+              "createdAt": "2026-06-05T15:18:29.000Z",
+              "updatedAt": "2026-06-05T15:18:29.000Z",
+              "uid": "35240-8e385a40-c55d-42d8-94d8-0cfcfb7608f7"
+            }
+          ],
+          "id": "294852c2-8752-4483-ac4b-ee125264169a",
+          "createdAt": "2026-06-05T15:18:29.000Z",
+          "updatedAt": "2026-06-05T15:18:29.000Z",
+          "uid": "35240-294852c2-8752-4483-ac4b-ee125264169a"
+        },
+        {
+          "name": "metadata",
+          "item": [
+            {
+              "name": "resources",
+              "item": [
+                {
+                  "name": "Get the list of data source resources",
+                  "id": "ab2e0bea-4ad0-4fc5-ad63-a64f88677569",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "auth": {
+                      "type": "apikey",
+                      "apikey": [
+                        {
+                          "key": "key",
+                          "value": "X-Soracom-API-Key",
+                          "type": "string"
+                        },
+                        {
+                          "key": "value",
+                          "value": "{{apiKey}}",
+                          "type": "string"
+                        },
+                        {
+                          "key": "in",
+                          "value": "header",
+                          "type": "string"
+                        }
+                      ]
+                    },
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/data/metadata/resources?resource_type=Sim&limit=<integer>&last_evaluated_key=<string>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "data",
+                        "metadata",
+                        "resources"
+                      ],
+                      "query": [
+                        {
+                          "description": "Type of data source resource.\n\n- `Subscriber`: IoT SIM.\n- `LoraDevice`: LoRaWAN device.\n- `Sim`: IoT SIM.\n- `SigfoxDevice`: Sigfox device.\n- `Device`: Inventory device.\n- `SoraCam`: Compatible camera device.\n",
+                          "key": "resource_type",
+                          "value": "Sim"
+                        },
+                        {
+                          "description": "Maximum number of data entries to retrieve.",
+                          "key": "limit",
+                          "value": "<integer>"
+                        },
+                        {
+                          "description": "The value of the `x-soracom-next-key` header from the previous response. Specify this to retrieve the next page.",
+                          "key": "last_evaluated_key",
+                          "value": "<string>"
+                        }
+                      ]
+                    },
+                    "description": "Returns a list of data source resources that have sent data. If the total number of data source resources does not fit in one page, a URL for accessing the next page is returned in the `link` header of the response.\n"
+                  },
+                  "response": [
+                    {
+                      "id": "62fdf00c-2296-452e-8900-02f0ac5a29f7",
+                      "name": "A list of data source resources that have sent data to Harvest Data.",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "X-Soracom-API-Key",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/data/metadata/resources?resource_type=Sim&limit=<integer>&last_evaluated_key=<string>",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "data",
+                            "metadata",
+                            "resources"
+                          ],
+                          "query": [
+                            {
+                              "description": "Type of data source resource.\n\n- `Subscriber`: IoT SIM.\n- `LoraDevice`: LoRaWAN device.\n- `Sim`: IoT SIM.\n- `SigfoxDevice`: Sigfox device.\n- `Device`: Inventory device.\n- `SoraCam`: Compatible camera device.\n",
+                              "key": "resource_type",
+                              "value": "Sim"
+                            },
+                            {
+                              "description": "Maximum number of data entries to retrieve.",
+                              "key": "limit",
+                              "value": "<integer>"
+                            },
+                            {
+                              "description": "The value of the `x-soracom-next-key` header from the previous response. Specify this to retrieve the next page.",
+                              "key": "last_evaluated_key",
+                              "value": "<string>"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "[\n  {\n    \"attributeNames\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"lastModifiedTime\": \"<long>\",\n    \"resourceId\": \"<string>\",\n    \"resourceType\": \"<string>\"\n  },\n  {\n    \"attributeNames\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"lastModifiedTime\": \"<long>\",\n    \"resourceId\": \"<string>\",\n    \"resourceType\": \"<string>\"\n  }\n]",
+                      "createdAt": "2026-06-05T15:18:29.000Z",
+                      "updatedAt": "2026-06-05T15:18:29.000Z",
+                      "uid": "35240-62fdf00c-2296-452e-8900-02f0ac5a29f7"
+                    }
+                  ],
+                  "createdAt": "2026-06-05T15:18:29.000Z",
+                  "updatedAt": "2026-06-05T15:18:29.000Z",
+                  "uid": "35240-ab2e0bea-4ad0-4fc5-ad63-a64f88677569"
+                }
+              ],
+              "id": "2dd8311e-c5e9-463b-b062-3de5cf399130",
+              "createdAt": "2026-06-05T15:18:29.000Z",
+              "updatedAt": "2026-06-05T15:18:29.000Z",
+              "uid": "35240-2dd8311e-c5e9-463b-b062-3de5cf399130"
+            }
+          ],
+          "id": "9304e9d7-9e87-4f24-83b0-b49a9e93f28e",
+          "createdAt": "2026-06-05T15:18:29.000Z",
+          "updatedAt": "2026-06-05T15:18:29.000Z",
+          "uid": "35240-9304e9d7-9e87-4f24-83b0-b49a9e93f28e"
+        },
+        {
+          "name": "resources",
+          "item": [
+            {
+              "name": "Get the list of data source resources",
+              "id": "c9dbb9db-46dc-4081-9641-8596824af9c8",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "auth": {
+                  "type": "apikey",
+                  "apikey": [
+                    {
+                      "key": "key",
+                      "value": "X-Soracom-API-Key",
+                      "type": "string"
+                    },
+                    {
+                      "key": "value",
+                      "value": "{{apiKey}}",
+                      "type": "string"
+                    },
+                    {
+                      "key": "in",
+                      "value": "header",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/data/resources?resource_type=Sim&limit=<integer>&last_evaluated_key=<string>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "data",
+                    "resources"
+                  ],
+                  "query": [
+                    {
+                      "description": "Type of data source resource.\n\n- `Subscriber`: IoT SIM.\n- `LoraDevice`: LoRaWAN device.\n- `Sim`: IoT SIM.\n- `SigfoxDevice`: Sigfox device.\n- `Device`: Inventory device.\n- `SoraCam`: Compatible camera device.\n",
+                      "key": "resource_type",
+                      "value": "Sim"
+                    },
+                    {
+                      "description": "Maximum number of data entries to retrieve.",
+                      "key": "limit",
+                      "value": "<integer>"
+                    },
+                    {
+                      "description": "The value of the `x-soracom-next-key` header from the previous response. Specify this to retrieve the next page.",
+                      "key": "last_evaluated_key",
+                      "value": "<string>"
+                    }
+                  ]
+                },
+                "description": "Returns a list of data source resources that have sent data. If the total number of data source resources does not fit in one page, a URL for accessing the next page is returned in the `link` header of the response.\n"
+              },
+              "response": [
+                {
+                  "id": "8eed129e-cc89-4ca6-b119-115f5b72fcb0",
+                  "name": "A list of data source resources that have sent data to Harvest Data.",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "X-Soracom-API-Key",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/data/resources?resource_type=Sim&limit=<integer>&last_evaluated_key=<string>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "data",
+                        "resources"
+                      ],
+                      "query": [
+                        {
+                          "description": "Type of data source resource.\n\n- `Subscriber`: IoT SIM.\n- `LoraDevice`: LoRaWAN device.\n- `Sim`: IoT SIM.\n- `SigfoxDevice`: Sigfox device.\n- `Device`: Inventory device.\n- `SoraCam`: Compatible camera device.\n",
+                          "key": "resource_type",
+                          "value": "Sim"
+                        },
+                        {
+                          "description": "Maximum number of data entries to retrieve.",
+                          "key": "limit",
+                          "value": "<integer>"
+                        },
+                        {
+                          "description": "The value of the `x-soracom-next-key` header from the previous response. Specify this to retrieve the next page.",
+                          "key": "last_evaluated_key",
+                          "value": "<string>"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "[\n  {\n    \"attributeNames\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"lastModifiedTime\": \"<long>\",\n    \"resourceId\": \"<string>\",\n    \"resourceType\": \"<string>\"\n  },\n  {\n    \"attributeNames\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"lastModifiedTime\": \"<long>\",\n    \"resourceId\": \"<string>\",\n    \"resourceType\": \"<string>\"\n  }\n]",
+                  "createdAt": "2026-06-05T15:18:29.000Z",
+                  "updatedAt": "2026-06-05T15:18:29.000Z",
+                  "uid": "35240-8eed129e-cc89-4ca6-b119-115f5b72fcb0"
+                }
+              ],
+              "createdAt": "2026-06-05T15:18:29.000Z",
+              "updatedAt": "2026-06-05T15:18:29.000Z",
+              "uid": "35240-c9dbb9db-46dc-4081-9641-8596824af9c8"
+            }
+          ],
+          "id": "2cf6d388-e4f8-458b-8fa2-68f2c7e5da25",
+          "createdAt": "2026-06-05T15:18:29.000Z",
+          "updatedAt": "2026-06-05T15:18:29.000Z",
+          "uid": "35240-2cf6d388-e4f8-458b-8fa2-68f2c7e5da25"
+        }
+      ],
+      "id": "d5d80bf5-16a9-4255-b26c-f5e0908499b5",
+      "createdAt": "2026-06-05T15:18:29.000Z",
+      "updatedAt": "2026-06-05T15:18:29.000Z",
+      "uid": "35240-d5d80bf5-16a9-4255-b26c-f5e0908499b5"
+    },
+    {
+      "name": "files",
+      "item": [
+        {
+          "name": "{scope}",
+          "item": [
+            {
+              "name": "{path}",
+              "item": [
+                {
+                  "name": "Deletes the directory specified by scope and path",
+                  "id": "5c0e1204-c535-46fd-a23a-04f183d840ba",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "auth": {
+                      "type": "apikey",
+                      "apikey": [
+                        {
+                          "key": "key",
+                          "value": "X-Soracom-API-Key",
+                          "type": "string"
+                        },
+                        {
+                          "key": "value",
+                          "value": "{{apiKey}}",
+                          "type": "string"
+                        },
+                        {
+                          "key": "in",
+                          "value": "header",
+                          "type": "string"
+                        }
+                      ]
+                    },
+                    "method": "DELETE",
+                    "header": [],
+                    "url": {
+                      "raw": "{{baseUrl}}/files/:scope/:path/",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "files",
+                        ":scope",
+                        ":path",
+                        ""
+                      ],
+                      "variable": [
+                        {
+                          "id": "05df3e15-18b3-4065-bf60-51b9ed7ca13c",
+                          "key": "scope",
+                          "value": "private",
+                          "description": "(Required) Scope of the request. Specify `private` to handle files uploaded to Harvest Files."
+                        },
+                        {
+                          "id": "844c14fd-1b75-459d-befa-9c407e2f00b7",
+                          "key": "path",
+                          "value": "<string>",
+                          "description": "(Required) Target path."
+                        }
+                      ]
+                    },
+                    "description": "Deletes the directory specified by scope and path. Only `private` scope is allowed for the operation."
+                  },
+                  "response": [
+                    {
+                      "id": "a01a78c7-b3e5-4383-9efe-ef7614ca1249",
+                      "name": "The specified directory is successfully deleted.",
+                      "originalRequest": {
+                        "method": "DELETE",
+                        "header": [
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "X-Soracom-API-Key",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/files/:scope/:path/",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "files",
+                            ":scope",
+                            ":path",
+                            ""
+                          ],
+                          "variable": [
+                            {
+                              "key": "scope"
+                            },
+                            {
+                              "key": "path"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "No Content",
+                      "code": 204,
+                      "_postman_previewlanguage": "text",
+                      "header": [],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-06-05T15:18:29.000Z",
+                      "updatedAt": "2026-06-05T15:18:29.000Z",
+                      "uid": "35240-a01a78c7-b3e5-4383-9efe-ef7614ca1249"
+                    },
+                    {
+                      "id": "3fdfe99f-2507-442d-b360-1d3b9f11ecf7",
+                      "name": "The specified directory is not empty.",
+                      "originalRequest": {
+                        "method": "DELETE",
+                        "header": [
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "X-Soracom-API-Key",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/files/:scope/:path/",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "files",
+                            ":scope",
+                            ":path",
+                            ""
+                          ],
+                          "variable": [
+                            {
+                              "key": "scope"
+                            },
+                            {
+                              "key": "path"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Bad Request",
+                      "code": 400,
+                      "_postman_previewlanguage": "text",
+                      "header": [],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-06-05T15:18:29.000Z",
+                      "updatedAt": "2026-06-05T15:18:29.000Z",
+                      "uid": "35240-3fdfe99f-2507-442d-b360-1d3b9f11ecf7"
+                    },
+                    {
+                      "id": "fac5e37a-998a-4181-b391-61c04c094d15",
+                      "name": "No such directory.",
+                      "originalRequest": {
+                        "method": "DELETE",
+                        "header": [
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "X-Soracom-API-Key",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/files/:scope/:path/",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "files",
+                            ":scope",
+                            ":path",
+                            ""
+                          ],
+                          "variable": [
+                            {
+                              "key": "scope"
+                            },
+                            {
+                              "key": "path"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Not Found",
+                      "code": 404,
+                      "_postman_previewlanguage": "text",
+                      "header": [],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-06-05T15:18:29.000Z",
+                      "updatedAt": "2026-06-05T15:18:29.000Z",
+                      "uid": "35240-fac5e37a-998a-4181-b391-61c04c094d15"
+                    }
+                  ],
+                  "createdAt": "2026-06-05T15:18:29.000Z",
+                  "updatedAt": "2026-06-05T15:18:29.000Z",
+                  "uid": "35240-5c0e1204-c535-46fd-a23a-04f183d840ba"
+                },
+                {
+                  "name": "Returns files and directories from the directory specified by the scope and path.",
+                  "id": "eb4ac210-45ce-40fb-a0cb-a9e960a6a5ed",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "auth": {
+                      "type": "apikey",
+                      "apikey": [
+                        {
+                          "key": "key",
+                          "value": "X-Soracom-API-Key",
+                          "type": "string"
+                        },
+                        {
+                          "key": "value",
+                          "value": "{{apiKey}}",
+                          "type": "string"
+                        },
+                        {
+                          "key": "in",
+                          "value": "header",
+                          "type": "string"
+                        }
+                      ]
+                    },
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/files/:scope/:path/?limit=10&last_evaluated_key=<string>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "files",
+                        ":scope",
+                        ":path",
+                        ""
+                      ],
+                      "query": [
+                        {
+                          "description": "Maximum number of file entries to be returned.",
+                          "key": "limit",
+                          "value": "10"
+                        },
+                        {
+                          "description": "The filename of the last file entry retrieved on the previous page. By specifying this parameter, you can continue to retrieve the list from the next file entry onward.",
+                          "key": "last_evaluated_key",
+                          "value": "<string>"
+                        }
+                      ],
+                      "variable": [
+                        {
+                          "id": "8f139a7f-8080-44ff-9493-cdb9fde19712",
+                          "key": "scope",
+                          "value": "private",
+                          "description": "(Required) Scope of the request. Specify `private` to handle files uploaded to Harvest Files."
+                        },
+                        {
+                          "id": "e172ec9b-d839-4e94-85af-bed5b7b4f51b",
+                          "key": "path",
+                          "value": "/",
+                          "description": "(Required) Target path."
+                        }
+                      ]
+                    },
+                    "description": "Returns files and directories from the directory specified by the scope and path. Note that [FileEntry:getFile API](#!/FileEntry/getFile) will be called if the path does not end in `/`. If the total number of entries does not fit in one page, a URL for accessing the next page is returned in the `link` header of the response.\n"
+                  },
+                  "response": [
+                    {
+                      "id": "954e9712-58ce-41e0-8695-c086c6c229b5",
+                      "name": "Files and directories from the directory specified by the scope and path.",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "X-Soracom-API-Key",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/files/:scope/:path/?limit=10&last_evaluated_key=<string>",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "files",
+                            ":scope",
+                            ":path",
+                            ""
+                          ],
+                          "query": [
+                            {
+                              "description": "Maximum number of file entries to be returned.",
+                              "key": "limit",
+                              "value": "10"
+                            },
+                            {
+                              "description": "The filename of the last file entry retrieved on the previous page. By specifying this parameter, you can continue to retrieve the list from the next file entry onward.",
+                              "key": "last_evaluated_key",
+                              "value": "<string>"
+                            }
+                          ],
+                          "variable": [
+                            {
+                              "key": "scope"
+                            },
+                            {
+                              "key": "path"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "[\n  {\n    \"contentLength\": \"<long>\",\n    \"contentType\": \"<string>\",\n    \"createdTime\": \"<long>\",\n    \"directory\": \"<string>\",\n    \"etag\": \"<string>\",\n    \"filePath\": \"<string>\",\n    \"filename\": \"<string>\",\n    \"isDirectory\": \"<boolean>\",\n    \"lastModifiedTime\": \"<long>\"\n  },\n  {\n    \"contentLength\": \"<long>\",\n    \"contentType\": \"<string>\",\n    \"createdTime\": \"<long>\",\n    \"directory\": \"<string>\",\n    \"etag\": \"<string>\",\n    \"filePath\": \"<string>\",\n    \"filename\": \"<string>\",\n    \"isDirectory\": \"<boolean>\",\n    \"lastModifiedTime\": \"<long>\"\n  }\n]",
+                      "createdAt": "2026-06-05T15:18:29.000Z",
+                      "updatedAt": "2026-06-05T15:18:29.000Z",
+                      "uid": "35240-954e9712-58ce-41e0-8695-c086c6c229b5"
+                    },
+                    {
+                      "id": "aad4a4ff-7b73-4702-9864-11e44bab364a",
+                      "name": "No such directory.",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "X-Soracom-API-Key",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/files/:scope/:path/?limit=10&last_evaluated_key=<string>",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "files",
+                            ":scope",
+                            ":path",
+                            ""
+                          ],
+                          "query": [
+                            {
+                              "description": "Maximum number of file entries to be returned.",
+                              "key": "limit",
+                              "value": "10"
+                            },
+                            {
+                              "description": "The filename of the last file entry retrieved on the previous page. By specifying this parameter, you can continue to retrieve the list from the next file entry onward.",
+                              "key": "last_evaluated_key",
+                              "value": "<string>"
+                            }
+                          ],
+                          "variable": [
+                            {
+                              "key": "scope"
+                            },
+                            {
+                              "key": "path"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Not Found",
+                      "code": 404,
+                      "_postman_previewlanguage": "text",
+                      "header": [],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-06-05T15:18:29.000Z",
+                      "updatedAt": "2026-06-05T15:18:29.000Z",
+                      "uid": "35240-aad4a4ff-7b73-4702-9864-11e44bab364a"
+                    }
+                  ],
+                  "createdAt": "2026-06-05T15:18:29.000Z",
+                  "updatedAt": "2026-06-05T15:18:29.000Z",
+                  "uid": "35240-eb4ac210-45ce-40fb-a0cb-a9e960a6a5ed"
+                },
+                {
+                  "name": "Gets the metadata of the file specified by the path and the scope",
+                  "id": "fad50e0c-fde9-488a-b024-ac43e49e6e06",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "auth": {
+                      "type": "apikey",
+                      "apikey": [
+                        {
+                          "key": "key",
+                          "value": "X-Soracom-API-Key",
+                          "type": "string"
+                        },
+                        {
+                          "key": "value",
+                          "value": "{{apiKey}}",
+                          "type": "string"
+                        },
+                        {
+                          "key": "in",
+                          "value": "header",
+                          "type": "string"
+                        }
+                      ]
+                    },
+                    "method": "HEAD",
+                    "header": [],
+                    "url": {
+                      "raw": "{{baseUrl}}/files/:scope/:path",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "files",
+                        ":scope",
+                        ":path"
+                      ],
+                      "variable": [
+                        {
+                          "id": "0becd5b2-9388-4747-83cc-77b6b6b2d5a7",
+                          "key": "scope",
+                          "value": "private",
+                          "description": "(Required) Scope of the request. Specify `private` to handle files uploaded to Harvest Files."
+                        },
+                        {
+                          "id": "42ae2d1a-e127-4676-acdf-1c7c45b21be5",
+                          "key": "path",
+                          "value": "<string>",
+                          "description": "(Required) Target path."
+                        }
+                      ]
+                    },
+                    "description": "Gets the metadata of the file specified by the path and the scope."
+                  },
+                  "response": [
+                    {
+                      "id": "deff8019-54b3-481d-802b-006f2fa94fba",
+                      "name": "Metadata of the file",
+                      "originalRequest": {
+                        "method": "HEAD",
+                        "header": [
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "X-Soracom-API-Key",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/files/:scope/:path",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "files",
+                            ":scope",
+                            ":path"
+                          ],
+                          "variable": [
+                            {
+                              "key": "scope"
+                            },
+                            {
+                              "key": "path"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "text",
+                      "header": [
+                        {
+                          "disabled": false,
+                          "description": {
+                            "content": "File size (bytes)",
+                            "type": "text/plain"
+                          },
+                          "key": "Content-Length",
+                          "value": "<integer>"
+                        },
+                        {
+                          "disabled": false,
+                          "description": {
+                            "content": "File's Content-Type",
+                            "type": "text/plain"
+                          },
+                          "key": "Content-Type",
+                          "value": "<string>"
+                        },
+                        {
+                          "disabled": false,
+                          "description": {
+                            "content": "Identifier representing the file version",
+                            "type": "text/plain"
+                          },
+                          "key": "ETag",
+                          "value": "<string>"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-06-05T15:18:29.000Z",
+                      "updatedAt": "2026-06-05T15:18:29.000Z",
+                      "uid": "35240-deff8019-54b3-481d-802b-006f2fa94fba"
+                    },
+                    {
+                      "id": "ef28fe14-4107-4a96-94b3-82013ef3b75f",
+                      "name": "No such file.",
+                      "originalRequest": {
+                        "method": "HEAD",
+                        "header": [
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "X-Soracom-API-Key",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/files/:scope/:path",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "files",
+                            ":scope",
+                            ":path"
+                          ],
+                          "variable": [
+                            {
+                              "key": "scope"
+                            },
+                            {
+                              "key": "path"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Not Found",
+                      "code": 404,
+                      "_postman_previewlanguage": "text",
+                      "header": [],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-06-05T15:18:29.000Z",
+                      "updatedAt": "2026-06-05T15:18:29.000Z",
+                      "uid": "35240-ef28fe14-4107-4a96-94b3-82013ef3b75f"
+                    }
+                  ],
+                  "createdAt": "2026-06-05T15:18:29.000Z",
+                  "updatedAt": "2026-06-05T15:18:29.000Z",
+                  "uid": "35240-fad50e0c-fde9-488a-b024-ac43e49e6e06"
+                },
+                {
+                  "name": "Uploads the file to the specified path in the scope.",
+                  "id": "99c74caa-1174-48c3-b1f4-55902aae7321",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "auth": {
+                      "type": "apikey",
+                      "apikey": [
+                        {
+                          "key": "key",
+                          "value": "X-Soracom-API-Key",
+                          "type": "string"
+                        },
+                        {
+                          "key": "value",
+                          "value": "{{apiKey}}",
+                          "type": "string"
+                        },
+                        {
+                          "key": "in",
+                          "value": "header",
+                          "type": "string"
+                        }
+                      ]
+                    },
+                    "method": "PUT",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "*/*"
+                      }
+                    ],
+                    "body": {
+                      "mode": "file",
+                      "file": {}
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/files/:scope/:path",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "files",
+                        ":scope",
+                        ":path"
+                      ],
+                      "variable": [
+                        {
+                          "id": "80fdfed1-e73b-4704-b025-333ef7ebbfe8",
+                          "key": "scope",
+                          "value": "private",
+                          "description": "(Required) Scope of the request. Specify `private` to handle files uploaded to Harvest Files."
+                        },
+                        {
+                          "id": "6627c50a-88c8-48fc-a422-76840e94239a",
+                          "key": "path",
+                          "value": "<string>",
+                          "description": "(Required) Target path."
+                        }
+                      ]
+                    },
+                    "description": "Uploads the file to the specified path in the scope. Only `private` scope is allowed for the operation."
+                  },
+                  "response": [
+                    {
+                      "id": "daae172a-c87d-4062-a61f-f1fbdfa5becd",
+                      "name": "File is successfully updated with the content.",
+                      "originalRequest": {
+                        "method": "PUT",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "*/*"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "X-Soracom-API-Key",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "file",
+                          "file": {}
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/files/:scope/:path",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "files",
+                            ":scope",
+                            ":path"
+                          ],
+                          "variable": [
+                            {
+                              "key": "scope"
+                            },
+                            {
+                              "key": "path"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "text",
+                      "header": [],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-06-05T15:18:29.000Z",
+                      "updatedAt": "2026-06-05T15:18:29.000Z",
+                      "uid": "35240-daae172a-c87d-4062-a61f-f1fbdfa5becd"
+                    },
+                    {
+                      "id": "b2ed2bfc-b5ba-43bf-a833-b2ea0d2b4d54",
+                      "name": "File is successfully created.",
+                      "originalRequest": {
+                        "method": "PUT",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "*/*"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "X-Soracom-API-Key",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "file",
+                          "file": {}
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/files/:scope/:path",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "files",
+                            ":scope",
+                            ":path"
+                          ],
+                          "variable": [
+                            {
+                              "key": "scope"
+                            },
+                            {
+                              "key": "path"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Created",
+                      "code": 201,
+                      "_postman_previewlanguage": "text",
+                      "header": [],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-06-05T15:18:29.000Z",
+                      "updatedAt": "2026-06-05T15:18:29.000Z",
+                      "uid": "35240-b2ed2bfc-b5ba-43bf-a833-b2ea0d2b4d54"
+                    }
+                  ],
+                  "createdAt": "2026-06-05T15:18:29.000Z",
+                  "updatedAt": "2026-06-05T15:18:29.000Z",
+                  "uid": "35240-99c74caa-1174-48c3-b1f4-55902aae7321"
+                }
+              ],
+              "id": "e5eba029-49ef-4f73-9910-2e03478f37d5",
+              "createdAt": "2026-06-05T15:18:29.000Z",
+              "updatedAt": "2026-06-05T15:18:29.000Z",
+              "uid": "35240-e5eba029-49ef-4f73-9910-2e03478f37d5"
+            }
+          ],
+          "id": "fabd0cc2-4b24-4b1e-8c4f-ddb1be0f2ff7",
+          "createdAt": "2026-06-05T15:18:29.000Z",
+          "updatedAt": "2026-06-05T15:18:29.000Z",
+          "uid": "35240-fabd0cc2-4b24-4b1e-8c4f-ddb1be0f2ff7"
+        },
+        {
+          "name": "exported",
+          "item": [
+            {
+              "name": "{exported_file_id}",
+              "item": [
+                {
+                  "name": "Get the progress of the process when the file is exported asynchronously.",
+                  "id": "892e399d-2889-4e80-8832-98413277b381",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "auth": {
+                      "type": "apikey",
+                      "apikey": [
+                        {
+                          "key": "key",
+                          "value": "X-Soracom-API-Key",
+                          "type": "string"
+                        },
+                        {
+                          "key": "value",
+                          "value": "{{apiKey}}",
+                          "type": "string"
+                        },
+                        {
+                          "key": "in",
+                          "value": "header",
+                          "type": "string"
+                        }
+                      ]
+                    },
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/files/exported/:exported_file_id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "files",
+                        "exported",
+                        ":exported_file_id"
+                      ],
+                      "variable": [
+                        {
+                          "id": "6de0b191-8f82-46e4-a846-5dc07eb0e537",
+                          "key": "exported_file_id",
+                          "value": "<string>",
+                          "description": "(Required) File export ID."
+                        }
+                      ]
+                    },
+                    "description": "Get the progress of the process when the file is exported asynchronously. If the export is complete, you will get the URL to download the file. You can download the file from the URL.\n\nThe following APIs are available to export files asynchronously. The `exported_file_id` is the file output ID (the value of `exportedFileId`) obtained from the following API.\n\n- [Billing:exportBilling API](#!/Billing/exportBilling)\n- [Billing:exportLatestBilling API](#!/Billing/exportLatestBilling)\n- [Payment:exportPaymentStatement API](#!/Payment/exportPaymentStatement)\n- [Stats:exportAirStats API](#!/Stats/exportAirStats)\n- [Stats:exportBeamStats API](#!/Stats/exportBeamStats)\n- [Stats:exportFunkStats API](#!/Stats/exportFunkStats)\n- [Stats:exportFunnelStats API](#!/Stats/exportFunnelStats)\n- [Subscriber:exportSubscribers API](#!/Subscriber/exportSubscribers)\n"
+                  },
+                  "response": [
+                    {
+                      "id": "6d55aa30-71db-42ca-a6a0-7db86b80615b",
+                      "name": "OK",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "X-Soracom-API-Key",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/files/exported/:exported_file_id",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "files",
+                            "exported",
+                            ":exported_file_id"
+                          ],
+                          "variable": [
+                            {
+                              "key": "exported_file_id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"status\": \"exported\",\n  \"url\": \"<string>\"\n}",
+                      "createdAt": "2026-06-05T15:18:29.000Z",
+                      "updatedAt": "2026-06-05T15:18:29.000Z",
+                      "uid": "35240-6d55aa30-71db-42ca-a6a0-7db86b80615b"
+                    }
+                  ],
+                  "createdAt": "2026-06-05T15:18:29.000Z",
+                  "updatedAt": "2026-06-05T15:18:29.000Z",
+                  "uid": "35240-892e399d-2889-4e80-8832-98413277b381"
+                }
+              ],
+              "id": "c2dd2ab2-a065-4c72-b430-252cbdedd1bd",
+              "createdAt": "2026-06-05T15:18:29.000Z",
+              "updatedAt": "2026-06-05T15:18:29.000Z",
+              "uid": "35240-c2dd2ab2-a065-4c72-b430-252cbdedd1bd"
+            }
+          ],
+          "id": "e8eb34c4-a307-4dfe-b351-0c09b1ce28e1",
+          "createdAt": "2026-06-05T15:18:29.000Z",
+          "updatedAt": "2026-06-05T15:18:29.000Z",
+          "uid": "35240-e8eb34c4-a307-4dfe-b351-0c09b1ce28e1"
+        },
+        {
+          "name": "Find files with prefix query parameter in the scope",
+          "id": "4b39ba7f-0b05-4f61-b8ad-39610fb5a8e2",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-Soracom-API-Key",
+                  "type": "string"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}",
+                  "type": "string"
+                },
+                {
+                  "key": "in",
+                  "value": "header",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/files?scope=public&prefix=<string>&limit=10&last_evaluated_key=<string>",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "files"
+              ],
+              "query": [
+                {
+                  "description": "(Required) Scope of the request. Specify `private` to handle files uploaded to Harvest Files.",
+                  "key": "scope",
+                  "value": "public"
+                },
+                {
+                  "description": "(Required) Prefix to match with file path.",
+                  "key": "prefix",
+                  "value": "<string>"
+                },
+                {
+                  "description": "Maximum number of file entries to be returned.",
+                  "key": "limit",
+                  "value": "10"
+                },
+                {
+                  "description": "The filePath of the last file entry retrieved on the previous page. By specifying this parameter, you can continue to retrieve the list from the next file entry onward.",
+                  "key": "last_evaluated_key",
+                  "value": "<string>"
+                }
+              ]
+            },
+            "description": "Returns a list of file entries which beginnings of their file paths are matched with the `prefix` query string in the ascending sorted UTF-8 bytes order of their file paths. An empty list is returned if the prefix does not match with any paths of file entries."
+          },
+          "response": [
+            {
+              "id": "71a27dbc-3c3e-48ee-9a27-51991d5248f4",
+              "name": "List of file entries found with query parameters. Empty list if there is no file entry matching prefix.",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: apikey",
+                    "key": "X-Soracom-API-Key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/files?scope=public&prefix=<string>&limit=10&last_evaluated_key=<string>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "files"
+                  ],
+                  "query": [
+                    {
+                      "description": "(Required) Scope of the request. Specify `private` to handle files uploaded to Harvest Files.",
+                      "key": "scope",
+                      "value": "public"
+                    },
+                    {
+                      "description": "(Required) Prefix to match with file path.",
+                      "key": "prefix",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Maximum number of file entries to be returned.",
+                      "key": "limit",
+                      "value": "10"
+                    },
+                    {
+                      "description": "The filePath of the last file entry retrieved on the previous page. By specifying this parameter, you can continue to retrieve the list from the next file entry onward.",
+                      "key": "last_evaluated_key",
+                      "value": "<string>"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "[\n  {\n    \"contentLength\": \"<long>\",\n    \"contentType\": \"<string>\",\n    \"createdTime\": \"<long>\",\n    \"directory\": \"<string>\",\n    \"etag\": \"<string>\",\n    \"filePath\": \"<string>\",\n    \"filename\": \"<string>\",\n    \"isDirectory\": \"<boolean>\",\n    \"lastModifiedTime\": \"<long>\"\n  },\n  {\n    \"contentLength\": \"<long>\",\n    \"contentType\": \"<string>\",\n    \"createdTime\": \"<long>\",\n    \"directory\": \"<string>\",\n    \"etag\": \"<string>\",\n    \"filePath\": \"<string>\",\n    \"filename\": \"<string>\",\n    \"isDirectory\": \"<boolean>\",\n    \"lastModifiedTime\": \"<long>\"\n  }\n]",
+              "createdAt": "2026-06-05T15:18:29.000Z",
+              "updatedAt": "2026-06-05T15:18:29.000Z",
+              "uid": "35240-71a27dbc-3c3e-48ee-9a27-51991d5248f4"
+            },
+            {
+              "id": "aca757e4-5a4e-401f-a93b-70838a4ec69a",
+              "name": "The specified scope does not exist.",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "description": "Added as a part of security scheme: apikey",
+                    "key": "X-Soracom-API-Key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/files?scope=public&prefix=<string>&limit=10&last_evaluated_key=<string>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "files"
+                  ],
+                  "query": [
+                    {
+                      "description": "(Required) Scope of the request. Specify `private` to handle files uploaded to Harvest Files.",
+                      "key": "scope",
+                      "value": "public"
+                    },
+                    {
+                      "description": "(Required) Prefix to match with file path.",
+                      "key": "prefix",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Maximum number of file entries to be returned.",
+                      "key": "limit",
+                      "value": "10"
+                    },
+                    {
+                      "description": "The filePath of the last file entry retrieved on the previous page. By specifying this parameter, you can continue to retrieve the list from the next file entry onward.",
+                      "key": "last_evaluated_key",
+                      "value": "<string>"
+                    }
+                  ]
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "_postman_previewlanguage": "text",
+              "header": [],
+              "cookie": [],
+              "responseTime": null,
+              "body": null,
+              "createdAt": "2026-06-05T15:18:29.000Z",
+              "updatedAt": "2026-06-05T15:18:29.000Z",
+              "uid": "35240-aca757e4-5a4e-401f-a93b-70838a4ec69a"
+            }
+          ],
+          "createdAt": "2026-06-05T15:18:29.000Z",
+          "updatedAt": "2026-06-05T15:18:29.000Z",
+          "uid": "35240-4b39ba7f-0b05-4f61-b8ad-39610fb5a8e2"
+        }
+      ],
+      "id": "490787e8-0202-4838-b961-21d1bb563789",
+      "createdAt": "2026-06-05T15:18:29.000Z",
+      "updatedAt": "2026-06-05T15:18:29.000Z",
+      "uid": "35240-490787e8-0202-4838-b961-21d1bb563789"
+    }
+  ],
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://api.soracom.io/v1"
+    }
+  ]
+}

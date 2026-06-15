@@ -1,0 +1,198 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "SORACOM SANDBOX API",
+    "version": "20230923-005714"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "API Sandbox: Coupon",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Creates a coupon",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api-sandbox.soracom.io/v1/sandbox/coupons/create",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a coupon."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "API Sandbox: Operator",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Creates an operator account",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api-sandbox.soracom.io/v1/sandbox/init",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Performs complex signup process at once, including registering dummy payment method. Specify `email` and `password` for an operator which will be created on sandbox, `authKeyId` and `authKey` for a real operator on the production environment. An API Key and an API Token will be included in the response if successful. Use the API Key and the API Token to requests afterwards."
+        },
+        {
+          "info": {
+            "name": "Deletes an operator",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api-sandbox.soracom.io/v1/sandbox/operators/:operator_id",
+            "params": [
+              {
+                "name": "operator_id",
+                "value": "",
+                "type": "path",
+                "description": "Operator ID"
+              }
+            ]
+          },
+          "docs": "Deletes the specified operator."
+        },
+        {
+          "info": {
+            "name": "Gets a signup token",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api-sandbox.soracom.io/v1/sandbox/operators/token/:email",
+            "params": [
+              {
+                "name": "email",
+                "value": "",
+                "type": "path",
+                "description": "Email"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Retrieves a 'signup token' for registration confirmation. Please specify a pair of AuthKeyId and AuthKey of a SAM user on the production environment to check if the caller has a valid account on it."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "API Sandbox: Order",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Ships the specified order",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api-sandbox.soracom.io/v1/sandbox/orders/ship",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Changes the shipping status to 'shipped' and gets ready the subscribers included in the order."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "API Sandbox: Stats",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Inserts Air stats for testing",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api-sandbox.soracom.io/v1/sandbox/stats/air/subscribers/:imsi",
+            "params": [
+              {
+                "name": "imsi",
+                "value": "",
+                "type": "path",
+                "description": "IMSI."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Populates Air stats for testing purpose. Inserted data are going to be automatically accumulated. It is not possible to put the data multiple times with the same timestamp."
+        },
+        {
+          "info": {
+            "name": "Inserts Beam stats for testing",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api-sandbox.soracom.io/v1/sandbox/stats/beam/subscribers/:imsi",
+            "params": [
+              {
+                "name": "imsi",
+                "value": "",
+                "type": "path",
+                "description": "IMSI."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Populates Beam stats for testing purpose. Inserted data are going to be automatically accumulated. It is not possible to put the data multiple times with the same timestamp."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "API Sandbox: Subscriber",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Creates a new subscriber for sandbox",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api-sandbox.soracom.io/v1/sandbox/subscribers/create",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a new subscriber for sandbox."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

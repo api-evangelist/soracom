@@ -1,0 +1,933 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Soracom Billing API",
+    "version": "20250903-043502"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Billing",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Gets a list of finalized past billing history",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.soracom.io/v1/bills",
+            "auth": {
+              "type": "apikey",
+              "key": "X-Soracom-API-Key",
+              "value": "{{X-Soracom-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Gets a list of finalized past billing history.\n\n**Warning**: The maximum information you can get is for the last 18 months. If you need the information before that time, please contact [Soracom Support](https://support.soracom.io).\n"
+        },
+        {
+          "info": {
+            "name": "Gets a finalized past billing history for the specified month",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.soracom.io/v1/bills/:yyyyMM",
+            "params": [
+              {
+                "name": "yyyyMM",
+                "value": "",
+                "type": "path",
+                "description": "Target year and month"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-Soracom-API-Key",
+              "value": "{{X-Soracom-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Gets a finalized past billing history for the specified month. If you specify current month (the month in which the usage fee has not yet been finalized), you will get the preliminary value.\n\n**Warning**: The maximum information you can get is for the last 18 months. If you need the information before that time, please contact [Soracom Support](https://support.soracom.io).\n"
+        },
+        {
+          "info": {
+            "name": "Get a daily bill",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.soracom.io/v1/bills/:yyyyMM/daily",
+            "params": [
+              {
+                "name": "yyyyMM",
+                "value": "",
+                "type": "path",
+                "description": "Target year and month"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-Soracom-API-Key",
+              "value": "{{X-Soracom-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Gets a daily bill for the specified month. Fees charged on a monthly basis cannot be retrieved. If you specify current month (a month for which the fee has not yet been finalized), a preliminary value will be returned.\n\n**Warning**: The maximum information you can get is for the last 18 months. If you need the information before that time, please contact [Soracom Support](https://support.soracom.io).\n"
+        },
+        {
+          "info": {
+            "name": "Export historical Detailed billing CSV to dedicated storage",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.soracom.io/v1/bills/:yyyyMM/export",
+            "params": [
+              {
+                "name": "yyyyMM",
+                "value": "",
+                "type": "path",
+                "description": "Target year and month"
+              },
+              {
+                "name": "export_mode",
+                "value": "",
+                "type": "query",
+                "description": "Specify how to get the URL to download the billing details CSV.\n\n- `async`: Get the `exportedFieldId` without waiting for the URL to be issued on the Soracom platform. Specify this `exportedFieldId` in [Files:getExportedFile API](#!/Files/getExportedFile) to get the URL. If the file size of the billing details CSV is huge, use `async`.\n- `sync` (default): Wait for the URL to be issued on the Soracom platform. However, if the file size of the billing details CSV is huge, it may time out and the URL cannot be retrieved. If the timeout occurs, specify `async`.\n"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-Soracom-API-Key",
+              "value": "{{X-Soracom-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Export historical [Detailed billing CSV](/en/docs/account/billing/#detailed-billing-csv) to dedicated storage and issue URL to download.\n\n**Warning**: The maximum information you can get is for the last 18 months. If you need the information before that time, please contact [Soracom Support](https://support.soracom.io).\n"
+        },
+        {
+          "info": {
+            "name": "Get latest bill",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.soracom.io/v1/bills/latest",
+            "auth": {
+              "type": "apikey",
+              "key": "X-Soracom-API-Key",
+              "value": "{{X-Soracom-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Retrieves the preliminary usage fee for the current month (the month in which the usage fee has not yet been finalized)."
+        },
+        {
+          "info": {
+            "name": "Export latest billing CSV file to S3",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.soracom.io/v1/bills/latest/export",
+            "params": [
+              {
+                "name": "export_mode",
+                "value": "",
+                "type": "query",
+                "description": "Specify how to get the URL to download the billing details CSV.\n\n- `async`: Get the `exportedFieldId` without waiting for the URL to be issued on the Soracom platform. Specify this `exportedFieldId` in [Files:getExportedFile API](#!/Files/getExportedFile) to get the URL. If the file size of the billing details CSV is huge, use `async`.\n- `sync` (default): Wait for the URL to be issued on the Soracom platform. However, if the file size of the billing details CSV is huge, it may time out and the URL cannot be retrieved. If the timeout occurs, specify `async`.\n"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-Soracom-API-Key",
+              "value": "{{X-Soracom-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Export [Detailed Billing CSV](/en/docs/account/billing/#detailed-billing-csv) for current month (the month in which the usage fee has not yet been finalized) to dedicated storage and issue a URL to download it. The fees will be finalized by the second business day of the following month. The Detailed billing CSV exported using this API will output preliminary values."
+        },
+        {
+          "info": {
+            "name": "Gets a billing summary of bill items.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.soracom.io/v1/bills/summaries/bill_items",
+            "auth": {
+              "type": "apikey",
+              "key": "X-Soracom-API-Key",
+              "value": "{{X-Soracom-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Get a billing summary of bill items for the last 4 months (this month to 3 months ago).  Sorted by date from newest to oldest.\n\nThe summary you can get from this API is equivalent to the usage fees displayed in the [COSTS BY SERVICE] panel of the Billing Dashboard. For more information, please refer to [Billing Information](/en/docs/account/billing/).\n"
+        },
+        {
+          "info": {
+            "name": "Gets a billing summary of SIMs",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.soracom.io/v1/bills/summaries/sims",
+            "auth": {
+              "type": "apikey",
+              "key": "X-Soracom-API-Key",
+              "value": "{{X-Soracom-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Get a billing summary of SIMs for the last 4 months (current month to 3 months ago). Sorted by date from newest to oldest.\n\nThe summary you get from this API is equivalent to the rates displayed in the [COSTS PER SIM (TOP 100)] panel of the Rates Dashboard. For more information, please refer to [Billing Information](/en/docs/account/billing/).\n"
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Payment",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List coupons.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.soracom.io/v1/coupons",
+            "auth": {
+              "type": "apikey",
+              "key": "X-Soracom-API-Key",
+              "value": "{{X-Soracom-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Returns a list of currently registered coupons."
+        },
+        {
+          "info": {
+            "name": "Register Coupon",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.soracom.io/v1/coupons/:coupon_code/register",
+            "params": [
+              {
+                "name": "coupon_code",
+                "value": "",
+                "type": "path",
+                "description": "Coupon code."
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-Soracom-API-Key",
+              "value": "{{X-Soracom-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Registers a coupon."
+        },
+        {
+          "info": {
+            "name": "Get payment transaction result.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.soracom.io/v1/payment_history/transactions/:payment_transaction_id",
+            "params": [
+              {
+                "name": "payment_transaction_id",
+                "value": "",
+                "type": "path",
+                "description": "Payment transaction ID. It can be obtained via [Billing:getBillingHistory API](#!/Billing/getBillingHistory) or [Billing:getBilling API](#!/Billing/getBilling)."
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-Soracom-API-Key",
+              "value": "{{X-Soracom-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Returns result of a payment transaction.\n\n**Warning**: The maximum information you can get is for the last 18 months. If you need the information before that time, please contact [Soracom Support](https://support.soracom.io).\n"
+        },
+        {
+          "info": {
+            "name": "Get current payment method information.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.soracom.io/v1/payment_methods/current",
+            "auth": {
+              "type": "apikey",
+              "key": "X-Soracom-API-Key",
+              "value": "{{X-Soracom-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Returns current payment methods. Detailed information is included in the properties."
+        },
+        {
+          "info": {
+            "name": "Activate current payment method",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.soracom.io/v1/payment_methods/current/activate",
+            "auth": {
+              "type": "apikey",
+              "key": "X-Soracom-API-Key",
+              "value": "{{X-Soracom-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Activates a current payment method that has an error."
+        },
+        {
+          "info": {
+            "name": "List payment statements",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.soracom.io/v1/payment_statements",
+            "auth": {
+              "type": "apikey",
+              "key": "X-Soracom-API-Key",
+              "value": "{{X-Soracom-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "List payment statements.\n\n**Warning**: The maximum information you can get is for the last 18 months. If you need the information before that time, please contact [Soracom Support](https://support.soracom.io).\n"
+        },
+        {
+          "info": {
+            "name": "Export payment statement",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.soracom.io/v1/payment_statements/:payment_statement_id/export",
+            "params": [
+              {
+                "name": "payment_statement_id",
+                "value": "",
+                "type": "path",
+                "description": "Payment statement ID"
+              },
+              {
+                "name": "export_mode",
+                "value": "",
+                "type": "query",
+                "description": "Export mode (async, sync)"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-Soracom-API-Key",
+              "value": "{{X-Soracom-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Export payment statement.\n\n**Warning**: The maximum information you can get is for the last 18 months. If you need the information before that time, please contact [Soracom Support](https://support.soracom.io).\n"
+        },
+        {
+          "info": {
+            "name": "Export payer information",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.soracom.io/v1/payment_statements/payer_information",
+            "auth": {
+              "type": "apikey",
+              "key": "X-Soracom-API-Key",
+              "value": "{{X-Soracom-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Export payer information."
+        },
+        {
+          "info": {
+            "name": "Register payer information",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.soracom.io/v1/payment_statements/payer_information",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-Soracom-API-Key",
+              "value": "{{X-Soracom-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Register payer information."
+        },
+        {
+          "info": {
+            "name": "List long term discounts",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.soracom.io/v1/volume_discounts",
+            "auth": {
+              "type": "apikey",
+              "key": "X-Soracom-API-Key",
+              "value": "{{X-Soracom-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Returns a list of contracted long term discounts.\n\n**Warning**: Information can be obtained up to 18 months in the past or 6 months after the contract ends. If you need the information before that time, please contact [Soracom Support](https://support.soracom.io).\n"
+        },
+        {
+          "info": {
+            "name": "Get long term discount",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.soracom.io/v1/volume_discounts/:contract_id",
+            "params": [
+              {
+                "name": "contract_id",
+                "value": "",
+                "type": "path",
+                "description": "Contract ID."
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-Soracom-API-Key",
+              "value": "{{X-Soracom-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Returns contracted long term discount.\n\n**Warning**: Information can be obtained up to 18 months in the past or 6 months after the contract ends. If you need the information before that time, please contact [Soracom Support](https://support.soracom.io).\n"
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Order",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Create coupon quotation",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.soracom.io/v1/coupons",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-Soracom-API-Key",
+              "value": "{{X-Soracom-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Creates a new coupon quotation. If the orderId is put in /coupons/{order_id}/confirm, the order is complete."
+        },
+        {
+          "info": {
+            "name": "Create long term discount quotation",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.soracom.io/v1/volume_discounts",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-Soracom-API-Key",
+              "value": "{{X-Soracom-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Creates a new long term discount quotation. If the orderId is put in /volume_discounts/{order_id}/confirm, the order is complete (Currently, long term discount is only applied to plan-D (without bundle), plan-K)."
+        },
+        {
+          "info": {
+            "name": "Confirm coupon order",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.soracom.io/v1/coupons/:order_id/confirm",
+            "params": [
+              {
+                "name": "order_id",
+                "value": "",
+                "type": "path",
+                "description": "Order ID. You can get it by calling [Order:createCouponQuotation API](#/Order/createCouponQuotation)."
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-Soracom-API-Key",
+              "value": "{{X-Soracom-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Performs a credit limit and confirms the order if no problems are encountered."
+        },
+        {
+          "info": {
+            "name": "Get a list of confirmed order history",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.soracom.io/v1/orders",
+            "auth": {
+              "type": "apikey",
+              "key": "X-Soracom-API-Key",
+              "value": "{{X-Soracom-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Get a list of confirmed order history.\n\n**Warning**: The maximum information you can get is for the last 18 months. If you need the information before that time, please contact [Soracom Support](https://support.soracom.io).\n"
+        },
+        {
+          "info": {
+            "name": "Create Quotation",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.soracom.io/v1/orders",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-Soracom-API-Key",
+              "value": "{{X-Soracom-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Creates a new order quotation. If the orderId is put in /orders/{order_id}/confirm, the order is complete."
+        },
+        {
+          "info": {
+            "name": "Get a confirmed order",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.soracom.io/v1/orders/:order_id",
+            "params": [
+              {
+                "name": "order_id",
+                "value": "",
+                "type": "path",
+                "description": "Order ID. You can get it by calling [Order:listOrders API](#/Order/listOrders)."
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-Soracom-API-Key",
+              "value": "{{X-Soracom-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Returns a confirmed order.\n\n**Warning**: The maximum information you can get is for the last 18 months. If you need the information before that time, please contact [Soracom Support](https://support.soracom.io).\n"
+        },
+        {
+          "info": {
+            "name": "Cancel order",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.soracom.io/v1/orders/:order_id/cancel",
+            "params": [
+              {
+                "name": "order_id",
+                "value": "",
+                "type": "path",
+                "description": "Order ID. You can get it by calling [Order:listOrders API](#/Order/listOrders)."
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-Soracom-API-Key",
+              "value": "{{X-Soracom-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Cancels an order. If the order has already been dispatched, an error is returned."
+        },
+        {
+          "info": {
+            "name": "Confirm order",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.soracom.io/v1/orders/:order_id/confirm",
+            "params": [
+              {
+                "name": "order_id",
+                "value": "",
+                "type": "path",
+                "description": "Order ID. You can get it by calling [Order:listOrders API](#/Order/listOrders)."
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-Soracom-API-Key",
+              "value": "{{X-Soracom-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Performs a credit limit and confirms the order if no problems are encountered.\n\n**Warning**: Only orders completed within the past month can be confirmed. If one month has elapsed, please redo the order placement operation.\n"
+        },
+        {
+          "info": {
+            "name": "Update resource initial setting for an order",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.soracom.io/v1/orders/:order_id/resource_initial_setting",
+            "params": [
+              {
+                "name": "order_id",
+                "value": "",
+                "type": "path",
+                "description": "Order ID. You can get it by calling [Order:listOrders API](#/Order/listOrders)."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-Soracom-API-Key",
+              "value": "{{X-Soracom-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Update resource initial setting for an order.\n\n**Warning**: Initial settings of IoT SIM cannot be specified after confirmation of receipt.\n"
+        },
+        {
+          "info": {
+            "name": "List ordered subscribers",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.soracom.io/v1/orders/:order_id/subscribers",
+            "params": [
+              {
+                "name": "order_id",
+                "value": "",
+                "type": "path",
+                "description": "Order ID. You can get it by calling [Order:listOrders API](#/Order/listOrders)."
+              },
+              {
+                "name": "last_evaluated_key",
+                "value": "",
+                "type": "query",
+                "description": "The value of the `x-soracom-next-key` header returned when the previous page was retrieved. Specify if the next page is to be retrieved. For details, see [Handling Pagination](/en/docs/tools/api-reference/#handling-pagination)."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of subscribers in a response."
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-Soracom-API-Key",
+              "value": "{{X-Soracom-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "List ordered subscribers.\n\n**Warning**: The maximum information you can get is for the last 18 months. If you need the information before that time, please contact [Soracom Support](https://support.soracom.io).\n"
+        },
+        {
+          "info": {
+            "name": "Register subscribers for operator",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.soracom.io/v1/orders/:order_id/subscribers/register",
+            "params": [
+              {
+                "name": "order_id",
+                "value": "",
+                "type": "path",
+                "description": "Order ID. You can get it by calling [Order:listOrders API](#/Order/listOrders)."
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-Soracom-API-Key",
+              "value": "{{X-Soracom-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Registers the ordered SIM with the operator.\n\n**Warning**: IoT SIMs can only be registered for the past 18 months. If you need to register an IoT SIM that was ordered before the time period, please contact [Soracom Support](https://support.soracom.io).\n"
+        },
+        {
+          "info": {
+            "name": "List products",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.soracom.io/v1/products",
+            "params": [
+              {
+                "name": "campaign_code",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-Soracom-API-Key",
+              "value": "{{X-Soracom-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Returns a list of products."
+        },
+        {
+          "info": {
+            "name": "Confirm long-term discount order",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.soracom.io/v1/volume_discounts/:order_id/confirm",
+            "params": [
+              {
+                "name": "order_id",
+                "value": "",
+                "type": "path",
+                "description": "Order ID. The order ID can be obtained from the [Order:createVolumeDiscountQuotation API](#/Order/createVolumeDiscountQuotation)."
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-Soracom-API-Key",
+              "value": "{{X-Soracom-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Performs a credit check and confirms the order if there are no issues."
+        },
+        {
+          "info": {
+            "name": "List available long term discounts",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.soracom.io/v1/volume_discounts/available_discounts",
+            "auth": {
+              "type": "apikey",
+              "key": "X-Soracom-API-Key",
+              "value": "{{X-Soracom-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Returns a list of available long term discounts."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "ShippingAddress",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List shipping addresses",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.soracom.io/v1/operators/:operator_id/shipping_addresses",
+            "params": [
+              {
+                "name": "operator_id",
+                "value": "",
+                "type": "path",
+                "description": "Operator ID."
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-Soracom-API-Key",
+              "value": "{{X-Soracom-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Returns a list of shipping addresses."
+        },
+        {
+          "info": {
+            "name": "Create shipping address",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.soracom.io/v1/operators/:operator_id/shipping_addresses",
+            "params": [
+              {
+                "name": "operator_id",
+                "value": "",
+                "type": "path",
+                "description": "Operator ID."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-Soracom-API-Key",
+              "value": "{{X-Soracom-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Creates a new shipping address."
+        },
+        {
+          "info": {
+            "name": "Get shipping address",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.soracom.io/v1/operators/:operator_id/shipping_addresses/:shipping_address_id",
+            "params": [
+              {
+                "name": "operator_id",
+                "value": "",
+                "type": "path",
+                "description": "Operator ID."
+              },
+              {
+                "name": "shipping_address_id",
+                "value": "",
+                "type": "path",
+                "description": "Shipping address ID."
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-Soracom-API-Key",
+              "value": "{{X-Soracom-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Returns a shipping address."
+        },
+        {
+          "info": {
+            "name": "Update shipping address",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.soracom.io/v1/operators/:operator_id/shipping_addresses/:shipping_address_id",
+            "params": [
+              {
+                "name": "operator_id",
+                "value": "",
+                "type": "path",
+                "description": "Operator ID."
+              },
+              {
+                "name": "shipping_address_id",
+                "value": "",
+                "type": "path",
+                "description": "Shipping address ID."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-Soracom-API-Key",
+              "value": "{{X-Soracom-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Updates a shipping address."
+        },
+        {
+          "info": {
+            "name": "Delete shipping address",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.soracom.io/v1/operators/:operator_id/shipping_addresses/:shipping_address_id",
+            "params": [
+              {
+                "name": "operator_id",
+                "value": "",
+                "type": "path",
+                "description": "Operator ID."
+              },
+              {
+                "name": "shipping_address_id",
+                "value": "",
+                "type": "path",
+                "description": "Shipping address ID."
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-Soracom-API-Key",
+              "value": "{{X-Soracom-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Deletes a shipping address."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

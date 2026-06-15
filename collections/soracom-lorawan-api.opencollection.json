@@ -1,0 +1,948 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Soracom Air for LoRaWAN API",
+    "version": "20250903-043502"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "LoraDevice",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List LoRaWAN devices.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.soracom.io/v1/lora_devices",
+            "params": [
+              {
+                "name": "tag_name",
+                "value": "",
+                "type": "query",
+                "description": "Tag name for filtering the search (exact match)."
+              },
+              {
+                "name": "tag_value",
+                "value": "",
+                "type": "query",
+                "description": "Tag search string for filtering the search. Required when `tag_name` has been specified."
+              },
+              {
+                "name": "tag_value_match_mode",
+                "value": "",
+                "type": "query",
+                "description": "Tag match mode."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of LoRaWAN devices to retrieve."
+              },
+              {
+                "name": "last_evaluated_key",
+                "value": "",
+                "type": "query",
+                "description": "The device ID of the last LoRaWAN device retrieved on the previous page. By specifying this parameter, you can continue to retrieve the list from the next LoRaWAN device onward."
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-Soracom-API-Key",
+              "value": "{{X-Soracom-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Returns a list of LoRaWAN devices that match certain criteria. If the total number of LoRaWAN devices does not fit in one page, a URL for accessing the next page is returned in the `link` header of the response.\n"
+        },
+        {
+          "info": {
+            "name": "Get LoRaWAN device.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.soracom.io/v1/lora_devices/:device_id",
+            "params": [
+              {
+                "name": "device_id",
+                "value": "",
+                "type": "path",
+                "description": "Device ID of the target LoRaWAN device."
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-Soracom-API-Key",
+              "value": "{{X-Soracom-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Returns information about the specified LoRaWAN device."
+        },
+        {
+          "info": {
+            "name": "Retrieves data sent from a LoRaWAN device to Harvest Data",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.soracom.io/v1/lora_devices/:device_id/data",
+            "params": [
+              {
+                "name": "device_id",
+                "value": "",
+                "type": "path",
+                "description": "ID of the LoRaWAN device from which to retrieve data. The ID of a LoRaWAN device can be obtained using the [LoraDevice:listLoraDevices API](#!/LoraDevice/listLoraDevices)."
+              },
+              {
+                "name": "from",
+                "value": "",
+                "type": "query",
+                "description": "Start time of the target period (UNIX time in milliseconds)."
+              },
+              {
+                "name": "to",
+                "value": "",
+                "type": "query",
+                "description": "End time of the target period (UNIX time in milliseconds)."
+              },
+              {
+                "name": "sort",
+                "value": "",
+                "type": "query",
+                "description": "Sort order of data entries. Either descending order (latest data entry first) or ascending order (oldest data entry first)."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of data entries to retrieve (1 to 1000). The default is `10`."
+              },
+              {
+                "name": "last_evaluated_key",
+                "value": "",
+                "type": "query",
+                "description": "Timestamp of the last data entry retrieved on the previous page. By specifying this parameter, the list starting from the next data entry can be obtained."
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-Soracom-API-Key",
+              "value": "{{X-Soracom-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Retrieves data that matches the specified conditions from the data sent by the specified LoRaWAN device to Harvest Data. If the data entries do not fit in one page, a URL to retrieve the next page with the same conditions will be included in the `link` header of the response.\n"
+        },
+        {
+          "info": {
+            "name": "Send data to a LoRaWAN device.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.soracom.io/v1/lora_devices/:device_id/data",
+            "params": [
+              {
+                "name": "device_id",
+                "value": "",
+                "type": "path",
+                "description": "ID of the recipient device."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-Soracom-API-Key",
+              "value": "{{X-Soracom-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Sends data to the specified LoRaWAN device. The data is sent to the LoRa network server, to be sent out to the device using the next available slot. If another message destined for the same LoRaWAN device ID is already waiting to be sent on the LoRa Network Server, the existing message will be discarded, and the new message will be sent instead. Data is discarded if it is not received by the device for a certain period of time (2 hours)."
+        },
+        {
+          "info": {
+            "name": "Disable Termination of LoRaWAN device.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.soracom.io/v1/lora_devices/:device_id/disable_termination",
+            "params": [
+              {
+                "name": "device_id",
+                "value": "",
+                "type": "path",
+                "description": "Device ID of the target LoRaWAN device."
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-Soracom-API-Key",
+              "value": "{{X-Soracom-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Disables termination of specified LoRaWAN device."
+        },
+        {
+          "info": {
+            "name": "Enable Termination of LoRaWAN device.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.soracom.io/v1/lora_devices/:device_id/enable_termination",
+            "params": [
+              {
+                "name": "device_id",
+                "value": "",
+                "type": "path",
+                "description": "Device ID of the target LoRaWAN device."
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-Soracom-API-Key",
+              "value": "{{X-Soracom-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Enables termination of specified LoRaWAN device."
+        },
+        {
+          "info": {
+            "name": "Register LoRaWAN device.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.soracom.io/v1/lora_devices/:device_id/register",
+            "params": [
+              {
+                "name": "device_id",
+                "value": "",
+                "type": "path",
+                "description": "Device ID of the target LoRaWAN device."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-Soracom-API-Key",
+              "value": "{{X-Soracom-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Register a LoRaWAN device."
+        },
+        {
+          "info": {
+            "name": "Adds a LoRaWAN device to a LoRaWAN group",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.soracom.io/v1/lora_devices/:device_id/set_group",
+            "params": [
+              {
+                "name": "device_id",
+                "value": "",
+                "type": "path",
+                "description": "ID of the target LoRaWAN device. The ID of a LoRaWAN device can be obtained using the [LoraDevice:listLoraDevices API](#!/LoraDevice/listLoraDevices)."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-Soracom-API-Key",
+              "value": "{{X-Soracom-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Adds a LoRaWAN device to a LoRaWAN group."
+        },
+        {
+          "info": {
+            "name": "Bulk Insert or Update LoRaWAN device Tags.",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.soracom.io/v1/lora_devices/:device_id/tags",
+            "params": [
+              {
+                "name": "device_id",
+                "value": "",
+                "type": "path",
+                "description": "Device ID of the target LoRaWAN device."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-Soracom-API-Key",
+              "value": "{{X-Soracom-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Inserts/updates tags for the specified LoRaWAN device."
+        },
+        {
+          "info": {
+            "name": "Delete LoRaWAN device Tag.",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.soracom.io/v1/lora_devices/:device_id/tags/:tag_name",
+            "params": [
+              {
+                "name": "device_id",
+                "value": "",
+                "type": "path",
+                "description": "Device ID of the target LoRaWAN device."
+              },
+              {
+                "name": "tag_name",
+                "value": "",
+                "type": "path",
+                "description": "Tag name to be deleted. (This will be part of a URL path, so it needs to be percent-encoded. In JavaScript, specify the name after it has been encoded using encodeURIComponent().)"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-Soracom-API-Key",
+              "value": "{{X-Soracom-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Deletes a tag from the specified LoRaWAN device."
+        },
+        {
+          "info": {
+            "name": "Terminate LoRaWAN device.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.soracom.io/v1/lora_devices/:device_id/terminate",
+            "params": [
+              {
+                "name": "device_id",
+                "value": "",
+                "type": "path",
+                "description": "Device ID of the target LoRaWAN device."
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-Soracom-API-Key",
+              "value": "{{X-Soracom-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Terminates the specified LoRaWAN device."
+        },
+        {
+          "info": {
+            "name": "Removes a LoRaWAN device from a LoRaWAN group",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.soracom.io/v1/lora_devices/:device_id/unset_group",
+            "params": [
+              {
+                "name": "device_id",
+                "value": "",
+                "type": "path",
+                "description": "ID of the target LoRaWAN device. The ID of a LoRaWAN device can be obtained using the [LoraDevice:listLoraDevices API](#!/LoraDevice/listLoraDevices)."
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-Soracom-API-Key",
+              "value": "{{X-Soracom-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Removes a LoRaWAN device from a LoRaWAN group."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "LoraGateway",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List LoRaWAN Gateways",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.soracom.io/v1/lora_gateways",
+            "params": [
+              {
+                "name": "tag_name",
+                "value": "",
+                "type": "query",
+                "description": "Tag name for filtering the search (exact match)."
+              },
+              {
+                "name": "tag_value",
+                "value": "",
+                "type": "query",
+                "description": "Tag search string for filtering the search. Required when `tag_name` has been specified."
+              },
+              {
+                "name": "tag_value_match_mode",
+                "value": "",
+                "type": "query",
+                "description": "Tag match mode."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of LoRaWAN gateways to retrieve."
+              },
+              {
+                "name": "last_evaluated_key",
+                "value": "",
+                "type": "query",
+                "description": "The Gateway ID of the last LoRaWAN gateway retrieved on the current page. By specifying this parameter, you can continue to retrieve the list from the next LoRaWAN gateway onward."
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-Soracom-API-Key",
+              "value": "{{X-Soracom-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Returns a list of LoRaWAN gateways that match certain criteria. If the total number of LoRaWAN gateways does not fit in one page, a URL for accessing the next page is returned in the `link` header of the response.\n"
+        },
+        {
+          "info": {
+            "name": "Get LoRaWAN gateway",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.soracom.io/v1/lora_gateways/:gateway_id",
+            "params": [
+              {
+                "name": "gateway_id",
+                "value": "",
+                "type": "path",
+                "description": "Gateway ID of the target LoRaWAN gateway."
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-Soracom-API-Key",
+              "value": "{{X-Soracom-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Returns information about the specified LoRaWAN gateway."
+        },
+        {
+          "info": {
+            "name": "Disable Termination of LoRaWAN gateway",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.soracom.io/v1/lora_gateways/:gateway_id/disable_termination",
+            "params": [
+              {
+                "name": "gateway_id",
+                "value": "",
+                "type": "path",
+                "description": "ID of the target LoRaWAN gateway."
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-Soracom-API-Key",
+              "value": "{{X-Soracom-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Disables termination of specified LoRaWAN gateway."
+        },
+        {
+          "info": {
+            "name": "Enable Termination of LoRaWAN gateway",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.soracom.io/v1/lora_gateways/:gateway_id/enable_termination",
+            "params": [
+              {
+                "name": "gateway_id",
+                "value": "",
+                "type": "path",
+                "description": "ID of the target LoRaWAN gateway."
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-Soracom-API-Key",
+              "value": "{{X-Soracom-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Enables termination of specified LoRaWAN gateway."
+        },
+        {
+          "info": {
+            "name": "Set Network Set ID of LoRaWAN gateway",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.soracom.io/v1/lora_gateways/:gateway_id/set_network_set",
+            "params": [
+              {
+                "name": "gateway_id",
+                "value": "",
+                "type": "path",
+                "description": "ID of the target LoRaWAN gateway."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-Soracom-API-Key",
+              "value": "{{X-Soracom-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Sets or overwrites network set ID for the specified LoRaWAN gateway."
+        },
+        {
+          "info": {
+            "name": "Bulk Insert or Update LoRaWAN gateway Tags",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.soracom.io/v1/lora_gateways/:gateway_id/tags",
+            "params": [
+              {
+                "name": "gateway_id",
+                "value": "",
+                "type": "path",
+                "description": "ID of the target LoRaWAN gateway."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-Soracom-API-Key",
+              "value": "{{X-Soracom-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Inserts/updates tags for the specified LoRaWAN gateway."
+        },
+        {
+          "info": {
+            "name": "Delete LoRaWAN gateway tag",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.soracom.io/v1/lora_gateways/:gateway_id/tags/:tag_name",
+            "params": [
+              {
+                "name": "gateway_id",
+                "value": "",
+                "type": "path",
+                "description": "ID of the target LoRaWAN gateway."
+              },
+              {
+                "name": "tag_name",
+                "value": "",
+                "type": "path",
+                "description": "Tag name to be deleted. (This will be part of a URL path, so it needs to be percent-encoded. In JavaScript, specify the name after it has been encoded using encodeURIComponent().)"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-Soracom-API-Key",
+              "value": "{{X-Soracom-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Deletes a tag from the specified LoRaWAN gateway."
+        },
+        {
+          "info": {
+            "name": "Terminate LoRaWAN gateway",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.soracom.io/v1/lora_gateways/:gateway_id/terminate",
+            "params": [
+              {
+                "name": "gateway_id",
+                "value": "",
+                "type": "path",
+                "description": "ID of the target LoRaWAN gateway."
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-Soracom-API-Key",
+              "value": "{{X-Soracom-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Terminates the specified LoRaWAN gateway."
+        },
+        {
+          "info": {
+            "name": "Unset Network Set ID of LoRaWAN gateway",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.soracom.io/v1/lora_gateways/:gateway_id/unset_network_set",
+            "params": [
+              {
+                "name": "gateway_id",
+                "value": "",
+                "type": "path",
+                "description": "ID of the target LoRaWAN gateway."
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-Soracom-API-Key",
+              "value": "{{X-Soracom-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Unset network set ID of the specified LoRaWAN gateway."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "LoraNetworkSet",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List LoRaWAN Network Sets",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.soracom.io/v1/lora_network_sets",
+            "params": [
+              {
+                "name": "tag_name",
+                "value": "",
+                "type": "query",
+                "description": "Tag name for filtering the search (exact match)."
+              },
+              {
+                "name": "tag_value",
+                "value": "",
+                "type": "query",
+                "description": "Tag search string for filtering the search. Required when `tag_name` has been specified."
+              },
+              {
+                "name": "tag_value_match_mode",
+                "value": "",
+                "type": "query",
+                "description": "Tag match mode."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of LoRaWAN network set to retrieve."
+              },
+              {
+                "name": "last_evaluated_key",
+                "value": "",
+                "type": "query",
+                "description": "The ID of the last network set retrieved on the current page. By specifying this parameter, you can continue to retrieve the list from the next device onward."
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-Soracom-API-Key",
+              "value": "{{X-Soracom-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Returns a list of LoRaWAN network sets that match certain criteria. If the total number of LoRaWAN network sets does not fit in one page, a URL for accessing the next page is returned in the `link` header of the response.\n"
+        },
+        {
+          "info": {
+            "name": "Create a LoRaWAN network set",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.soracom.io/v1/lora_network_sets",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-Soracom-API-Key",
+              "value": "{{X-Soracom-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Creates a specified LoRaWAN network set."
+        },
+        {
+          "info": {
+            "name": "Get LoRaWAN network set",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.soracom.io/v1/lora_network_sets/:ns_id",
+            "params": [
+              {
+                "name": "ns_id",
+                "value": "",
+                "type": "path",
+                "description": "ID of the target LoRaWAN network set."
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-Soracom-API-Key",
+              "value": "{{X-Soracom-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Returns information about the specified LoRaWAN network set."
+        },
+        {
+          "info": {
+            "name": "Delete LoRaWAN network set",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.soracom.io/v1/lora_network_sets/:ns_id",
+            "params": [
+              {
+                "name": "ns_id",
+                "value": "",
+                "type": "path",
+                "description": "ID of the target LoRaWAN network set."
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-Soracom-API-Key",
+              "value": "{{X-Soracom-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Deletes the specified LoRaWAN network set."
+        },
+        {
+          "info": {
+            "name": "Adds permission to a LoRaWAN network set",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.soracom.io/v1/lora_network_sets/:ns_id/add_permission",
+            "params": [
+              {
+                "name": "ns_id",
+                "value": "",
+                "type": "path",
+                "description": "ID of the target LoRaWAN network set."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-Soracom-API-Key",
+              "value": "{{X-Soracom-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Adds permission to allow another operator to use the network set."
+        },
+        {
+          "info": {
+            "name": "List LoRaWAN Gateways in a Network Set",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.soracom.io/v1/lora_network_sets/:ns_id/gateways",
+            "params": [
+              {
+                "name": "ns_id",
+                "value": "",
+                "type": "path",
+                "description": "ID of the target LoRaWAN network set."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of LoRaWAN gateways to retrieve."
+              },
+              {
+                "name": "last_evaluated_key",
+                "value": "",
+                "type": "query",
+                "description": "The Gateway ID of the last LoRaWAN gateway retrieved on the current page. By specifying this parameter, you can continue to retrieve the list from the next LoRaWAN gateway onward."
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-Soracom-API-Key",
+              "value": "{{X-Soracom-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Returns a list of LoRaWAN gateways that belong to the specified network set. If the total number of LoRaWAN gateways does not fit in one page, a URL for accessing the next page is returned in the `link` header of the response.\n"
+        },
+        {
+          "info": {
+            "name": "Revokes a permission from a LoRaWAN network set",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.soracom.io/v1/lora_network_sets/:ns_id/revoke_permission",
+            "params": [
+              {
+                "name": "ns_id",
+                "value": "",
+                "type": "path",
+                "description": "ID of the target LoRaWAN network set."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-Soracom-API-Key",
+              "value": "{{X-Soracom-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Revokes a permission and removes an operator from the list of allowed operators in the network set."
+        },
+        {
+          "info": {
+            "name": "Bulk Insert or Update LoRaWAN network set tags",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.soracom.io/v1/lora_network_sets/:ns_id/tags",
+            "params": [
+              {
+                "name": "ns_id",
+                "value": "",
+                "type": "path",
+                "description": "ID of the target LoRaWAN network set."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-Soracom-API-Key",
+              "value": "{{X-Soracom-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Inserts/updates tags for the specified LoRaWAN network set."
+        },
+        {
+          "info": {
+            "name": "Delete LoRaWAN network set tag",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.soracom.io/v1/lora_network_sets/:ns_id/tags/:tag_name",
+            "params": [
+              {
+                "name": "ns_id",
+                "value": "",
+                "type": "path",
+                "description": "ID of the target LoRaWAN network set."
+              },
+              {
+                "name": "tag_name",
+                "value": "",
+                "type": "path",
+                "description": "Tag name to be deleted. (This will be part of a URL path, so it needs to be percent-encoded. In JavaScript, specify the name after it has been encoded using encodeURIComponent().)"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-Soracom-API-Key",
+              "value": "{{X-Soracom-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Deletes a tag from the specified LoRaWAN network set."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

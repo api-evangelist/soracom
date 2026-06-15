@@ -1,0 +1,570 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Soracom Harvest API",
+    "version": "20250903-043502"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "DataEntry",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get data sent to Harvest Data from a resource.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.soracom.io/v1/data/:resource_type/:resource_id",
+            "params": [
+              {
+                "name": "resource_type",
+                "value": "",
+                "type": "path",
+                "description": "Type of data source resource."
+              },
+              {
+                "name": "resource_id",
+                "value": "",
+                "type": "path",
+                "description": "ID of data source resource. The ID to be specified depends on the value of `resource_type`.\n\n| `resource_type` | The ID you specify |\n|-|-|\n| `Subscriber` | IMSI of the IoT SIM |\n| `LoraDevice` | ID of the LoRaWAN device |\n| `Sim` | SIM ID of the IoT SIM |\n| `SigfoxDevice` | ID of the Sigfox device |\n| `Device` | ID of the Inventory device |\n| `SoraCam` | Device ID of the compatible camera device |\n"
+              },
+              {
+                "name": "from",
+                "value": "",
+                "type": "query",
+                "description": "Start time for the data entries search range (UNIX time in milliseconds)."
+              },
+              {
+                "name": "to",
+                "value": "",
+                "type": "query",
+                "description": "End time for the data entries search range (UNIX time in milliseconds)."
+              },
+              {
+                "name": "sort",
+                "value": "",
+                "type": "query",
+                "description": "Sort order of the data entries. Either descending (latest data entry first) or ascending (oldest data entry first)."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of data entries to retrieve (value range is 1 to 1000). The default is `10`."
+              },
+              {
+                "name": "last_evaluated_key",
+                "value": "",
+                "type": "query",
+                "description": "The value of the `x-soracom-next-key` header from the previous response. Specify this to retrieve the next page."
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-Soracom-API-Key",
+              "value": "{{X-Soracom-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Returns a list of data entries sent to Harvest Data from a device that match certain criteria. If the total number of entries does not fit in one page, a URL for accessing the next page is returned in the `link` header of the response.\n"
+        },
+        {
+          "info": {
+            "name": "Gets a data entry",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.soracom.io/v1/data/:resource_type/:resource_id/:time",
+            "params": [
+              {
+                "name": "resource_type",
+                "value": "",
+                "type": "path",
+                "description": "Type of data source resource."
+              },
+              {
+                "name": "resource_id",
+                "value": "",
+                "type": "path",
+                "description": "ID of data source resource. The ID to be specified depends on the value of `resource_type`.\n\n| `resource_type` | The ID you specify |\n|-|-|\n| `Subscriber` | IMSI of the IoT SIM |\n| `LoraDevice` | ID of the LoRaWAN device |\n| `Sim` | SIM ID of the IoT SIM |\n| `SigfoxDevice` | ID of the Sigfox device |\n| `Device` | ID of the Inventory device |\n| `SoraCam` | Device ID of the compatible camera device |\n"
+              },
+              {
+                "name": "time",
+                "value": "",
+                "type": "path",
+                "description": "Timestamp of the target data entry to get (UNIX time in milliseconds)."
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-Soracom-API-Key",
+              "value": "{{X-Soracom-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Gets a data entry identified with resource ID and timestamp"
+        },
+        {
+          "info": {
+            "name": "Deletes a data entry",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.soracom.io/v1/data/:resource_type/:resource_id/:time",
+            "params": [
+              {
+                "name": "resource_type",
+                "value": "",
+                "type": "path",
+                "description": "Type of data source resource."
+              },
+              {
+                "name": "resource_id",
+                "value": "",
+                "type": "path",
+                "description": "ID of data source resource. The ID to be specified depends on the value of `resource_type`.\n\n| `resource_type` | The ID you specify |\n|-|-|\n| `Subscriber` | IMSI of the IoT SIM |\n| `LoraDevice` | ID of the LoRaWAN device |\n| `Sim` | SIM ID of the IoT SIM |\n| `SigfoxDevice` | ID of the Sigfox device |\n| `Device` | ID of the Inventory device |\n| `SoraCam` | Device ID of the compatible camera device |\n"
+              },
+              {
+                "name": "time",
+                "value": "",
+                "type": "path",
+                "description": "Timestamp of the target data entry to delete (UNIX time in milliseconds)."
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-Soracom-API-Key",
+              "value": "{{X-Soracom-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Deletes a data entry identified with resource ID and timestamp"
+        },
+        {
+          "info": {
+            "name": "Get data entries for a specific category",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.soracom.io/v1/data/categories/:category",
+            "params": [
+              {
+                "name": "category",
+                "value": "",
+                "type": "path",
+                "description": "Name of the category to filter data entries."
+              },
+              {
+                "name": "from",
+                "value": "",
+                "type": "query",
+                "description": "Start time for the data entries search range (UNIX time in milliseconds)."
+              },
+              {
+                "name": "to",
+                "value": "",
+                "type": "query",
+                "description": "End time for the data entries search range (UNIX time in milliseconds)."
+              },
+              {
+                "name": "sort",
+                "value": "",
+                "type": "query",
+                "description": "Sort order of the data entries. Either descending (latest data entry first) or ascending (oldest data entry first)."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of data entries to retrieve (value range is 1 to 1000). The default is `10`."
+              },
+              {
+                "name": "last_evaluated_key",
+                "value": "",
+                "type": "query",
+                "description": "The value of the `x-soracom-next-key` header from the previous response. Specify this to retrieve the next page."
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-Soracom-API-Key",
+              "value": "{{X-Soracom-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Returns a list of data entries that belong to a specific category. If the total number of entries does not fit in one page, a URL for accessing the next page is returned in the `link` header of the response.\n"
+        },
+        {
+          "info": {
+            "name": "Get the list of data source resources",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.soracom.io/v1/data/metadata/resources",
+            "params": [
+              {
+                "name": "resource_type",
+                "value": "",
+                "type": "query",
+                "description": "Type of data source resource.\n\n- `Subscriber`: IoT SIM.\n- `LoraDevice`: LoRaWAN device.\n- `Sim`: IoT SIM.\n- `SigfoxDevice`: Sigfox device.\n- `Device`: Inventory device.\n- `SoraCam`: Compatible camera device.\n"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of data entries to retrieve."
+              },
+              {
+                "name": "last_evaluated_key",
+                "value": "",
+                "type": "query",
+                "description": "The value of the `x-soracom-next-key` header from the previous response. Specify this to retrieve the next page."
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-Soracom-API-Key",
+              "value": "{{X-Soracom-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Returns a list of data source resources that have sent data. If the total number of data source resources does not fit in one page, a URL for accessing the next page is returned in the `link` header of the response.\n"
+        },
+        {
+          "info": {
+            "name": "Get the list of data source resources",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.soracom.io/v1/data/resources",
+            "params": [
+              {
+                "name": "resource_type",
+                "value": "",
+                "type": "query",
+                "description": "Type of data source resource.\n\n- `Subscriber`: IoT SIM.\n- `LoraDevice`: LoRaWAN device.\n- `Sim`: IoT SIM.\n- `SigfoxDevice`: Sigfox device.\n- `Device`: Inventory device.\n- `SoraCam`: Compatible camera device.\n"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of data entries to retrieve."
+              },
+              {
+                "name": "last_evaluated_key",
+                "value": "",
+                "type": "query",
+                "description": "The value of the `x-soracom-next-key` header from the previous response. Specify this to retrieve the next page."
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-Soracom-API-Key",
+              "value": "{{X-Soracom-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Returns a list of data source resources that have sent data. If the total number of data source resources does not fit in one page, a URL for accessing the next page is returned in the `link` header of the response.\n"
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "FileEntry",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Find files with prefix query parameter in the scope",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.soracom.io/v1/files",
+            "params": [
+              {
+                "name": "scope",
+                "value": "",
+                "type": "query",
+                "description": "Scope of the request. Specify `private` to handle files uploaded to Harvest Files."
+              },
+              {
+                "name": "prefix",
+                "value": "",
+                "type": "query",
+                "description": "Prefix to match with file path."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of file entries to be returned."
+              },
+              {
+                "name": "last_evaluated_key",
+                "value": "",
+                "type": "query",
+                "description": "The filePath of the last file entry retrieved on the previous page. By specifying this parameter, you can continue to retrieve the list from the next file entry onward."
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-Soracom-API-Key",
+              "value": "{{X-Soracom-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Returns a list of file entries which beginnings of their file paths are matched with the `prefix` query string in the ascending sorted UTF-8 bytes order of their file paths. An empty list is returned if the prefix does not match with any paths of file entries."
+        },
+        {
+          "info": {
+            "name": "Download file specified by the path and the scope",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.soracom.io/v1/files/:scope/:path",
+            "params": [
+              {
+                "name": "scope",
+                "value": "",
+                "type": "path",
+                "description": "Scope of the request. Specify `private` to handle files uploaded to Harvest Files."
+              },
+              {
+                "name": "path",
+                "value": "",
+                "type": "path",
+                "description": "Target path."
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-Soracom-API-Key",
+              "value": "{{X-Soracom-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Download file specified by the path and the scope. Note that [FileEntry:listFiles API](#!/FileEntry/listFiles) will be called if the path ends with `/`."
+        },
+        {
+          "info": {
+            "name": "Uploads the file to the specified path in the scope.",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.soracom.io/v1/files/:scope/:path",
+            "headers": [
+              {
+                "name": "content-type",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "scope",
+                "value": "",
+                "type": "path",
+                "description": "Scope of the request. Specify `private` to handle files uploaded to Harvest Files."
+              },
+              {
+                "name": "path",
+                "value": "",
+                "type": "path",
+                "description": "Target path."
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-Soracom-API-Key",
+              "value": "{{X-Soracom-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Uploads the file to the specified path in the scope. Only `private` scope is allowed for the operation."
+        },
+        {
+          "info": {
+            "name": "Deletes the file specified by scope and path.",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.soracom.io/v1/files/:scope/:path",
+            "params": [
+              {
+                "name": "scope",
+                "value": "",
+                "type": "path",
+                "description": "Scope of the request. Specify `private` to handle files uploaded to Harvest Files."
+              },
+              {
+                "name": "path",
+                "value": "",
+                "type": "path",
+                "description": "Target path."
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-Soracom-API-Key",
+              "value": "{{X-Soracom-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Deletes the file specified by scope and path. Only `private` scope is allowed for the operation."
+        },
+        {
+          "info": {
+            "name": "Gets the metadata of the file specified by the path and the scope",
+            "type": "http"
+          },
+          "http": {
+            "method": "HEAD",
+            "url": "https://api.soracom.io/v1/files/:scope/:path",
+            "params": [
+              {
+                "name": "scope",
+                "value": "",
+                "type": "path",
+                "description": "Scope of the request. Specify `private` to handle files uploaded to Harvest Files."
+              },
+              {
+                "name": "path",
+                "value": "",
+                "type": "path",
+                "description": "Target path."
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-Soracom-API-Key",
+              "value": "{{X-Soracom-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Gets the metadata of the file specified by the path and the scope."
+        },
+        {
+          "info": {
+            "name": "Returns files and directories from the directory specified by the scope and path.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.soracom.io/v1/files/:scope/:path/",
+            "params": [
+              {
+                "name": "scope",
+                "value": "",
+                "type": "path",
+                "description": "Scope of the request. Specify `private` to handle files uploaded to Harvest Files."
+              },
+              {
+                "name": "path",
+                "value": "",
+                "type": "path",
+                "description": "Target path."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of file entries to be returned."
+              },
+              {
+                "name": "last_evaluated_key",
+                "value": "",
+                "type": "query",
+                "description": "The filename of the last file entry retrieved on the previous page. By specifying this parameter, you can continue to retrieve the list from the next file entry onward."
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-Soracom-API-Key",
+              "value": "{{X-Soracom-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Returns files and directories from the directory specified by the scope and path. Note that [FileEntry:getFile API](#!/FileEntry/getFile) will be called if the path does not end in `/`. If the total number of entries does not fit in one page, a URL for accessing the next page is returned in the `link` header of the response.\n"
+        },
+        {
+          "info": {
+            "name": "Deletes the directory specified by scope and path",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.soracom.io/v1/files/:scope/:path/",
+            "params": [
+              {
+                "name": "scope",
+                "value": "",
+                "type": "path",
+                "description": "Scope of the request. Specify `private` to handle files uploaded to Harvest Files."
+              },
+              {
+                "name": "path",
+                "value": "",
+                "type": "path",
+                "description": "Target path."
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-Soracom-API-Key",
+              "value": "{{X-Soracom-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Deletes the directory specified by scope and path. Only `private` scope is allowed for the operation."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Files",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get the progress of the process when the file is exported asynchronously.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.soracom.io/v1/files/exported/:exported_file_id",
+            "params": [
+              {
+                "name": "exported_file_id",
+                "value": "",
+                "type": "path",
+                "description": "File export ID."
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-Soracom-API-Key",
+              "value": "{{X-Soracom-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Get the progress of the process when the file is exported asynchronously. If the export is complete, you will get the URL to download the file. You can download the file from the URL.\n\nThe following APIs are available to export files asynchronously. The `exported_file_id` is the file output ID (the value of `exportedFileId`) obtained from the following API.\n\n- [Billing:exportBilling API](#!/Billing/exportBilling)\n- [Billing:exportLatestBilling API](#!/Billing/exportLatestBilling)\n- [Payment:expo"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}
