@@ -361,44 +361,39 @@ image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.j
 common:
   - type: PostmanWorkspace
     url: https://www.postman.com/kinlaneapi/soracom/overview
-  - type: ArazzoWorkflows
-    url: arazzo/
-    workflows:
-      - url: arazzo/soracom-audit-sim-session-events-workflow.yml
-        name: Soracom Audit SIM Session Events
-        summary: Confirm a SIM exists, read its current session status, and pull its session event history for an audit window.
-      - url: arazzo/soracom-collect-sim-harvest-data-workflow.yml
-        name: Soracom Collect SIM Harvest Data
-        summary: Confirm a SIM exists, pull its Harvest Data entries, and fall back to the generic Harvest endpoint when empty.
-      - url: arazzo/soracom-create-traffic-event-handler-workflow.yml
-        name: Soracom Create Monthly Traffic Event Handler
-        summary: Create an event handler that caps a group's monthly traffic and notifies the operator, then verify it.
-      - url: arazzo/soracom-deactivate-sim-with-guard-workflow.yml
-        name: Soracom Deactivate IoT SIM with Guard
-        summary: Read a SIM, deactivate it only when it is currently active, then confirm the inactive status.
-      - url: arazzo/soracom-export-monthly-billing-workflow.yml
-        name: Soracom Export Monthly Billing CSV
-        summary: >-
-          Read a finalized monthly bill, kick off an async detailed-billing CSV export, and poll until the download URL
-          is ready.
-      - url: arazzo/soracom-provision-group-and-attach-sim-workflow.yml
-        name: Soracom Provision Group and Attach SIM
-        summary: Create a SIM group, apply a service configuration, attach an existing SIM, and verify the binding.
-      - url: arazzo/soracom-register-and-activate-sim-workflow.yml
-        name: Soracom Register and Activate IoT SIM
-        summary: Register a physical IoT SIM to the operator, activate it, bind it to a SIM group, and confirm its state.
-      - url: arazzo/soracom-register-and-verify-coupon-workflow.yml
-        name: Soracom Register and Verify Coupon
-        summary: List currently registered coupons, register a new coupon code, then re-list to confirm the credit applied.
-      - url: arazzo/soracom-register-device-to-group-workflow.yml
-        name: Soracom Register Inventory Device to Group
-        summary: Create a Soracom Inventory device, bind it to an Inventory group, and confirm the binding.
-      - url: arazzo/soracom-register-subscriber-to-group-workflow.yml
-        name: Soracom Register Subscriber to Group
-        summary: Register a subscriber by IMSI, activate it, bind it to a group, and confirm its state.
-      - url: arazzo/soracom-send-sms-to-active-sim-workflow.yml
-        name: Soracom Send SMS to Active IoT SIM
-        summary: Look up a SIM, branch on whether it is active, and send a downlink SMS only when it can receive one.
+  - type: Arazzo
+    url: arazzo/soracom-audit-sim-session-events-workflow.yml
+    name: Soracom Audit SIM Session Events
+  - type: Arazzo
+    url: arazzo/soracom-collect-sim-harvest-data-workflow.yml
+    name: Soracom Collect SIM Harvest Data
+  - type: Arazzo
+    url: arazzo/soracom-create-traffic-event-handler-workflow.yml
+    name: Soracom Create Monthly Traffic Event Handler
+  - type: Arazzo
+    url: arazzo/soracom-deactivate-sim-with-guard-workflow.yml
+    name: Soracom Deactivate IoT SIM with Guard
+  - type: Arazzo
+    url: arazzo/soracom-export-monthly-billing-workflow.yml
+    name: Soracom Export Monthly Billing CSV
+  - type: Arazzo
+    url: arazzo/soracom-provision-group-and-attach-sim-workflow.yml
+    name: Soracom Provision Group and Attach SIM
+  - type: Arazzo
+    url: arazzo/soracom-register-and-activate-sim-workflow.yml
+    name: Soracom Register and Activate IoT SIM
+  - type: Arazzo
+    url: arazzo/soracom-register-and-verify-coupon-workflow.yml
+    name: Soracom Register and Verify Coupon
+  - type: Arazzo
+    url: arazzo/soracom-register-device-to-group-workflow.yml
+    name: Soracom Register Inventory Device to Group
+  - type: Arazzo
+    url: arazzo/soracom-register-subscriber-to-group-workflow.yml
+    name: Soracom Register Subscriber to Group
+  - type: Arazzo
+    url: arazzo/soracom-send-sms-to-active-sim-workflow.yml
+    name: Soracom Send SMS to Active IoT SIM
   - type: Portal
     url: https://www.soracom.io
   - type: Documentation
@@ -408,7 +403,7 @@ common:
     name: Interactive API Reference
   - type: GettingStarted
     url: https://developers.soracom.io/en/start/
-  - type: SignUp
+  - type: Signup
     url: https://console.soracom.io/#/signup
   - type: Login
     url: https://console.soracom.io
@@ -433,7 +428,7 @@ common:
     url: https://support.soracom.io
   - type: Contact
     url: https://www.soracom.io/contact/
-  - type: Forum
+  - type: Forums
     url: https://discuss.soracom.io
   - type: Coverage
     url: https://www.soracom.io/pricing/countries/
@@ -457,52 +452,52 @@ common:
   - type: CLI
     url: https://github.com/soracom/soracom-cli
     name: soracom CLI
-  - type: SDK
+  - type: SDKs
     url: https://github.com/soracom/soracom-sdk-go
     name: Go SDK
-  - type: SDK
+  - type: SDKs
     url: https://github.com/soracom/soracom-sdk-ruby
     name: Ruby SDK
-  - type: SDK
+  - type: SDKs
     url: https://github.com/soracom/soracom-sdk-swift
     name: Swift SDK (archived)
-  - type: SDK
+  - type: SDKs
     url: https://github.com/soracom/soracom-inventory-agent-for-java
     name: Inventory Agent for Java
-  - type: SDK
+  - type: SDKs
     url: https://github.com/soracom/krypton-client-go
     name: Krypton client (Go)
-  - type: SDK
+  - type: SDKs
     url: https://github.com/soracom/endorse-client-go
     name: Endorse client (Go)
-  - type: SDK
+  - type: SDKs
     url: https://github.com/soracom/soracom-krypton-client-for-java
     name: Krypton client (Java)
-  - type: SDK
+  - type: SDKs
     url: https://github.com/soracom/soracom-endorse-client-for-java
     name: Endorse client (Java)
-  - type: Tool
+  - type: Tools
     url: https://github.com/soracom/soratun
     name: soratun (Arc client, wireguard-go)
-  - type: Tool
+  - type: Tools
     url: https://github.com/soracom/soraql
     name: soraql (Soracom Query CLI)
-  - type: Tool
+  - type: Tools
     url: https://github.com/soracom/homebrew-soracom-cli
     name: Homebrew tap for soracom-cli
-  - type: Tool
+  - type: Tools
     url: https://github.com/soracom/multus-multivpc-cni
     name: Multus VPC CNI for Amazon EKS
-  - type: Tool
+  - type: Tools
     url: https://github.com/soracom/orbit-sdk-rust
     name: Orbit SDK (Rust)
-  - type: Tool
+  - type: Tools
     url: https://github.com/soracom/orbit-sdk-tinygo
     name: Orbit SDK (TinyGo)
-  - type: Tool
+  - type: Tools
     url: https://github.com/soracom/orbit-sdk-c
     name: Orbit SDK (C)
-  - type: Tool
+  - type: Tools
     url: https://github.com/soracom/orbit-sdk-assemblyscript
     name: Orbit SDK (AssemblyScript)
   - type: CodeExamples
