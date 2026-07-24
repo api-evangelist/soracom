@@ -1,21 +1,23 @@
 openapi: 3.0.0
 info:
-  title: Soracom Batch API
-  description: Create and run batch jobs that apply API calls across multiple SIMs or devices.
+  title: Soracom and Query Analysis Batch API
+  description: Run SQL queries against Soracom Query, fetch query schemas, and search SIMs, Inventory devices, and Sigfox devices.
   version: 20250903-043502
 servers:
 - description: Japan coverage production API endpoint
   url: https://api.soracom.io/v1
 - description: Global coverage production API endpoint
   url: https://g.api.soracom.io/v1
+tags:
+- description: Batch processing
+  name: Batch
 paths:
   /batch_groups:
     get:
       description: Returns a list of batch groups.
       operationId: listBatchGroups
       parameters:
-      - description: Maximum number of batch groups to retrieve. The number of batch groups returned may be less than the
-          specified value.
+      - description: Maximum number of batch groups to retrieve. The number of batch groups returned may be less than the specified value.
         example: 10
         in: query
         name: limit
@@ -23,8 +25,7 @@ paths:
         schema:
           format: int32
           type: integer
-      - description: The value of the `x-soracom-next-key` header returned in the response to the last request. Specify this
-          to retrieve the next page of batch groups.
+      - description: The value of the `x-soracom-next-key` header returned in the response to the last request. Specify this to retrieve the next page of batch groups.
         in: query
         name: last_evaluated_key
         required: false
@@ -53,8 +54,7 @@ paths:
         response:
           header: x-soracom-next-key
     post:
-      description: 'Create a new batch group for organizing and managing batch jobs. To create a batch job, use the [Batch:createBatchJob](#/Batch/createBatchJob)
-        instead.
+      description: 'Create a new batch group for organizing and managing batch jobs. To create a batch job, use the [Batch:createBatchJob](#/Batch/createBatchJob) instead.
 
         '
       operationId: createBatchGroup
@@ -81,8 +81,7 @@ paths:
       - batch-groups create
   /batch_groups/{batch_group_id}:
     delete:
-      description: 'Delete the specified batch group. Batch groups can only be deleted if there are no running batch jobs
-        in the group.
+      description: 'Delete the specified batch group. Batch groups can only be deleted if there are no running batch jobs in the group.
 
         '
       operationId: deleteBatchGroup
@@ -183,8 +182,7 @@ paths:
         required: true
         schema:
           type: string
-      - description: Maximum number of batch jobs to retrieve. The number of batch jobs returned may be less than the specified
-          value.
+      - description: Maximum number of batch jobs to retrieve. The number of batch jobs returned may be less than the specified value.
         example: 10
         in: query
         name: limit
@@ -192,8 +190,7 @@ paths:
         schema:
           format: int32
           type: integer
-      - description: The value of the `x-soracom-next-key` header returned in the response to the last request. Specify this
-          to retrieve the next page of batch jobs.
+      - description: The value of the `x-soracom-next-key` header returned in the response to the last request. Specify this to retrieve the next page of batch jobs.
         in: query
         name: last_evaluated_key
         required: false
@@ -224,9 +221,7 @@ paths:
         response:
           header: x-soracom-next-key
     post:
-      description: 'Create a new batch job and run it. A batch job consists of multiple tasks, each representing an API operation
-        to be performed. Tasks are executed using the permissions of the user that created the batch job API. Batch job information
-        is retained for 32 days.
+      description: 'Create a new batch job and run it. A batch job consists of multiple tasks, each representing an API operation to be performed. Tasks are executed using the permissions of the user that created the batch job API. Batch job information is retained for 32 days.
 
 
         **System Limits:**
@@ -320,8 +315,7 @@ paths:
       - batch-groups jobs get
   /batch_groups/{batch_group_id}/jobs/{job_id}/tasks:
     get:
-      description: 'Returns a list of tasks in the specified batch job. Each task represents an individual API operation executed
-        as part of the batch job.
+      description: 'Returns a list of tasks in the specified batch job. Each task represents an individual API operation executed as part of the batch job.
 
         '
       operationId: listTasksOfBatchJob
@@ -356,8 +350,7 @@ paths:
           - success
           - error
           type: string
-      - description: The value of the `x-soracom-next-key` header returned in the response to the last request. Specify this
-          to retrieve the next page of tasks.
+      - description: The value of the `x-soracom-next-key` header returned in the response to the last request. Specify this to retrieve the next page of tasks.
         in: query
         name: last_evaluated_key
         required: false
@@ -387,18 +380,32 @@ paths:
           param: last_evaluated_key
         response:
           header: x-soracom-next-key
-tags:
-- description: Batch processing
-  name: Batch
 components:
   schemas:
-    BatchTaskRequest:
+    CreateBatchGroupRequest:
       properties:
-        request:
-          $ref: '#/components/schemas/BatchTaskApiRequest'
-          description: (Not shown because $ref is used at the same level in base/batch.yaml)
+        batchGroupName:
+          description: Batch group name.
+          example: Monthly SIM Tag Update
+          maxLength: 100
+          type: string
+        description:
+          description: Description of the batch group.
+          maxLength: 500
+          type: string
       required:
-      - request
+      - batchGroupName
+      type: object
+    BatchTaskApiResponse:
+      description: このタスクの API レスポンス。
+      properties:
+        body:
+          description: Body in the response.
+          type: object
+        statusCode:
+          description: Status code in the response.
+          example: 200
+          type: integer
       type: object
     BatchJobResponse:
       properties:
@@ -474,20 +481,6 @@ components:
           maxLength: 500
           type: string
       type: object
-    CreateBatchGroupRequest:
-      properties:
-        batchGroupName:
-          description: Batch group name.
-          example: Monthly SIM Tag Update
-          maxLength: 100
-          type: string
-        description:
-          description: Description of the batch group.
-          maxLength: 500
-          type: string
-      required:
-      - batchGroupName
-      type: object
     BatchGroupResponse:
       properties:
         batchGroupId:
@@ -512,71 +505,24 @@ components:
           format: int64
           type: integer
       type: object
-    BatchTaskApiResponse:
-      description: このタスクの API レスポンス。
+    BatchJobSummary:
+      description: Number of tasks for each status. These numbers are periodically updated during the batch job execution.
       properties:
-        body:
-          description: Body in the response.
-          type: object
-        statusCode:
-          description: Status code in the response.
-          example: 200
+        error:
+          description: Number of tasks that failed to execute.
+          example: 0
+          format: int32
           type: integer
-      type: object
-    CreateBatchJobRequest:
-      properties:
-        abortOnFailure:
-          description: Whether to immediately abort upon encountering an error during batch job execution.
-          example: false
-          type: boolean
-        description:
-          description: Description of the batch job.
-          maxLength: 500
-          type: string
-        jobName:
-          description: Batch job name.
-          example: July 16th 2025 Set group
-          maxLength: 100
-          type: string
-        tasks:
-          description: "List of tasks to be executed in the batch job.\n\nSupported Soracom APIs:\n\n- [Sim:activateSim API](#/Sim/activateSim)\n\
-            - [Sim:deactivateSim API](#/Sim/deactivateSim)\n- [Sim:setSimToStandby API](#/Sim/setSimToStandby)\n- [Sim:suspendSim\
-            \ API](#/Sim/suspendSim)\n- [Sim:setSimGroup API](#/Sim/setSimGroup)\n- [Sim:unsetSimGroup API](#/Sim/unsetSimGroup)\n\
-            - [Sim:putSimTags API](#/Sim/putSimTags)\n- [VirtualPrivateGateway:putVirtualPrivateGatewayIpAddressMapEntry API](#/VirtualPrivateGateway/putVirtualPrivateGatewayIpAddressMapEntry)\n\
-            \nSpecify the API request path, HTTP method, and body in the `request` field according to the Soracom API specification.\
-            \ For example, to call the Sim:activateSim API, specify as follows:\n\n```json\n{\n  \"request\": {\n    \"path\"\
-            : \"/v1/sims/8981100001234567890/activate\",\n    \"method\": \"POST\",\n    \"body\": {\n      \"sim_id\": \"\
-            8981100001234567890\"\n    }\n  }\n}\n```\n"
-          items:
-            $ref: '#/components/schemas/BatchTaskRequest'
-          type: array
-      required:
-      - tasks
-      type: object
-    BatchTaskApiRequest:
-      description: The API request of this task.
-      properties:
-        body:
-          description: Body of the API request.
-          example:
-            groupId: 11111111-2222-3333-4444-555555555555
-          type: object
-        method:
-          description: HTTP method of the API request.
-          enum:
-          - POST
-          - GET
-          - PUT
-          - DELETE
-          example: POST
-          type: string
-        path:
-          description: Path of the API request.
-          example: /v1/sims/8981100001234567890/set_group
-          type: string
-      required:
-      - path
-      - method
+        pending:
+          description: Number of tasks waiting for execution.
+          example: 5
+          format: int32
+          type: integer
+        success:
+          description: Number of tasks that have successfully executed.
+          example: 95
+          format: int32
+          type: integer
       type: object
     BatchTaskResponse:
       properties:
@@ -618,24 +564,61 @@ components:
           format: int32
           type: integer
       type: object
-    BatchJobSummary:
-      description: Number of tasks for each status. These numbers are periodically updated during the batch job execution.
+    CreateBatchJobRequest:
       properties:
-        error:
-          description: Number of tasks that failed to execute.
-          example: 0
-          format: int32
-          type: integer
-        pending:
-          description: Number of tasks waiting for execution.
-          example: 5
-          format: int32
-          type: integer
-        success:
-          description: Number of tasks that have successfully executed.
-          example: 95
-          format: int32
-          type: integer
+        abortOnFailure:
+          description: Whether to immediately abort upon encountering an error during batch job execution.
+          example: false
+          type: boolean
+        description:
+          description: Description of the batch job.
+          maxLength: 500
+          type: string
+        jobName:
+          description: Batch job name.
+          example: July 16th 2025 Set group
+          maxLength: 100
+          type: string
+        tasks:
+          description: "List of tasks to be executed in the batch job.\n\nSupported Soracom APIs:\n\n- [Sim:activateSim API](#/Sim/activateSim)\n- [Sim:deactivateSim API](#/Sim/deactivateSim)\n- [Sim:setSimToStandby API](#/Sim/setSimToStandby)\n- [Sim:suspendSim API](#/Sim/suspendSim)\n- [Sim:setSimGroup API](#/Sim/setSimGroup)\n- [Sim:unsetSimGroup API](#/Sim/unsetSimGroup)\n- [Sim:putSimTags API](#/Sim/putSimTags)\n- [VirtualPrivateGateway:putVirtualPrivateGatewayIpAddressMapEntry API](#/VirtualPrivateGateway/putVirtualPrivateGatewayIpAddressMapEntry)\n\nSpecify the API request path, HTTP method, and body in the `request` field according to the Soracom API specification. For example, to call the Sim:activateSim API, specify as follows:\n\n```json\n{\n  \"request\": {\n    \"path\": \"/v1/sims/8981100001234567890/activate\",\n    \"method\": \"POST\",\n    \"body\": {\n      \"sim_id\": \"8981100001234567890\"\n    }\n  }\n}\n```\n"
+          items:
+            $ref: '#/components/schemas/BatchTaskRequest'
+          type: array
+      required:
+      - tasks
+      type: object
+    BatchTaskRequest:
+      properties:
+        request:
+          $ref: '#/components/schemas/BatchTaskApiRequest'
+          description: (Not shown because $ref is used at the same level in base/batch.yaml)
+      required:
+      - request
+      type: object
+    BatchTaskApiRequest:
+      description: The API request of this task.
+      properties:
+        body:
+          description: Body of the API request.
+          example:
+            groupId: 11111111-2222-3333-4444-555555555555
+          type: object
+        method:
+          description: HTTP method of the API request.
+          enum:
+          - POST
+          - GET
+          - PUT
+          - DELETE
+          example: POST
+          type: string
+        path:
+          description: Path of the API request.
+          example: /v1/sims/8981100001234567890/set_group
+          type: string
+      required:
+      - path
+      - method
       type: object
   securitySchemes:
     api_key:

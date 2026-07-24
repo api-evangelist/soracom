@@ -1,0 +1,390 @@
+openapi: 3.0.0
+info:
+  title: Soracom and Query Analysis LoraGateway API
+  description: Run SQL queries against Soracom Query, fetch query schemas, and search SIMs, Inventory devices, and Sigfox devices.
+  version: 20250903-043502
+servers:
+- description: Japan coverage production API endpoint
+  url: https://api.soracom.io/v1
+- description: Global coverage production API endpoint
+  url: https://g.api.soracom.io/v1
+tags:
+- description: '[Soracom Air for LoRaWAN](/en/docs/air-for-lorawan/) gateways'
+  name: LoraGateway
+paths:
+  /lora_gateways:
+    get:
+      description: 'Returns a list of LoRaWAN gateways that match certain criteria. If the total number of LoRaWAN gateways does not fit in one page, a URL for accessing the next page is returned in the `link` header of the response.
+
+        '
+      operationId: listLoraGateways
+      parameters:
+      - description: Tag name for filtering the search (exact match).
+        in: query
+        name: tag_name
+        required: false
+        schema:
+          type: string
+      - description: Tag search string for filtering the search. Required when `tag_name` has been specified.
+        in: query
+        name: tag_value
+        required: false
+        schema:
+          type: string
+      - description: Tag match mode.
+        in: query
+        name: tag_value_match_mode
+        required: false
+        schema:
+          default: exact
+          enum:
+          - exact
+          - prefix
+          type: string
+      - description: Maximum number of LoRaWAN gateways to retrieve.
+        in: query
+        name: limit
+        required: false
+        schema:
+          format: int32d
+          type: integer
+      - description: The Gateway ID of the last LoRaWAN gateway retrieved on the current page. By specifying this parameter, you can continue to retrieve the list from the next LoRaWAN gateway onward.
+        in: query
+        name: last_evaluated_key
+        required: false
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/LoraGateway'
+                type: array
+          description: A list of LoRaWAN gateways.
+      security:
+      - api_key: []
+        api_token: []
+      summary: List LoRaWAN Gateways
+      tags:
+      - LoraGateway
+      x-soracom-cli:
+      - lora-gateways list
+      x-soracom-cli-pagination:
+        request:
+          param: last_evaluated_key
+        response:
+          header: x-soracom-next-key
+  /lora_gateways/{gateway_id}:
+    get:
+      description: Returns information about the specified LoRaWAN gateway.
+      operationId: getLoraGateway
+      parameters:
+      - description: Gateway ID of the target LoRaWAN gateway.
+        in: path
+        name: gateway_id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LoraGateway'
+          description: The LoRaWAN gateway's detailed information.
+        '404':
+          description: The specified LoRaWAN gateway does not exist.
+      security:
+      - api_key: []
+        api_token: []
+      summary: Get LoRaWAN gateway
+      tags:
+      - LoraGateway
+      x-soracom-cli:
+      - lora-gateways get
+  /lora_gateways/{gateway_id}/disable_termination:
+    post:
+      description: Disables termination of specified LoRaWAN gateway.
+      operationId: disableTerminationOnLoraGateway
+      parameters:
+      - description: ID of the target LoRaWAN gateway.
+        in: path
+        name: gateway_id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LoraGateway'
+          description: The LoRaWAN gateway's detailed information after the update.
+        '404':
+          description: The specified LoRaWAN gateway does not exist.
+      security:
+      - api_key: []
+        api_token: []
+      summary: Disable Termination of LoRaWAN gateway
+      tags:
+      - LoraGateway
+      x-soracom-cli:
+      - lora-gateways disable-termination
+  /lora_gateways/{gateway_id}/enable_termination:
+    post:
+      description: Enables termination of specified LoRaWAN gateway.
+      operationId: enableTerminationOnLoraGateway
+      parameters:
+      - description: ID of the target LoRaWAN gateway.
+        in: path
+        name: gateway_id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LoraGateway'
+          description: The LoRaWAN gateway's detailed information after the update.
+        '404':
+          description: The specified LoRaWAN gateway does not exist.
+      security:
+      - api_key: []
+        api_token: []
+      summary: Enable Termination of LoRaWAN gateway
+      tags:
+      - LoraGateway
+      x-soracom-cli:
+      - lora-gateways enable-termination
+  /lora_gateways/{gateway_id}/set_network_set:
+    post:
+      description: Sets or overwrites network set ID for the specified LoRaWAN gateway.
+      operationId: setLoraNetworkSet
+      parameters:
+      - description: ID of the target LoRaWAN gateway.
+        in: path
+        name: gateway_id
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SetNetworkSetRequest'
+        description: LoRaWAN Network Set ID.
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LoraGateway'
+          description: The LoRaWAN gateway's detailed information after the update.
+        '404':
+          description: The specified LoRaWAN gateway does not exist.
+      security:
+      - api_key: []
+        api_token: []
+      summary: Set Network Set ID of LoRaWAN gateway
+      tags:
+      - LoraGateway
+      x-soracom-cli:
+      - lora-gateways set-network-set
+  /lora_gateways/{gateway_id}/tags:
+    put:
+      description: Inserts/updates tags for the specified LoRaWAN gateway.
+      operationId: putLoraGatewayTags
+      parameters:
+      - description: ID of the target LoRaWAN gateway.
+        in: path
+        name: gateway_id
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              items:
+                $ref: '#/components/schemas/TagUpdateRequest'
+              type: array
+        description: Array of tags to be inserted/updated.
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LoraGateway'
+          description: The LoRaWAN gateway's detailed information after the update.
+        '404':
+          description: The specified LoRaWAN gateway does not exist.
+      security:
+      - api_key: []
+        api_token: []
+      summary: Bulk Insert or Update LoRaWAN gateway Tags
+      tags:
+      - LoraGateway
+      x-soracom-cli:
+      - lora-gateways put-tags
+  /lora_gateways/{gateway_id}/tags/{tag_name}:
+    delete:
+      description: Deletes a tag from the specified LoRaWAN gateway.
+      operationId: deleteLoraGatewayTag
+      parameters:
+      - description: ID of the target LoRaWAN gateway.
+        in: path
+        name: gateway_id
+        required: true
+        schema:
+          type: string
+      - description: Tag name to be deleted. (This will be part of a URL path, so it needs to be percent-encoded. In JavaScript, specify the name after it has been encoded using encodeURIComponent().)
+        in: path
+        name: tag_name
+        required: true
+        schema:
+          type: string
+      responses:
+        '204':
+          description: Deletion of specified tag complete.
+        '404':
+          description: The specified LoRaWAN gateway or the tag does not exist.
+      security:
+      - api_key: []
+        api_token: []
+      summary: Delete LoRaWAN gateway tag
+      tags:
+      - LoraGateway
+      x-soracom-cli:
+      - lora-gateways delete-tag
+  /lora_gateways/{gateway_id}/terminate:
+    post:
+      description: Terminates the specified LoRaWAN gateway.
+      operationId: terminateLoraGateway
+      parameters:
+      - description: ID of the target LoRaWAN gateway.
+        in: path
+        name: gateway_id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LoraGateway'
+          description: The LoRaWAN gateway's detailed information after the update.
+        '404':
+          description: The specified LoRaWAN gateway does not exist.
+      security:
+      - api_key: []
+        api_token: []
+      summary: Terminate LoRaWAN gateway
+      tags:
+      - LoraGateway
+      x-soracom-cli:
+      - lora-gateways terminate
+  /lora_gateways/{gateway_id}/unset_network_set:
+    post:
+      description: Unset network set ID of the specified LoRaWAN gateway.
+      operationId: unsetLoraNetworkSet
+      parameters:
+      - description: ID of the target LoRaWAN gateway.
+        in: path
+        name: gateway_id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LoraGateway'
+          description: The LoRaWAN gateway's detailed information after the update.
+        '404':
+          description: The specified LoRaWAN gateway does not exist.
+      security:
+      - api_key: []
+        api_token: []
+      summary: Unset Network Set ID of LoRaWAN gateway
+      tags:
+      - LoraGateway
+      x-soracom-cli:
+      - lora-gateways unset-network-set
+components:
+  schemas:
+    SetNetworkSetRequest:
+      properties:
+        networkSetId:
+          type: string
+      type: object
+    TagUpdateRequest:
+      properties:
+        tagName:
+          type: string
+        tagValue:
+          type: string
+      required:
+      - tagName
+      - tagValue
+      type: object
+    LoraGateway:
+      properties:
+        address:
+          type: string
+        createdTime:
+          format: date-time
+          type: string
+        gatewayId:
+          type: string
+        lastModifiedTime:
+          format: date-time
+          type: string
+        networkSetId:
+          type: string
+        online:
+          default: false
+          type: boolean
+        operatorId:
+          type: string
+        owned:
+          default: false
+          type: boolean
+        status:
+          enum:
+          - active
+          - terminated
+          - ready
+          - instock
+          type: string
+        tags:
+          additionalProperties:
+            type: string
+          type: object
+        terminationEnabled:
+          default: false
+          type: boolean
+      type: object
+  securitySchemes:
+    api_key:
+      description: 'API key for authentication. Obtain this from the Soracom User Console or via the Auth API.
+
+        Required in combination with an API token for all authenticated requests.
+
+        '
+      in: header
+      name: X-Soracom-API-Key
+      type: apiKey
+    api_token:
+      description: 'API token for authentication. This token has an expiration time and must be refreshed periodically.
+
+        Required in combination with an API key for all authenticated requests.'
+      in: header
+      name: X-Soracom-Token
+      type: apiKey

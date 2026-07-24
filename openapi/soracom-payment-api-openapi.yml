@@ -1,0 +1,631 @@
+openapi: 3.0.0
+info:
+  title: Soracom and Query Analysis Payment API
+  description: Run SQL queries against Soracom Query, fetch query schemas, and search SIMs, Inventory devices, and Sigfox devices.
+  version: 20250903-043502
+servers:
+- description: Japan coverage production API endpoint
+  url: https://api.soracom.io/v1
+- description: Global coverage production API endpoint
+  url: https://g.api.soracom.io/v1
+tags:
+- description: '- [Coupon codes](/en/guides/accounting/payment/register-coupon/)
+
+    - [Usage charges (billing details)](/en/guides/accounting/check-usage/)
+
+    - [Payment methods](/en/guides/accounting/payment/)
+
+    - [Long term discounts](/en/docs/air/volume-discount/)
+
+    '
+  name: Payment
+paths:
+  /coupons:
+    get:
+      description: Returns a list of currently registered coupons.
+      operationId: listCoupons
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListCouponResponse'
+          description: OK.
+      security:
+      - api_key: []
+        api_token: []
+      summary: List coupons.
+      tags:
+      - Payment
+      x-soracom-cli:
+      - coupons list
+  /coupons/{coupon_code}/register:
+    post:
+      description: Registers a coupon.
+      operationId: registerCoupon
+      parameters:
+      - description: Coupon code.
+        in: path
+        name: coupon_code
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CouponResponse'
+          description: OK.
+        '400':
+          description: The coupon code is invalid or the coupon code registration limit has been reached.
+      security:
+      - api_key: []
+        api_token: []
+      summary: Register Coupon
+      tags:
+      - Payment
+      x-soracom-cli:
+      - coupons register
+  /payment_history/transactions/{payment_transaction_id}:
+    get:
+      description: 'Returns result of a payment transaction.
+
+
+        **Warning**: The maximum information you can get is for the last 18 months. If you need the information before that time, please contact [Soracom Support](https://support.soracom.io).
+
+        '
+      operationId: getPaymentTransaction
+      parameters:
+      - description: Payment transaction ID. It can be obtained via [Billing:getBillingHistory API](#!/Billing/getBillingHistory) or [Billing:getBilling API](#!/Billing/getBilling).
+        in: path
+        name: payment_transaction_id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetPaymentTransactionResult'
+          description: OK.
+        '400':
+          description: Invalid payment transaction ID.
+        '404':
+          description: Payment transaction result not found.
+      security:
+      - api_key: []
+        api_token: []
+      summary: Get payment transaction result.
+      tags:
+      - Payment
+      x-soracom-cli:
+      - payment-history get
+  /payment_methods/current:
+    get:
+      description: Returns current payment methods. Detailed information is included in the properties.
+      operationId: getPaymentMethod
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetPaymentMethodResult'
+          description: OK.
+        '404':
+          description: Payment method not found.
+      security:
+      - api_key: []
+        api_token: []
+      summary: Get current payment method information.
+      tags:
+      - Payment
+      x-soracom-cli:
+      - payment-methods get-current
+  /payment_methods/current/activate:
+    post:
+      description: Activates a current payment method that has an error.
+      operationId: activatePaymentMethod
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: object
+          description: OK.
+        '404':
+          description: Payment method not found.
+      security:
+      - api_key: []
+        api_token: []
+      summary: Activate current payment method
+      tags:
+      - Payment
+      x-soracom-cli:
+      - payment-methods reactivate-current
+  /payment_statements:
+    get:
+      description: 'List payment statements.
+
+
+        **Warning**: The maximum information you can get is for the last 18 months. If you need the information before that time, please contact [Soracom Support](https://support.soracom.io).
+
+        '
+      operationId: listPaymentStatements
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListPaymentStatementResponse'
+          description: OK.
+      security:
+      - api_key: []
+        api_token: []
+      summary: List payment statements
+      tags:
+      - Payment
+      x-soracom-cli:
+      - payment-statements list
+  /payment_statements/{payment_statement_id}/export:
+    post:
+      description: 'Export payment statement.
+
+
+        **Warning**: The maximum information you can get is for the last 18 months. If you need the information before that time, please contact [Soracom Support](https://support.soracom.io).
+
+        '
+      operationId: exportPaymentStatement
+      parameters:
+      - description: Payment statement ID
+        in: path
+        name: payment_statement_id
+        required: true
+        schema:
+          type: string
+      - description: Export mode (async, sync)
+        in: query
+        name: export_mode
+        required: false
+        schema:
+          enum:
+          - async
+          - sync
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FileExportResponse'
+          description: OK.
+        '400':
+          description: Invalid payment statement ID.
+      security:
+      - api_key: []
+        api_token: []
+      summary: Export payment statement
+      tags:
+      - Payment
+      x-soracom-cli:
+      - payment-statements export
+  /payment_statements/payer_information:
+    get:
+      description: Export payer information.
+      operationId: getPayerInformation
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RegisterPayerInformationModel'
+          description: OK.
+        '400':
+          description: Payer information not found.
+      security:
+      - api_key: []
+        api_token: []
+      summary: Export payer information
+      tags:
+      - Payment
+      x-soracom-cli:
+      - payer-information get
+    post:
+      description: Register payer information.
+      operationId: registerPayerInformation
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RegisterPayerInformationModel'
+        description: Payer information to be registered in the accounting specification.
+        required: true
+      responses:
+        '201':
+          description: Created.
+        '400':
+          description: Invalid payer information.
+      security:
+      - api_key: []
+        api_token: []
+      summary: Register payer information
+      tags:
+      - Payment
+      x-soracom-cli:
+      - payer-information register
+  /volume_discounts:
+    get:
+      description: 'Returns a list of contracted long term discounts.
+
+
+        **Warning**: Information can be obtained up to 18 months in the past or 6 months after the contract ends. If you need the information before that time, please contact [Soracom Support](https://support.soracom.io).
+
+        '
+      operationId: listVolumeDiscounts
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListVolumeDiscountResponse'
+          description: OK.
+      security:
+      - api_key: []
+        api_token: []
+      summary: List long term discounts
+      tags:
+      - Payment
+      x-soracom-cli:
+      - volume-discounts list
+  /volume_discounts/{contract_id}:
+    get:
+      description: 'Returns contracted long term discount.
+
+
+        **Warning**: Information can be obtained up to 18 months in the past or 6 months after the contract ends. If you need the information before that time, please contact [Soracom Support](https://support.soracom.io).
+
+        '
+      operationId: getVolumeDiscount
+      parameters:
+      - description: Contract ID.
+        in: path
+        name: contract_id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetVolumeDiscountResponse'
+          description: OK.
+        '400':
+          description: Long term discount not found.
+      security:
+      - api_key: []
+        api_token: []
+      summary: Get long term discount
+      tags:
+      - Payment
+      x-soracom-cli:
+      - volume-discounts get
+components:
+  schemas:
+    GetPaymentTransactionResult:
+      properties:
+        amount:
+          $ref: '#/components/schemas/PaymentAmount'
+          description: Billing amount
+        description:
+          $ref: '#/components/schemas/PaymentDescription'
+          description: Billing description
+        message:
+          description: Message
+          type: string
+        messageCode:
+          description: Message code
+          enum:
+          - success
+          - processing
+          - invalid_request
+          - invalid_number
+          - incorrect_number
+          - invalid_name
+          - invalid_expiry_month
+          - invalid_expiry_year
+          - invalid_expiry
+          - incorrect_expiry
+          - invalid_cvc
+          - incorrect_cvc
+          - card_declined
+          - missing
+          - processing_error
+          type: string
+        status:
+          description: Status
+          enum:
+          - success
+          - error
+          type: string
+      type: object
+    PaymentStatementResponse:
+      properties:
+        amount:
+          description: Amount.
+          format: double
+          type: number
+        chargedYearMonths:
+          description: A list of months of usage included in this billing. If the billing is not for monthly charges, this field is omitted. If the monthly charge is less than a certain amount, it may be carried over to the next month. In such cases, this field may include multiple months.
+          items:
+            type: string
+          type: array
+        currency:
+          description: Currency.
+          enum:
+          - JPY
+          - USD
+          - EUR
+          type: string
+        orderId:
+          description: Order ID. If the billing is not an order, this field is omitted.
+          type: string
+        paymentDateTime:
+          description: Payment date time.
+          format: int64
+          type: integer
+        paymentInstrument:
+          description: Payment instrument.
+          type: string
+        paymentMethod:
+          description: Payment method.
+          type: string
+        paymentStatementId:
+          description: Payment statement ID.
+          type: string
+        paymentStatementInfo:
+          description: Payment statement information
+          type: string
+      type: object
+    PaymentDescription:
+      description: Payment description.
+      properties:
+        description:
+          type: string
+        itemList:
+          items:
+            type: string
+          type: array
+      type: object
+    GetPaymentMethodResult:
+      properties:
+        errorCode:
+          description: Error code (only if payment information is invalid)
+          enum:
+          - success
+          - processing
+          - invalid_request
+          - invalid_number
+          - incorrect_number
+          - invalid_name
+          - invalid_expiry_month
+          - invalid_expiry_year
+          - invalid_expiry
+          - incorrect_expiry
+          - invalid_cvc
+          - incorrect_cvc
+          - card_declined
+          - missing
+          - processing_error
+          type: string
+        errorMessage:
+          description: Error message (only if payment information is invalid)
+          type: string
+        properties:
+          description: Payment information
+          type: string
+        providerType:
+          description: Provider type
+          enum:
+          - WebPay
+          type: string
+        updateDate:
+          description: Update date
+          example: yyyyMMddHHmmss
+          type: string
+      type: object
+    PaymentAmount:
+      description: Payment amount.
+      properties:
+        currency:
+          description: Currency.
+          enum:
+          - JPY
+          - USD
+          - EUR
+          type: string
+        paymentAmount:
+          type: number
+        subTotalAmount:
+          type: number
+        taxAmount:
+          description: Tax amount.
+          format: double
+          type: number
+        taxFreeSubTotalAmount:
+          description: Tax free sub total amount.
+          format: double
+          type: number
+        taxRate:
+          type: object
+        taxableSubTotalAmount:
+          description: Taxable sub total amount.
+          format: double
+          type: number
+        totalAmount:
+          description: Total amount (tax included).
+          format: double
+          type: number
+        withholdingTaxAmount:
+          description: Withholding tax amount.
+          format: double
+          type: number
+      type: object
+    ListVolumeDiscountResponse:
+      properties:
+        volumeDiscountList:
+          description: Contracted long term discounts.
+          items:
+            $ref: '#/components/schemas/GetVolumeDiscountResponse'
+          type: array
+      type: object
+    GetVolumeDiscountResponse:
+      properties:
+        contractDateTime:
+          description: Contract date time.
+          example: yyyyMMddHHmmss
+          type: string
+        contractId:
+          description: Contract ID.
+          type: string
+        contractTermMonth:
+          default: 12
+          description: Contract months.
+          format: int32
+          type: integer
+        currency:
+          description: Currency.
+          enum:
+          - JPY
+          - USD
+          - EUR
+          type: string
+        endDate:
+          description: End date.
+          example: yyyyMMdd
+          type: string
+        initialCost:
+          description: Initial cost.
+          format: double
+          type: number
+        quantity:
+          description: Quantity.
+          format: int32
+          type: integer
+        startDate:
+          description: Start date.
+          example: yyyyMMdd
+          type: string
+        status:
+          description: Status.
+          enum:
+          - active
+          - expired
+          type: string
+        unitPrice:
+          description: Unit price.
+          format: double
+          type: number
+        volumeDiscountPaymentType:
+          description: Payment type.
+          enum:
+          - MONTHLY
+          - PREPAYMENT
+          type: string
+        volumeDiscountType:
+          description: Long term discount type.
+          enum:
+          - SORACOM_AIR_BASIC_CHARGE_V2
+          - SORACOM_AIR_BASIC_CHARGE
+          - SORACOM_AIR_MONTHLY_FIXED_BASIC_CHARGE
+          type: string
+      type: object
+    ListCouponResponse:
+      properties:
+        couponList:
+          description: Coupons
+          items:
+            $ref: '#/components/schemas/CouponResponse'
+          type: array
+      type: object
+    ListPaymentStatementResponse:
+      properties:
+        paymentStatementsList:
+          description: Payment statements.
+          items:
+            $ref: '#/components/schemas/PaymentStatementResponse'
+          type: array
+      type: object
+    CouponResponse:
+      properties:
+        amount:
+          description: Amount.
+          format: double
+          type: number
+        balance:
+          description: Balance.
+          format: double
+          type: number
+        billItemName:
+          description: Item.
+          type: string
+        couponCode:
+          description: Coupon code.
+          type: string
+        currency:
+          description: Currency.
+          enum:
+          - JPY
+          - USD
+          - EUR
+          type: string
+        expiryYearMonth:
+          description: Expiry month.
+          format: yyyyMM
+          type: string
+        orderId:
+          description: Order ID.
+          type: string
+      type: object
+    FileExportResponse:
+      properties:
+        exportedFileId:
+          description: File Export ID. Specify this ID when calling [Files:getExportedFile API](#!/Files/getExportedFile) to get the URL to download the file. Included only if `export_mode` is `async`.
+          type: string
+        exportedFilePath:
+          description: Path of the exported file. Included only if `export_mode` is `async`.
+          type: string
+        url:
+          description: URL to download the file. Included only if `export_mode` is `sync`.
+          type: string
+      type: object
+    RegisterPayerInformationModel:
+      properties:
+        companyName:
+          description: Company name
+          type: string
+        department:
+          description: Department.
+          type: string
+        fullName:
+          description: Full name.
+          type: string
+      type: object
+  securitySchemes:
+    api_key:
+      description: 'API key for authentication. Obtain this from the Soracom User Console or via the Auth API.
+
+        Required in combination with an API token for all authenticated requests.
+
+        '
+      in: header
+      name: X-Soracom-API-Key
+      type: apiKey
+    api_token:
+      description: 'API token for authentication. This token has an expiration time and must be refreshed periodically.
+
+        Required in combination with an API key for all authenticated requests.'
+      in: header
+      name: X-Soracom-Token
+      type: apiKey

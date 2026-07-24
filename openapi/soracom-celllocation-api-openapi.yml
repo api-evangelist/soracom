@@ -1,0 +1,232 @@
+openapi: 3.0.0
+info:
+  title: Soracom and Query Analysis CellLocation API
+  description: Run SQL queries against Soracom Query, fetch query schemas, and search SIMs, Inventory devices, and Sigfox devices.
+  version: 20250903-043502
+servers:
+- description: Japan coverage production API endpoint
+  url: https://api.soracom.io/v1
+- description: Global coverage production API endpoint
+  url: https://g.api.soracom.io/v1
+tags:
+- description: '[Cell tower location information](/en/docs/air/get-location-info/#get-cell-tower-location-information)'
+  name: CellLocation
+paths:
+  /cell_locations:
+    get:
+      description: "Retrieves location information (latitude/longitude) for a cell tower based on cell information such as Cell ID.\n\n- For 3G, please specify MCC, MNC, LAC, and CID. It is possible to retrieve approximate location information without CID, but the accuracy will be low.\n\n    3G example\n    ```\n    $ curl -X GET \"https://api.soracom.io/v1/cell_locations?mcc=440&mnc=10&lac=196\" \\\n    -H \"X-Soracom-API-Key: $X_SORACOM_API_KEY\" \\\n    -H \"X-Soracom-Token: $X_SORACOM_TOKEN\"\n    ```\n\n- For LTE (4G), please specify MCC, MNC, TAC, and ECID.\n\n    4G example\n    ```\n    $ curl -X GET \"https://api.soracom.io/v1/cell_locations?mcc=440&mnc=10&tac=5680&ecid=48872466\" \\\n    -H \"X-Soracom-API-Key: $X_SORACOM_API_KEY\" \\\n    -H \"X-Soracom-Token: $X_SORACOM_TOKEN\"\n    ```\n\nThe conversion of cell tower information to location information uses the OpenCelliD Project database. The specified cell tower information is used to extract the corresponding location information from the OpenCelliD Project database, but it is possible that the location information may not exist or may be different from the actual location.\n\n[![Creative Commons License](/assets/images/ccbysa_4.0_80x15.png)](https://creativecommons.org/licenses/by-sa/4.0/ \"no-icon-external-link\") <span xmlns:dct=\"http://purl.org/dc/terms/\" property=\"dct:title\"><a xmlns:cc=\"https://creativecommons.org/ns#\" href=\"https://opencellid.org\" property=\"cc:attributionName\" rel=\"cc:attributionURL\" target=\"_blank\">OpenCelliD Project</a></span> is licensed under a <a rel=\"license\" href=\"https://creativecommons.org/licenses/by-sa/4.0/\" target=\"_blank\">Creative Commons Attribution-ShareAlike 4.0 International License</a>\n"
+      operationId: getCellLocation
+      parameters:
+      - description: MCC - Mobile Country Code.
+        example: 440
+        in: query
+        name: mcc
+        required: true
+        schema:
+          type: string
+      - description: MNC - Mobile Network Code.
+        example: 10
+        in: query
+        name: mnc
+        required: true
+        schema:
+          type: string
+      - description: LAC - Location Area Code (for 3G).
+        in: query
+        name: lac
+        required: false
+        schema:
+          type: string
+      - description: CID - Cell ID (for 3G).
+        in: query
+        name: cid
+        required: false
+        schema:
+          type: string
+      - description: TAC - Tracking Area Code (for 4G).
+        example: 5680
+        in: query
+        name: tac
+        required: false
+        schema:
+          type: string
+      - description: ECID - Enhanced Cell ID (for 4G) - specify either `ecid` or `eci`. The result is the same regardless of which value is specified.
+        example: 48872466
+        in: query
+        name: ecid
+        required: false
+        schema:
+          type: string
+      - description: ECID - Enhanced Cell ID (for 4G) - specify either `ecid` or `eci`. The result is the same regardless of which value is specified.
+        in: query
+        name: eci
+        required: false
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              example:
+                avg_strength: 0
+                created: '2022-01-01T00:00:00.000Z'
+                exact: 0
+                lat: 35.7119449
+                lon: 139.813642
+                range: 476
+                samples: 7
+                updated: 2022-01-01T00:00:00:000Z
+              schema:
+                $ref: '#/components/schemas/CellLocation'
+          description: Location information for the cell tower.
+        '404':
+          description: Location information is not found for the cell tower.
+      security:
+      - api_key: []
+        api_token: []
+      summary: Get location information for a cell tower
+      tags:
+      - CellLocation
+      x-soracom-cli:
+      - cell-locations get
+    post:
+      description: 'Retrieves a list of location information (latitude/longitude) for multiple cell towers based on cell information such as Cell ID. For 3G, please specify MCC, MNC, LAC, and CID. It is possible to retrieve approximate location information without CID, but the accuracy will be low. For LTE (4G), please specify MCC, MNC, TAC, and ECID. The conversion of cell tower information to location information uses the OpenCelliD Project database, so it is possible that the information may not exist or may be incorrect.
+
+
+        [![Creative Commons License](/assets/images/ccbysa_4.0_80x15.png)](https://creativecommons.org/licenses/by-sa/4.0/ "no-icon-external-link") <span xmlns:dct="http://purl.org/dc/terms/" property="dct:title"><a xmlns:cc="https://creativecommons.org/ns#" href="https://opencellid.org" property="cc:attributionName" rel="cc:attributionURL" target="_blank">OpenCelliD Project</a></span> is licensed under a <a rel="license" href="https://creativecommons.org/licenses/by-sa/4.0/" target="_blank">Creative Commons Attribution-ShareAlike 4.0 International License</a>
+
+        '
+      operationId: batchGetCellLocations
+      requestBody:
+        content:
+          application/json:
+            example:
+            - cid: '68485165'
+              identifier: test001
+              lac: '195'
+              mcc: '440'
+              mnc: '10'
+            - ecid: '44668480'
+              identifier: test002
+              mcc: '440'
+              mnc: '10'
+              tac: '5840'
+            schema:
+              items:
+                $ref: '#/components/schemas/CellIdentifier'
+              type: array
+        description: List of cell identifiers.
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              example:
+              - avg_strength: 0
+                created: '2022-01-01T00:00:00.000Z'
+                exact: 0
+                identifier: test001
+                lat: 35.6814383
+                lon: 139.7665133
+                range: 0
+                samples: 1
+                updated: 2022-01-01T00:00:00:000Z
+              - avg_strength: 0
+                created: '2022-01-01T00:00:00.000Z'
+                exact: 0
+                identifier: test002
+                lat: 35.7119449
+                lon: 139.813642
+                range: 476
+                samples: 7
+                updated: 2022-01-01T00:00:00:000Z
+              schema:
+                items:
+                  $ref: '#/components/schemas/CellLocation'
+                type: array
+          description: List of location information for the specified cell towers.
+      security:
+      - api_key: []
+        api_token: []
+      summary: List location information for multiple cell towers.
+      tags:
+      - CellLocation
+      x-soracom-cli:
+      - cell-locations batch-get
+components:
+  schemas:
+    CellLocation:
+      properties:
+        avg_strength:
+          description: Average signal strength from all observations for the cell network. This is an integer value, in dBm.
+          format: int32
+          type: integer
+        created:
+          description: Timestamp of the time (UTC) when this record was first created.
+          format: date-time
+          type: string
+        exact:
+          description: Whether or not this cell is a position estimate based on observations subject to change in the future (`0`) or an exact location entered from a knowledgeable source (`1`).
+          format: int32
+          type: integer
+        identifier:
+          description: Unique identifier that is assigned by the client requesting cell locations, and is included as-is in the response.
+          type: string
+        lat:
+          description: Latitude.
+          format: double
+          type: number
+        lon:
+          description: Longitude.
+          format: double
+          type: number
+        range:
+          description: Estimate of radio range (radius from the estimated coordinates. In meters). This is an estimate on how large each cell area is, as a radius around the estimated position and is based on the observations or a knowledgeable source.
+          format: int32
+          type: integer
+        samples:
+          description: Total number of observations used to calculate the estimated position, range and avg_strength.
+          format: int32
+          type: integer
+        updated:
+          description: Timestamp of the time (UTC) when this record was most recently modified.
+          format: date-time
+          type: string
+      type: object
+    CellIdentifier:
+      properties:
+        cid:
+          type: string
+        eci:
+          type: string
+        ecid:
+          type: string
+        identifier:
+          description: An identifier to link a request to the result of that request. Optional.
+          type: string
+        lac:
+          type: string
+        mcc:
+          type: string
+        mnc:
+          type: string
+        tac:
+          type: string
+      type: object
+  securitySchemes:
+    api_key:
+      description: 'API key for authentication. Obtain this from the Soracom User Console or via the Auth API.
+
+        Required in combination with an API token for all authenticated requests.
+
+        '
+      in: header
+      name: X-Soracom-API-Key
+      type: apiKey
+    api_token:
+      description: 'API token for authentication. This token has an expiration time and must be refreshed periodically.
+
+        Required in combination with an API key for all authenticated requests.'
+      in: header
+      name: X-Soracom-Token
+      type: apiKey

@@ -1,0 +1,1168 @@
+openapi: 3.0.0
+info:
+  title: Soracom and Query Analysis User API
+  description: Run SQL queries against Soracom Query, fetch query schemas, and search SIMs, Inventory devices, and Sigfox devices.
+  version: 20250903-043502
+servers:
+- description: Japan coverage production API endpoint
+  url: https://api.soracom.io/v1
+- description: Global coverage production API endpoint
+  url: https://g.api.soracom.io/v1
+tags:
+- description: '- [Access management (Soracom Access Management)](/en/docs/sam/)
+
+    - Password changes
+
+    - [Multi-factor authentication](/en/docs/mfa/)
+
+    - [Switch user](/en/docs/switch-user/) trust policy configuration
+
+    '
+  name: User
+paths:
+  /operators/{operator_id}/users:
+    get:
+      description: Retrieves a list of SAM users.
+      operationId: listUsers
+      parameters:
+      - description: The operator ID.
+        in: path
+        name: operator_id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/UserDetailResponse'
+                type: array
+          description: OK.
+      security:
+      - api_key: []
+        api_token: []
+      summary: Retrieve a list of SAM users
+      tags:
+      - User
+      x-soracom-cli:
+      - users list
+  /operators/{operator_id}/users/{user_name}:
+    delete:
+      description: Deletes the SAM user.
+      operationId: deleteUser
+      parameters:
+      - description: Operator ID
+        in: path
+        name: operator_id
+        required: true
+        schema:
+          type: string
+      - description: user_name
+        in: path
+        name: user_name
+        required: true
+        schema:
+          type: string
+      responses:
+        '204':
+          description: The SAM user was deleted.
+        '404':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/APICallError'
+          description: SAM User not found.
+      security:
+      - api_key: []
+        api_token: []
+      summary: Delete User.
+      tags:
+      - User
+      x-soracom-cli:
+      - users delete
+    get:
+      description: Returns a SAM user.
+      operationId: getUser
+      parameters:
+      - description: Operator ID
+        in: path
+        name: operator_id
+        required: true
+        schema:
+          type: string
+      - description: user_name
+        in: path
+        name: user_name
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserDetailResponse'
+          description: OK.
+      security:
+      - api_key: []
+        api_token: []
+      summary: Get User.
+      tags:
+      - User
+      x-soracom-cli:
+      - users get
+    post:
+      description: Adds a new SAM user.
+      operationId: createUser
+      parameters:
+      - description: Operator ID
+        in: path
+        name: operator_id
+        required: true
+        schema:
+          type: string
+      - description: user_name
+        in: path
+        name: user_name
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateUserRequest'
+        description: description
+        required: true
+      responses:
+        '201':
+          description: A new user was added.
+        '400':
+          description: Failed to create a new user.
+      security:
+      - api_key: []
+        api_token: []
+      summary: Create User.
+      tags:
+      - User
+      x-soracom-cli:
+      - users create
+    put:
+      description: Updates the SAM user.
+      operationId: updateUser
+      parameters:
+      - description: Operator ID
+        in: path
+        name: operator_id
+        required: true
+        schema:
+          type: string
+      - description: user_name
+        in: path
+        name: user_name
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateUserRequest'
+        description: description
+        required: true
+      responses:
+        '200':
+          description: OK
+        '404':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/APICallError'
+          description: SAM User not found.
+      security:
+      - api_key: []
+        api_token: []
+      summary: Update User.
+      tags:
+      - User
+      x-soracom-cli:
+      - users update
+  /operators/{operator_id}/users/{user_name}/auth_keys:
+    get:
+      description: Returns the SAM user's AuthKey list.
+      operationId: listUserAuthKeys
+      parameters:
+      - description: Operator ID
+        in: path
+        name: operator_id
+        required: true
+        schema:
+          type: string
+      - description: user_name
+        in: path
+        name: user_name
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/AuthKeyResponse'
+                type: array
+          description: OK.
+      security:
+      - api_key: []
+        api_token: []
+      summary: List User AuthKeys.
+      tags:
+      - User
+      x-soracom-cli:
+      - users auth-keys list
+    post:
+      description: Generates an AuthKey for the SAM user.
+      operationId: generateUserAuthKey
+      parameters:
+      - description: Operator ID
+        in: path
+        name: operator_id
+        required: true
+        schema:
+          type: string
+      - description: user_name
+        in: path
+        name: user_name
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenerateUserAuthKeyResponse'
+          description: OK.
+      security:
+      - api_key: []
+        api_token: []
+      summary: Generate AuthKey.
+      tags:
+      - User
+      x-soracom-cli:
+      - users auth-keys generate
+  /operators/{operator_id}/users/{user_name}/auth_keys/{auth_key_id}:
+    delete:
+      description: Deletes an AuthKey from the SAM user.
+      operationId: deleteUserAuthKey
+      parameters:
+      - description: Operator ID
+        in: path
+        name: operator_id
+        required: true
+        schema:
+          type: string
+      - description: user_name
+        in: path
+        name: user_name
+        required: true
+        schema:
+          type: string
+      - description: auth_key_id
+        in: path
+        name: auth_key_id
+        required: true
+        schema:
+          type: string
+      responses:
+        '204':
+          description: The AuthKey was deleted.
+        '404':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/APICallError'
+          description: AuthKey not found.
+      security:
+      - api_key: []
+        api_token: []
+      summary: Delete User AuthKey.
+      tags:
+      - User
+      x-soracom-cli:
+      - users auth-keys delete
+    get:
+      description: Returns the SAM user's AuthKey.
+      operationId: getUserAuthKey
+      parameters:
+      - description: Operator ID
+        in: path
+        name: operator_id
+        required: true
+        schema:
+          type: string
+      - description: user_name
+        in: path
+        name: user_name
+        required: true
+        schema:
+          type: string
+      - description: auth_key_id
+        in: path
+        name: auth_key_id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AuthKeyResponse'
+          description: OK.
+      security:
+      - api_key: []
+        api_token: []
+      summary: Get AuthKey.
+      tags:
+      - User
+      x-soracom-cli:
+      - users auth-keys get
+  /operators/{operator_id}/users/{user_name}/mfa:
+    delete:
+      description: Revoke SAM user's MFA
+      operationId: revokeUserMFA
+      parameters:
+      - description: Operator ID
+        in: path
+        name: operator_id
+        required: true
+        schema:
+          type: string
+      - description: SAM user name
+        in: path
+        name: user_name
+        required: true
+        schema:
+          type: string
+      responses:
+        '204':
+          description: Revoked
+        '400':
+          description: Bad request.
+      security:
+      - api_key: []
+        api_token: []
+      summary: Revoke SAM user's MFA
+      tags:
+      - User
+      x-soracom-cli:
+      - users mfa revoke
+    get:
+      description: Get SAM user's MFA status
+      operationId: getUserMFAStatus
+      parameters:
+      - description: Operator ID
+        in: path
+        name: operator_id
+        required: true
+        schema:
+          type: string
+      - description: SAM user name
+        in: path
+        name: user_name
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MFAStatusOfUseResponse'
+          description: OK
+        '400':
+          description: Bad request.
+      security:
+      - api_key: []
+        api_token: []
+      summary: Get SAM user's MFA status
+      tags:
+      - User
+      x-soracom-cli:
+      - users mfa get
+    post:
+      description: Enable SAM user's MFA
+      operationId: enableUserMFA
+      parameters:
+      - description: Operator ID
+        in: path
+        name: operator_id
+        required: true
+        schema:
+          type: string
+      - description: SAM user name
+        in: path
+        name: user_name
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EnableMFAOTPResponse'
+          description: OK
+        '400':
+          description: Bad request.
+      security:
+      - api_key: []
+        api_token: []
+      summary: Enable SAM user's MFA
+      tags:
+      - User
+      x-soracom-cli:
+      - users mfa enable
+  /operators/{operator_id}/users/{user_name}/mfa/verify:
+    post:
+      description: Verify SAM user's MFA OTP code when MFA activation phase
+      operationId: verifyUserMFA
+      parameters:
+      - description: Operator ID
+        in: path
+        name: operator_id
+        required: true
+        schema:
+          type: string
+      - description: SAM user name
+        in: path
+        name: user_name
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/MFAAuthenticationRequest'
+        description: request
+        required: true
+      responses:
+        '204':
+          description: Verified
+        '400':
+          description: Bad request.
+      security:
+      - api_key: []
+        api_token: []
+      summary: Verify SAM user's MFA OTP code when MFA activation phase
+      tags:
+      - User
+      x-soracom-cli:
+      - users mfa verify
+  /operators/{operator_id}/users/{user_name}/password:
+    delete:
+      description: Deletes the user's password.
+      operationId: deleteUserPassword
+      parameters:
+      - description: Operator ID
+        in: path
+        name: operator_id
+        required: true
+        schema:
+          type: string
+      - description: user_name
+        in: path
+        name: user_name
+        required: true
+        schema:
+          type: string
+      responses:
+        '204':
+          description: The user's password was deleted.
+        '404':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/APICallError'
+          description: Password registration is required.
+      security:
+      - api_key: []
+        api_token: []
+      summary: Delete Password.
+      tags:
+      - User
+      x-soracom-cli:
+      - users password delete
+    get:
+      description: Retrieves whether the SAM user has a password or not.
+      operationId: hasUserPassword
+      parameters:
+      - description: Operator ID
+        in: path
+        name: operator_id
+        required: true
+        schema:
+          type: string
+      - description: user_name
+        in: path
+        name: user_name
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetUserPasswordResponse'
+          description: OK.
+      security:
+      - api_key: []
+        api_token: []
+      summary: Has User Password.
+      tags:
+      - User
+      x-soracom-cli:
+      - users password configured
+    post:
+      description: Creates a password for the SAM user.
+      operationId: createUserPassword
+      parameters:
+      - description: Operator ID
+        in: path
+        name: operator_id
+        required: true
+        schema:
+          type: string
+      - description: user_name
+        in: path
+        name: user_name
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateUserPasswordRequest'
+        description: password
+        required: true
+      responses:
+        '201':
+          description: Password for the SAM user was registered.
+      security:
+      - api_key: []
+        api_token: []
+      summary: Create Password.
+      tags:
+      - User
+      x-soracom-cli:
+      - users password create
+    put:
+      description: Updates the password of the SAM user.
+      operationId: updateUserPassword
+      parameters:
+      - description: Operator ID
+        in: path
+        name: operator_id
+        required: true
+        schema:
+          type: string
+      - description: user_name
+        in: path
+        name: user_name
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdatePasswordRequest'
+        description: password
+        required: true
+      responses:
+        '200':
+          description: OK
+      security:
+      - api_key: []
+        api_token: []
+      summary: Update Password.
+      tags:
+      - User
+      x-soracom-cli:
+      - users password update
+  /operators/{operator_id}/users/{user_name}/permission:
+    delete:
+      description: Deletes the SAM user's permission.
+      operationId: deleteUserPermission
+      parameters:
+      - description: Operator ID
+        in: path
+        name: operator_id
+        required: true
+        schema:
+          type: string
+      - description: SAM user name
+        in: path
+        name: user_name
+        required: true
+        schema:
+          type: string
+      responses:
+        '204':
+          description: Deleted
+        '400':
+          description: Invalid Operator ID or SAM user name
+      security:
+      - api_key: []
+        api_token: []
+      summary: Delete user permission.
+      tags:
+      - User
+      x-soracom-cli:
+      - users permissions delete
+    get:
+      description: Retrieves the SAM user's permissions.
+      operationId: getUserPermission
+      parameters:
+      - description: Operator ID
+        in: path
+        name: operator_id
+        required: true
+        schema:
+          type: string
+      - description: SAM user name
+        in: path
+        name: user_name
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetUserPermissionResponse'
+          description: OK.
+      security:
+      - api_key: []
+        api_token: []
+      summary: Get User Permission.
+      tags:
+      - User
+      x-soracom-cli:
+      - users permissions get
+    put:
+      description: Updates the SAM user's permissions.
+      operationId: updateUserPermission
+      parameters:
+      - description: Operator ID
+        in: path
+        name: operator_id
+        required: true
+        schema:
+          type: string
+      - description: SAM user name
+        in: path
+        name: user_name
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SetUserPermissionRequest'
+        description: permission
+        required: true
+      responses:
+        '200':
+          description: OK
+      security:
+      - api_key: []
+        api_token: []
+      summary: Update user permission.
+      tags:
+      - User
+      x-soracom-cli:
+      - users permissions update
+  /operators/{operator_id}/users/{user_name}/tokens:
+    delete:
+      description: Revoke all API keys and API tokens that were generated by the specified SAM user. Once revoked, the API key and API token cannot be used to call the SORACOM API, regardless of their expiration time.
+      operationId: revokeUserAuthTokens
+      parameters:
+      - description: Operator ID
+        in: path
+        name: operator_id
+        required: true
+        schema:
+          type: string
+      - description: SAM user name
+        in: path
+        name: user_name
+        required: true
+        schema:
+          type: string
+      responses:
+        '204':
+          description: Successfully revoked all API keys and API tokens
+        '400':
+          description: Wrong operator ID or username was specified.
+      security:
+      - api_key: []
+        api_token: []
+      summary: Revoke all API keys and API tokens that were generated by the specified SAM user.
+      tags:
+      - User
+      x-soracom-cli:
+      - users revoke-user-auth-tokens
+  /operators/{operator_id}/users/{user_name}/trust_policy:
+    delete:
+      description: Deletes user trust policy for switching user.
+      operationId: deleteUserTrustPolicy
+      parameters:
+      - description: Operator ID.
+        in: path
+        name: operator_id
+        required: true
+        schema:
+          type: string
+      - description: SAM user name.
+        in: path
+        name: user_name
+        required: true
+        schema:
+          type: string
+      responses:
+        '204':
+          description: Successfully deleted a trust policy for the user.
+        '400':
+          description: Bad request.
+      security:
+      - api_key: []
+        api_token: []
+      summary: Deletes user trust policy.
+      tags:
+      - User
+      x-soracom-cli:
+      - users trust-policy delete
+    get:
+      description: Gets user trust policy for switching user.
+      operationId: getUserTrustPolicy
+      parameters:
+      - description: Operator ID.
+        in: path
+        name: operator_id
+        required: true
+        schema:
+          type: string
+      - description: SAM user name.
+        in: path
+        name: user_name
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetUserTrustPolicyResponse'
+          description: Successfully obtained trust policy.
+        '400':
+          description: Bad request.
+      security:
+      - api_key: []
+        api_token: []
+      summary: Gets user trust policy.
+      tags:
+      - User
+      x-soracom-cli:
+      - users trust-policy get
+    put:
+      description: 'Updates the trust policy of the user specified by `operator_id` and `user_name` parameters.
+
+
+        **Warning**: Setting a trust policy will allow the operator(s) or user(s) specified in the request body to switch to this SAM user. When switching, the trusted operator(s) or user(s) will be granted the same permissions as this SAM user, and may be able to see session history, traffic history, and other account information.
+
+        '
+      operationId: updateUserTrustPolicy
+      parameters:
+      - description: Operator ID.
+        in: path
+        name: operator_id
+        required: true
+        schema:
+          type: string
+      - description: SAM user name.
+        in: path
+        name: user_name
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SetUserTrustPolicyRequest'
+        description: Specify a trust policy.
+        required: true
+      responses:
+        '204':
+          description: Successfully updated a trust policy for the user.
+        '400':
+          description: Bad request.
+      security:
+      - api_key: []
+        api_token: []
+      summary: Updates user trust policy
+      tags:
+      - User
+      x-soracom-cli:
+      - users trust-policy update
+  /operators/{operator_id}/users/default_permissions:
+    delete:
+      description: Delete the default permissions rule that is applied to all of the SAM
+      operationId: deleteDefaultPermissions
+      parameters:
+      - description: Operator ID
+        in: path
+        name: operator_id
+        required: true
+        schema:
+          type: string
+      responses:
+        '204':
+          description: Deleted.
+        '403':
+          description: Not privileged
+        '404':
+          description: Operator Not Found
+      security:
+      - api_key: []
+        api_token: []
+      summary: Delete the default permissions
+      tags:
+      - User
+      x-soracom-cli:
+      - users default-permissions delete
+    get:
+      description: Get the default permissions rule that is applied to all of the SAM users
+      operationId: getDefaultPermissions
+      parameters:
+      - description: Operator ID
+        in: path
+        name: operator_id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetDefaultPermissionsResponse'
+          description: OK
+        '403':
+          description: Not privileged
+        '404':
+          description: Operator Not Found
+      security:
+      - api_key: []
+        api_token: []
+      summary: Get the default permissions
+      tags:
+      - User
+      x-soracom-cli:
+      - users default-permissions get
+    put:
+      description: Update the default permissions rule that is applied to all of the SAM
+      operationId: updateDefaultPermissions
+      parameters:
+      - description: Operator ID
+        in: path
+        name: operator_id
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateDefaultPermissionsRequest'
+        description: request
+        required: true
+      responses:
+        '202':
+          description: Accepted
+        '400':
+          description: Bad request.
+        '403':
+          description: Not privileged
+      security:
+      - api_key: []
+        api_token: []
+      summary: Update the default permissions
+      tags:
+      - User
+      x-soracom-cli:
+      - users default-permissions update
+components:
+  schemas:
+    GetUserPasswordResponse:
+      properties:
+        hasPassword:
+          type: boolean
+      type: object
+    APICallErrorMessage:
+      properties:
+        code:
+          description: Error code.
+          type: string
+        message:
+          description: Error message. You can select the output language for error messages by setting the language (en, ja) in the X-Soracom-Lang header at request time.
+          type: string
+      required:
+      - code
+      - message
+      type: object
+    AuthKeyResponse:
+      properties:
+        authKeyId:
+          description: The ID of the authentication key.
+          example: keyId-xxx
+          type: string
+        createDateTime:
+          description: The creation date and time of the authentication key (UNIX time in seconds).
+          example: 1722480500
+          format: int64
+          type: integer
+        lastUsedDateTime:
+          description: The last used date and time of the authentication key (UNIX time in seconds).
+          example: 1722480600
+          format: int64
+          type: integer
+      required:
+      - authKeyId
+      - createDateTime
+      type: object
+    APICallError:
+      properties:
+        errorMessage:
+          $ref: '#/components/schemas/APICallErrorMessage'
+        httpStatus:
+          format: int32
+          type: integer
+      type: object
+    SetUserPermissionRequest:
+      properties:
+        description:
+          type: string
+        permission:
+          description: JSON string of permissions
+          type: string
+      required:
+      - permission
+      type: object
+    GetUserPermissionResponse:
+      properties:
+        permission:
+          description: JSON string of permissions
+          type: string
+      required:
+      - permission
+      type: object
+    GetUserTrustPolicyResponse:
+      properties:
+        trustPolicy:
+          description: 'Trust policy that specifies which operator(s) or user(s) are allowed to switch to this SAM user. It includes the following information:
+
+
+            - SRN (Soracom Resource Name) representing the user of another account who is allowed to switch to this SAM user.
+
+            - Conditions where switching is allowed.
+
+
+            For details, please refer to [trust policy syntax](https://users.soracom.io/ja-jp/docs/switch-user/trust-policy/) (Japanese).
+
+            '
+          type: string
+      type: object
+    ListRolesResponse:
+      properties:
+        createDateTime:
+          description: The creation date and time of the role (UNIX time in seconds).
+          example: 1722480500
+          format: int64
+          type: integer
+        description:
+          description: The description of the role.
+          example: This is my role
+          type: string
+        owner:
+          description: 'The type of the role. It can be one of the following:
+
+            - soracom: Soracom managed role
+
+            - operator: Operator managed role
+
+            '
+          enum:
+          - operator
+          - soracom
+          type: string
+        roleId:
+          description: The role ID. If the role is a Soracom managed role, it will be in SRN (Soracom Resource Name) format.
+          example: my-role
+          type: string
+        roleName:
+          description: The role name. If the role is an operator managed role, it will be the same as `roleId`. If the role is a Soracom managed role, it will be the resource ID part of the SRN.
+          example: my-role
+          type: string
+        updateDateTime:
+          description: The update date and time of the role (UNIX time in seconds).
+          example: 1722480600
+          format: int64
+          type: integer
+      required:
+      - createDateTime
+      - roleId
+      - updateDateTime
+      type: object
+    MFAAuthenticationRequest:
+      properties:
+        mfaOTPCode:
+          type: string
+      type: object
+    MFAStatusOfUseResponse:
+      properties:
+        status:
+          type: string
+      type: object
+    CreateUserPasswordRequest:
+      properties:
+        password:
+          type: string
+      type: object
+    EnableMFAOTPResponse:
+      properties:
+        totpUri:
+          type: string
+      required:
+      - totpUri
+      type: object
+    CreateUserRequest:
+      properties:
+        description:
+          type: string
+      type: object
+    UpdateDefaultPermissionsRequest:
+      properties:
+        permissions:
+          description: JSON string of permissions
+          type: string
+      required:
+      - permissions
+      type: object
+    UserDetailResponse:
+      properties:
+        authKeyList:
+          description: A list of authentication keys.
+          items:
+            $ref: '#/components/schemas/AuthKeyResponse'
+          type: array
+        createDateTime:
+          description: The creation date and time of the SAM user (UNIX time in seconds).
+          example: 1722480500
+          format: int64
+          type: integer
+        description:
+          description: The description of the SAM user.
+          example: This is my user
+          type: string
+        hasPassword:
+          description: Whether the login password for the Soracom User Console has been set.
+          type: boolean
+        permission:
+          description: The permission of the SAM user.
+          example: '{"statements":[{"api":"*","effect":"allow"}]}'
+          type: string
+        roleList:
+          description: A list of roles assigned to the SAM user.
+          items:
+            $ref: '#/components/schemas/ListRolesResponse'
+          type: array
+        updateDateTime:
+          description: The update date and time of the SAM user (UNIX time in seconds).
+          example: 1722480600
+          format: int64
+          type: integer
+        userName:
+          description: The name of the SAM user.
+          example: my-user
+          type: string
+      required:
+      - authKeyList
+      - createDateTime
+      - hasPassword
+      - roleList
+      - updateDateTime
+      - userName
+      type: object
+    GenerateUserAuthKeyResponse:
+      properties:
+        authKey:
+          type: string
+        authKeyId:
+          type: string
+      type: object
+    UpdatePasswordRequest:
+      properties:
+        currentPassword:
+          type: string
+        newPassword:
+          type: string
+      required:
+      - currentPassword
+      - newPassword
+      type: object
+    GetDefaultPermissionsResponse:
+      properties:
+        defaultPermissions:
+          type: string
+      type: object
+    SetUserTrustPolicyRequest:
+      properties:
+        trustPolicy:
+          description: Trust policy that describes who can switch to this user.
+          example: '{"statements": [{"effect":"allow","principal":{"soracom":["srn:soracom:OPXXXXXXXXXX::User:accounting"]}}]}'
+          type: string
+      type: object
+    UpdateUserRequest:
+      properties:
+        description:
+          type: string
+      type: object
+  securitySchemes:
+    api_key:
+      description: 'API key for authentication. Obtain this from the Soracom User Console or via the Auth API.
+
+        Required in combination with an API token for all authenticated requests.
+
+        '
+      in: header
+      name: X-Soracom-API-Key
+      type: apiKey
+    api_token:
+      description: 'API token for authentication. This token has an expiration time and must be refreshed periodically.
+
+        Required in combination with an API key for all authenticated requests.'
+      in: header
+      name: X-Soracom-Token
+      type: apiKey

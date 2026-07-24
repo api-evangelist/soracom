@@ -1,0 +1,66 @@
+openapi: 3.0.0
+info:
+  title: 'Soracom and Query Analysis API Sandbox: Order API'
+  description: Run SQL queries against Soracom Query, fetch query schemas, and search SIMs, Inventory devices, and Sigfox devices.
+  version: 20250903-043502
+servers:
+- description: Japan coverage production API endpoint
+  url: https://api.soracom.io/v1
+- description: Global coverage production API endpoint
+  url: https://g.api.soracom.io/v1
+tags:
+- name: 'API Sandbox: Order'
+paths:
+  /sandbox/orders/ship:
+    post:
+      description: Changes the shipping status to 'shipped' and gets ready the subscribers included in the order.
+      operationId: sandboxShipOrder
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/sandboxShipOrderRequest'
+        description: Shipping request
+        required: true
+      responses:
+        '200':
+          description: OK
+        '400':
+          description: Order does not exist.
+      security:
+      - api_key: []
+        api_token: []
+      summary: Ships the specified order
+      tags:
+      - 'API Sandbox: Order'
+      x-soracom-cli:
+      - sandbox orders ship
+components:
+  schemas:
+    sandboxShipOrderRequest:
+      properties:
+        operatorId:
+          type: string
+        orderId:
+          type: string
+      required:
+      - orderId
+      - operatorId
+      type: object
+  securitySchemes:
+    api_key:
+      description: 'API key for authentication. Obtain this from the Soracom User Console or via the Auth API.
+
+        Required in combination with an API token for all authenticated requests.
+
+        '
+      in: header
+      name: X-Soracom-API-Key
+      type: apiKey
+    api_token:
+      description: 'API token for authentication. This token has an expiration time and must be refreshed periodically.
+
+        Required in combination with an API key for all authenticated requests.'
+      in: header
+      name: X-Soracom-Token
+      type: apiKey

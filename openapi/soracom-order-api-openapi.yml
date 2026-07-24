@@ -1,0 +1,1392 @@
+openapi: 3.0.0
+info:
+  title: Soracom and Query Analysis Order API
+  description: Run SQL queries against Soracom Query, fetch query schemas, and search SIMs, Inventory devices, and Sigfox devices.
+  version: 20250903-043502
+servers:
+- description: Japan coverage production API endpoint
+  url: https://api.soracom.io/v1
+- description: Global coverage production API endpoint
+  url: https://g.api.soracom.io/v1
+tags:
+- description: '- [Coupon codes](/en/guides/accounting/payment/register-coupon/)
+
+    - [Long term discounts](/en/docs/air/volume-discount/)
+
+    - Order management
+
+    - Product catalog
+
+    '
+  name: Order
+paths:
+  /coupons:
+    post:
+      description: Creates a new coupon quotation. If the orderId is put in /coupons/{order_id}/confirm, the order is complete.
+      operationId: createCouponQuotation
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateEstimatedCouponRequest'
+        description: Coupon details.
+        required: true
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EstimatedCouponModel'
+          description: Created.
+      security:
+      - api_key: []
+        api_token: []
+      summary: Create coupon quotation
+      tags:
+      - Order
+      x-soracom-cli:
+      - coupons create
+  /volume_discounts:
+    post:
+      description: Creates a new long term discount quotation. If the orderId is put in /volume_discounts/{order_id}/confirm, the order is complete (Currently, long term discount is only applied to plan-D (without bundle), plan-K).
+      operationId: createVolumeDiscountQuotation
+      requestBody:
+        content:
+          application/json:
+            example:
+              contractTermMonth: 12
+              quantity: 1
+              startDate: '20220401'
+              volumeDiscountPaymentType: MONTHLY
+              volumeDiscountType: SORACOM_AIR_BASIC_CHARGE_V2
+            schema:
+              $ref: '#/components/schemas/CreateEstimatedVolumeDiscountRequest'
+        description: Long term discount contract details.
+        required: true
+      responses:
+        '201':
+          content:
+            application/json:
+              example:
+                currency: JPY
+                orderId: xxxxxxxxxxxxxx_xxxxxxxx
+                taxAmount: 0
+                totalAmount: 0
+                volumeDiscount:
+                  contractTermMonth: 12
+                  endDate: '20230331'
+                  initialCost: 0
+                  quantity: 1
+                  startDate: '20220401'
+                  taxIncludedInitialCost: 0
+                  taxIncludedUnitPrice: 302.5
+                  unitPrice: 275
+                  volumeDiscountPaymentType: MONTHLY
+                  volumeDiscountType: SORACOM_AIR_BASIC_CHARGE_V2
+              schema:
+                $ref: '#/components/schemas/EstimatedVolumeDiscountModel'
+          description: Created.
+      security:
+      - api_key: []
+        api_token: []
+      summary: Create long term discount quotation
+      tags:
+      - Order
+      x-soracom-cli:
+      - volume-discounts create
+  /coupons/{order_id}/confirm:
+    put:
+      description: Performs a credit limit and confirms the order if no problems are encountered.
+      operationId: confirmCouponOrder
+      parameters:
+      - description: Order ID. You can get it by calling [Order:createCouponQuotation API](#/Order/createCouponQuotation).
+        in: path
+        name: order_id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CouponResponse'
+          description: The confirmed coupon order.
+      security:
+      - api_key: []
+        api_token: []
+      summary: Confirm coupon order
+      tags:
+      - Order
+      x-soracom-cli:
+      - coupons confirm
+  /orders:
+    get:
+      description: 'Get a list of confirmed order history.
+
+
+        **Warning**: The maximum information you can get is for the last 18 months. If you need the information before that time, please contact [Soracom Support](https://support.soracom.io).
+
+        '
+      operationId: listOrders
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListOrderResponse'
+          description: A list of confirmed order history.
+      security:
+      - api_key: []
+        api_token: []
+      summary: Get a list of confirmed order history
+      tags:
+      - Order
+      x-soracom-cli:
+      - orders list
+    post:
+      description: Creates a new order quotation. If the orderId is put in /orders/{order_id}/confirm, the order is complete.
+      operationId: createQuotation
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateEstimatedOrderRequest'
+        description: Order item list and shipping address ID.
+        required: true
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EstimatedOrderModel'
+          description: A new order quotation was created.
+      security:
+      - api_key: []
+        api_token: []
+      summary: Create Quotation
+      tags:
+      - Order
+      x-soracom-cli:
+      - orders create
+  /orders/{order_id}:
+    get:
+      description: 'Returns a confirmed order.
+
+
+        **Warning**: The maximum information you can get is for the last 18 months. If you need the information before that time, please contact [Soracom Support](https://support.soracom.io).
+
+        '
+      operationId: getOrder
+      parameters:
+      - description: Order ID. You can get it by calling [Order:listOrders API](#/Order/listOrders).
+        in: path
+        name: order_id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetOrderResponse'
+          description: The confirmed order information.
+      security:
+      - api_key: []
+        api_token: []
+      summary: Get a confirmed order
+      tags:
+      - Order
+      x-soracom-cli:
+      - orders get
+  /orders/{order_id}/cancel:
+    put:
+      description: Cancels an order. If the order has already been dispatched, an error is returned.
+      operationId: cancelOrder
+      parameters:
+      - description: Order ID. You can get it by calling [Order:listOrders API](#/Order/listOrders).
+        in: path
+        name: order_id
+        required: true
+        schema:
+          type: string
+      responses:
+        '204':
+          content:
+            application/json:
+              schema:
+                type: string
+          description: The order was cancelled.
+      security:
+      - api_key: []
+        api_token: []
+      summary: Cancel order
+      tags:
+      - Order
+      x-soracom-cli:
+      - orders cancel
+  /orders/{order_id}/confirm:
+    put:
+      description: 'Performs a credit limit and confirms the order if no problems are encountered.
+
+
+        **Warning**: Only orders completed within the past month can be confirmed. If one month has elapsed, please redo the order placement operation.
+
+        '
+      operationId: confirmOrder
+      parameters:
+      - description: Order ID. You can get it by calling [Order:listOrders API](#/Order/listOrders).
+        in: path
+        name: order_id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetOrderResponse'
+          description: The confirmed order information.
+      security:
+      - api_key: []
+        api_token: []
+      summary: Confirm order
+      tags:
+      - Order
+      x-soracom-cli:
+      - orders confirm
+  /orders/{order_id}/resource_initial_setting:
+    put:
+      description: 'Update resource initial setting for an order.
+
+
+        **Warning**: Initial settings of IoT SIM cannot be specified after confirmation of receipt.
+
+        '
+      operationId: updateOrderedResourceInitialSetting
+      parameters:
+      - description: Order ID. You can get it by calling [Order:listOrders API](#/Order/listOrders).
+        in: path
+        name: order_id
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ResourceInitialSetting'
+        description: Resource initial setting for an order.
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetOrderResponse'
+          description: The initial setting has been successfully updated.
+        '400':
+          content:
+            application/json:
+              schema:
+                type: string
+          description: The specified request has a problem.
+        '404':
+          content:
+            application/json:
+              schema:
+                type: string
+          description: Order ID not found.
+      security:
+      - api_key: []
+        api_token: []
+      summary: Update resource initial setting for an order
+      tags:
+      - Order
+      x-soracom-cli:
+      - orders resource-initial-setting update
+  /orders/{order_id}/subscribers:
+    get:
+      description: 'List ordered subscribers.
+
+
+        **Warning**: The maximum information you can get is for the last 18 months. If you need the information before that time, please contact [Soracom Support](https://support.soracom.io).
+
+        '
+      operationId: listOrderedSubscribers
+      parameters:
+      - description: Order ID. You can get it by calling [Order:listOrders API](#/Order/listOrders).
+        in: path
+        name: order_id
+        required: true
+        schema:
+          type: string
+      - description: The value of the `x-soracom-next-key` header returned when the previous page was retrieved. Specify if the next page is to be retrieved. For details, see [Handling Pagination](/en/docs/tools/api-reference/#handling-pagination).
+        in: query
+        name: last_evaluated_key
+        required: false
+        schema:
+          type: string
+      - description: Maximum number of subscribers in a response.
+        in: query
+        name: limit
+        required: false
+        schema:
+          format: int32
+          type: integer
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListOrderedSubscriberResponse'
+          description: A list of ordered subscribers.
+      security:
+      - api_key: []
+        api_token: []
+      summary: List ordered subscribers
+      tags:
+      - Order
+      x-soracom-cli:
+      - orders list-subscribers
+      x-soracom-cli-pagination:
+        request:
+          param: last_evaluated_key
+        response:
+          header: x-soracom-next-key
+  /orders/{order_id}/subscribers/register:
+    post:
+      description: 'Registers the ordered SIM with the operator.
+
+
+        **Warning**: IoT SIMs can only be registered for the past 18 months. If you need to register an IoT SIM that was ordered before the time period, please contact [Soracom Support](https://support.soracom.io).
+
+        '
+      operationId: registerOrderedSim
+      parameters:
+      - description: Order ID. You can get it by calling [Order:listOrders API](#/Order/listOrders).
+        in: path
+        name: order_id
+        required: true
+        schema:
+          type: string
+      responses:
+        '204':
+          content:
+            application/json:
+              schema:
+                type: string
+          description: Subscribers were registered for the operator.
+      security:
+      - api_key: []
+        api_token: []
+      summary: Register subscribers for operator
+      tags:
+      - Order
+      x-soracom-cli:
+      - orders register-subscribers
+  /products:
+    get:
+      description: Returns a list of products.
+      operationId: listProducts
+      parameters:
+      - in: query
+        name: campaign_code
+        required: false
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListProductResponse'
+          description: A list of available products.
+      security:
+      - api_key: []
+        api_token: []
+      summary: List products
+      tags:
+      - Order
+      x-soracom-cli:
+      - products list
+  /volume_discounts/{order_id}/confirm:
+    put:
+      description: Performs a credit check and confirms the order if there are no issues.
+      operationId: confirmVolumeDiscountOrder
+      parameters:
+      - description: Order ID. The order ID can be obtained from the [Order:createVolumeDiscountQuotation API](#/Order/createVolumeDiscountQuotation).
+        in: path
+        name: order_id
+        required: true
+        schema:
+          example: xxxxxxxxxxxxxx_xxxxxxxx
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetVolumeDiscountResponse'
+          description: The confirmed long-term discount order.
+      security:
+      - api_key: []
+        api_token: []
+      summary: Confirm long-term discount order
+      tags:
+      - Order
+      x-soracom-cli:
+      - volume-discounts confirm
+  /volume_discounts/available_discounts:
+    get:
+      description: Returns a list of available long term discounts.
+      operationId: listAvailableDiscounts
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AvailableLongTermDiscountResponse'
+          description: A list of available long term discounts.
+      security:
+      - api_key: []
+        api_token: []
+      summary: List available long term discounts
+      tags:
+      - Order
+      x-soracom-cli:
+      - volume-discounts available-discounts
+components:
+  schemas:
+    EstimatedOrderItemModel:
+      properties:
+        product:
+          $ref: '#/components/schemas/ProductModel'
+        productAmount:
+          description: Product amount.
+          format: double
+          type: number
+        quantity:
+          description: Quantity.
+          format: int32
+          type: integer
+        taxIncludedProductAmount:
+          type: number
+      type: object
+    ListOrderedSubscriberResponse:
+      properties:
+        orderedSubscriberList:
+          description: List of ordered SIMs.
+          items:
+            $ref: '#/components/schemas/OrderedSubscriber'
+          type: array
+      type: object
+    ShippingOptionOfNekopos:
+      description: Available for Japan operators only.
+      properties:
+        allowNekopos:
+          description: Specify true to allow use of Nekopos.
+          type: boolean
+        shipmentCompany:
+          description: Shipment company.
+          enum:
+          - yamato_transport
+          type: string
+      type: object
+    AvailableLongTermDiscountModel:
+      properties:
+        contractTermMonth:
+          default: 12
+          description: Contract months.
+          format: int32
+          type: integer
+        currency:
+          description: Currency.
+          enum:
+          - JPY
+          - USD
+          - EUR
+          type: string
+        taxIncludedUnitPrice:
+          description: Tax included unit price.
+          format: double
+          type: number
+        unitPrice:
+          description: Unit price.
+          format: double
+          type: number
+        volumeDiscountPaymentType:
+          description: Payment type.
+          enum:
+          - MONTHLY
+          - PREPAYMENT
+          type: string
+        volumeDiscountType:
+          description: Long term discount type.
+          enum:
+          - SORACOM_AIR_BASIC_CHARGE_V2
+          - SORACOM_AIR_BASIC_CHARGE
+          - SORACOM_AIR_MONTHLY_FIXED_BASIC_CHARGE
+          type: string
+      type: object
+    GetOrderResponse:
+      properties:
+        appliedShippingOptions:
+          description: Applied shipping options.
+          items:
+            type: object
+          type: array
+        balanceDue:
+          description: Balance due.
+          format: double
+          type: number
+        containsTaxIncludedAmounts:
+          type: boolean
+        currency:
+          description: Currency.
+          enum:
+          - JPY
+          - USD
+          - EUR
+          type: string
+        email:
+          description: Email address.
+          type: string
+        orderChannel:
+          description: Order channel.
+          type: string
+        orderDateTime:
+          description: Order date and time (yyyyMMddHHmmss).
+          format: yyyyMMddHHmmss
+          type: string
+        orderId:
+          description: Order ID.
+          type: string
+        orderItemList:
+          description: Order item list.
+          items:
+            $ref: '#/components/schemas/EstimatedOrderItemModel'
+          type: array
+        orderStatus:
+          description: 'Order status. For details, please refer to [Where is my order?](https://support.soracom.io/hc/en-us/articles/19543496440345).
+
+
+            - `orderProcessing`: New order (pending payment).
+
+            - `ordering`: New order (payment in progress).
+
+            - `ordered`: New order (payment completed).
+
+            - `kitting`: Preparing shipment.
+
+            - `shipped`: Shipped.
+
+            - `receiving`: Receiving.
+
+            - `received`: Received.
+
+            - `cancelling`: Cancelling.
+
+            - `cancelled`: Cancelled.
+
+            - `failed`: Failed.
+
+            '
+          enum:
+          - orderProcessing
+          - ordering
+          - ordered
+          - kitting
+          - shipped
+          - receiving
+          - received
+          - cancelling
+          - cancelled
+          - failed
+          type: string
+        paymentStatus:
+          description: 'Latest payment status. For details, please refer to [Payment status of usage charges](https://support.soracom.io/hc/en-us/articles/360029337031).
+
+
+            - `lessThanMinimumCharge`: Will be billed in the next month or later. (due to less than minimum charge.)
+
+            - `paying`: Payment in progress.
+
+            - `paid`: Paid.
+
+            - `fail`: Process failed.
+
+            - `refunding`: Refund in progress.
+
+            - `refunded`: Refunded.
+
+            - `refund_fail`: Refund failed.
+
+            - `delegating_to_third_party`: Delegating receivables.
+
+            - `delegated_to_third_party`: Delegated.
+
+            - `charging`: Charging in progress.
+
+            - `canceling`: Canceling.
+
+            - `cancelled`: Cancelled.
+
+            - `cancel_failed`: Failed to cancel.
+
+            '
+          enum:
+          - lessThanMinimumCharge
+          - paying
+          - paid
+          - fail
+          - refunding
+          - refunded
+          - refund_fail
+          - delegating_to_third_party
+          - delegated_to_third_party
+          - charging
+          - canceling
+          - cancelled
+          - cancel_failed
+          type: string
+        preferredDeliveryDate:
+          description: Preferred delivery date.
+          type: string
+        purchaseOrderNumber:
+          description: Purchase order number.
+          type: string
+        resourceInitialSetting:
+          $ref: '#/components/schemas/ResourceInitialSetting'
+        shippingAddress:
+          $ref: '#/components/schemas/ShippingAddressModel'
+        shippingAddressId:
+          description: Shipping address ID.
+          type: string
+        shippingCost:
+          description: Shipping cost.
+          format: double
+          type: number
+        shippingDateTime:
+          description: Shipping date and time (yyyyMMddHHmmss).
+          example: 20231004123456
+          format: yyyyMMddHHmmss
+          type: string
+        shippingLabelDetails:
+          description: Shipping label details.
+          items:
+            $ref: '#/components/schemas/ShippingLabelDetail'
+          type: array
+        shippingLabelNumber:
+          description: Shipping label number (representative).
+          example: 0000-1111-2222
+          type: string
+        shippingLabelNumbers:
+          description: Shipping label numbers.
+          example:
+          - 0000-1111-2222
+          items:
+            type: string
+          type: array
+        taxAmount:
+          description: Tax amount.
+          format: double
+          type: number
+        taxIncludedInShippingCost:
+          description: Tax included in shipping cost.
+          format: double
+          type: number
+        taxOnShippingCost:
+          description: Whether shipping cost is taxable.
+          type: boolean
+        totalAmount:
+          description: Total amount.
+          format: double
+          type: number
+        withholdingTaxAmount:
+          description: Withholding tax amount.
+          format: double
+          type: number
+      type: object
+    AvailableLongTermDiscountResponse:
+      properties:
+        availableLongTermDiscounts:
+          description: List of available long term discounts.
+          items:
+            $ref: '#/components/schemas/AvailableLongTermDiscountModel'
+          type: array
+      type: object
+    CreateEstimatedOrderRequest:
+      properties:
+        orderItemList:
+          description: Order item list.
+          items:
+            $ref: '#/components/schemas/OrderItemModel'
+          type: array
+        preferredDeliveryDate:
+          description: Preferred delivery date.
+          format: yyyyMMdd
+          type: string
+        shippingAddressId:
+          description: Shipping address ID.
+          type: string
+        shippingOptions:
+          description: Shipping options.
+          items:
+            oneOf:
+            - $ref: '#/components/schemas/ShippingOptionOfNekopos'
+            - $ref: '#/components/schemas/ShippingOptionOfExpeditedShipping'
+          type: array
+      type: object
+    ShippingCostModel:
+      description: Shipping cost.
+      properties:
+        appliedShippingOptions:
+          description: Applied shipping options.
+          items:
+            type: object
+          type: array
+        currency:
+          description: Currency.
+          enum:
+          - JPY
+          - USD
+          - EUR
+          type: string
+        shippingArea:
+          description: (Japan coverage only) Shipping area.
+          enum:
+          - hokkaido
+          - kita_tohoku
+          - minami_tohoku
+          - kanto
+          - shinetsu
+          - chubu
+          - hokuriku
+          - kansai
+          - chugoku
+          - shikoku
+          - kyushu
+          - okinawa
+          type: string
+        shippingAreaName:
+          description: Shipping Area name.
+          type: string
+        shippingCost:
+          description: Shipping Cost.
+          format: double
+          type: number
+        size:
+          description: Size.
+          format: int32
+          type: integer
+      type: object
+    EstimatedOrderModel:
+      properties:
+        appliedShippingOptions:
+          description: Applied shipping options.
+          items:
+            oneOf:
+            - $ref: '#/components/schemas/ShippingOptionOfNekopos'
+            - $ref: '#/components/schemas/ShippingOptionOfExpeditedShipping'
+          type: array
+        balanceDue:
+          description: Balance due.
+          format: double
+          type: number
+        containsTaxIncludedAmounts:
+          description: Contains tax included amounts.
+          type: boolean
+        currency:
+          description: Currency.
+          enum:
+          - JPY
+          - USD
+          - EUR
+          type: string
+        email:
+          description: Email address.
+          type: string
+        orderChannel:
+          description: Order channel.
+          type: string
+        orderId:
+          description: Order ID.
+          type: string
+        orderItemList:
+          description: Order item list.
+          items:
+            $ref: '#/components/schemas/EstimatedOrderItemModel'
+          type: array
+        preferredDeliveryDate:
+          description: Preferred delivery date.
+          format: yyyyMMdd
+          type: string
+        purchaseOrderNumber:
+          description: Purchase order number.
+          type: string
+        shippingAddress:
+          $ref: '#/components/schemas/ShippingAddressModel'
+        shippingAddressId:
+          description: Shipping address ID.
+          type: string
+        shippingCost:
+          description: Shipping cost.
+          format: double
+          type: number
+        taxAmount:
+          description: Tax amount.
+          format: double
+          type: number
+        taxIncludedInShippingCost:
+          description: Tax included in shipping cost.
+          format: double
+          type: number
+        taxOnShippingCost:
+          description: Whether shipping cost is taxable.
+          type: boolean
+        totalAmount:
+          description: Total amount.
+          format: double
+          type: number
+        withholdingTaxAmount:
+          description: Withholding tax amount.
+          format: double
+          type: number
+      type: object
+    VolumeDiscountModel:
+      description: Long term discount.
+      properties:
+        contractTermMonth:
+          default: 12
+          description: Contract months.
+          format: int32
+          type: integer
+        currency:
+          description: Currency.
+          enum:
+          - JPY
+          - USD
+          - EUR
+          type: string
+        endDate:
+          description: End date.
+          example: yyyyMMdd
+          type: string
+        initialCost:
+          description: Initial cost.
+          format: double
+          type: number
+        quantity:
+          description: Quantity.
+          format: int32
+          type: integer
+        startDate:
+          description: Start date.
+          example: yyyyMMdd
+          type: string
+        taxIncludedInitialCost:
+          description: Tax included initial cost.
+          format: double
+          type: number
+        taxIncludedUnitPrice:
+          description: Tax included unit price.
+          format: double
+          type: number
+        unitPrice:
+          description: Unit price.
+          format: double
+          type: number
+        volumeDiscountPaymentType:
+          description: Payment type.
+          enum:
+          - MONTHLY
+          - PREPAYMENT
+          type: string
+        volumeDiscountType:
+          description: Long term discount type.
+          enum:
+          - SORACOM_AIR_BASIC_CHARGE_V2
+          - SORACOM_AIR_BASIC_CHARGE
+          - SORACOM_AIR_MONTHLY_FIXED_BASIC_CHARGE
+          type: string
+      type: object
+    OrderItemModel:
+      properties:
+        productCode:
+          description: Product code.
+          type: string
+        quantity:
+          description: Quantity.
+          format: int32
+          type: integer
+      type: object
+    SimInitialSetting:
+      description: Sim initial setting for the specific subscription.
+      properties:
+        groupId:
+          description: Group ID.
+          type: string
+        speedClass:
+          description: "Speed class. Specify one of the following. Please specify the speed class that matches the subscription.\n\n- For plan01s, plan01s - Low Data Volume, planX3 (X3-5MB), planP1, plan-D (without bundle), plan-D (D-300MB), plan-K2 (K2-300MB), plan-K:\n    - `s1.minimum`\n    - `s1.slow`\n    - `s1.standard`\n    - `s1.fast`\n    - `s1.4xfast`\n- For plan-US:\n    - `s1.minimum`\n    - `s1.slow`\n    - `s1.standard`\n    - `s1.fast`\n    - `s1.4xfast`\n    - `s1.8xfast`\n- For plan-DU:\n    - `u1.standard`\n    - `u1.slow`\n- For plan-KM1:\n    - `t1.standard`\n"
+          type: string
+        tags:
+          additionalProperties:
+            type: string
+          description: Tags.
+          type: object
+      type: object
+    ShippingLabelDetail:
+      properties:
+        shipmentCompany:
+          description: Shipment company name.
+          example: Yamato Transport
+          type: string
+        shipmentCompanyUrl:
+          description: Shipment company URL.
+          example: http://track.kuronekoyamato.co.jp/english/tracking
+          type: string
+        trackingNumber:
+          description: Tracking number.
+          example: 0000-1111-2222
+          type: string
+        trackingUrl:
+          description: Tracking URL with tracking number.
+          example: https://jizen.kuronekoyamato.co.jp/jizen/servlet/crjz.b.NQ0010?id=0000-1111-2222
+          type: string
+      required:
+      - shipmentCompany
+      - trackingNumber
+      type: object
+    EstimatedVolumeDiscountModel:
+      properties:
+        currency:
+          description: Currency.
+          enum:
+          - JPY
+          - USD
+          - EUR
+          type: string
+        orderId:
+          description: Order ID.
+          type: string
+        taxAmount:
+          description: Tax amount.
+          format: double
+          type: number
+        totalAmount:
+          description: Total amount.
+          format: double
+          type: number
+        volumeDiscount:
+          $ref: '#/components/schemas/VolumeDiscountModel'
+      type: object
+    EstimatedCouponModel:
+      properties:
+        amount:
+          description: Amount.
+          format: double
+          type: number
+        currency:
+          description: Currency.
+          enum:
+          - JPY
+          - USD
+          - EUR
+          type: string
+        expiryYearMonth:
+          description: Expiry month.
+          format: yyyyMM
+          type: string
+        orderId:
+          description: Order ID.
+          type: string
+        taxAmount:
+          description: Tax amount.
+          format: double
+          type: number
+        totalAmount:
+          description: Total amount.
+          format: double
+          type: number
+      type: object
+    PriceByQuantity:
+      properties:
+        minQuantity:
+          description: Min quantity.
+          format: int32
+          type: integer
+        price:
+          description: Price.
+          format: double
+          type: number
+        taxIncludedPrice:
+          description: Tax Included price.
+          format: double
+          type: number
+      type: object
+    ShippingAddressModel:
+      description: Shipping address.
+      properties:
+        addressLine1:
+          type: string
+        addressLine2:
+          type: string
+        building:
+          type: string
+        city:
+          type: string
+        companyName:
+          type: string
+        countryCode:
+          type: string
+        department:
+          type: string
+        email:
+          type: string
+        fullName:
+          type: string
+        phoneNumber:
+          type: string
+        state:
+          type: string
+        zipCode:
+          type: string
+      required:
+      - addressLine1
+      - city
+      - state
+      - zipCode
+      type: object
+    ShippingOptionOfExpeditedShipping:
+      description: Available for United States and Canada operators only.
+      properties:
+        useExpeditedShipping:
+          description: Specify true to ship by Expedited Shipping. (Shipping to United States only)
+          type: boolean
+      type: object
+    CouponResponse:
+      properties:
+        amount:
+          description: Amount.
+          format: double
+          type: number
+        balance:
+          description: Balance.
+          format: double
+          type: number
+        billItemName:
+          description: Item.
+          type: string
+        couponCode:
+          description: Coupon code.
+          type: string
+        currency:
+          description: Currency.
+          enum:
+          - JPY
+          - USD
+          - EUR
+          type: string
+        expiryYearMonth:
+          description: Expiry month.
+          format: yyyyMM
+          type: string
+        orderId:
+          description: Order ID.
+          type: string
+      type: object
+    CreateEstimatedVolumeDiscountRequest:
+      properties:
+        contractTermMonth:
+          default: 12
+          description: Contract months.
+          format: int32
+          type: integer
+        quantity:
+          description: Quantity.
+          format: int32
+          type: integer
+        startDate:
+          description: Start date.
+          example: yyyyMMdd
+          type: string
+        volumeDiscountPaymentType:
+          description: Payment type.
+          enum:
+          - MONTHLY
+          - PREPAYMENT
+          type: string
+        volumeDiscountType:
+          description: Long term discount type.
+          enum:
+          - SORACOM_AIR_BASIC_CHARGE_V2
+          - SORACOM_AIR_BASIC_CHARGE
+          - SORACOM_AIR_MONTHLY_FIXED_BASIC_CHARGE
+          type: string
+      required:
+      - volumeDiscountType
+      - volumeDiscountPaymentType
+      - contractTermMonth
+      - quantity
+      type: object
+    ProductModel:
+      description: Product.
+      properties:
+        campaignCode:
+          description: Campaign code.
+          type: string
+        consignorId:
+          description: Consignor ID.
+          type: string
+        consignorName:
+          description: Consignor name.
+          type: string
+        count:
+          description: Count.
+          format: double
+          type: number
+        currency:
+          description: Currency.
+          enum:
+          - JPY
+          - USD
+          - EUR
+          type: string
+        description:
+          description: Product Description.
+          type: string
+        maxQuantity:
+          description: Max quantity.
+          format: int32
+          type: integer
+        price:
+          description: Price.
+          format: double
+          type: number
+        priceByQuantityList:
+          description: Price List by Quantity.
+          items:
+            $ref: '#/components/schemas/PriceByQuantity'
+          type: array
+        productCode:
+          description: Product code.
+          type: string
+        productInfoURL:
+          description: URL of product page.
+          type: string
+        productName:
+          description: Product name.
+          type: string
+        productType:
+          description: Product type.
+          enum:
+          - sim
+          - lora
+          - sigfox
+          - network_module
+          - misc
+          type: string
+        properties:
+          additionalProperties:
+            type: string
+          description: Properties.
+          type: object
+        regularPrice:
+          description: Regular price.
+          format: double
+          type: number
+        taxIncludedPrice:
+          description: Tax Included price.
+          format: double
+          type: number
+        taxIncludedRegularPrice:
+          description: Tax included regular price.
+          format: double
+          type: number
+        termsOfConsignorURL:
+          description: The URL of terms of conditions for the consignor product.
+          type: string
+        termsOfSolutionName:
+          description: The name of terms and conditions for the solution.
+          type: string
+        termsOfSolutionURL:
+          description: The URL of terms and conditions for the solution.
+          type: string
+      type: object
+    ListProductResponse:
+      properties:
+        productList:
+          items:
+            $ref: '#/components/schemas/ProductModel'
+          type: array
+        shippingCostList:
+          items:
+            $ref: '#/components/schemas/ShippingCostModel'
+          type: array
+      type: object
+    CreateEstimatedCouponRequest:
+      properties:
+        amount:
+          description: Amount.
+          format: double
+          type: number
+      required:
+      - amount
+      type: object
+    ListOrderResponse:
+      properties:
+        orderList:
+          description: List of confirmed orders.
+          items:
+            $ref: '#/components/schemas/GetOrderResponse'
+          type: array
+      type: object
+    GetVolumeDiscountResponse:
+      properties:
+        contractDateTime:
+          description: Contract date time.
+          example: yyyyMMddHHmmss
+          type: string
+        contractId:
+          description: Contract ID.
+          type: string
+        contractTermMonth:
+          default: 12
+          description: Contract months.
+          format: int32
+          type: integer
+        currency:
+          description: Currency.
+          enum:
+          - JPY
+          - USD
+          - EUR
+          type: string
+        endDate:
+          description: End date.
+          example: yyyyMMdd
+          type: string
+        initialCost:
+          description: Initial cost.
+          format: double
+          type: number
+        quantity:
+          description: Quantity.
+          format: int32
+          type: integer
+        startDate:
+          description: Start date.
+          example: yyyyMMdd
+          type: string
+        status:
+          description: Status.
+          enum:
+          - active
+          - expired
+          type: string
+        unitPrice:
+          description: Unit price.
+          format: double
+          type: number
+        volumeDiscountPaymentType:
+          description: Payment type.
+          enum:
+          - MONTHLY
+          - PREPAYMENT
+          type: string
+        volumeDiscountType:
+          description: Long term discount type.
+          enum:
+          - SORACOM_AIR_BASIC_CHARGE_V2
+          - SORACOM_AIR_BASIC_CHARGE
+          - SORACOM_AIR_MONTHLY_FIXED_BASIC_CHARGE
+          type: string
+      type: object
+    OrderedSubscriber:
+      properties:
+        bundles:
+          description: Bundle.
+          items:
+            type: string
+          type: array
+        deviceSerialNumber:
+          description: Serial number of Device.
+          type: string
+        eiccid:
+          description: eICCID.
+          type: string
+        iccid:
+          description: ICCID.
+          type: string
+        imsi:
+          description: IMSI.
+          type: string
+        msisdn:
+          description: MSISDN.
+          type: string
+        serialNumber:
+          description: Serial number of IoT SIM.
+          type: string
+        simId:
+          description: SIM ID.
+          type: string
+      type: object
+    ResourceInitialSetting:
+      description: Initial setting for the resource.
+      properties:
+        simInitialSettings:
+          additionalProperties:
+            $ref: '#/components/schemas/SimInitialSetting'
+          description: 'Initial setting of SIMs for each subscription. The key specifies a subscription.
+
+
+            - `plan01s`
+
+            - `plan01s-low_data_volume`: plan01s - Low Data Volume.
+
+            - `planX3`: planX3 (X3-5MB).
+
+            - `planP1`
+
+            - `plan-D`: plan-D (without bundle), plan-D (D-300MB).
+
+            - `plan-K2`: plan-K2 (K2-300MB).
+
+            - `plan-DU`
+
+            - `plan-KM1`
+
+            - `plan-K`
+
+            - `plan-US`
+
+            '
+          example:
+            plan01s:
+              groupId: 00000000-1111-2222-3333-444444444444
+              speedClass: s1.4xfast
+              tags:
+                date: 20221111
+                location: headquarters
+          type: object
+      type: object
+  securitySchemes:
+    api_key:
+      description: 'API key for authentication. Obtain this from the Soracom User Console or via the Auth API.
+
+        Required in combination with an API token for all authenticated requests.
+
+        '
+      in: header
+      name: X-Soracom-API-Key
+      type: apiKey
+    api_token:
+      description: 'API token for authentication. This token has an expiration time and must be refreshed periodically.
+
+        Required in combination with an API key for all authenticated requests.'
+      in: header
+      name: X-Soracom-Token
+      type: apiKey

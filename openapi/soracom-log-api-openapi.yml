@@ -1,0 +1,237 @@
+openapi: 3.0.0
+info:
+  title: Soracom and Query Analysis Log API
+  description: Run SQL queries against Soracom Query, fetch query schemas, and search SIMs, Inventory devices, and Sigfox devices.
+  version: 20250903-043502
+servers:
+- description: Japan coverage production API endpoint
+  url: https://api.soracom.io/v1
+- description: Global coverage production API endpoint
+  url: https://g.api.soracom.io/v1
+tags:
+- description: Error logs
+  name: Log
+paths:
+  /logs:
+    get:
+      description: 'Fetches error logs that meet specified criteria. If the error logs exceed one page, a URL to retrieve the next page under the same conditions is included in the `link` header of the response.
+
+        '
+      operationId: getLogs
+      parameters:
+      - description: 'The type of resource for which to retrieve error logs.
+
+
+          - `Subscriber`: IoT SIM.
+
+          - `Device`: Inventory device.
+
+          - `LoraDevice`: LoRaWAN device.
+
+          - `SigfoxDevice`: Sigfox device.
+
+          '
+        in: query
+        name: resource_type
+        required: false
+        schema:
+          enum:
+          - Subscriber
+          - Device
+          - LoraDevice
+          - SigfoxDevice
+          type: string
+      - description: 'The ID of the resource for which to retrieve error logs. The ID to specify varies depending on the value of `resource_type`.
+
+
+          | `resource_type` | ID to specify |
+
+          |-|-|
+
+          | `Subscriber` | The IMSI of the IoT SIM. The IMSI can be obtained from the [Sim:listSims API](#!/Sim/listSims). |
+
+          | `Device` | The ID of the Inventory device. The ID can be obtained from the [Device:listDevices API](#!/Device/listDevices). |
+
+          | `LoraDevice` | The ID of the LoRaWAN device. The ID can be obtained from the [LoraDevice:listLoraDevices API](#!/LoraDevice/listLoraDevices). |
+
+          | `SigfoxDevice` | The ID of the Sigfox device. The ID can be obtained from the [SigfoxDevice:listSigfoxDevices API](#!/SigfoxDevice/listSigfoxDevices). |
+
+          '
+        in: query
+        name: resource_id
+        required: false
+        schema:
+          type: string
+      - description: 'The service name to filter error logs.
+
+
+          - `Air`: SORACOM Air
+
+          - `Beam`: SORACOM Beam
+
+          - `Funk`: SORACOM Funk
+
+          - `Funnel`: SORACOM Funnel
+
+          - `Harvest`: SORACOM Harvest Data/Files
+
+          - `Napter`: SORACOM Napter
+
+          - `Orbit`: SORACOM Orbit
+
+          - `Unified`: Unified Endpoint
+
+          '
+        in: query
+        name: service
+        required: false
+        schema:
+          enum:
+          - Air
+          - Beam
+          - Funk
+          - Funnel
+          - Harvest
+          - Napter
+          - Orbit
+          - Unified
+          type: string
+      - description: Start time of the period for which to retrieve error logs (UNIX time in milliseconds).
+        in: query
+        name: from
+        required: false
+        schema:
+          type: integer
+      - description: End time of the period for which to retrieve error logs (UNIX time in milliseconds).
+        in: query
+        name: to
+        required: false
+        schema:
+          type: integer
+      - description: The maximum number of error logs to retrieve.
+        in: query
+        name: limit
+        required: false
+        schema:
+          type: integer
+      - description: The value contained in the `x-soracom-next-key` header returned when fetching the previous page. Specify this to retrieve the next page. For more information, see [Retrieving Large Amounts of Data (Paging)](/en/docs/tools/api/paging/).
+        in: query
+        name: last_evaluated_key
+        required: false
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/LogEntry'
+                type: array
+          description: A list of error logs.
+      security:
+      - api_key: []
+        api_token: []
+      summary: Retrieve Error Logs
+      tags:
+      - Log
+      x-soracom-cli:
+      - logs get
+      x-soracom-cli-pagination:
+        request:
+          param: last_evaluated_key
+        response:
+          header: x-soracom-next-key
+components:
+  schemas:
+    LogEntry:
+      properties:
+        body:
+          description: The error log.
+          type: object
+        logLevel:
+          description: The log level.
+          enum:
+          - debug
+          - error
+          - warning
+          - info
+          type: string
+        operatorId:
+          description: The operator ID.
+          type: string
+        resourceId:
+          description: 'The resource ID. It varies according to `resourceType`.
+
+
+            - When the `resourceType` is `Subscriber`, the resource ID is the subscriber''s IMSI.
+
+            - When the `resourceType` is `Device`, the resource ID is the device''s Inventory Device ID.
+
+            - When the `resourceType` is `LoraDevice`, the resource ID is the device''s LoRaWAN Device ID.
+
+            - When the `resourceType` is `SigfoxDevice`, the resource ID is the device''s Sigfox Device ID.
+
+            '
+          type: string
+        resourceType:
+          description: The resource type.
+          enum:
+          - Subscriber
+          - Device
+          - LoraDevice
+          - SigfoxDevice
+          type: string
+        service:
+          description: 'The service name from which the error log was output.
+
+
+            - `Air`: SORACOM Air
+
+            - `Beam`: SORACOM Beam
+
+            - `Funk`: SORACOM Funk
+
+            - `Funnel`: SORACOM Funnel
+
+            - `Harvest`: SORACOM Harvest Data/Files
+
+            - `Napter`: SORACOM Napter
+
+            - `Orbit`: SORACOM Orbit
+
+            - `Unified`: Unified Endpoint
+
+            '
+          enum:
+          - Air
+          - Beam
+          - Funk
+          - Funnel
+          - Harvest
+          - Napter
+          - Orbit
+          - Unified
+          type: string
+        time:
+          description: UNIX time (milliseconds).
+          format: int64
+          type: integer
+      type: object
+  securitySchemes:
+    api_key:
+      description: 'API key for authentication. Obtain this from the Soracom User Console or via the Auth API.
+
+        Required in combination with an API token for all authenticated requests.
+
+        '
+      in: header
+      name: X-Soracom-API-Key
+      type: apiKey
+    api_token:
+      description: 'API token for authentication. This token has an expiration time and must be refreshed periodically.
+
+        Required in combination with an API key for all authenticated requests.'
+      in: header
+      name: X-Soracom-Token
+      type: apiKey

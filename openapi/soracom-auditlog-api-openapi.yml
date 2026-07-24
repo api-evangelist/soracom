@@ -1,0 +1,252 @@
+openapi: 3.0.0
+info:
+  title: Soracom and Query Analysis AuditLog API
+  description: Run SQL queries against Soracom Query, fetch query schemas, and search SIMs, Inventory devices, and Sigfox devices.
+  version: 20250903-043502
+servers:
+- description: Japan coverage production API endpoint
+  url: https://api.soracom.io/v1
+- description: Global coverage production API endpoint
+  url: https://g.api.soracom.io/v1
+tags:
+- description: '[Audit logs](/en/docs/api-audit-logs/)'
+  name: AuditLog
+paths:
+  /audit_logs/api:
+    get:
+      description: Retrieve audit logs for Soracom API calls.
+      operationId: getApiAuditLogs
+      parameters:
+      - description: Filter item for audit log retrieval by API kind (e.g. `/v1/auth`).
+        in: query
+        name: api_kind
+        required: false
+        schema:
+          type: string
+      - description: Start time for the log search range (unixtime milliseconds).
+        in: query
+        name: from_epoch_ms
+        required: false
+        schema:
+          type: integer
+      - description: End time for the log search range (unixtime milliseconds).
+        in: query
+        name: to_epoch_ms
+        required: false
+        schema:
+          type: integer
+      - description: Maximum number of log entries to retrieve (value range is 1 to 1000).
+        in: query
+        name: limit
+        required: false
+        schema:
+          maximum: 1000
+          minimum: 1
+          type: integer
+      - description: The value of `requestedTimeEpochMs` in the last log entry retrieved in the previous page. By specifying this parameter, you can continue to retrieve the list from the next page onward.
+        in: query
+        name: last_evaluated_key
+        required: false
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              example:
+              - apiKind: /v1/bills
+                operatorId: OPXXXXXXXXXX
+                remoteIpAddress: xxx.xxx.xxx.xxx
+                requestPath: /v1/bills
+                requestedTimeEpocMs: 1234567890123
+                statusCode: 200
+                userName: SORACOMAPI
+              schema:
+                items:
+                  $ref: '#/components/schemas/APIAuditLogEntry'
+                type: array
+          description: A list of Soracom API audit log entries.
+      security:
+      - api_key: []
+        api_token: []
+      summary: Retrieve audit logs for Soracom API calls
+      tags:
+      - AuditLog
+      x-soracom-cli:
+      - audit-logs api get
+      x-soracom-cli-pagination:
+        request:
+          param: last_evaluated_key
+        response:
+          header: x-soracom-next-key
+  /audit_logs/napter:
+    get:
+      description: Retrieve audit logs for Soracom Napter.
+      operationId: getNapterAuditLogs
+      parameters:
+      - description: Type of the target resource to query log entries.
+        in: query
+        name: resource_type
+        required: false
+        schema:
+          enum:
+          - Subscriber
+          type: string
+      - description: Identity of the target resource to query log entries.
+        in: query
+        name: resource_id
+        required: false
+        schema:
+          type: string
+      - description: Start time for the log search range (unixtime milliseconds).
+        in: query
+        name: from
+        required: false
+        schema:
+          type: integer
+      - description: End time for the log search range (unixtime milliseconds).
+        in: query
+        name: to
+        required: false
+        schema:
+          type: integer
+      - description: Maximum number of log entries to retrieve (value range is 1 to 1000).
+        in: query
+        name: limit
+        required: false
+        schema:
+          maximum: 1000
+          minimum: 1
+          type: integer
+      - description: The value of `time` in the last log entry retrieved in the previous page. By specifying this parameter, you can continue to retrieve the list from the next page onward.
+        in: query
+        name: last_evaluated_key
+        required: false
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              example:
+              - connectionId: 12345678-abcd-1234-abcd-123456789010
+                createdAt: 1234567890123
+                direction:
+                  destinationIPAddress: xxx.xxx.xxx.xxx
+                  destinationPort: 22
+                  sourceIPAddress: xxx.xxx.xxx.xxx
+                  sourcePort: 51720
+                imsi: '123456789012345'
+                operatorId: OPXXXXXXXXXX
+                tls: false
+                type: CLOSED
+              - connectionId: 12345678-abcd-1234-abcd-123456789011
+                createdAt: 1234567890123
+                direction:
+                  destinationIPAddress: xxx.xxx.xxx.xxx
+                  destinationPort: 22
+                  sourceIPAddress: xxx.xxx.xxx.xxx
+                  sourcePort: 51720
+                imsi: '234567890123456'
+                operatorId: OPXXXXXXXXXX
+                tls: false
+                type: EXPIRED
+              schema:
+                items:
+                  $ref: '#/components/schemas/NapterAuditLogEntry'
+                type: array
+          description: A list of Napter audit log entries.
+      security:
+      - api_key: []
+        api_token: []
+      summary: Retrieve audit logs for Soracom Napter
+      tags:
+      - AuditLog
+      x-soracom-cli:
+      - audit-logs napter get
+      x-soracom-cli-pagination:
+        request:
+          param: last_evaluated_key
+        response:
+          header: x-soracom-next-key
+components:
+  schemas:
+    NapterAuditLogDirection:
+      properties:
+        destinationIPAddress:
+          type: string
+        destinationPort:
+          format: int64
+          type: integer
+        sourceIPAddress:
+          type: string
+        sourcePort:
+          format: int64
+          type: integer
+      type: object
+    APIAuditLogEntry:
+      properties:
+        apiKind:
+          description: The kind of the API (e.g., `/v1/auth`).
+          type: string
+        operatorId:
+          description: The operator ID that called the API.
+          type: string
+        remoteIpAddress:
+          description: The IP address of the caller.
+          type: string
+        requestPath:
+          description: The request path that has been called.
+          type: string
+        requestedTimeEpochMs:
+          description: The timestamp of the API call. This can be used as the `last_evaluated_key` request parameter, for pagination.
+          format: int64
+          type: integer
+        userName:
+          description: The SAM username that called the API. If this parameter is empty, it means the caller user is the root user.
+          type: string
+      type: object
+    NapterAuditLogEntry:
+      properties:
+        connectionId:
+          type: string
+        createdAt:
+          format: int64
+          type: integer
+        direction:
+          $ref: '#/components/schemas/NapterAuditLogDirection'
+        imsi:
+          type: string
+        operatorId:
+          type: string
+        tls:
+          type: boolean
+        type:
+          enum:
+          - ACCESS
+          - DENIED
+          - CONNECTED
+          - CLOSED
+          - REFUSED
+          - CREATED
+          - DELETED
+          - EXPIRED
+          type: string
+      type: object
+  securitySchemes:
+    api_key:
+      description: 'API key for authentication. Obtain this from the Soracom User Console or via the Auth API.
+
+        Required in combination with an API token for all authenticated requests.
+
+        '
+      in: header
+      name: X-Soracom-API-Key
+      type: apiKey
+    api_token:
+      description: 'API token for authentication. This token has an expiration time and must be refreshed periodically.
+
+        Required in combination with an API key for all authenticated requests.'
+      in: header
+      name: X-Soracom-Token
+      type: apiKey

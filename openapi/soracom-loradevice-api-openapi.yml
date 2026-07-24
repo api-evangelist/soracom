@@ -1,0 +1,572 @@
+openapi: 3.0.0
+info:
+  title: Soracom and Query Analysis LoraDevice API
+  description: Run SQL queries against Soracom Query, fetch query schemas, and search SIMs, Inventory devices, and Sigfox devices.
+  version: 20250903-043502
+servers:
+- description: Japan coverage production API endpoint
+  url: https://api.soracom.io/v1
+- description: Global coverage production API endpoint
+  url: https://g.api.soracom.io/v1
+tags:
+- description: '[Soracom Air for LoRaWAN](/en/docs/air-for-lorawan/) devices'
+  name: LoraDevice
+paths:
+  /lora_devices:
+    get:
+      description: 'Returns a list of LoRaWAN devices that match certain criteria. If the total number of LoRaWAN devices does not fit in one page, a URL for accessing the next page is returned in the `link` header of the response.
+
+        '
+      operationId: listLoraDevices
+      parameters:
+      - description: Tag name for filtering the search (exact match).
+        in: query
+        name: tag_name
+        required: false
+        schema:
+          type: string
+      - description: Tag search string for filtering the search. Required when `tag_name` has been specified.
+        in: query
+        name: tag_value
+        required: false
+        schema:
+          type: string
+      - description: Tag match mode.
+        in: query
+        name: tag_value_match_mode
+        required: false
+        schema:
+          default: exact
+          enum:
+          - exact
+          - prefix
+          type: string
+      - description: Maximum number of LoRaWAN devices to retrieve.
+        in: query
+        name: limit
+        required: false
+        schema:
+          type: integer
+      - description: The device ID of the last LoRaWAN device retrieved on the previous page. By specifying this parameter, you can continue to retrieve the list from the next LoRaWAN device onward.
+        in: query
+        name: last_evaluated_key
+        required: false
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/LoraDevice'
+                type: array
+          description: A list of LoRaWAN devices matching the criteria.
+      security:
+      - api_key: []
+        api_token: []
+      summary: List LoRaWAN devices.
+      tags:
+      - LoraDevice
+      x-soracom-cli:
+      - lora-devices list
+      x-soracom-cli-pagination:
+        request:
+          param: last_evaluated_key
+        response:
+          header: x-soracom-next-key
+  /lora_devices/{device_id}:
+    get:
+      description: Returns information about the specified LoRaWAN device.
+      operationId: getLoraDevice
+      parameters:
+      - description: Device ID of the target LoRaWAN device.
+        in: path
+        name: device_id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LoraDevice'
+          description: The LoRaWAN device's detailed information.
+        '404':
+          description: The specified LoRaWAN device does not exist.
+      security:
+      - api_key: []
+        api_token: []
+      summary: Get LoRaWAN device.
+      tags:
+      - LoraDevice
+      x-soracom-cli:
+      - lora-devices get
+  /lora_devices/{device_id}/data:
+    get:
+      description: 'Retrieves data that matches the specified conditions from the data sent by the specified LoRaWAN device to Harvest Data. If the data entries do not fit in one page, a URL to retrieve the next page with the same conditions will be included in the `link` header of the response.
+
+        '
+      operationId: getDataFromLoraDevice
+      parameters:
+      - description: ID of the LoRaWAN device from which to retrieve data. The ID of a LoRaWAN device can be obtained using the [LoraDevice:listLoraDevices API](#!/LoraDevice/listLoraDevices).
+        in: path
+        name: device_id
+        required: true
+        schema:
+          type: string
+      - description: Start time of the target period (UNIX time in milliseconds).
+        in: query
+        name: from
+        required: false
+        schema:
+          type: integer
+      - description: End time of the target period (UNIX time in milliseconds).
+        in: query
+        name: to
+        required: false
+        schema:
+          type: integer
+      - description: Sort order of data entries. Either descending order (latest data entry first) or ascending order (oldest data entry first).
+        in: query
+        name: sort
+        required: false
+        schema:
+          default: desc
+          enum:
+          - desc
+          - asc
+          type: string
+      - description: Maximum number of data entries to retrieve (1 to 1000). The default is `10`.
+        in: query
+        name: limit
+        required: false
+        schema:
+          maximum: 1000
+          minimum: 1
+          type: integer
+      - description: Timestamp of the last data entry retrieved on the previous page. By specifying this parameter, the list starting from the next data entry can be obtained.
+        in: query
+        name: last_evaluated_key
+        required: false
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/DataEntry'
+                type: array
+          description: A list of data entries.
+      security:
+      - api_key: []
+        api_token: []
+      summary: Retrieves data sent from a LoRaWAN device to Harvest Data
+      tags:
+      - LoraDevice
+      x-soracom-cli:
+      - lora-devices get-data
+      x-soracom-cli-pagination:
+        request:
+          param: last_evaluated_key
+        response:
+          header: x-soracom-next-key
+    post:
+      description: Sends data to the specified LoRaWAN device. The data is sent to the LoRa network server, to be sent out to the device using the next available slot. If another message destined for the same LoRaWAN device ID is already waiting to be sent on the LoRa Network Server, the existing message will be discarded, and the new message will be sent instead. Data is discarded if it is not received by the device for a certain period of time (2 hours).
+      operationId: sendDataToLoraDevice
+      parameters:
+      - description: ID of the recipient device.
+        in: path
+        name: device_id
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LoraData'
+        description: Binary data encoded as a hexadecimal string. Maximum length of original binary data is 11 octets (22 characters when encoded as a hexadecimal string). The number of characters must be even. fPort can be specified optionally. fPort MUST be equal to or greater than 0. 0 is used for the control plane and 1 or greater values should be used in general. It defaults to 2 to avoid the issues of some devices from some vendors and all invalid values that can not be parsed fallback to 2.
+        required: true
+      responses:
+        '204':
+          description: Data has been received and sent to the LoRa network server for the recipient device to retrieve.
+        '400':
+          description: The payload JSON data contains one or more invalid parameters.
+        '404':
+          description: No such device found.
+      security:
+      - api_key: []
+        api_token: []
+      summary: Send data to a LoRaWAN device.
+      tags:
+      - LoraDevice
+      x-soracom-cli:
+      - lora-devices send-data
+  /lora_devices/{device_id}/disable_termination:
+    post:
+      description: Disables termination of specified LoRaWAN device.
+      operationId: disableTerminationOnLoraDevice
+      parameters:
+      - description: Device ID of the target LoRaWAN device.
+        in: path
+        name: device_id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LoraDevice'
+          description: The LoRaWAN device's detailed information after the update.
+        '404':
+          description: The specified LoRaWAN device does not exist.
+      security:
+      - api_key: []
+        api_token: []
+      summary: Disable Termination of LoRaWAN device.
+      tags:
+      - LoraDevice
+      x-soracom-cli:
+      - lora-devices disable-termination
+  /lora_devices/{device_id}/enable_termination:
+    post:
+      description: Enables termination of specified LoRaWAN device.
+      operationId: enableTerminationOnLoraDevice
+      parameters:
+      - description: Device ID of the target LoRaWAN device.
+        in: path
+        name: device_id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LoraDevice'
+          description: The LoRaWAN device's detailed information after the update.
+        '404':
+          description: The specified LoRaWAN device does not exist.
+      security:
+      - api_key: []
+        api_token: []
+      summary: Enable Termination of LoRaWAN device.
+      tags:
+      - LoraDevice
+      x-soracom-cli:
+      - lora-devices enable-termination
+  /lora_devices/{device_id}/register:
+    post:
+      description: Register a LoRaWAN device.
+      operationId: registerLoraDevice
+      parameters:
+      - description: Device ID of the target LoRaWAN device.
+        in: path
+        name: device_id
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RegisterLoraDeviceRequest'
+        description: LoRaWAN Device
+        required: true
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LoraDevice'
+          description: LoRaWAN device registration complete.
+      security:
+      - api_key: []
+        api_token: []
+      summary: Register LoRaWAN device.
+      tags:
+      - LoraDevice
+      x-soracom-cli:
+      - lora-devices register
+  /lora_devices/{device_id}/set_group:
+    post:
+      description: Adds a LoRaWAN device to a LoRaWAN group.
+      operationId: setLoraDeviceGroup
+      parameters:
+      - description: ID of the target LoRaWAN device. The ID of a LoRaWAN device can be obtained using the [LoraDevice:listLoraDevices API](#!/LoraDevice/listLoraDevices).
+        in: path
+        name: device_id
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SetGroupRequest'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LoraDevice'
+          description: Detailed information of the updated LoRaWAN device.
+        '404':
+          description: The specified LoRaWAN device does not exist.
+      security:
+      - api_key: []
+        api_token: []
+      summary: Adds a LoRaWAN device to a LoRaWAN group
+      tags:
+      - LoraDevice
+      x-soracom-cli:
+      - lora-devices set-group
+  /lora_devices/{device_id}/tags:
+    put:
+      description: Inserts/updates tags for the specified LoRaWAN device.
+      operationId: putLoraDeviceTags
+      parameters:
+      - description: Device ID of the target LoRaWAN device.
+        in: path
+        name: device_id
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              items:
+                $ref: '#/components/schemas/TagUpdateRequest'
+              type: array
+        description: Array of tags to be inserted/updated.
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LoraDevice'
+          description: The LoRaWAN device's detailed information after the update.
+        '404':
+          description: The specified LoRaWAN device does not exist.
+      security:
+      - api_key: []
+        api_token: []
+      summary: Bulk Insert or Update LoRaWAN device Tags.
+      tags:
+      - LoraDevice
+      x-soracom-cli:
+      - lora-devices put-tags
+  /lora_devices/{device_id}/tags/{tag_name}:
+    delete:
+      description: Deletes a tag from the specified LoRaWAN device.
+      operationId: deleteLoraDeviceTag
+      parameters:
+      - description: Device ID of the target LoRaWAN device.
+        in: path
+        name: device_id
+        required: true
+        schema:
+          type: string
+      - description: Tag name to be deleted. (This will be part of a URL path, so it needs to be percent-encoded. In JavaScript, specify the name after it has been encoded using encodeURIComponent().)
+        in: path
+        name: tag_name
+        required: true
+        schema:
+          type: string
+      responses:
+        '204':
+          description: Deletion of specified tag complete.
+        '404':
+          description: The specified LoRaWAN device or the tag does not exist.
+      security:
+      - api_key: []
+        api_token: []
+      summary: Delete LoRaWAN device Tag.
+      tags:
+      - LoraDevice
+      x-sam-operationId: deleteTag
+      x-soracom-cli:
+      - lora-devices delete-tag
+  /lora_devices/{device_id}/terminate:
+    post:
+      description: Terminates the specified LoRaWAN device.
+      operationId: terminateLoraDevice
+      parameters:
+      - description: Device ID of the target LoRaWAN device.
+        in: path
+        name: device_id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LoraDevice'
+          description: The LoRaWAN device's detailed information after the update.
+        '404':
+          description: The specified LoRaWAN device does not exist.
+      security:
+      - api_key: []
+        api_token: []
+      summary: Terminate LoRaWAN device.
+      tags:
+      - LoraDevice
+      x-soracom-cli:
+      - lora-devices terminate
+  /lora_devices/{device_id}/unset_group:
+    post:
+      description: Removes a LoRaWAN device from a LoRaWAN group.
+      operationId: unsetLoraDeviceGroup
+      parameters:
+      - description: ID of the target LoRaWAN device. The ID of a LoRaWAN device can be obtained using the [LoraDevice:listLoraDevices API](#!/LoraDevice/listLoraDevices).
+        in: path
+        name: device_id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LoraDevice'
+          description: Detailed information of the updated LoRaWAN device.
+        '404':
+          description: The specified LoRaWAN device does not exist.
+      security:
+      - api_key: []
+        api_token: []
+      summary: Removes a LoRaWAN device from a LoRaWAN group
+      tags:
+      - LoraDevice
+      x-soracom-cli:
+      - lora-devices unset-group
+components:
+  schemas:
+    DataEntry:
+      properties:
+        category:
+          type: string
+        content:
+          type: string
+        contentType:
+          type: string
+        resourceId:
+          type: string
+        resourceType:
+          enum:
+          - Subscriber
+          - LoraDevice
+          - Sim
+          - SigfoxDevice
+          - Device
+          - SoraCam
+          type: string
+        time:
+          format: int64
+          type: integer
+      type: object
+    SetGroupRequest:
+      properties:
+        groupId:
+          description: Group ID. The group ID can be obtained using the [Group:listGroups API](#!/Group/listGroups).
+          type: string
+      type: object
+    LoraDevice:
+      properties:
+        device_id:
+          type: string
+        groupId:
+          type: string
+        lastModifiedTime:
+          format: date-time
+          type: string
+        lastSeen:
+          $ref: '#/components/schemas/LastSeen'
+        operatorId:
+          type: string
+        status:
+          enum:
+          - active
+          - ready
+          - terminated
+          - instock
+          type: string
+        tags:
+          additionalProperties:
+            type: string
+          type: object
+        terminationEnabled:
+          default: false
+          type: boolean
+      type: object
+    TagUpdateRequest:
+      properties:
+        tagName:
+          type: string
+        tagValue:
+          type: string
+      required:
+      - tagName
+      - tagValue
+      type: object
+    LastSeen:
+      properties:
+        rssi:
+          format: int32
+          type: integer
+        snr:
+          format: int32
+          type: integer
+        time:
+          format: date-time
+          type: string
+      type: object
+    LoraData:
+      properties:
+        data:
+          type: string
+        fPort:
+          default: 2
+          type: integer
+      type: object
+    RegisterLoraDeviceRequest:
+      properties:
+        groupId:
+          type: string
+        registrationSecret:
+          type: string
+        tags:
+          additionalProperties:
+            type: string
+          type: object
+      type: object
+  securitySchemes:
+    api_key:
+      description: 'API key for authentication. Obtain this from the Soracom User Console or via the Auth API.
+
+        Required in combination with an API token for all authenticated requests.
+
+        '
+      in: header
+      name: X-Soracom-API-Key
+      type: apiKey
+    api_token:
+      description: 'API token for authentication. This token has an expiration time and must be refreshed periodically.
+
+        Required in combination with an API key for all authenticated requests.'
+      in: header
+      name: X-Soracom-Token
+      type: apiKey

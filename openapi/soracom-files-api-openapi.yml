@@ -1,0 +1,125 @@
+openapi: 3.0.0
+info:
+  title: Soracom and Query Analysis Files API
+  description: Run SQL queries against Soracom Query, fetch query schemas, and search SIMs, Inventory devices, and Sigfox devices.
+  version: 20250903-043502
+servers:
+- description: Japan coverage production API endpoint
+  url: https://api.soracom.io/v1
+- description: Global coverage production API endpoint
+  url: https://g.api.soracom.io/v1
+tags:
+- description: 'Download files exported by the following APIs:
+
+    - [Billing](#/Billing)
+
+    - [Payment: exportPaymentStatement](#/Payment/exportPaymentStatement)
+
+    - [Stats](#/Stats)
+
+    - [Subscriber:exportSubscribers](#/Subscriber/exportSubscribers)
+
+    '
+  name: Files
+paths:
+  /files/exported/{exported_file_id}:
+    get:
+      description: 'Get the progress of the process when the file is exported asynchronously. If the export is complete, you will get the URL to download the file. You can download the file from the URL.
+
+
+        The following APIs are available to export files asynchronously. The `exported_file_id` is the file output ID (the value of `exportedFileId`) obtained from the following API.
+
+
+        - [Billing:exportBilling API](#!/Billing/exportBilling)
+
+        - [Billing:exportLatestBilling API](#!/Billing/exportLatestBilling)
+
+        - [Payment:exportPaymentStatement API](#!/Payment/exportPaymentStatement)
+
+        - [Stats:exportAirStats API](#!/Stats/exportAirStats)
+
+        - [Stats:exportBeamStats API](#!/Stats/exportBeamStats)
+
+        - [Stats:exportFunkStats API](#!/Stats/exportFunkStats)
+
+        - [Stats:exportFunnelStats API](#!/Stats/exportFunnelStats)
+
+        - [Subscriber:exportSubscribers API](#!/Subscriber/exportSubscribers)
+
+        '
+      operationId: getExportedFile
+      parameters:
+      - description: File export ID.
+        in: path
+        name: exported_file_id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              example:
+                status: exported
+                url: https://soracom-xxxxxxxx-....
+              schema:
+                $ref: '#/components/schemas/GetExportedFileResponse'
+          description: OK
+      security:
+      - api_key: []
+        api_token: []
+      summary: Get the progress of the process when the file is exported asynchronously.
+      tags:
+      - Files
+      x-soracom-cli:
+      - files get-exported
+components:
+  schemas:
+    GetExportedFileResponse:
+      properties:
+        status:
+          description: 'Export status.
+
+
+            - `processing`: Export is in progress. Please wait.
+
+            - `exported`: Export has completed. The file is ready for download.
+
+            - `failed`: Export has failed.
+
+            '
+          enum:
+          - processing
+          - exported
+          - failed
+          type: string
+        url:
+          description: 'File download URL. Verify that the `status` is `exported`, then download the CSV file from the URL obtained from `url`.
+
+
+            ```bash
+
+            $ wget -O export.csv "https://soracom-xxxxxxxx-...."
+
+            ```
+
+            '
+          type: string
+      type: object
+  securitySchemes:
+    api_key:
+      description: 'API key for authentication. Obtain this from the Soracom User Console or via the Auth API.
+
+        Required in combination with an API token for all authenticated requests.
+
+        '
+      in: header
+      name: X-Soracom-API-Key
+      type: apiKey
+    api_token:
+      description: 'API token for authentication. This token has an expiration time and must be refreshed periodically.
+
+        Required in combination with an API key for all authenticated requests.'
+      in: header
+      name: X-Soracom-Token
+      type: apiKey

@@ -1,0 +1,480 @@
+openapi: 3.0.0
+info:
+  title: Soracom and Query Analysis Soralet API
+  description: Run SQL queries against Soracom Query, fetch query schemas, and search SIMs, Inventory devices, and Sigfox devices.
+  version: 20250903-043502
+servers:
+- description: Japan coverage production API endpoint
+  url: https://api.soracom.io/v1
+- description: Global coverage production API endpoint
+  url: https://g.api.soracom.io/v1
+tags:
+- description: '[Soracom Orbit](/en/docs/orbit/) Soralet'
+  name: Soralet
+paths:
+  /soralets:
+    get:
+      description: Returns a list of Soralets.
+      operationId: listSoralets
+      parameters:
+      - description: Sort order of the data entries. Either descending (latest data entry first) or ascending (oldest data entry first).
+        in: query
+        name: sort
+        required: false
+        schema:
+          default: asc
+          enum:
+          - asc
+          - desc
+          type: string
+      - description: The maximum number of items in a response.
+        in: query
+        name: limit
+        required: false
+        schema:
+          type: integer
+      - description: The identifier of the last Soralet retrieved on the current page. By specifying this parameter, you can continue to retrieve the list from the next Soralet onward.
+        in: query
+        name: last_evaluated_key
+        required: false
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/Soralet'
+                type: array
+          description: OK.
+      security:
+      - api_key: []
+        api_token: []
+      summary: List Soralets
+      tags:
+      - Soralet
+      x-soracom-cli:
+      - soralets list
+      x-soracom-cli-pagination:
+        request:
+          param: last_evaluated_key
+        response:
+          header: x-soracom-next-key
+    post:
+      description: Create a Soralet.
+      operationId: createSoralet
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateSoraletRequest'
+        description: request
+        required: true
+      responses:
+        '201':
+          description: Successfully created a new Soralet.
+        '400':
+          description: The specified Soralet already exists or the specified soralet_id was invalid.
+      security:
+      - api_key: []
+        api_token: []
+      summary: Create a Soralet
+      tags:
+      - Soralet
+      x-soracom-cli:
+      - soralets create
+  /soralets/{soralet_id}:
+    delete:
+      description: Delete the specified Soralet.
+      operationId: deleteSoralet
+      parameters:
+      - description: The identifier of Soralet.
+        in: path
+        name: soralet_id
+        required: true
+        schema:
+          type: string
+      responses:
+        '204':
+          description: Successfully deleted the specified Soralet.
+        '404':
+          description: The specified Soralet is not found.
+      security:
+      - api_key: []
+        api_token: []
+      summary: Delete Soralet
+      tags:
+      - Soralet
+      x-soracom-cli:
+      - soralets delete
+    get:
+      description: Returns a Soralet.
+      operationId: getSoralet
+      parameters:
+      - description: The identifier of Soralet.
+        in: path
+        name: soralet_id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Soralet'
+          description: OK.
+        '404':
+          description: The specified Soralet is not found.
+      security:
+      - api_key: []
+        api_token: []
+      summary: Get a Soralet
+      tags:
+      - Soralet
+      x-soracom-cli:
+      - soralets get
+  /soralets/{soralet_id}/logs:
+    get:
+      description: Returns a list of log messages from the specified Soralet.
+      operationId: getSoraletLogs
+      parameters:
+      - description: The identifier of Soralet.
+        in: path
+        name: soralet_id
+        required: true
+        schema:
+          type: string
+      - description: Sort order of the data entries. Either descending (latest data entry first) or ascending (oldest data entry first).
+        in: query
+        name: sort
+        required: false
+        schema:
+          default: desc
+          enum:
+          - asc
+          - desc
+          type: string
+      - description: The maximum number of items in a response.
+        in: query
+        name: limit
+        required: false
+        schema:
+          type: integer
+      - description: The identifier of the last log message retrieved on the current page. By specifying this parameter, you can continue to retrieve the list from the next log message onward.
+        in: query
+        name: last_evaluated_key
+        required: false
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/SoraletLog'
+                type: array
+          description: OK.
+      security:
+      - api_key: []
+        api_token: []
+      summary: Get log messages from Soralet
+      tags:
+      - Soralet
+      x-soracom-cli:
+      - soralets get-logs
+      x-soracom-cli-pagination:
+        request:
+          param: last_evaluated_key
+        response:
+          header: x-soracom-next-key
+  /soralets/{soralet_id}/test:
+    post:
+      description: Execute the specified Soralet with the specified arguments.
+      operationId: testSoralet
+      parameters:
+      - description: The identifier of Soralet.
+        in: path
+        name: soralet_id
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ExecuteSoraletRequest'
+        description: Execution request.
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ExecuteSoraletResponse'
+          description: OK.
+      security:
+      - api_key: []
+        api_token: []
+      summary: Execute Soralet with arguments
+      tags:
+      - Soralet
+      x-soracom-cli:
+      - soralets test
+      - soralets exec
+  /soralets/{soralet_id}/versions:
+    get:
+      description: Returns a list of Soralet versions.
+      operationId: listSoraletVersions
+      parameters:
+      - description: The identifier of Soralet.
+        in: path
+        name: soralet_id
+        required: true
+        schema:
+          type: string
+      - description: Sort order of the data entries. Either descending (latest data entry first) or ascending (oldest data entry first).
+        in: query
+        name: sort
+        required: false
+        schema:
+          default: desc
+          enum:
+          - asc
+          - desc
+          type: string
+      - description: The maximum number of items in a response.
+        in: query
+        name: limit
+        required: false
+        schema:
+          type: integer
+      - description: The identifier of the last version retrieved on the current page. By specifying this parameter, you can continue to retrieve the list from the next version onward.
+        in: query
+        name: last_evaluated_key
+        required: false
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/SoraletVersion'
+                type: array
+          description: OK.
+      security:
+      - api_key: []
+        api_token: []
+      summary: List versions of Soralet
+      tags:
+      - Soralet
+      x-soracom-cli:
+      - soralets list-versions
+      x-soracom-cli-pagination:
+        request:
+          param: last_evaluated_key
+        response:
+          header: x-soracom-next-key
+    post:
+      description: Upload code and create a new version.
+      operationId: uploadSoraletCode
+      parameters:
+      - description: The identifier of Soralet.
+        in: path
+        name: soralet_id
+        required: true
+        schema:
+          type: string
+      - description: Content type of the file to upload. When uploading .wasm files, please specify `application/json`.
+        in: header
+        name: content-type
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              format: binary
+              type: string
+        description: Contents of the file you wish to upload.
+        required: true
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SoraletVersion'
+          description: Successfully created a new version.
+      security:
+      - api_key: []
+        api_token: []
+      summary: Upload code and create a new version
+      tags:
+      - Soralet
+      x-soracom-cli:
+      - soralets upload
+  /soralets/{soralet_id}/versions/{version}:
+    delete:
+      description: Delete the specified Soralet version.
+      operationId: deleteSoraletVersion
+      parameters:
+      - description: The identifier of Soralet.
+        in: path
+        name: soralet_id
+        required: true
+        schema:
+          type: string
+      - description: Soralet version.
+        in: path
+        name: version
+        required: true
+        schema:
+          type: integer
+      responses:
+        '204':
+          description: Successfully deleted the specified Soralet version.
+        '404':
+          description: The specified Soralet version is not found.
+      security:
+      - api_key: []
+        api_token: []
+      summary: Delete a Soralet version
+      tags:
+      - Soralet
+      x-soracom-cli:
+      - soralets delete-version
+components:
+  schemas:
+    CreateSoraletRequest:
+      properties:
+        description:
+          type: string
+        soraletId:
+          type: string
+      required:
+      - soraletId
+      type: object
+    ExecuteSoraletRequest:
+      properties:
+        contentType:
+          type: string
+        direction:
+          enum:
+          - uplink
+          - downlink
+          type: string
+        encodingType:
+          enum:
+          - text
+          - binary
+          type: string
+        payload:
+          type: string
+        source:
+          additionalProperties:
+            $ref: '#/components/schemas/SoraletDataSource'
+          type: object
+        userdata:
+          type: string
+        version:
+          type: string
+      required:
+      - version
+      - direction
+      - contentType
+      - payload
+      - source
+      type: object
+    Soralet:
+      properties:
+        createdTime:
+          format: int64
+          type: integer
+        description:
+          type: string
+        operatorId:
+          type: string
+        soraletId:
+          type: string
+        updatedTime:
+          format: int64
+          type: integer
+      type: object
+    ExecuteSoraletResponse:
+      properties:
+        body:
+          type: string
+        contentType:
+          type: string
+        encodingType:
+          type: string
+        resultCode:
+          format: int32
+          type: integer
+      type: object
+    SoraletDataSource:
+      properties:
+        resourceId:
+          type: string
+        resourceType:
+          type: string
+      required:
+      - resourceType
+      - resourceId
+      type: object
+    SoraletLog:
+      properties:
+        createdTime:
+          format: int64
+          type: integer
+        message:
+          type: string
+        operatorId:
+          type: string
+        soraletId:
+          type: string
+        version:
+          format: int64
+          type: integer
+      type: object
+    SoraletVersion:
+      properties:
+        createdTime:
+          format: int64
+          type: integer
+        hash:
+          type: string
+        operatorId:
+          type: string
+        size:
+          format: int64
+          type: integer
+        soraletId:
+          type: string
+        srn:
+          type: string
+        version:
+          format: int64
+          type: integer
+      type: object
+  securitySchemes:
+    api_key:
+      description: 'API key for authentication. Obtain this from the Soracom User Console or via the Auth API.
+
+        Required in combination with an API token for all authenticated requests.
+
+        '
+      in: header
+      name: X-Soracom-API-Key
+      type: apiKey
+    api_token:
+      description: 'API token for authentication. This token has an expiration time and must be refreshed periodically.
+
+        Required in combination with an API key for all authenticated requests.'
+      in: header
+      name: X-Soracom-Token
+      type: apiKey

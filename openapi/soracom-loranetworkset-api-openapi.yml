@@ -1,0 +1,430 @@
+openapi: 3.0.0
+info:
+  title: Soracom and Query Analysis LoraNetworkSet API
+  description: Run SQL queries against Soracom Query, fetch query schemas, and search SIMs, Inventory devices, and Sigfox devices.
+  version: 20250903-043502
+servers:
+- description: Japan coverage production API endpoint
+  url: https://api.soracom.io/v1
+- description: Global coverage production API endpoint
+  url: https://g.api.soracom.io/v1
+tags:
+- description: '[Soracom Air for LoRaWAN](/en/docs/air-for-lorawan/) network sets'
+  name: LoraNetworkSet
+paths:
+  /lora_network_sets:
+    get:
+      description: 'Returns a list of LoRaWAN network sets that match certain criteria. If the total number of LoRaWAN network sets does not fit in one page, a URL for accessing the next page is returned in the `link` header of the response.
+
+        '
+      operationId: listLoraNetworkSets
+      parameters:
+      - description: Tag name for filtering the search (exact match).
+        in: query
+        name: tag_name
+        required: false
+        schema:
+          type: string
+      - description: Tag search string for filtering the search. Required when `tag_name` has been specified.
+        in: query
+        name: tag_value
+        required: false
+        schema:
+          type: string
+      - description: Tag match mode.
+        in: query
+        name: tag_value_match_mode
+        required: false
+        schema:
+          default: exact
+          enum:
+          - exact
+          - prefix
+          type: string
+      - description: Maximum number of LoRaWAN network set to retrieve.
+        in: query
+        name: limit
+        required: false
+        schema:
+          format: int32d
+          type: integer
+      - description: The ID of the last network set retrieved on the current page. By specifying this parameter, you can continue to retrieve the list from the next device onward.
+        in: query
+        name: last_evaluated_key
+        required: false
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/LoraNetworkSet'
+                type: array
+          description: A list of LoRaWAN network sets.
+      security:
+      - api_key: []
+        api_token: []
+      summary: List LoRaWAN Network Sets
+      tags:
+      - LoraNetworkSet
+      x-soracom-cli:
+      - lora-network-sets list
+      x-soracom-cli-pagination:
+        request:
+          param: last_evaluated_key
+        response:
+          header: x-soracom-next-key
+    post:
+      description: Creates a specified LoRaWAN network set.
+      operationId: createLoraNetworkSet
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LoraNetworkSet'
+        description: Additional metadata such as tags for a LoRaWAN network set to create.
+        required: true
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LoraNetworkSet'
+          description: A LoRaWAN network set was created.
+      security:
+      - api_key: []
+        api_token: []
+      summary: Create a LoRaWAN network set
+      tags:
+      - LoraNetworkSet
+      x-soracom-cli:
+      - lora-network-sets create
+  /lora_network_sets/{ns_id}:
+    delete:
+      description: Deletes the specified LoRaWAN network set.
+      operationId: deleteLoraNetworkSet
+      parameters:
+      - description: ID of the target LoRaWAN network set.
+        in: path
+        name: ns_id
+        required: true
+        schema:
+          type: string
+      responses:
+        '204':
+          description: Successfully deleted.
+        '404':
+          description: The specified LoRaWAN network set does not exist.
+      security:
+      - api_key: []
+        api_token: []
+      summary: Delete LoRaWAN network set
+      tags:
+      - LoraNetworkSet
+      x-soracom-cli:
+      - lora-network-sets delete
+    get:
+      description: Returns information about the specified LoRaWAN network set.
+      operationId: getLoraNetworkSet
+      parameters:
+      - description: ID of the target LoRaWAN network set.
+        in: path
+        name: ns_id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LoraNetworkSet'
+          description: The LoRaWAN network set's detailed information.
+        '404':
+          description: The specified LoRaWAN network set does not exist.
+      security:
+      - api_key: []
+        api_token: []
+      summary: Get LoRaWAN network set
+      tags:
+      - LoraNetworkSet
+      x-soracom-cli:
+      - lora-network-sets get
+  /lora_network_sets/{ns_id}/add_permission:
+    post:
+      description: Adds permission to allow another operator to use the network set.
+      operationId: addPermissionToLoraNetworkSet
+      parameters:
+      - description: ID of the target LoRaWAN network set.
+        in: path
+        name: ns_id
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdatePermissionRequest'
+        description: ID of the operator to be added to the list of allowed operators.
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LoraNetworkSet'
+          description: Permission added to the network set.
+      security:
+      - api_key: []
+        api_token: []
+      summary: Adds permission to a LoRaWAN network set
+      tags:
+      - LoraNetworkSet
+      x-soracom-cli:
+      - lora-network-sets add-permission
+  /lora_network_sets/{ns_id}/gateways:
+    get:
+      description: 'Returns a list of LoRaWAN gateways that belong to the specified network set. If the total number of LoRaWAN gateways does not fit in one page, a URL for accessing the next page is returned in the `link` header of the response.
+
+        '
+      operationId: listGatewaysInLoraNetworkSet
+      parameters:
+      - description: ID of the target LoRaWAN network set.
+        in: path
+        name: ns_id
+        required: true
+        schema:
+          type: string
+      - description: Maximum number of LoRaWAN gateways to retrieve.
+        in: query
+        name: limit
+        required: false
+        schema:
+          format: int32d
+          type: integer
+      - description: The Gateway ID of the last LoRaWAN gateway retrieved on the current page. By specifying this parameter, you can continue to retrieve the list from the next LoRaWAN gateway onward.
+        in: query
+        name: last_evaluated_key
+        required: false
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/LoraGateway'
+                type: array
+          description: A list of LoRaWAN gateways.
+        '404':
+          description: The specified LoRaWAN network set does not exist.
+      security:
+      - api_key: []
+        api_token: []
+      summary: List LoRaWAN Gateways in a Network Set
+      tags:
+      - LoraNetworkSet
+      x-soracom-cli:
+      - lora-network-sets list-gateways
+      x-soracom-cli-pagination:
+        request:
+          param: last_evaluated_key
+        response:
+          header: x-soracom-next-key
+  /lora_network_sets/{ns_id}/revoke_permission:
+    post:
+      description: Revokes a permission and removes an operator from the list of allowed operators in the network set.
+      operationId: revokePermissionFromLoraNetworkSet
+      parameters:
+      - description: ID of the target LoRaWAN network set.
+        in: path
+        name: ns_id
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdatePermissionRequest'
+        description: ID of the operator to be added to the list of allowed operators.
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LoraNetworkSet'
+          description: Permission revoked from the network set.
+      security:
+      - api_key: []
+        api_token: []
+      summary: Revokes a permission from a LoRaWAN network set
+      tags:
+      - LoraNetworkSet
+      x-soracom-cli:
+      - lora-network-sets revoke-permission
+  /lora_network_sets/{ns_id}/tags:
+    put:
+      description: Inserts/updates tags for the specified LoRaWAN network set.
+      operationId: putLoraNetworkSetTags
+      parameters:
+      - description: ID of the target LoRaWAN network set.
+        in: path
+        name: ns_id
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              items:
+                $ref: '#/components/schemas/TagUpdateRequest'
+              type: array
+        description: Array of tags to be inserted/updated.
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LoraNetworkSet'
+          description: The LoRaWAN network set's detailed information after the update.
+        '404':
+          description: The specified LoRaWAN network set does not exist.
+      security:
+      - api_key: []
+        api_token: []
+      summary: Bulk Insert or Update LoRaWAN network set tags
+      tags:
+      - LoraNetworkSet
+      x-soracom-cli:
+      - lora-network-sets put-tag
+  /lora_network_sets/{ns_id}/tags/{tag_name}:
+    delete:
+      description: Deletes a tag from the specified LoRaWAN network set.
+      operationId: deleteLoraNetworkSetTag
+      parameters:
+      - description: ID of the target LoRaWAN network set.
+        in: path
+        name: ns_id
+        required: true
+        schema:
+          type: string
+      - description: Tag name to be deleted. (This will be part of a URL path, so it needs to be percent-encoded. In JavaScript, specify the name after it has been encoded using encodeURIComponent().)
+        in: path
+        name: tag_name
+        required: true
+        schema:
+          type: string
+      responses:
+        '204':
+          description: Deletion of specified tag complete.
+        '404':
+          description: The specified LoRaWAN network set or the tag does not exist.
+      security:
+      - api_key: []
+        api_token: []
+      summary: Delete LoRaWAN network set tag
+      tags:
+      - LoraNetworkSet
+      x-soracom-cli:
+      - lora-network-sets delete-tag
+components:
+  schemas:
+    UpdatePermissionRequest:
+      properties:
+        operatorId:
+          type: string
+      type: object
+    TagUpdateRequest:
+      properties:
+        tagName:
+          type: string
+        tagValue:
+          type: string
+      required:
+      - tagName
+      - tagValue
+      type: object
+    LoraGateway:
+      properties:
+        address:
+          type: string
+        createdTime:
+          format: date-time
+          type: string
+        gatewayId:
+          type: string
+        lastModifiedTime:
+          format: date-time
+          type: string
+        networkSetId:
+          type: string
+        online:
+          default: false
+          type: boolean
+        operatorId:
+          type: string
+        owned:
+          default: false
+          type: boolean
+        status:
+          enum:
+          - active
+          - terminated
+          - ready
+          - instock
+          type: string
+        tags:
+          additionalProperties:
+            type: string
+          type: object
+        terminationEnabled:
+          default: false
+          type: boolean
+      type: object
+    LoraNetworkSet:
+      properties:
+        allowedOperators:
+          items:
+            type: string
+          type: array
+          uniqueItems: true
+        createdTime:
+          format: date-time
+          type: string
+        lastModifiedTime:
+          format: date-time
+          type: string
+        networkSetId:
+          type: string
+        operatorId:
+          type: string
+        tags:
+          additionalProperties:
+            type: string
+          type: object
+      type: object
+  securitySchemes:
+    api_key:
+      description: 'API key for authentication. Obtain this from the Soracom User Console or via the Auth API.
+
+        Required in combination with an API token for all authenticated requests.
+
+        '
+      in: header
+      name: X-Soracom-API-Key
+      type: apiKey
+    api_token:
+      description: 'API token for authentication. This token has an expiration time and must be refreshed periodically.
+
+        Required in combination with an API key for all authenticated requests.'
+      in: header
+      name: X-Soracom-Token
+      type: apiKey

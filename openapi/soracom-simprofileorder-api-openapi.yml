@@ -1,0 +1,539 @@
+openapi: 3.0.0
+info:
+  title: Soracom and Query Analysis SimProfileOrder API
+  description: Run SQL queries against Soracom Query, fetch query schemas, and search SIMs, Inventory devices, and Sigfox devices.
+  version: 20250903-043502
+servers:
+- description: Japan coverage production API endpoint
+  url: https://api.soracom.io/v1
+- description: Global coverage production API endpoint
+  url: https://g.api.soracom.io/v1
+tags:
+- description: '[eSIM profiles](/en/docs/air/provision-esim/)'
+  name: SimProfileOrder
+paths:
+  /sim_profile_orders:
+    get:
+      description: 'Returns a list of eSIM profile orders. If the total number of orders does not fit in one page, a URL for accessing the next page is returned in the `link` header of the response.
+
+        '
+      operationId: listProfileOrders
+      parameters:
+      - description: Maximum number of eSIM profile orders to retrieve. However, the number of eSIM profile orders returned may be less than the specified value.
+        in: query
+        name: limit
+        required: false
+        schema:
+          default: 100
+          maximum: 100
+          minimum: 1
+          type: integer
+      - description: The ID of the last eSIM profile order retrieved on the previous page. By repeating the API call while specifying this parameter, the next page of eSIM profile orders will be returned.
+        in: query
+        name: last_evaluated_key
+        required: false
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              example:
+              - bundles: []
+                description: This is a test order
+                orderedTime: 1718756585000
+                profileOrderId: 01902ddd-1cf3-77d9-afc0-fe8d410cadb1
+                quantity: 10
+                speedClass: s1.4xfast
+                status: DRAFT
+                subscription: plan01s
+              schema:
+                items:
+                  $ref: '#/components/schemas/SimProfileOrderResponse'
+                type: array
+          description: Returned a list of eSIM profile orders.
+      security:
+      - api_key: []
+        api_token: []
+      summary: List eSIM profile orders
+      tags:
+      - SimProfileOrder
+      x-soracom-cli:
+      - sim-profile-orders list
+      x-soracom-cli-pagination:
+        request:
+          param: last_evaluated_key
+        response:
+          header: x-soracom-next-key
+    post:
+      description: 'Creates a new eSIM profile order without confirming it. An unconfirmed order is valid for 1 day, after which it is automatically canceled.
+
+        Use the [SimProfileOrder:confirmProfileOrder API](#/SimProfileOrder/confirmProfileOrder) to confirm the order.
+
+        '
+      operationId: createProfileOrder
+      requestBody:
+        content:
+          application/json:
+            example:
+              description: This is a test order
+              quantity: 10
+              speedClass: s1.4xfast
+              subscription: plan01s
+            schema:
+              $ref: '#/components/schemas/CreateSimProfileOrderRequest'
+      responses:
+        '201':
+          content:
+            application/json:
+              example:
+                bundles: []
+                description: This is a test order
+                orderedTime: 1718756585000
+                profileOrderId: 01902ddd-1cf3-77d9-afc0-fe8d410cadb1
+                quantity: 10
+                speedClass: s1.4xfast
+                status: DRAFT
+                subscription: plan01s
+              schema:
+                $ref: '#/components/schemas/SimProfileOrderResponse'
+          description: eSIM profile order has been created.
+        '400':
+          description: The request is invalid.
+      security:
+      - api_key: []
+        api_token: []
+      summary: Create a new eSIM profile order
+      tags:
+      - SimProfileOrder
+      x-soracom-cli:
+      - sim-profile-orders create
+  /sim_profile_orders/{profile_order_id}:
+    delete:
+      description: 'Cancels an unconfirmed eSIM profile order.
+
+        '
+      operationId: deleteProfileOrder
+      parameters:
+      - description: The ID of the eSIM profile order.
+        in: path
+        name: profile_order_id
+        required: true
+        schema:
+          type: string
+      responses:
+        '204':
+          description: eSIM profile order has been canceled.
+        '404':
+          description: The eSIM profile order was not found.
+      security:
+      - api_key: []
+        api_token: []
+      summary: Cancel an eSIM profile order
+      tags:
+      - SimProfileOrder
+      x-soracom-cli:
+      - sim-profile-orders delete
+    get:
+      description: 'Get an eSIM profile order.
+
+        '
+      operationId: getProfileOrder
+      parameters:
+      - description: The ID of the eSIM profile order.
+        in: path
+        name: profile_order_id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              example:
+                bundles: []
+                description: This is a test order
+                orderedTime: 1718756585000
+                profileOrderId: 01902ddd-1cf3-77d9-afc0-fe8d410cadb1
+                quantity: 10
+                speedClass: s1.4xfast
+                status: DRAFT
+                subscription: plan01s
+              schema:
+                $ref: '#/components/schemas/SimProfileOrderResponse'
+          description: Returned the eSIM profile order.
+        '404':
+          description: The eSIM profile order was not found.
+      security:
+      - api_key: []
+        api_token: []
+      summary: Get an eSIM profile order
+      tags:
+      - SimProfileOrder
+      x-soracom-cli:
+      - sim-profile-orders get
+  /sim_profile_orders/{profile_order_id}/confirm:
+    post:
+      description: 'Confirms an unconfirmed eSIM profile order and completes the order.
+
+        Once confirmed, an eSIM profile order cannot be canceled.
+
+        '
+      operationId: confirmProfileOrder
+      parameters:
+      - description: The ID of the eSIM profile order.
+        in: path
+        name: profile_order_id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              example:
+                bundles: []
+                confirmedTime: 1718756585000
+                description: This is a test order
+                orderedTime: 1718756585000
+                profileOrderId: 01902ddd-1cf3-77d9-afc0-fe8d410cadb1
+                quantity: 10
+                speedClass: s1.4xfast
+                status: CONFIRMED
+                subscription: plan01s
+              schema:
+                $ref: '#/components/schemas/SimProfileOrderResponse'
+          description: The eSIM profile order has been confirmed.
+        '404':
+          description: The eSIM profile order was not found.
+      security:
+      - api_key: []
+        api_token: []
+      summary: Confirm an eSIM profile order
+      tags:
+      - SimProfileOrder
+      x-soracom-cli:
+      - sim-profile-orders confirm
+  /sim_profile_orders/{profile_order_id}/profiles:
+    get:
+      description: 'Returns a list of eSIM profiles created by the specified eSIM profile order.
+
+        '
+      operationId: listOrderedProfiles
+      parameters:
+      - description: The ID of the eSIM profile order.
+        in: path
+        name: profile_order_id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/OrderedSimProfileResponse'
+                type: array
+          description: Returned a list of eSIM profiles.
+        '404':
+          description: The eSIM profile order was not found.
+      security:
+      - api_key: []
+        api_token: []
+      summary: List eSIM profiles created by the eSIM profile order
+      tags:
+      - SimProfileOrder
+      x-soracom-cli:
+      - sim-profile-orders list-profiles
+components:
+  schemas:
+    OrderedSimProfileResponse:
+      description: Represents an eSIM profile ordered.
+      properties:
+        activationCode:
+          description: The Activation code of the eSIM profile. This value will be used to install the profile on the device.
+          example: LPA:1$example.com$ABCDEFGHIJKLMNOPQRSTUVWXYZ
+          type: string
+        createdTime:
+          description: The time the eSIM profile was created (unix time in milliseconds).
+          example: 1718756585000
+          format: int64
+          type: integer
+        iccid:
+          description: The ICCID of the eSIM profile.
+          example: '12345678901234567890'
+          type: string
+        imsi:
+          description: The IMSI of the eSIM profile.
+          example: 123456789012345
+          type: string
+        installedTime:
+          description: The time the eSIM profile was installed (unix time in milliseconds).
+          example: 1718756585000
+          format: int64
+          type: integer
+        lastModifiedTime:
+          description: The time the eSIM profile was last modified (unix time in milliseconds).
+          example: 1718756585000
+          format: int64
+          type: integer
+        matchingId:
+          description: The Matching ID of the eSIM profile. This value will be used to install the profile on the device.
+          example: ABCDEFGHIJKLMNOPQRSTUVWXYZ
+          type: string
+        profileOrderId:
+          description: The ID of the eSIM profile order associated with this eSIM profile.
+          example: 01902ddd-1cf3-77d9-afc0-fe8d410cadb1
+          type: string
+        profileStatus:
+          description: 'The status of the eSIM profile.
+
+
+            - `SUBSCRIBER_REGISTRATION_SUCCEEDED`: The IoT SIM corresponding to the eSIM profile has been registered to your Soracom operator account
+
+            - `INSTALLATION_SUCCEEDED`: The eSIM profile has been installed on the device
+
+            - `INSTALLATION_FAILED`: The eSIM profile could not be installed on the device
+
+            - `ACTIVATION_SUCCEEDED`: The eSIM profile has been activated on the device
+
+            - `ACTIVATION_FAILED`: The eSIM profile could not be activated on the device
+
+            - `INACTIVATION_SUCCEEDED`: The eSIM profile has been deactivated on the device
+
+            - `INACTIVATION_FAILED`: The eSIM profile could not be deactivated on the device
+
+            - `DELETION_SUCCEEDED`: The eSIM profile has been deleted from the device
+
+            - `DELETION_FAILED`: The eSIM profile could not be deleted from the device
+
+            '
+          enum:
+          - SUBSCRIBER_REGISTRATION_SUCCEEDED
+          - INSTALLATION_SUCCEEDED
+          - INSTALLATION_FAILED
+          - ACTIVATION_SUCCEEDED
+          - ACTIVATION_FAILED
+          - INACTIVATION_SUCCEEDED
+          - INACTIVATION_FAILED
+          - DELETION_SUCCEEDED
+          - DELETION_FAILED
+          example: DELETION_SUCCEEDED
+          type: string
+        smdpAddress:
+          description: The SM-DP+ address of the eSIM profile. This value will be used to install the profile on the device.
+          example: example.com
+          type: string
+        subscription:
+          description: 'The subscription of the eSIM profile.
+
+
+            - `plan01s`
+
+            - `planP1`
+
+            - `planX1`
+
+            - `planX2`
+
+            - `planX3`
+
+            - `plan-US`
+
+            '
+          example: plan01s
+          type: string
+      required:
+      - profileOrderId
+      - iccid
+      - imsi
+      - matchingId
+      - smdpAddress
+      - activationCode
+      - profileStatus
+      - createdTime
+      - lastModifiedTime
+      type: object
+    CreateSimProfileOrderRequest:
+      description: Represents a request to place a eSIM profile order without confirming it.
+      properties:
+        bundles:
+          description: "Bundles of the eSIM profile to be ordered. Specify one of the following. Please specify the bundle that matches the subscription.\n\n- For planX3:\n    - `X3-5MB`\n- For plan-US:\n    - `US-1MB`\n    - `US-3MB`\n    - `US-10MB`\n    - `US-20MB`\n    - `US-50MB`\n    - `US-100MB`\n    - `US-300MB`\n    - `US-500MB`\n    - `US-1GB`\n    - `US-3GB`\n    - `US-5GB`\n    - `US-10GB`\n"
+          items:
+            enum:
+            - X3-5MB
+            - US-1MB
+            - US-3MB
+            - US-10MB
+            - US-20MB
+            - US-50MB
+            - US-100MB
+            - US-300MB
+            - US-500MB
+            - US-1GB
+            - US-3GB
+            - US-5GB
+            - US-10GB
+            type: string
+          maxItems: 1
+          type: array
+        description:
+          description: The description of the order. You can use this to identify the order in the order history.
+          example: This is a test order
+          maxLength: 100
+          type: string
+        quantity:
+          description: 'The quantity of the eSIM profile to be ordered.
+
+
+            **Info**: A maximum of 20 eSIM profiles may be purchased per order. If you would like to purchase more, please [contact us](https://www.soracom.io/contact/).
+
+            '
+          example: 10
+          format: int32
+          maximum: 100
+          minimum: 1
+          type: integer
+        speedClass:
+          description: "The speed class of the eSIM profile to be ordered. Specify one of the following. Please specify the speed class that matches the subscription.\n\n- For plan01s, planP1, planX1, planX2, planX3:\n    - `s1.minimum`\n    - `s1.slow`\n    - `s1.standard`\n    - `s1.fast`\n    - `s1.4xfast`\n- For plan-US:\n    - `s1.minimum`\n    - `s1.slow`\n    - `s1.standard`\n    - `s1.fast`\n    - `s1.4xfast`\n    - `s1.8xfast`"
+          enum:
+          - s1.minimum
+          - s1.slow
+          - s1.standard
+          - s1.fast
+          - s1.4xfast
+          - s1.8xfast
+          example: s1.4xfast
+          type: string
+        subscription:
+          description: 'The subscription of the eSIM profile to be ordered.
+
+
+            - `plan01s`
+
+            - `planP1`
+
+            - `planX1`
+
+            - `planX2`
+
+            - `planX3`: Only available for customers located in the European Union and United Kingdom.
+
+            - `plan-US`: Only available for customers located in in the United States and Canada.
+
+            '
+          example: plan01s
+          type: string
+      required:
+      - subscription
+      - quantity
+      type: object
+    SimProfileOrderResponse:
+      description: Represents an eSIM profile order.
+      properties:
+        bundles:
+          description: Bundles of the eSIM profile ordered.
+          example:
+          - X3-5MB
+          items:
+            type: string
+          type: array
+        completedTime:
+          description: The time the order was completed (unix time in milliseconds).
+          example: 1718756585000
+          format: int64
+          type: integer
+        confirmedTime:
+          description: The time the order was confirmed (unix time in milliseconds).
+          example: 1718756585000
+          format: int64
+          type: integer
+        description:
+          description: The description of the eSIM profile order.
+          example: This is a test order
+          type: string
+        orderedTime:
+          description: The time the order was created (unix time in milliseconds).
+          example: 1718756585000
+          format: int64
+          type: integer
+        profileOrderId:
+          description: The ID of the eSIM profile order.
+          example: 01902ddd-1cf3-77d9-afc0-fe8d410cadb1
+          type: string
+        quantity:
+          description: The quantity of the eSIM profile ordered.
+          example: 10
+          format: int32
+          type: integer
+        speedClass:
+          description: The speed class of the eSIM profile ordered.
+          example: s1.4xfast
+          type: string
+        status:
+          description: 'The status of the eSIM profile order.
+
+
+            - `DRAFT`: Unconfirmed order
+
+            - `CONFIRMED`: Order confirmed
+
+            - `IN_PROGRESS`: Order in progress
+
+            - `COMPLETED`: Order completed
+
+            - `FAILED`: Order failed
+
+            '
+          enum:
+          - DRAFT
+          - CONFIRMED
+          - IN_PROGRESS
+          - COMPLETED
+          - FAILED
+          example: COMPLETED
+          type: string
+        subscription:
+          description: 'The subscription of the eSIM profile ordered.
+
+
+            - `plan01s`
+
+            - `planP1`
+
+            - `planX1`
+
+            - `planX2`
+
+            - `planX3`
+
+            - `plan-US`
+
+            '
+          example: plan01s
+          type: string
+      required:
+      - profileOrderId
+      - subscription
+      - quantity
+      - status
+      - orderedTime
+      type: object
+  securitySchemes:
+    api_key:
+      description: 'API key for authentication. Obtain this from the Soracom User Console or via the Auth API.
+
+        Required in combination with an API token for all authenticated requests.
+
+        '
+      in: header
+      name: X-Soracom-API-Key
+      type: apiKey
+    api_token:
+      description: 'API token for authentication. This token has an expiration time and must be refreshed periodically.
+
+        Required in combination with an API key for all authenticated requests.'
+      in: header
+      name: X-Soracom-Token
+      type: apiKey

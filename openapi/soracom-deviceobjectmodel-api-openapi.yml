@@ -1,0 +1,254 @@
+openapi: 3.0.0
+info:
+  title: Soracom and Query Analysis DeviceObjectModel API
+  description: Run SQL queries against Soracom Query, fetch query schemas, and search SIMs, Inventory devices, and Sigfox devices.
+  version: 20250903-043502
+servers:
+- description: Japan coverage production API endpoint
+  url: https://api.soracom.io/v1
+- description: Global coverage production API endpoint
+  url: https://g.api.soracom.io/v1
+tags:
+- description: '[Soracom Inventory object model](/en/docs/inventory/define-custom-object/)'
+  name: DeviceObjectModel
+paths:
+  /device_object_models:
+    get:
+      description: Returns a list of device object models
+      operationId: listDeviceObjectModels
+      parameters:
+      - description: ID of the last device object model in the previous page. By specifying this parameter, you can continue to retrieve the list from the next device object models onward.
+        in: query
+        name: last_evaluated_key
+        required: false
+        schema:
+          type: string
+      - description: Max number of device object models in a response
+        in: query
+        name: limit
+        required: false
+        schema:
+          default: -1
+          format: int32
+          type: integer
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/DeviceObjectModel'
+                type: array
+          description: List of device object models
+      security:
+      - api_key: []
+        api_token: []
+      summary: Returns a list of device object models
+      tags:
+      - DeviceObjectModel
+      x-soracom-cli:
+      - devices list-object-models
+      x-soracom-cli-pagination:
+        request:
+          param: last_evaluated_key
+        response:
+          header: x-soracom-next-key
+    post:
+      description: Creates a new device object model
+      operationId: createDeviceObjectModel
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DeviceObjectModel'
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/DeviceObjectModel'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DeviceObjectModel'
+          description: Device object model created
+        '400':
+          description: Failed to parse device object model definition
+      security:
+      - api_key: []
+        api_token: []
+      summary: Creates a new device object model
+      tags:
+      - DeviceObjectModel
+      x-soracom-cli:
+      - devices create-object-model
+  /device_object_models/{model_id}:
+    delete:
+      description: Deletes a device object model
+      operationId: deleteDeviceObjectModel
+      parameters:
+      - description: Target device object model ID
+        in: path
+        name: model_id
+        required: true
+        schema:
+          type: string
+      responses:
+        '204':
+          description: Successfully deleted
+        '404':
+          description: No such device object model found
+      security:
+      - api_key: []
+        api_token: []
+      summary: Deletes a device object model
+      tags:
+      - DeviceObjectModel
+      x-soracom-cli:
+      - devices delete-object-model
+    get:
+      description: Gets a device object model
+      operationId: getDeviceObjectModel
+      parameters:
+      - description: Target device object model ID
+        in: path
+        name: model_id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DeviceObjectModel'
+          description: Device object model
+        '404':
+          description: No such device object model found
+      security:
+      - api_key: []
+        api_token: []
+      summary: Gets a device object model
+      tags:
+      - DeviceObjectModel
+      x-soracom-cli:
+      - devices get-object-model
+    post:
+      description: Updates a device object model
+      operationId: updateDeviceObjectModel
+      parameters:
+      - description: Target device object model ID
+        in: path
+        name: model_id
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DeviceObjectModel'
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/DeviceObjectModel'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DeviceObjectModel'
+          description: Device object model updated
+        '400':
+          description: Failed to parse device object model definition
+        '404':
+          description: No such device object model found
+      security:
+      - api_key: []
+        api_token: []
+      summary: Updates a device object model
+      tags:
+      - DeviceObjectModel
+      x-soracom-cli:
+      - devices update-object-model
+  /device_object_models/{model_id}/set_scope:
+    post:
+      description: Sets scope for a device object model
+      operationId: setDeviceObjectModelScope
+      parameters:
+      - description: Target device object model ID
+        in: path
+        name: model_id
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SetDeviceObjectModelScopeRequest'
+        description: Scope value that is applied to the target device object model
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DeviceObjectModel'
+          description: Scope is set to the target device object model
+        '404':
+          description: No such device object model found
+      security:
+      - api_key: []
+        api_token: []
+      summary: Sets scope for a device object model
+      tags:
+      - DeviceObjectModel
+      x-soracom-cli:
+      - devices set-object-model-scope
+components:
+  schemas:
+    SetDeviceObjectModelScopeRequest:
+      properties:
+        scope:
+          type: string
+      type: object
+    DeviceObjectModel:
+      properties:
+        createdTime:
+          format: date-time
+          type: string
+        format:
+          enum:
+          - xml
+          - json
+          type: string
+        lastModifiedTime:
+          format: date-time
+          type: string
+        objectId:
+          type: string
+        objectName:
+          type: string
+        operatorId:
+          type: string
+        scope:
+          type: string
+      type: object
+  securitySchemes:
+    api_key:
+      description: 'API key for authentication. Obtain this from the Soracom User Console or via the Auth API.
+
+        Required in combination with an API token for all authenticated requests.
+
+        '
+      in: header
+      name: X-Soracom-API-Key
+      type: apiKey
+    api_token:
+      description: 'API token for authentication. This token has an expiration time and must be refreshed periodically.
+
+        Required in combination with an API key for all authenticated requests.'
+      in: header
+      name: X-Soracom-Token
+      type: apiKey

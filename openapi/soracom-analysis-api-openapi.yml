@@ -1,0 +1,304 @@
+openapi: 3.0.0
+info:
+  title: Soracom and Query Analysis API
+  description: Run SQL queries against Soracom Query, fetch query schemas, and search SIMs, Inventory devices, and Sigfox devices.
+  version: 20250903-043502
+servers:
+- description: Japan coverage production API endpoint
+  url: https://api.soracom.io/v1
+- description: Global coverage production API endpoint
+  url: https://g.api.soracom.io/v1
+tags:
+- description: '[Soracom Query](/en/docs/query/)'
+  name: Analysis
+paths:
+  /analysis/queries:
+    post:
+      description: Executes a SQL query asynchronously. You can check the status of a SQL query execution with the [Analysis:getAnalysisQueries API](#/Analysis/getAnalysisQueries).
+      operationId: startAnalysisQueries
+      requestBody:
+        content:
+          application/json:
+            example:
+              from: 1743465600
+              sql: SELECT * FROM SIM_SESSION_EVENTS LIMIT 10
+              to: 1743552000
+            schema:
+              $ref: '#/components/schemas/StartAnalysisQueriesRequest'
+        description: A SQL query execution request.
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              example:
+                queryId: ffa91d0c371d45c4bf53d55ab5c14955
+              schema:
+                $ref: '#/components/schemas/StartAnalysisQueriesResponse'
+          description: A new SQL query execution has started.
+      security:
+      - api_key: []
+        api_token: []
+      summary: Execute a new SQL query asynchronously
+      tags:
+      - Analysis
+      x-soracom-cli:
+      - analysis queries start
+  /analysis/queries/{query_id}:
+    get:
+      description: Retrieve the execution status of a SQL query.
+      operationId: getAnalysisQueries
+      parameters:
+      - description: SQL query ID.
+        in: path
+        name: query_id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              example:
+                columnInfo:
+                - databaseType: FIXED
+                  name: ICCID
+                  type: string
+                - databaseType: TEXT
+                  name: IMEI
+                  type: string
+                - databaseType: NUMBER
+                  name: IMSI
+                  type: number
+                fileSize: 12345678
+                rowCount: 12345
+                status: COMPLETED
+                url: https://soracom-analysis-export.s3.amazonaws.com/ffa91d0c-371d-45c4-bf53-d55ab5c14955.csv.gz
+              schema:
+                $ref: '#/components/schemas/GetAnalysisQueriesResponse'
+          description: The execution status, results, and download URL of the SQL query.
+      security:
+      - api_key: []
+        api_token: []
+      summary: Retrieve the execution status of a SQL query
+      tags:
+      - Analysis
+      x-soracom-cli:
+      - analysis queries get
+  /analysis/schemas:
+    get:
+      description: "Retrieves the available schemas and their column information within the database. You can use this information as a reference when converting data types of data retrieved with the [Analysis:startAnalysisQueries API](#/Analysis/startAnalysisQueries).\nExample: If the column `type` is `string` as shown below, it can be treated as a string.\n```json\n{\n  \"name\": \"SIM_SESSION_EVENTS\",\n  \"columnInfo\": [\n      {\n          \"name\": \"APN\",\n          \"type\": \"string\",\n          \"databaseType\": \"TEXT\",\n          \"description\": \"Access Point Name indicating the network gateway for the SIM session.\"\n      }\n  ]\n}\n```\n"
+      operationId: getAnalysisSchemas
+      responses:
+        '200':
+          content:
+            application/json:
+              example:
+              - columnInfo:
+                - databaseType: TEXT
+                  description: Access Point Name indicating the network gateway for the SIM session.
+                  name: APN
+                  type: string
+                - databaseType: TEXT
+                  description: The primary DNS server IP address used during the SIM session.
+                  name: DNS0
+                  type: string
+                - databaseType: TEXT
+                  description: The secondary DNS server IP address used during the SIM session.
+                  name: DNS1
+                  type: string
+                - databaseType: TEXT
+                  description: Describes the type of event associated with the SIM session, such as Created, Deleted, or Updated.
+                  name: EVENT
+                  type: string
+                - databaseType: TEXT
+                  description: Home Public Land Mobile Network code that identifies the home network operator.
+                  name: HPLMN
+                  type: string
+                - databaseType: TEXT
+                  description: The Integrated Circuit Card Identifier, a unique number assigned to the SIM card.
+                  name: ICCID
+                  type: string
+                name: SIM_SESSION_EVENTS
+              schema:
+                $ref: '#/components/schemas/GetAnalysisSchemasResponse'
+          description: A list of available database schemas and their column information.
+      security:
+      - api_key: []
+        api_token: []
+      summary: Retrieve available database schemas
+      tags:
+      - Analysis
+      x-soracom-cli:
+      - analysis schemas
+components:
+  schemas:
+    GetAnalysisQueriesResponse:
+      properties:
+        columnInfo:
+          description: Column information of the SQL query result.
+          items:
+            properties:
+              databaseType:
+                description: 'Database data type.
+
+                  - `TEXT`: String type.
+
+                  - `FIXED`: Fixed-length string type.
+
+                  - `REAL`: Floating-point type.
+
+                  - `TIMESTAMP_TZ`: Timestamp type.
+
+                  - `BOOLEAN`: Boolean type.
+
+                  - `VARIANT`: Variable-length string type.'
+                type: string
+              name:
+                description: Column name.
+                type: string
+              type:
+                description: 'Reference type for programming languages (inferred).
+
+                  - `string`: String type.
+
+                  - `int64`: Integer type.
+
+                  - `float64`: Floating-point type.
+
+                  - `Time`: DateTime type.
+
+                  - `bool`: Boolean type.
+
+                  '
+                type: string
+            type: object
+          type: array
+        fileSize:
+          description: File size of the file downloadable from `url`.
+          type: integer
+        rowCount:
+          description: Number of data rows contained in the file downloadable from `url`.
+          type: integer
+        sqlExecTime:
+          description: Time taken to execute the SQL query (seconds).
+          type: integer
+        sqlExportTime:
+          description: Time taken to export the SQL query result (seconds).
+          type: integer
+        status:
+          description: 'SQL query execution status.
+
+            - `STARTING`: SQL query execution started.
+
+            - `RUNNING`: SQL query is running (extracting data).
+
+            - `EXPORTING`: SQL query result is being exported.
+
+            - `COMPLETED`: SQL query completed. You can download files from `url`.
+
+            '
+          enum:
+          - STARTING
+          - RUNNING
+          - EXPORTING
+          - COMPLETED
+          type: string
+        uncompressedFileSize:
+          description: File size after decompressing the file downloadable from `url`.
+          type: integer
+        url:
+          description: URL for downloading the SQL query result file. Included only when the SQL query is completed.
+          format: uri
+          type: string
+        usedExecCount:
+          description: Number of SQL queries executed this month.
+          type: integer
+      type: object
+    StartAnalysisQueriesResponse:
+      properties:
+        queryId:
+          description: SQL query ID.
+          type: string
+      type: object
+    StartAnalysisQueriesRequest:
+      properties:
+        from:
+          description: Start of the period to apply the SQL query (UNIX time (seconds)).
+          type: integer
+        sql:
+          description: A SQL query.
+          type: string
+        to:
+          description: End of the period to apply the SQL query (UNIX time (seconds)).
+          type: integer
+      type: object
+    GetAnalysisSchemasResponse:
+      items:
+        properties:
+          columnInfo:
+            description: Table column information.
+            items:
+              properties:
+                databaseType:
+                  description: 'Database data type.
+
+                    - `TEXT`: String type.
+
+                    - `FIXED`: Fixed-length string type.
+
+                    - `REAL`: Floating-point type.
+
+                    - `TIMESTAMP_TZ`: Timestamp type.
+
+                    - `BOOLEAN`: Boolean type.
+
+                    - `VARIANT`: Variable-length string type.
+
+                    '
+                  type: string
+                description:
+                  description: Description of the column.
+                  type: string
+                name:
+                  description: Column name.
+                  type: string
+                type:
+                  description: 'Reference type for programming languages (inferred from the database data type).
+
+                    - `string`: String type.
+
+                    - `int64`: Integer type.
+
+                    - `float64`: Floating-point type.
+
+                    - `Time`: DateTime type.
+
+                    - `bool`: Boolean type.
+
+                    '
+                  type: string
+              type: object
+            type: array
+          name:
+            description: Table name.
+            type: string
+        type: object
+      type: array
+  securitySchemes:
+    api_key:
+      description: 'API key for authentication. Obtain this from the Soracom User Console or via the Auth API.
+
+        Required in combination with an API token for all authenticated requests.
+
+        '
+      in: header
+      name: X-Soracom-API-Key
+      type: apiKey
+    api_token:
+      description: 'API token for authentication. This token has an expiration time and must be refreshed periodically.
+
+        Required in combination with an API key for all authenticated requests.'
+      in: header
+      name: X-Soracom-Token
+      type: apiKey

@@ -1,0 +1,532 @@
+openapi: 3.0.0
+info:
+  title: Soracom and Query Analysis Gadget API
+  description: Run SQL queries against Soracom Query, fetch query schemas, and search SIMs, Inventory devices, and Sigfox devices.
+  version: 20250903-043502
+servers:
+- description: Japan coverage production API endpoint
+  url: https://api.soracom.io/v1
+- description: Global coverage production API endpoint
+  url: https://g.api.soracom.io/v1
+tags:
+- description: Gadget API compatible devices<ul><li>[SoraCam dedicated cellular pack](/en/guides/soracom-cloud-camera-services/setting-cellular-pack/)</li></ul>
+  name: Gadget
+paths:
+  /gadgets:
+    get:
+      description: 'Returns a list of gadgets that match certain criteria. If the total number of gadgets does not fit in one page, a URL for accessing the next page is returned in the `link` header of the response.
+
+        '
+      operationId: listGadgets
+      parameters:
+      - description: 'Product ID of the target Gadget API compatible device for filtering the search.
+
+
+          - `wimax`: Soracom Cloud Camera Services Cellular Pack.
+
+          '
+        in: query
+        name: product_id
+        required: false
+        schema:
+          enum:
+          - button
+          - wimax
+          type: string
+      - description: Tag name for filtering the search. The search is always an exact match, regardless of the setting of `tag_value_match_mode`.
+        in: query
+        name: tag_name
+        required: false
+        schema:
+          type: string
+      - description: Specifies a tag value to search for in a URL-encoded (percent-encoded) string. Required when `tag_name` has been specified.
+        in: query
+        name: tag_value
+        required: false
+        schema:
+          type: string
+      - description: 'Tag match mode.
+
+
+          - `exact`: exact match.
+
+          - `prefix`: prefix match.
+
+          '
+        in: query
+        name: tag_value_match_mode
+        required: false
+        schema:
+          default: exact
+          enum:
+          - exact
+          - prefix
+          type: string
+      - description: Maximum number of Gadget API compatible devices data to retrieve.
+        in: query
+        name: limit
+        required: false
+        schema:
+          type: integer
+      - description: 'The ID (`{product_id}/{serial_number}`) of the last gadget retrieved on the previous page in URL encoding (percent encoding).
+
+
+          By specifying this parameter, you can continue to retrieve the list from the next Gadget API compatible device onward.
+
+
+          The value of the `last_evaluated_key` of `rel=next` returned in the `link` header when the API is called is expected to be specified in the next call, but any ID (`{productId}/{serialNumber}`) can be specified.
+
+          '
+        in: query
+        name: last_evaluated_key
+        required: false
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/Gadget'
+                type: array
+          description: A list of Gadget API compatible devices.
+      security:
+      - api_key: []
+        api_token: []
+      summary: List gadgets
+      tags:
+      - Gadget
+      x-soracom-cli:
+      - gadgets list
+      x-soracom-cli-pagination:
+        request:
+          param: last_evaluated_key
+        response:
+          header: x-soracom-next-key
+  /gadgets/{product_id}/{serial_number}:
+    get:
+      description: Returns information about the specified Gadget API compatible device.
+      operationId: getGadget
+      parameters:
+      - description: 'Product ID of the target Gadget API compatible device.
+
+
+          - `wimax`: Soracom Cloud Camera Services Cellular Pack.
+
+          '
+        in: path
+        name: product_id
+        required: true
+        schema:
+          enum:
+          - button
+          - wimax
+          type: string
+      - description: Serial Number of the target Gadget API compatible device.
+        in: path
+        name: serial_number
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Gadget'
+          description: Detailed information about the specified Gadget API compatible device.
+        '404':
+          description: The specified Gadget API compatible device does not exist.
+      security:
+      - api_key: []
+        api_token: []
+      summary: Get Gadget API compatible device
+      tags:
+      - Gadget
+      x-soracom-cli:
+      - gadgets get
+  /gadgets/{product_id}/{serial_number}/disable_termination:
+    post:
+      description: Disables termination of specified Gadget API compatible device.
+      operationId: disableTerminationOnGadget
+      parameters:
+      - description: 'Product ID of the target Gadget API compatible device.
+
+
+          - `wimax`: Soracom Cloud Camera Services Cellular Pack.
+
+          '
+        in: path
+        name: product_id
+        required: true
+        schema:
+          enum:
+          - button
+          - wimax
+          type: string
+      - description: Serial Number of the target Gadget API compatible device.
+        in: path
+        name: serial_number
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Gadget'
+          description: Detailed information about the updated Gadget API compatible device.
+        '404':
+          description: The specified Gadget API compatible device does not exist.
+      security:
+      - api_key: []
+        api_token: []
+      summary: Disables Termination of Gadget API compatible device
+      tags:
+      - Gadget
+      x-soracom-cli:
+      - gadgets disable-termination
+  /gadgets/{product_id}/{serial_number}/enable_termination:
+    post:
+      description: Enables termination of specified Gadget API compatible device.
+      operationId: enableTerminationOnGadget
+      parameters:
+      - description: 'Product ID of the target Gadget API compatible device.
+
+
+          - `wimax`: Soracom Cloud Camera Services Cellular Pack.
+
+          '
+        in: path
+        name: product_id
+        required: true
+        schema:
+          enum:
+          - button
+          - wimax
+          type: string
+      - description: Serial Number of the target Gadget API compatible device.
+        in: path
+        name: serial_number
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Gadget'
+          description: Detailed information about the updated Gadget API compatible device.
+        '404':
+          description: The specified Gadget API compatible device does not exist.
+      security:
+      - api_key: []
+        api_token: []
+      summary: Enables Termination of Gadget API compatible device
+      tags:
+      - Gadget
+      x-soracom-cli:
+      - gadgets enable-termination
+  /gadgets/{product_id}/{serial_number}/register:
+    post:
+      description: Registers a Gadget API compatible device.
+      operationId: registerGadget
+      parameters:
+      - description: 'Product ID of the target Gadget API compatible device.
+
+
+          - `wimax`: Soracom Cloud Camera Services Cellular Pack.
+
+          '
+        in: path
+        name: product_id
+        required: true
+        schema:
+          enum:
+          - button
+          - wimax
+          type: string
+      - description: Serial Number of the target Gadget API compatible device.
+        in: path
+        name: serial_number
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/GadgetRegistrationRequest'
+        description: Gadget registration request.
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Gadget'
+          description: Gadget API compatible device successfully registered.
+        '404':
+          description: No such resource found.
+      security:
+      - api_key: []
+        api_token: []
+      summary: Registers a Gadget API compatible device
+      tags:
+      - Gadget
+      x-soracom-cli:
+      - gadgets register
+  /gadgets/{product_id}/{serial_number}/tags:
+    put:
+      description: Inserts/updates tags for the specified Gadget API compatible device.
+      operationId: putGadgetTags
+      parameters:
+      - description: 'Product ID of the target Gadget API compatible device.
+
+
+          - `wimax`: Soracom Cloud Camera Services Cellular Pack.
+
+          '
+        in: path
+        name: product_id
+        required: true
+        schema:
+          enum:
+          - button
+          - wimax
+          type: string
+      - description: Serial Number of the target Gadget API compatible device.
+        in: path
+        name: serial_number
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              items:
+                $ref: '#/components/schemas/TagUpdateRequest'
+              type: array
+        description: Array of tags to be inserted/updated.
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Gadget'
+          description: Detailed information about the updated Gadget API compatible device.
+        '404':
+          description: The specified Gadget API compatible device does not exist.
+      security:
+      - api_key: []
+        api_token: []
+      summary: Bulk Insert or Update Gadget API compatible device tags
+      tags:
+      - Gadget
+      x-soracom-cli:
+      - gadgets put-tags
+  /gadgets/{product_id}/{serial_number}/tags/{tag_name}:
+    delete:
+      description: Deletes a tag from the specified Gadget API compatible device.
+      operationId: deleteGadgetTag
+      parameters:
+      - description: 'Product ID of the target Gadget API compatible device.
+
+
+          - `wimax`: Soracom Cloud Camera Services Cellular Pack.
+
+          '
+        in: path
+        name: product_id
+        required: true
+        schema:
+          enum:
+          - button
+          - wimax
+          type: string
+      - description: Serial Number of the target Gadget API compatible device.
+        in: path
+        name: serial_number
+        required: true
+        schema:
+          type: string
+      - description: Tag name to be deleted. (This will be part of a URL path, so it needs to be percent-encoded. In JavaScript, specify the name after it has been encoded using encodeURIComponent().)
+        in: path
+        name: tag_name
+        required: true
+        schema:
+          type: string
+      responses:
+        '204':
+          description: Deletion of specified tag complete.
+        '404':
+          description: The specified Gadget API compatible devices or the tags does not exist.
+      security:
+      - api_key: []
+        api_token: []
+      summary: Deletes tags from Gadget API compatible device
+      tags:
+      - Gadget
+      x-sam-operationId: deleteTag
+      x-soracom-cli:
+      - gadgets delete-tag
+  /gadgets/{product_id}/{serial_number}/terminate:
+    post:
+      description: Terminates the specified Gadget API compatible device.
+      operationId: terminateGadget
+      parameters:
+      - description: 'Product ID of the target Gadget API compatible device.
+
+
+          - `wimax`: Soracom Cloud Camera Services Cellular Pack.
+
+          '
+        in: path
+        name: product_id
+        required: true
+        schema:
+          enum:
+          - button
+          - wimax
+          type: string
+      - description: Serial Number of the target Gadget API compatible device.
+        in: path
+        name: serial_number
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Gadget'
+          description: Detailed information about the updated Gadget API compatible device.
+        '404':
+          description: The specified Gadget API compatible device does not exist.
+      security:
+      - api_key: []
+        api_token: []
+      summary: Terminates the specified Gadget API compatible device
+      tags:
+      - Gadget
+      x-soracom-cli:
+      - gadgets terminate
+components:
+  schemas:
+    Gadget:
+      properties:
+        attributes:
+          properties:
+            wimaxBillingStartDate:
+              description: Start date of billing for Soracom Cloud Camera Services Cellular Pack.
+              type: string
+            wimaxIccid:
+              description: ICCID (Integrated Circuit Card ID) of the au IC card included in the Soracom Cloud Camera Services Cellular Pack. Identifier to identify the au IC card.
+              type: string
+            wimaxImei:
+              description: IMEI of the router included in the Soracom Cloud Camera Services Cellular Pack.
+              type: string
+          type: object
+        createdTime:
+          description: UNIX time (in milliseconds) that the Gadget API compatible device was registered.
+          format: int64
+          type: integer
+        id:
+          description: ID of the Gadget API compatible device.
+          type: string
+        lastModifiedTime:
+          description: UNIX time (in milliseconds) that the Gadget API compatible device information was changed.
+          format: int64
+          type: integer
+        operatorId:
+          description: Operator ID with which the Gadget API compatible device is registered.
+          type: string
+        productId:
+          description: 'Product ID of the target Gadget API compatible device.
+
+
+            - `wimax`: Soracom Cloud Camera Services Cellular Pack.
+
+            '
+          enum:
+          - button
+          - wimax
+          type: string
+        serialNumber:
+          description: Serial Number of the target Gadget API compatible device.
+          type: string
+        status:
+          description: 'Contract status of the Gadget API compatible device.
+
+
+            - `active`: In use.
+
+            - `terminated`: Cancelled.
+
+            '
+          enum:
+          - active
+          - terminated
+          type: string
+        tags:
+          additionalProperties:
+            type: string
+          description: Tags.
+          type: object
+        terminatedTime:
+          description: The cancellation date and time of the Gadget API compatible device. If not cancelled, `null`.
+          format: int64
+          type: integer
+        terminationEnabled:
+          default: false
+          description: 'Termination protection for Gadget API compatible device.
+
+
+            - `true`: OFF (can be cancelled)
+
+            - `false`: ON (cannot cancel)
+
+            '
+          type: boolean
+      type: object
+    TagUpdateRequest:
+      properties:
+        tagName:
+          type: string
+        tagValue:
+          type: string
+      required:
+      - tagName
+      - tagValue
+      type: object
+    GadgetRegistrationRequest:
+      properties:
+        tags:
+          additionalProperties:
+            type: string
+          description: Tags.
+          type: object
+      type: object
+  securitySchemes:
+    api_key:
+      description: 'API key for authentication. Obtain this from the Soracom User Console or via the Auth API.
+
+        Required in combination with an API token for all authenticated requests.
+
+        '
+      in: header
+      name: X-Soracom-API-Key
+      type: apiKey
+    api_token:
+      description: 'API token for authentication. This token has an expiration time and must be refreshed periodically.
+
+        Required in combination with an API key for all authenticated requests.'
+      in: header
+      name: X-Soracom-Token
+      type: apiKey

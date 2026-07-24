@@ -1,18 +1,20 @@
 openapi: 3.0.0
 info:
-  title: Soracom Air for Sigfox API
-  description: Manage Soracom Air for Sigfox devices.
+  title: Soracom and Query Analysis SigfoxDevice API
+  description: Run SQL queries against Soracom Query, fetch query schemas, and search SIMs, Inventory devices, and Sigfox devices.
   version: 20250903-043502
 servers:
 - description: Japan coverage production API endpoint
   url: https://api.soracom.io/v1
 - description: Global coverage production API endpoint
   url: https://g.api.soracom.io/v1
+tags:
+- description: '[Soracom Air for Sigfox](/en/docs/air-for-sigfox/) devices'
+  name: SigfoxDevice
 paths:
   /sigfox_devices:
     get:
-      description: 'Returns a list of Sigfox devices that match certain criteria. If the total number of Sigfox devices does
-        not fit in one page, a URL for accessing the next page is returned in the `link` header of the response.
+      description: 'Returns a list of Sigfox devices that match certain criteria. If the total number of Sigfox devices does not fit in one page, a URL for accessing the next page is returned in the `link` header of the response.
 
         '
       operationId: listSigfoxDevices
@@ -45,8 +47,7 @@ paths:
         required: false
         schema:
           type: integer
-      - description: The device ID of the last Sigfox device retrieved on the previous page. By specifying this parameter,
-          you can continue to retrieve the list from the next Sigfox device onward.
+      - description: The device ID of the last Sigfox device retrieved on the previous page. By specifying this parameter, you can continue to retrieve the list from the next Sigfox device onward.
         in: query
         name: last_evaluated_key
         required: false
@@ -104,15 +105,12 @@ paths:
       - sigfox-devices get
   /sigfox_devices/{device_id}/data:
     get:
-      description: 'Retrieves data that matches the specified conditions from the data sent by the specified Sigfox device
-        to Harvest Data. If the data entries do not fit in one page, a URL to retrieve the next page with the same conditions
-        will be included in the `link` header of the response.
+      description: 'Retrieves data that matches the specified conditions from the data sent by the specified Sigfox device to Harvest Data. If the data entries do not fit in one page, a URL to retrieve the next page with the same conditions will be included in the `link` header of the response.
 
         '
       operationId: getDataFromSigfoxDevice
       parameters:
-      - description: ID of the Sigfox device from which to retrieve data. The ID of a Sigfox device can be obtained using
-          the [SigfoxDevice:listSigfoxDevices API](#!/SigfoxDevice/listSigfoxDevices).
+      - description: ID of the Sigfox device from which to retrieve data. The ID of a Sigfox device can be obtained using the [SigfoxDevice:listSigfoxDevices API](#!/SigfoxDevice/listSigfoxDevices).
         in: path
         name: device_id
         required: true
@@ -130,8 +128,7 @@ paths:
         required: false
         schema:
           type: integer
-      - description: Sort order of data entries. Either descending order (latest data entry first) or ascending order (oldest
-          data entry first).
+      - description: Sort order of data entries. Either descending order (latest data entry first) or ascending order (oldest data entry first).
         in: query
         name: sort
         required: false
@@ -149,8 +146,7 @@ paths:
           maximum: 1000
           minimum: 1
           type: integer
-      - description: Timestamp of the last data entry retrieved on the previous page. By specifying this parameter, the list
-          starting from the next data entry can be obtained.
+      - description: Timestamp of the last data entry retrieved on the previous page. By specifying this parameter, the list starting from the next data entry can be obtained.
         in: query
         name: last_evaluated_key
         required: false
@@ -179,9 +175,7 @@ paths:
         response:
           header: x-soracom-next-key
     post:
-      description: Sends data to the specified Sigfox device. The data will be stored until the device sends a next uplink
-        message. If another message destined for the same Sigfox device ID is already waiting to be sent, the existing message
-        will be discarded, and the new message will be sent instead.
+      description: Sends data to the specified Sigfox device. The data will be stored until the device sends a next uplink message. If another message destined for the same Sigfox device ID is already waiting to be sent, the existing message will be discarded, and the new message will be sent instead.
       operationId: sendDataToSigfoxDevice
       parameters:
       - description: ID of the recipient device.
@@ -195,8 +189,7 @@ paths:
           application/json:
             schema:
               $ref: '#/components/schemas/SigfoxData'
-        description: Binary data encoded as a hexadecimal string. Length of original binary data must be 8 octets (16 characters
-          when encoded as a hexadecimal string).
+        description: Binary data encoded as a hexadecimal string. Length of original binary data must be 8 octets (16 characters when encoded as a hexadecimal string).
         required: true
       responses:
         '202':
@@ -307,8 +300,7 @@ paths:
       description: Adds a Sigfox device to a Sigfox group.
       operationId: setSigfoxDeviceGroup
       parameters:
-      - description: ID of the target Sigfox device. The ID of a Sigfox device can be obtained using the [SigfoxDevice:listSigfoxDevices
-          API](#!/SigfoxDevice/listSigfoxDevices).
+      - description: ID of the target Sigfox device. The ID of a Sigfox device can be obtained using the [SigfoxDevice:listSigfoxDevices API](#!/SigfoxDevice/listSigfoxDevices).
         in: path
         name: device_id
         required: true
@@ -385,8 +377,7 @@ paths:
         required: true
         schema:
           type: string
-      - description: Tag name to be deleted. (This will be part of a URL path, so it needs to be percent-encoded. In JavaScript,
-          specify the name after it has been encoded using encodeURIComponent().)
+      - description: Tag name to be deleted. (This will be part of a URL path, so it needs to be percent-encoded. In JavaScript, specify the name after it has been encoded using encodeURIComponent().)
         in: path
         name: tag_name
         required: true
@@ -446,8 +437,7 @@ paths:
       description: Removes a Sigfox device from a Sigfox group.
       operationId: unsetSigfoxDeviceGroup
       parameters:
-      - description: ID of the target Sigfox device. The ID of a Sigfox device can be obtained using the [SigfoxDevice:listSigfoxDevices
-          API](#!/SigfoxDevice/listSigfoxDevices).
+      - description: ID of the target Sigfox device. The ID of a Sigfox device can be obtained using the [SigfoxDevice:listSigfoxDevices API](#!/SigfoxDevice/listSigfoxDevices).
         in: path
         name: device_id
         required: true
@@ -470,48 +460,8 @@ paths:
       - SigfoxDevice
       x-soracom-cli:
       - sigfox-devices unset-group
-tags:
-- description: '[Soracom Air for Sigfox](/en/docs/air-for-sigfox/) devices'
-  name: SigfoxDevice
 components:
   schemas:
-    TagUpdateRequest:
-      properties:
-        tagName:
-          type: string
-        tagValue:
-          type: string
-      required:
-      - tagName
-      - tagValue
-      type: object
-    LastSeen:
-      properties:
-        rssi:
-          format: int32
-          type: integer
-        snr:
-          format: int32
-          type: integer
-        time:
-          format: date-time
-          type: string
-      type: object
-    SigfoxRegistrationRequest:
-      properties:
-        registrationSecret:
-          type: string
-        tags:
-          additionalProperties:
-            type: string
-          type: object
-      type: object
-    SetGroupRequest:
-      properties:
-        groupId:
-          description: Group ID. The group ID can be obtained using the [Group:listGroups API](#!/Group/listGroups).
-          type: string
-      type: object
     DataEntry:
       properties:
         category:
@@ -534,6 +484,26 @@ components:
         time:
           format: int64
           type: integer
+      type: object
+    SigfoxData:
+      properties:
+        data:
+          type: string
+      type: object
+    SigfoxRegistrationRequest:
+      properties:
+        registrationSecret:
+          type: string
+        tags:
+          additionalProperties:
+            type: string
+          type: object
+      type: object
+    SetGroupRequest:
+      properties:
+        groupId:
+          description: Group ID. The group ID can be obtained using the [Group:listGroups API](#!/Group/listGroups).
+          type: string
       type: object
     SigfoxDevice:
       properties:
@@ -563,9 +533,26 @@ components:
           default: false
           type: boolean
       type: object
-    SigfoxData:
+    TagUpdateRequest:
       properties:
-        data:
+        tagName:
+          type: string
+        tagValue:
+          type: string
+      required:
+      - tagName
+      - tagValue
+      type: object
+    LastSeen:
+      properties:
+        rssi:
+          format: int32
+          type: integer
+        snr:
+          format: int32
+          type: integer
+        time:
+          format: date-time
           type: string
       type: object
   securitySchemes:

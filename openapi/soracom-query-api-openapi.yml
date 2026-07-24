@@ -1,149 +1,23 @@
 openapi: 3.0.0
 info:
-  title: Soracom Analysis and Query API
-  description: Run SQL queries against Soracom Query, fetch query schemas, and search SIMs, Inventory devices, and Sigfox
-    devices.
+  title: Soracom and Analysis Query API
+  description: Run SQL queries against Soracom Query, fetch query schemas, and search SIMs, Inventory devices, and Sigfox devices.
   version: 20250903-043502
 servers:
 - description: Japan coverage production API endpoint
   url: https://api.soracom.io/v1
 - description: Global coverage production API endpoint
   url: https://g.api.soracom.io/v1
+tags:
+- description: Search SIMs, Soracom Inventory devices, and Sigfox devices
+  name: Query
 paths:
-  /analysis/queries:
-    post:
-      description: Executes a SQL query asynchronously. You can check the status of a SQL query execution with the [Analysis:getAnalysisQueries
-        API](#/Analysis/getAnalysisQueries).
-      operationId: startAnalysisQueries
-      requestBody:
-        content:
-          application/json:
-            example:
-              from: 1743465600
-              sql: SELECT * FROM SIM_SESSION_EVENTS LIMIT 10
-              to: 1743552000
-            schema:
-              $ref: '#/components/schemas/StartAnalysisQueriesRequest'
-        description: A SQL query execution request.
-        required: true
-      responses:
-        '200':
-          content:
-            application/json:
-              example:
-                queryId: ffa91d0c371d45c4bf53d55ab5c14955
-              schema:
-                $ref: '#/components/schemas/StartAnalysisQueriesResponse'
-          description: A new SQL query execution has started.
-      security:
-      - api_key: []
-        api_token: []
-      summary: Execute a new SQL query asynchronously
-      tags:
-      - Analysis
-      x-soracom-cli:
-      - analysis queries start
-  /analysis/queries/{query_id}:
-    get:
-      description: Retrieve the execution status of a SQL query.
-      operationId: getAnalysisQueries
-      parameters:
-      - description: SQL query ID.
-        in: path
-        name: query_id
-        required: true
-        schema:
-          type: string
-      responses:
-        '200':
-          content:
-            application/json:
-              example:
-                columnInfo:
-                - databaseType: FIXED
-                  name: ICCID
-                  type: string
-                - databaseType: TEXT
-                  name: IMEI
-                  type: string
-                - databaseType: NUMBER
-                  name: IMSI
-                  type: number
-                fileSize: 12345678
-                rowCount: 12345
-                status: COMPLETED
-                url: https://soracom-analysis-export.s3.amazonaws.com/ffa91d0c-371d-45c4-bf53-d55ab5c14955.csv.gz
-              schema:
-                $ref: '#/components/schemas/GetAnalysisQueriesResponse'
-          description: The execution status, results, and download URL of the SQL query.
-      security:
-      - api_key: []
-        api_token: []
-      summary: Retrieve the execution status of a SQL query
-      tags:
-      - Analysis
-      x-soracom-cli:
-      - analysis queries get
-  /analysis/schemas:
-    get:
-      description: "Retrieves the available schemas and their column information within the database. You can use this information\
-        \ as a reference when converting data types of data retrieved with the [Analysis:startAnalysisQueries API](#/Analysis/startAnalysisQueries).\n\
-        Example: If the column `type` is `string` as shown below, it can be treated as a string.\n```json\n{\n  \"name\":\
-        \ \"SIM_SESSION_EVENTS\",\n  \"columnInfo\": [\n      {\n          \"name\": \"APN\",\n          \"type\": \"string\"\
-        ,\n          \"databaseType\": \"TEXT\",\n          \"description\": \"Access Point Name indicating the network gateway\
-        \ for the SIM session.\"\n      }\n  ]\n}\n```\n"
-      operationId: getAnalysisSchemas
-      responses:
-        '200':
-          content:
-            application/json:
-              example:
-              - columnInfo:
-                - databaseType: TEXT
-                  description: Access Point Name indicating the network gateway for the SIM session.
-                  name: APN
-                  type: string
-                - databaseType: TEXT
-                  description: The primary DNS server IP address used during the SIM session.
-                  name: DNS0
-                  type: string
-                - databaseType: TEXT
-                  description: The secondary DNS server IP address used during the SIM session.
-                  name: DNS1
-                  type: string
-                - databaseType: TEXT
-                  description: Describes the type of event associated with the SIM session, such as Created, Deleted, or Updated.
-                  name: EVENT
-                  type: string
-                - databaseType: TEXT
-                  description: Home Public Land Mobile Network code that identifies the home network operator.
-                  name: HPLMN
-                  type: string
-                - databaseType: TEXT
-                  description: The Integrated Circuit Card Identifier, a unique number assigned to the SIM card.
-                  name: ICCID
-                  type: string
-                name: SIM_SESSION_EVENTS
-              schema:
-                $ref: '#/components/schemas/GetAnalysisSchemasResponse'
-          description: A list of available database schemas and their column information.
-      security:
-      - api_key: []
-        api_token: []
-      summary: Retrieve available database schemas
-      tags:
-      - Analysis
-      x-soracom-cli:
-      - analysis schemas
   /query/devices:
     get:
-      description: 'Search Soracom Inventory devices by query terms. It returns partial match results. When this API permission
-        is allowed, it grants the authority to search and retrieve all Soracom Inventory devices that include their group
-        information.
+      description: 'Search Soracom Inventory devices by query terms. It returns partial match results. When this API permission is allowed, it grants the authority to search and retrieve all Soracom Inventory devices that include their group information.
 
 
-        **Warning**: Use this API when the device ID of the target Inventory device is unknown, or when you want to retrieve
-        a list of Inventory devices that match conditions. If you know the device ID, use the [Device:getDevice API](#/Device/getDevice).
+        **Warning**: Use this API when the device ID of the target Inventory device is unknown, or when you want to retrieve a list of Inventory devices that match conditions. If you know the device ID, use the [Device:getDevice API](#/Device/getDevice).
 
         '
       operationId: searchDevices
@@ -220,8 +94,7 @@ paths:
           format: int32
           maximum: 100
           type: integer
-      - description: The Soracom Inventory device ID of the last Inventory device retrieved on the previous page. By specifying
-          this parameter, you can continue to retrieve the list from the next Inventory device onward.
+      - description: The Soracom Inventory device ID of the last Inventory device retrieved on the previous page. By specifying this parameter, you can continue to retrieve the list from the next Inventory device onward.
         in: query
         name: last_evaluated_key
         required: false
@@ -263,12 +136,10 @@ paths:
           header: x-soracom-next-key
   /query/sigfox_devices:
     get:
-      description: 'Search Sigfox devices by query terms. It returns partial match results. When this API permission is allowed,
-        it grants the authority to search and retrieve all Sigfox devices that includes their group information.
+      description: 'Search Sigfox devices by query terms. It returns partial match results. When this API permission is allowed, it grants the authority to search and retrieve all Sigfox devices that includes their group information.
 
 
-        **Warning**: Use this API when the device ID of the target Sigfox device is unknown, or when you want to retrieve
-        a list of Sigfox devices that match conditions. If you know the device ID, use the [SigfoxDevice:getSigfoxDevice API](#/SigfoxDevice/getSigfoxDevice).
+        **Warning**: Use this API when the device ID of the target Sigfox device is unknown, or when you want to retrieve a list of Sigfox devices that match conditions. If you know the device ID, use the [SigfoxDevice:getSigfoxDevice API](#/SigfoxDevice/getSigfoxDevice).
 
         '
       operationId: searchSigfoxDevices
@@ -356,8 +227,7 @@ paths:
           format: int32
           maximum: 100
           type: integer
-      - description: The Sigfox device ID of the last Sigfox device retrieved on the previous page. By specifying this parameter,
-          you can continue to retrieve the list from the next Sigfox device onward.
+      - description: The Sigfox device ID of the last Sigfox device retrieved on the previous page. By specifying this parameter, you can continue to retrieve the list from the next Sigfox device onward.
         in: query
         name: last_evaluated_key
         required: false
@@ -399,17 +269,7 @@ paths:
           header: x-soracom-next-key
   /query/sims:
     get:
-      description: "Searches for SIMs using specified query parameters.\n\n- Supports partial matching.\n- Case-insensitive.\n\
-        - Multiple search values can be specified for the following parameters by separating each value with a comma `,` (or\
-        \ `%2C` when URL-encoded). Note that the literal character `,` itself cannot be used as part of a search value.\n\
-        \    - `name`\n    - `group`\n    - `sim_id`\n    - `imsi`\n    - `msisdn`\n    - `iccid`\n    - `serial_number`\n\
-        \    - `tag`\n    - `status`\n    - `subscription`\n    - `module_type`\n- Each search value must be at least 2 characters\
-        \ long. When using a comma `,` to specify multiple search values, each value must also be at least 2 characters long\
-        \ (e.g., `ab,c` is invalid because `c` is only 1 character long).\n- When multiple query parameters are specified,\
-        \ the search type (AND search or OR search) can be specified using `search_type`.\n\n**Warning**: When this API permission\
-        \ is allowed, it grants the authority to search and retrieve all SIMs that include their group information.\n\n**Warning**:\
-        \ Use this API when the SIM ID of the target IoT SIM is unknown, or when you want to retrieve a list of SIMs that\
-        \ match certain conditions. If you know the SIM ID, please use the [Sim:getSim API](#/Sim/getSim) instead.\n"
+      description: "Searches for SIMs using specified query parameters.\n\n- Supports partial matching.\n- Case-insensitive.\n- Multiple search values can be specified for the following parameters by separating each value with a comma `,` (or `%2C` when URL-encoded). Note that the literal character `,` itself cannot be used as part of a search value.\n    - `name`\n    - `group`\n    - `sim_id`\n    - `imsi`\n    - `msisdn`\n    - `iccid`\n    - `serial_number`\n    - `tag`\n    - `status`\n    - `subscription`\n    - `module_type`\n- Each search value must be at least 2 characters long. When using a comma `,` to specify multiple search values, each value must also be at least 2 characters long (e.g., `ab,c` is invalid because `c` is only 1 character long).\n- When multiple query parameters are specified, the search type (AND search or OR search) can be specified using `search_type`.\n\n**Warning**: When this API permission is allowed, it grants the authority to search and retrieve all SIMs that include their group information.\n\n**Warning**: Use this API when the SIM ID of the target IoT SIM is unknown, or when you want to retrieve a list of SIMs that match certain conditions. If you know the SIM ID, please use the [Sim:getSim API](#/Sim/getSim) instead.\n"
       operationId: searchSims
       parameters:
       - description: Name to search.
@@ -565,13 +425,7 @@ paths:
           - OFFLINE
           format: string
           type: string
-      - description: "Subscription to search. Use exact match for the search. If specifying multiple subscriptions, please\
-          \ set `search_type` to `OR`.\n\n- For Japan coverage, specify one of the following:\n  - `plan-D`: plan-D (without\
-          \ bundle), plan-D (D-300MB).\n  - `plan-K2`: plan-K2 (K2-300MB).\n  - `plan-DU`\n  - `plan-KM1`\n  - `plan-K`\n\
-          \  - `planArc01`: Virtual SIM/Subscriber.\n- For global coverage, specify one of the following:\n  - `plan01s`\n\
-          \  - `plan01s-low_data_volume`: plan01s - Low Data Volume.\n  - `planX3`: planX3 (X3-5MB), planX3.\n  - `planP1`\n\
-          \  - `plan-US`\n  - `plan-US-max`\n  - `planX1`\n  - `planX2`\n  - `planX3-EU`\n  - `plan-US-NA`\n  - `planArc01`:\
-          \ Virtual SIM/Subscriber.\n"
+      - description: "Subscription to search. Use exact match for the search. If specifying multiple subscriptions, please set `search_type` to `OR`.\n\n- For Japan coverage, specify one of the following:\n  - `plan-D`: plan-D (without bundle), plan-D (D-300MB).\n  - `plan-K2`: plan-K2 (K2-300MB).\n  - `plan-DU`\n  - `plan-KM1`\n  - `plan-K`\n  - `planArc01`: Virtual SIM/Subscriber.\n- For global coverage, specify one of the following:\n  - `plan01s`\n  - `plan01s-low_data_volume`: plan01s - Low Data Volume.\n  - `planX3`: planX3 (X3-5MB), planX3.\n  - `planP1`\n  - `plan-US`\n  - `plan-US-max`\n  - `planX1`\n  - `planX2`\n  - `planX3-EU`\n  - `plan-US-NA`\n  - `planArc01`: Virtual SIM/Subscriber.\n"
         explode: true
         in: query
         name: subscription
@@ -617,8 +471,7 @@ paths:
           format: int32
           maximum: 100
           type: integer
-      - description: The SIM ID of the last SIM retrieved on the previous page. By specifying this parameter, you can continue
-          to retrieve the list from the next SIM onward.
+      - description: The SIM ID of the last SIM retrieved on the previous page. By specifying this parameter, you can continue to retrieve the list from the next SIM onward.
         in: query
         name: last_evaluated_key
         required: false
@@ -632,9 +485,7 @@ paths:
           - OR: SIMs which match any of the search parameters will be returned.
 
 
-          If the value of a search parameter contains a comma `,` (or `%2C` when URL-encoded), the value will be split at
-          each comma and treated as multiple search values, each of which will be evaluated based on the specified AND or
-          OR condition.
+          If the value of a search parameter contains a comma `,` (or `%2C` when URL-encoded), the value will be split at each comma and treated as multiple search values, each of which will be evaluated based on the specified AND or OR condition.
 
           '
         in: query
@@ -673,9 +524,7 @@ paths:
   /query/subscribers:
     get:
       deprecated: true
-      description: '(DEPRECATED: please consider to use `/query/sims` API instead ) Search subscribers by query terms. It
-        returns partial match results. When this API permission is allowed, it grants the authority to search and retrieve
-        all SIMs that includes their group information.'
+      description: '(DEPRECATED: please consider to use `/query/sims` API instead ) Search subscribers by query terms. It returns partial match results. When this API permission is allowed, it grants the authority to search and retrieve all SIMs that includes their group information.'
       operationId: searchSubscribers
       parameters:
       - description: Name to search.
@@ -741,13 +590,7 @@ paths:
           items:
             type: string
           type: array
-      - description: "Subscription to search. Use exact match for the search. If specifying multiple subscriptions, please\
-          \ set `search_type` to `OR`.\n\n- For Japan coverage, specify one of the following:\n  - `plan-D`: plan-D (without\
-          \ bundle), plan-D (D-300MB).\n  - `plan-K2`: plan-K2 (K2-300MB).\n  - `plan-DU`\n  - `plan-KM1`\n  - `plan-K`\n\
-          \  - `planArc01`: Virtual SIM/Subscriber.\n- For global coverage, specify one of the following:\n  - `plan01s`\n\
-          \  - `plan01s-low_data_volume`: plan01s - Low Data Volume.\n  - `planX3`: planX3 (X3-5MB), planX3.\n  - `planP1`\n\
-          \  - `plan-US`\n  - `plan-US-max`\n  - `planX1`\n  - `planX2`\n  - `planX3-EU`\n  - `plan-US-NA`\n  - `planArc01`:\
-          \ Virtual SIM/Subscriber.\n"
+      - description: "Subscription to search. Use exact match for the search. If specifying multiple subscriptions, please set `search_type` to `OR`.\n\n- For Japan coverage, specify one of the following:\n  - `plan-D`: plan-D (without bundle), plan-D (D-300MB).\n  - `plan-K2`: plan-K2 (K2-300MB).\n  - `plan-DU`\n  - `plan-KM1`\n  - `plan-K`\n  - `planArc01`: Virtual SIM/Subscriber.\n- For global coverage, specify one of the following:\n  - `plan01s`\n  - `plan01s-low_data_volume`: plan01s - Low Data Volume.\n  - `planX3`: planX3 (X3-5MB), planX3.\n  - `planP1`\n  - `plan-US`\n  - `plan-US-max`\n  - `planX1`\n  - `planX2`\n  - `planX3-EU`\n  - `plan-US-NA`\n  - `planArc01`: Virtual SIM/Subscriber.\n"
         explode: true
         in: query
         name: subscription
@@ -774,8 +617,7 @@ paths:
           format: int32
           maximum: 100
           type: integer
-      - description: The IMSI of the last subscriber retrieved on the previous page. By specifying this parameter, you can
-          continue to retrieve the list from the next subscriber onward.
+      - description: The IMSI of the last subscriber retrieved on the previous page. By specifying this parameter, you can continue to retrieve the list from the next subscriber onward.
         in: query
         name: last_evaluated_key
         required: false
@@ -872,67 +714,46 @@ paths:
       x-soracom-cli:
       - query subscribers traffic-volume-ranking
       - query traffic-ranking
-  /resource_summaries/{resource_summary_type}:
-    get:
-      description: Obtain a resource summary information identified by resource_summary_type.
-      operationId: getResourceSummary
-      parameters:
-      - description: 'The type of the resource summary.
-
-
-          - `simsPerStatus`: The number of IoT SIMs per status.
-
-          '
-        in: path
-        name: resource_summary_type
-        required: true
-        schema:
-          enum:
-          - simsPerStatus
-          type: string
-      responses:
-        '200':
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ResourceSummary'
-          description: The resource summary was found.
-        '404':
-          description: No such resource summary.
-      security:
-      - api_key: []
-        api_token: []
-      summary: Get the resource summary identified by resource_summary_type
-      tags:
-      - ResourceSummary
-      x-soracom-cli:
-      - resource-summaries get
-tags:
-- description: '[Soracom Query](/en/docs/query/)'
-  name: Analysis
-- description: Search SIMs, Soracom Inventory devices, and Sigfox devices
-  name: Query
 components:
   schemas:
-    TrafficVolumeRanking:
+    Map:
+      additionalProperties:
+        type: string
+      type: object
+    SimProfile:
       properties:
-        imsi:
+        arcClientPeerPrivateKey:
+          description: 'The client''s PrivateKey (client peer private key) for connecting with WireGuard.
+
+            - PrivateKey (client peer private key) cannot be redisplayed. If you have lost your private key, generate a new key and update the device credentials.
+
+            - Never disclose connection information to outside parties.
+
+            '
           type: string
-        trafficVolume:
-          format: int64
+        arcClientPeerPublicKey:
+          type: string
+        iccid:
+          type: string
+        otaSupported:
+          type: boolean
+        primaryImsi:
+          type: string
+        subscribers:
+          additionalProperties:
+            $ref: '#/components/schemas/SimplifiedSubscriber'
+          type: object
+      type: object
+    LastSeen:
+      properties:
+        rssi:
+          format: int32
           type: integer
-      type: object
-    ImeiLock:
-      description: IMEI lock configuration.
-      properties:
-        imei:
-          description: IMEI of the target device
-          type: string
-      type: object
-    StartAnalysisQueriesResponse:
-      properties:
-        queryId:
-          description: SQL query ID.
+        snr:
+          format: int32
+          type: integer
+        time:
+          format: date-time
           type: string
       type: object
     LocationRegistrationStatus:
@@ -989,8 +810,7 @@ components:
 
             - `ready`: OTA is complete.
 
-            - `active`: A connection via the additional subscription has been confirmed. This does not refer to the status
-            of the IoT SIM.
+            - `active`: A connection via the additional subscription has been confirmed. This does not refer to the status of the IoT SIM.
 
             - `terminated`
 
@@ -1008,19 +828,26 @@ components:
         subscription:
           type: string
       type: object
-    SessionStatus:
-      description: Information about the current session.
+    PreviousSessionStatus:
+      description: Information about the previous session.
       properties:
         cell:
           $ref: '#/components/schemas/Cell'
+        createdTime:
+          description: The time when the previous session was created.
+          format: int64
+          type: integer
+        deletedTime:
+          description: The time when the previous session was deleted.
+          format: int64
+          type: integer
         dnsServers:
           description: Array of IP address of the DNS servers.
           items:
             type: string
           type: array
         gatewayPrivateIpAddress:
-          description: The private IP address of the VPG. In the case of VPG Type-F, the source IP address of the closed network
-            communication from the IoT SIM to the customer's system is NAT-ed to this IP address.
+          description: The private IP address of the VPG. In the case of VPG Type-F, the source IP address of the closed network communication from the IoT SIM to the customer's system is NAT-ed to this IP address.
           type: string
         gatewayPublicIpAddress:
           description: The fixed global IP address when using the VPG [Fixed Global IP Address Option](/en/docs/vpg/fixed-global-ip/).
@@ -1031,42 +858,16 @@ components:
         imsi:
           description: The IMSI of the IoT SIM.
           type: string
-        lastUpdatedAt:
-          format: int64
-          type: integer
-        location:
-          type: object
-        online:
-          description: 'Session status.
-
-            - `true`: online
-
-            - `false`: offline
-
-            '
-          type: boolean
-        placement:
-          $ref: '#/components/schemas/Placement'
         sessionId:
           description: The session ID.
           type: string
         subscription:
-          description: The subscription.
           type: string
         ueIpAddress:
           description: The IP address of the device.
           type: string
         vpgId:
           description: The VPG ID. If the VPG was not used, this will not be output.
-          type: string
-      type: object
-    ResourceSummaryItemDimension:
-      properties:
-        name:
-          description: The name of the resource summary item dimension.
-          type: string
-        value:
-          description: The value of the resource summary item dimension.
           type: string
       type: object
     Sim:
@@ -1082,8 +883,7 @@ components:
           format: int64
           type: integer
         expiryAction:
-          description: 'Action when expiration date expires. Please refer to [Soracom Air Expiration Function](/en/docs/air/expiration/)
-            for more detail.
+          description: 'Action when expiration date expires. Please refer to [Soracom Air Expiration Function](/en/docs/air/expiration/) for more detail.
 
 
             - `doNothing` : do nothing
@@ -1117,13 +917,11 @@ components:
         imeiLock:
           $ref: '#/components/schemas/ImeiLock'
         lastModifiedTime:
-          description: UNIX time (in milliseconds) that the information in the IoT SIM (primary subscription to the IoT SIM)
-            was changed
+          description: UNIX time (in milliseconds) that the information in the IoT SIM (primary subscription to the IoT SIM) was changed
           format: int64
           type: integer
         lastPortMappingCreatedTime:
-          description: UNIX time in milliseconds that Napter was used with the SIM. If Napter has never been used with the
-            SIM, null is returned.
+          description: UNIX time in milliseconds that Napter was used with the SIM. If Napter has never been used with the SIM, null is returned.
           format: int64
           type: integer
         localInfo:
@@ -1192,8 +990,7 @@ components:
           description: The speed class of the SIM.
           type: string
         status:
-          description: 'Status of the IoT SIM (primary subscription of the IoT SIM). The status of the virtual SIM/subscriber
-            added to the IoT SIM is either `active` or `terminated`.
+          description: 'Status of the IoT SIM (primary subscription of the IoT SIM). The status of the virtual SIM/subscriber added to the IoT SIM is either `active` or `terminated`.
 
 
             - `ready`
@@ -1250,305 +1047,6 @@ components:
           - virtual
           type: string
       type: object
-    Device:
-      properties:
-        device_id:
-          type: string
-        endpoint:
-          type: string
-        firmwareVersion:
-          type: string
-        groupId:
-          type: string
-        ipAddress:
-          type: string
-        lastModifiedTime:
-          format: date-time
-          type: string
-        lastRegistrationUpdate:
-          format: date-time
-          type: string
-        manufacturer:
-          type: string
-        modelNumber:
-          type: string
-        objects:
-          type: object
-        online:
-          default: false
-          type: boolean
-        operatorId:
-          type: string
-        registrationId:
-          type: string
-        registrationLifeTime:
-          format: int64
-          type: integer
-        serialNumber:
-          type: string
-        tags:
-          additionalProperties:
-            type: string
-          type: object
-      type: object
-    StartAnalysisQueriesRequest:
-      properties:
-        from:
-          description: Start of the period to apply the SQL query (UNIX time (seconds)).
-          type: integer
-        sql:
-          description: A SQL query.
-          type: string
-        to:
-          description: End of the period to apply the SQL query (UNIX time (seconds)).
-          type: integer
-      type: object
-    GetAnalysisQueriesResponse:
-      properties:
-        columnInfo:
-          description: Column information of the SQL query result.
-          items:
-            properties:
-              databaseType:
-                description: 'Database data type.
-
-                  - `TEXT`: String type.
-
-                  - `FIXED`: Fixed-length string type.
-
-                  - `REAL`: Floating-point type.
-
-                  - `TIMESTAMP_TZ`: Timestamp type.
-
-                  - `BOOLEAN`: Boolean type.
-
-                  - `VARIANT`: Variable-length string type.'
-                type: string
-              name:
-                description: Column name.
-                type: string
-              type:
-                description: 'Reference type for programming languages (inferred).
-
-                  - `string`: String type.
-
-                  - `int64`: Integer type.
-
-                  - `float64`: Floating-point type.
-
-                  - `Time`: DateTime type.
-
-                  - `bool`: Boolean type.
-
-                  '
-                type: string
-            type: object
-          type: array
-        fileSize:
-          description: File size of the file downloadable from `url`.
-          type: integer
-        rowCount:
-          description: Number of data rows contained in the file downloadable from `url`.
-          type: integer
-        sqlExecTime:
-          description: Time taken to execute the SQL query (seconds).
-          type: integer
-        sqlExportTime:
-          description: Time taken to export the SQL query result (seconds).
-          type: integer
-        status:
-          description: 'SQL query execution status.
-
-            - `STARTING`: SQL query execution started.
-
-            - `RUNNING`: SQL query is running (extracting data).
-
-            - `EXPORTING`: SQL query result is being exported.
-
-            - `COMPLETED`: SQL query completed. You can download files from `url`.
-
-            '
-          enum:
-          - STARTING
-          - RUNNING
-          - EXPORTING
-          - COMPLETED
-          type: string
-        uncompressedFileSize:
-          description: File size after decompressing the file downloadable from `url`.
-          type: integer
-        url:
-          description: URL for downloading the SQL query result file. Included only when the SQL query is completed.
-          format: uri
-          type: string
-        usedExecCount:
-          description: Number of SQL queries executed this month.
-          type: integer
-      type: object
-    TagSet:
-      additionalProperties:
-        type: string
-      description: An object which always contains at least one property "name" with a string value. If you give a subscriber/SIM
-        a name, the name will be returned as the value of the "name" property. If the subscriber/SIM does not have a name,
-        an empty string "" is returned. In addition, if you create any custom tags for the subscriber/SIM, each custom tag
-        will appear as additional properties in the object.
-      example:
-        tagName1: tagValue1
-        tagName2: tagValue2...
-      type: object
-    Cell:
-      description: Information about the base station to which the IoT SIM is connected. It will not be output for virtual
-        SIM/subscribers.
-      properties:
-        ci:
-          description: The Cell Identity (for 2G and 3G networks), a 16 bit value represented in decimal form as an integer.
-            (See 3GPP TS 23.003 4.3)
-          type: integer
-        eci:
-          description: The E-UTRAN Cell Identifier (for LTE networks), a 28 bit value represented in decimal form as a long.
-            (See 3GPP TS 23.003 19.6)
-          type: integer
-        lac:
-          description: The Location Area Code (for 2G and 3G networks), a 16 bit value represented in decimal form as an integer.
-            (See 3GPP TS 23.003 4.1)
-          type: integer
-        mcc:
-          description: The Mobile Country Code, a 3 digit number.
-          type: integer
-        mnc:
-          description: The Mobile Network Code, a 2 or 3 digit number. If the value returned is only 1 digit in length, then
-            you should prepend the value with a leading zero.
-          type: integer
-        rac:
-          description: The Routing Area Code (for 2G and 3G networks), an 8 bit value represented in decimal form as an integer.
-            (See 3GPP TS 23.003 4.2)
-          type: integer
-        radioType:
-          description: "The Radio Access Technology or type of network that the device is connected to. \n\n**Warning**: In\
-            \ some cases, the information displayed may differ from the actual wireless access technology or type of network\
-            \ being used by the communication carrier's equipment. For example, even when connected to LTE-M, it may be displayed\
-            \ as LTE.\n"
-          enum:
-          - 3G
-          - GSM
-          - LTE
-          - LTE-M
-          - NB-IoT
-          type: string
-        sac:
-          description: The Service Area Code (for 2G and 3G networks), a 16 bit value represented in decimal form as an integer.
-            (See 3GPP TS 23.003 12.5)
-          type: integer
-        tac:
-          description: The Tracking Area Code (for LTE networks), a 16 bit value represented in decimal form as an integer.
-            (See 3GPP TS 23.003 19.4.2.3)
-          type: integer
-      type: object
-    ResourceSummaryItem:
-      properties:
-        dimensions:
-          description: A list of dimensions for the resource summary item.
-          example: []
-          items:
-            $ref: '#/components/schemas/ResourceSummaryItemDimension'
-          type: array
-        updatedTime:
-          description: The last updated time of the resource summary item (UNIX time in milliseconds).
-          example: 1654007722000
-          format: int64
-          type: integer
-        values:
-          description: A list of values for the resource summary item.
-          items:
-            $ref: '#/components/schemas/ResourceSummaryItemValue'
-          type: array
-      type: object
-    ArcSessionStatus:
-      properties:
-        arcAllowedIPs:
-          description: Displays the WireGuard AllowedIPs received from the Arc server.
-          items:
-            type: string
-          type: array
-        arcClientPeerIpAddress:
-          description: IP address of the client.
-          type: string
-        arcClientPeerPublicKey:
-          type: string
-        arcServerEndpoint:
-          description: WireGuard protocol endpoints on the Arc server.
-          type: string
-        arcServerPeerPublicKey:
-          description: Server peer public key for the Arc server.
-          type: string
-        gatewayPrivateIpAddress:
-          description: The private IP address of the VPG. In the case of VPG Type-F, the source IP address of the closed network
-            communication from the IoT SIM to the customer's system is NAT-ed to this IP address.
-          type: string
-        gatewayPublicIpAddress:
-          description: The fixed global IP address when using the VPG [Fixed Global IP Address Option](/en/docs/vpg/fixed-global-ip/).
-          type: string
-        lastUpdatedAt:
-          format: int64
-          type: integer
-        placement:
-          $ref: '#/components/schemas/Placement'
-        vpgId:
-          description: The VPG ID. If the VPG was not used, this will not be output.
-          type: string
-      type: object
-    LocationRegistrationStatusForNetwork:
-      properties:
-        lastModifiedTime:
-          description: Timestamp of the last successful network registration (Unix time in milliseconds)
-          format: int64
-          type: integer
-        vplmn:
-          description: PLMN ID of the visited network.
-          type: string
-      type: object
-    SimProfile:
-      properties:
-        arcClientPeerPrivateKey:
-          description: 'The client''s PrivateKey (client peer private key) for connecting with WireGuard.
-
-            - PrivateKey (client peer private key) cannot be redisplayed. If you have lost your private key, generate a new
-            key and update the device credentials.
-
-            - Never disclose connection information to outside parties.
-
-            '
-          type: string
-        arcClientPeerPublicKey:
-          type: string
-        iccid:
-          type: string
-        otaSupported:
-          type: boolean
-        primaryImsi:
-          type: string
-        subscribers:
-          additionalProperties:
-            $ref: '#/components/schemas/SimplifiedSubscriber'
-          type: object
-      type: object
-    ResourceSummary:
-      properties:
-        resourceSummaryItems:
-          description: A list of resource summary items.
-          items:
-            $ref: '#/components/schemas/ResourceSummaryItem'
-          type: array
-        resourceSummaryType:
-          description: 'The type of the resource summary.
-
-
-            - `simsPerStatus`: The number of IoT SIMs per status.
-
-            '
-          example: simsPerStatus
-          type: string
-      type: object
     Placement:
       properties:
         infrastructureProvider:
@@ -1575,61 +1073,90 @@ components:
           - ap-southeast-2
           type: string
       type: object
-    GetAnalysisSchemasResponse:
-      items:
-        properties:
-          columnInfo:
-            description: Table column information.
-            items:
-              properties:
-                databaseType:
-                  description: 'Database data type.
-
-                    - `TEXT`: String type.
-
-                    - `FIXED`: Fixed-length string type.
-
-                    - `REAL`: Floating-point type.
-
-                    - `TIMESTAMP_TZ`: Timestamp type.
-
-                    - `BOOLEAN`: Boolean type.
-
-                    - `VARIANT`: Variable-length string type.
-
-                    '
-                  type: string
-                description:
-                  description: Description of the column.
-                  type: string
-                name:
-                  description: Column name.
-                  type: string
-                type:
-                  description: 'Reference type for programming languages (inferred from the database data type).
-
-                    - `string`: String type.
-
-                    - `int64`: Integer type.
-
-                    - `float64`: Floating-point type.
-
-                    - `Time`: DateTime type.
-
-                    - `bool`: Boolean type.
-
-                    '
-                  type: string
-              type: object
-            type: array
-          name:
-            description: Table name.
+    TrafficVolumeRanking:
+      properties:
+        imsi:
+          type: string
+        trafficVolume:
+          format: int64
+          type: integer
+      type: object
+    ArcSessionStatus:
+      properties:
+        arcAllowedIPs:
+          description: Displays the WireGuard AllowedIPs received from the Arc server.
+          items:
             type: string
-        type: object
-      type: array
-    Map:
-      additionalProperties:
-        type: string
+          type: array
+        arcClientPeerIpAddress:
+          description: IP address of the client.
+          type: string
+        arcClientPeerPublicKey:
+          type: string
+        arcServerEndpoint:
+          description: WireGuard protocol endpoints on the Arc server.
+          type: string
+        arcServerPeerPublicKey:
+          description: Server peer public key for the Arc server.
+          type: string
+        gatewayPrivateIpAddress:
+          description: The private IP address of the VPG. In the case of VPG Type-F, the source IP address of the closed network communication from the IoT SIM to the customer's system is NAT-ed to this IP address.
+          type: string
+        gatewayPublicIpAddress:
+          description: The fixed global IP address when using the VPG [Fixed Global IP Address Option](/en/docs/vpg/fixed-global-ip/).
+          type: string
+        lastUpdatedAt:
+          format: int64
+          type: integer
+        placement:
+          $ref: '#/components/schemas/Placement'
+        vpgId:
+          description: The VPG ID. If the VPG was not used, this will not be output.
+          type: string
+      type: object
+    Cell:
+      description: Information about the base station to which the IoT SIM is connected. It will not be output for virtual SIM/subscribers.
+      properties:
+        ci:
+          description: The Cell Identity (for 2G and 3G networks), a 16 bit value represented in decimal form as an integer. (See 3GPP TS 23.003 4.3)
+          type: integer
+        eci:
+          description: The E-UTRAN Cell Identifier (for LTE networks), a 28 bit value represented in decimal form as a long. (See 3GPP TS 23.003 19.6)
+          type: integer
+        lac:
+          description: The Location Area Code (for 2G and 3G networks), a 16 bit value represented in decimal form as an integer. (See 3GPP TS 23.003 4.1)
+          type: integer
+        mcc:
+          description: The Mobile Country Code, a 3 digit number.
+          type: integer
+        mnc:
+          description: The Mobile Network Code, a 2 or 3 digit number. If the value returned is only 1 digit in length, then you should prepend the value with a leading zero.
+          type: integer
+        rac:
+          description: The Routing Area Code (for 2G and 3G networks), an 8 bit value represented in decimal form as an integer. (See 3GPP TS 23.003 4.2)
+          type: integer
+        radioType:
+          description: "The Radio Access Technology or type of network that the device is connected to. \n\n**Warning**: In some cases, the information displayed may differ from the actual wireless access technology or type of network being used by the communication carrier's equipment. For example, even when connected to LTE-M, it may be displayed as LTE.\n"
+          enum:
+          - 3G
+          - GSM
+          - LTE
+          - LTE-M
+          - NB-IoT
+          type: string
+        sac:
+          description: The Service Area Code (for 2G and 3G networks), a 16 bit value represented in decimal form as an integer. (See 3GPP TS 23.003 12.5)
+          type: integer
+        tac:
+          description: The Tracking Area Code (for LTE networks), a 16 bit value represented in decimal form as an integer. (See 3GPP TS 23.003 19.4.2.3)
+          type: integer
+      type: object
+    ImeiLock:
+      description: IMEI lock configuration.
+      properties:
+        imei:
+          description: IMEI of the target device
+          type: string
       type: object
     Capabilities:
       properties:
@@ -1654,6 +1181,93 @@ components:
             '
           type: boolean
       type: object
+    SigfoxDevice:
+      properties:
+        device_id:
+          type: string
+        groupId:
+          type: string
+        lastModifiedTime:
+          format: date-time
+          type: string
+        lastSeen:
+          $ref: '#/components/schemas/LastSeen'
+        operatorId:
+          type: string
+        status:
+          enum:
+          - active
+          - ready
+          - terminated
+          - instock
+          type: string
+        tags:
+          additionalProperties:
+            type: string
+          type: object
+        terminationEnabled:
+          default: false
+          type: boolean
+      type: object
+    SessionStatus:
+      description: Information about the current session.
+      properties:
+        cell:
+          $ref: '#/components/schemas/Cell'
+        dnsServers:
+          description: Array of IP address of the DNS servers.
+          items:
+            type: string
+          type: array
+        gatewayPrivateIpAddress:
+          description: The private IP address of the VPG. In the case of VPG Type-F, the source IP address of the closed network communication from the IoT SIM to the customer's system is NAT-ed to this IP address.
+          type: string
+        gatewayPublicIpAddress:
+          description: The fixed global IP address when using the VPG [Fixed Global IP Address Option](/en/docs/vpg/fixed-global-ip/).
+          type: string
+        imei:
+          description: The IMEI of the device using the IoT SIM. If using a virtual SIM/subscriber, this will be `null`.
+          type: string
+        imsi:
+          description: The IMSI of the IoT SIM.
+          type: string
+        lastUpdatedAt:
+          format: int64
+          type: integer
+        location:
+          type: object
+        online:
+          description: 'Session status.
+
+            - `true`: online
+
+            - `false`: offline
+
+            '
+          type: boolean
+        placement:
+          $ref: '#/components/schemas/Placement'
+        sessionId:
+          description: The session ID.
+          type: string
+        subscription:
+          description: The subscription.
+          type: string
+        ueIpAddress:
+          description: The IP address of the device.
+          type: string
+        vpgId:
+          description: The VPG ID. If the VPG was not used, this will not be output.
+          type: string
+      type: object
+    TagSet:
+      additionalProperties:
+        type: string
+      description: An object which always contains at least one property "name" with a string value. If you give a subscriber/SIM a name, the name will be returned as the value of the "name" property. If the subscriber/SIM does not have a name, an empty string "" is returned. In addition, if you create any custom tags for the subscriber/SIM, each custom tag will appear as additional properties in the object.
+      example:
+        tagName1: tagValue1
+        tagName2: tagValue2...
+      type: object
     Subscriber:
       properties:
         apn:
@@ -1664,13 +1278,11 @@ components:
             type: string
           type: array
         createdAt:
-          description: UNIX time (in milliseconds) when this subscription was created. For example, for a secondary subscription,
-            it is the UNIX time (in milliseconds) that the secondary subscription was created.
+          description: UNIX time (in milliseconds) when this subscription was created. For example, for a secondary subscription, it is the UNIX time (in milliseconds) that the secondary subscription was created.
           format: int64
           type: integer
         createdTime:
-          description: UNIX time (in milliseconds) when this subscription was created. For example, for a secondary subscription,
-            it is the UNIX time (in milliseconds) that the secondary subscription was created.
+          description: UNIX time (in milliseconds) when this subscription was created. For example, for a secondary subscription, it is the UNIX time (in milliseconds) that the secondary subscription was created.
           format: int64
           type: integer
         expiredAt:
@@ -1678,8 +1290,7 @@ components:
           format: int64
           type: integer
         expiryAction:
-          description: 'Action when expiration date expires. Please refer to [Soracom Air Expiration Function](/en/docs/air/expiration/)
-            for more detail.
+          description: 'Action when expiration date expires. Please refer to [Soracom Air Expiration Function](/en/docs/air/expiration/) for more detail.
 
 
             - `doNothing` : do nothing
@@ -1729,8 +1340,7 @@ components:
           format: int64
           type: integer
         lastPortMappingCreatedTime:
-          description: UNIX time in milliseconds that Napter was used with the SIM. If Napter has never been used with the
-            SIM, null is returned.
+          description: UNIX time in milliseconds that Napter was used with the SIM. If Napter has never been used with the SIM, null is returned.
           format: int64
           type: integer
         locationRegistrationStatus:
@@ -1793,9 +1403,7 @@ components:
         previousSession:
           $ref: '#/components/schemas/PreviousSessionStatus'
         registeredTime:
-          description: UNIX time (in milliseconds) that the IoT SIM was manually registered to the operator. When purchasing
-            SIMs directly through the User Console, SIMs will automatically be registered to your account, the field is not
-            present.
+          description: UNIX time (in milliseconds) that the IoT SIM was manually registered to the operator. When purchasing SIMs directly through the User Console, SIMs will automatically be registered to your account, the field is not present.
           format: int64
           type: integer
         renewalFeeStatusSetTime:
@@ -1814,8 +1422,7 @@ components:
           description: The speed class of the SIM.
           type: string
         status:
-          description: 'Status of the IoT SIM (Primary subscription of the IoT SIM) Note that the status of a virtual SIM/Subscriber
-            added to an IoT SIM is either `active` or `terminated`.
+          description: 'Status of the IoT SIM (Primary subscription of the IoT SIM) Note that the status of a virtual SIM/Subscriber added to an IoT SIM is either `active` or `terminated`.
 
 
             - `ready`
@@ -1858,103 +1465,56 @@ components:
           description: The speed class of the SIM.
           type: string
       type: object
-    LastSeen:
-      properties:
-        rssi:
-          format: int32
-          type: integer
-        snr:
-          format: int32
-          type: integer
-        time:
-          format: date-time
-          type: string
-      type: object
-    ResourceSummaryItemValue:
-      properties:
-        name:
-          description: "The name of the resource summary item value.\n\n- if `resourceSummaryType` is `simsPerStatus`:\n \
-            \ - `readySims`: The number of IoT SIMs of which status is ready.\n  - `activeSims`: The number of IoT SIMs of\
-            \ which status is active.\n  - `inactiveSims`: The number of IoT SIMs of which status is inactive.\n  - `standbySims`:\
-            \ The number of IoT SIMs of which status is standby.\n  - `suspendedSims`: The number of IoT SIMs of which status\
-            \ is suspended.\n"
-          example: activeSims
-          type: string
-        value:
-          description: The value of the resource summary item value.
-          example: 1
-          type: number
-      type: object
-    PreviousSessionStatus:
-      description: Information about the previous session.
-      properties:
-        cell:
-          $ref: '#/components/schemas/Cell'
-        createdTime:
-          description: The time when the previous session was created.
-          format: int64
-          type: integer
-        deletedTime:
-          description: The time when the previous session was deleted.
-          format: int64
-          type: integer
-        dnsServers:
-          description: Array of IP address of the DNS servers.
-          items:
-            type: string
-          type: array
-        gatewayPrivateIpAddress:
-          description: The private IP address of the VPG. In the case of VPG Type-F, the source IP address of the closed network
-            communication from the IoT SIM to the customer's system is NAT-ed to this IP address.
-          type: string
-        gatewayPublicIpAddress:
-          description: The fixed global IP address when using the VPG [Fixed Global IP Address Option](/en/docs/vpg/fixed-global-ip/).
-          type: string
-        imei:
-          description: The IMEI of the device using the IoT SIM. If using a virtual SIM/subscriber, this will be `null`.
-          type: string
-        imsi:
-          description: The IMSI of the IoT SIM.
-          type: string
-        sessionId:
-          description: The session ID.
-          type: string
-        subscription:
-          type: string
-        ueIpAddress:
-          description: The IP address of the device.
-          type: string
-        vpgId:
-          description: The VPG ID. If the VPG was not used, this will not be output.
-          type: string
-      type: object
-    SigfoxDevice:
+    Device:
       properties:
         device_id:
           type: string
+        endpoint:
+          type: string
+        firmwareVersion:
+          type: string
         groupId:
+          type: string
+        ipAddress:
           type: string
         lastModifiedTime:
           format: date-time
           type: string
-        lastSeen:
-          $ref: '#/components/schemas/LastSeen'
+        lastRegistrationUpdate:
+          format: date-time
+          type: string
+        manufacturer:
+          type: string
+        modelNumber:
+          type: string
+        objects:
+          type: object
+        online:
+          default: false
+          type: boolean
         operatorId:
           type: string
-        status:
-          enum:
-          - active
-          - ready
-          - terminated
-          - instock
+        registrationId:
+          type: string
+        registrationLifeTime:
+          format: int64
+          type: integer
+        serialNumber:
           type: string
         tags:
           additionalProperties:
             type: string
           type: object
-        terminationEnabled:
-          default: false
-          type: boolean
+      type: object
+    LocationRegistrationStatusForNetwork:
+      properties:
+        lastModifiedTime:
+          description: Timestamp of the last successful network registration (Unix time in milliseconds)
+          format: int64
+          type: integer
+        vplmn:
+          description: PLMN ID of the visited network.
+          type: string
       type: object
   securitySchemes:
     api_key:

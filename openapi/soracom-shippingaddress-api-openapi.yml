@@ -1,0 +1,261 @@
+openapi: 3.0.0
+info:
+  title: Soracom and Query Analysis ShippingAddress API
+  description: Run SQL queries against Soracom Query, fetch query schemas, and search SIMs, Inventory devices, and Sigfox devices.
+  version: 20250903-043502
+servers:
+- description: Japan coverage production API endpoint
+  url: https://api.soracom.io/v1
+- description: Global coverage production API endpoint
+  url: https://g.api.soracom.io/v1
+tags:
+- description: Shipping address operations for direct sales
+  name: ShippingAddress
+paths:
+  /operators/{operator_id}/shipping_addresses:
+    get:
+      description: Returns a list of shipping addresses.
+      operationId: listShippingAddresses
+      parameters:
+      - description: Operator ID.
+        in: path
+        name: operator_id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListShippingAddressResponse'
+          description: OK.
+      security:
+      - api_key: []
+        api_token: []
+      summary: List shipping addresses
+      tags:
+      - ShippingAddress
+      x-soracom-cli:
+      - shipping-addresses list
+    post:
+      description: Creates a new shipping address.
+      operationId: createShippingAddress
+      parameters:
+      - description: Operator ID.
+        in: path
+        name: operator_id
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ShippingAddressModel'
+        description: Shipping address.
+        required: true
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetShippingAddressResponse'
+          description: Shipping address was registered.
+      security:
+      - api_key: []
+        api_token: []
+      summary: Create shipping address
+      tags:
+      - ShippingAddress
+      x-soracom-cli:
+      - shipping-addresses create
+  /operators/{operator_id}/shipping_addresses/{shipping_address_id}:
+    delete:
+      description: Deletes a shipping address.
+      operationId: deleteShippingAddress
+      parameters:
+      - description: Operator ID.
+        in: path
+        name: operator_id
+        required: true
+        schema:
+          type: string
+      - description: Shipping address ID.
+        in: path
+        name: shipping_address_id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK.
+      security:
+      - api_key: []
+        api_token: []
+      summary: Delete shipping address
+      tags:
+      - ShippingAddress
+      x-soracom-cli:
+      - shipping-addresses delete
+    get:
+      description: Returns a shipping address.
+      operationId: getShippingAddress
+      parameters:
+      - description: Operator ID.
+        in: path
+        name: operator_id
+        required: true
+        schema:
+          type: string
+      - description: Shipping address ID.
+        in: path
+        name: shipping_address_id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetShippingAddressResponse'
+          description: OK.
+      security:
+      - api_key: []
+        api_token: []
+      summary: Get shipping address
+      tags:
+      - ShippingAddress
+      x-soracom-cli:
+      - shipping-addresses get
+    put:
+      description: Updates a shipping address.
+      operationId: updateShippingAddress
+      parameters:
+      - description: Operator ID.
+        in: path
+        name: operator_id
+        required: true
+        schema:
+          type: string
+      - description: Shipping address ID.
+        in: path
+        name: shipping_address_id
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ShippingAddressModel'
+        description: Shipping address.
+        required: true
+      responses:
+        '200':
+          description: OK.
+      security:
+      - api_key: []
+        api_token: []
+      summary: Update shipping address
+      tags:
+      - ShippingAddress
+      x-soracom-cli:
+      - shipping-addresses update
+components:
+  schemas:
+    GetShippingAddressResponse:
+      properties:
+        addressLine1:
+          type: string
+        addressLine2:
+          type: string
+        building:
+          type: string
+        city:
+          type: string
+        companyName:
+          type: string
+        department:
+          type: string
+        fullName:
+          type: string
+        phoneNumber:
+          type: string
+        shippingAddressId:
+          description: ID of shipping address.
+          type: string
+        shippingArea:
+          description: Shipping area.
+          type: string
+        state:
+          type: string
+        zipCode:
+          type: string
+      required:
+      - addressLine1
+      - city
+      - phoneNumber
+      - shippingAddressId
+      - shippingArea
+      - state
+      - zipCode
+      type: object
+    ShippingAddressModel:
+      description: Shipping address.
+      properties:
+        addressLine1:
+          type: string
+        addressLine2:
+          type: string
+        building:
+          type: string
+        city:
+          type: string
+        companyName:
+          type: string
+        countryCode:
+          type: string
+        department:
+          type: string
+        email:
+          type: string
+        fullName:
+          type: string
+        phoneNumber:
+          type: string
+        state:
+          type: string
+        zipCode:
+          type: string
+      required:
+      - addressLine1
+      - city
+      - state
+      - zipCode
+      type: object
+    ListShippingAddressResponse:
+      properties:
+        shippingAddresses:
+          items:
+            $ref: '#/components/schemas/GetShippingAddressResponse'
+          type: array
+      type: object
+  securitySchemes:
+    api_key:
+      description: 'API key for authentication. Obtain this from the Soracom User Console or via the Auth API.
+
+        Required in combination with an API token for all authenticated requests.
+
+        '
+      in: header
+      name: X-Soracom-API-Key
+      type: apiKey
+    api_token:
+      description: 'API token for authentication. This token has an expiration time and must be refreshed periodically.
+
+        Required in combination with an API key for all authenticated requests.'
+      in: header
+      name: X-Soracom-Token
+      type: apiKey

@@ -1,0 +1,132 @@
+openapi: 3.0.0
+info:
+  title: 'Soracom and Query Analysis API Sandbox: Subscriber API'
+  description: Run SQL queries against Soracom Query, fetch query schemas, and search SIMs, Inventory devices, and Sigfox devices.
+  version: 20250903-043502
+servers:
+- description: Japan coverage production API endpoint
+  url: https://api.soracom.io/v1
+- description: Global coverage production API endpoint
+  url: https://g.api.soracom.io/v1
+tags:
+- name: 'API Sandbox: Subscriber'
+paths:
+  /sandbox/subscribers/create:
+    post:
+      description: Creates a new subscriber for sandbox.
+      operationId: sandboxCreateSubscriber
+      requestBody:
+        content:
+          application/json:
+            examples:
+              Creating "plan-D (D-300MB)":
+                value:
+                  bundle:
+                  - D-300MB
+                  subscription: plan-D
+              Creating "plan01s":
+                value:
+                  subscription: plan01s
+            schema:
+              $ref: '#/components/schemas/sandboxCreateSubscriberRequest'
+        description: Create request
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/sandboxCreateSubscriberResponse'
+          description: OK
+      security:
+      - api_key: []
+        api_token: []
+      summary: Creates a new subscriber for sandbox
+      tags:
+      - 'API Sandbox: Subscriber'
+      x-soracom-cli:
+      - sandbox subscribers create
+components:
+  schemas:
+    TagSet:
+      additionalProperties:
+        type: string
+      type: object
+    sandboxCreateSubscriberRequest:
+      properties:
+        bundles:
+          description: 'Bundle. If necessary, specify one of:'
+          items:
+            enum:
+            - X3-5MB
+            - D-300MB
+            - DU-10GB
+            - DU-50GB
+            - DU-100GB
+            - K2-300MB
+            type: string
+          type: array
+        subscription:
+          description: 'Subscription. Specify one of:'
+          enum:
+          - plan01s
+          - plan01s-low_data_volume
+          - planP1
+          - planX3
+          - plan-D
+          - plan-K
+          - plan-KM1
+          - plan-DU
+          - plan-K2
+          type: string
+      type: object
+    sandboxCreateSubscriberResponse:
+      properties:
+        apn:
+          type: string
+        createdAt:
+          format: int64
+          type: integer
+        expiryTime:
+          format: int64
+          type: integer
+        imsi:
+          type: string
+        ipAddress:
+          type: string
+        lastModifiedAt:
+          format: int64
+          type: integer
+        msisdn:
+          type: string
+        operatorId:
+          type: string
+        registrationSecret:
+          type: string
+        serialNumber:
+          type: string
+        speedClass:
+          type: string
+        status:
+          type: string
+        subscription:
+          type: string
+        tags:
+          $ref: '#/components/schemas/TagSet'
+      type: object
+  securitySchemes:
+    api_key:
+      description: 'API key for authentication. Obtain this from the Soracom User Console or via the Auth API.
+
+        Required in combination with an API token for all authenticated requests.
+
+        '
+      in: header
+      name: X-Soracom-API-Key
+      type: apiKey
+    api_token:
+      description: 'API token for authentication. This token has an expiration time and must be refreshed periodically.
+
+        Required in combination with an API key for all authenticated requests.'
+      in: header
+      name: X-Soracom-Token
+      type: apiKey

@@ -1,0 +1,202 @@
+openapi: 3.0.0
+info:
+  title: Soracom and Query Analysis SystemNotification API
+  description: Run SQL queries against Soracom Query, fetch query schemas, and search SIMs, Inventory devices, and Sigfox devices.
+  version: 20250903-043502
+servers:
+- description: Japan coverage production API endpoint
+  url: https://api.soracom.io/v1
+- description: Global coverage production API endpoint
+  url: https://g.api.soracom.io/v1
+tags:
+- description: '[Email addresses](/en/docs/email/)'
+  name: SystemNotification
+paths:
+  /operators/{operator_id}/system_notifications:
+    get:
+      description: Returns a list of email settings.
+      operationId: listSystemNotifications
+      parameters:
+      - description: Operator ID
+        in: path
+        name: operator_id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/SystemNotificationsModel'
+                type: array
+          description: OK.
+      security:
+      - api_key: []
+        api_token: []
+      summary: List email settings
+      tags:
+      - SystemNotification
+      x-soracom-cli:
+      - system-notifications list
+  /operators/{operator_id}/system_notifications/{type}:
+    delete:
+      description: Delete an email address from the email settings.
+      operationId: deleteSystemNotification
+      parameters:
+      - description: Operator ID.
+        in: path
+        name: operator_id
+        required: true
+        schema:
+          type: string
+      - description: Email address type.
+        in: path
+        name: type
+        required: true
+        schema:
+          enum:
+          - recovery
+          - billing
+          - support
+          type: string
+      responses:
+        '204':
+          description: OK.
+      security:
+      - api_key: []
+        api_token: []
+      summary: Delete an email address from the email settings
+      tags:
+      - SystemNotification
+      x-soracom-cli:
+      - system-notifications delete
+    get:
+      description: Return information on email settings.
+      operationId: getSystemNotification
+      parameters:
+      - description: Operator ID.
+        in: path
+        name: operator_id
+        required: true
+        schema:
+          type: string
+      - description: Email address type.
+        in: path
+        name: type
+        required: true
+        schema:
+          enum:
+          - primary
+          - recovery
+          - billing
+          - support
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SystemNotificationsModel'
+          description: OK.
+      security:
+      - api_key: []
+        api_token: []
+      summary: Get information on email settings
+      tags:
+      - SystemNotification
+      x-soracom-cli:
+      - system-notifications get
+    post:
+      description: Set an email address in the email settings.
+      operationId: setSystemNotification
+      parameters:
+      - description: Operator ID
+        in: path
+        name: operator_id
+        required: true
+        schema:
+          type: string
+      - description: Email address type.
+        in: path
+        name: type
+        required: true
+        schema:
+          enum:
+          - primary
+          - recovery
+          - billing
+          - support
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SetSystemNotificationsRequest'
+        description: Request.
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SystemNotificationsModel'
+          description: OK.
+      security:
+      - api_key: []
+        api_token: []
+      summary: Set an email address in the email settings
+      tags:
+      - SystemNotification
+      x-soracom-cli:
+      - system-notifications set
+components:
+  schemas:
+    SystemNotificationsModel:
+      properties:
+        emailIdList:
+          items:
+            type: string
+          type: array
+        type:
+          description: Email address type.
+          enum:
+          - primary
+          - recovery
+          - billing
+          - support
+          type: string
+        updateDateTime:
+          format: int64
+          type: integer
+      type: object
+    SetSystemNotificationsRequest:
+      properties:
+        emailIdList:
+          items:
+            type: string
+          type: array
+        password:
+          description: Password of the operator. This is necessary when type is primary.
+          type: string
+      required:
+      - emailIdList
+      type: object
+  securitySchemes:
+    api_key:
+      description: 'API key for authentication. Obtain this from the Soracom User Console or via the Auth API.
+
+        Required in combination with an API token for all authenticated requests.
+
+        '
+      in: header
+      name: X-Soracom-API-Key
+      type: apiKey
+    api_token:
+      description: 'API token for authentication. This token has an expiration time and must be refreshed periodically.
+
+        Required in combination with an API key for all authenticated requests.'
+      in: header
+      name: X-Soracom-Token
+      type: apiKey

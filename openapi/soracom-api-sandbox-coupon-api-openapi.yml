@@ -1,0 +1,98 @@
+openapi: 3.0.0
+info:
+  title: 'Soracom and Query Analysis API Sandbox: Coupon API'
+  description: Run SQL queries against Soracom Query, fetch query schemas, and search SIMs, Inventory devices, and Sigfox devices.
+  version: 20250903-043502
+servers:
+- description: Japan coverage production API endpoint
+  url: https://api.soracom.io/v1
+- description: Global coverage production API endpoint
+  url: https://g.api.soracom.io/v1
+tags:
+- name: 'API Sandbox: Coupon'
+paths:
+  /sandbox/coupons/create:
+    post:
+      description: Creates a coupon.
+      operationId: sandboxCreateCoupon
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/sandboxCreateCouponRequest'
+        description: request
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/sandboxCreateCouponResponse'
+          description: OK
+        '400':
+          description: Request is not correct.
+      security:
+      - api_key: []
+        api_token: []
+      summary: Creates a coupon
+      tags:
+      - 'API Sandbox: Coupon'
+      x-soracom-cli:
+      - sandbox coupons create
+components:
+  schemas:
+    sandboxCreateCouponResponse:
+      properties:
+        amount:
+          description: Coupon amount.
+          format: double
+          type: number
+        balance:
+          description: Balance.
+          format: double
+          type: number
+        billItemName:
+          description: Bill Item.
+          type: string
+        couponCode:
+          description: Coupon code.
+          type: string
+        expiryYearMonth:
+          description: Year and month of expiration.
+          format: yyyyMM
+          type: string
+      type: object
+    sandboxCreateCouponRequest:
+      properties:
+        amount:
+          example: 1000
+          format: int32
+          type: integer
+        applicableBillItemName:
+          enum:
+          - dailyDataTrafficChargeTotal
+          - dailyChargeTotal
+          - dailySoracomBeamRequestChargeTotal
+          example: dailyDataTrafficChargeTotal
+          type: string
+        expiryYearMonth:
+          format: yyyyMM
+          type: string
+      type: object
+  securitySchemes:
+    api_key:
+      description: 'API key for authentication. Obtain this from the Soracom User Console or via the Auth API.
+
+        Required in combination with an API token for all authenticated requests.
+
+        '
+      in: header
+      name: X-Soracom-API-Key
+      type: apiKey
+    api_token:
+      description: 'API token for authentication. This token has an expiration time and must be refreshed periodically.
+
+        Required in combination with an API key for all authenticated requests.'
+      in: header
+      name: X-Soracom-Token
+      type: apiKey

@@ -1,0 +1,182 @@
+openapi: 3.0.0
+info:
+  title: 'Soracom and Query Analysis API Sandbox: Stats API'
+  description: Run SQL queries against Soracom Query, fetch query schemas, and search SIMs, Inventory devices, and Sigfox devices.
+  version: 20250903-043502
+servers:
+- description: Japan coverage production API endpoint
+  url: https://api.soracom.io/v1
+- description: Global coverage production API endpoint
+  url: https://g.api.soracom.io/v1
+tags:
+- name: 'API Sandbox: Stats'
+paths:
+  /sandbox/stats/air/subscribers/{imsi}:
+    post:
+      description: Populates Air stats for testing purpose. Inserted data are going to be automatically accumulated. It is not possible to put the data multiple times with the same timestamp.
+      operationId: sandboxInsertAirStats
+      parameters:
+      - description: IMSI.
+        in: path
+        name: imsi
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/sandboxInsertAirStatsRequest'
+        description: The Air stats (up/down bytes of data) with specified timestamp.
+        required: true
+      responses:
+        '200':
+          description: OK
+        '400':
+          description: Data with the same timestamp already exists.
+      security:
+      - api_key: []
+        api_token: []
+      summary: Inserts Air stats for testing
+      tags:
+      - 'API Sandbox: Stats'
+      x-soracom-cli:
+      - sandbox stats air insert
+  /sandbox/stats/beam/subscribers/{imsi}:
+    post:
+      description: Populates Beam stats for testing purpose. Inserted data are going to be automatically accumulated. It is not possible to put the data multiple times with the same timestamp.
+      operationId: sandboxInsertBeamStats
+      parameters:
+      - description: IMSI.
+        in: path
+        name: imsi
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/sandboxInsertBeamStatsRequest'
+        description: The Beam stats (number of requests) with specified timestamp.
+        required: true
+      responses:
+        '200':
+          description: OK
+        '400':
+          description: Data with the same timestamp already exists.
+      security:
+      - api_key: []
+        api_token: []
+      summary: Inserts Beam stats for testing
+      tags:
+      - 'API Sandbox: Stats'
+      x-soracom-cli:
+      - sandbox stats beam insert
+components:
+  schemas:
+    sandboxDataTrafficStats:
+      properties:
+        downloadByteSizeTotal:
+          format: int64
+          type: integer
+        downloadPacketSizeTotal:
+          format: int64
+          type: integer
+        uploadByteSizeTotal:
+          format: int64
+          type: integer
+        uploadPacketSizeTotal:
+          format: int64
+          type: integer
+      type: object
+    sandboxInsertAirStatsRequest:
+      properties:
+        dataTrafficStatsMap:
+          additionalProperties:
+            $ref: '#/components/schemas/sandboxDataTrafficStats'
+          description: 'Test data for each speed class, including data for both upload and download, with timestamps. Specify a string representing the speed class as a key.
+
+
+            - `s1.minimum`
+
+            - `s1.slow`
+
+            - `s1.standard`
+
+            - `s1.fast`
+
+            - `s1.4xfast`
+
+            - `s1.8xfast`
+
+            - `u1.standard`
+
+            - `u1.slow`
+
+            - `t1.standard`
+
+            - `arc.standard`
+
+            '
+          type: object
+        unixtime:
+          description: UNIX time (in seconds).
+          format: int64
+          type: integer
+      type: object
+    sandboxInsertBeamStatsRequest:
+      properties:
+        beamStatsMap:
+          properties:
+            inHttp:
+              $ref: '#/components/schemas/sandboxBeamCounts'
+            inMqtt:
+              $ref: '#/components/schemas/sandboxBeamCounts'
+            inTcp:
+              $ref: '#/components/schemas/sandboxBeamCounts'
+            inUdp:
+              $ref: '#/components/schemas/sandboxBeamCounts'
+            outHttp:
+              $ref: '#/components/schemas/sandboxBeamCounts'
+            outHttps:
+              $ref: '#/components/schemas/sandboxBeamCounts'
+            outMqtt:
+              $ref: '#/components/schemas/sandboxBeamCounts'
+            outMqtts:
+              $ref: '#/components/schemas/sandboxBeamCounts'
+            outTcp:
+              $ref: '#/components/schemas/sandboxBeamCounts'
+            outTcps:
+              $ref: '#/components/schemas/sandboxBeamCounts'
+            outUdp:
+              $ref: '#/components/schemas/sandboxBeamCounts'
+          type: object
+        unixtime:
+          description: UNIX time (in seconds).
+          format: int64
+          type: integer
+      type: object
+    sandboxBeamCounts:
+      properties:
+        count:
+          format: int64
+          type: integer
+      type: object
+  securitySchemes:
+    api_key:
+      description: 'API key for authentication. Obtain this from the Soracom User Console or via the Auth API.
+
+        Required in combination with an API token for all authenticated requests.
+
+        '
+      in: header
+      name: X-Soracom-API-Key
+      type: apiKey
+    api_token:
+      description: 'API token for authentication. This token has an expiration time and must be refreshed periodically.
+
+        Required in combination with an API key for all authenticated requests.'
+      in: header
+      name: X-Soracom-Token
+      type: apiKey

@@ -1,0 +1,218 @@
+openapi: 3.0.0
+info:
+  title: Soracom and Query Analysis Diagnostic API
+  description: Run SQL queries against Soracom Query, fetch query schemas, and search SIMs, Inventory devices, and Sigfox devices.
+  version: 20250903-043502
+servers:
+- description: Japan coverage production API endpoint
+  url: https://api.soracom.io/v1
+- description: Global coverage production API endpoint
+  url: https://g.api.soracom.io/v1
+tags:
+- description: '[Diagnostic features](/en/guides/diagnostic/)'
+  name: Diagnostic
+paths:
+  /diagnostics:
+    post:
+      description: Send a diagnostic request.
+      operationId: sendDiagnosticRequest
+      requestBody:
+        content:
+          application/json:
+            examples:
+              Diagnosing SORACOM Air for Cellular:
+                value:
+                  from: 1655251200000
+                  resouceType: sim
+                  resourceId: XXXXXXXXXXXXXXXXXXX
+                  service: Air
+                  to: 1655337600000
+            schema:
+              $ref: '#/components/schemas/DiagnosticRequest'
+        description: request
+        required: true
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DiagnosticResponse'
+          description: Successfully accepted a diagnostic request.
+        '400':
+          description: Bad definitions among diagnostic time range (from/to queries).
+        '404':
+          description: The specified resource is not found.
+      security:
+      - api_key: []
+        api_token: []
+      summary: Send diagnostic request
+      tags:
+      - Diagnostic
+      x-soracom-cli:
+      - diagnostics send-request
+  /diagnostics/{diagnostic_id}:
+    get:
+      description: Returns a diagnostic.
+      operationId: getDiagnostic
+      parameters:
+      - description: The identifier of diagnostic request.
+        in: path
+        name: diagnostic_id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DiagnosticResponse'
+          description: OK.
+        '404':
+          description: The specified diagnostic_id is not found.
+      security:
+      - api_key: []
+        api_token: []
+      summary: Get diagnostic
+      tags:
+      - Diagnostic
+      x-soracom-cli:
+      - diagnostics get
+components:
+  schemas:
+    ReferenceUrl:
+      properties:
+        title:
+          type: string
+        url:
+          type: string
+      type: object
+    DiagnosticRequest:
+      properties:
+        from:
+          description: Start time for diagnostic (UNIX time in milliseconds).
+          format: int64
+          type: integer
+        resourceId:
+          description: 'Identifier according to resourceType.
+
+
+            - If resourceType is `sim`, specify the SIM ID.
+
+            '
+          type: string
+        resourceType:
+          enum:
+          - sim
+          type: string
+        service:
+          enum:
+          - Air
+          type: string
+        to:
+          description: End time for diagnostic (UNIX time in milliseconds).
+          format: int64
+          type: integer
+      required:
+      - service
+      - resourceType
+      - resourceId
+      type: object
+    Insight:
+      properties:
+        anomalyDetectedTimes:
+          description: Times that possible anomaly behaviors were detected. The format depends on the timestamp of events relating to the category. (e.g., UNIX time in milliseconds for session category)
+          items:
+            type: string
+          type: array
+        category:
+          enum:
+          - data
+          - session
+          - sim
+          - others
+          - unknown
+          type: string
+        insightId:
+          type: string
+        message:
+          type: string
+        referenceUrls:
+          description: Reference URLs that is related to the insight.
+          items:
+            $ref: '#/components/schemas/ReferenceUrl'
+          type: array
+        severity:
+          enum:
+          - error
+          - warning
+          - info
+          - none
+          - unknown
+          type: string
+      required:
+      - insightId
+      - message
+      - category
+      - severity
+      type: object
+    DiagnosticResponse:
+      properties:
+        diagnosticId:
+          type: string
+        from:
+          description: Start time for diagnostic (UNIX time in milliseconds).
+          format: int64
+          type: integer
+        insights:
+          items:
+            $ref: '#/components/schemas/Insight'
+          type: array
+        resourceId:
+          description: Identifier according to resourceType.
+          type: string
+        resourceType:
+          enum:
+          - sim
+          type: string
+        service:
+          enum:
+          - Air
+          type: string
+        status:
+          enum:
+          - diagnosing
+          - done
+          - failed
+          type: string
+        to:
+          description: End time for diagnostic (UNIX time in milliseconds).
+          format: int64
+          type: integer
+      required:
+      - diagnosticId
+      - status
+      - service
+      - resourceType
+      - resourceId
+      - from
+      - to
+      - insights
+      type: object
+  securitySchemes:
+    api_key:
+      description: 'API key for authentication. Obtain this from the Soracom User Console or via the Auth API.
+
+        Required in combination with an API token for all authenticated requests.
+
+        '
+      in: header
+      name: X-Soracom-API-Key
+      type: apiKey
+    api_token:
+      description: 'API token for authentication. This token has an expiration time and must be refreshed periodically.
+
+        Required in combination with an API key for all authenticated requests.'
+      in: header
+      name: X-Soracom-Token
+      type: apiKey
