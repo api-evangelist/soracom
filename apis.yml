@@ -1,350 +1,1765 @@
 aid: soracom
 url: https://raw.githubusercontent.com/api-evangelist/soracom/refs/heads/main/apis.yml
 apis:
-  - aid: soracom:soracom-sim-api
-    name: Soracom SIM Management API
-    tags:
-      - IoT
-      - Cellular
-      - SIM
-      - Subscriber
-    humanURL: https://users.soracom.io/ja-jp/tools/api/reference/#/Sim
-    baseURL: https://api.soracom.io/v1
-    properties:
-      - url: https://developers.soracom.io/en/docs/air/
-        type: Documentation
-      - url: https://users.soracom.io/ja-jp/tools/api/reference/#/Sim
-        type: Documentation
-      - url: openapi/soracom-sim-api-openapi.yml
-        type: OpenAPI
-      - url: json-schema/soracom-sim-schema.json
-        type: JSONSchema
-      - url: json-structure/soracom-sim-structure.json
-        type: JSONStructure
-      - url: examples/soracom-sim-list-example.json
-        type: Examples
-    description: >-
-      Manage Soracom Air for Cellular SIMs (and Subscribers) — list, get, create Arc virtual SIMs,
-      activate/deactivate/suspend/terminate, set group binding, set IMEI lock, view session events, manage SIM profiles
-      for multi-IMSI eSIM, and read cell-tower location info.
-  - aid: soracom:soracom-group-api
-    name: Soracom Group Configuration API
-    tags:
-      - IoT
-      - Groups
-      - Configuration
-    humanURL: https://users.soracom.io/ja-jp/tools/api/reference/#/Group
-    baseURL: https://api.soracom.io/v1
-    properties:
-      - url: https://developers.soracom.io/en/docs/group-configuration/
-        type: Documentation
-      - url: openapi/soracom-group-api-openapi.yml
-        type: OpenAPI
-      - url: json-schema/soracom-group-schema.json
-        type: JSONSchema
-    description: >-
-      Manage Soracom groups and per-service configuration. Groups bind SIMs and devices to namespaced configuration for
-      SoracomAir, SoracomBeam, SoracomFunnel, SoracomFunk, SoracomHarvest, SoracomJunction, SoracomOrbit, and metadata
-      services.
-  - aid: soracom:soracom-harvest-api
-    name: Soracom Harvest API
-    tags:
-      - IoT
-      - Harvest
-      - Data
-      - Telemetry
-      - Files
-    humanURL: https://users.soracom.io/ja-jp/tools/api/reference/#/DataEntry
-    baseURL: https://api.soracom.io/v1
-    properties:
-      - url: https://developers.soracom.io/en/docs/harvest/
-        type: Documentation
-      - url: openapi/soracom-harvest-api-openapi.yml
-        type: OpenAPI
-      - url: json-schema/soracom-data-entry-schema.json
-        type: JSONSchema
-      - url: examples/soracom-harvest-data-example.json
-        type: Examples
-    description: >-
-      Soracom Harvest is a managed time-series and file store for IoT device payloads. The API retrieves data entries by
-      Subscriber/Device/SigfoxDevice/LoraDevice, lists indexed resources, and uploads/downloads binary Harvest Files.
-  - aid: soracom:soracom-inventory-api
-    name: Soracom Inventory API
-    tags:
-      - IoT
-      - LwM2M
-      - Devices
-      - Inventory
-    humanURL: https://users.soracom.io/ja-jp/tools/api/reference/#/Device
-    baseURL: https://api.soracom.io/v1
-    properties:
-      - url: https://developers.soracom.io/en/docs/inventory/
-        type: Documentation
-      - url: openapi/soracom-inventory-api-openapi.yml
-        type: OpenAPI
-      - url: json-schema/soracom-device-schema.json
-        type: JSONSchema
-      - url: json-structure/soracom-device-structure.json
-        type: JSONStructure
-    description: >-
-      Soracom Inventory provides LwM2M-based registration, object models, resource read/write, observe/notify
-      subscriptions, and remote execution against IoT devices.
-  - aid: soracom:soracom-napter-api
-    name: Soracom Napter API
-    tags:
-      - IoT
-      - Remote Access
-      - Napter
-      - Security
-    humanURL: https://users.soracom.io/ja-jp/tools/api/reference/#/PortMapping
-    baseURL: https://api.soracom.io/v1
-    properties:
-      - url: https://developers.soracom.io/en/docs/napter/
-        type: Documentation
-      - url: openapi/soracom-napter-api-openapi.yml
-        type: OpenAPI
-      - url: json-schema/soracom-port-mapping-schema.json
-        type: JSONSchema
-      - url: examples/soracom-napter-create-example.json
-        type: Examples
-    description: >-
-      Soracom Napter creates on-demand TCP port mappings (with optional TLS) that allow a defined source CIDR to reach a
-      SIM-attached device's TCP port for SSH, HTTP(S), VNC, or RDP-style remote access, auditable in audit_logs/napter.
-  - aid: soracom:soracom-event-handler-api
-    name: Soracom Event Handler API
-    tags:
-      - IoT
-      - Automation
-      - Event Handler
-      - Soralet
-      - Credentials
-    humanURL: https://users.soracom.io/ja-jp/tools/api/reference/#/EventHandler
-    baseURL: https://api.soracom.io/v1
-    properties:
-      - url: https://developers.soracom.io/en/docs/event-handler/
-        type: Documentation
-      - url: openapi/soracom-event-handler-api-openapi.yml
-        type: OpenAPI
-    description: >-
-      Configure event handlers (rules + actions) on SIM, data, and billing events; manage the Credentials Store; and
-      deploy Orbit Soralets (WebAssembly inline payload transforms).
-  - aid: soracom:soracom-vpg-api
-    name: Soracom Virtual Private Gateway API
-    tags:
-      - IoT
-      - Networking
-      - VPG
-      - Canal
-      - Door
-      - Gate
-      - Junction
-      - Peek
-    humanURL: https://users.soracom.io/ja-jp/tools/api/reference/#/VirtualPrivateGateway
-    baseURL: https://api.soracom.io/v1
-    properties:
-      - url: https://developers.soracom.io/en/docs/vpg/
-        type: Documentation
-      - url: openapi/soracom-vpg-api-openapi.yml
-        type: OpenAPI
-    description: >-
-      Provision and manage Soracom Virtual Private Gateways (VPG) including Canal (AWS VPC peering), Direct (AWS Direct
-      Connect), Door (IPSec VPN), Gate (reverse-NAT), Junction (packet rules), and Peek (packet capture).
-  - aid: soracom:soracom-billing-api
-    name: Soracom Billing API
-    tags:
-      - IoT
-      - Billing
-      - FinOps
-      - Payment
-      - Coupons
-      - Orders
-    humanURL: https://users.soracom.io/ja-jp/tools/api/reference/#/Billing
-    baseURL: https://api.soracom.io/v1
-    properties:
-      - url: https://developers.soracom.io/en/docs/reference/fees/
-        type: Documentation
-      - url: openapi/soracom-billing-api-openapi.yml
-        type: OpenAPI
-      - url: examples/soracom-bill-latest-example.json
-        type: Examples
-    description: >-
-      Retrieve usage charges (monthly bills, daily bill items, per-SIM and per-bill-item summaries), export bills to
-      CSV, manage payment methods, register coupons, manage orders, and configure shipping addresses.
-  - aid: soracom:soracom-stats-api
-    name: Soracom Stats and Diagnostics API
-    tags:
-      - IoT
-      - Stats
-      - Audit
-      - Diagnostics
-      - Observability
-    humanURL: https://users.soracom.io/ja-jp/tools/api/reference/#/Stats
-    baseURL: https://api.soracom.io/v1
-    properties:
-      - url: https://developers.soracom.io/en/docs/air/view-data-usage/
-        type: Documentation
-      - url: openapi/soracom-stats-api-openapi.yml
-        type: OpenAPI
-    description: >-
-      Retrieve cellular data usage statistics (per SIM/subscriber/group/account), API and Napter audit logs, operator
-      error logs, and diagnostic features.
-  - aid: soracom:soracom-auth-api
-    name: Soracom Auth and Access Management API
-    tags:
-      - IoT
-      - Auth
-      - SAM
-      - Access Management
-      - MFA
-      - Users
-      - Roles
-    humanURL: https://users.soracom.io/ja-jp/tools/api/reference/#/Auth
-    baseURL: https://api.soracom.io/v1
-    properties:
-      - url: https://developers.soracom.io/en/tools/api/key-and-token/
-        type: Documentation
-      - url: https://developers.soracom.io/en/docs/sam/
-        type: Documentation
-      - url: openapi/soracom-auth-api-openapi.yml
-        type: OpenAPI
-      - url: examples/soracom-auth-example.json
-        type: Examples
-    description: >-
-      Authenticate operators (email/password or AuthKey), issue short-lived API Keys + Tokens, manage operator profile,
-      SAM (Soracom Access Management) users and roles, MFA settings, registered email addresses, switch-user
-      (cross-operator) flows, and system notifications.
-  - aid: soracom:soracom-analysis-query-api
-    name: Soracom Analysis and Query API
-    tags:
-      - IoT
-      - Query
-      - Analysis
-      - SQL
-      - Search
-    humanURL: https://users.soracom.io/ja-jp/tools/api/reference/#/Analysis
-    baseURL: https://api.soracom.io/v1
-    properties:
-      - url: https://developers.soracom.io/en/docs/query/
-        type: Documentation
-      - url: openapi/soracom-analysis-query-api-openapi.yml
-        type: OpenAPI
-    description: >-
-      Asynchronous SQL query execution over Soracom Query tables (SIM_SESSION_EVENTS, SIM_LOCATIONS, BILLING, and more)
-      and search across SIMs, Inventory devices, and Sigfox devices.
-  - aid: soracom:soracom-lagoon-api
-    name: Soracom Lagoon API
-    tags:
-      - IoT
-      - Lagoon
-      - Dashboards
-      - Visualization
-    humanURL: https://users.soracom.io/ja-jp/tools/api/reference/#/Lagoon
-    baseURL: https://api.soracom.io/v1
-    properties:
-      - url: https://developers.soracom.io/en/docs/lagoon-v3/
-        type: Documentation
-      - url: openapi/soracom-lagoon-api-openapi.yml
-        type: OpenAPI
-    description: >-
-      Manage Soracom Lagoon (managed Grafana) subscription, plan tier, organization, dashboards, users, licenses, and
-      data sources.
-  - aid: soracom:soracom-lorawan-api
-    name: Soracom Air for LoRaWAN API
-    tags:
-      - IoT
-      - LoRaWAN
-      - LPWAN
-      - Devices
-      - Gateways
-    humanURL: https://users.soracom.io/ja-jp/tools/api/reference/#/LoraDevice
-    baseURL: https://api.soracom.io/v1
-    properties:
-      - url: https://developers.soracom.io/en/docs/air-for-lorawan/
-        type: Documentation
-      - url: openapi/soracom-lorawan-api-openapi.yml
-        type: OpenAPI
-    description: >-
-      Manage Soracom Air for LoRaWAN — devices, gateways, network sets, session keys, and group binding for LoRaWAN
-      deployments.
-  - aid: soracom:soracom-sigfox-api
-    name: Soracom Air for Sigfox API
-    tags:
-      - IoT
-      - Sigfox
-      - LPWAN
-      - Devices
-    humanURL: https://users.soracom.io/ja-jp/tools/api/reference/#/SigfoxDevice
-    baseURL: https://api.soracom.io/v1
-    properties:
-      - url: https://developers.soracom.io/en/docs/air-for-sigfox/
-        type: Documentation
-      - url: openapi/soracom-sigfox-api-openapi.yml
-        type: OpenAPI
-    description: Manage Soracom Air for Sigfox devices.
-  - aid: soracom:soracom-soracam-api
-    name: Soracom Cloud Camera Services API
-    tags:
-      - IoT
-      - SoraCam
-      - Camera
-      - Video
-    humanURL: https://users.soracom.io/ja-jp/tools/api/reference/#/SoraCam
-    baseURL: https://api.soracom.io/v1
-    properties:
-      - url: https://developers.soracom.io/en/guides/soracom-cloud-camera-services/
-        type: Documentation
-      - url: openapi/soracom-soracam-api-openapi.yml
-        type: OpenAPI
-    description: >-
-      Manage Soracom Cloud Camera Services (SoraCam) devices, livestream URLs, image exports, recording exports, motion
-      events, atomic timestamps, and dedicated cellular pack provisioning.
-  - aid: soracom:soracom-batch-api
-    name: Soracom Batch API
-    tags:
-      - IoT
-      - Batch
-      - Automation
-    humanURL: https://users.soracom.io/ja-jp/tools/api/reference/#/Batch
-    baseURL: https://api.soracom.io/v1
-    properties:
-      - url: openapi/soracom-batch-api-openapi.yml
-        type: OpenAPI
-    description: >-
-      Batch processing — create batch groups, define jobs that invoke API operations across many SIMs or devices, and
-      inspect tasks for status and results.
-  - aid: soracom:soracom-platform-api
-    name: Soracom Platform API (Aggregate)
-    tags:
-      - IoT
-      - Platform
-      - Aggregate
-    humanURL: https://users.soracom.io/ja-jp/tools/api/reference/
-    baseURL: https://api.soracom.io/v1
-    properties:
-      - url: https://users.soracom.io/ja-jp/tools/api/reference/
-        type: Documentation
-      - url: openapi/soracom-platform-api-openapi.yml
-        type: OpenAPI
-      - url: json-ld/soracom-context.jsonld
-        type: JSONLD
-    description: >-
-      The full monolithic Soracom Platform OpenAPI spec — 487 operations across 40 tags covering every Soracom service
-      surface (Sim, Subscriber, Group, Harvest, Inventory, Napter, EventHandler, VPG, Billing, Auth, Query, Lagoon,
-      LoRaWAN, Sigfox, SoraCam, Batch). Source of truth maintained in the soracom-cli repo.
-  - aid: soracom:soracom-sandbox-api
-    name: Soracom Sandbox API
-    tags:
-      - IoT
-      - Sandbox
-      - Testing
-    humanURL: https://users.soracom.io/ja-jp/tools/api/sandbox/
-    baseURL: https://api-sandbox.soracom.io/v1
-    properties:
-      - url: openapi/soracom-sandbox-api-openapi.yml
-        type: OpenAPI
-    description: >-
-      Soracom Sandbox API for safely exercising platform workflows. Lets developers create test coupons, fake SIMs, and
-      dummy subscriber records, then run normal API calls against the sandbox endpoint without billing.
+- aid: soracom:soracom-sim-api
+  name: Soracom SIM Management API
+  tags:
+  - IoT
+  - Cellular
+  - SIM
+  - Subscriber
+  humanURL: https://users.soracom.io/ja-jp/tools/api/reference/#/Sim
+  baseURL: https://api.soracom.io/v1
+  properties:
+  - url: https://developers.soracom.io/en/docs/air/
+    type: Documentation
+  - url: https://users.soracom.io/ja-jp/tools/api/reference/#/Sim
+    type: Documentation
+  - url: openapi/soracom-sim-api-openapi.yml
+    type: OpenAPI
+  - url: json-schema/soracom-sim-schema.json
+    type: JSONSchema
+  - url: json-structure/soracom-sim-structure.json
+    type: JSONStructure
+  - url: examples/soracom-sim-list-example.json
+    type: Examples
+  description: >-
+    Manage Soracom Air for Cellular SIMs (and Subscribers) — list, get, create Arc virtual SIMs, activate/deactivate/suspend/terminate,
+    set group binding, set IMEI lock, view session events, manage SIM profiles for multi-IMSI eSIM, and
+    read cell-tower location info.
+- aid: soracom:soracom-group-api
+  name: Soracom Group Configuration API
+  tags:
+  - IoT
+  - Groups
+  - Configuration
+  humanURL: https://users.soracom.io/ja-jp/tools/api/reference/#/Group
+  baseURL: https://api.soracom.io/v1
+  properties:
+  - url: https://developers.soracom.io/en/docs/group-configuration/
+    type: Documentation
+  - url: openapi/soracom-group-api-openapi.yml
+    type: OpenAPI
+  - url: json-schema/soracom-group-schema.json
+    type: JSONSchema
+  description: >-
+    Manage Soracom groups and per-service configuration. Groups bind SIMs and devices to namespaced configuration
+    for SoracomAir, SoracomBeam, SoracomFunnel, SoracomFunk, SoracomHarvest, SoracomJunction, SoracomOrbit,
+    and metadata services.
+- aid: soracom:soracom-billing-api
+  name: Soracom Billing API
+  tags:
+  - IoT
+  - Billing
+  - FinOps
+  - Payment
+  - Coupons
+  - Orders
+  humanURL: https://users.soracom.io/ja-jp/tools/api/reference/#/Billing
+  baseURL: https://api.soracom.io/v1
+  properties:
+  - url: https://developers.soracom.io/en/docs/reference/fees/
+    type: Documentation
+  - url: openapi/soracom-billing-api-openapi.yml
+    type: OpenAPI
+  - url: examples/soracom-bill-latest-example.json
+    type: Examples
+  description: >-
+    Retrieve usage charges (monthly bills, daily bill items, per-SIM and per-bill-item summaries), export
+    bills to CSV, manage payment methods, register coupons, manage orders, and configure shipping addresses.
+- aid: soracom:soracom-stats-api
+  name: Soracom Stats and Diagnostics API
+  tags:
+  - IoT
+  - Stats
+  - Audit
+  - Diagnostics
+  - Observability
+  humanURL: https://users.soracom.io/ja-jp/tools/api/reference/#/Stats
+  baseURL: https://api.soracom.io/v1
+  properties:
+  - url: https://developers.soracom.io/en/docs/air/view-data-usage/
+    type: Documentation
+  - url: openapi/soracom-stats-api-openapi.yml
+    type: OpenAPI
+  description: >-
+    Retrieve cellular data usage statistics (per SIM/subscriber/group/account), API and Napter audit logs,
+    operator error logs, and diagnostic features.
+- aid: soracom:soracom-auth-api
+  name: Soracom Auth and Access Management API
+  tags:
+  - IoT
+  - Auth
+  - SAM
+  - Access Management
+  - MFA
+  - Users
+  - Roles
+  humanURL: https://users.soracom.io/ja-jp/tools/api/reference/#/Auth
+  baseURL: https://api.soracom.io/v1
+  properties:
+  - url: https://developers.soracom.io/en/tools/api/key-and-token/
+    type: Documentation
+  - url: https://developers.soracom.io/en/docs/sam/
+    type: Documentation
+  - url: openapi/soracom-auth-api-openapi.yml
+    type: OpenAPI
+  - url: examples/soracom-auth-example.json
+    type: Examples
+  description: >-
+    Authenticate operators (email/password or AuthKey), issue short-lived API Keys + Tokens, manage operator
+    profile, SAM (Soracom Access Management) users and roles, MFA settings, registered email addresses,
+    switch-user (cross-operator) flows, and system notifications.
+- aid: soracom:soracom-lagoon-api
+  name: Soracom Lagoon API
+  tags:
+  - IoT
+  - Lagoon
+  - Dashboards
+  - Visualization
+  humanURL: https://users.soracom.io/ja-jp/tools/api/reference/#/Lagoon
+  baseURL: https://api.soracom.io/v1
+  properties:
+  - url: https://developers.soracom.io/en/docs/lagoon-v3/
+    type: Documentation
+  - url: openapi/soracom-lagoon-api-openapi.yml
+    type: OpenAPI
+  description: >-
+    Manage Soracom Lagoon (managed Grafana) subscription, plan tier, organization, dashboards, users,
+    licenses, and data sources.
+- aid: soracom:soracom-soracam-api
+  name: Soracom Cloud Camera Services API
+  tags:
+  - IoT
+  - SoraCam
+  - Camera
+  - Video
+  humanURL: https://users.soracom.io/ja-jp/tools/api/reference/#/SoraCam
+  baseURL: https://api.soracom.io/v1
+  properties:
+  - url: https://developers.soracom.io/en/guides/soracom-cloud-camera-services/
+    type: Documentation
+  - url: openapi/soracom-soracam-api-openapi.yml
+    type: OpenAPI
+  description: >-
+    Manage Soracom Cloud Camera Services (SoraCam) devices, livestream URLs, image exports, recording
+    exports, motion events, atomic timestamps, and dedicated cellular pack provisioning.
+- aid: soracom:soracom-batch-api
+  name: Soracom Batch API
+  tags:
+  - IoT
+  - Batch
+  - Automation
+  humanURL: https://users.soracom.io/ja-jp/tools/api/reference/#/Batch
+  baseURL: https://api.soracom.io/v1
+  properties:
+  - url: openapi/soracom-batch-api-openapi.yml
+    type: OpenAPI
+  description: >-
+    Batch processing — create batch groups, define jobs that invoke API operations across many SIMs or
+    devices, and inspect tasks for status and results.
+- aid: soracom:soracom-analysis-api
+  name: Soracom Analysis API
+  description: '[Soracom Query](/en/docs/query/)'
+  humanURL: https://users.soracom.io/ja-jp/tools/api/reference/#/Sim
+  baseURL: https://api.soracom.io/v1
+  tags:
+  - Analysis
+  properties:
+  - type: OpenAPI
+    url: openapi/soracom-analysis-api-openapi.yml
+  - type: Documentation
+    url: https://developers.soracom.io/en/docs/harvest/
+  - type: JSONSchema
+    url: json-schema/soracom-data-entry-schema.json
+  - type: Examples
+    url: examples/soracom-harvest-data-example.json
+  - type: Documentation
+    url: https://developers.soracom.io/en/docs/inventory/
+  - type: JSONSchema
+    url: json-schema/soracom-device-schema.json
+  - type: JSONStructure
+    url: json-structure/soracom-device-structure.json
+  - type: Documentation
+    url: https://developers.soracom.io/en/docs/napter/
+  - type: JSONSchema
+    url: json-schema/soracom-port-mapping-schema.json
+  - type: Examples
+    url: examples/soracom-napter-create-example.json
+  - type: Documentation
+    url: https://developers.soracom.io/en/docs/event-handler/
+  - type: Documentation
+    url: https://developers.soracom.io/en/docs/vpg/
+  - type: Documentation
+    url: https://developers.soracom.io/en/docs/query/
+  - type: Documentation
+    url: https://developers.soracom.io/en/docs/air-for-lorawan/
+  - type: Documentation
+    url: https://developers.soracom.io/en/docs/air-for-sigfox/
+  - type: Documentation
+    url: https://users.soracom.io/ja-jp/tools/api/reference/
+  - type: JSONLD
+    url: json-ld/soracom-context.jsonld
+- aid: soracom:soracom-api-sandbox-coupon-api
+  name: 'Soracom API Sandbox: Coupon API'
+  description: 'The API Sandbox: Coupon API from Soracom — 1 operation(s) for api sandbox: coupon.'
+  humanURL: https://users.soracom.io/ja-jp/tools/api/reference/#/Sim
+  baseURL: https://api.soracom.io/v1
+  tags:
+  - 'API Sandbox: Coupon'
+  properties:
+  - type: OpenAPI
+    url: openapi/soracom-api-sandbox-coupon-api-openapi.yml
+  - type: Documentation
+    url: https://developers.soracom.io/en/docs/harvest/
+  - type: JSONSchema
+    url: json-schema/soracom-data-entry-schema.json
+  - type: Examples
+    url: examples/soracom-harvest-data-example.json
+  - type: Documentation
+    url: https://developers.soracom.io/en/docs/inventory/
+  - type: JSONSchema
+    url: json-schema/soracom-device-schema.json
+  - type: JSONStructure
+    url: json-structure/soracom-device-structure.json
+  - type: Documentation
+    url: https://developers.soracom.io/en/docs/napter/
+  - type: JSONSchema
+    url: json-schema/soracom-port-mapping-schema.json
+  - type: Examples
+    url: examples/soracom-napter-create-example.json
+  - type: Documentation
+    url: https://developers.soracom.io/en/docs/event-handler/
+  - type: Documentation
+    url: https://developers.soracom.io/en/docs/vpg/
+  - type: Documentation
+    url: https://developers.soracom.io/en/docs/query/
+  - type: Documentation
+    url: https://developers.soracom.io/en/docs/air-for-lorawan/
+  - type: Documentation
+    url: https://developers.soracom.io/en/docs/air-for-sigfox/
+  - type: Documentation
+    url: https://users.soracom.io/ja-jp/tools/api/reference/
+  - type: JSONLD
+    url: json-ld/soracom-context.jsonld
+- aid: soracom:soracom-api-sandbox-operator-api
+  name: 'Soracom API Sandbox: Operator API'
+  description: 'The API Sandbox: Operator API from Soracom — 3 operation(s) for api sandbox: operator.'
+  humanURL: https://users.soracom.io/ja-jp/tools/api/reference/#/Sim
+  baseURL: https://api.soracom.io/v1
+  tags:
+  - 'API Sandbox: Operator'
+  properties:
+  - type: OpenAPI
+    url: openapi/soracom-api-sandbox-operator-api-openapi.yml
+  - type: Documentation
+    url: https://developers.soracom.io/en/docs/harvest/
+  - type: JSONSchema
+    url: json-schema/soracom-data-entry-schema.json
+  - type: Examples
+    url: examples/soracom-harvest-data-example.json
+  - type: Documentation
+    url: https://developers.soracom.io/en/docs/inventory/
+  - type: JSONSchema
+    url: json-schema/soracom-device-schema.json
+  - type: JSONStructure
+    url: json-structure/soracom-device-structure.json
+  - type: Documentation
+    url: https://developers.soracom.io/en/docs/napter/
+  - type: JSONSchema
+    url: json-schema/soracom-port-mapping-schema.json
+  - type: Examples
+    url: examples/soracom-napter-create-example.json
+  - type: Documentation
+    url: https://developers.soracom.io/en/docs/event-handler/
+  - type: Documentation
+    url: https://developers.soracom.io/en/docs/vpg/
+  - type: Documentation
+    url: https://developers.soracom.io/en/docs/query/
+  - type: Documentation
+    url: https://developers.soracom.io/en/docs/air-for-lorawan/
+  - type: Documentation
+    url: https://developers.soracom.io/en/docs/air-for-sigfox/
+  - type: Documentation
+    url: https://users.soracom.io/ja-jp/tools/api/reference/
+  - type: JSONLD
+    url: json-ld/soracom-context.jsonld
+- aid: soracom:soracom-api-sandbox-order-api
+  name: 'Soracom API Sandbox: Order API'
+  description: 'The API Sandbox: Order API from Soracom — 1 operation(s) for api sandbox: order.'
+  humanURL: https://users.soracom.io/ja-jp/tools/api/reference/#/Sim
+  baseURL: https://api.soracom.io/v1
+  tags:
+  - 'API Sandbox: Order'
+  properties:
+  - type: OpenAPI
+    url: openapi/soracom-api-sandbox-order-api-openapi.yml
+  - type: Documentation
+    url: https://developers.soracom.io/en/docs/harvest/
+  - type: JSONSchema
+    url: json-schema/soracom-data-entry-schema.json
+  - type: Examples
+    url: examples/soracom-harvest-data-example.json
+  - type: Documentation
+    url: https://developers.soracom.io/en/docs/inventory/
+  - type: JSONSchema
+    url: json-schema/soracom-device-schema.json
+  - type: JSONStructure
+    url: json-structure/soracom-device-structure.json
+  - type: Documentation
+    url: https://developers.soracom.io/en/docs/napter/
+  - type: JSONSchema
+    url: json-schema/soracom-port-mapping-schema.json
+  - type: Examples
+    url: examples/soracom-napter-create-example.json
+  - type: Documentation
+    url: https://developers.soracom.io/en/docs/event-handler/
+  - type: Documentation
+    url: https://developers.soracom.io/en/docs/vpg/
+  - type: Documentation
+    url: https://developers.soracom.io/en/docs/query/
+  - type: Documentation
+    url: https://developers.soracom.io/en/docs/air-for-lorawan/
+  - type: Documentation
+    url: https://developers.soracom.io/en/docs/air-for-sigfox/
+  - type: Documentation
+    url: https://users.soracom.io/ja-jp/tools/api/reference/
+  - type: JSONLD
+    url: json-ld/soracom-context.jsonld
+- aid: soracom:soracom-api-sandbox-stats-api
+  name: 'Soracom API Sandbox: Stats API'
+  description: 'The API Sandbox: Stats API from Soracom — 2 operation(s) for api sandbox: stats.'
+  humanURL: https://users.soracom.io/ja-jp/tools/api/reference/#/Sim
+  baseURL: https://api.soracom.io/v1
+  tags:
+  - 'API Sandbox: Stats'
+  properties:
+  - type: OpenAPI
+    url: openapi/soracom-api-sandbox-stats-api-openapi.yml
+  - type: Documentation
+    url: https://developers.soracom.io/en/docs/harvest/
+  - type: JSONSchema
+    url: json-schema/soracom-data-entry-schema.json
+  - type: Examples
+    url: examples/soracom-harvest-data-example.json
+  - type: Documentation
+    url: https://developers.soracom.io/en/docs/inventory/
+  - type: JSONSchema
+    url: json-schema/soracom-device-schema.json
+  - type: JSONStructure
+    url: json-structure/soracom-device-structure.json
+  - type: Documentation
+    url: https://developers.soracom.io/en/docs/napter/
+  - type: JSONSchema
+    url: json-schema/soracom-port-mapping-schema.json
+  - type: Examples
+    url: examples/soracom-napter-create-example.json
+  - type: Documentation
+    url: https://developers.soracom.io/en/docs/event-handler/
+  - type: Documentation
+    url: https://developers.soracom.io/en/docs/vpg/
+  - type: Documentation
+    url: https://developers.soracom.io/en/docs/query/
+  - type: Documentation
+    url: https://developers.soracom.io/en/docs/air-for-lorawan/
+  - type: Documentation
+    url: https://developers.soracom.io/en/docs/air-for-sigfox/
+  - type: Documentation
+    url: https://users.soracom.io/ja-jp/tools/api/reference/
+  - type: JSONLD
+    url: json-ld/soracom-context.jsonld
+- aid: soracom:soracom-api-sandbox-subscriber-api
+  name: 'Soracom API Sandbox: Subscriber API'
+  description: >-
+    The API Sandbox: Subscriber API from Soracom — 1 operation(s) for api sandbox: subscriber.
+  humanURL: https://users.soracom.io/ja-jp/tools/api/reference/#/Sim
+  baseURL: https://api.soracom.io/v1
+  tags:
+  - 'API Sandbox: Subscriber'
+  properties:
+  - type: OpenAPI
+    url: openapi/soracom-api-sandbox-subscriber-api-openapi.yml
+  - type: Documentation
+    url: https://developers.soracom.io/en/docs/harvest/
+  - type: JSONSchema
+    url: json-schema/soracom-data-entry-schema.json
+  - type: Examples
+    url: examples/soracom-harvest-data-example.json
+  - type: Documentation
+    url: https://developers.soracom.io/en/docs/inventory/
+  - type: JSONSchema
+    url: json-schema/soracom-device-schema.json
+  - type: JSONStructure
+    url: json-structure/soracom-device-structure.json
+  - type: Documentation
+    url: https://developers.soracom.io/en/docs/napter/
+  - type: JSONSchema
+    url: json-schema/soracom-port-mapping-schema.json
+  - type: Examples
+    url: examples/soracom-napter-create-example.json
+  - type: Documentation
+    url: https://developers.soracom.io/en/docs/event-handler/
+  - type: Documentation
+    url: https://developers.soracom.io/en/docs/vpg/
+  - type: Documentation
+    url: https://developers.soracom.io/en/docs/query/
+  - type: Documentation
+    url: https://developers.soracom.io/en/docs/air-for-lorawan/
+  - type: Documentation
+    url: https://developers.soracom.io/en/docs/air-for-sigfox/
+  - type: Documentation
+    url: https://users.soracom.io/ja-jp/tools/api/reference/
+  - type: JSONLD
+    url: json-ld/soracom-context.jsonld
+- aid: soracom:soracom-auditlog-api
+  name: Soracom AuditLog API
+  description: '[Audit logs](/en/docs/api-audit-logs/)'
+  humanURL: https://users.soracom.io/ja-jp/tools/api/reference/#/Sim
+  baseURL: https://api.soracom.io/v1
+  tags:
+  - AuditLog
+  properties:
+  - type: OpenAPI
+    url: openapi/soracom-auditlog-api-openapi.yml
+  - type: Documentation
+    url: https://developers.soracom.io/en/docs/harvest/
+  - type: JSONSchema
+    url: json-schema/soracom-data-entry-schema.json
+  - type: Examples
+    url: examples/soracom-harvest-data-example.json
+  - type: Documentation
+    url: https://developers.soracom.io/en/docs/inventory/
+  - type: JSONSchema
+    url: json-schema/soracom-device-schema.json
+  - type: JSONStructure
+    url: json-structure/soracom-device-structure.json
+  - type: Documentation
+    url: https://developers.soracom.io/en/docs/napter/
+  - type: JSONSchema
+    url: json-schema/soracom-port-mapping-schema.json
+  - type: Examples
+    url: examples/soracom-napter-create-example.json
+  - type: Documentation
+    url: https://developers.soracom.io/en/docs/event-handler/
+  - type: Documentation
+    url: https://developers.soracom.io/en/docs/vpg/
+  - type: Documentation
+    url: https://developers.soracom.io/en/docs/query/
+  - type: Documentation
+    url: https://developers.soracom.io/en/docs/air-for-lorawan/
+  - type: Documentation
+    url: https://developers.soracom.io/en/docs/air-for-sigfox/
+  - type: Documentation
+    url: https://users.soracom.io/ja-jp/tools/api/reference/
+  - type: JSONLD
+    url: json-ld/soracom-context.jsonld
+- aid: soracom:soracom-celllocation-api
+  name: Soracom CellLocation API
+  description: >-
+    [Cell tower location information](/en/docs/air/get-location-info/#get-cell-tower-location-information)
+  humanURL: https://users.soracom.io/ja-jp/tools/api/reference/#/Sim
+  baseURL: https://api.soracom.io/v1
+  tags:
+  - CellLocation
+  properties:
+  - type: OpenAPI
+    url: openapi/soracom-celllocation-api-openapi.yml
+  - type: Documentation
+    url: https://developers.soracom.io/en/docs/harvest/
+  - type: JSONSchema
+    url: json-schema/soracom-data-entry-schema.json
+  - type: Examples
+    url: examples/soracom-harvest-data-example.json
+  - type: Documentation
+    url: https://developers.soracom.io/en/docs/inventory/
+  - type: JSONSchema
+    url: json-schema/soracom-device-schema.json
+  - type: JSONStructure
+    url: json-structure/soracom-device-structure.json
+  - type: Documentation
+    url: https://developers.soracom.io/en/docs/napter/
+  - type: JSONSchema
+    url: json-schema/soracom-port-mapping-schema.json
+  - type: Examples
+    url: examples/soracom-napter-create-example.json
+  - type: Documentation
+    url: https://developers.soracom.io/en/docs/event-handler/
+  - type: Documentation
+    url: https://developers.soracom.io/en/docs/vpg/
+  - type: Documentation
+    url: https://developers.soracom.io/en/docs/query/
+  - type: Documentation
+    url: https://developers.soracom.io/en/docs/air-for-lorawan/
+  - type: Documentation
+    url: https://developers.soracom.io/en/docs/air-for-sigfox/
+  - type: Documentation
+    url: https://users.soracom.io/ja-jp/tools/api/reference/
+  - type: JSONLD
+    url: json-ld/soracom-context.jsonld
+- aid: soracom:soracom-credential-api
+  name: Soracom Credential API
+  description: >-
+    [Credentials store](/en/docs/credentials-store/)
+
+    Create, update, and delete credentials
+  humanURL: https://users.soracom.io/ja-jp/tools/api/reference/#/Sim
+  baseURL: https://api.soracom.io/v1
+  tags:
+  - Credential
+  properties:
+  - type: OpenAPI
+    url: openapi/soracom-credential-api-openapi.yml
+  - type: Documentation
+    url: https://developers.soracom.io/en/docs/harvest/
+  - type: JSONSchema
+    url: json-schema/soracom-data-entry-schema.json
+  - type: Examples
+    url: examples/soracom-harvest-data-example.json
+  - type: Documentation
+    url: https://developers.soracom.io/en/docs/inventory/
+  - type: JSONSchema
+    url: json-schema/soracom-device-schema.json
+  - type: JSONStructure
+    url: json-structure/soracom-device-structure.json
+  - type: Documentation
+    url: https://developers.soracom.io/en/docs/napter/
+  - type: JSONSchema
+    url: json-schema/soracom-port-mapping-schema.json
+  - type: Examples
+    url: examples/soracom-napter-create-example.json
+  - type: Documentation
+    url: https://developers.soracom.io/en/docs/event-handler/
+  - type: Documentation
+    url: https://developers.soracom.io/en/docs/vpg/
+  - type: Documentation
+    url: https://developers.soracom.io/en/docs/query/
+  - type: Documentation
+    url: https://developers.soracom.io/en/docs/air-for-lorawan/
+  - type: Documentation
+    url: https://developers.soracom.io/en/docs/air-for-sigfox/
+  - type: Documentation
+    url: https://users.soracom.io/ja-jp/tools/api/reference/
+  - type: JSONLD
+    url: json-ld/soracom-context.jsonld
+- aid: soracom:soracom-dataentry-api
+  name: Soracom DataEntry API
+  description: '[Soracom Harvest Data](/en/docs/harvest/)'
+  humanURL: https://users.soracom.io/ja-jp/tools/api/reference/#/Sim
+  baseURL: https://api.soracom.io/v1
+  tags:
+  - DataEntry
+  properties:
+  - type: OpenAPI
+    url: openapi/soracom-dataentry-api-openapi.yml
+  - type: Documentation
+    url: https://developers.soracom.io/en/docs/harvest/
+  - type: JSONSchema
+    url: json-schema/soracom-data-entry-schema.json
+  - type: Examples
+    url: examples/soracom-harvest-data-example.json
+  - type: Documentation
+    url: https://developers.soracom.io/en/docs/inventory/
+  - type: JSONSchema
+    url: json-schema/soracom-device-schema.json
+  - type: JSONStructure
+    url: json-structure/soracom-device-structure.json
+  - type: Documentation
+    url: https://developers.soracom.io/en/docs/napter/
+  - type: JSONSchema
+    url: json-schema/soracom-port-mapping-schema.json
+  - type: Examples
+    url: examples/soracom-napter-create-example.json
+  - type: Documentation
+    url: https://developers.soracom.io/en/docs/event-handler/
+  - type: Documentation
+    url: https://developers.soracom.io/en/docs/vpg/
+  - type: Documentation
+    url: https://developers.soracom.io/en/docs/query/
+  - type: Documentation
+    url: https://developers.soracom.io/en/docs/air-for-lorawan/
+  - type: Documentation
+    url: https://developers.soracom.io/en/docs/air-for-sigfox/
+  - type: Documentation
+    url: https://users.soracom.io/ja-jp/tools/api/reference/
+  - type: JSONLD
+    url: json-ld/soracom-context.jsonld
+- aid: soracom:soracom-device-api
+  name: Soracom Device API
+  description: '[Soracom Inventory devices](/en/docs/inventory/)'
+  humanURL: https://users.soracom.io/ja-jp/tools/api/reference/#/Sim
+  baseURL: https://api.soracom.io/v1
+  tags:
+  - Device
+  properties:
+  - type: OpenAPI
+    url: openapi/soracom-device-api-openapi.yml
+  - type: Documentation
+    url: https://developers.soracom.io/en/docs/harvest/
+  - type: JSONSchema
+    url: json-schema/soracom-data-entry-schema.json
+  - type: Examples
+    url: examples/soracom-harvest-data-example.json
+  - type: Documentation
+    url: https://developers.soracom.io/en/docs/inventory/
+  - type: JSONSchema
+    url: json-schema/soracom-device-schema.json
+  - type: JSONStructure
+    url: json-structure/soracom-device-structure.json
+  - type: Documentation
+    url: https://developers.soracom.io/en/docs/napter/
+  - type: JSONSchema
+    url: json-schema/soracom-port-mapping-schema.json
+  - type: Examples
+    url: examples/soracom-napter-create-example.json
+  - type: Documentation
+    url: https://developers.soracom.io/en/docs/event-handler/
+  - type: Documentation
+    url: https://developers.soracom.io/en/docs/vpg/
+  - type: Documentation
+    url: https://developers.soracom.io/en/docs/query/
+  - type: Documentation
+    url: https://developers.soracom.io/en/docs/air-for-lorawan/
+  - type: Documentation
+    url: https://developers.soracom.io/en/docs/air-for-sigfox/
+  - type: Documentation
+    url: https://users.soracom.io/ja-jp/tools/api/reference/
+  - type: JSONLD
+    url: json-ld/soracom-context.jsonld
+- aid: soracom:soracom-deviceobjectmodel-api
+  name: Soracom DeviceObjectModel API
+  description: '[Soracom Inventory object model](/en/docs/inventory/define-custom-object/)'
+  humanURL: https://users.soracom.io/ja-jp/tools/api/reference/#/Sim
+  baseURL: https://api.soracom.io/v1
+  tags:
+  - DeviceObjectModel
+  properties:
+  - type: OpenAPI
+    url: openapi/soracom-deviceobjectmodel-api-openapi.yml
+  - type: Documentation
+    url: https://developers.soracom.io/en/docs/harvest/
+  - type: JSONSchema
+    url: json-schema/soracom-data-entry-schema.json
+  - type: Examples
+    url: examples/soracom-harvest-data-example.json
+  - type: Documentation
+    url: https://developers.soracom.io/en/docs/inventory/
+  - type: JSONSchema
+    url: json-schema/soracom-device-schema.json
+  - type: JSONStructure
+    url: json-structure/soracom-device-structure.json
+  - type: Documentation
+    url: https://developers.soracom.io/en/docs/napter/
+  - type: JSONSchema
+    url: json-schema/soracom-port-mapping-schema.json
+  - type: Examples
+    url: examples/soracom-napter-create-example.json
+  - type: Documentation
+    url: https://developers.soracom.io/en/docs/event-handler/
+  - type: Documentation
+    url: https://developers.soracom.io/en/docs/vpg/
+  - type: Documentation
+    url: https://developers.soracom.io/en/docs/query/
+  - type: Documentation
+    url: https://developers.soracom.io/en/docs/air-for-lorawan/
+  - type: Documentation
+    url: https://developers.soracom.io/en/docs/air-for-sigfox/
+  - type: Documentation
+    url: https://users.soracom.io/ja-jp/tools/api/reference/
+  - type: JSONLD
+    url: json-ld/soracom-context.jsonld
+- aid: soracom:soracom-diagnostic-api
+  name: Soracom Diagnostic API
+  description: '[Diagnostic features](/en/guides/diagnostic/)'
+  humanURL: https://users.soracom.io/ja-jp/tools/api/reference/#/Sim
+  baseURL: https://api.soracom.io/v1
+  tags:
+  - Diagnostic
+  properties:
+  - type: OpenAPI
+    url: openapi/soracom-diagnostic-api-openapi.yml
+  - type: Documentation
+    url: https://developers.soracom.io/en/docs/harvest/
+  - type: JSONSchema
+    url: json-schema/soracom-data-entry-schema.json
+  - type: Examples
+    url: examples/soracom-harvest-data-example.json
+  - type: Documentation
+    url: https://developers.soracom.io/en/docs/inventory/
+  - type: JSONSchema
+    url: json-schema/soracom-device-schema.json
+  - type: JSONStructure
+    url: json-structure/soracom-device-structure.json
+  - type: Documentation
+    url: https://developers.soracom.io/en/docs/napter/
+  - type: JSONSchema
+    url: json-schema/soracom-port-mapping-schema.json
+  - type: Examples
+    url: examples/soracom-napter-create-example.json
+  - type: Documentation
+    url: https://developers.soracom.io/en/docs/event-handler/
+  - type: Documentation
+    url: https://developers.soracom.io/en/docs/vpg/
+  - type: Documentation
+    url: https://developers.soracom.io/en/docs/query/
+  - type: Documentation
+    url: https://developers.soracom.io/en/docs/air-for-lorawan/
+  - type: Documentation
+    url: https://developers.soracom.io/en/docs/air-for-sigfox/
+  - type: Documentation
+    url: https://users.soracom.io/ja-jp/tools/api/reference/
+  - type: JSONLD
+    url: json-ld/soracom-context.jsonld
+- aid: soracom:soracom-email-api
+  name: Soracom Email API
+  description: '[Email addresses](/en/docs/email/)'
+  humanURL: https://users.soracom.io/ja-jp/tools/api/reference/#/Sim
+  baseURL: https://api.soracom.io/v1
+  tags:
+  - Email
+  properties:
+  - type: OpenAPI
+    url: openapi/soracom-email-api-openapi.yml
+  - type: Documentation
+    url: https://developers.soracom.io/en/docs/harvest/
+  - type: JSONSchema
+    url: json-schema/soracom-data-entry-schema.json
+  - type: Examples
+    url: examples/soracom-harvest-data-example.json
+  - type: Documentation
+    url: https://developers.soracom.io/en/docs/inventory/
+  - type: JSONSchema
+    url: json-schema/soracom-device-schema.json
+  - type: JSONStructure
+    url: json-structure/soracom-device-structure.json
+  - type: Documentation
+    url: https://developers.soracom.io/en/docs/napter/
+  - type: JSONSchema
+    url: json-schema/soracom-port-mapping-schema.json
+  - type: Examples
+    url: examples/soracom-napter-create-example.json
+  - type: Documentation
+    url: https://developers.soracom.io/en/docs/event-handler/
+  - type: Documentation
+    url: https://developers.soracom.io/en/docs/vpg/
+  - type: Documentation
+    url: https://developers.soracom.io/en/docs/query/
+  - type: Documentation
+    url: https://developers.soracom.io/en/docs/air-for-lorawan/
+  - type: Documentation
+    url: https://developers.soracom.io/en/docs/air-for-sigfox/
+  - type: Documentation
+    url: https://users.soracom.io/ja-jp/tools/api/reference/
+  - type: JSONLD
+    url: json-ld/soracom-context.jsonld
+- aid: soracom:soracom-eventhandler-api
+  name: Soracom EventHandler API
+  description: '[Event handlers](/en/docs/event-handler/)'
+  humanURL: https://users.soracom.io/ja-jp/tools/api/reference/#/Sim
+  baseURL: https://api.soracom.io/v1
+  tags:
+  - EventHandler
+  properties:
+  - type: OpenAPI
+    url: openapi/soracom-eventhandler-api-openapi.yml
+  - type: Documentation
+    url: https://developers.soracom.io/en/docs/harvest/
+  - type: JSONSchema
+    url: json-schema/soracom-data-entry-schema.json
+  - type: Examples
+    url: examples/soracom-harvest-data-example.json
+  - type: Documentation
+    url: https://developers.soracom.io/en/docs/inventory/
+  - type: JSONSchema
+    url: json-schema/soracom-device-schema.json
+  - type: JSONStructure
+    url: json-structure/soracom-device-structure.json
+  - type: Documentation
+    url: https://developers.soracom.io/en/docs/napter/
+  - type: JSONSchema
+    url: json-schema/soracom-port-mapping-schema.json
+  - type: Examples
+    url: examples/soracom-napter-create-example.json
+  - type: Documentation
+    url: https://developers.soracom.io/en/docs/event-handler/
+  - type: Documentation
+    url: https://developers.soracom.io/en/docs/vpg/
+  - type: Documentation
+    url: https://developers.soracom.io/en/docs/query/
+  - type: Documentation
+    url: https://developers.soracom.io/en/docs/air-for-lorawan/
+  - type: Documentation
+    url: https://developers.soracom.io/en/docs/air-for-sigfox/
+  - type: Documentation
+    url: https://users.soracom.io/ja-jp/tools/api/reference/
+  - type: JSONLD
+    url: json-ld/soracom-context.jsonld
+- aid: soracom:soracom-fileentry-api
+  name: Soracom FileEntry API
+  description: '[Soracom Harvest Files](/en/docs/harvest/)'
+  humanURL: https://users.soracom.io/ja-jp/tools/api/reference/#/Sim
+  baseURL: https://api.soracom.io/v1
+  tags:
+  - FileEntry
+  properties:
+  - type: OpenAPI
+    url: openapi/soracom-fileentry-api-openapi.yml
+  - type: Documentation
+    url: https://developers.soracom.io/en/docs/harvest/
+  - type: JSONSchema
+    url: json-schema/soracom-data-entry-schema.json
+  - type: Examples
+    url: examples/soracom-harvest-data-example.json
+  - type: Documentation
+    url: https://developers.soracom.io/en/docs/inventory/
+  - type: JSONSchema
+    url: json-schema/soracom-device-schema.json
+  - type: JSONStructure
+    url: json-structure/soracom-device-structure.json
+  - type: Documentation
+    url: https://developers.soracom.io/en/docs/napter/
+  - type: JSONSchema
+    url: json-schema/soracom-port-mapping-schema.json
+  - type: Examples
+    url: examples/soracom-napter-create-example.json
+  - type: Documentation
+    url: https://developers.soracom.io/en/docs/event-handler/
+  - type: Documentation
+    url: https://developers.soracom.io/en/docs/vpg/
+  - type: Documentation
+    url: https://developers.soracom.io/en/docs/query/
+  - type: Documentation
+    url: https://developers.soracom.io/en/docs/air-for-lorawan/
+  - type: Documentation
+    url: https://developers.soracom.io/en/docs/air-for-sigfox/
+  - type: Documentation
+    url: https://users.soracom.io/ja-jp/tools/api/reference/
+  - type: JSONLD
+    url: json-ld/soracom-context.jsonld
+- aid: soracom:soracom-files-api
+  name: Soracom Files API
+  description: >-
+    Download files exported by the following APIs:
+
+    - [Billing](#/Billing)
+
+    - [Payment: exportPaymentStatement](#/Payment/exportPaymentStatement)
+
+    - [Stats](#/Stats)
+
+    - [Subscriber:exportSubscribers](#/Subscriber/exportSubscribers)
+  humanURL: https://users.soracom.io/ja-jp/tools/api/reference/#/Sim
+  baseURL: https://api.soracom.io/v1
+  tags:
+  - Files
+  properties:
+  - type: OpenAPI
+    url: openapi/soracom-files-api-openapi.yml
+  - type: Documentation
+    url: https://developers.soracom.io/en/docs/harvest/
+  - type: JSONSchema
+    url: json-schema/soracom-data-entry-schema.json
+  - type: Examples
+    url: examples/soracom-harvest-data-example.json
+  - type: Documentation
+    url: https://developers.soracom.io/en/docs/inventory/
+  - type: JSONSchema
+    url: json-schema/soracom-device-schema.json
+  - type: JSONStructure
+    url: json-structure/soracom-device-structure.json
+  - type: Documentation
+    url: https://developers.soracom.io/en/docs/napter/
+  - type: JSONSchema
+    url: json-schema/soracom-port-mapping-schema.json
+  - type: Examples
+    url: examples/soracom-napter-create-example.json
+  - type: Documentation
+    url: https://developers.soracom.io/en/docs/event-handler/
+  - type: Documentation
+    url: https://developers.soracom.io/en/docs/vpg/
+  - type: Documentation
+    url: https://developers.soracom.io/en/docs/query/
+  - type: Documentation
+    url: https://developers.soracom.io/en/docs/air-for-lorawan/
+  - type: Documentation
+    url: https://developers.soracom.io/en/docs/air-for-sigfox/
+  - type: Documentation
+    url: https://users.soracom.io/ja-jp/tools/api/reference/
+  - type: JSONLD
+    url: json-ld/soracom-context.jsonld
+- aid: soracom:soracom-gadget-api
+  name: Soracom Gadget API
+  description: >-
+    Gadget API compatible devices<ul><li>[SoraCam dedicated cellular pack](/en/guides/soracom-cloud-camera-services/setting-cellular-pack/)</li></ul>
+  humanURL: https://users.soracom.io/ja-jp/tools/api/reference/#/Sim
+  baseURL: https://api.soracom.io/v1
+  tags:
+  - Gadget
+  properties:
+  - type: OpenAPI
+    url: openapi/soracom-gadget-api-openapi.yml
+  - type: Documentation
+    url: https://developers.soracom.io/en/docs/harvest/
+  - type: JSONSchema
+    url: json-schema/soracom-data-entry-schema.json
+  - type: Examples
+    url: examples/soracom-harvest-data-example.json
+  - type: Documentation
+    url: https://developers.soracom.io/en/docs/inventory/
+  - type: JSONSchema
+    url: json-schema/soracom-device-schema.json
+  - type: JSONStructure
+    url: json-structure/soracom-device-structure.json
+  - type: Documentation
+    url: https://developers.soracom.io/en/docs/napter/
+  - type: JSONSchema
+    url: json-schema/soracom-port-mapping-schema.json
+  - type: Examples
+    url: examples/soracom-napter-create-example.json
+  - type: Documentation
+    url: https://developers.soracom.io/en/docs/event-handler/
+  - type: Documentation
+    url: https://developers.soracom.io/en/docs/vpg/
+  - type: Documentation
+    url: https://developers.soracom.io/en/docs/query/
+  - type: Documentation
+    url: https://developers.soracom.io/en/docs/air-for-lorawan/
+  - type: Documentation
+    url: https://developers.soracom.io/en/docs/air-for-sigfox/
+  - type: Documentation
+    url: https://users.soracom.io/ja-jp/tools/api/reference/
+  - type: JSONLD
+    url: json-ld/soracom-context.jsonld
+- aid: soracom:soracom-log-api
+  name: Soracom Log API
+  description: Error logs
+  humanURL: https://users.soracom.io/ja-jp/tools/api/reference/#/Sim
+  baseURL: https://api.soracom.io/v1
+  tags:
+  - Log
+  properties:
+  - type: OpenAPI
+    url: openapi/soracom-log-api-openapi.yml
+  - type: Documentation
+    url: https://developers.soracom.io/en/docs/harvest/
+  - type: JSONSchema
+    url: json-schema/soracom-data-entry-schema.json
+  - type: Examples
+    url: examples/soracom-harvest-data-example.json
+  - type: Documentation
+    url: https://developers.soracom.io/en/docs/inventory/
+  - type: JSONSchema
+    url: json-schema/soracom-device-schema.json
+  - type: JSONStructure
+    url: json-structure/soracom-device-structure.json
+  - type: Documentation
+    url: https://developers.soracom.io/en/docs/napter/
+  - type: JSONSchema
+    url: json-schema/soracom-port-mapping-schema.json
+  - type: Examples
+    url: examples/soracom-napter-create-example.json
+  - type: Documentation
+    url: https://developers.soracom.io/en/docs/event-handler/
+  - type: Documentation
+    url: https://developers.soracom.io/en/docs/vpg/
+  - type: Documentation
+    url: https://developers.soracom.io/en/docs/query/
+  - type: Documentation
+    url: https://developers.soracom.io/en/docs/air-for-lorawan/
+  - type: Documentation
+    url: https://developers.soracom.io/en/docs/air-for-sigfox/
+  - type: Documentation
+    url: https://users.soracom.io/ja-jp/tools/api/reference/
+  - type: JSONLD
+    url: json-ld/soracom-context.jsonld
+- aid: soracom:soracom-loradevice-api
+  name: Soracom LoraDevice API
+  description: '[Soracom Air for LoRaWAN](/en/docs/air-for-lorawan/) devices'
+  humanURL: https://users.soracom.io/ja-jp/tools/api/reference/#/Sim
+  baseURL: https://api.soracom.io/v1
+  tags:
+  - LoraDevice
+  properties:
+  - type: OpenAPI
+    url: openapi/soracom-loradevice-api-openapi.yml
+  - type: Documentation
+    url: https://developers.soracom.io/en/docs/harvest/
+  - type: JSONSchema
+    url: json-schema/soracom-data-entry-schema.json
+  - type: Examples
+    url: examples/soracom-harvest-data-example.json
+  - type: Documentation
+    url: https://developers.soracom.io/en/docs/inventory/
+  - type: JSONSchema
+    url: json-schema/soracom-device-schema.json
+  - type: JSONStructure
+    url: json-structure/soracom-device-structure.json
+  - type: Documentation
+    url: https://developers.soracom.io/en/docs/napter/
+  - type: JSONSchema
+    url: json-schema/soracom-port-mapping-schema.json
+  - type: Examples
+    url: examples/soracom-napter-create-example.json
+  - type: Documentation
+    url: https://developers.soracom.io/en/docs/event-handler/
+  - type: Documentation
+    url: https://developers.soracom.io/en/docs/vpg/
+  - type: Documentation
+    url: https://developers.soracom.io/en/docs/query/
+  - type: Documentation
+    url: https://developers.soracom.io/en/docs/air-for-lorawan/
+  - type: Documentation
+    url: https://developers.soracom.io/en/docs/air-for-sigfox/
+  - type: Documentation
+    url: https://users.soracom.io/ja-jp/tools/api/reference/
+  - type: JSONLD
+    url: json-ld/soracom-context.jsonld
+- aid: soracom:soracom-loragateway-api
+  name: Soracom LoraGateway API
+  description: '[Soracom Air for LoRaWAN](/en/docs/air-for-lorawan/) gateways'
+  humanURL: https://users.soracom.io/ja-jp/tools/api/reference/#/Sim
+  baseURL: https://api.soracom.io/v1
+  tags:
+  - LoraGateway
+  properties:
+  - type: OpenAPI
+    url: openapi/soracom-loragateway-api-openapi.yml
+  - type: Documentation
+    url: https://developers.soracom.io/en/docs/harvest/
+  - type: JSONSchema
+    url: json-schema/soracom-data-entry-schema.json
+  - type: Examples
+    url: examples/soracom-harvest-data-example.json
+  - type: Documentation
+    url: https://developers.soracom.io/en/docs/inventory/
+  - type: JSONSchema
+    url: json-schema/soracom-device-schema.json
+  - type: JSONStructure
+    url: json-structure/soracom-device-structure.json
+  - type: Documentation
+    url: https://developers.soracom.io/en/docs/napter/
+  - type: JSONSchema
+    url: json-schema/soracom-port-mapping-schema.json
+  - type: Examples
+    url: examples/soracom-napter-create-example.json
+  - type: Documentation
+    url: https://developers.soracom.io/en/docs/event-handler/
+  - type: Documentation
+    url: https://developers.soracom.io/en/docs/vpg/
+  - type: Documentation
+    url: https://developers.soracom.io/en/docs/query/
+  - type: Documentation
+    url: https://developers.soracom.io/en/docs/air-for-lorawan/
+  - type: Documentation
+    url: https://developers.soracom.io/en/docs/air-for-sigfox/
+  - type: Documentation
+    url: https://users.soracom.io/ja-jp/tools/api/reference/
+  - type: JSONLD
+    url: json-ld/soracom-context.jsonld
+- aid: soracom:soracom-loranetworkset-api
+  name: Soracom LoraNetworkSet API
+  description: '[Soracom Air for LoRaWAN](/en/docs/air-for-lorawan/) network sets'
+  humanURL: https://users.soracom.io/ja-jp/tools/api/reference/#/Sim
+  baseURL: https://api.soracom.io/v1
+  tags:
+  - LoraNetworkSet
+  properties:
+  - type: OpenAPI
+    url: openapi/soracom-loranetworkset-api-openapi.yml
+  - type: Documentation
+    url: https://developers.soracom.io/en/docs/harvest/
+  - type: JSONSchema
+    url: json-schema/soracom-data-entry-schema.json
+  - type: Examples
+    url: examples/soracom-harvest-data-example.json
+  - type: Documentation
+    url: https://developers.soracom.io/en/docs/inventory/
+  - type: JSONSchema
+    url: json-schema/soracom-device-schema.json
+  - type: JSONStructure
+    url: json-structure/soracom-device-structure.json
+  - type: Documentation
+    url: https://developers.soracom.io/en/docs/napter/
+  - type: JSONSchema
+    url: json-schema/soracom-port-mapping-schema.json
+  - type: Examples
+    url: examples/soracom-napter-create-example.json
+  - type: Documentation
+    url: https://developers.soracom.io/en/docs/event-handler/
+  - type: Documentation
+    url: https://developers.soracom.io/en/docs/vpg/
+  - type: Documentation
+    url: https://developers.soracom.io/en/docs/query/
+  - type: Documentation
+    url: https://developers.soracom.io/en/docs/air-for-lorawan/
+  - type: Documentation
+    url: https://developers.soracom.io/en/docs/air-for-sigfox/
+  - type: Documentation
+    url: https://users.soracom.io/ja-jp/tools/api/reference/
+  - type: JSONLD
+    url: json-ld/soracom-context.jsonld
+- aid: soracom:soracom-operator-api
+  name: Soracom Operator API
+  description: >-
+    - Operator management
+
+    - Update registration information
+
+    - Password changes
+
+    - [Multi-factor authentication](/en/docs/mfa/)
+  humanURL: https://users.soracom.io/ja-jp/tools/api/reference/#/Sim
+  baseURL: https://api.soracom.io/v1
+  tags:
+  - Operator
+  properties:
+  - type: OpenAPI
+    url: openapi/soracom-operator-api-openapi.yml
+  - type: Documentation
+    url: https://developers.soracom.io/en/docs/harvest/
+  - type: JSONSchema
+    url: json-schema/soracom-data-entry-schema.json
+  - type: Examples
+    url: examples/soracom-harvest-data-example.json
+  - type: Documentation
+    url: https://developers.soracom.io/en/docs/inventory/
+  - type: JSONSchema
+    url: json-schema/soracom-device-schema.json
+  - type: JSONStructure
+    url: json-structure/soracom-device-structure.json
+  - type: Documentation
+    url: https://developers.soracom.io/en/docs/napter/
+  - type: JSONSchema
+    url: json-schema/soracom-port-mapping-schema.json
+  - type: Examples
+    url: examples/soracom-napter-create-example.json
+  - type: Documentation
+    url: https://developers.soracom.io/en/docs/event-handler/
+  - type: Documentation
+    url: https://developers.soracom.io/en/docs/vpg/
+  - type: Documentation
+    url: https://developers.soracom.io/en/docs/query/
+  - type: Documentation
+    url: https://developers.soracom.io/en/docs/air-for-lorawan/
+  - type: Documentation
+    url: https://developers.soracom.io/en/docs/air-for-sigfox/
+  - type: Documentation
+    url: https://users.soracom.io/ja-jp/tools/api/reference/
+  - type: JSONLD
+    url: json-ld/soracom-context.jsonld
+- aid: soracom:soracom-order-api
+  name: Soracom Order API
+  description: >-
+    - [Coupon codes](/en/guides/accounting/payment/register-coupon/)
+
+    - [Long term discounts](/en/docs/air/volume-discount/)
+
+    - Order management
+
+    - Product catalog
+  humanURL: https://users.soracom.io/ja-jp/tools/api/reference/#/Sim
+  baseURL: https://api.soracom.io/v1
+  tags:
+  - Order
+  properties:
+  - type: OpenAPI
+    url: openapi/soracom-order-api-openapi.yml
+  - type: Documentation
+    url: https://developers.soracom.io/en/docs/harvest/
+  - type: JSONSchema
+    url: json-schema/soracom-data-entry-schema.json
+  - type: Examples
+    url: examples/soracom-harvest-data-example.json
+  - type: Documentation
+    url: https://developers.soracom.io/en/docs/inventory/
+  - type: JSONSchema
+    url: json-schema/soracom-device-schema.json
+  - type: JSONStructure
+    url: json-structure/soracom-device-structure.json
+  - type: Documentation
+    url: https://developers.soracom.io/en/docs/napter/
+  - type: JSONSchema
+    url: json-schema/soracom-port-mapping-schema.json
+  - type: Examples
+    url: examples/soracom-napter-create-example.json
+  - type: Documentation
+    url: https://developers.soracom.io/en/docs/event-handler/
+  - type: Documentation
+    url: https://developers.soracom.io/en/docs/vpg/
+  - type: Documentation
+    url: https://developers.soracom.io/en/docs/query/
+  - type: Documentation
+    url: https://developers.soracom.io/en/docs/air-for-lorawan/
+  - type: Documentation
+    url: https://developers.soracom.io/en/docs/air-for-sigfox/
+  - type: Documentation
+    url: https://users.soracom.io/ja-jp/tools/api/reference/
+  - type: JSONLD
+    url: json-ld/soracom-context.jsonld
+- aid: soracom:soracom-payment-api
+  name: Soracom Payment API
+  description: >-
+    - [Coupon codes](/en/guides/accounting/payment/register-coupon/)
+
+    - [Usage charges (billing details)](/en/guides/accounting/check-usage/)
+
+    - [Payment methods](/en/guides/accounting/payment/)
+
+    - [Long term discounts](/en/docs/air/volume-discount/)
+  humanURL: https://users.soracom.io/ja-jp/tools/api/reference/#/Sim
+  baseURL: https://api.soracom.io/v1
+  tags:
+  - Payment
+  properties:
+  - type: OpenAPI
+    url: openapi/soracom-payment-api-openapi.yml
+  - type: Documentation
+    url: https://developers.soracom.io/en/docs/harvest/
+  - type: JSONSchema
+    url: json-schema/soracom-data-entry-schema.json
+  - type: Examples
+    url: examples/soracom-harvest-data-example.json
+  - type: Documentation
+    url: https://developers.soracom.io/en/docs/inventory/
+  - type: JSONSchema
+    url: json-schema/soracom-device-schema.json
+  - type: JSONStructure
+    url: json-structure/soracom-device-structure.json
+  - type: Documentation
+    url: https://developers.soracom.io/en/docs/napter/
+  - type: JSONSchema
+    url: json-schema/soracom-port-mapping-schema.json
+  - type: Examples
+    url: examples/soracom-napter-create-example.json
+  - type: Documentation
+    url: https://developers.soracom.io/en/docs/event-handler/
+  - type: Documentation
+    url: https://developers.soracom.io/en/docs/vpg/
+  - type: Documentation
+    url: https://developers.soracom.io/en/docs/query/
+  - type: Documentation
+    url: https://developers.soracom.io/en/docs/air-for-lorawan/
+  - type: Documentation
+    url: https://developers.soracom.io/en/docs/air-for-sigfox/
+  - type: Documentation
+    url: https://users.soracom.io/ja-jp/tools/api/reference/
+  - type: JSONLD
+    url: json-ld/soracom-context.jsonld
+- aid: soracom:soracom-portmapping-api
+  name: Soracom PortMapping API
+  description: '[Soracom Napter](/en/docs/napter/)'
+  humanURL: https://users.soracom.io/ja-jp/tools/api/reference/#/Sim
+  baseURL: https://api.soracom.io/v1
+  tags:
+  - PortMapping
+  properties:
+  - type: OpenAPI
+    url: openapi/soracom-portmapping-api-openapi.yml
+  - type: Documentation
+    url: https://developers.soracom.io/en/docs/harvest/
+  - type: JSONSchema
+    url: json-schema/soracom-data-entry-schema.json
+  - type: Examples
+    url: examples/soracom-harvest-data-example.json
+  - type: Documentation
+    url: https://developers.soracom.io/en/docs/inventory/
+  - type: JSONSchema
+    url: json-schema/soracom-device-schema.json
+  - type: JSONStructure
+    url: json-structure/soracom-device-structure.json
+  - type: Documentation
+    url: https://developers.soracom.io/en/docs/napter/
+  - type: JSONSchema
+    url: json-schema/soracom-port-mapping-schema.json
+  - type: Examples
+    url: examples/soracom-napter-create-example.json
+  - type: Documentation
+    url: https://developers.soracom.io/en/docs/event-handler/
+  - type: Documentation
+    url: https://developers.soracom.io/en/docs/vpg/
+  - type: Documentation
+    url: https://developers.soracom.io/en/docs/query/
+  - type: Documentation
+    url: https://developers.soracom.io/en/docs/air-for-lorawan/
+  - type: Documentation
+    url: https://developers.soracom.io/en/docs/air-for-sigfox/
+  - type: Documentation
+    url: https://users.soracom.io/ja-jp/tools/api/reference/
+  - type: JSONLD
+    url: json-ld/soracom-context.jsonld
+- aid: soracom:soracom-query-api
+  name: Soracom Query API
+  description: Search SIMs, Soracom Inventory devices, and Sigfox devices
+  humanURL: https://users.soracom.io/ja-jp/tools/api/reference/#/Sim
+  baseURL: https://api.soracom.io/v1
+  tags:
+  - Query
+  properties:
+  - type: OpenAPI
+    url: openapi/soracom-query-api-openapi.yml
+  - type: Documentation
+    url: https://developers.soracom.io/en/docs/harvest/
+  - type: JSONSchema
+    url: json-schema/soracom-data-entry-schema.json
+  - type: Examples
+    url: examples/soracom-harvest-data-example.json
+  - type: Documentation
+    url: https://developers.soracom.io/en/docs/inventory/
+  - type: JSONSchema
+    url: json-schema/soracom-device-schema.json
+  - type: JSONStructure
+    url: json-structure/soracom-device-structure.json
+  - type: Documentation
+    url: https://developers.soracom.io/en/docs/napter/
+  - type: JSONSchema
+    url: json-schema/soracom-port-mapping-schema.json
+  - type: Examples
+    url: examples/soracom-napter-create-example.json
+  - type: Documentation
+    url: https://developers.soracom.io/en/docs/event-handler/
+  - type: Documentation
+    url: https://developers.soracom.io/en/docs/vpg/
+  - type: Documentation
+    url: https://developers.soracom.io/en/docs/query/
+  - type: Documentation
+    url: https://developers.soracom.io/en/docs/air-for-lorawan/
+  - type: Documentation
+    url: https://developers.soracom.io/en/docs/air-for-sigfox/
+  - type: Documentation
+    url: https://users.soracom.io/ja-jp/tools/api/reference/
+  - type: JSONLD
+    url: json-ld/soracom-context.jsonld
+- aid: soracom:soracom-resourcesummary-api
+  name: Soracom ResourceSummary API
+  description: The ResourceSummary API from Soracom — 1 operation(s) for resourcesummary.
+  humanURL: https://users.soracom.io/ja-jp/tools/api/reference/#/Sim
+  baseURL: https://api.soracom.io/v1
+  tags:
+  - ResourceSummary
+  properties:
+  - type: OpenAPI
+    url: openapi/soracom-resourcesummary-api-openapi.yml
+  - type: Documentation
+    url: https://developers.soracom.io/en/docs/harvest/
+  - type: JSONSchema
+    url: json-schema/soracom-data-entry-schema.json
+  - type: Examples
+    url: examples/soracom-harvest-data-example.json
+  - type: Documentation
+    url: https://developers.soracom.io/en/docs/inventory/
+  - type: JSONSchema
+    url: json-schema/soracom-device-schema.json
+  - type: JSONStructure
+    url: json-structure/soracom-device-structure.json
+  - type: Documentation
+    url: https://developers.soracom.io/en/docs/napter/
+  - type: JSONSchema
+    url: json-schema/soracom-port-mapping-schema.json
+  - type: Examples
+    url: examples/soracom-napter-create-example.json
+  - type: Documentation
+    url: https://developers.soracom.io/en/docs/event-handler/
+  - type: Documentation
+    url: https://developers.soracom.io/en/docs/vpg/
+  - type: Documentation
+    url: https://developers.soracom.io/en/docs/query/
+  - type: Documentation
+    url: https://developers.soracom.io/en/docs/air-for-lorawan/
+  - type: Documentation
+    url: https://developers.soracom.io/en/docs/air-for-sigfox/
+  - type: Documentation
+    url: https://users.soracom.io/ja-jp/tools/api/reference/
+  - type: JSONLD
+    url: json-ld/soracom-context.jsonld
+- aid: soracom:soracom-role-api
+  name: Soracom Role API
+  description: '[Access management (Soracom Access Management)](/en/docs/sam/)'
+  humanURL: https://users.soracom.io/ja-jp/tools/api/reference/#/Sim
+  baseURL: https://api.soracom.io/v1
+  tags:
+  - Role
+  properties:
+  - type: OpenAPI
+    url: openapi/soracom-role-api-openapi.yml
+  - type: Documentation
+    url: https://developers.soracom.io/en/docs/harvest/
+  - type: JSONSchema
+    url: json-schema/soracom-data-entry-schema.json
+  - type: Examples
+    url: examples/soracom-harvest-data-example.json
+  - type: Documentation
+    url: https://developers.soracom.io/en/docs/inventory/
+  - type: JSONSchema
+    url: json-schema/soracom-device-schema.json
+  - type: JSONStructure
+    url: json-structure/soracom-device-structure.json
+  - type: Documentation
+    url: https://developers.soracom.io/en/docs/napter/
+  - type: JSONSchema
+    url: json-schema/soracom-port-mapping-schema.json
+  - type: Examples
+    url: examples/soracom-napter-create-example.json
+  - type: Documentation
+    url: https://developers.soracom.io/en/docs/event-handler/
+  - type: Documentation
+    url: https://developers.soracom.io/en/docs/vpg/
+  - type: Documentation
+    url: https://developers.soracom.io/en/docs/query/
+  - type: Documentation
+    url: https://developers.soracom.io/en/docs/air-for-lorawan/
+  - type: Documentation
+    url: https://developers.soracom.io/en/docs/air-for-sigfox/
+  - type: Documentation
+    url: https://users.soracom.io/ja-jp/tools/api/reference/
+  - type: JSONLD
+    url: json-ld/soracom-context.jsonld
+- aid: soracom:soracom-shippingaddress-api
+  name: Soracom ShippingAddress API
+  description: Shipping address operations for direct sales
+  humanURL: https://users.soracom.io/ja-jp/tools/api/reference/#/Sim
+  baseURL: https://api.soracom.io/v1
+  tags:
+  - ShippingAddress
+  properties:
+  - type: OpenAPI
+    url: openapi/soracom-shippingaddress-api-openapi.yml
+  - type: Documentation
+    url: https://developers.soracom.io/en/docs/harvest/
+  - type: JSONSchema
+    url: json-schema/soracom-data-entry-schema.json
+  - type: Examples
+    url: examples/soracom-harvest-data-example.json
+  - type: Documentation
+    url: https://developers.soracom.io/en/docs/inventory/
+  - type: JSONSchema
+    url: json-schema/soracom-device-schema.json
+  - type: JSONStructure
+    url: json-structure/soracom-device-structure.json
+  - type: Documentation
+    url: https://developers.soracom.io/en/docs/napter/
+  - type: JSONSchema
+    url: json-schema/soracom-port-mapping-schema.json
+  - type: Examples
+    url: examples/soracom-napter-create-example.json
+  - type: Documentation
+    url: https://developers.soracom.io/en/docs/event-handler/
+  - type: Documentation
+    url: https://developers.soracom.io/en/docs/vpg/
+  - type: Documentation
+    url: https://developers.soracom.io/en/docs/query/
+  - type: Documentation
+    url: https://developers.soracom.io/en/docs/air-for-lorawan/
+  - type: Documentation
+    url: https://developers.soracom.io/en/docs/air-for-sigfox/
+  - type: Documentation
+    url: https://users.soracom.io/ja-jp/tools/api/reference/
+  - type: JSONLD
+    url: json-ld/soracom-context.jsonld
+- aid: soracom:soracom-sigfoxdevice-api
+  name: Soracom SigfoxDevice API
+  description: '[Soracom Air for Sigfox](/en/docs/air-for-sigfox/) devices'
+  humanURL: https://users.soracom.io/ja-jp/tools/api/reference/#/Sim
+  baseURL: https://api.soracom.io/v1
+  tags:
+  - SigfoxDevice
+  properties:
+  - type: OpenAPI
+    url: openapi/soracom-sigfoxdevice-api-openapi.yml
+  - type: Documentation
+    url: https://developers.soracom.io/en/docs/harvest/
+  - type: JSONSchema
+    url: json-schema/soracom-data-entry-schema.json
+  - type: Examples
+    url: examples/soracom-harvest-data-example.json
+  - type: Documentation
+    url: https://developers.soracom.io/en/docs/inventory/
+  - type: JSONSchema
+    url: json-schema/soracom-device-schema.json
+  - type: JSONStructure
+    url: json-structure/soracom-device-structure.json
+  - type: Documentation
+    url: https://developers.soracom.io/en/docs/napter/
+  - type: JSONSchema
+    url: json-schema/soracom-port-mapping-schema.json
+  - type: Examples
+    url: examples/soracom-napter-create-example.json
+  - type: Documentation
+    url: https://developers.soracom.io/en/docs/event-handler/
+  - type: Documentation
+    url: https://developers.soracom.io/en/docs/vpg/
+  - type: Documentation
+    url: https://developers.soracom.io/en/docs/query/
+  - type: Documentation
+    url: https://developers.soracom.io/en/docs/air-for-lorawan/
+  - type: Documentation
+    url: https://developers.soracom.io/en/docs/air-for-sigfox/
+  - type: Documentation
+    url: https://users.soracom.io/ja-jp/tools/api/reference/
+  - type: JSONLD
+    url: json-ld/soracom-context.jsonld
+- aid: soracom:soracom-simprofileorder-api
+  name: Soracom SimProfileOrder API
+  description: '[eSIM profiles](/en/docs/air/provision-esim/)'
+  humanURL: https://users.soracom.io/ja-jp/tools/api/reference/#/Sim
+  baseURL: https://api.soracom.io/v1
+  tags:
+  - SimProfileOrder
+  properties:
+  - type: OpenAPI
+    url: openapi/soracom-simprofileorder-api-openapi.yml
+  - type: Documentation
+    url: https://developers.soracom.io/en/docs/harvest/
+  - type: JSONSchema
+    url: json-schema/soracom-data-entry-schema.json
+  - type: Examples
+    url: examples/soracom-harvest-data-example.json
+  - type: Documentation
+    url: https://developers.soracom.io/en/docs/inventory/
+  - type: JSONSchema
+    url: json-schema/soracom-device-schema.json
+  - type: JSONStructure
+    url: json-structure/soracom-device-structure.json
+  - type: Documentation
+    url: https://developers.soracom.io/en/docs/napter/
+  - type: JSONSchema
+    url: json-schema/soracom-port-mapping-schema.json
+  - type: Examples
+    url: examples/soracom-napter-create-example.json
+  - type: Documentation
+    url: https://developers.soracom.io/en/docs/event-handler/
+  - type: Documentation
+    url: https://developers.soracom.io/en/docs/vpg/
+  - type: Documentation
+    url: https://developers.soracom.io/en/docs/query/
+  - type: Documentation
+    url: https://developers.soracom.io/en/docs/air-for-lorawan/
+  - type: Documentation
+    url: https://developers.soracom.io/en/docs/air-for-sigfox/
+  - type: Documentation
+    url: https://users.soracom.io/ja-jp/tools/api/reference/
+  - type: JSONLD
+    url: json-ld/soracom-context.jsonld
+- aid: soracom:soracom-soralet-api
+  name: Soracom Soralet API
+  description: '[Soracom Orbit](/en/docs/orbit/) Soralet'
+  humanURL: https://users.soracom.io/ja-jp/tools/api/reference/#/Sim
+  baseURL: https://api.soracom.io/v1
+  tags:
+  - Soralet
+  properties:
+  - type: OpenAPI
+    url: openapi/soracom-soralet-api-openapi.yml
+  - type: Documentation
+    url: https://developers.soracom.io/en/docs/harvest/
+  - type: JSONSchema
+    url: json-schema/soracom-data-entry-schema.json
+  - type: Examples
+    url: examples/soracom-harvest-data-example.json
+  - type: Documentation
+    url: https://developers.soracom.io/en/docs/inventory/
+  - type: JSONSchema
+    url: json-schema/soracom-device-schema.json
+  - type: JSONStructure
+    url: json-structure/soracom-device-structure.json
+  - type: Documentation
+    url: https://developers.soracom.io/en/docs/napter/
+  - type: JSONSchema
+    url: json-schema/soracom-port-mapping-schema.json
+  - type: Examples
+    url: examples/soracom-napter-create-example.json
+  - type: Documentation
+    url: https://developers.soracom.io/en/docs/event-handler/
+  - type: Documentation
+    url: https://developers.soracom.io/en/docs/vpg/
+  - type: Documentation
+    url: https://developers.soracom.io/en/docs/query/
+  - type: Documentation
+    url: https://developers.soracom.io/en/docs/air-for-lorawan/
+  - type: Documentation
+    url: https://developers.soracom.io/en/docs/air-for-sigfox/
+  - type: Documentation
+    url: https://users.soracom.io/ja-jp/tools/api/reference/
+  - type: JSONLD
+    url: json-ld/soracom-context.jsonld
+- aid: soracom:soracom-subscriber-api
+  name: Soracom Subscriber API
+  description: '[Soracom Air for Cellular](/en/docs/air/) SIM information, operations, and cancellation'
+  humanURL: https://users.soracom.io/ja-jp/tools/api/reference/#/Sim
+  baseURL: https://api.soracom.io/v1
+  tags:
+  - Subscriber
+  properties:
+  - type: OpenAPI
+    url: openapi/soracom-subscriber-api-openapi.yml
+  - type: Documentation
+    url: https://developers.soracom.io/en/docs/harvest/
+  - type: JSONSchema
+    url: json-schema/soracom-data-entry-schema.json
+  - type: Examples
+    url: examples/soracom-harvest-data-example.json
+  - type: Documentation
+    url: https://developers.soracom.io/en/docs/inventory/
+  - type: JSONSchema
+    url: json-schema/soracom-device-schema.json
+  - type: JSONStructure
+    url: json-structure/soracom-device-structure.json
+  - type: Documentation
+    url: https://developers.soracom.io/en/docs/napter/
+  - type: JSONSchema
+    url: json-schema/soracom-port-mapping-schema.json
+  - type: Examples
+    url: examples/soracom-napter-create-example.json
+  - type: Documentation
+    url: https://developers.soracom.io/en/docs/event-handler/
+  - type: Documentation
+    url: https://developers.soracom.io/en/docs/vpg/
+  - type: Documentation
+    url: https://developers.soracom.io/en/docs/query/
+  - type: Documentation
+    url: https://developers.soracom.io/en/docs/air-for-lorawan/
+  - type: Documentation
+    url: https://developers.soracom.io/en/docs/air-for-sigfox/
+  - type: Documentation
+    url: https://users.soracom.io/ja-jp/tools/api/reference/
+  - type: JSONLD
+    url: json-ld/soracom-context.jsonld
+- aid: soracom:soracom-systemnotification-api
+  name: Soracom SystemNotification API
+  description: '[Email addresses](/en/docs/email/)'
+  humanURL: https://users.soracom.io/ja-jp/tools/api/reference/#/Sim
+  baseURL: https://api.soracom.io/v1
+  tags:
+  - SystemNotification
+  properties:
+  - type: OpenAPI
+    url: openapi/soracom-systemnotification-api-openapi.yml
+  - type: Documentation
+    url: https://developers.soracom.io/en/docs/harvest/
+  - type: JSONSchema
+    url: json-schema/soracom-data-entry-schema.json
+  - type: Examples
+    url: examples/soracom-harvest-data-example.json
+  - type: Documentation
+    url: https://developers.soracom.io/en/docs/inventory/
+  - type: JSONSchema
+    url: json-schema/soracom-device-schema.json
+  - type: JSONStructure
+    url: json-structure/soracom-device-structure.json
+  - type: Documentation
+    url: https://developers.soracom.io/en/docs/napter/
+  - type: JSONSchema
+    url: json-schema/soracom-port-mapping-schema.json
+  - type: Examples
+    url: examples/soracom-napter-create-example.json
+  - type: Documentation
+    url: https://developers.soracom.io/en/docs/event-handler/
+  - type: Documentation
+    url: https://developers.soracom.io/en/docs/vpg/
+  - type: Documentation
+    url: https://developers.soracom.io/en/docs/query/
+  - type: Documentation
+    url: https://developers.soracom.io/en/docs/air-for-lorawan/
+  - type: Documentation
+    url: https://developers.soracom.io/en/docs/air-for-sigfox/
+  - type: Documentation
+    url: https://users.soracom.io/ja-jp/tools/api/reference/
+  - type: JSONLD
+    url: json-ld/soracom-context.jsonld
+- aid: soracom:soracom-user-api
+  name: Soracom User API
+  description: >-
+    - [Access management (Soracom Access Management)](/en/docs/sam/)
+
+    - Password changes
+
+    - [Multi-factor authentication](/en/docs/mfa/)
+
+    - [Switch user](/en/docs/switch-user/) trust policy configuration
+  humanURL: https://users.soracom.io/ja-jp/tools/api/reference/#/Sim
+  baseURL: https://api.soracom.io/v1
+  tags:
+  - User
+  properties:
+  - type: OpenAPI
+    url: openapi/soracom-user-api-openapi.yml
+  - type: Documentation
+    url: https://developers.soracom.io/en/docs/harvest/
+  - type: JSONSchema
+    url: json-schema/soracom-data-entry-schema.json
+  - type: Examples
+    url: examples/soracom-harvest-data-example.json
+  - type: Documentation
+    url: https://developers.soracom.io/en/docs/inventory/
+  - type: JSONSchema
+    url: json-schema/soracom-device-schema.json
+  - type: JSONStructure
+    url: json-structure/soracom-device-structure.json
+  - type: Documentation
+    url: https://developers.soracom.io/en/docs/napter/
+  - type: JSONSchema
+    url: json-schema/soracom-port-mapping-schema.json
+  - type: Examples
+    url: examples/soracom-napter-create-example.json
+  - type: Documentation
+    url: https://developers.soracom.io/en/docs/event-handler/
+  - type: Documentation
+    url: https://developers.soracom.io/en/docs/vpg/
+  - type: Documentation
+    url: https://developers.soracom.io/en/docs/query/
+  - type: Documentation
+    url: https://developers.soracom.io/en/docs/air-for-lorawan/
+  - type: Documentation
+    url: https://developers.soracom.io/en/docs/air-for-sigfox/
+  - type: Documentation
+    url: https://users.soracom.io/ja-jp/tools/api/reference/
+  - type: JSONLD
+    url: json-ld/soracom-context.jsonld
+- aid: soracom:soracom-virtualprivategateway-api
+  name: Soracom VirtualPrivateGateway API
+  description: >-
+    - [Virtual Private Gateway (VPG)](/en/docs/vpg/) (Canal / Direct / Door / Gate)
+
+    - [Soracom Junction](/en/docs/junction/)
+
+    - [Soracom Peek](/en/docs/peek/)
+  humanURL: https://users.soracom.io/ja-jp/tools/api/reference/#/Sim
+  baseURL: https://api.soracom.io/v1
+  tags:
+  - VirtualPrivateGateway
+  properties:
+  - type: OpenAPI
+    url: openapi/soracom-virtualprivategateway-api-openapi.yml
+  - type: Documentation
+    url: https://developers.soracom.io/en/docs/harvest/
+  - type: JSONSchema
+    url: json-schema/soracom-data-entry-schema.json
+  - type: Examples
+    url: examples/soracom-harvest-data-example.json
+  - type: Documentation
+    url: https://developers.soracom.io/en/docs/inventory/
+  - type: JSONSchema
+    url: json-schema/soracom-device-schema.json
+  - type: JSONStructure
+    url: json-structure/soracom-device-structure.json
+  - type: Documentation
+    url: https://developers.soracom.io/en/docs/napter/
+  - type: JSONSchema
+    url: json-schema/soracom-port-mapping-schema.json
+  - type: Examples
+    url: examples/soracom-napter-create-example.json
+  - type: Documentation
+    url: https://developers.soracom.io/en/docs/event-handler/
+  - type: Documentation
+    url: https://developers.soracom.io/en/docs/vpg/
+  - type: Documentation
+    url: https://developers.soracom.io/en/docs/query/
+  - type: Documentation
+    url: https://developers.soracom.io/en/docs/air-for-lorawan/
+  - type: Documentation
+    url: https://developers.soracom.io/en/docs/air-for-sigfox/
+  - type: Documentation
+    url: https://users.soracom.io/ja-jp/tools/api/reference/
+  - type: JSONLD
+    url: json-ld/soracom-context.jsonld
 name: Soracom
 tags:
   - IoT
@@ -357,7 +1772,20 @@ tags:
   - Connectivity
   - Edge
   - Japan
-image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+accessModel:
+  pricing: freemium
+  onboarding: self-serve
+  trial: false
+  try_now: true
+  public: false
+  label: Freemium · Self-serve signup
+  confidence: high
+  source:
+  - plans
+  - authentication
+  generated: '2026-07-22'
+  method: derived
+image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/soracom.png
 common:
   - type: AgenticAccess
     url: agentic-access/soracom-agentic-access.yml
