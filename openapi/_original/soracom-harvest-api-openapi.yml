@@ -1,0 +1,968 @@
+openapi: 3.0.0
+info:
+  title: Soracom Harvest API
+  description: Soracom Harvest data and file ingest, storage, retrieval, and export for time-series and binary device payloads.
+  version: 20250903-043502
+servers:
+- description: Japan coverage production API endpoint
+  url: https://api.soracom.io/v1
+- description: Global coverage production API endpoint
+  url: https://g.api.soracom.io/v1
+paths:
+  /data/{resource_type}/{resource_id}:
+    get:
+      description: 'Returns a list of data entries sent to Harvest Data from a device that match certain criteria. If the
+        total number of entries does not fit in one page, a URL for accessing the next page is returned in the `link` header
+        of the response.
+
+        '
+      operationId: getDataEntries
+      parameters:
+      - description: Type of data source resource.
+        in: path
+        name: resource_type
+        required: true
+        schema:
+          enum:
+          - Subscriber
+          - LoraDevice
+          - Sim
+          - SigfoxDevice
+          - Device
+          - SoraCam
+          type: string
+      - description: 'ID of data source resource. The ID to be specified depends on the value of `resource_type`.
+
+
+          | `resource_type` | The ID you specify |
+
+          |-|-|
+
+          | `Subscriber` | IMSI of the IoT SIM |
+
+          | `LoraDevice` | ID of the LoRaWAN device |
+
+          | `Sim` | SIM ID of the IoT SIM |
+
+          | `SigfoxDevice` | ID of the Sigfox device |
+
+          | `Device` | ID of the Inventory device |
+
+          | `SoraCam` | Device ID of the compatible camera device |
+
+          '
+        in: path
+        name: resource_id
+        required: true
+        schema:
+          type: string
+      - description: Start time for the data entries search range (UNIX time in milliseconds).
+        in: query
+        name: from
+        required: false
+        schema:
+          type: integer
+      - description: End time for the data entries search range (UNIX time in milliseconds).
+        in: query
+        name: to
+        required: false
+        schema:
+          type: integer
+      - description: Sort order of the data entries. Either descending (latest data entry first) or ascending (oldest data
+          entry first).
+        in: query
+        name: sort
+        required: false
+        schema:
+          default: desc
+          enum:
+          - desc
+          - asc
+          type: string
+      - description: Maximum number of data entries to retrieve (value range is 1 to 1000). The default is `10`.
+        in: query
+        name: limit
+        required: false
+        schema:
+          maximum: 1000
+          minimum: 1
+          type: integer
+      - description: The value of the `x-soracom-next-key` header from the previous response. Specify this to retrieve the
+          next page.
+        in: query
+        name: last_evaluated_key
+        required: false
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/DataEntry'
+                type: array
+          description: A list of data entries sent to Harvest Data from the specified resource.
+      security:
+      - api_key: []
+        api_token: []
+      summary: Get data sent to Harvest Data from a resource.
+      tags:
+      - DataEntry
+      x-soracom-cli:
+      - data get-entries
+      x-soracom-cli-pagination:
+        request:
+          param: last_evaluated_key
+        response:
+          header: x-soracom-next-key
+  /data/{resource_type}/{resource_id}/{time}:
+    delete:
+      description: Deletes a data entry identified with resource ID and timestamp
+      operationId: deleteDataEntry
+      parameters:
+      - description: Type of data source resource.
+        in: path
+        name: resource_type
+        required: true
+        schema:
+          enum:
+          - Subscriber
+          - LoraDevice
+          - Sim
+          - SigfoxDevice
+          - Device
+          - SoraCam
+          type: string
+      - description: 'ID of data source resource. The ID to be specified depends on the value of `resource_type`.
+
+
+          | `resource_type` | The ID you specify |
+
+          |-|-|
+
+          | `Subscriber` | IMSI of the IoT SIM |
+
+          | `LoraDevice` | ID of the LoRaWAN device |
+
+          | `Sim` | SIM ID of the IoT SIM |
+
+          | `SigfoxDevice` | ID of the Sigfox device |
+
+          | `Device` | ID of the Inventory device |
+
+          | `SoraCam` | Device ID of the compatible camera device |
+
+          '
+        in: path
+        name: resource_id
+        required: true
+        schema:
+          type: string
+      - description: Timestamp of the target data entry to delete (UNIX time in milliseconds).
+        in: path
+        name: time
+        required: true
+        schema:
+          type: integer
+      responses:
+        '204':
+          description: The data entry has been successfully deleted
+      security:
+      - api_key: []
+        api_token: []
+      summary: Deletes a data entry
+      tags:
+      - DataEntry
+      x-soracom-cli:
+      - data delete-entry
+    get:
+      description: Gets a data entry identified with resource ID and timestamp
+      operationId: getDataEntry
+      parameters:
+      - description: Type of data source resource.
+        in: path
+        name: resource_type
+        required: true
+        schema:
+          enum:
+          - Subscriber
+          - LoraDevice
+          - Sim
+          - SigfoxDevice
+          - Device
+          - SoraCam
+          type: string
+      - description: 'ID of data source resource. The ID to be specified depends on the value of `resource_type`.
+
+
+          | `resource_type` | The ID you specify |
+
+          |-|-|
+
+          | `Subscriber` | IMSI of the IoT SIM |
+
+          | `LoraDevice` | ID of the LoRaWAN device |
+
+          | `Sim` | SIM ID of the IoT SIM |
+
+          | `SigfoxDevice` | ID of the Sigfox device |
+
+          | `Device` | ID of the Inventory device |
+
+          | `SoraCam` | Device ID of the compatible camera device |
+
+          '
+        in: path
+        name: resource_id
+        required: true
+        schema:
+          type: string
+      - description: Timestamp of the target data entry to get (UNIX time in milliseconds).
+        in: path
+        name: time
+        required: true
+        schema:
+          type: integer
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DataEntry'
+          description: The data entry specified with resource ID and timestamp
+        '404':
+          description: No such entry found
+      security:
+      - api_key: []
+        api_token: []
+      summary: Gets a data entry
+      tags:
+      - DataEntry
+      x-soracom-cli:
+      - data get-entry
+  /data/categories/{category}:
+    get:
+      description: 'Returns a list of data entries that belong to a specific category. If the total number of entries does
+        not fit in one page, a URL for accessing the next page is returned in the `link` header of the response.
+
+        '
+      operationId: getDataEntriesByCategory
+      parameters:
+      - description: Name of the category to filter data entries.
+        in: path
+        name: category
+        required: true
+        schema:
+          type: string
+      - description: Start time for the data entries search range (UNIX time in milliseconds).
+        in: query
+        name: from
+        required: false
+        schema:
+          type: integer
+      - description: End time for the data entries search range (UNIX time in milliseconds).
+        in: query
+        name: to
+        required: false
+        schema:
+          type: integer
+      - description: Sort order of the data entries. Either descending (latest data entry first) or ascending (oldest data
+          entry first).
+        in: query
+        name: sort
+        required: false
+        schema:
+          default: desc
+          enum:
+          - desc
+          - asc
+          type: string
+      - description: Maximum number of data entries to retrieve (value range is 1 to 1000). The default is `10`.
+        in: query
+        name: limit
+        required: false
+        schema:
+          maximum: 1000
+          minimum: 1
+          type: integer
+      - description: The value of the `x-soracom-next-key` header from the previous response. Specify this to retrieve the
+          next page.
+        in: query
+        name: last_evaluated_key
+        required: false
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/DataEntry'
+                type: array
+          description: A list of data entries belonging to the specified category.
+      security:
+      - api_key: []
+        api_token: []
+      summary: Get data entries for a specific category
+      tags:
+      - DataEntry
+      x-soracom-cli:
+      - data get-entries-by-category
+      x-soracom-cli-pagination:
+        request:
+          param: last_evaluated_key
+        response:
+          header: x-soracom-next-key
+  /data/metadata/resources:
+    get:
+      description: 'Returns a list of data source resources that have sent data. If the total number of data source resources
+        does not fit in one page, a URL for accessing the next page is returned in the `link` header of the response.
+
+        '
+      operationId: listDataResourceMetadata
+      parameters:
+      - description: 'Type of data source resource.
+
+
+          - `Subscriber`: IoT SIM.
+
+          - `LoraDevice`: LoRaWAN device.
+
+          - `Sim`: IoT SIM.
+
+          - `SigfoxDevice`: Sigfox device.
+
+          - `Device`: Inventory device.
+
+          - `SoraCam`: Compatible camera device.
+
+          '
+        in: query
+        name: resource_type
+        required: false
+        schema:
+          enum:
+          - Subscriber
+          - LoraDevice
+          - Sim
+          - SigfoxDevice
+          - Device
+          - SoraCam
+          type: string
+      - description: Maximum number of data entries to retrieve.
+        in: query
+        name: limit
+        required: false
+        schema:
+          type: integer
+      - description: The value of the `x-soracom-next-key` header from the previous response. Specify this to retrieve the
+          next page.
+        in: query
+        name: last_evaluated_key
+        required: false
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/DataResourceMetadata'
+                type: array
+          description: A list of data source resources that have sent data to Harvest Data.
+      security:
+      - api_key: []
+        api_token: []
+      summary: Get the list of data source resources
+      tags:
+      - DataEntry
+      x-soracom-cli:
+      - data list-resource-metadata
+      x-soracom-cli-pagination:
+        request:
+          param: last_evaluated_key
+        response:
+          header: x-soracom-next-key
+  /data/resources:
+    get:
+      deprecated: true
+      description: 'Returns a list of data source resources that have sent data. If the total number of data source resources
+        does not fit in one page, a URL for accessing the next page is returned in the `link` header of the response.
+
+        '
+      operationId: listDataSourceResources
+      parameters:
+      - description: 'Type of data source resource.
+
+
+          - `Subscriber`: IoT SIM.
+
+          - `LoraDevice`: LoRaWAN device.
+
+          - `Sim`: IoT SIM.
+
+          - `SigfoxDevice`: Sigfox device.
+
+          - `Device`: Inventory device.
+
+          - `SoraCam`: Compatible camera device.
+
+          '
+        in: query
+        name: resource_type
+        required: false
+        schema:
+          enum:
+          - Subscriber
+          - LoraDevice
+          - Sim
+          - SigfoxDevice
+          - Device
+          - SoraCam
+          type: string
+      - description: Maximum number of data entries to retrieve.
+        in: query
+        name: limit
+        required: false
+        schema:
+          type: integer
+      - description: The value of the `x-soracom-next-key` header from the previous response. Specify this to retrieve the
+          next page.
+        in: query
+        name: last_evaluated_key
+        required: false
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/DataResourceMetadata'
+                type: array
+          description: A list of data source resources that have sent data to Harvest Data.
+      security:
+      - api_key: []
+        api_token: []
+      summary: Get the list of data source resources
+      tags:
+      - DataEntry
+      x-soracom-cli:
+      - data list-source-resources
+      x-soracom-cli-pagination:
+        request:
+          param: last_evaluated_key
+        response:
+          header: x-soracom-next-key
+  /files:
+    get:
+      description: Returns a list of file entries which beginnings of their file paths are matched with the `prefix` query
+        string in the ascending sorted UTF-8 bytes order of their file paths. An empty list is returned if the prefix does
+        not match with any paths of file entries.
+      operationId: findFiles
+      parameters:
+      - description: Scope of the request. Specify `private` to handle files uploaded to Harvest Files.
+        in: query
+        name: scope
+        required: true
+        schema:
+          enum:
+          - private
+          - public
+          type: string
+      - description: Prefix to match with file path.
+        in: query
+        name: prefix
+        required: true
+        schema:
+          type: string
+      - description: Maximum number of file entries to be returned.
+        in: query
+        name: limit
+        required: false
+        schema:
+          default: 10
+          type: integer
+      - description: The filePath of the last file entry retrieved on the previous page. By specifying this parameter, you
+          can continue to retrieve the list from the next file entry onward.
+        in: query
+        name: last_evaluated_key
+        required: false
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/FileEntry'
+                type: array
+          description: List of file entries found with query parameters. Empty list if there is no file entry matching prefix.
+        '404':
+          description: The specified scope does not exist.
+      security:
+      - api_key: []
+        api_token: []
+      summary: Find files with prefix query parameter in the scope
+      tags:
+      - FileEntry
+      x-soracom-cli:
+      - files find
+      x-soracom-cli-pagination:
+        request:
+          param: last_evaluated_key
+        response:
+          header: x-soracom-next-key
+  /files/{scope}/{path}:
+    delete:
+      description: Deletes the file specified by scope and path. Only `private` scope is allowed for the operation.
+      operationId: deleteFile
+      parameters:
+      - description: Scope of the request. Specify `private` to handle files uploaded to Harvest Files.
+        in: path
+        name: scope
+        required: true
+        schema:
+          default: private
+          enum:
+          - private
+          type: string
+      - description: Target path.
+        in: path
+        name: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '204':
+          description: The specified file is successfully deleted.
+        '404':
+          description: No such file.
+      security:
+      - api_key: []
+        api_token: []
+      summary: Deletes the file specified by scope and path.
+      tags:
+      - FileEntry
+      x-soracom-cli:
+      - files delete
+    get:
+      description: Download file specified by the path and the scope. Note that [FileEntry:listFiles API](#!/FileEntry/listFiles)
+        will be called if the path ends with `/`.
+      operationId: getFile
+      parameters:
+      - description: Scope of the request. Specify `private` to handle files uploaded to Harvest Files.
+        in: path
+        name: scope
+        required: true
+        schema:
+          default: private
+          enum:
+          - private
+          - public
+          type: string
+      - description: Target path.
+        in: path
+        name: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '302':
+          description: Redirection to a link to download a file. If the specified path is a directory, redirection to the
+            listFiles API.
+        '404':
+          description: No such file.
+      security:
+      - api_key: []
+        api_token: []
+      summary: Download file specified by the path and the scope
+      tags:
+      - FileEntry
+      x-soracom-cli:
+      - files get
+    head:
+      description: Gets the metadata of the file specified by the path and the scope.
+      operationId: getFileMetadata
+      parameters:
+      - description: Scope of the request. Specify `private` to handle files uploaded to Harvest Files.
+        in: path
+        name: scope
+        required: true
+        schema:
+          default: private
+          enum:
+          - private
+          - public
+          type: string
+      - description: Target path.
+        in: path
+        name: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Metadata of the file
+          headers:
+            Content-Length:
+              description: File size (bytes)
+              schema:
+                type: integer
+            Content-Type:
+              description: File's Content-Type
+              schema:
+                type: string
+            ETag:
+              description: Identifier representing the file version
+              schema:
+                type: string
+        '404':
+          description: No such file.
+      security:
+      - api_key: []
+        api_token: []
+      summary: Gets the metadata of the file specified by the path and the scope
+      tags:
+      - FileEntry
+      x-soracom-cli:
+      - files get-metadata
+    put:
+      description: Uploads the file to the specified path in the scope. Only `private` scope is allowed for the operation.
+      operationId: putFile
+      parameters:
+      - description: Scope of the request. Specify `private` to handle files uploaded to Harvest Files.
+        in: path
+        name: scope
+        required: true
+        schema:
+          default: private
+          enum:
+          - private
+          type: string
+      - description: Target path.
+        in: path
+        name: path
+        required: true
+        schema:
+          type: string
+      - description: Content-Type of the file to be uploaded.
+        in: header
+        name: content-type
+        schema:
+          type: string
+      requestBody:
+        content:
+          '*/*':
+            schema:
+              format: binary
+              type: string
+        description: Contents of the file to be updated.
+        required: true
+      responses:
+        '200':
+          description: File is successfully updated with the content.
+        '201':
+          description: File is successfully created.
+      security:
+      - api_key: []
+        api_token: []
+      summary: Uploads the file to the specified path in the scope.
+      tags:
+      - FileEntry
+      x-soracom-cli:
+      - files put
+  /files/{scope}/{path}/:
+    delete:
+      description: Deletes the directory specified by scope and path. Only `private` scope is allowed for the operation.
+      operationId: deleteDirectory
+      parameters:
+      - description: Scope of the request. Specify `private` to handle files uploaded to Harvest Files.
+        in: path
+        name: scope
+        required: true
+        schema:
+          default: private
+          enum:
+          - private
+          type: string
+      - description: Target path.
+        in: path
+        name: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '204':
+          description: The specified directory is successfully deleted.
+        '400':
+          description: The specified directory is not empty.
+        '404':
+          description: No such directory.
+      security:
+      - api_key: []
+        api_token: []
+      summary: Deletes the directory specified by scope and path
+      tags:
+      - FileEntry
+      x-soracom-cli:
+      - files delete-directory
+    get:
+      description: 'Returns files and directories from the directory specified by the scope and path. Note that [FileEntry:getFile
+        API](#!/FileEntry/getFile) will be called if the path does not end in `/`. If the total number of entries does not
+        fit in one page, a URL for accessing the next page is returned in the `link` header of the response.
+
+        '
+      operationId: listFiles
+      parameters:
+      - description: Scope of the request. Specify `private` to handle files uploaded to Harvest Files.
+        in: path
+        name: scope
+        required: true
+        schema:
+          default: private
+          enum:
+          - private
+          - public
+          type: string
+      - description: Target path.
+        in: path
+        name: path
+        required: true
+        schema:
+          default: /
+          type: string
+      - description: Maximum number of file entries to be returned.
+        in: query
+        name: limit
+        required: false
+        schema:
+          default: 10
+          type: integer
+      - description: The filename of the last file entry retrieved on the previous page. By specifying this parameter, you
+          can continue to retrieve the list from the next file entry onward.
+        in: query
+        name: last_evaluated_key
+        required: false
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/FileEntry'
+                type: array
+          description: Files and directories from the directory specified by the scope and path.
+        '404':
+          description: No such directory.
+      security:
+      - api_key: []
+        api_token: []
+      summary: Returns files and directories from the directory specified by the scope and path.
+      tags:
+      - FileEntry
+      x-soracom-cli:
+      - files list
+      x-soracom-cli-pagination:
+        request:
+          param: last_evaluated_key
+        response:
+          header: x-soracom-next-key
+  /files/exported/{exported_file_id}:
+    get:
+      description: 'Get the progress of the process when the file is exported asynchronously. If the export is complete, you
+        will get the URL to download the file. You can download the file from the URL.
+
+
+        The following APIs are available to export files asynchronously. The `exported_file_id` is the file output ID (the
+        value of `exportedFileId`) obtained from the following API.
+
+
+        - [Billing:exportBilling API](#!/Billing/exportBilling)
+
+        - [Billing:exportLatestBilling API](#!/Billing/exportLatestBilling)
+
+        - [Payment:exportPaymentStatement API](#!/Payment/exportPaymentStatement)
+
+        - [Stats:exportAirStats API](#!/Stats/exportAirStats)
+
+        - [Stats:exportBeamStats API](#!/Stats/exportBeamStats)
+
+        - [Stats:exportFunkStats API](#!/Stats/exportFunkStats)
+
+        - [Stats:exportFunnelStats API](#!/Stats/exportFunnelStats)
+
+        - [Subscriber:exportSubscribers API](#!/Subscriber/exportSubscribers)
+
+        '
+      operationId: getExportedFile
+      parameters:
+      - description: File export ID.
+        in: path
+        name: exported_file_id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              example:
+                status: exported
+                url: https://soracom-xxxxxxxx-....
+              schema:
+                $ref: '#/components/schemas/GetExportedFileResponse'
+          description: OK
+      security:
+      - api_key: []
+        api_token: []
+      summary: Get the progress of the process when the file is exported asynchronously.
+      tags:
+      - Files
+      x-soracom-cli:
+      - files get-exported
+tags:
+- description: '[Soracom Harvest Data](/en/docs/harvest/)'
+  name: DataEntry
+- description: '[Soracom Harvest Files](/en/docs/harvest/)'
+  name: FileEntry
+- description: 'Download files exported by the following APIs:
+
+    - [Billing](#/Billing)
+
+    - [Payment: exportPaymentStatement](#/Payment/exportPaymentStatement)
+
+    - [Stats](#/Stats)
+
+    - [Subscriber:exportSubscribers](#/Subscriber/exportSubscribers)
+
+    '
+  name: Files
+components:
+  schemas:
+    DataEntry:
+      properties:
+        category:
+          type: string
+        content:
+          type: string
+        contentType:
+          type: string
+        resourceId:
+          type: string
+        resourceType:
+          enum:
+          - Subscriber
+          - LoraDevice
+          - Sim
+          - SigfoxDevice
+          - Device
+          - SoraCam
+          type: string
+        time:
+          format: int64
+          type: integer
+      type: object
+    DataResourceMetadata:
+      properties:
+        attributeNames:
+          items:
+            type: string
+          type: array
+        lastModifiedTime:
+          format: int64
+          type: integer
+        resourceId:
+          type: string
+        resourceType:
+          type: string
+      type: object
+    FileEntry:
+      properties:
+        contentLength:
+          description: Content length of the file.
+          format: int64
+          type: integer
+        contentType:
+          description: Content type of the file.
+          type: string
+        createdTime:
+          description: Created time of the file.
+          format: int64
+          type: integer
+        directory:
+          description: Parent directory name.
+          type: string
+        etag:
+          description: ETag of the file.
+          type: string
+        filePath:
+          description: Absolute path of the file.
+          type: string
+        filename:
+          description: File name.
+          type: string
+        isDirectory:
+          description: Whether the entry is directory or not.
+          type: boolean
+        lastModifiedTime:
+          description: Last modified time of the file.
+          format: int64
+          type: integer
+      type: object
+    GetExportedFileResponse:
+      properties:
+        status:
+          description: 'Export status.
+
+
+            - `processing`: Export is in progress. Please wait.
+
+            - `exported`: Export has completed. The file is ready for download.
+
+            - `failed`: Export has failed.
+
+            '
+          enum:
+          - processing
+          - exported
+          - failed
+          type: string
+        url:
+          description: 'File download URL. Verify that the `status` is `exported`, then download the CSV file from the URL
+            obtained from `url`.
+
+
+            ```bash
+
+            $ wget -O export.csv "https://soracom-xxxxxxxx-...."
+
+            ```
+
+            '
+          type: string
+      type: object
+  securitySchemes:
+    api_key:
+      description: 'API key for authentication. Obtain this from the Soracom User Console or via the Auth API.
+
+        Required in combination with an API token for all authenticated requests.
+
+        '
+      in: header
+      name: X-Soracom-API-Key
+      type: apiKey
+    api_token:
+      description: 'API token for authentication. This token has an expiration time and must be refreshed periodically.
+
+        Required in combination with an API key for all authenticated requests.'
+      in: header
+      name: X-Soracom-Token
+      type: apiKey

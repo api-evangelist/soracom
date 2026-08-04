@@ -1,0 +1,2001 @@
+openapi: 3.0.0
+info:
+  title: Soracom Event Handler API
+  description: Define event handlers, rule sets, and actions to drive workflows on SIM, billing, and data events; manage credentials
+    and Soralets.
+  version: 20250903-043502
+servers:
+- description: Japan coverage production API endpoint
+  url: https://api.soracom.io/v1
+- description: Global coverage production API endpoint
+  url: https://g.api.soracom.io/v1
+paths:
+  /event_handlers:
+    get:
+      description: Returns a list of event handlers.
+      operationId: listEventHandlers
+      parameters:
+      - description: The event handler target (the target for executing events).
+        in: query
+        name: target
+        required: false
+        schema:
+          enum:
+          - operator
+          - imsi
+          - sim
+          - group
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/EventHandlerModel'
+                type: array
+          description: OK.
+      security:
+      - api_key: []
+        api_token: []
+      summary: List Event Handlers
+      tags:
+      - EventHandler
+      x-soracom-cli:
+      - event-handlers list
+    post:
+      description: Creates a new event handler. Please see also https://developers.soracom.io/en/docs/air/event-handler/.
+      operationId: createEventHandler
+      requestBody:
+        content:
+          application/json:
+            examples:
+              (01) Execute multiple actions when a subscriber's monthly data traffic volume exceeds a certain limit.:
+                value:
+                  actionConfigList:
+                  - properties:
+                      executionDateTimeConst: IMMEDIATELY
+                      speedClass: s1.minimum
+                    type: ChangeSpeedClassAction
+                  - properties:
+                      executionDateTimeConst: BEGINNING_OF_NEXT_MONTH
+                      speedClass: s1.standard
+                    type: ChangeSpeedClassAction
+                  - properties:
+                      message: 'Target IoT SIM: ${imsi}
+
+                        The monthly data traffic volume of the IoT SIM has reached 1024 MiB, and the communication speed has
+                        been limited to "s1.minimum".'
+                      title: Notification of Speed Limitation
+                    type: SendMailToOperatorAction
+                  - properties:
+                      message: 'Target IoT SIM: ${imsi}
+
+                        Since the speed limitation period has ended, the communication speed has been set to "s1.standard".'
+                      title: Notification of Speed Limitation Release
+                    type: SendMailToOperatorAction
+                  description: Sample description
+                  name: Event handler
+                  ruleConfig:
+                    properties:
+                      inactiveTimeoutDateConst: BEGINNING_OF_NEXT_MONTH
+                      limitTotalTrafficMegaByte: 1024
+                    type: SubscriberMonthlyTrafficRule
+                  status: active
+                  targetOperatorId: OP0000000000
+              (02) Notify on Slack when the speed class of an IoT SIM changes.:
+                value:
+                  actionConfigList:
+                  - properties:
+                      body: '{"text":"${imsi} speed class changed from ${oldSpeedClass} to ${newSpeedClass}"}'
+                      contentType: application/json
+                      executionDateTimeConst: IMMEDIATELY
+                      headers: '{"contentType":"application/json; charset=utf-8"}'
+                      httpMethod: POST
+                      url: https://hooks.slack.com/services/XXXX
+                    type: ExecuteWebRequestAction
+                  name: SpeedClass
+                  ruleConfig:
+                    properties:
+                      inactiveTimeoutDateConst: IMMEDIATELY
+                    type: SimSpeedClassAttributeRule
+                  status: active
+                  targetOperatorId: OP0000000000
+              (03) If the daily data traffic volume exceeds 100 MiB, limit the speed for 24 hours and send an email notification.:
+                value:
+                  actionConfigList:
+                  - properties:
+                      executionDateTimeConst: IMMEDIATELY
+                      speedClass: s1.slow
+                    type: ChangeSpeedClassAction
+                  - properties:
+                      executionDateTimeConst: AFTER_ONE_DAY
+                      speedClass: s1.fast
+                    type: ChangeSpeedClassAction
+                  - properties:
+                      executionDateTimeConst: IMMEDIATELY
+                      message: Speed limitation will be implemented as the daily data traffic volume has reached 100 MiB.
+                      title: Notification from Soracom
+                      to: notify@exmaple.com
+                    type: SendMailAction
+                  - properties:
+                      executionDateTimeConst: AFTER_ONE_DAY
+                      message: Speed limitation will be released
+                      title: Notification from Soracom
+                      to: notify@exmaple.com
+                    type: SendMailAction
+                  description: Limit speed for 24 hours if daily data traffic volume exceeds 100 MiB.
+                  name: 100 MiB Limit
+                  ruleConfig:
+                    properties:
+                      inactiveTimeoutDateConst: AFTER_ONE_DAY
+                      limitTotalTrafficMegaByte: '100'
+                    type: SubscriberDailyTrafficRule
+                  status: active
+                  targetImsi: xxxxxxxxxxxx
+              (04) Call AWS Lambda when the cumulative data traffic volume reaches 3000 MiB.:
+                description: 'For cumulative events, `inactiveTimeoutDateConst` is set to `NEVER` (not re-evaluated).
+
+                  '
+                value:
+                  actionConfigList:
+                  - properties:
+                      credentialsId: '{Authentication ID}'
+                      endpoint: https://lambda.ap-northeast-1.amazonaws.com
+                      executionDateTimeConst: IMMEDIATELY
+                      functionName: '{Lambda function name}'
+                      parameter1: param1
+                      parameter2: param2
+                      parameter3: param3
+                    type: InvokeAWSLambdaAction
+                  description: Call AWS Lambda when cumulative data traffic volume reaches 3000 MiB.
+                  name: 3000 MiB Limit
+                  ruleConfig:
+                    properties:
+                      inactiveTimeoutDateConst: NEVER
+                      limitTotalTrafficMegaByte: '3000'
+                    type: SimCumulativeTotalTrafficRule
+                  status: active
+                  targetOperatorId: OP0000000000
+              (05) Save history in AWS Lambda when changing speed class.:
+                description: 'The idea is to send the before and after speed classes to AWS Lambda using variables available
+                  in the speed class change rule (`${newSpeedClass}` and `${oldSpeedClass}`), and save the history in a database
+                  or similar in AWS Lambda.
+
+                  '
+                value:
+                  actionConfigList:
+                  - properties:
+                      credentialsId: '{Authentication ID}'
+                      endpoint: https://lambda.ap-northeast-1.amazonaws.com
+                      executionDateTimeConst: IMMEDIATELY
+                      functionName: '{Lambda function name}'
+                      parameter1: ${oldSpeedClass}
+                      parameter2: ${newSpeedClass}
+                    type: InvokeAWSLambdaAction
+                  description: Save history in AWS Lambda when changing speed class.
+                  name: SpeedClass Change
+                  ruleConfig:
+                    properties:
+                      inactiveTimeoutDateConst: IMMEDIATELY
+                      targetSpeedClass: null
+                    type: SubscriberSpeedClassAttributeRule
+                  status: active
+                  targetOperatorId: OP0000000000
+              (06) Send a request to a specified URL when the data traffic volume of a subscriber is recorded for the first time.:
+                value:
+                  actionConfigList:
+                  - properties:
+                      body: '{"text":"${imsi} speed class changed from ${oldSpeedClass} to ${newSpeedClass}"}'
+                      contentType: application/json
+                      executionDateTimeConst: IMMEDIATELY
+                      headers: '{"contentType":"application/json; charset=utf-8"}'
+                      httpMethod: POST
+                      url: https://hooks.slack.com/services/XXXX
+                    type: ExecuteWebRequestAction
+                  description: Sample description
+                  name: Event handler
+                  ruleConfig:
+                    properties:
+                      inactiveTimeoutDateConst: NEVER
+                    type: SubscriberFirstTrafficRule
+                  status: active
+                  targetOperatorId: OP0000000000
+              (07) Send an email when a subscriber's daily data traffic volume exceeds a certain limit.:
+                value:
+                  actionConfigList:
+                  - properties:
+                      executionDateTimeConst: IMMEDIATELY
+                      message: 'IMSI: ${imsi} daily data traffic volume has reached 10 MiB.'
+                      title: Notification from SORACOM
+                      to: notify@exmaple.com
+                    type: SendMailAction
+                  description: Sample description
+                  name: Event handler
+                  ruleConfig:
+                    properties:
+                      inactiveTimeoutDateConst: BEGINNING_OF_NEXT_DAY
+                      inactiveTimeoutOffsetMinutes: '5'
+                      limitTotalTrafficMegaByte: '10'
+                    type: SubscriberDailyTrafficRule
+                  status: active
+                  targetOperatorId: OP0000000000
+              (08) Change the speed class of an IoT SIM when a subscriber's monthly data traffic volume exceeds a certain limit.:
+                value:
+                  actionConfigList:
+                  - properties:
+                      executionDateTimeConst: IMMEDIATELY
+                      speedClass: s1.minimum
+                    type: ChangeSpeedClassAction
+                  description: Sample description
+                  name: Event handler
+                  ruleConfig:
+                    properties:
+                      inactiveTimeoutDateConst: BEGINNING_OF_NEXT_MONTH
+                      limitTotalTrafficMegaByte: '1024'
+                    type: SubscriberMonthlyTrafficRule
+                  status: active
+                  targetOperatorId: OP0000000000
+              ? (09) Change the status of an IoT SIM when the cumulative data traffic volume from the start of use exceeds
+                a certain limit.
+              : value:
+                  actionConfigList:
+                  - properties:
+                      executionDateTimeConst: IMMEDIATELY
+                    type: SuspendAction
+                  description: Sample description
+                  name: Event handler
+                  ruleConfig:
+                    properties:
+                      inactiveTimeoutDateConst: NEVER
+                      limitTotalTrafficMegaByte: '10240'
+                    type: SubscriberCumulativeTrafficRule
+                  status: active
+                  targetOperatorId: OP0000000000
+              (10) Send a request to a specified URL when the status of an IoT SIM changes.:
+                value:
+                  actionConfigList:
+                  - properties:
+                      body: '{"text":"${imsi} status changed from ${oldStatus} to ${newStatus}"}'
+                      contentType: application/json
+                      executionDateTimeConst: IMMEDIATELY
+                      headers: '{"contentType":"application/json; charset=utf-8"}'
+                      httpMethod: POST
+                      url: https://hooks.slack.com/services/XXXX
+                    type: ExecuteWebRequestAction
+                  description: Sample description
+                  name: Event handler
+                  ruleConfig:
+                    properties:
+                      inactiveTimeoutDateConst: NEVER
+                      sourceStatus: ready
+                      targetStatus: active
+                    type: SimStatusAttributeRule
+                  status: active
+                  targetOperatorId: OP0000000000
+              (11) Call AWS Lambda when the speed class of an IoT SIM changes.:
+                value:
+                  actionConfigList:
+                  - properties:
+                      credentialsId: '{Authentication ID}'
+                      endpoint: https://lambda.ap-northeast-1.amazonaws.com
+                      executionDateTimeConst: IMMEDIATELY
+                      functionName: '{Lambda function name}'
+                      parameter1: param1
+                      parameter2: param2
+                      parameter3: param3
+                    type: InvokeAWSLambdaAction
+                  description: Sample description
+                  name: Event handler
+                  ruleConfig:
+                    properties:
+                      inactiveTimeoutDateConst: IMMEDIATELY
+                      targetSpeedClass: s1.4xfast
+                    type: SimSpeedClassAttributeRule
+                  status: active
+                  targetOperatorId: OP0000000000
+              (12) Send an email to the operator's primary email address when the validity period of an IoT SIM expires.:
+                value:
+                  actionConfigList:
+                  - properties:
+                      executionDateTimeConst: IMMEDIATELY
+                      message: 'IMSI: ${imsi}''s validity period has expired.'
+                      title: Notification from Soracom
+                    type: SendMailToOperatorAction
+                  description: Sample description
+                  name: Event handler
+                  ruleConfig:
+                    properties:
+                      inactiveTimeoutDateConst: BEGINNING_OF_NEXT_MONTH
+                    type: SubscriberExpiredRule
+                  status: active
+                  targetOperatorId: OP0000000000
+              (13) Call AWS Lambda when an IoT SIM fails to connect due to an IMEI lock.:
+                value:
+                  actionConfigList:
+                  - properties:
+                      credentialsId: '{Authentication ID}'
+                      endpoint: https://lambda.ap-northeast-1.amazonaws.com
+                      executionDateTimeConst: IMMEDIATELY
+                      functionName: '{Lambda function name}'
+                      parameter1: param1
+                      parameter2: param2
+                      parameter3: param3
+                    type: InvokeAWSLambdaAction
+                  description: Sample description
+                  name: Event handler
+                  ruleConfig:
+                    properties:
+                      inactiveTimeoutDateConst: AFTER_ONE_DAY
+                    type: SubscriberImeiMismatchedRule
+                  status: active
+                  targetOperatorId: OP0000000000
+              ? (14) Send an email when the total daily data traffic volume of all subscribers linked to an IoT SIM exceeds
+                a certain limit.
+              : value:
+                  actionConfigList:
+                  - properties:
+                      executionDateTimeConst: IMMEDIATELY
+                      message: 'SIM ID: ${simId}''s total daily data traffic volume has reached 10 MiB.'
+                      title: Notification from Soracom
+                      to: notify@exmaple.com
+                    type: SendMailAction
+                  description: Sample description
+                  name: Event handler
+                  ruleConfig:
+                    properties:
+                      inactiveTimeoutDateConst: BEGINNING_OF_NEXT_DAY
+                      inactiveTimeoutOffsetMinutes: '5'
+                      limitTotalTrafficMegaByte: '10'
+                      runOnceAmongTarget: 'true'
+                    type: SimDailyTotalTrafficRule
+                  status: active
+                  targetOperatorId: OP0000000000
+              ? (15) Change the speed class of an IoT SIM when the total monthly data traffic volume of all subscribers linked
+                to it exceeds a certain limit.
+              : value:
+                  actionConfigList:
+                  - properties:
+                      executionDateTimeConst: IMMEDIATELY
+                      speedClass: s1.minumum
+                    type: ChangeSpeedClassAction
+                  description: Sample description
+                  name: Event handler
+                  ruleConfig:
+                    properties:
+                      inactiveTimeoutDateConst: BEGINNING_OF_NEXT_MONTH
+                      limitTotalTrafficMegaByte: '1024'
+                      runOnceAmongTarget: 'true'
+                    type: SimMonthlyTotalTrafficRule
+                  status: active
+                  targetOperatorId: OP0000000000
+              ? (16) Change the status of an IoT SIM when the total cumulative data traffic volume from the start of use of
+                all linked subscribers exceeds a certain limit.
+              : value:
+                  actionConfigList:
+                  - properties:
+                      executionDateTimeConst: IMMEDIATELY
+                    type: SuspendAction
+                  description: Sample description
+                  name: Event handler
+                  ruleConfig:
+                    properties:
+                      inactiveTimeoutDateConst: NEVER
+                      limitTotalTrafficMegaByte: '10240'
+                      runOnceAmongTarget: 'true'
+                    type: SimCumulativeTotalTrafficRule
+                  status: active
+                  targetOperatorId: OP0000000000
+              (17) Call AWS Lambda when a subscription is added to an IoT SIM.:
+                value:
+                  actionConfigList:
+                  - properties:
+                      credentialsId: '{Authentication ID}'
+                      endpoint: https://lambda.ap-northeast-1.amazonaws.com
+                      executionDateTimeConst: IMMEDIATELY
+                      functionName: '{Lambda function name}'
+                      parameter1: param1
+                      parameter2: param2
+                      parameter3: param3
+                    type: InvokeAWSLambdaAction
+                  description: Sample description
+                  name: Event handler
+                  ruleConfig:
+                    properties:
+                      inactiveTimeoutDateConst: NEVER
+                      runOnceAmongTarget: 'false'
+                      targetOtaStatus: started
+                    type: SimSubscriptionStatusRule
+                  status: active
+                  targetOperatorId: OP0000000000
+              ? (18) Send an email to the operator's primary email address when the total daily data traffic volume of all
+                IoT SIMs linked to the operator exceeds a certain limit.
+              : value:
+                  actionConfigList:
+                  - properties:
+                      executionDateTimeConst: IMMEDIATELY
+                      message: The total daily data traffic volume of all IoT SIMs linked to the operator has exceeded 1024
+                        MiB.
+                      title: Notification from Soracom
+                    type: SendMailToOperatorAction
+                  description: Sample description
+                  name: Event handler
+                  ruleConfig:
+                    properties:
+                      inactiveTimeoutDateConst: BEGINNING_OF_NEXT_DAY
+                      limitTotalTrafficMegaByte: '1024'
+                      runOnceAmongTarget: 'false'
+                    type: DailyTotalTrafficRule
+                  status: active
+                  targetOperatorId: OP0000000000
+              ? (19) Change the speed class of IoT SIMs when the total monthly data traffic volume of all IoT SIMs linked
+                to an operator exceeds a certain limit.
+              : value:
+                  actionConfigList:
+                  - properties:
+                      executionDateTimeConst: IMMEDIATELY
+                      speedClass: s1.minumum
+                    type: ChangeSpeedClassAction
+                  description: Sample description
+                  name: Event handler
+                  ruleConfig:
+                    properties:
+                      inactiveTimeoutDateConst: BEGINNING_OF_NEXT_MONTH
+                      limitTotalTrafficMegaByte: '10240'
+                      runOnceAmongTarget: 'false'
+                    type: MonthlyTotalTrafficRule
+                  status: active
+                  targetOperatorId: OP0000000000
+              (20) Change the status of IoT SIMs when this month's usage fee exceeds a set amount.:
+                value:
+                  actionConfigList:
+                  - properties:
+                      executionDateTimeConst: IMMEDIATELY
+                    type: SuspendAction
+                  description: Sample description
+                  name: Event handler
+                  ruleConfig:
+                    properties:
+                      inactiveTimeoutDateConst: BEGINNING_OF_NEXT_MONTH
+                      limitTotalAmount: '10000'
+                    type: MonthlyChargeRule
+                  status: active
+                  targetOperatorId: OP0000000000
+            schema:
+              $ref: '#/components/schemas/CreateEventHandlerRequest'
+        description: Event handler settings.
+        required: true
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EventHandlerModel'
+          description: Created.
+      security:
+      - api_key: []
+        api_token: []
+      summary: Create Event Handler
+      tags:
+      - EventHandler
+      x-soracom-cli:
+      - event-handlers create
+  /event_handlers/{handler_id}:
+    delete:
+      description: Deletes the specified event handler.
+      operationId: deleteEventHandler
+      parameters:
+      - description: Event handler ID.
+        in: path
+        name: handler_id
+        required: true
+        schema:
+          type: string
+      responses:
+        '204':
+          description: OK.
+        '404':
+          description: Event Handler not found.
+      security:
+      - api_key: []
+        api_token: []
+      summary: Delete Event Handler
+      tags:
+      - EventHandler
+      x-soracom-cli:
+      - event-handlers delete
+    get:
+      description: Returns information about the specified event handler.
+      operationId: getEventHandler
+      parameters:
+      - description: Event handler ID.
+        in: path
+        name: handler_id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EventHandlerModel'
+          description: OK.
+        '404':
+          description: Event Handler not found.
+      security:
+      - api_key: []
+        api_token: []
+      summary: Get Event Handler
+      tags:
+      - EventHandler
+      x-soracom-cli:
+      - event-handlers get
+    put:
+      description: Updates the specified event handler. Please see also https://developers.soracom.io/en/docs/air/event-handler/.
+      operationId: updateEventHandler
+      parameters:
+      - description: Event handler ID.
+        in: path
+        name: handler_id
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateEventHandlerRequest'
+        description: Event handler settings.
+        required: true
+      responses:
+        '200':
+          description: OK.
+        '400':
+          description: Invalid event handler ID.
+      security:
+      - api_key: []
+        api_token: []
+      summary: Update Event Handler
+      tags:
+      - EventHandler
+      x-soracom-cli:
+      - event-handlers update
+  /event_handlers/{handler_id}/subscribers/{imsi}/ignore:
+    delete:
+      description: Deletes the setting for ignoring the specified event handler of the specified IMSI.
+      operationId: deleteIgnoreEventHandler
+      parameters:
+      - description: IMSI.
+        in: path
+        name: imsi
+        required: true
+        schema:
+          type: string
+      - description: Event handler ID.
+        in: path
+        name: handler_id
+        required: true
+        schema:
+          type: string
+      responses:
+        '204':
+          description: OK.
+        '404':
+          description: Event Handler not found.
+      security:
+      - api_key: []
+        api_token: []
+      summary: Delete Ignore Event Handler
+      tags:
+      - EventHandler
+      x-soracom-cli:
+      - event-handlers unignore
+    post:
+      description: Adds a setting for ignoring the specified event handler of the specified IMSI.
+      operationId: setIgnoreEventHandler
+      parameters:
+      - description: IMSI.
+        in: path
+        name: imsi
+        required: true
+        schema:
+          type: string
+      - description: Event handler ID.
+        in: path
+        name: handler_id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK.
+      security:
+      - api_key: []
+        api_token: []
+      summary: Ignore Event Handler
+      tags:
+      - EventHandler
+      x-soracom-cli:
+      - event-handlers ignore
+  /event_handlers/subscribers/{imsi}:
+    get:
+      description: Returns a list of event handlers related to the specified IMSI.
+      operationId: listEventHandlersBySubscriber
+      parameters:
+      - description: IMSI.
+        in: path
+        name: imsi
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/EventHandlerModel'
+                type: array
+          description: OK.
+        '404':
+          description: Event Handler not found.
+      security:
+      - api_key: []
+        api_token: []
+      summary: List Event Handlers related to Subscriber
+      tags:
+      - EventHandler
+      x-soracom-cli:
+      - event-handlers list-for-subscriber
+  /credentials:
+    get:
+      description: Returns a list of credential sets.
+      operationId: listCredentials
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/CredentialsModel'
+                type: array
+          description: OK.
+      security:
+      - api_key: []
+        api_token: []
+      summary: List credential sets
+      tags:
+      - Credential
+      x-soracom-cli:
+      - credentials list
+  /credentials/{credentials_id}:
+    delete:
+      description: Deletes a credential set.
+      operationId: deleteCredential
+      parameters:
+      - description: Credential set ID.
+        in: path
+        name: credentials_id
+        required: true
+        schema:
+          type: string
+      responses:
+        '204':
+          description: Credential set has been deleted.
+        '404':
+          description: Not Found.
+      security:
+      - api_key: []
+        api_token: []
+      summary: Delete a credential set
+      tags:
+      - Credential
+      x-soracom-cli:
+      - credentials delete
+    post:
+      description: Creates a new credential set.
+      operationId: createCredential
+      parameters:
+      - description: Credential set ID.
+        in: path
+        name: credentials_id
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            examples:
+              API Token credentials:
+                $ref: '#/components/examples/APITokenCredentials'
+              AWS IAM Role credentials:
+                $ref: '#/components/examples/IAMRoleCredentials'
+              AWS credentials:
+                $ref: '#/components/examples/AWSCredentials'
+              Asteria Platio credentials:
+                $ref: '#/components/examples/InfoteriaPlatioCredentials'
+              Azure IoT credentials:
+                $ref: '#/components/examples/AzureIoTCredentials'
+              Azure credentials:
+                $ref: '#/components/examples/AzureCredentials'
+              Esri Japan ArcGIS Online credentials:
+                $ref: '#/components/examples/EsrijCredentials'
+              Google Cloud IoT Core credentials:
+                $ref: '#/components/examples/GoogleIoTCredentials'
+              Google Service Account (JSON):
+                $ref: '#/components/examples/GoogleServiceAccountJson'
+              Kii Thing-IF credentials:
+                $ref: '#/components/examples/KiiThingifCredentials'
+              LANDLOG credentials:
+                $ref: '#/components/examples/LandlogCredentials'
+              OPTiM Cloud IoT OS credentials:
+                $ref: '#/components/examples/OptimCloudCredentials'
+              Pre-Shared Key:
+                $ref: '#/components/examples/PreSharedKey'
+              PubNub credentials:
+                $ref: '#/components/examples/PubnubCredentials'
+              SensorCorpus credentials:
+                $ref: '#/components/examples/SensorcorpusCredentials'
+              Username password credentials:
+                $ref: '#/components/examples/UsernamePasswordCredentials'
+              WingArc1st MotionBoard credentials:
+                $ref: '#/components/examples/MotionboardCredentials'
+              X.509 certificate:
+                $ref: '#/components/examples/X509Certificate'
+              YE DIGITAL MMCloud credentials:
+                $ref: '#/components/examples/MmcloudCredentials'
+            schema:
+              $ref: '#/components/schemas/CreateAndUpdateCredentialsModel'
+        description: Credential set.
+        required: true
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CredentialsModel'
+          description: Credential set has been created.
+      security:
+      - api_key: []
+        api_token: []
+      summary: Create a credential set
+      tags:
+      - Credential
+      x-soracom-cli:
+      - credentials create
+    put:
+      description: Updates a credential set.
+      operationId: updateCredential
+      parameters:
+      - description: Credential set ID.
+        in: path
+        name: credentials_id
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateAndUpdateCredentialsModel'
+        description: Credential set.
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CredentialsModel'
+          description: OK.
+        '400':
+          description: There was an error in the request or the specified token has already expired. (In the latter case,
+            you will need to use the /auth API to do authentication once again.)
+      security:
+      - api_key: []
+        api_token: []
+      summary: Update a credential set
+      tags:
+      - Credential
+      x-soracom-cli:
+      - credentials update
+  /soralets:
+    get:
+      description: Returns a list of Soralets.
+      operationId: listSoralets
+      parameters:
+      - description: Sort order of the data entries. Either descending (latest data entry first) or ascending (oldest data
+          entry first).
+        in: query
+        name: sort
+        required: false
+        schema:
+          default: asc
+          enum:
+          - asc
+          - desc
+          type: string
+      - description: The maximum number of items in a response.
+        in: query
+        name: limit
+        required: false
+        schema:
+          type: integer
+      - description: The identifier of the last Soralet retrieved on the current page. By specifying this parameter, you can
+          continue to retrieve the list from the next Soralet onward.
+        in: query
+        name: last_evaluated_key
+        required: false
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/Soralet'
+                type: array
+          description: OK.
+      security:
+      - api_key: []
+        api_token: []
+      summary: List Soralets
+      tags:
+      - Soralet
+      x-soracom-cli:
+      - soralets list
+      x-soracom-cli-pagination:
+        request:
+          param: last_evaluated_key
+        response:
+          header: x-soracom-next-key
+    post:
+      description: Create a Soralet.
+      operationId: createSoralet
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateSoraletRequest'
+        description: request
+        required: true
+      responses:
+        '201':
+          description: Successfully created a new Soralet.
+        '400':
+          description: The specified Soralet already exists or the specified soralet_id was invalid.
+      security:
+      - api_key: []
+        api_token: []
+      summary: Create a Soralet
+      tags:
+      - Soralet
+      x-soracom-cli:
+      - soralets create
+  /soralets/{soralet_id}:
+    delete:
+      description: Delete the specified Soralet.
+      operationId: deleteSoralet
+      parameters:
+      - description: The identifier of Soralet.
+        in: path
+        name: soralet_id
+        required: true
+        schema:
+          type: string
+      responses:
+        '204':
+          description: Successfully deleted the specified Soralet.
+        '404':
+          description: The specified Soralet is not found.
+      security:
+      - api_key: []
+        api_token: []
+      summary: Delete Soralet
+      tags:
+      - Soralet
+      x-soracom-cli:
+      - soralets delete
+    get:
+      description: Returns a Soralet.
+      operationId: getSoralet
+      parameters:
+      - description: The identifier of Soralet.
+        in: path
+        name: soralet_id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Soralet'
+          description: OK.
+        '404':
+          description: The specified Soralet is not found.
+      security:
+      - api_key: []
+        api_token: []
+      summary: Get a Soralet
+      tags:
+      - Soralet
+      x-soracom-cli:
+      - soralets get
+  /soralets/{soralet_id}/logs:
+    get:
+      description: Returns a list of log messages from the specified Soralet.
+      operationId: getSoraletLogs
+      parameters:
+      - description: The identifier of Soralet.
+        in: path
+        name: soralet_id
+        required: true
+        schema:
+          type: string
+      - description: Sort order of the data entries. Either descending (latest data entry first) or ascending (oldest data
+          entry first).
+        in: query
+        name: sort
+        required: false
+        schema:
+          default: desc
+          enum:
+          - asc
+          - desc
+          type: string
+      - description: The maximum number of items in a response.
+        in: query
+        name: limit
+        required: false
+        schema:
+          type: integer
+      - description: The identifier of the last log message retrieved on the current page. By specifying this parameter, you
+          can continue to retrieve the list from the next log message onward.
+        in: query
+        name: last_evaluated_key
+        required: false
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/SoraletLog'
+                type: array
+          description: OK.
+      security:
+      - api_key: []
+        api_token: []
+      summary: Get log messages from Soralet
+      tags:
+      - Soralet
+      x-soracom-cli:
+      - soralets get-logs
+      x-soracom-cli-pagination:
+        request:
+          param: last_evaluated_key
+        response:
+          header: x-soracom-next-key
+  /soralets/{soralet_id}/test:
+    post:
+      description: Execute the specified Soralet with the specified arguments.
+      operationId: testSoralet
+      parameters:
+      - description: The identifier of Soralet.
+        in: path
+        name: soralet_id
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ExecuteSoraletRequest'
+        description: Execution request.
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ExecuteSoraletResponse'
+          description: OK.
+      security:
+      - api_key: []
+        api_token: []
+      summary: Execute Soralet with arguments
+      tags:
+      - Soralet
+      x-soracom-cli:
+      - soralets test
+      - soralets exec
+  /soralets/{soralet_id}/versions:
+    get:
+      description: Returns a list of Soralet versions.
+      operationId: listSoraletVersions
+      parameters:
+      - description: The identifier of Soralet.
+        in: path
+        name: soralet_id
+        required: true
+        schema:
+          type: string
+      - description: Sort order of the data entries. Either descending (latest data entry first) or ascending (oldest data
+          entry first).
+        in: query
+        name: sort
+        required: false
+        schema:
+          default: desc
+          enum:
+          - asc
+          - desc
+          type: string
+      - description: The maximum number of items in a response.
+        in: query
+        name: limit
+        required: false
+        schema:
+          type: integer
+      - description: The identifier of the last version retrieved on the current page. By specifying this parameter, you can
+          continue to retrieve the list from the next version onward.
+        in: query
+        name: last_evaluated_key
+        required: false
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/SoraletVersion'
+                type: array
+          description: OK.
+      security:
+      - api_key: []
+        api_token: []
+      summary: List versions of Soralet
+      tags:
+      - Soralet
+      x-soracom-cli:
+      - soralets list-versions
+      x-soracom-cli-pagination:
+        request:
+          param: last_evaluated_key
+        response:
+          header: x-soracom-next-key
+    post:
+      description: Upload code and create a new version.
+      operationId: uploadSoraletCode
+      parameters:
+      - description: The identifier of Soralet.
+        in: path
+        name: soralet_id
+        required: true
+        schema:
+          type: string
+      - description: Content type of the file to upload. When uploading .wasm files, please specify `application/json`.
+        in: header
+        name: content-type
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              format: binary
+              type: string
+        description: Contents of the file you wish to upload.
+        required: true
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SoraletVersion'
+          description: Successfully created a new version.
+      security:
+      - api_key: []
+        api_token: []
+      summary: Upload code and create a new version
+      tags:
+      - Soralet
+      x-soracom-cli:
+      - soralets upload
+  /soralets/{soralet_id}/versions/{version}:
+    delete:
+      description: Delete the specified Soralet version.
+      operationId: deleteSoraletVersion
+      parameters:
+      - description: The identifier of Soralet.
+        in: path
+        name: soralet_id
+        required: true
+        schema:
+          type: string
+      - description: Soralet version.
+        in: path
+        name: version
+        required: true
+        schema:
+          type: integer
+      responses:
+        '204':
+          description: Successfully deleted the specified Soralet version.
+        '404':
+          description: The specified Soralet version is not found.
+      security:
+      - api_key: []
+        api_token: []
+      summary: Delete a Soralet version
+      tags:
+      - Soralet
+      x-soracom-cli:
+      - soralets delete-version
+tags:
+- description: '[Credentials store](/en/docs/credentials-store/)
+
+    Create, update, and delete credentials
+
+    '
+  name: Credential
+- description: '[Event handlers](/en/docs/event-handler/)'
+  name: EventHandler
+- description: '[Soracom Orbit](/en/docs/orbit/) Soralet'
+  name: Soralet
+components:
+  examples:
+    IAMRoleCredentials:
+      value:
+        credentials:
+          externalId: your_external_id
+          roleArn: sample_role
+        type: aws-iam-role-credentials
+    GoogleServiceAccountJson:
+      value:
+        credentials:
+          credentials: '{"sample": "value"}'
+        type: google-service-account-json
+    InfoteriaPlatioCredentials:
+      value:
+        credentials:
+          secretToken: sample_secret
+          tokenId: sample_token
+        type: infoteria-platio-credentials
+    GoogleIoTCredentials:
+      value:
+        credentials:
+          algorithm: RS256
+          deviceId: sample_device
+          privateKey: your_private_key
+          projectId: sample_projectID
+          region: asia-east1
+          registryId: sample
+        type: googleIoT-credentials
+    PubnubCredentials:
+      value:
+        credentials:
+          pubKey: sample
+          subKey: sample_sub
+        type: pubnub-credentials
+    SensorcorpusCredentials:
+      value:
+        credentials:
+          session_code: sample_code
+        type: sensorcorpus-credentials
+    AzureIoTCredentials:
+      value:
+        credentials:
+          sharedAccessKey: sample_access_key
+          sharedAccessKeyName: sample
+        type: azureIoT-credentials
+    MotionboardCredentials:
+      value:
+        credentials:
+          authkey: sample_auth
+          template: temple_temp
+          tenant: sample_tenant
+        type: motionboard-credentials
+    PreSharedKey:
+      value:
+        credentials:
+          key: sample_key
+        type: psk
+    APITokenCredentials:
+      value:
+        credentials:
+          token: sample_token
+        type: api-token-credentials
+    OptimCloudCredentials:
+      value:
+        credentials:
+          client_id: sample_client
+          client_secret: sample_secret
+        type: optim-cloud-IoT-OS-credentials
+    AzureCredentials:
+      value:
+        credentials:
+          key: your_key
+          policyName: your_policy_name
+        type: azure-credentials
+    LandlogCredentials:
+      value:
+        credentials:
+          client_id: sample_id
+          client_secret: sample_secret
+        type: landlog-credentials
+    AWSCredentials:
+      value:
+        credentials:
+          accessKeyId: sampleAccessKeyId
+          secretAccessKey: sampleSecret
+        type: aws-credentials
+    MmcloudCredentials:
+      value:
+        credentials:
+          commandcode: sample_code
+          customerid: sample_customer
+          machineid: sample_id
+          machineidtype: sample_type
+        type: mmcloud-credentials
+    KiiThingifCredentials:
+      value:
+        credentials:
+          app_id: sample_app
+          app_key: sample_key
+          client_id: sample_id
+          client_secret: sample_secret
+        type: kii-thingif-credentials
+    UsernamePasswordCredentials:
+      value:
+        credentials:
+          password: sample_pass
+          username: sample_user
+        type: username-password-credentials
+    X509Certificate:
+      value:
+        credentials:
+          ca: sample_ca
+          cert: sample_cert
+          key: sample_key
+        type: x509
+    EsrijCredentials:
+      value:
+        credentials:
+          refererUrl: https://example.com
+        type: esrij-credentials
+  schemas:
+    CreateSoraletRequest:
+      properties:
+        description:
+          type: string
+        soraletId:
+          type: string
+      required:
+      - soraletId
+      type: object
+    CredentialsModel:
+      properties:
+        createDateTime:
+          format: int64
+          type: integer
+        credentials:
+          type: object
+        credentialsId:
+          type: string
+        description:
+          type: string
+        lastUsedDateTime:
+          format: int64
+          type: integer
+        type:
+          enum:
+          - api-token-credentials
+          - aws-credentials
+          - aws-iam-role-credentials
+          - azure-credentials
+          - azureIoT-credentials
+          - esrij-credentials
+          - google-service-account-json
+          - googleIoT-credentials
+          - infoteria-platio-credentials
+          - kii-thingif-credentials
+          - landlog-credentials
+          - mmcloud-credentials
+          - motionboard-credentials
+          - optim-cloud-IoT-OS-credentials
+          - private-key-pem
+          - psk
+          - pubnub-credentials
+          - sensorcorpus-credentials
+          - username-password-credentials
+          - x509
+          type: string
+        updateDateTime:
+          format: int64
+          type: integer
+      required:
+      - createDateTime
+      - credentials
+      - credentialsId
+      - lastUsedDateTime
+      - type
+      - updateDateTime
+      type: object
+    ExecuteSoraletResponse:
+      properties:
+        body:
+          type: string
+        contentType:
+          type: string
+        encodingType:
+          type: string
+        resultCode:
+          format: int32
+          type: integer
+      type: object
+    ActionConfigProperty:
+      properties:
+        accessKey:
+          deprecated: true
+          description: (Deprecated).
+          type: string
+        body:
+          description: 'HTTP request message body. Valid only when `httpMethod` is `POST` or `PUT`.
+
+
+            - Variables can be used. For more details, refer to [Variables](/en/docs/air/event-handler/#variables).
+
+            '
+          type: string
+        contentType:
+          description: Content-Type.
+          type: string
+        credentialsId:
+          description: 'AWS Lambda''s authentication information ID. Please register "AWS credentials" or "AWS IAM Role credentials"
+            in advance in the [Credential Sets](/en/docs/security/credential-sets/).
+
+            '
+          type: string
+        endpoint:
+          description: AWS Lambda service endpoint.
+          type: string
+        executionDateTimeConst:
+          description: 'The timing of action execution.
+
+
+            - `IMMEDIATELY`: Execute immediately.
+
+            - `BEGINNING_OF_NEXT_MONTH`: Execute on the first day of the next month at 00:00 (*1).
+
+            - `BEGINNING_OF_NEXT_DAY`: Execute on the next day at 00:00 (*1).
+
+            - `AFTER_ONE_DAY`: Execute after one day (24 hours later).
+
+            - `NEVER`: Do not execute.
+
+
+            (*1) Action execution is based on UTC (Coordinated Universal Time). For example, if `BEGINNING_OF_NEXT_DAY` is
+            specified, it will be executed when the date changes in UTC, not Japan Time.
+
+            '
+          enum:
+          - IMMEDIATELY
+          - BEGINNING_OF_NEXT_MONTH
+          - BEGINNING_OF_NEXT_DAY
+          - AFTER_ONE_DAY
+          - NEVER
+          type: string
+        executionOffsetMinutes:
+          description: 'Action offset in minutes. The default is `0`. Specify an integer between `0` and `525600` as a String.
+            You can delay the actual execution time of the action from the timing specified in `executionDateTimeConst`. For
+            more details, refer to [Event Handler](/en/docs/air/event-handler/).
+
+            '
+          type: string
+        functionName:
+          description: AWS Lambda function name. Versions or aliases can also be specified.
+          type: string
+        headers:
+          description: 'HTTP request headers. Specify key and value as an escaped JSON object.
+
+
+            Example: `"{\"key1\":\"value1\"},{\"key2\":\"value2\"}"`
+
+
+            - Variables can be used. For more details, refer to [Variables](/en/docs/air/event-handler/#variables).
+
+            '
+          type: object
+        httpMethod:
+          description: HTTP request method.
+          enum:
+          - GET
+          - POST
+          - PUT
+          - DELETE
+          type: string
+        message:
+          description: 'Body.
+
+
+            - Variables can be used. For more details, refer to [Variables](/en/docs/air/event-handler/#variables).
+
+            '
+          type: string
+        parameter1:
+          description: 'Value of the parameter to pass to AWS Lambda.
+
+
+            - Do not specify the same key repeatedly, such as specifying `parameter1` multiple times.
+
+            - Variables can be used. For more details, refer to [Variables](/en/docs/air/event-handler/#variables).
+
+            '
+          type: string
+        parameter2:
+          description: 'Identical to `parameter1`.
+
+            '
+          type: string
+        parameter3:
+          description: 'Identical to `parameter1`.
+
+            '
+          type: string
+        parameter4:
+          description: 'Identical to `parameter1`.
+
+            '
+          type: string
+        parameter5:
+          description: 'Identical to `parameter1`.
+
+            '
+          type: string
+        secretAccessKey:
+          deprecated: true
+          description: (Deprecated).
+          type: string
+        speedClass:
+          description: "Speed class. Specify one of the following. However, specify a speed class according to the subscription.\n\
+            \n- For plan01s, plan01s - Low Data Volume, planX3 (X3-5MB), planP1, plan-D (without bundle), plan-D (D-300MB),\
+            \ plan-K2 (K2-300MB), plan-K:\n    - `s1.minimum`\n    - `s1.slow`\n    - `s1.standard`\n    - `s1.fast`\n   \
+            \ - `s1.4xfast`\n- For plan-US:\n    - `s1.minimum`\n    - `s1.slow`\n    - `s1.standard`\n    - `s1.fast`\n \
+            \   - `s1.4xfast`\n    - `s1.8xfast`\n- For plan-DU:\n    - `u1.standard`\n    - `u1.slow`\n\n**Warning**: Speed\
+            \ class cannot be changed for plan-KM1 and Virtual SIM/Subscriber as they have only one speed class.\n"
+          enum:
+          - s1.minimum
+          - s1.slow
+          - s1.standard
+          - s1.fast
+          - s1.4xfast
+          - s1.8xfast
+          - u1.standard
+          - u1.slow
+          type: string
+        title:
+          description: 'Subject.
+
+
+            - Variables can be used. For more details, refer to [Variables](/en/docs/air/event-handler/#variables).
+
+            '
+          type: string
+        to:
+          description: 'The recipient''s email address. Multiple email addresses cannot be specified.
+
+            '
+          type: string
+        url:
+          description: 'Destination URL and query parameters.
+
+
+            - Variables can be used. For more details, refer to [Variables](/en/docs/air/event-handler/#variables).
+
+            '
+          type: string
+      required:
+      - executionDateTimeConst
+      type: object
+    SoraletVersion:
+      properties:
+        createdTime:
+          format: int64
+          type: integer
+        hash:
+          type: string
+        operatorId:
+          type: string
+        size:
+          format: int64
+          type: integer
+        soraletId:
+          type: string
+        srn:
+          type: string
+        version:
+          format: int64
+          type: integer
+      type: object
+    SoraletLog:
+      properties:
+        createdTime:
+          format: int64
+          type: integer
+        message:
+          type: string
+        operatorId:
+          type: string
+        soraletId:
+          type: string
+        version:
+          format: int64
+          type: integer
+      type: object
+    CreateEventHandlerRequest:
+      properties:
+        actionConfigList:
+          description: 'Action type. For more details, refer to [Actions](/en/docs/air/event-handler/#actions).
+
+            '
+          items:
+            $ref: '#/components/schemas/ActionConfig'
+          type: array
+        description:
+          description: Summary.
+          type: string
+        name:
+          description: Event name.
+          type: string
+        ruleConfig:
+          $ref: '#/components/schemas/RuleConfig'
+          description: 'Rule. For more details, refer to [Rules](/en/docs/air/event-handler/#rules).
+
+            '
+        status:
+          description: 'The status of the event handler, whether it is active or inactive.
+
+
+            - `active`: Active
+
+            - `inactive`: Inactive
+
+            '
+          enum:
+          - inactive
+          - active
+          type: string
+        targetGroupId:
+          description: 'The target group. All IoT SIMs belonging to the group are monitored.
+
+
+            Specify only one of `targetGroupId`, `targetImsi`, `targetOperatorId`, or `targetSimId`.
+
+            '
+          type: string
+        targetImsi:
+          description: 'The target IMSI of the IoT SIM.
+
+
+            Specify only one of `targetGroupId`, `targetImsi`, `targetOperatorId`, or `targetSimId`.
+
+            '
+          type: string
+        targetOperatorId:
+          description: 'The target operator. All IoT SIMs in your account.
+
+
+            Specify only one of `targetGroupId`, `targetImsi`, `targetOperatorId`, or `targetSimId`.
+
+            '
+          type: string
+        targetSimId:
+          description: 'The target SIM ID of the IoT SIM.
+
+
+            Specify only one of `targetGroupId`, `targetImsi`, `targetOperatorId`, or `targetSimId`.
+
+            '
+          type: string
+      required:
+      - actionConfigList
+      - name
+      - ruleConfig
+      - status
+      type: object
+    ExecuteSoraletRequest:
+      properties:
+        contentType:
+          type: string
+        direction:
+          enum:
+          - uplink
+          - downlink
+          type: string
+        encodingType:
+          enum:
+          - text
+          - binary
+          type: string
+        payload:
+          type: string
+        source:
+          additionalProperties:
+            $ref: '#/components/schemas/SoraletDataSource'
+          type: object
+        userdata:
+          type: string
+        version:
+          type: string
+      required:
+      - version
+      - direction
+      - contentType
+      - payload
+      - source
+      type: object
+    Soralet:
+      properties:
+        createdTime:
+          format: int64
+          type: integer
+        description:
+          type: string
+        operatorId:
+          type: string
+        soraletId:
+          type: string
+        updatedTime:
+          format: int64
+          type: integer
+      type: object
+    UpdateEventHandlerRequest:
+      $ref: '#/components/schemas/CreateEventHandlerRequest'
+    RuleConfig:
+      properties:
+        properties:
+          $ref: '#/components/schemas/RuleConfigProperty'
+        type:
+          description: "The type of rule. Set one of the following. The values that can be specified in `properties` vary\
+            \ depending on the type.\n\n- `SubscriberFirstTrafficRule`: Execute when a subscriber's data traffic is recorded\
+            \ for the first time.\n\n  The properties that can be set in `properties` are as follows:\n  - `inactiveTimeoutDateConst`\
+            \ (required)\n- `SubscriberDailyTrafficRule`: Execute when a subscriber's daily data traffic volume exceeds a\
+            \ certain limit.\n\n  The properties that can be set in `properties` are as follows:\n  - `limitTotalTrafficMegaByte`\
+            \ (required)\n  - `inactiveTimeoutDateConst` (required)\n  - `inactiveTimeoutOffsetMinutes`\n- `SubscriberMonthlyTrafficRule`:\
+            \ Execute when a subscriber's monthly data traffic volume exceeds a certain limit.\n\n  The properties that can\
+            \ be set in `properties` are as follows:\n  - `limitTotalTrafficMegaByte` (required)\n  - `inactiveTimeoutDateConst`\
+            \ (required)\n  - `inactiveTimeoutOffsetMinutes`\n- `SubscriberCumulativeTrafficRule`: Execute when the cumulative\
+            \ data traffic volume from the start of use of a subscriber exceeds a certain limit.\n\n  The properties that\
+            \ can be set in `properties` are as follows:\n  - `limitTotalTrafficMegaByte` (required)\n  - `inactiveTimeoutDateConst`\
+            \ (required)\n  - `inactiveTimeoutOffsetMinutes`\n- `SubscriberStatusAttributeRule`: Execute when a subscriber's\
+            \ status changes.\n\n  The properties that can be set in `properties` are as follows:\n  - `sourceStatus`\n  -\
+            \ `targetStatus`\n  - `inactiveTimeoutDateConst` (required)\n  - `inactiveTimeoutOffsetMinute`\n  - `runOnceAmongTarget`\n\
+            - `SimStatusAttributeRule`: Execute when the status of an IoT SIM changes.\n\n  The properties that can be set\
+            \ in `properties` are as follows:\n  - `sourceStatus`\n  - `targetStatus`\n  - `inactiveTimeoutDateConst` (required)\n\
+            \  - `inactiveTimeoutOffsetMinute`\n  - `runOnceAmongTarget`\n- `SubscriberSpeedClassAttributeRule`: Execute when\
+            \ a subscriber's speed class changes.\n\n  The properties that can be set in `properties` are as follows:\n  -\
+            \ `targetSpeedClass`\n  - `inactiveTimeoutDateConst` (required)\n  - `inactiveTimeoutOffsetMinutes`\n  - `runOnceAmongTarget`\n\
+            - `SimSpeedClassAttributeRule`: Execute when the speed class of an IoT SIM changes.\n\n  The properties that can\
+            \ be set in `properties` are as follows:\n  - `targetSpeedClass`\n  - `inactiveTimeoutDateConst` (required)\n\
+            \  - `inactiveTimeoutOffsetMinutes`\n  - `runOnceAmongTarget`\n- `SubscriberExpiredRule`: Execute when a subscriber's\
+            \ validity period expires.\n\n  The properties that can be set in `properties` are as follows:\n  - `inactiveTimeoutDateConst`\
+            \ (required)\n  - `inactiveTimeoutOffsetMinutes`\n  - `runOnceAmongTarget`\n- `SimExpiredRule`: Execute when the\
+            \ validity period of an IoT SIM expires.\n\n  The properties that can be set in `properties` are as follows:\n\
+            \  - `inactiveTimeoutDateConst` (required)\n  - `inactiveTimeoutOffsetMinutes`\n  - `runOnceAmongTarget`\n- `SubscriberImeiMismatchedRule`:\
+            \ Execute when a subscriber fails to connect due to an IMEI lock.\n\n  The properties that can be set in `properties`\
+            \ are as follows:\n  - `inactiveTimeoutDateConst` (required)\n  - `inactiveTimeoutOffsetMinutes`\n  - `runOnceAmongTarget`\n\
+            - `SimImeiMismatchedRule`: Execute when an IoT SIM fails to connect due to an IMEI lock.\n\n  The properties that\
+            \ can be set in `properties` are as follows:\n  - `inactiveTimeoutDateConst` (required)\n  - `inactiveTimeoutOffsetMinutes`\n\
+            \  - `runOnceAmongTarget`\n- `SimDailyTotalTrafficRule`: Execute when the total daily data traffic volume of all\
+            \ subscribers linked to an IoT SIM exceeds a certain limit.\n\n  The properties that can be set in `properties`\
+            \ are as follows:\n  - `limitTotalTrafficMegaByte` (required)\n  - `inactiveTimeoutDateConst` (required)\n  -\
+            \ `inactiveTimeoutOffsetMinutes`\n  - `runOnceAmongTarget`\n- `SimMonthlyTotalTrafficRule`: Execute when the total\
+            \ monthly data traffic volume of all subscribers linked to an IoT SIM exceeds a certain limit.\n\n  The properties\
+            \ that can be set in `properties` are as follows:\n  - `limitTotalTrafficMegaByte` (required)\n  - `inactiveTimeoutDateConst`\
+            \ (required)\n  - `inactiveTimeoutOffsetMinutes`\n  - `runOnceAmongTarget`\n- `SimCumulativeTotalTrafficRule`:\
+            \ Execute when the total cumulative data traffic volume from the start of use of all subscribers linked to an\
+            \ IoT SIM exceeds a certain limit.\n\n  The properties that can be set in `properties` are as follows:\n  - `limitTotalTrafficMegaByte`\
+            \ (required)\n  - `inactiveTimeoutDateConst` (required)\n  - `inactiveTimeoutOffsetMinutes`\n  - `runOnceAmongTarget`\n\
+            - `SimSubscriptionStatusRule`: Execute when a subscription is added to an IoT SIM.\n\n  The properties that can\
+            \ be set in `properties` are as follows:\n  - `targetOtaStatus`\n  - `inactiveTimeoutDateConst` (required)\n \
+            \ - `inactiveTimeoutOffsetMinutes`\n  - `runOnceAmongTarget`\n- `DailyTotalTrafficRule`: Execute when the total\
+            \ daily data traffic volume of all IoT SIMs linked to a group/operator exceeds a certain limit.\n\n  The properties\
+            \ that can be set in `properties` are as follows:\n  - `limitTotalTrafficMegaByte` (required)\n  - `inactiveTimeoutDateConst`\
+            \ (required)\n  - `inactiveTimeoutOffsetMinutes`\n  - `runOnceAmongTarget`\n- `MonthlyTotalTrafficRule`: Execute\
+            \ when the total monthly data traffic volume of all IoT SIMs linked to a group/operator exceeds a certain limit.\n\
+            \n  The properties that can be set in `properties` are as follows:\n  - `limitTotalTrafficMegaByte` (required)\n\
+            \  - `inactiveTimeoutDateConst` (required)\n  - `inactiveTimeoutOffsetMinutes`\n  - `runOnceAmongTarget`\n- `MonthlyChargeRule`:\
+            \ Execute when this month's usage fee exceeds a set amount.\n\n  The properties that can be set in `properties`\
+            \ are as follows:\n  - `limitTotalAmount` (required)\n  - `inactiveTimeoutDateConst` (required)\n  - `inactiveTimeoutOffsetMinutes`\n"
+          enum:
+          - SubscriberFirstTrafficRule
+          - SubscriberDailyTrafficRule
+          - SubscriberMonthlyTrafficRule
+          - SubscriberCumulativeTrafficRule
+          - SubscriberStatusAttributeRule
+          - SimStatusAttributeRule
+          - SubscriberSpeedClassAttributeRule
+          - SimSpeedClassAttributeRule
+          - SubscriberExpiredRule
+          - SimExpiredRule
+          - SubscriberImeiMismatchedRule
+          - SimImeiMismatchedRule
+          - SimDailyTotalTrafficRule
+          - SimMonthlyTotalTrafficRule
+          - SimCumulativeTotalTrafficRule
+          - SimSubscriptionStatusRule
+          - DailyTotalTrafficRule
+          - MonthlyTotalTrafficRule
+          - MonthlyChargeRule
+          type: string
+      required:
+      - properties
+      - type
+      type: object
+    RuleConfigProperty:
+      properties:
+        inactiveTimeoutDateConst:
+          description: "The timing for re-evaluation. For more details, refer to [Rule Parameters](/en/docs/air/event-handler/#rule-parameters).\
+            \ Specify one of the following, depending on the `type` value:\n\n- For types `SubscriberDailyTrafficRule`, `SubscriberMonthlyTrafficRule`,\
+            \ `SubscriberCumulativeTrafficRule` (*1), `SimDailyTotalTrafficRule`, `SimMonthlyTotalTrafficRule`, `SimCumulativeTotalTrafficRule`\
+            \ (*1), `SimSubscriptionStatusRule`, `DailyTotalTrafficRule`, `MonthlyTotalTrafficRule`:\n  - `BEGINNING_OF_NEXT_MONTH`\n\
+            \  - `BEGINNING_OF_NEXT_DAY`\n  - `AFTER_ONE_DAY`\n  - `NEVER`\n\n  (*1) Since cumulative data traffic volume\
+            \ does not reset, actions are repeatedly executed at re-evaluation timing after exceeding the threshold.\n- For\
+            \ type `SubscriberFirstTrafficRule`:\n  - `NEVER`\n- For types `SubscriberStatusAttributeRule`, `SubscriberSpeedClassAttributeRule`,\
+            \ `SubscriberExpiredRule`, `SubscriberImeiMismatchedRule`, `SimStatusAttributeRule`, `SimSpeedClassAttributeRule`,\
+            \ `SimExpiredRule`, `SimImeiMismatchedRule`, `MonthlyChargeRule`:\n  - `IMMEDIATELY`\n  - `BEGINNING_OF_NEXT_MONTH`\n\
+            \  - `BEGINNING_OF_NEXT_DAY`\n  - `AFTER_ONE_DAY`\n  - `NEVER`\n"
+          enum:
+          - IMMEDIATELY
+          - BEGINNING_OF_NEXT_MONTH
+          - BEGINNING_OF_NEXT_DAY
+          - AFTER_ONE_DAY
+          - NEVER
+          type: string
+        inactiveTimeoutOffsetMinutes:
+          description: 'Offset (in minutes) for rule re-evaluation. For more details, refer to [Rule Parameters](/en/docs/air/event-handler/#rule-parameters).
+            The default is `0`. Specify an integer between `0` and `525600` as a string.
+
+
+            If `inactiveTimeoutDateConst` is set to `NEVER`, `inactiveTimeoutOffsetMinutes` cannot be specified.
+
+            '
+          type: string
+        limitTotalAmount:
+          description: 'The threshold for "this month''s usage fees for the operator". The unit is yen (for Japan coverage)
+            or USD (for global coverage). Specify an integer between `1` and `2147483647` as a string.
+
+            '
+          type: string
+        limitTotalTrafficMegaByte:
+          description: 'The threshold for data traffic volume. The unit is MiB. Specify an integer between `1` and `2147483647`
+            as a string.
+
+            '
+          type: string
+        runOnceAmongTarget:
+          description: 'Do not re-execute until the timing for re-evaluation. For more details, refer to [Rule Parameters](/en/docs/air/event-handler/#rule-parameters).
+
+            '
+          enum:
+          - true
+          - false
+          type: string
+        sourceStatus:
+          description: 'The status of the IoT SIM before change. Specify one of the following when limiting the action execution
+            to a specific pre-change status. If omitted, the action is executed when the status changes from any status.
+
+
+            - `ready`
+
+            - `active`
+
+            - `inactive`
+
+            - `standby`
+
+            - `suspended`
+
+
+            If both `sourceStatus` and `targetStatus` are omitted, the action is executed whenever the IoT SIM''s status changes,
+            regardless of the status.
+
+            '
+          enum:
+          - ready
+          - active
+          - inactive
+          - standby
+          - suspended
+          type: string
+        targetOtaStatus:
+          description: 'The post-change status of OTA. Specify when executing an action based on the limited OTA status.
+
+
+            - (Omitted): The action is executed when any status change occurs.
+
+            - `started`: The action is executed when OTA starts.
+
+            - `finished`: The action is executed when OTA is successfully completed.
+
+            - `failed`: The action is executed when OTA fails.
+
+            '
+          enum:
+          - started
+          - finished
+          - failed
+          type: string
+        targetSpeedClass:
+          description: "The speed class after the change. Specify one of the following when limiting the action execution\
+            \ to a specific post-change speed class. If omitted, the action is executed when the speed class changes to any\
+            \ class.\n\n- For plans plan01s, plan01s - Low Data Volume, planX3 (X3-5MB), planP1, plan-D (without bundle),\
+            \ plan-D (D-300MB), plan-K2 (K2-300MB), plan-K:\n    - `s1.minimum`\n    - `s1.slow`\n    - `s1.standard`\n  \
+            \  - `s1.fast`\n    - `s1.4xfast`\n- For plan-US:\n    - `s1.minimum`\n    - `s1.slow`\n    - `s1.standard`\n\
+            \    - `s1.fast`\n    - `s1.4xfast`\n    - `s1.8xfast`\n- For plan-DU:\n    - `u1.standard`\n    - `u1.slow`\n\
+            \n**Warning**: For plan-KM1 and virtual SIM/Subscriber, the speed class cannot be changed as there is only one\
+            \ type available.\n"
+          enum:
+          - s1.minimum
+          - s1.slow
+          - s1.standard
+          - s1.fast
+          - s1.4xfast
+          - s1.8xfast
+          - u1.standard
+          - u1.slow
+          type: string
+        targetStatus:
+          description: 'The status of the IoT SIM after change. Specify one of the following when limiting the action execution
+            to a specific post-change status. If omitted, the action is executed when the status changes to any status.
+
+
+            - `ready`
+
+            - `active`
+
+            - `inactive`
+
+            - `standby`
+
+            - `suspended`
+
+            - `terminated`
+
+
+            If both `sourceStatus` and `targetStatus` are omitted, the action is executed whenever the IoT SIM''s status changes,
+            regardless of the status.
+
+            '
+          enum:
+          - ready
+          - active
+          - inactive
+          - standby
+          - suspended
+          - terminated
+          type: string
+      required:
+      - inactiveTimeoutDateConst
+      type: object
+    CreateAndUpdateCredentialsModel:
+      properties:
+        credentials:
+          type: object
+        description:
+          type: string
+        type:
+          enum:
+          - aws-credentials
+          - azure-credentials
+          - psk
+          - x509
+          type: string
+      type: object
+    SoraletDataSource:
+      properties:
+        resourceId:
+          type: string
+        resourceType:
+          type: string
+      required:
+      - resourceType
+      - resourceId
+      type: object
+    EventHandlerModel:
+      properties:
+        actionConfigList:
+          items:
+            $ref: '#/components/schemas/ActionConfig'
+          type: array
+        description:
+          type: string
+        handlerId:
+          type: string
+        name:
+          type: string
+        ruleConfig:
+          $ref: '#/components/schemas/RuleConfig'
+        status:
+          enum:
+          - inactive
+          - active
+          type: string
+        targetGroupId:
+          type: string
+        targetImsi:
+          type: string
+        targetOperatorId:
+          type: string
+        targetSimId:
+          type: string
+      required:
+      - actionConfigList
+      - handlerId
+      - ruleConfig
+      - status
+      - name
+      type: object
+    ActionConfig:
+      properties:
+        properties:
+          $ref: '#/components/schemas/ActionConfigProperty'
+        type:
+          description: "The type of action. Set one of the following. The values that can be specified in `properties` vary\
+            \ depending on the type.\n\n- `SendMailAction`: Send an email.\n\n  The properties that can be set in `properties`\
+            \ are as follows:\n  - `executionDateTimeConst` (required)\n  - `executionOffsetMinutes`\n  - `to`\n  - `title`\n\
+            \  - `message`\n- `SendMailToOperatorAction`: Send an email to the operator's primary email address.\n\n  The\
+            \ properties that can be set in `properties` are as follows:\n  - `executionDateTimeConst` (required)\n  - `executionOffsetMinutes`\n\
+            \  - `title`\n  - `message`\n- `ChangeSpeedClassAction`: Change the speed class of the IoT SIM.\n\n  The properties\
+            \ that can be set in `properties` are as follows:\n  - `executionDateTimeConst` (required)\n  - `executionOffsetMinutes`\n\
+            \  - `speedClass`\n- `ActivationAction`, `DeactivationAction`, `StandbyAction`, `SuspendAction`: Change to active,\
+            \ inactive, standby, or suspended.\n\n  The properties that can be set in `properties` are as follows:\n  - `executionDateTimeConst`\
+            \ (required)\n  - `executionOffsetMinutes`\n- `ExecuteWebRequestAction`: Send a request to a specified URL.\n\n\
+            \  The properties that can be set in `properties` are as follows:\n  - `executionDateTimeConst` (required)\n \
+            \ - `executionOffsetMinutes`\n  - `url` (required)\n  - `httpMethod` (required)\n  - `contentType` (required)\n\
+            \  - `headers` (required)\n  - `body`\n- `InvokeAWSLambdaAction`: Invoke AWS Lambda.\n\n  The properties that\
+            \ can be set in `properties` are as follows:\n  - `executionDateTimeConst` (required)\n  - `executionOffsetMinutes`\n\
+            \  - `endpoint` (required)\n  - `functionName` (required)\n  - `credentialsId` (required)\n  - `parameter1`, `parameter2`,\
+            \ `parameter3`, `parameter4`, `parameter5`\n  \n  **Warning**: `accessKey` and `secretAccessKey` are deprecated\
+            \ properties. Please use `credentialsId`.\n"
+          enum:
+          - ChangeSpeedClassAction
+          - InvokeAWSLambdaAction
+          - ExecuteWebRequestAction
+          - SendMailAction
+          - SendMailToOperatorAction
+          - ActivationAction
+          - DeactivationAction
+          - StandbyAction
+          - SuspendAction
+          type: string
+      required:
+      - properties
+      - type
+      type: object
+  securitySchemes:
+    api_key:
+      description: 'API key for authentication. Obtain this from the Soracom User Console or via the Auth API.
+
+        Required in combination with an API token for all authenticated requests.
+
+        '
+      in: header
+      name: X-Soracom-API-Key
+      type: apiKey
+    api_token:
+      description: 'API token for authentication. This token has an expiration time and must be refreshed periodically.
+
+        Required in combination with an API key for all authenticated requests.'
+      in: header
+      name: X-Soracom-Token
+      type: apiKey

@@ -1,0 +1,1139 @@
+openapi: 3.0.0
+info:
+  title: Soracom Inventory API
+  description: LwM2M-based device management for Soracom Inventory including object models, devices, resources, observe/notify,
+    and remote execution.
+  version: 20250903-043502
+servers:
+- description: Japan coverage production API endpoint
+  url: https://api.soracom.io/v1
+- description: Global coverage production API endpoint
+  url: https://g.api.soracom.io/v1
+paths:
+  /devices:
+    get:
+      description: Returns a list of Devices
+      operationId: listDevices
+      parameters:
+      - description: Tag name
+        in: query
+        name: tag_name
+        required: false
+        schema:
+          type: string
+      - description: Tag value
+        in: query
+        name: tag_value
+        required: false
+        schema:
+          type: string
+      - description: Tag value match mode (exact | prefix)
+        in: query
+        name: tag_value_match_mode
+        required: false
+        schema:
+          type: string
+      - description: ID of the last Device in the previous page. By specifying this parameter, you can continue to retrieve
+          the list from the next device onward.
+        in: query
+        name: last_evaluated_key
+        required: false
+        schema:
+          type: string
+      - description: Max number of Devices in a response
+        in: query
+        name: limit
+        required: false
+        schema:
+          default: -1
+          format: int32
+          type: integer
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/Device'
+                type: array
+          description: List of Devices
+      security:
+      - api_key: []
+        api_token: []
+      summary: Returns a list of Devices
+      tags:
+      - Device
+      x-soracom-cli:
+      - devices list
+      x-soracom-cli-pagination:
+        request:
+          param: last_evaluated_key
+        response:
+          header: x-soracom-next-key
+    post:
+      description: Creates a new Device
+      operationId: createDevice
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Device'
+        description: Device to create
+        required: true
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Device'
+          description: Device created
+      security:
+      - api_key: []
+        api_token: []
+      summary: Creates a new Device
+      tags:
+      - Device
+      x-soracom-cli:
+      - devices create
+  /devices/{device_id}:
+    delete:
+      description: Delete Device
+      operationId: deleteDevice
+      parameters:
+      - description: Device to delete
+        in: path
+        name: device_id
+        required: true
+        schema:
+          type: string
+      responses:
+        '204':
+          description: Device deleted
+        '404':
+          description: No such device found
+      security:
+      - api_key: []
+        api_token: []
+      summary: Delete Device
+      tags:
+      - Device
+      x-soracom-cli:
+      - devices delete
+    get:
+      description: Returns a Device identified by device ID
+      operationId: getDevice
+      parameters:
+      - description: Device ID
+        in: path
+        name: device_id
+        required: true
+        schema:
+          type: string
+      - description: Whether or not to add model information
+        in: query
+        name: model
+        required: false
+        schema:
+          default: false
+          type: boolean
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Device'
+          description: A Device identified by device ID
+        '404':
+          description: No such device found
+      security:
+      - api_key: []
+        api_token: []
+      summary: Returns a Device identified by device ID
+      tags:
+      - Device
+      x-soracom-cli:
+      - devices get
+  /devices/{device_id}/{object}/{instance}:
+    get:
+      description: Get resources under an object instance of a device
+      operationId: readDeviceResources
+      parameters:
+      - description: Target device
+        in: path
+        name: device_id
+        required: true
+        schema:
+          type: string
+      - description: Object ID
+        in: path
+        name: object
+        required: true
+        schema:
+          type: string
+      - description: Instance ID
+        in: path
+        name: instance
+        required: true
+        schema:
+          type: string
+      - description: Whether or not to add model information
+        in: query
+        name: model
+        required: false
+        schema:
+          default: false
+          type: boolean
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ObjectInstance'
+          description: Resources under the specified object instance
+        '400':
+          description: Object instance is not readable (including cases of connection errors such as device offline).
+        '404':
+          description: Object instance is not found
+      security:
+      - api_key: []
+        api_token: []
+      summary: Get resources under an object instance of a device
+      tags:
+      - Device
+      x-soracom-cli:
+      - devices get-instance
+  /devices/{device_id}/{object}/{instance}/{resource}:
+    get:
+      description: Get the specified resource of a device
+      operationId: readDeviceResource
+      parameters:
+      - description: Target device
+        in: path
+        name: device_id
+        required: true
+        schema:
+          type: string
+      - description: Object ID
+        in: path
+        name: object
+        required: true
+        schema:
+          type: string
+      - description: Instance ID
+        in: path
+        name: instance
+        required: true
+        schema:
+          type: string
+      - description: Resource ID
+        in: path
+        name: resource
+        required: true
+        schema:
+          type: string
+      - description: Whether or not to add model information
+        in: query
+        name: model
+        required: false
+        schema:
+          default: false
+          type: boolean
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResourceInstance'
+          description: Resource
+        '400':
+          description: Resource is not readable (including cases of connection errors such as device offline).
+        '404':
+          description: Resource is not found
+      security:
+      - api_key: []
+        api_token: []
+      summary: Get the specified resource of a device
+      tags:
+      - Device
+      x-soracom-cli:
+      - devices get-resource
+    put:
+      description: Write value to a resource of a device
+      operationId: writeDeviceResource
+      parameters:
+      - description: Target device
+        in: path
+        name: device_id
+        required: true
+        schema:
+          type: string
+      - description: Object ID
+        in: path
+        name: object
+        required: true
+        schema:
+          type: string
+      - description: Instance ID
+        in: path
+        name: instance
+        required: true
+        schema:
+          type: string
+      - description: Resource ID
+        in: path
+        name: resource
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              properties:
+                value:
+                  oneOf:
+                  - type: string
+                  - type: number
+                  - type: boolean
+              type: object
+        description: Value(s) to write to the resource. This value accepts LwM2M basic data types. You have to use the property
+          name `values` (instead of `value`) with an array value if the resource model is multiple-mode.
+        required: true
+      responses:
+        '202':
+          description: Updating resource is accepted
+        '400':
+          description: Specified Resource does not support write (Including case of connection error such as offline device)
+        '404':
+          description: Resource is not found
+        '500':
+          description: Error response from the device. (It includes the case where the LwM2M response message is error from
+            the device. The error message from the device is included in the response 'message'. )
+      security:
+      - api_key: []
+        api_token: []
+      summary: Write value to a resource of a device
+      tags:
+      - Device
+      x-soracom-cli:
+      - devices put-resource
+  /devices/{device_id}/{object}/{instance}/{resource}/execute:
+    post:
+      description: Executes a resource of a device
+      operationId: executeDeviceResource
+      parameters:
+      - description: Target device
+        in: path
+        name: device_id
+        required: true
+        schema:
+          type: string
+      - description: Object ID
+        in: path
+        name: object
+        required: true
+        schema:
+          type: string
+      - description: Instance ID
+        in: path
+        name: instance
+        required: true
+        schema:
+          type: string
+      - description: Resource ID
+        in: path
+        name: resource
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              properties:
+                value:
+                  type: string
+              type: object
+        description: Argument string when executing the resource
+      responses:
+        '202':
+          description: Execution request is accepted
+        '400':
+          description: Resource is not executable (including cases of connection errors such as device offline)
+        '404':
+          description: Resource is not found
+      security:
+      - api_key: []
+        api_token: []
+      summary: Executes a resource of a device
+      tags:
+      - Device
+      x-soracom-cli:
+      - devices execute-resource
+  /devices/{device_id}/{object}/{instance}/{resource}/observe:
+    post:
+      description: Triggers observation of the specified resource of a device. Once observation is started, the server will
+        be notified when there is a change in value on the device side.
+      operationId: observeDeviceResource
+      parameters:
+      - description: Target device
+        in: path
+        name: device_id
+        required: true
+        schema:
+          type: string
+      - description: Object ID
+        in: path
+        name: object
+        required: true
+        schema:
+          type: string
+      - description: Instance ID
+        in: path
+        name: instance
+        required: true
+        schema:
+          type: string
+      - description: Resource ID
+        in: path
+        name: resource
+        required: true
+        schema:
+          type: string
+      - description: Whether or not to add model information
+        in: query
+        name: model
+        required: false
+        schema:
+          default: false
+          type: boolean
+      responses:
+        '202':
+          description: Observation started.
+        '400':
+          description: Resource is not readable (including cases of connection errors such as device offline).
+        '404':
+          description: Resource is not found
+      security:
+      - api_key: []
+        api_token: []
+      summary: Triggers observation of the specified resource of a device
+      tags:
+      - Device
+      x-soracom-cli:
+      - devices observe-resource
+  /devices/{device_id}/{object}/{instance}/{resource}/unobserve:
+    post:
+      description: Stops observation of a resource of a device
+      operationId: unobserveDeviceResource
+      parameters:
+      - description: Target device
+        in: path
+        name: device_id
+        required: true
+        schema:
+          type: string
+      - description: Object ID
+        in: path
+        name: object
+        required: true
+        schema:
+          type: string
+      - description: Instance ID
+        in: path
+        name: instance
+        required: true
+        schema:
+          type: string
+      - description: Resource ID
+        in: path
+        name: resource
+        required: true
+        schema:
+          type: string
+      responses:
+        '204':
+          description: Observation cancelled
+        '404':
+          description: Resource is not found
+      security:
+      - api_key: []
+        api_token: []
+      summary: Stops observation of a resource of a device
+      tags:
+      - Device
+      x-soracom-cli:
+      - devices unobserve-resource
+  /devices/{device_id}/{object}/{instance}/observe:
+    post:
+      description: Triggers observation of resources under an object instance of a device
+      operationId: observeDeviceResources
+      parameters:
+      - description: Target device
+        in: path
+        name: device_id
+        required: true
+        schema:
+          type: string
+      - description: Object ID
+        in: path
+        name: object
+        required: true
+        schema:
+          type: string
+      - description: Instance ID
+        in: path
+        name: instance
+        required: true
+        schema:
+          type: string
+      - description: Whether or not to add model information
+        in: query
+        name: model
+        required: false
+        schema:
+          default: false
+          type: boolean
+      responses:
+        '202':
+          description: Observation started.
+        '400':
+          description: Resource is not readable (including cases of connection errors such as device offline).
+        '404':
+          description: Resource is not found
+      security:
+      - api_key: []
+        api_token: []
+      summary: Triggers observation of resources under an object instance of a device
+      tags:
+      - Device
+      x-soracom-cli:
+      - devices observe-resources
+  /devices/{device_id}/{object}/{instance}/unobserve:
+    post:
+      description: Stops observation of resources under an object instance of a device
+      operationId: unobserveDeviceResources
+      parameters:
+      - description: Target device
+        in: path
+        name: device_id
+        required: true
+        schema:
+          type: string
+      - description: Object ID
+        in: path
+        name: object
+        required: true
+        schema:
+          type: string
+      - description: Instance ID
+        in: path
+        name: instance
+        required: true
+        schema:
+          type: string
+      responses:
+        '204':
+          description: Observation cancelled
+        '404':
+          description: Resource is not found
+      security:
+      - api_key: []
+        api_token: []
+      summary: Stops observation of resources under an object instance of a device
+      tags:
+      - Device
+      x-soracom-cli:
+      - devices unobserve-resources
+  /devices/{device_id}/data:
+    get:
+      description: 'Retrieves data that matches the specified conditions from the data sent by the specified Inventory device
+        to Harvest Data. If the data entries do not fit in one page, a URL to retrieve the next page with the same conditions
+        will be included in the `link` header of the response.
+
+        '
+      operationId: getDataFromDevice
+      parameters:
+      - description: ID of the Inventory device from which to retrieve data. The ID of an Inventory device can be obtained
+          using the [Device:listDevices API](#!/Device/listDevices).
+        in: path
+        name: device_id
+        required: true
+        schema:
+          type: string
+      - description: Start time of the target period (UNIX time in milliseconds).
+        in: query
+        name: from
+        required: false
+        schema:
+          type: integer
+      - description: End time of the target period (UNIX time in milliseconds).
+        in: query
+        name: to
+        required: false
+        schema:
+          type: integer
+      - description: Sort order of data entries. Either descending order (latest data entry first) or ascending order (oldest
+          data entry first).
+        in: query
+        name: sort
+        required: false
+        schema:
+          default: desc
+          enum:
+          - desc
+          - asc
+          type: string
+      - description: Maximum number of data entries to retrieve (1 to 1000). The default is `10`.
+        in: query
+        name: limit
+        required: false
+        schema:
+          maximum: 1000
+          minimum: 1
+          type: integer
+      - description: Timestamp of the last data entry retrieved on the previous page. By specifying this parameter, the list
+          starting from the next data entry can be obtained.
+        in: query
+        name: last_evaluated_key
+        required: false
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/DataEntry'
+                type: array
+          description: A list of data entries.
+      security:
+      - api_key: []
+        api_token: []
+      summary: Retrieves data sent from an Inventory device to Harvest Data
+      tags:
+      - Device
+      x-soracom-cli:
+      - devices get-data
+      x-soracom-cli-pagination:
+        request:
+          param: last_evaluated_key
+        response:
+          header: x-soracom-next-key
+  /devices/{device_id}/set_group:
+    post:
+      description: Adds an Inventory device to an Inventory group.
+      operationId: setDeviceGroup
+      parameters:
+      - description: Device ID of the target Inventory device.
+        in: path
+        name: device_id
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SetGroupRequest'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Device'
+          description: Inventory device was successfully added to the group.
+        '404':
+          description: Specified Inventory device was not found.
+      security:
+      - api_key: []
+        api_token: []
+      summary: Adds an Inventory device to an Inventory group
+      tags:
+      - Device
+      x-soracom-cli:
+      - devices set-group
+  /devices/{device_id}/tags:
+    put:
+      description: Updates device tags
+      operationId: putDeviceTags
+      parameters:
+      - description: Device to update
+        in: path
+        name: device_id
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              items:
+                $ref: '#/components/schemas/TagUpdateRequest'
+              type: array
+        description: Array of values for tags to be updated.
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Device'
+          description: Device updated
+        '404':
+          description: No such device found
+      security:
+      - api_key: []
+        api_token: []
+      summary: Updates device tags
+      tags:
+      - Device
+      x-soracom-cli:
+      - devices put-device-tags
+  /devices/{device_id}/tags/{tag_name}:
+    delete:
+      description: Delete device tag
+      operationId: deleteDeviceTag
+      parameters:
+      - description: Device to update
+        in: path
+        name: device_id
+        required: true
+        schema:
+          type: string
+      - description: Name of tag to delete
+        in: path
+        name: tag_name
+        required: true
+        schema:
+          type: string
+      responses:
+        '204':
+          description: Device tag deleted
+        '404':
+          description: No such device or tag found
+      security:
+      - api_key: []
+        api_token: []
+      summary: Delete device tag
+      tags:
+      - Device
+      x-soracom-cli:
+      - devices delete-device-tag
+  /devices/{device_id}/unset_group:
+    post:
+      description: Removes an Inventory device from an Inventory group.
+      operationId: unsetDeviceGroup
+      parameters:
+      - description: Device ID of the target Inventory device.
+        in: path
+        name: device_id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Device'
+          description: Inventory device was successfully removed from the group.
+        '404':
+          description: Specified Inventory device was not found.
+      security:
+      - api_key: []
+        api_token: []
+      summary: Removes an Inventory device from an Inventory group
+      tags:
+      - Device
+      x-soracom-cli:
+      - devices unset-group
+  /device_object_models:
+    get:
+      description: Returns a list of device object models
+      operationId: listDeviceObjectModels
+      parameters:
+      - description: ID of the last device object model in the previous page. By specifying this parameter, you can continue
+          to retrieve the list from the next device object models onward.
+        in: query
+        name: last_evaluated_key
+        required: false
+        schema:
+          type: string
+      - description: Max number of device object models in a response
+        in: query
+        name: limit
+        required: false
+        schema:
+          default: -1
+          format: int32
+          type: integer
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/DeviceObjectModel'
+                type: array
+          description: List of device object models
+      security:
+      - api_key: []
+        api_token: []
+      summary: Returns a list of device object models
+      tags:
+      - DeviceObjectModel
+      x-soracom-cli:
+      - devices list-object-models
+      x-soracom-cli-pagination:
+        request:
+          param: last_evaluated_key
+        response:
+          header: x-soracom-next-key
+    post:
+      description: Creates a new device object model
+      operationId: createDeviceObjectModel
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DeviceObjectModel'
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/DeviceObjectModel'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DeviceObjectModel'
+          description: Device object model created
+        '400':
+          description: Failed to parse device object model definition
+      security:
+      - api_key: []
+        api_token: []
+      summary: Creates a new device object model
+      tags:
+      - DeviceObjectModel
+      x-soracom-cli:
+      - devices create-object-model
+  /device_object_models/{model_id}:
+    delete:
+      description: Deletes a device object model
+      operationId: deleteDeviceObjectModel
+      parameters:
+      - description: Target device object model ID
+        in: path
+        name: model_id
+        required: true
+        schema:
+          type: string
+      responses:
+        '204':
+          description: Successfully deleted
+        '404':
+          description: No such device object model found
+      security:
+      - api_key: []
+        api_token: []
+      summary: Deletes a device object model
+      tags:
+      - DeviceObjectModel
+      x-soracom-cli:
+      - devices delete-object-model
+    get:
+      description: Gets a device object model
+      operationId: getDeviceObjectModel
+      parameters:
+      - description: Target device object model ID
+        in: path
+        name: model_id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DeviceObjectModel'
+          description: Device object model
+        '404':
+          description: No such device object model found
+      security:
+      - api_key: []
+        api_token: []
+      summary: Gets a device object model
+      tags:
+      - DeviceObjectModel
+      x-soracom-cli:
+      - devices get-object-model
+    post:
+      description: Updates a device object model
+      operationId: updateDeviceObjectModel
+      parameters:
+      - description: Target device object model ID
+        in: path
+        name: model_id
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DeviceObjectModel'
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/DeviceObjectModel'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DeviceObjectModel'
+          description: Device object model updated
+        '400':
+          description: Failed to parse device object model definition
+        '404':
+          description: No such device object model found
+      security:
+      - api_key: []
+        api_token: []
+      summary: Updates a device object model
+      tags:
+      - DeviceObjectModel
+      x-soracom-cli:
+      - devices update-object-model
+  /device_object_models/{model_id}/set_scope:
+    post:
+      description: Sets scope for a device object model
+      operationId: setDeviceObjectModelScope
+      parameters:
+      - description: Target device object model ID
+        in: path
+        name: model_id
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SetDeviceObjectModelScopeRequest'
+        description: Scope value that is applied to the target device object model
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DeviceObjectModel'
+          description: Scope is set to the target device object model
+        '404':
+          description: No such device object model found
+      security:
+      - api_key: []
+        api_token: []
+      summary: Sets scope for a device object model
+      tags:
+      - DeviceObjectModel
+      x-soracom-cli:
+      - devices set-object-model-scope
+tags:
+- description: '[Soracom Inventory object model](/en/docs/inventory/define-custom-object/)'
+  name: DeviceObjectModel
+- description: '[Soracom Inventory devices](/en/docs/inventory/)'
+  name: Device
+components:
+  schemas:
+    DeviceObjectModel:
+      properties:
+        createdTime:
+          format: date-time
+          type: string
+        format:
+          enum:
+          - xml
+          - json
+          type: string
+        lastModifiedTime:
+          format: date-time
+          type: string
+        objectId:
+          type: string
+        objectName:
+          type: string
+        operatorId:
+          type: string
+        scope:
+          type: string
+      type: object
+    ObjectInstance:
+      properties:
+        id:
+          format: int32
+          type: integer
+        observed:
+          default: false
+          type: boolean
+        resources:
+          additionalProperties:
+            $ref: '#/components/schemas/ResourceInstance'
+          type: object
+      type: object
+    TagUpdateRequest:
+      properties:
+        tagName:
+          type: string
+        tagValue:
+          type: string
+      required:
+      - tagName
+      - tagValue
+      type: object
+    SetDeviceObjectModelScopeRequest:
+      properties:
+        scope:
+          type: string
+      type: object
+    SetGroupRequest:
+      properties:
+        groupId:
+          description: Group ID. The group ID can be obtained using the [Group:listGroups API](#!/Group/listGroups).
+          type: string
+      type: object
+    Device:
+      properties:
+        device_id:
+          type: string
+        endpoint:
+          type: string
+        firmwareVersion:
+          type: string
+        groupId:
+          type: string
+        ipAddress:
+          type: string
+        lastModifiedTime:
+          format: date-time
+          type: string
+        lastRegistrationUpdate:
+          format: date-time
+          type: string
+        manufacturer:
+          type: string
+        modelNumber:
+          type: string
+        objects:
+          type: object
+        online:
+          default: false
+          type: boolean
+        operatorId:
+          type: string
+        registrationId:
+          type: string
+        registrationLifeTime:
+          format: int64
+          type: integer
+        serialNumber:
+          type: string
+        tags:
+          additionalProperties:
+            type: string
+          type: object
+      type: object
+    DataEntry:
+      properties:
+        category:
+          type: string
+        content:
+          type: string
+        contentType:
+          type: string
+        resourceId:
+          type: string
+        resourceType:
+          enum:
+          - Subscriber
+          - LoraDevice
+          - Sim
+          - SigfoxDevice
+          - Device
+          - SoraCam
+          type: string
+        time:
+          format: int64
+          type: integer
+      type: object
+    ResourceInstance:
+      properties:
+        description:
+          type: string
+        id:
+          format: int32
+          type: integer
+        mandatory:
+          default: false
+          type: boolean
+        multiple:
+          default: false
+          type: boolean
+        name:
+          type: string
+        observed:
+          default: false
+          type: boolean
+        operations:
+          enum:
+          - NONE
+          - R
+          - W
+          - RW
+          - E
+          - RE
+          - WE
+          - RWE
+          type: string
+        rangeEnumeration:
+          type: string
+        type:
+          enum:
+          - STRING
+          - INTEGER
+          - FLOAT
+          - BOOLEAN
+          - OPAQUE
+          - TIME
+          - OBJLNK
+          type: string
+        units:
+          type: string
+        value:
+          type: object
+        values:
+          type: object
+      type: object
+  securitySchemes:
+    api_key:
+      description: 'API key for authentication. Obtain this from the Soracom User Console or via the Auth API.
+
+        Required in combination with an API token for all authenticated requests.
+
+        '
+      in: header
+      name: X-Soracom-API-Key
+      type: apiKey
+    api_token:
+      description: 'API token for authentication. This token has an expiration time and must be refreshed periodically.
+
+        Required in combination with an API key for all authenticated requests.'
+      in: header
+      name: X-Soracom-Token
+      type: apiKey

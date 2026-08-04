@@ -1,0 +1,2597 @@
+openapi: 3.0.0
+info:
+  title: Soracom Virtual Private Gateway API
+  description: Provision and manage Soracom Virtual Private Gateways (Canal, Direct, Door, Gate), Junction packet rules, and
+    Peek packet captures.
+  version: 20250903-043502
+servers:
+- description: Japan coverage production API endpoint
+  url: https://api.soracom.io/v1
+- description: Global coverage production API endpoint
+  url: https://g.api.soracom.io/v1
+paths:
+  /virtual_private_gateways:
+    get:
+      description: Returns a list of VPGs.
+      operationId: listVirtualPrivateGateways
+      parameters:
+      - description: Tag name of the VPG. Filters through all VPGs that exactly match the tag name. When tag_name is specified,
+          tag_value is required.
+        in: query
+        name: tag_name
+        required: false
+        schema:
+          type: string
+      - description: Tag value of the VPG.
+        in: query
+        name: tag_value
+        required: false
+        schema:
+          type: string
+      - description: Tag match mode.
+        in: query
+        name: tag_value_match_mode
+        required: false
+        schema:
+          default: exact
+          enum:
+          - exact
+          - prefix
+          type: string
+      - description: Maximum number of results per response page.
+        in: query
+        name: limit
+        required: false
+        schema:
+          type: integer
+      - description: The last VPG ID retrieved on the current page. By specifying this parameter, you can continue to retrieve
+          the list from the next VPG onward.
+        in: query
+        name: last_evaluated_key
+        required: false
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/VirtualPrivateGateway'
+                type: array
+          description: List of VPGs.
+      security:
+      - api_key: []
+        api_token: []
+      summary: List Virtual Private Gateways
+      tags:
+      - VirtualPrivateGateway
+      x-soracom-cli:
+      - vpg list
+      x-soracom-cli-pagination:
+        request:
+          param: last_evaluated_key
+        response:
+          header: x-soracom-next-key
+    post:
+      description: Create a new VPG.
+      operationId: createVirtualPrivateGateway
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateVirtualPrivateGatewayRequest'
+        description: Request containing information for the new VPG to be created.
+        required: true
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/VirtualPrivateGateway'
+          description: Created
+      security:
+      - api_key: []
+        api_token: []
+      summary: Create Virtual Private Gateway
+      tags:
+      - VirtualPrivateGateway
+      x-soracom-cli:
+      - vpg create
+  /virtual_private_gateways/{vpg_id}:
+    get:
+      description: Retrieves information about the specified VPG.
+      operationId: getVirtualPrivateGateway
+      parameters:
+      - description: Target VPG ID.
+        in: path
+        name: vpg_id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/VirtualPrivateGateway'
+          description: The specified VPG.
+        '404':
+          description: The specified VPG does not exist.
+      security:
+      - api_key: []
+        api_token: []
+      summary: Get Virtual Private Gateway
+      tags:
+      - VirtualPrivateGateway
+      x-soracom-cli:
+      - vpg get
+  /virtual_private_gateways/{vpg_id}/customer_routes:
+    post:
+      description: Creates a routing table entry for the specified VPG.
+      operationId: createCustomerRoute
+      parameters:
+      - description: Target VPG ID.
+        in: path
+        name: vpg_id
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateCustomerRouteRequest'
+        required: true
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CustomerRoute'
+          description: Created routing table entry
+        '400':
+          description: Invalid request
+        '404':
+          description: The specified VPG does not exist
+      security:
+      - api_key: []
+        api_token: []
+      summary: Create routing table entry
+      tags:
+      - VirtualPrivateGateway
+      x-soracom-cli:
+      - vpg create-customer-route
+  /virtual_private_gateways/{vpg_id}/customer_routes/{route_id}:
+    delete:
+      description: Deletes a routing table entry from the specified VPG.
+      operationId: deleteCustomerRoute
+      parameters:
+      - description: Target VPG ID.
+        in: path
+        name: vpg_id
+        required: true
+        schema:
+          type: string
+      - description: Target route ID
+        in: path
+        name: route_id
+        required: true
+        schema:
+          type: string
+      responses:
+        '204':
+          description: Deleted routing table entry
+        '404':
+          description: The specified VPG does not exist
+      security:
+      - api_key: []
+        api_token: []
+      summary: Delete routing table entry
+      tags:
+      - VirtualPrivateGateway
+      x-soracom-cli:
+      - vpg delete-customer-route
+    put:
+      description: Updates a routing table entry for the specified VPG.
+      operationId: updateCustomerRoute
+      parameters:
+      - description: Target VPG ID.
+        in: path
+        name: vpg_id
+        required: true
+        schema:
+          type: string
+      - description: Target route ID
+        in: path
+        name: route_id
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateCustomerRouteRequest'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CustomerRoute'
+          description: Updated routing table entry
+        '400':
+          description: Invalid request
+        '404':
+          description: The specified VPG does not exist
+      security:
+      - api_key: []
+        api_token: []
+      summary: Update routing table entry
+      tags:
+      - VirtualPrivateGateway
+      x-soracom-cli:
+      - vpg update-customer-route
+  /virtual_private_gateways/{vpg_id}/fixed_public_ip_addresses:
+    delete:
+      description: Disables the fixed global IP address option for the VPG.
+      operationId: releaseFixedPublicIpAddresses
+      parameters:
+      - in: path
+        name: vpg_id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/VirtualPrivateGateway'
+          description: The fixed global IP address option for the VPG was successfully disabled.
+        '400':
+          description: The fixed global IP address option for the VPG is already disabled.
+        '404':
+          description: The specified VPG does not exist.
+      security:
+      - api_key: []
+        api_token: []
+      summary: Disable the fixed global IP address option for the VPG
+      tags:
+      - VirtualPrivateGateway
+      x-soracom-cli:
+      - vpg release-fixed-public-ip-addresses
+    post:
+      description: Enables the fixed global IP address option for the VPG.
+      operationId: assignFixedPublicIpAddresses
+      parameters:
+      - in: path
+        name: vpg_id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/VirtualPrivateGateway'
+          description: The fixed global IP address option for the VPG was successfully enabled.
+        '400':
+          description: The fixed global IP address option for the VPG is already enabled.
+        '404':
+          description: The specified VPG does not exist.
+      security:
+      - api_key: []
+        api_token: []
+      summary: Enable the fixed global IP address option for the VPG
+      tags:
+      - VirtualPrivateGateway
+      x-soracom-cli:
+      - vpg set-fixed-public-ip-addresses
+  /virtual_private_gateways/{vpg_id}/gate/close:
+    post:
+      description: Close Soracom Gate on the specified VPG.
+      operationId: closeGate
+      parameters:
+      - description: Target VPG ID.
+        in: path
+        name: vpg_id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Soracom Gate is successfully closed on the VPG.
+        '400':
+          description: Client side error in the request.
+        '404':
+          description: The specified VPG does not exist.
+      security:
+      - api_key: []
+        api_token: []
+      summary: Close SORACOM Gate.
+      tags:
+      - VirtualPrivateGateway
+      x-soracom-cli:
+      - vpg close-gate
+  /virtual_private_gateways/{vpg_id}/gate/disable_privacy_separator:
+    post:
+      description: Disables Soracom Gate's privacy separator feature on the specified VPG and enables the Gate D2D feature.
+      operationId: disableGatePrivacySeparator
+      parameters:
+      - description: VPG ID
+        in: path
+        name: vpg_id
+        required: true
+        schema:
+          format: VpgId
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/VirtualPrivateGateway'
+          description: Disabled the privacy separator successfully
+        '404':
+          description: The specified VPG does not exist.
+      security:
+      - api_key: []
+        api_token: []
+      summary: Disables Soracom Gate's privacy separator feature on the specified VPG
+      tags:
+      - VirtualPrivateGateway
+      x-soracom-cli:
+      - vpg disable-gate-privacy-separator
+  /virtual_private_gateways/{vpg_id}/gate/enable_privacy_separator:
+    post:
+      description: Enables Soracom Gate's privacy separator feature on the specified VPG and disables the Gate D2D feature.
+      operationId: enableGatePrivacySeparator
+      parameters:
+      - description: VPG ID
+        in: path
+        name: vpg_id
+        required: true
+        schema:
+          format: VpgId
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/VirtualPrivateGateway'
+          description: Enabled the privacy separator successfully
+        '404':
+          description: The specified VPG does not exist.
+      security:
+      - api_key: []
+        api_token: []
+      summary: Enables Soracom Gate privacy separator feature on the specified VPG
+      tags:
+      - VirtualPrivateGateway
+      x-soracom-cli:
+      - vpg enable-gate-privacy-separator
+  /virtual_private_gateways/{vpg_id}/gate/open:
+    post:
+      description: Open Soracom Gate on the specified VPG.
+      operationId: openGate
+      parameters:
+      - description: Target VPG ID.
+        in: path
+        name: vpg_id
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/OpenGateRequest'
+        description: Optional configuration parameters for Gate.
+      responses:
+        '200':
+          description: SORACOM Gate is successfully opened on the VPG.
+        '400':
+          description: Client side error in the request.
+        '404':
+          description: The specified VPG does not exist.
+      security:
+      - api_key: []
+        api_token: []
+      summary: Open Soracom Gate
+      tags:
+      - VirtualPrivateGateway
+      x-soracom-cli:
+      - vpg open-gate
+  /virtual_private_gateways/{vpg_id}/gate/peers:
+    get:
+      description: List Gate Peers registered in the Virtual Private Gateway.
+      operationId: listGatePeers
+      parameters:
+      - description: Target VPG ID.
+        in: path
+        name: vpg_id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/GatePeer'
+                type: array
+          description: List of Gate Peers registered in the VPG.
+        '400':
+          description: Client side error in the request.
+        '404':
+          description: The specified VPG does not exist.
+      security:
+      - api_key: []
+        api_token: []
+      summary: List VPG Gate Peers
+      tags:
+      - VirtualPrivateGateway
+      x-soracom-cli:
+      - vpg list-gate-peers
+    post:
+      description: Register a host as a Gate Peer in the Virtual Private Gateway.
+      operationId: registerGatePeer
+      parameters:
+      - description: Target VPG ID.
+        in: path
+        name: vpg_id
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RegisterGatePeerRequest'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GatePeer'
+          description: Gate Peer is successfully registered.
+        '400':
+          description: Client side error in the request.
+        '404':
+          description: The specified VPG does not exist.
+      security:
+      - api_key: []
+        api_token: []
+      summary: Register VPG Gate Peer
+      tags:
+      - VirtualPrivateGateway
+      x-soracom-cli:
+      - vpg register-gate-peer
+  /virtual_private_gateways/{vpg_id}/gate/peers/{outer_ip_address}:
+    delete:
+      description: Unregister a Gate Peer from the Virtual Private Gateway.
+      operationId: unregisterGatePeer
+      parameters:
+      - description: Target VPG ID.
+        in: path
+        name: vpg_id
+        required: true
+        schema:
+          type: string
+      - description: ID of the target node.
+        in: path
+        name: outer_ip_address
+        required: true
+        schema:
+          type: string
+      responses:
+        '204':
+          description: Successfully deregistered the Gate Peer.
+        '400':
+          description: Client side error in the request.
+        '404':
+          description: The specified VPG or Peer does not exist.
+      security:
+      - api_key: []
+        api_token: []
+      summary: Unregister VPG Gate Peer
+      tags:
+      - VirtualPrivateGateway
+      x-soracom-cli:
+      - vpg unregister-gate-peer
+  /virtual_private_gateways/{vpg_id}/gate/routing/static/sims/disable:
+    post:
+      description: Disables SIM-Based Routing.
+      operationId: disableSimBasedRouting
+      parameters:
+      - description: Target VPG ID.
+        in: path
+        name: vpg_id
+        required: true
+        schema:
+          type: string
+      responses:
+        '204':
+          description: SIM-Based Routing has been disabled.
+        '404':
+          description: The specified VPG does not exist.
+      security:
+      - api_key: []
+        api_token: []
+      summary: Disable SIM-Based Routing
+      tags:
+      - VirtualPrivateGateway
+      x-soracom-cli:
+      - vpg disable-sim-based-routing
+  /virtual_private_gateways/{vpg_id}/gate/routing/static/sims/enable:
+    post:
+      description: Enables SIM-Based Routing.
+      operationId: enableSimBasedRouting
+      parameters:
+      - description: Target VPG ID.
+        in: path
+        name: vpg_id
+        required: true
+        schema:
+          type: string
+      responses:
+        '201':
+          description: SIM-Based Routing has been enabled.
+        '400':
+          description: SORACOM Gate is not enabled.
+        '404':
+          description: The specified VPG does not exist.
+      security:
+      - api_key: []
+        api_token: []
+      summary: Enable SIM-Based Routing
+      tags:
+      - VirtualPrivateGateway
+      x-soracom-cli:
+      - vpg enable-sim-based-routing
+  /virtual_private_gateways/{vpg_id}/gate/routing/static/sims/routes:
+    put:
+      description: Associates a router's LAN IP address range with its SIM ID.
+      operationId: putSimBasedRoutingRoutes
+      parameters:
+      - description: Target VPG ID.
+        in: path
+        name: vpg_id
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PutSimBasedRoutingRoutesRequest'
+        description: Specify the LAN IP address range of the router to associate with a SIM ID.
+        required: true
+      responses:
+        '200':
+          description: OK
+        '400':
+          description: Client side error in the request.
+        '404':
+          description: The specified VPG does not exist.
+      security:
+      - api_key: []
+        api_token: []
+      summary: Associate a router's LAN IP address range with its SIM ID
+      tags:
+      - VirtualPrivateGateway
+      x-soracom-cli:
+      - vpg put-sim-based-routing-routes
+  /virtual_private_gateways/{vpg_id}/gate/set_vxlan_id:
+    post:
+      description: Set VXLAN ID for Gate.
+      operationId: setVirtualPrivateGatewayVxLanId
+      parameters:
+      - in: path
+        name: vpg_id
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SetVirtualPrivateGatewayVxLanIdRequest'
+        required: true
+      responses:
+        '204':
+          description: OK
+        '404':
+          description: The specified VPG does not exist.
+      security:
+      - api_key: []
+        api_token: []
+      summary: Set VXLAN ID for Gate
+      tags:
+      - VirtualPrivateGateway
+      x-soracom-cli:
+      - vpg set-vxlan-id
+  /virtual_private_gateways/{vpg_id}/ip_address_map:
+    get:
+      description: 'Retrieves the list of IP address map entries for the specified VPG.
+
+        '
+      operationId: listVirtualPrivateGatewayIpAddressMapEntries
+      parameters:
+      - description: Target VPG ID.
+        in: path
+        name: vpg_id
+        required: true
+        schema:
+          type: string
+      - description: The maximum number of IP address map entries to retrieve. The response may contain fewer entries than
+          the specified value.
+        in: query
+        name: limit
+        required: false
+        schema:
+          type: integer
+      - description: The last IP address retrieved in the previous page. Use this parameter to retrieve the next page of IP
+          address map entries.
+        in: query
+        name: last_evaluated_key
+        required: false
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/IpAddressMapEntry'
+                type: array
+          description: 'List of IP address map entries associated with the specified VPG.
+
+
+            **Warning**: The response includes not only entries added via [VirtualPrivateGateway:putVirtualPrivateGatewayIpAddressMapEntry
+            API](#/VirtualPrivateGateway/putVirtualPrivateGatewayIpAddressMapEntry), but also automatically assigned IP addresses
+            for Gate Peers and the VPG itself.
+
+            '
+        '400':
+          description: Client side error in the request.
+        '404':
+          description: The specified VPG does not exist.
+      security:
+      - api_key: []
+        api_token: []
+      summary: List VPG IP address map entries
+      tags:
+      - VirtualPrivateGateway
+      x-soracom-cli:
+      - vpg list-ip-address-map-entries
+      x-soracom-cli-pagination:
+        request:
+          param: last_evaluated_key
+        response:
+          header: x-soracom-next-key
+    post:
+      description: 'Adds or updates an IP address map entry for the specified VPG.
+
+
+        **Warning**: The [VirtualPrivateGateway:listVirtualPrivateGatewayIpAddressMapEntries API](#/VirtualPrivateGateway/listVirtualPrivateGatewayIpAddressMapEntries)
+        response includes entries that are automatically assigned to Gate Peers and the VPG, but these cannot be added or
+        updated using the VirtualPrivateGateway:putVirtualPrivateGatewayIpAddressMapEntry API.
+
+        '
+      operationId: putVirtualPrivateGatewayIpAddressMapEntry
+      parameters:
+      - description: Target VPG ID.
+        in: path
+        name: vpg_id
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PutIpAddressMapEntryRequest'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/IpAddressMapEntry'
+          description: Successfully added or updated the IP address map entry.
+        '400':
+          description: Client side error in the request.
+        '404':
+          description: The specified VPG does not exist.
+      security:
+      - api_key: []
+        api_token: []
+      summary: Adds or updates an entry in VPG IP address map
+      tags:
+      - VirtualPrivateGateway
+      x-soracom-cli:
+      - vpg put-ip-address-map-entry
+  /virtual_private_gateways/{vpg_id}/ip_address_map/{key}:
+    delete:
+      description: 'Deletes an entry from the IP address map of the specified VPG.
+
+
+        **Warning**: The [VirtualPrivateGateway:listVirtualPrivateGatewayIpAddressMapEntries API](#/VirtualPrivateGateway/listVirtualPrivateGatewayIpAddressMapEntries)
+        response includes automatically assigned entries for Gate Peers and the VPG. These entries cannot be deleted using
+        the VirtualPrivateGateway:deleteVirtualPrivateGatewayIpAddressMapEntry API.
+
+        '
+      operationId: deleteVirtualPrivateGatewayIpAddressMapEntry
+      parameters:
+      - description: Target VPG ID.
+        in: path
+        name: vpg_id
+        required: true
+        schema:
+          type: string
+      - description: Identifier of the IP address map entry to delete (IMSI of the IoT SIM).
+        in: path
+        name: key
+        required: true
+        schema:
+          type: string
+      responses:
+        '204':
+          description: Successfully deleted the IP address map entry.
+        '400':
+          description: Client side error in the request.
+        '404':
+          description: The specified VPG or key does not exist.
+      security:
+      - api_key: []
+        api_token: []
+      summary: Delete VPG IP address map entry
+      tags:
+      - VirtualPrivateGateway
+      x-soracom-cli:
+      - vpg delete-ip-address-map-entry
+  /virtual_private_gateways/{vpg_id}/junction/mirroring/peers:
+    post:
+      description: Adds node in the list of Junction mirroring peers.
+      operationId: createMirroringPeer
+      parameters:
+      - description: VPG ID
+        in: path
+        name: vpg_id
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/JunctionMirroringPeer'
+        description: Mirroring peer
+        required: true
+      responses:
+        '201':
+          description: Mirroring peer added/updated
+        '404':
+          description: No such VPG found
+      security:
+      - api_key: []
+        api_token: []
+      summary: Adds node in the list of Junction mirroring peers
+      tags:
+      - VirtualPrivateGateway
+      x-soracom-cli:
+      - vpg create-mirroring-peer
+  /virtual_private_gateways/{vpg_id}/junction/mirroring/peers/{ipaddr}:
+    delete:
+      description: Remove peer from the list of Junction mirroring peers.
+      operationId: deleteMirroringPeer
+      parameters:
+      - description: VPG ID
+        in: path
+        name: vpg_id
+        required: true
+        schema:
+          type: string
+      - description: IP address of mirroring peer
+        in: path
+        name: ipaddr
+        required: true
+        schema:
+          type: string
+      responses:
+        '204':
+          description: Mirroring peer removed
+        '404':
+          description: No such VPG found
+      security:
+      - api_key: []
+        api_token: []
+      summary: Remove peer from the list of Junction mirroring peers
+      tags:
+      - VirtualPrivateGateway
+      x-soracom-cli:
+      - vpg delete-mirroring-peer
+    put:
+      description: Updates a Junction mirroring peer.
+      operationId: updateMirroringPeer
+      parameters:
+      - description: VPG ID
+        in: path
+        name: vpg_id
+        required: true
+        schema:
+          type: string
+      - description: Mirroring peer IP address
+        in: path
+        name: ipaddr
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              items:
+                $ref: '#/components/schemas/AttributeUpdate'
+              type: array
+        description: List of attributes to update
+        required: true
+      responses:
+        '200':
+          description: Mirroring peer updated
+        '404':
+          description: No such VPG found
+      security:
+      - api_key: []
+        api_token: []
+      summary: Updates a Junction mirroring peer
+      tags:
+      - VirtualPrivateGateway
+      x-soracom-cli:
+      - vpg update-mirroring-peer
+  /virtual_private_gateways/{vpg_id}/junction/set_inspection:
+    post:
+      description: Sets configuration for Junction inspection feature.
+      operationId: setInspectionConfiguration
+      parameters:
+      - description: VPG ID
+        in: path
+        name: vpg_id
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/JunctionInspectionConfiguration'
+        description: Inspection configuration
+        required: true
+      responses:
+        '200':
+          description: Configuration added/updated
+        '404':
+          description: No such VPG found
+      security:
+      - api_key: []
+        api_token: []
+      summary: Sets configuration for Junction inspection feature
+      tags:
+      - VirtualPrivateGateway
+      x-soracom-cli:
+      - vpg set-inspection
+  /virtual_private_gateways/{vpg_id}/junction/set_redirection:
+    post:
+      description: Sets configuration for Junction redirection feature.
+      operationId: setRedirectionConfiguration
+      parameters:
+      - description: VPG ID
+        in: path
+        name: vpg_id
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/JunctionRedirectionConfiguration'
+        description: Redirection configuration
+        required: true
+      responses:
+        '200':
+          description: Configuration added/updated
+        '404':
+          description: No such VPG found
+      security:
+      - api_key: []
+        api_token: []
+      summary: Sets configuration for Junction redirection feature
+      tags:
+      - VirtualPrivateGateway
+      x-soracom-cli:
+      - vpg set-redirection
+  /virtual_private_gateways/{vpg_id}/junction/unset_inspection:
+    post:
+      description: Unset configuration for Junction inspection feature.
+      operationId: unsetInspectionConfiguration
+      parameters:
+      - description: VPG ID
+        in: path
+        name: vpg_id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Configuration unset
+        '404':
+          description: No such VPG found
+      security:
+      - api_key: []
+        api_token: []
+      summary: Unset configuration for Junction inspection feature
+      tags:
+      - VirtualPrivateGateway
+      x-soracom-cli:
+      - vpg unset-inspection
+  /virtual_private_gateways/{vpg_id}/junction/unset_redirection:
+    post:
+      description: Unset configuration for Junction redirection feature.
+      operationId: unsetRedirectionConfiguration
+      parameters:
+      - description: VPG ID
+        in: path
+        name: vpg_id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Configuration unset
+        '404':
+          description: No such VPG found
+      security:
+      - api_key: []
+        api_token: []
+      summary: Unset configuration for Junction redirection feature
+      tags:
+      - VirtualPrivateGateway
+      x-soracom-cli:
+      - vpg unset-redirection
+  /virtual_private_gateways/{vpg_id}/packet_capture_sessions:
+    get:
+      description: List packet capture sessions associated with the VPG.
+      operationId: listPacketCaptureSessions
+      parameters:
+      - description: VPG ID
+        in: path
+        name: vpg_id
+        required: true
+        schema:
+          type: string
+      - description: ID of the last packet capture session in the previous page. By specifying this parameter, you can continue
+          to retrieve the list from the next packet capture session onward.
+        in: query
+        name: last_evaluated_key
+        required: false
+        schema:
+          default: 'null'
+          type: string
+      - description: Max number of results in a response.
+        in: query
+        name: limit
+        required: false
+        schema:
+          default: 10
+          format: int32
+          type: integer
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/PacketCaptureSession'
+                type: array
+          description: List of packet capture sessions associated with the VPG
+        '400':
+          description: Failed to list packet capture sessions associated with the VPG
+        '404':
+          description: The specified VPG does not exist.
+      security:
+      - api_key: []
+        api_token: []
+      summary: List Packet Capture Sessions associated with the VPG
+      tags:
+      - VirtualPrivateGateway
+      x-soracom-cli:
+      - vpg list-packet-capture-sessions
+      x-soracom-cli-pagination:
+        request:
+          param: last_evaluated_key
+        response:
+          header: x-soracom-next-key
+    post:
+      description: Create a packet capture session associated with the VPG.
+      operationId: createPacketCaptureSession
+      parameters:
+      - description: VPG ID
+        in: path
+        name: vpg_id
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PacketCaptureSessionRequest'
+        description: A packet capture session request
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PacketCaptureSession'
+          description: The packet capture sessions associated with the VPG
+        '400':
+          description: Failed to create a packet capture session associated with the VPG
+        '404':
+          description: The specified VPG does not exist.
+      security:
+      - api_key: []
+        api_token: []
+      summary: Create a packet capture session associated with the VPG
+      tags:
+      - VirtualPrivateGateway
+      x-soracom-cli:
+      - vpg create-packet-capture-session
+  /virtual_private_gateways/{vpg_id}/packet_capture_sessions/{session_id}:
+    delete:
+      description: Delete a packet capture session associated with the VPG.
+      operationId: deletePacketCaptureSession
+      parameters:
+      - description: VPG ID
+        in: path
+        name: vpg_id
+        required: true
+        schema:
+          type: string
+      - description: Packet capture session ID
+        in: path
+        name: session_id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PacketCaptureSession'
+          description: Deleted the packet capture session
+        '400':
+          description: Failed to delete the packet capture session associated with the VPG
+        '404':
+          description: The packet capture session associated with the VPG was not found
+      security:
+      - api_key: []
+        api_token: []
+      summary: Delete a packet capture session associated with the VPG
+      tags:
+      - VirtualPrivateGateway
+      x-soracom-cli:
+      - vpg delete-packet-capture-session
+    get:
+      description: Get a packet capture session associated with the VPG.
+      operationId: getPacketCaptureSession
+      parameters:
+      - description: VPG ID
+        in: path
+        name: vpg_id
+        required: true
+        schema:
+          type: string
+      - description: Packet capture session ID
+        in: path
+        name: session_id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PacketCaptureSession'
+          description: The packet capture sessions associated with the VPG
+        '404':
+          description: The packet capture session associated with the VPG was not found
+      security:
+      - api_key: []
+        api_token: []
+      summary: Get a packet capture session associated with the VPG
+      tags:
+      - VirtualPrivateGateway
+      x-soracom-cli:
+      - vpg get-packet-capture-session
+  /virtual_private_gateways/{vpg_id}/packet_capture_sessions/{session_id}/stop:
+    post:
+      description: Stop a packet capture session associated with the VPG.
+      operationId: stopPacketCaptureSession
+      parameters:
+      - description: VPG ID
+        in: path
+        name: vpg_id
+        required: true
+        schema:
+          type: string
+      - description: Packet capture session ID
+        in: path
+        name: session_id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PacketCaptureSession'
+          description: The stopped packet capture session associated with the VPG
+        '400':
+          description: The packet capture session can be stopped only when its status is CAPTURING
+        '404':
+          description: The packet capture session associated with the VPG was not found
+        '500':
+          description: The packet capture session associated with the VPG could not be stopped.
+      security:
+      - api_key: []
+        api_token: []
+      summary: Stop a packet capture session associated with the VPG
+      tags:
+      - VirtualPrivateGateway
+      x-soracom-cli:
+      - vpg stop-packet-capture-session
+  /virtual_private_gateways/{vpg_id}/set_routing_filter:
+    post:
+      description: Sets Virtual Private Gateway outbound routing filter.
+      operationId: setRoutingFilter
+      parameters:
+      - description: Target VPG ID.
+        in: path
+        name: vpg_id
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              items:
+                $ref: '#/components/schemas/RoutingFilterEntry'
+              type: array
+        description: List of routing filter entries
+        required: true
+      responses:
+        '200':
+          description: The routing filter is successfully configured.
+        '400':
+          description: Invalid argument is given
+        '404':
+          description: The specified VPG does not exist.
+      security:
+      - api_key: []
+        api_token: []
+      summary: Sets Virtual Private Gateway outbound routing filter
+      tags:
+      - VirtualPrivateGateway
+      x-soracom-cli:
+      - vpg set-routing-filter
+  /virtual_private_gateways/{vpg_id}/tags:
+    put:
+      description: Adds/updates tags of the specified VPG.
+      operationId: updateVirtualPrivateGatewayTags
+      parameters:
+      - in: path
+        name: vpg_id
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateVirtualPrivateGatewayTagsRequest'
+        required: true
+      responses:
+        '204':
+          description: OK
+        '404':
+          description: The specified VPG does not exist.
+      security:
+      - api_key: []
+        api_token: []
+      summary: Update VPG tags
+      tags:
+      - VirtualPrivateGateway
+      x-soracom-cli:
+      - vpg update-tags
+  /virtual_private_gateways/{vpg_id}/tags/{tag_name}:
+    delete:
+      description: Deletes a tag from the specified VPG.
+      operationId: deleteVirtualPrivateGatewayTag
+      parameters:
+      - in: path
+        name: vpg_id
+        required: true
+        schema:
+          type: string
+      - in: path
+        name: tag_name
+        required: true
+        schema:
+          type: string
+      responses:
+        '204':
+          description: OK
+        '404':
+          description: The specified VPG does not exist.
+      security:
+      - api_key: []
+        api_token: []
+      summary: Delete a VPG Tag
+      tags:
+      - VirtualPrivateGateway
+      x-soracom-cli:
+      - vpg delete-tag
+  /virtual_private_gateways/{vpg_id}/terminate:
+    post:
+      description: Terminates the specified VPG.
+      operationId: terminateVirtualPrivateGateway
+      parameters:
+      - description: Target VPG ID.
+        in: path
+        name: vpg_id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Termination of specified VPG started.
+        '400':
+          description: There is a reason why the specified VPG cannot be terminated.
+        '404':
+          description: The specified VPG does not exist.
+      security:
+      - api_key: []
+        api_token: []
+      summary: Terminate Virtual Private Gateway
+      tags:
+      - VirtualPrivateGateway
+      x-soracom-cli:
+      - vpg terminate
+  /virtual_private_gateways/{vpg_id}/transit_gateway_peering_connections:
+    post:
+      description: Creates a transit gateway peering connection for the specified VPG.
+      operationId: createTransitGatewayPeeringConnection
+      parameters:
+      - description: Target VPG ID.
+        in: path
+        name: vpg_id
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateTransitGatewayPeeringConnectionRequest'
+        required: true
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/VirtualPrivateGateway'
+          description: Transit gateway peering connection created
+        '400':
+          description: Invalid request
+        '404':
+          description: The specified VPG does not exist
+      security:
+      - api_key: []
+        api_token: []
+      summary: Create transit gateway peering connection
+      tags:
+      - VirtualPrivateGateway
+      x-soracom-cli:
+      - vpg create-transit-gateway-peering-connection
+  /virtual_private_gateways/{vpg_id}/transit_gateway_peering_connections/{soracom_tgw_peering_attachment_id}:
+    delete:
+      description: Deletes a transit gateway peering connection from the specified VPG.
+      operationId: deleteTransitGatewayPeeringConnection
+      parameters:
+      - description: Target VPG ID.
+        in: path
+        name: vpg_id
+        required: true
+        schema:
+          type: string
+      - description: Transit gateway peering connection ID
+        in: path
+        name: soracom_tgw_peering_attachment_id
+        required: true
+        schema:
+          type: string
+      responses:
+        '204':
+          description: Transit gateway peering connection deleted
+        '404':
+          description: The specified VPG or transit gateway peering connection does not exist
+      security:
+      - api_key: []
+        api_token: []
+      summary: Delete transit gateway peering connection
+      tags:
+      - VirtualPrivateGateway
+      x-soracom-cli:
+      - vpg delete-transit-gateway-peering-connection
+  /virtual_private_gateways/{vpg_id}/transit_gateway_vpc_attachments:
+    post:
+      description: Creates a transit gateway VPC attachment for the specified VPG.
+      operationId: createTransitGatewayVpcAttachment
+      parameters:
+      - description: Target VPG ID.
+        in: path
+        name: vpg_id
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateTransitGatewayVpcAttachmentRequest'
+        required: true
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/VirtualPrivateGateway'
+          description: Transit gateway VPC attachment created
+        '400':
+          description: Invalid request
+        '404':
+          description: The specified VPG does not exist
+      security:
+      - api_key: []
+        api_token: []
+      summary: Create transit gateway VPC attachment
+      tags:
+      - VirtualPrivateGateway
+      x-soracom-cli:
+      - vpg create-transit-gateway-vpc-attachment
+  /virtual_private_gateways/{vpg_id}/transit_gateway_vpc_attachments/{customer_tgw_vpc_attachment_id}:
+    delete:
+      description: Deletes a transit gateway VPC attachment from the specified VPG.
+      operationId: deleteTransitGatewayVpcAttachment
+      parameters:
+      - description: Target VPG ID.
+        in: path
+        name: vpg_id
+        required: true
+        schema:
+          type: string
+      - description: Transit gateway VPC attachment ID
+        in: path
+        name: customer_tgw_vpc_attachment_id
+        required: true
+        schema:
+          type: string
+      responses:
+        '204':
+          description: Transit gateway VPC attachment deleted
+        '404':
+          description: The specified VPG or transit gateway VPC attachment does not exist
+      security:
+      - api_key: []
+        api_token: []
+      summary: Delete transit gateway VPC attachment
+      tags:
+      - VirtualPrivateGateway
+      x-soracom-cli:
+      - vpg delete-transit-gateway-vpc-attachment
+  /virtual_private_gateways/{vpg_id}/transit_gateway_vpc_attachments/{customer_tgw_vpc_attachment_id}/accept:
+    post:
+      description: Accepts the specified transit gateway VPC attachment connection request.
+      operationId: acceptTransitGatewayVpcAttachmentFromCustomer
+      parameters:
+      - description: Target VPG ID.
+        in: path
+        name: vpg_id
+        required: true
+        schema:
+          type: string
+      - description: Transit gateway VPC attachment ID
+        in: path
+        name: customer_tgw_vpc_attachment_id
+        required: true
+        schema:
+          type: string
+      responses:
+        '202':
+          description: Transit gateway VPC attachment connection accepted
+        '400':
+          description: Invalid request
+        '404':
+          description: The specified VPG or transit gateway VPC attachment does not exist
+      security:
+      - api_key: []
+        api_token: []
+      summary: Accept transit gateway VPC attachment connection request
+      tags:
+      - VirtualPrivateGateway
+      x-soracom-cli:
+      - vpg accept-transit-gateway-vpc-attachment
+  /virtual_private_gateways/{vpg_id}/vpc_peering_connections:
+    post:
+      description: Creates a VPC peering connection for the specified VPG.
+      operationId: createVpcPeeringConnection
+      parameters:
+      - description: Target VPG ID.
+        in: path
+        name: vpg_id
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateVpcPeeringConnectionRequest'
+        description: VPC peering connection to be created.
+        required: true
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreateVpcPeeringConnectionRequest'
+          description: The created VPC peering connection.
+        '404':
+          description: The specified VPC peering connection does not exist.
+      security:
+      - api_key: []
+        api_token: []
+      summary: Create VPC Peering Connection
+      tags:
+      - VirtualPrivateGateway
+      x-soracom-cli:
+      - vpg create-vpc-peering-connection
+  /virtual_private_gateways/{vpg_id}/vpc_peering_connections/{pcx_id}:
+    delete:
+      description: Deletes the specified VPC peering connection.
+      operationId: deleteVpcPeeringConnection
+      parameters:
+      - description: Target VPG ID.
+        in: path
+        name: vpg_id
+        required: true
+        schema:
+          type: string
+      - description: VPC peering connection ID to be deleted.
+        in: path
+        name: pcx_id
+        required: true
+        schema:
+          type: string
+      responses:
+        '204':
+          description: Deletion of specified VPC peering connection complete.
+        '404':
+          description: The specified VPC peering connection does not exist.
+      security:
+      - api_key: []
+        api_token: []
+      summary: Delete VPC Peering Connection
+      tags:
+      - VirtualPrivateGateway
+      x-soracom-cli:
+      - vpg delete-vpc-peering-connection
+tags:
+- description: '- [Virtual Private Gateway (VPG)](/en/docs/vpg/) (Canal / Direct / Door / Gate)
+
+    - [Soracom Junction](/en/docs/junction/)
+
+    - [Soracom Peek](/en/docs/peek/)
+
+    '
+  name: VirtualPrivateGateway
+components:
+  schemas:
+    CreateTransitGatewayVpcAttachmentRequest:
+      properties:
+        customerAwsAccountId:
+          description: AWS account ID of the VPC to be attached
+          type: string
+        customerVpcId:
+          description: AWS VPC ID of the VPC to be attached
+          type: string
+        name:
+          description: A name used to identify the VPC attachment
+          type: string
+      required:
+      - customerAwsAccountId
+      - customerVpcId
+      type: object
+    VirtualPrivateGateway:
+      properties:
+        allowedOperators:
+          items:
+            type: string
+          type: array
+        createdTime:
+          description: Creation time of the VPG (UNIX time in milliseconds).
+          format: int64
+          type: integer
+        customerRoutes:
+          additionalProperties:
+            $ref: '#/components/schemas/CustomerRoute'
+          description: List of routing table entries
+          type: object
+        deviceSubnetCidrRange:
+          description: Device Subnet IP Address Range.
+          type: string
+        enableSimBasedRouting:
+          type: boolean
+        fixedIpAddressesEnabled:
+          description: 'Fixed global IP address option.
+
+
+            - `true`: Enabled.
+
+            - `false`: Disabled.
+
+            '
+          type: boolean
+        fixedPublicIpAddresses:
+          items:
+            type: string
+          type: array
+        gateOpened:
+          description: 'The status of [Soracom Gate](/en/docs/gate/) service for the VPG.
+
+
+            - `true`: Gate is enabled
+
+            - `false`: Gate is disabled
+
+            '
+          type: boolean
+        gatePrivacySeparatorEnabled:
+          type: boolean
+        gateVxlanId:
+          description: VXLAN ID of the Gate.
+          type: number
+        implicitTerminationProtected:
+          type: boolean
+        inspection:
+          $ref: '#/components/schemas/JunctionInspectionConfiguration'
+        junctionEnabled:
+          description: 'The status of [Soracom Junction](/en/docs/junction/) service for the VPG.
+
+
+            - `true`: Junction (Mirroring, Inspection, or Redirection) is enabled.
+
+            - `false`: Junction is disabled.
+
+            '
+          type: boolean
+        lastModifiedTime:
+          description: Last modified time of the VPG (UNIX time in milliseconds).
+          format: int64
+          type: integer
+        mirroring:
+          properties:
+            peers:
+              additionalProperties:
+                $ref: '#/components/schemas/JunctionMirroringPeer'
+              type: object
+          type: object
+        offsetId:
+          type: integer
+        operatorId:
+          description: Operator ID.
+          type: string
+        placement:
+          $ref: '#/components/schemas/Placement'
+        primaryServiceName:
+          description: (Deprecated) This property is no longer used.
+          type: string
+        redirection:
+          $ref: '#/components/schemas/JunctionRedirectionConfiguration'
+        routingFilterEntries:
+          items:
+            $ref: '#/components/schemas/RoutingFilterEntry'
+          type: array
+        sessionStats:
+          properties:
+            lastUpdatedAt:
+              description: Date and time (Unix timestamp in milliseconds) that the number of online sessions was last updated.
+              format: int64
+              type: integer
+            online:
+              description: Number of Soracom Air IoT SIMs and Soracom Arc Virtual SIMs that are connected to the VPG and online.
+                Please note that this number is not updated in real-time. Use the lastUpdatedAt property to check the date
+                and time this number was updated.
+              type: integer
+          type: object
+        simBasedRoutingConfig:
+          additionalProperties:
+            type: string
+          type: object
+        size:
+          description: (Deprecated) This property is no longer used.
+          type: string
+        soracomTransitGateway:
+          $ref: '#/components/schemas/SoracomTransitGateway'
+        soracomTransitGatewayPeeringConnections:
+          additionalProperties:
+            $ref: '#/components/schemas/TransitGatewayPeeringConnection'
+          description: Map of transit gateway peering connections associated with the VPG.
+          type: object
+        soracomTransitGatewayVpcAttachments:
+          additionalProperties:
+            $ref: '#/components/schemas/TransitGatewayVpcAttachment'
+          description: Map of transit gateway VPC attachments associated with the VPG.
+          type: object
+        status:
+          description: 'Status of the VPG.
+
+
+            - `running`: Running.
+
+            '
+          enum:
+          - running
+          type: string
+        tags:
+          $ref: '#/components/schemas/TagSet'
+        transitGatewayAttachments:
+          additionalProperties:
+            $ref: '#/components/schemas/TransitGatewayAttachment'
+          type: object
+        type:
+          description: 'VPG Type.
+
+
+            - `12`: Type-C
+
+            - `13`: Type-D
+
+            - `14`: Type-E
+
+            - `15`: Type-F
+
+            - `242`: Type-F2
+
+            '
+          enum:
+          - 12
+          - 13
+          - 14
+          - 15
+          - 242
+          type: integer
+        ueSubnetCidrRange:
+          description: Device Subnet IP Address Range.
+          type: string
+        useInternetGateway:
+          description: 'The Internet Gateway configuration for the VPG.
+
+
+            - `true`: Internet Gateway is on
+
+            - `false`: Internet Gateway is off
+
+            '
+          type: boolean
+        virtualInterfaces:
+          additionalProperties:
+            type: string
+          description: Settings for [Direct](/en/docs/direct/).
+          type: object
+        vpcPeeringConnections:
+          additionalProperties:
+            type: string
+          description: Settings for [Canal](/en/docs/canal/)'s Amazon VPC peering connections.
+          type: object
+        vpgId:
+          description: VPG ID.
+          type: string
+        vpgSubnetCidrRange:
+          description: The range of IP addresses assigned to the VPG, required for configuring Soracom Door or Soracom Direct.
+          type: string
+        vpnConnections:
+          additionalProperties:
+            $ref: '#/components/schemas/VpnConnection'
+          type: object
+      type: object
+    FunnelWingarcMotionboardDestination:
+      properties:
+        provider:
+          enum:
+          - wingarc
+          type: string
+        resourceUrl:
+          example: https://iot-cloud.motionboard.jp/motionboard/
+          type: string
+        service:
+          enum:
+          - motionboard
+          type: string
+      type: object
+    FunnelKiiThingifDestination:
+      properties:
+        provider:
+          enum:
+          - kii
+          type: string
+        resourceUrl:
+          type: string
+        service:
+          enum:
+          - thingif
+          type: string
+      type: object
+    TransitGatewayResourceSharedStatus:
+      properties:
+        createdTime:
+          description: Creation time of the resource share
+          type: integer
+        customerAwsAccountId:
+          description: AWS account ID which is sharing resources with Soracom
+          type: string
+        lastModifiedTime:
+          description: Last modified time of the resource share
+          type: integer
+        resourceShareArn:
+          description: The ARN for the resource share
+          type: string
+        status:
+          description: Status of the resource share. Status of pending implies that the user has yet to accept resource share
+            with Soracom on their aws account.
+          type: string
+      type: object
+    OpenGateRequest:
+      properties:
+        privacySeparatorEnabled:
+          default: false
+          type: boolean
+        vxlanId:
+          default: 10
+          format: int32
+          type: integer
+      type: object
+    FunnelSensorCorpusDestination:
+      properties:
+        additionalData:
+          type: string
+        provider:
+          enum:
+          - infocorpus
+          type: string
+        resourceUrl:
+          example: https://www.sensorcorpus.net/
+          type: string
+        service:
+          enum:
+          - sensorcorpus
+          type: string
+      type: object
+    JunctionMirroringPeer:
+      properties:
+        description:
+          type: string
+        enabled:
+          default: false
+          type: boolean
+        ipAddress:
+          type: string
+        protocol:
+          enum:
+          - gre
+          type: string
+      type: object
+    CreateVpcPeeringConnectionRequest:
+      properties:
+        destinationCidrBlock:
+          type: string
+        peerOwnerId:
+          type: string
+        peerRegion:
+          type: string
+        peerVpcId:
+          type: string
+      type: object
+    TransitGatewayVpcAttachment:
+      properties:
+        createdTime:
+          description: Creation time of the VPC attachment
+          type: integer
+        customerAwsAccountId:
+          description: AWS Account ID of the VPC to be attached
+          type: string
+        customerTransitGatewayVpcAttachmentId:
+          description: Transit gateway VPC attachment ID of the VPC to be attached. This is the unique ID of the transit gateway
+            VPC attachment.
+          type: string
+        customerVpcId:
+          description: ID of the VPC to be attached
+          type: string
+        id:
+          description: Transit gateway VPC attachment ID of the VPC to be attached. This is the unique ID of the transit gateway
+            VPC attachment.
+          type: string
+        lastModifiedTime:
+          description: Last modified time of the VPC attachment
+          type: integer
+        name:
+          description: User defined name of the transit gateway VPC attachment
+          type: string
+        status:
+          description: Current status of the transit gateway VPC attachment. 'vpcAttachmentPending' status implies that a
+            VPC attachment is yet to be created on the peer AWS account.
+          enum:
+          - vpcAttachmentPending
+          - acceptancePending
+          - active
+          - failed
+          type: string
+      type: object
+    PacketCaptureSession:
+      properties:
+        createdTime:
+          format: date-time
+          type: string
+        duration:
+          format: int32
+          type: integer
+        endedTime:
+          format: date-time
+          type: string
+        failedReason:
+          type: string
+        prefix:
+          type: string
+        sessionId:
+          type: string
+        startedTime:
+          format: date-time
+          type: string
+        status:
+          enum:
+          - REQUESTED
+          - ACCEPTED
+          - CAPTURING
+          - POST_PROCESSING
+          - DONE
+          - FAILED
+          - STOPPED
+          type: string
+        url:
+          format: uri
+          type: string
+      type: object
+    FunnelOptimCloudiotosDestination:
+      properties:
+        channel_id:
+          type: string
+        data_format:
+          type: string
+        provider:
+          enum:
+          - optim
+          type: string
+        resourceUrl:
+          example: https://messaging.optimcloudapis.com
+          type: string
+        service:
+          enum:
+          - cloudiotos
+          type: string
+      type: object
+    FunnelInfoteriaPlatioDestination:
+      properties:
+        applicationId:
+          type: string
+        collectionId:
+          type: string
+        passAll:
+          type: boolean
+        provider:
+          enum:
+          - infoteria
+          type: string
+        resourceUrl:
+          type: string
+        service:
+          enum:
+          - platio
+          type: string
+        values:
+          type: string
+      type: object
+    RegisterGatePeerRequest:
+      properties:
+        innerIpAddress:
+          description: An IP address within the device subnet range (inner IP address).
+          type: string
+        outerIpAddress:
+          type: string
+      required:
+      - outerIpAddress
+      type: object
+    PutSimBasedRoutingRoutesRequest:
+      additionalProperties:
+        type: string
+      description: Association a router's LAN IP address range and its SIM ID.
+      example:
+        YOUR_SIM_ID_1: 192.0.2.0/24
+        YOUR_SIM_ID_2: 192.0.2.128/25
+      type: object
+    CustomerRoute:
+      properties:
+        destinationCidr:
+          description: Destination CIDR block
+          type: string
+        id:
+          description: Unique ID of the routing table entry
+          type: string
+        target:
+          description: Transit Gateway ID
+          type: string
+        type:
+          description: Type of the routing table entry, either "static" or "dynamic"
+          enum:
+          - static
+          - dynamic
+          type: string
+      type: object
+    TransitGatewayPeeringConnection:
+      properties:
+        createdTime:
+          description: Creation time of the transit gateway peering connection
+          type: integer
+        customerAwsAccountId:
+          description: AWS account ID of the peer transit Gateway
+          type: string
+        customerRegion:
+          description: AWS region of the peer transit Gateway
+          type: string
+        customerTransitGatewayId:
+          description: Peer transit gateway ID
+          type: string
+        id:
+          description: Transit gateway peering attachment ID of the peering connection. This is the unique ID of the transit
+            gateway peering connection.
+          type: string
+        lastModifiedTime:
+          description: Last modified time of the transit gateway peering connection
+          type: integer
+        name:
+          description: User defined name of the transit gateway peering connection
+          type: string
+        soracomTransitGatewayPeeringAttachmentId:
+          description: Transit gateway peering attachment ID of the peering connection. This is the unique ID of the transit
+            gateway peering connection.
+          type: string
+        status:
+          description: Current status of the transit gateway peering connection
+          enum:
+          - pending
+          - active
+          type: string
+      type: object
+    TagSet:
+      additionalProperties:
+        type: string
+      description: An object which always contains at least one property "name" with a string value. If you give a subscriber/SIM
+        a name, the name will be returned as the value of the "name" property. If the subscriber/SIM does not have a name,
+        an empty string "" is returned. In addition, if you create any custom tags for the subscriber/SIM, each custom tag
+        will appear as additional properties in the object.
+      example:
+        tagName1: tagValue1
+        tagName2: tagValue2...
+      type: object
+    FunnelAWSKinesisDestination:
+      properties:
+        payloadsOnly:
+          default: false
+          type: boolean
+        provider:
+          enum:
+          - aws
+          type: string
+        randomizePartitionKey:
+          type: boolean
+        resourceUrl:
+          example: https://kinesis.<region>.amazonaws.com/<delivery stream name>
+          type: string
+        service:
+          enum:
+          - kinesis
+          type: string
+      type: object
+    GatePeer:
+      properties:
+        innerIpAddress:
+          description: An IP address within the device subnet range (inner IP address).
+          type: string
+        netmask:
+          type: string
+        outerIpAddress:
+          type: string
+        ownedByCustomer:
+          type: boolean
+      type: object
+    FunnelConfiguration:
+      properties:
+        addSimId:
+          default: false
+          type: boolean
+        contentType:
+          $ref: '#/components/schemas/FunnelContentType'
+        credentialsId:
+          type: string
+        destination:
+          oneOf:
+          - $ref: '#/components/schemas/FunnelDestination'
+          - $ref: '#/components/schemas/FunnelAWSFirehoseDestination'
+          - $ref: '#/components/schemas/FunnelAWSIoTDestination'
+          - $ref: '#/components/schemas/FunnelAWSKinesisDestination'
+          - $ref: '#/components/schemas/FunnelAzureEventHubDestination'
+          - $ref: '#/components/schemas/FunnelGooglePubSubDestination'
+          - $ref: '#/components/schemas/FunnelAcroquestTorrentioDestination'
+          - $ref: '#/components/schemas/FunnelBrainsTechImpulseDestination'
+          - $ref: '#/components/schemas/FunnelEsrijArcgisOnlineDestination'
+          - $ref: '#/components/schemas/FunnelInfoteriaPlatioDestination'
+          - $ref: '#/components/schemas/FunnelKiiThingifDestination'
+          - $ref: '#/components/schemas/FunnelLandlogDestination'
+          - $ref: '#/components/schemas/FunnelOptimCloudiotosDestination'
+          - $ref: '#/components/schemas/FunnelTeradataIntellicloudDestination'
+          - $ref: '#/components/schemas/FunnelWingarcMotionboardDestination'
+          - $ref: '#/components/schemas/FunnelYaskawaMmcloudDestination'
+          - $ref: '#/components/schemas/FunnelSensorCorpusDestination'
+        enabled:
+          default: false
+          type: boolean
+      type: object
+    FunnelLandlogDestination:
+      properties:
+        channel_id:
+          type: string
+        data_format:
+          enum:
+          - json
+          - text
+          - xml
+          type: string
+        provider:
+          enum:
+          - landlog
+          type: string
+        resourceUrl:
+          example: https://api.landlog.info
+          type: string
+        service:
+          enum:
+          - landlog
+          type: string
+      type: object
+    TransitGatewayAttachment:
+      properties:
+        destinationCidrBlocks:
+          items:
+            type: string
+          type: array
+        id:
+          type: string
+        tgwId:
+          type: string
+      type: object
+    PacketCaptureSessionRequest:
+      properties:
+        duration:
+          format: int32
+          maximum: 86400
+          minimum: 30
+          type: integer
+        prefix:
+          pattern: ^[0-9A-Za-z_\-]{0,100}$
+          type: string
+      required:
+      - duration
+      type: object
+    PutIpAddressMapEntryRequest:
+      properties:
+        ipAddress:
+          description: IP address to assign to the specified `key`.
+          type: string
+        key:
+          description: IMSI of the IoT SIM to assign the fixed IP address to.
+          type: string
+      required:
+      - key
+      - ipAddress
+      type: object
+    Placement:
+      properties:
+        infrastructureProvider:
+          enum:
+          - aws
+          type: string
+        region:
+          description: 'If `infrastructureProvider` is `aws`, it indicates the rendezvous point.
+
+
+            - `ap-northeast-1`: Tokyo (Japan). The default for Japan coverage.
+
+            - `eu-central-1`: Frankfurt (Germany).  The default for Global coverage.
+
+            - `us-west-2`: Oregon (USA).
+
+            - `ap-southeast-2`: Sydney (Australia).
+
+            '
+          enum:
+          - ap-northeast-1
+          - eu-central-1
+          - us-west-2
+          - ap-southeast-2
+          type: string
+      type: object
+    FunnelTeradataIntellicloudDestination:
+      properties:
+        provider:
+          enum:
+          - teradata
+          type: string
+        resourceUrl:
+          type: string
+        service:
+          enum:
+          - intellicloud
+          type: string
+      type: object
+    FunnelContentType:
+      enum:
+      - json
+      - text
+      - unspecified
+      - binary
+      - application/x-soracom-bf-v1
+      type: string
+    CreateTransitGatewayPeeringConnectionRequest:
+      properties:
+        customerAwsAccountId:
+          description: AWS account ID of the peer transit gateway
+          type: string
+        customerRegion:
+          description: AWS region of the peer transit gateway
+          type: string
+        customerTransitGatewayId:
+          description: AWS transit gateway ID of the peer transit gateway
+          type: string
+        name:
+          description: A name used to identify the peering connection
+          type: string
+      required:
+      - customerAwsAccountId
+      - customerRegion
+      - customerTransitGatewayId
+      type: object
+    UpdateCustomerRouteRequest:
+      properties:
+        target:
+          type: string
+      required:
+      - target
+      type: object
+    FunnelAWSFirehoseDestination:
+      properties:
+        payloadsOnly:
+          default: false
+          type: boolean
+        provider:
+          enum:
+          - aws
+          type: string
+        resourceUrl:
+          example: https://firehose.<region>.amazonaws.com/<delivery stream name>
+          type: string
+        service:
+          enum:
+          - firehose
+          type: string
+      type: object
+    FunnelBrainsTechImpulseDestination:
+      properties:
+        provider:
+          enum:
+          - brains-tech
+          type: string
+        resourceUrl:
+          type: string
+        service:
+          enum:
+          - impulse
+          type: string
+      type: object
+    VpnConnection:
+      properties:
+        bgpAsn:
+          type: string
+        id:
+          type: string
+        useDynamicRouting:
+          type: boolean
+      type: object
+    FunnelGooglePubSubDestination:
+      properties:
+        payloadsOnly:
+          default: false
+          type: boolean
+        provider:
+          enum:
+          - google
+          type: string
+        resourceUrl:
+          example: your_topic_name
+          type: string
+        service:
+          enum:
+          - pubsub
+          type: string
+      type: object
+    SoracomTransitGateway:
+      properties:
+        arn:
+          type: string
+        asn:
+          type: integer
+        awsAccountId:
+          type: string
+        id:
+          type: string
+        region:
+          type: string
+        resourceSharedStatus:
+          additionalProperties:
+            $ref: '#/components/schemas/TransitGatewayResourceSharedStatus'
+          type: object
+      type: object
+    CreateCustomerRouteRequest:
+      properties:
+        destinationCidr:
+          description: Destination CIDR block
+          type: string
+        ignoreDeviceSubnetCidrRangeOverlap:
+          type: boolean
+        ignoreDeviceSubnetcidrRangeOverlap:
+          description: A boolean flag to ignore device subnet CIDR range overlap with the destination CIDR range
+        target:
+          description: Transit Gateway ID
+          type: string
+      required:
+      - destinationCidr
+      - target
+      type: object
+    AttributeUpdate:
+      properties:
+        key:
+          type: string
+        value:
+          type: string
+      type: object
+    FunnelAWSIoTDestination:
+      properties:
+        payloadsOnly:
+          default: false
+          type: boolean
+        provider:
+          enum:
+          - aws
+          type: string
+        resourceUrl:
+          example: https://<id>.iot.<region>.amazonaws.com/<topic>
+          type: string
+        sendPayloadsAsBinary:
+          default: false
+          type: boolean
+        service:
+          enum:
+          - aws-iot
+          type: string
+      type: object
+    FunnelAzureEventHubDestination:
+      properties:
+        payloadsOnly:
+          default: false
+          type: boolean
+        provider:
+          enum:
+          - azure
+          type: string
+        resourceUrl:
+          example: https://<namespace>.servicebus.windows.net/<event hubs name>/messages
+          type: string
+        service:
+          enum:
+          - eventhubs
+          type: string
+      type: object
+    RoutingFilterEntry:
+      properties:
+        action:
+          description: Whether to allow or deny the outbound packets with a destination in the specified range
+          enum:
+          - allow
+          - deny
+          type: string
+        ipRange:
+          description: IPv4 address range in CIDR format, e.g. a.b.c.d/x
+          type: string
+      required:
+      - action
+      - ipRange
+      type: object
+    FunnelAcroquestTorrentioDestination:
+      properties:
+        endpointId:
+          type: string
+        provider:
+          enum:
+          - acroquest
+          type: string
+        resourceUrl:
+          type: string
+        service:
+          enum:
+          - torrentio
+          type: string
+        tenantId:
+          type: string
+      type: object
+    FunnelEsrijArcgisOnlineDestination:
+      properties:
+        config:
+          type: string
+        provider:
+          enum:
+          - esrij
+          type: string
+        resourceUrl:
+          type: string
+        service:
+          enum:
+          - arcgis-online
+          type: string
+      type: object
+    JunctionRedirectionConfiguration:
+      properties:
+        description:
+          type: string
+        enabled:
+          type: boolean
+        gateway:
+          type: string
+      type: object
+    IpAddressMapEntry:
+      properties:
+        hostId:
+          description: (Deprecated) Use the value of `key` instead.
+          type: string
+        ipAddress:
+          description: 'IP address assigned to the entity identified by the `key`, which can be an IoT SIM, a Gate Peer, or
+            the VPG itself.
+
+
+            - To specify the IP address of an IoT SIM, use the [VirtualPrivateGateway:putVirtualPrivateGatewayIpAddressMapEntry
+            API](#/VirtualPrivateGateway/putVirtualPrivateGatewayIpAddressMapEntry).
+
+            - To specify the IP address of a Gate Peer (*1), use the [VirtualPrivateGateway:registerGatePeer API](#/VirtualPrivateGateway/registerGatePeer).
+
+            - IP addresses of a VPG (*1) cannot be manually set.
+
+
+            (*1) The IP address must be within the device subnet range (an "inner IP address").
+
+            '
+          type: string
+        key:
+          description: 'Identifier of the entity in the IP address map. This can be an IoT SIM, a Gate Peer, or the VPG.
+
+
+            - For an IoT SIM: The IMSI of the SIM to be assigned an IP address.
+
+            - For a Gate Peers: The IP address (*1).
+
+            - For the VPG: The IP address (*1).
+
+
+            (*1) The IP address must be within the device subnet range (an "inner IP address").
+
+            '
+          type: string
+        lastUpdatedAt:
+          type: integer
+        type:
+          description: 'Indicates how the IP address was assigned. One of the following:
+
+
+            - `static`: A statically assigned IP address specified in the IP address map.
+
+            - `dynamic`: An IP address automatically assigned by the VPG.
+
+            - `customerGatePeer`: An IP address of a customer-managed Gate Peer.
+
+            - `gatePeer`: An IP address of the VPG.
+
+
+            (*1) The IP address must be within the device subnet range (an "inner IP address").
+
+            '
+          enum:
+          - static
+          - dynamic
+          - customerGatePeer
+          - gatePeer
+          type: string
+      required:
+      - ipAddress
+      - hostId
+      - key
+      - type
+      type: object
+    CreateVirtualPrivateGatewayRequest:
+      properties:
+        deviceSubnetCidrRange:
+          default: 10.128.0.0/9
+          type: string
+        placement:
+          properties:
+            region:
+              description: '[Rendezvous Point](/en/docs/reference/rendezvous-points/) for the VPG.
+
+
+                - `ap-northeast-1`: Tokyo (Japan), default for Japan Coverage
+
+                - `eu-central-1`: Frankfurt (Germany), default for Global Coverage
+
+                - `us-west-2`: Oregon (USA)
+
+                - `ap-southeast-2`: Sydney (Australia)
+
+                '
+              enum:
+              - ap-northeast-1
+              - eu-central-1
+              - us-west-2
+              - ap-southeast-2
+              type: string
+          type: object
+        soracomTransitGateway:
+          properties:
+            asn:
+              type: integer
+          type: object
+        tags:
+          $ref: '#/components/schemas/TagSet'
+        type:
+          description: 'VPG Type.
+
+
+            - `14` : Type-E
+
+            - `15` : Type-F
+
+            - `242` : Type-F2
+
+            '
+          enum:
+          - 14
+          - 15
+          - 242
+          type: integer
+        useInternetGateway:
+          default: true
+          type: boolean
+      required:
+      - type
+      type: object
+    FunnelDestination:
+      properties:
+        provider:
+          type: string
+        resourceUrl:
+          type: string
+        service:
+          type: string
+      type: object
+    SetVirtualPrivateGatewayVxLanIdRequest:
+      properties:
+        vxlanId:
+          description: VXLAN ID. Specify a range between 1 and 16777215.
+          type: integer
+      required:
+      - vxlanId
+      type: object
+    FunnelYaskawaMmcloudDestination:
+      properties:
+        desthost:
+          type: string
+        destport:
+          maximum: 0
+          minimum: 65535
+          type: integer
+        provider:
+          enum:
+          - yaskawa
+          type: string
+        resourceUrl:
+          type: string
+        service:
+          enum:
+          - mmcloud
+          type: string
+      type: object
+    UpdateVirtualPrivateGatewayTagsRequest:
+      items:
+        properties:
+          tagName:
+            type: string
+          tagValue:
+            type: string
+        required:
+        - tagName
+        - tagValue
+        type: object
+      type: array
+    JunctionInspectionConfiguration:
+      properties:
+        enabled:
+          default: false
+          type: boolean
+        report:
+          $ref: '#/components/schemas/FunnelConfiguration'
+      type: object
+  securitySchemes:
+    api_key:
+      description: 'API key for authentication. Obtain this from the Soracom User Console or via the Auth API.
+
+        Required in combination with an API token for all authenticated requests.
+
+        '
+      in: header
+      name: X-Soracom-API-Key
+      type: apiKey
+    api_token:
+      description: 'API token for authentication. This token has an expiration time and must be refreshed periodically.
+
+        Required in combination with an API key for all authenticated requests.'
+      in: header
+      name: X-Soracom-Token
+      type: apiKey
