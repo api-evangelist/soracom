@@ -1,0 +1,1566 @@
+{
+  "item": [
+    {
+      "id": "a6c4a801-7046-4469-8817-73194de74522",
+      "name": "Gadget",
+      "description": {
+        "content": "Gadget API compatible devices<ul><li>[SoraCam dedicated cellular pack](/en/guides/soracom-cloud-camera-services/setting-cellular-pack/)</li></ul>",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "82c95a63-1254-4066-9869-df76df76e4c3",
+          "name": "List gadgets",
+          "request": {
+            "name": "List gadgets",
+            "description": {
+              "content": "Returns a list of gadgets that match certain criteria. If the total number of gadgets does not fit in one page, a URL for accessing the next page is returned in the `link` header of the response.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "gadgets"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "product_id",
+                  "value": "<string>",
+                  "description": "Product ID of the target Gadget API compatible device for filtering the search.\n\n- `wimax`: Soracom Cloud Camera Services Cellular Pack.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "tag_name",
+                  "value": "<string>",
+                  "description": "Tag name for filtering the search. The search is always an exact match, regardless of the setting of `tag_value_match_mode`."
+                },
+                {
+                  "disabled": false,
+                  "key": "tag_value",
+                  "value": "<string>",
+                  "description": "Specifies a tag value to search for in a URL-encoded (percent-encoded) string. Required when `tag_name` has been specified."
+                },
+                {
+                  "disabled": false,
+                  "key": "tag_value_match_mode",
+                  "value": "exact",
+                  "description": "Tag match mode.\n\n- `exact`: exact match.\n- `prefix`: prefix match.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "<integer>",
+                  "description": "Maximum number of Gadget API compatible devices data to retrieve."
+                },
+                {
+                  "disabled": false,
+                  "key": "last_evaluated_key",
+                  "value": "<string>",
+                  "description": "The ID (`{product_id}/{serial_number}`) of the last gadget retrieved on the previous page in URL encoding (percent encoding).\n\nBy specifying this parameter, you can continue to retrieve the list from the next Gadget API compatible device onward.\n\nThe value of the `last_evaluated_key` of `rel=next` returned in the `link` header when the API is called is expected to be specified in the next call, but any ID (`{productId}/{serialNumber}`) can be specified.\n"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-Soracom-API-Key"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "eda8c816-fdf2-4700-85c0-31f700e1e161",
+              "name": "A list of Gadget API compatible devices.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "gadgets"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "product_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "tag_name",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "tag_value",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "tag_value_match_mode",
+                      "value": "exact"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "last_evaluated_key",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Soracom-API-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"attributes\": {\n      \"wimaxBillingStartDate\": \"string\",\n      \"wimaxIccid\": \"string\",\n      \"wimaxImei\": \"string\"\n    },\n    \"createdTime\": 2599,\n    \"id\": \"string\",\n    \"lastModifiedTime\": 3602,\n    \"operatorId\": \"string\",\n    \"productId\": \"wimax\",\n    \"serialNumber\": \"string\",\n    \"status\": \"active\",\n    \"tags\": {\n      \"key_0\": \"string\"\n    },\n    \"terminatedTime\": 356,\n    \"terminationEnabled\": false\n  },\n  {\n    \"attributes\": {\n      \"wimaxBillingStartDate\": \"string\",\n      \"wimaxIccid\": \"string\",\n      \"wimaxImei\": \"string\"\n    },\n    \"createdTime\": 236,\n    \"id\": \"string\",\n    \"lastModifiedTime\": 2470,\n    \"operatorId\": \"string\",\n    \"productId\": \"button\",\n    \"serialNumber\": \"string\",\n    \"status\": \"terminated\",\n    \"tags\": {\n      \"key_0\": \"string\",\n      \"key_1\": \"string\"\n    },\n    \"terminatedTime\": 8634,\n    \"terminationEnabled\": false\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "51302883-b3fc-436e-996c-32740905df8c",
+          "name": "Get Gadget API compatible device",
+          "request": {
+            "name": "Get Gadget API compatible device",
+            "description": {
+              "content": "Returns information about the specified Gadget API compatible device.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "gadgets",
+                ":product_id",
+                ":serial_number"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "product_id",
+                  "description": "(Required) Product ID of the target Gadget API compatible device.\n\n- `wimax`: Soracom Cloud Camera Services Cellular Pack.\n"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "serial_number",
+                  "description": "(Required) Serial Number of the target Gadget API compatible device."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-Soracom-API-Key"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "2921b0ff-f207-4370-bcbe-671719a6ad58",
+              "name": "Detailed information about the specified Gadget API compatible device.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "gadgets",
+                    ":product_id",
+                    ":serial_number"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "product_id",
+                      "description": "(Required) Product ID of the target Gadget API compatible device.\n\n- `wimax`: Soracom Cloud Camera Services Cellular Pack.\n"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "serial_number",
+                      "description": "(Required) Serial Number of the target Gadget API compatible device."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Soracom-API-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"attributes\": {\n    \"wimaxBillingStartDate\": \"string\",\n    \"wimaxIccid\": \"string\",\n    \"wimaxImei\": \"string\"\n  },\n  \"createdTime\": 9218,\n  \"id\": \"string\",\n  \"lastModifiedTime\": 9923,\n  \"operatorId\": \"string\",\n  \"productId\": \"wimax\",\n  \"serialNumber\": \"string\",\n  \"status\": \"active\",\n  \"tags\": {\n    \"key_0\": \"string\",\n    \"key_1\": \"string\"\n  },\n  \"terminatedTime\": 9367,\n  \"terminationEnabled\": false\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "a187441d-6543-447a-ae21-8a4f17fc5b92",
+              "name": "The specified Gadget API compatible device does not exist.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "gadgets",
+                    ":product_id",
+                    ":serial_number"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "product_id",
+                      "description": "(Required) Product ID of the target Gadget API compatible device.\n\n- `wimax`: Soracom Cloud Camera Services Cellular Pack.\n"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "serial_number",
+                      "description": "(Required) Serial Number of the target Gadget API compatible device."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Soracom-API-Key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "b390193d-ea8e-4c08-b959-f5f9e5797df8",
+          "name": "Disables Termination of Gadget API compatible device",
+          "request": {
+            "name": "Disables Termination of Gadget API compatible device",
+            "description": {
+              "content": "Disables termination of specified Gadget API compatible device.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "gadgets",
+                ":product_id",
+                ":serial_number",
+                "disable_termination"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "product_id",
+                  "description": "(Required) Product ID of the target Gadget API compatible device.\n\n- `wimax`: Soracom Cloud Camera Services Cellular Pack.\n"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "serial_number",
+                  "description": "(Required) Serial Number of the target Gadget API compatible device."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-Soracom-API-Key"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "9134a7b9-9f19-4ad4-943b-8d34cf7bb0e2",
+              "name": "Detailed information about the updated Gadget API compatible device.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "gadgets",
+                    ":product_id",
+                    ":serial_number",
+                    "disable_termination"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "product_id",
+                      "description": "(Required) Product ID of the target Gadget API compatible device.\n\n- `wimax`: Soracom Cloud Camera Services Cellular Pack.\n"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "serial_number",
+                      "description": "(Required) Serial Number of the target Gadget API compatible device."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Soracom-API-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"attributes\": {\n    \"wimaxBillingStartDate\": \"string\",\n    \"wimaxIccid\": \"string\",\n    \"wimaxImei\": \"string\"\n  },\n  \"createdTime\": 9218,\n  \"id\": \"string\",\n  \"lastModifiedTime\": 9923,\n  \"operatorId\": \"string\",\n  \"productId\": \"wimax\",\n  \"serialNumber\": \"string\",\n  \"status\": \"active\",\n  \"tags\": {\n    \"key_0\": \"string\",\n    \"key_1\": \"string\"\n  },\n  \"terminatedTime\": 9367,\n  \"terminationEnabled\": false\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "dc5bb61e-d0a6-43d9-b12f-ca5cceba6987",
+              "name": "The specified Gadget API compatible device does not exist.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "gadgets",
+                    ":product_id",
+                    ":serial_number",
+                    "disable_termination"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "product_id",
+                      "description": "(Required) Product ID of the target Gadget API compatible device.\n\n- `wimax`: Soracom Cloud Camera Services Cellular Pack.\n"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "serial_number",
+                      "description": "(Required) Serial Number of the target Gadget API compatible device."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Soracom-API-Key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "c5c15714-cca4-4b35-a9e3-22984134b5d3",
+          "name": "Enables Termination of Gadget API compatible device",
+          "request": {
+            "name": "Enables Termination of Gadget API compatible device",
+            "description": {
+              "content": "Enables termination of specified Gadget API compatible device.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "gadgets",
+                ":product_id",
+                ":serial_number",
+                "enable_termination"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "product_id",
+                  "description": "(Required) Product ID of the target Gadget API compatible device.\n\n- `wimax`: Soracom Cloud Camera Services Cellular Pack.\n"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "serial_number",
+                  "description": "(Required) Serial Number of the target Gadget API compatible device."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-Soracom-API-Key"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "938ceccc-70e0-44de-a29e-01b13db67c40",
+              "name": "Detailed information about the updated Gadget API compatible device.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "gadgets",
+                    ":product_id",
+                    ":serial_number",
+                    "enable_termination"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "product_id",
+                      "description": "(Required) Product ID of the target Gadget API compatible device.\n\n- `wimax`: Soracom Cloud Camera Services Cellular Pack.\n"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "serial_number",
+                      "description": "(Required) Serial Number of the target Gadget API compatible device."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Soracom-API-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"attributes\": {\n    \"wimaxBillingStartDate\": \"string\",\n    \"wimaxIccid\": \"string\",\n    \"wimaxImei\": \"string\"\n  },\n  \"createdTime\": 9218,\n  \"id\": \"string\",\n  \"lastModifiedTime\": 9923,\n  \"operatorId\": \"string\",\n  \"productId\": \"wimax\",\n  \"serialNumber\": \"string\",\n  \"status\": \"active\",\n  \"tags\": {\n    \"key_0\": \"string\",\n    \"key_1\": \"string\"\n  },\n  \"terminatedTime\": 9367,\n  \"terminationEnabled\": false\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "4c27c923-eabb-4fb1-9bac-15bee437c7af",
+              "name": "The specified Gadget API compatible device does not exist.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "gadgets",
+                    ":product_id",
+                    ":serial_number",
+                    "enable_termination"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "product_id",
+                      "description": "(Required) Product ID of the target Gadget API compatible device.\n\n- `wimax`: Soracom Cloud Camera Services Cellular Pack.\n"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "serial_number",
+                      "description": "(Required) Serial Number of the target Gadget API compatible device."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Soracom-API-Key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "e9b64904-e8bb-4f4a-ba55-134bc7103a08",
+          "name": "Registers a Gadget API compatible device",
+          "request": {
+            "name": "Registers a Gadget API compatible device",
+            "description": {
+              "content": "Registers a Gadget API compatible device.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "gadgets",
+                ":product_id",
+                ":serial_number",
+                "register"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "product_id",
+                  "description": "(Required) Product ID of the target Gadget API compatible device.\n\n- `wimax`: Soracom Cloud Camera Services Cellular Pack.\n"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "serial_number",
+                  "description": "(Required) Serial Number of the target Gadget API compatible device."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-Soracom-API-Key"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"tags\": {\n    \"key_0\": \"<string>\"\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "7d8ed950-955b-49b7-91f2-fbda19115d1d",
+              "name": "Gadget API compatible device successfully registered.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "gadgets",
+                    ":product_id",
+                    ":serial_number",
+                    "register"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "product_id",
+                      "description": "(Required) Product ID of the target Gadget API compatible device.\n\n- `wimax`: Soracom Cloud Camera Services Cellular Pack.\n"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "serial_number",
+                      "description": "(Required) Serial Number of the target Gadget API compatible device."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Soracom-API-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"tags\": {\n    \"key_0\": \"<string>\",\n    \"key_1\": \"<string>\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"attributes\": {\n    \"wimaxBillingStartDate\": \"string\",\n    \"wimaxIccid\": \"string\",\n    \"wimaxImei\": \"string\"\n  },\n  \"createdTime\": 9218,\n  \"id\": \"string\",\n  \"lastModifiedTime\": 9923,\n  \"operatorId\": \"string\",\n  \"productId\": \"wimax\",\n  \"serialNumber\": \"string\",\n  \"status\": \"active\",\n  \"tags\": {\n    \"key_0\": \"string\",\n    \"key_1\": \"string\"\n  },\n  \"terminatedTime\": 9367,\n  \"terminationEnabled\": false\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "f16a74bb-5bd4-4fbc-9302-28bda67aff0d",
+              "name": "No such resource found.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "gadgets",
+                    ":product_id",
+                    ":serial_number",
+                    "register"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "product_id",
+                      "description": "(Required) Product ID of the target Gadget API compatible device.\n\n- `wimax`: Soracom Cloud Camera Services Cellular Pack.\n"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "serial_number",
+                      "description": "(Required) Serial Number of the target Gadget API compatible device."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Soracom-API-Key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"tags\": {\n    \"key_0\": \"<string>\",\n    \"key_1\": \"<string>\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "4b9d784e-4b06-4812-8025-7feb08688a85",
+          "name": "Bulk Insert or Update Gadget API compatible device tags",
+          "request": {
+            "name": "Bulk Insert or Update Gadget API compatible device tags",
+            "description": {
+              "content": "Inserts/updates tags for the specified Gadget API compatible device.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "gadgets",
+                ":product_id",
+                ":serial_number",
+                "tags"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "product_id",
+                  "description": "(Required) Product ID of the target Gadget API compatible device.\n\n- `wimax`: Soracom Cloud Camera Services Cellular Pack.\n"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "serial_number",
+                  "description": "(Required) Serial Number of the target Gadget API compatible device."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-Soracom-API-Key"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "[\n  {\n    \"tagName\": \"<string>\",\n    \"tagValue\": \"<string>\"\n  },\n  {\n    \"tagName\": \"<string>\",\n    \"tagValue\": \"<string>\"\n  }\n]",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "eac6feba-1fb9-4b24-a2f2-4423396f9bc0",
+              "name": "Detailed information about the updated Gadget API compatible device.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "gadgets",
+                    ":product_id",
+                    ":serial_number",
+                    "tags"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "product_id",
+                      "description": "(Required) Product ID of the target Gadget API compatible device.\n\n- `wimax`: Soracom Cloud Camera Services Cellular Pack.\n"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "serial_number",
+                      "description": "(Required) Serial Number of the target Gadget API compatible device."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Soracom-API-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "[\n  {\n    \"tagName\": \"<string>\",\n    \"tagValue\": \"<string>\"\n  },\n  {\n    \"tagName\": \"<string>\",\n    \"tagValue\": \"<string>\"\n  }\n]",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"attributes\": {\n    \"wimaxBillingStartDate\": \"string\",\n    \"wimaxIccid\": \"string\",\n    \"wimaxImei\": \"string\"\n  },\n  \"createdTime\": 9218,\n  \"id\": \"string\",\n  \"lastModifiedTime\": 9923,\n  \"operatorId\": \"string\",\n  \"productId\": \"wimax\",\n  \"serialNumber\": \"string\",\n  \"status\": \"active\",\n  \"tags\": {\n    \"key_0\": \"string\",\n    \"key_1\": \"string\"\n  },\n  \"terminatedTime\": 9367,\n  \"terminationEnabled\": false\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "226ee2a6-6d5f-4596-9f4f-2cba761a1bb2",
+              "name": "The specified Gadget API compatible device does not exist.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "gadgets",
+                    ":product_id",
+                    ":serial_number",
+                    "tags"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "product_id",
+                      "description": "(Required) Product ID of the target Gadget API compatible device.\n\n- `wimax`: Soracom Cloud Camera Services Cellular Pack.\n"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "serial_number",
+                      "description": "(Required) Serial Number of the target Gadget API compatible device."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Soracom-API-Key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "[\n  {\n    \"tagName\": \"<string>\",\n    \"tagValue\": \"<string>\"\n  },\n  {\n    \"tagName\": \"<string>\",\n    \"tagValue\": \"<string>\"\n  }\n]",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "0dd5651b-26ed-4d65-acb5-a705dc06395b",
+          "name": "Deletes tags from Gadget API compatible device",
+          "request": {
+            "name": "Deletes tags from Gadget API compatible device",
+            "description": {
+              "content": "Deletes a tag from the specified Gadget API compatible device.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "gadgets",
+                ":product_id",
+                ":serial_number",
+                "tags",
+                ":tag_name"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "product_id",
+                  "description": "(Required) Product ID of the target Gadget API compatible device.\n\n- `wimax`: Soracom Cloud Camera Services Cellular Pack.\n"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "serial_number",
+                  "description": "(Required) Serial Number of the target Gadget API compatible device."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "tag_name",
+                  "description": "(Required) Tag name to be deleted. (This will be part of a URL path, so it needs to be percent-encoded. In JavaScript, specify the name after it has been encoded using encodeURIComponent().)"
+                }
+              ]
+            },
+            "method": "DELETE",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-Soracom-API-Key"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "ec5e4a90-05db-4e31-919b-84e0f8732368",
+              "name": "Deletion of specified tag complete.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "gadgets",
+                    ":product_id",
+                    ":serial_number",
+                    "tags",
+                    ":tag_name"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "product_id",
+                      "description": "(Required) Product ID of the target Gadget API compatible device.\n\n- `wimax`: Soracom Cloud Camera Services Cellular Pack.\n"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "serial_number",
+                      "description": "(Required) Serial Number of the target Gadget API compatible device."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "tag_name",
+                      "description": "(Required) Tag name to be deleted. (This will be part of a URL path, so it needs to be percent-encoded. In JavaScript, specify the name after it has been encoded using encodeURIComponent().)"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Soracom-API-Key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "55241d56-9f3c-47d5-9589-5f76c620d706",
+              "name": "The specified Gadget API compatible devices or the tags does not exist.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "gadgets",
+                    ":product_id",
+                    ":serial_number",
+                    "tags",
+                    ":tag_name"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "product_id",
+                      "description": "(Required) Product ID of the target Gadget API compatible device.\n\n- `wimax`: Soracom Cloud Camera Services Cellular Pack.\n"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "serial_number",
+                      "description": "(Required) Serial Number of the target Gadget API compatible device."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "tag_name",
+                      "description": "(Required) Tag name to be deleted. (This will be part of a URL path, so it needs to be percent-encoded. In JavaScript, specify the name after it has been encoded using encodeURIComponent().)"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Soracom-API-Key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "8d5db820-9b49-4c09-bd70-848162db2aac",
+          "name": "Terminates the specified Gadget API compatible device",
+          "request": {
+            "name": "Terminates the specified Gadget API compatible device",
+            "description": {
+              "content": "Terminates the specified Gadget API compatible device.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "gadgets",
+                ":product_id",
+                ":serial_number",
+                "terminate"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "product_id",
+                  "description": "(Required) Product ID of the target Gadget API compatible device.\n\n- `wimax`: Soracom Cloud Camera Services Cellular Pack.\n"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "serial_number",
+                  "description": "(Required) Serial Number of the target Gadget API compatible device."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-Soracom-API-Key"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "d1b3e22e-b90d-4205-9e86-5f9b52534636",
+              "name": "Detailed information about the updated Gadget API compatible device.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "gadgets",
+                    ":product_id",
+                    ":serial_number",
+                    "terminate"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "product_id",
+                      "description": "(Required) Product ID of the target Gadget API compatible device.\n\n- `wimax`: Soracom Cloud Camera Services Cellular Pack.\n"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "serial_number",
+                      "description": "(Required) Serial Number of the target Gadget API compatible device."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Soracom-API-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"attributes\": {\n    \"wimaxBillingStartDate\": \"string\",\n    \"wimaxIccid\": \"string\",\n    \"wimaxImei\": \"string\"\n  },\n  \"createdTime\": 9218,\n  \"id\": \"string\",\n  \"lastModifiedTime\": 9923,\n  \"operatorId\": \"string\",\n  \"productId\": \"wimax\",\n  \"serialNumber\": \"string\",\n  \"status\": \"active\",\n  \"tags\": {\n    \"key_0\": \"string\",\n    \"key_1\": \"string\"\n  },\n  \"terminatedTime\": 9367,\n  \"terminationEnabled\": false\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "a3211c52-6282-4819-9fb1-152f40cf448c",
+              "name": "The specified Gadget API compatible device does not exist.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "gadgets",
+                    ":product_id",
+                    ":serial_number",
+                    "terminate"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "product_id",
+                      "description": "(Required) Product ID of the target Gadget API compatible device.\n\n- `wimax`: Soracom Cloud Camera Services Cellular Pack.\n"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "serial_number",
+                      "description": "(Required) Serial Number of the target Gadget API compatible device."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Soracom-API-Key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.soracom.io/v1",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "dd8d1bf2-e875-4419-bb79-83e53f57ddc5",
+    "name": "Soracom and Query Analysis Gadget API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Run SQL queries against Soracom Query, fetch query schemas, and search SIMs, Inventory devices, and Sigfox devices.",
+      "type": "text/plain"
+    }
+  }
+}

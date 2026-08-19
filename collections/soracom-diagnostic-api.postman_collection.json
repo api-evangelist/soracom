@@ -1,0 +1,401 @@
+{
+  "item": [
+    {
+      "id": "54f4bdba-6ad7-44cd-bcf1-097fbf76b37a",
+      "name": "Diagnostic",
+      "description": {
+        "content": "[Diagnostic features](/en/guides/diagnostic/)",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "1e8bb84f-ef87-4c06-b82f-4505f492f8b0",
+          "name": "Send diagnostic request",
+          "request": {
+            "name": "Send diagnostic request",
+            "description": {
+              "content": "Send a diagnostic request.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "diagnostics"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-Soracom-API-Key"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"service\": \"<string>\",\n  \"resourceType\": \"<string>\",\n  \"resourceId\": \"<string>\",\n  \"from\": \"<long>\",\n  \"to\": \"<long>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "2a322c3d-47dc-41bb-bf03-5a984130aac2",
+              "name": "Successfully accepted a diagnostic request.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "diagnostics"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Soracom-API-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"from\": 1655251200000,\n  \"resouceType\": \"sim\",\n  \"resourceId\": \"XXXXXXXXXXXXXXXXXXX\",\n  \"service\": \"Air\",\n  \"to\": 1655337600000\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"diagnosticId\": \"string\",\n  \"status\": \"diagnosing\",\n  \"service\": \"Air\",\n  \"resourceType\": \"sim\",\n  \"resourceId\": \"string\",\n  \"from\": 1315,\n  \"to\": 9736,\n  \"insights\": [\n    {\n      \"insightId\": \"string\",\n      \"message\": \"string\",\n      \"category\": \"others\",\n      \"severity\": \"none\",\n      \"anomalyDetectedTimes\": [\n        \"string\",\n        \"string\"\n      ],\n      \"referenceUrls\": [\n        {\n          \"title\": \"string\",\n          \"url\": \"string\"\n        },\n        {\n          \"title\": \"string\",\n          \"url\": \"string\"\n        }\n      ]\n    },\n    {\n      \"insightId\": \"string\",\n      \"message\": \"string\",\n      \"category\": \"data\",\n      \"severity\": \"warning\",\n      \"anomalyDetectedTimes\": [\n        \"string\",\n        \"string\"\n      ],\n      \"referenceUrls\": [\n        {\n          \"title\": \"string\",\n          \"url\": \"string\"\n        },\n        {\n          \"title\": \"string\",\n          \"url\": \"string\"\n        }\n      ]\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "6e98d5c7-e2e9-4657-b8ee-483b4a69a728",
+              "name": "Bad definitions among diagnostic time range (from/to queries).",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "diagnostics"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Soracom-API-Key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"from\": 1655251200000,\n  \"resouceType\": \"sim\",\n  \"resourceId\": \"XXXXXXXXXXXXXXXXXXX\",\n  \"service\": \"Air\",\n  \"to\": 1655337600000\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "3f1e0b86-791f-49e1-ad67-8b53911e8c60",
+              "name": "The specified resource is not found.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "diagnostics"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Soracom-API-Key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"from\": 1655251200000,\n  \"resouceType\": \"sim\",\n  \"resourceId\": \"XXXXXXXXXXXXXXXXXXX\",\n  \"service\": \"Air\",\n  \"to\": 1655337600000\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "9c56c364-b448-4f90-90f0-af249e9e2a86",
+          "name": "Get diagnostic",
+          "request": {
+            "name": "Get diagnostic",
+            "description": {
+              "content": "Returns a diagnostic.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "diagnostics",
+                ":diagnostic_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "diagnostic_id",
+                  "description": "(Required) The identifier of diagnostic request."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-Soracom-API-Key"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "08ee84da-4001-4bab-b5d2-9e378a4f1fb1",
+              "name": "OK.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "diagnostics",
+                    ":diagnostic_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "diagnostic_id",
+                      "description": "(Required) The identifier of diagnostic request."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Soracom-API-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"diagnosticId\": \"string\",\n  \"status\": \"diagnosing\",\n  \"service\": \"Air\",\n  \"resourceType\": \"sim\",\n  \"resourceId\": \"string\",\n  \"from\": 6136,\n  \"to\": 5758,\n  \"insights\": [\n    {\n      \"insightId\": \"string\",\n      \"message\": \"string\",\n      \"category\": \"data\",\n      \"severity\": \"warning\",\n      \"anomalyDetectedTimes\": [\n        \"string\",\n        \"string\"\n      ],\n      \"referenceUrls\": [\n        {\n          \"title\": \"string\",\n          \"url\": \"string\"\n        },\n        {\n          \"title\": \"string\",\n          \"url\": \"string\"\n        }\n      ]\n    },\n    {\n      \"insightId\": \"string\",\n      \"message\": \"string\",\n      \"category\": \"sim\",\n      \"severity\": \"warning\",\n      \"anomalyDetectedTimes\": [\n        \"string\",\n        \"string\"\n      ],\n      \"referenceUrls\": [\n        {\n          \"title\": \"string\",\n          \"url\": \"string\"\n        },\n        {\n          \"title\": \"string\",\n          \"url\": \"string\"\n        }\n      ]\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "acf3e7bc-b8c2-471b-afa2-c424ed07e3d2",
+              "name": "The specified diagnostic_id is not found.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "diagnostics",
+                    ":diagnostic_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "diagnostic_id",
+                      "description": "(Required) The identifier of diagnostic request."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Soracom-API-Key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.soracom.io/v1",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "907d2fea-82ad-4a40-88ef-2aa9a89bb4dd",
+    "name": "Soracom and Query Analysis Diagnostic API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Run SQL queries against Soracom Query, fetch query schemas, and search SIMs, Inventory devices, and Sigfox devices.",
+      "type": "text/plain"
+    }
+  }
+}

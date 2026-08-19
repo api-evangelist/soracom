@@ -1,0 +1,79 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Soracom and Query Analysis Log API",
+    "version": "20250903-043502"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Log",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Retrieve Error Logs",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.soracom.io/v1/logs",
+            "params": [
+              {
+                "name": "resource_type",
+                "value": "",
+                "type": "query",
+                "description": "The type of resource for which to retrieve error logs.\n\n- `Subscriber`: IoT SIM.\n- `Device`: Inventory device.\n- `LoraDevice`: LoRaWAN device.\n- `SigfoxDevice`: Sigfox device.\n"
+              },
+              {
+                "name": "resource_id",
+                "value": "",
+                "type": "query",
+                "description": "The ID of the resource for which to retrieve error logs. The ID to specify varies depending on the value of `resource_type`.\n\n| `resource_type` | ID to specify |\n|-|-|\n| `Subscriber` | The IMSI of the IoT SIM. The IMSI can be obtained from the [Sim:listSims API](#!/Sim/listSims). |\n| `Device` | The ID of the Inventory device. The ID can be obtained from the [Device:listDevices API](#!/Device/listDevices). |\n| `LoraDevice` | The ID of the LoRaWAN device. The ID can be obtained from the [LoraDevice:listLoraDevices API](#!/LoraDevice/listLoraDevices). |\n| `SigfoxDevice` | The ID of the Sigfox device. The ID can be obtained from the [SigfoxDevice:listSigfoxDevices API](#!/SigfoxDevice/listSigfoxDevices). |\n"
+              },
+              {
+                "name": "service",
+                "value": "",
+                "type": "query",
+                "description": "The service name to filter error logs.\n\n- `Air`: SORACOM Air\n- `Beam`: SORACOM Beam\n- `Funk`: SORACOM Funk\n- `Funnel`: SORACOM Funnel\n- `Harvest`: SORACOM Harvest Data/Files\n- `Napter`: SORACOM Napter\n- `Orbit`: SORACOM Orbit\n- `Unified`: Unified Endpoint\n"
+              },
+              {
+                "name": "from",
+                "value": "",
+                "type": "query",
+                "description": "Start time of the period for which to retrieve error logs (UNIX time in milliseconds)."
+              },
+              {
+                "name": "to",
+                "value": "",
+                "type": "query",
+                "description": "End time of the period for which to retrieve error logs (UNIX time in milliseconds)."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "The maximum number of error logs to retrieve."
+              },
+              {
+                "name": "last_evaluated_key",
+                "value": "",
+                "type": "query",
+                "description": "The value contained in the `x-soracom-next-key` header returned when fetching the previous page. Specify this to retrieve the next page. For more information, see [Retrieving Large Amounts of Data (Paging)](/en/docs/tools/api/paging/)."
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-Soracom-API-Key",
+              "value": "{{X-Soracom-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Fetches error logs that meet specified criteria. If the error logs exceed one page, a URL to retrieve the next page under the same conditions is included in the `link` header of the response.\n"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

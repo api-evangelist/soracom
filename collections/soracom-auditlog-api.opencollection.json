@@ -1,0 +1,122 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Soracom and Query Analysis AuditLog API",
+    "version": "20250903-043502"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "AuditLog",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Retrieve audit logs for Soracom API calls",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.soracom.io/v1/audit_logs/api",
+            "params": [
+              {
+                "name": "api_kind",
+                "value": "",
+                "type": "query",
+                "description": "Filter item for audit log retrieval by API kind (e.g. `/v1/auth`)."
+              },
+              {
+                "name": "from_epoch_ms",
+                "value": "",
+                "type": "query",
+                "description": "Start time for the log search range (unixtime milliseconds)."
+              },
+              {
+                "name": "to_epoch_ms",
+                "value": "",
+                "type": "query",
+                "description": "End time for the log search range (unixtime milliseconds)."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of log entries to retrieve (value range is 1 to 1000)."
+              },
+              {
+                "name": "last_evaluated_key",
+                "value": "",
+                "type": "query",
+                "description": "The value of `requestedTimeEpochMs` in the last log entry retrieved in the previous page. By specifying this parameter, you can continue to retrieve the list from the next page onward."
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-Soracom-API-Key",
+              "value": "{{X-Soracom-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Retrieve audit logs for Soracom API calls."
+        },
+        {
+          "info": {
+            "name": "Retrieve audit logs for Soracom Napter",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.soracom.io/v1/audit_logs/napter",
+            "params": [
+              {
+                "name": "resource_type",
+                "value": "",
+                "type": "query",
+                "description": "Type of the target resource to query log entries."
+              },
+              {
+                "name": "resource_id",
+                "value": "",
+                "type": "query",
+                "description": "Identity of the target resource to query log entries."
+              },
+              {
+                "name": "from",
+                "value": "",
+                "type": "query",
+                "description": "Start time for the log search range (unixtime milliseconds)."
+              },
+              {
+                "name": "to",
+                "value": "",
+                "type": "query",
+                "description": "End time for the log search range (unixtime milliseconds)."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of log entries to retrieve (value range is 1 to 1000)."
+              },
+              {
+                "name": "last_evaluated_key",
+                "value": "",
+                "type": "query",
+                "description": "The value of `time` in the last log entry retrieved in the previous page. By specifying this parameter, you can continue to retrieve the list from the next page onward."
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-Soracom-API-Key",
+              "value": "{{X-Soracom-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Retrieve audit logs for Soracom Napter."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

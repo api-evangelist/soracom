@@ -1,0 +1,146 @@
+{
+  "item": [
+    {
+      "id": "9fd411ef-35d2-46b8-a09e-500981a0c31e",
+      "name": "Files",
+      "description": {
+        "content": "Download files exported by the following APIs:\n- [Billing](#/Billing)\n- [Payment: exportPaymentStatement](#/Payment/exportPaymentStatement)\n- [Stats](#/Stats)\n- [Subscriber:exportSubscribers](#/Subscriber/exportSubscribers)\n",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "4d256a58-2ab2-42f6-b3dd-581b56a24d2f",
+          "name": "Get the progress of the process when the file is exported asynchronously.",
+          "request": {
+            "name": "Get the progress of the process when the file is exported asynchronously.",
+            "description": {
+              "content": "Get the progress of the process when the file is exported asynchronously. If the export is complete, you will get the URL to download the file. You can download the file from the URL.\n\nThe following APIs are available to export files asynchronously. The `exported_file_id` is the file output ID (the value of `exportedFileId`) obtained from the following API.\n\n- [Billing:exportBilling API](#!/Billing/exportBilling)\n- [Billing:exportLatestBilling API](#!/Billing/exportLatestBilling)\n- [Payment:exportPaymentStatement API](#!/Payment/exportPaymentStatement)\n- [Stats:exportAirStats API](#!/Stats/exportAirStats)\n- [Stats:exportBeamStats API](#!/Stats/exportBeamStats)\n- [Stats:exportFunkStats API](#!/Stats/exportFunkStats)\n- [Stats:exportFunnelStats API](#!/Stats/exportFunnelStats)\n- [Subscriber:exportSubscribers API](#!/Subscriber/exportSubscribers)\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "files",
+                "exported",
+                ":exported_file_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "exported_file_id",
+                  "description": "(Required) File export ID."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-Soracom-API-Key"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "2781ab8b-c0f2-4689-880e-e598d397c218",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "files",
+                    "exported",
+                    ":exported_file_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "exported_file_id",
+                      "description": "(Required) File export ID."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Soracom-API-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": \"exported\",\n  \"url\": \"https://soracom-xxxxxxxx-....\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.soracom.io/v1",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "b0988176-f502-4aef-8026-5575f4328980",
+    "name": "Soracom and Query Analysis Files API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Run SQL queries against Soracom Query, fetch query schemas, and search SIMs, Inventory devices, and Sigfox devices.",
+      "type": "text/plain"
+    }
+  }
+}

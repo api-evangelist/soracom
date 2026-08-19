@@ -1,0 +1,307 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Soracom and Query Analysis Soralet API",
+    "version": "20250903-043502"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Soralet",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Soralets",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.soracom.io/v1/soralets",
+            "params": [
+              {
+                "name": "sort",
+                "value": "",
+                "type": "query",
+                "description": "Sort order of the data entries. Either descending (latest data entry first) or ascending (oldest data entry first)."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "The maximum number of items in a response."
+              },
+              {
+                "name": "last_evaluated_key",
+                "value": "",
+                "type": "query",
+                "description": "The identifier of the last Soralet retrieved on the current page. By specifying this parameter, you can continue to retrieve the list from the next Soralet onward."
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-Soracom-API-Key",
+              "value": "{{X-Soracom-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Returns a list of Soralets."
+        },
+        {
+          "info": {
+            "name": "Create a Soralet",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.soracom.io/v1/soralets",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-Soracom-API-Key",
+              "value": "{{X-Soracom-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Create a Soralet."
+        },
+        {
+          "info": {
+            "name": "Get a Soralet",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.soracom.io/v1/soralets/:soralet_id",
+            "params": [
+              {
+                "name": "soralet_id",
+                "value": "",
+                "type": "path",
+                "description": "The identifier of Soralet."
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-Soracom-API-Key",
+              "value": "{{X-Soracom-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Returns a Soralet."
+        },
+        {
+          "info": {
+            "name": "Delete Soralet",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.soracom.io/v1/soralets/:soralet_id",
+            "params": [
+              {
+                "name": "soralet_id",
+                "value": "",
+                "type": "path",
+                "description": "The identifier of Soralet."
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-Soracom-API-Key",
+              "value": "{{X-Soracom-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Delete the specified Soralet."
+        },
+        {
+          "info": {
+            "name": "Get log messages from Soralet",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.soracom.io/v1/soralets/:soralet_id/logs",
+            "params": [
+              {
+                "name": "soralet_id",
+                "value": "",
+                "type": "path",
+                "description": "The identifier of Soralet."
+              },
+              {
+                "name": "sort",
+                "value": "",
+                "type": "query",
+                "description": "Sort order of the data entries. Either descending (latest data entry first) or ascending (oldest data entry first)."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "The maximum number of items in a response."
+              },
+              {
+                "name": "last_evaluated_key",
+                "value": "",
+                "type": "query",
+                "description": "The identifier of the last log message retrieved on the current page. By specifying this parameter, you can continue to retrieve the list from the next log message onward."
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-Soracom-API-Key",
+              "value": "{{X-Soracom-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Returns a list of log messages from the specified Soralet."
+        },
+        {
+          "info": {
+            "name": "Execute Soralet with arguments",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.soracom.io/v1/soralets/:soralet_id/test",
+            "params": [
+              {
+                "name": "soralet_id",
+                "value": "",
+                "type": "path",
+                "description": "The identifier of Soralet."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-Soracom-API-Key",
+              "value": "{{X-Soracom-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Execute the specified Soralet with the specified arguments."
+        },
+        {
+          "info": {
+            "name": "List versions of Soralet",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.soracom.io/v1/soralets/:soralet_id/versions",
+            "params": [
+              {
+                "name": "soralet_id",
+                "value": "",
+                "type": "path",
+                "description": "The identifier of Soralet."
+              },
+              {
+                "name": "sort",
+                "value": "",
+                "type": "query",
+                "description": "Sort order of the data entries. Either descending (latest data entry first) or ascending (oldest data entry first)."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "The maximum number of items in a response."
+              },
+              {
+                "name": "last_evaluated_key",
+                "value": "",
+                "type": "query",
+                "description": "The identifier of the last version retrieved on the current page. By specifying this parameter, you can continue to retrieve the list from the next version onward."
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-Soracom-API-Key",
+              "value": "{{X-Soracom-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Returns a list of Soralet versions."
+        },
+        {
+          "info": {
+            "name": "Upload code and create a new version",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.soracom.io/v1/soralets/:soralet_id/versions",
+            "headers": [
+              {
+                "name": "content-type",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "soralet_id",
+                "value": "",
+                "type": "path",
+                "description": "The identifier of Soralet."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-Soracom-API-Key",
+              "value": "{{X-Soracom-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Upload code and create a new version."
+        },
+        {
+          "info": {
+            "name": "Delete a Soralet version",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.soracom.io/v1/soralets/:soralet_id/versions/:version",
+            "params": [
+              {
+                "name": "soralet_id",
+                "value": "",
+                "type": "path",
+                "description": "The identifier of Soralet."
+              },
+              {
+                "name": "version",
+                "value": "",
+                "type": "path",
+                "description": "Soralet version."
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-Soracom-API-Key",
+              "value": "{{X-Soracom-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Delete the specified Soralet version."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

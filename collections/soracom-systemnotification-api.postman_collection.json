@@ -1,0 +1,547 @@
+{
+  "item": [
+    {
+      "id": "dc9d76ee-c028-488e-88fc-7b0ba892956e",
+      "name": "SystemNotification",
+      "description": {
+        "content": "[Email addresses](/en/docs/email/)",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "52481bed-c2a2-4a06-bdf3-8014f2c5e421",
+          "name": "List email settings",
+          "request": {
+            "name": "List email settings",
+            "description": {
+              "content": "Returns a list of email settings.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "operators",
+                ":operator_id",
+                "system_notifications"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "operator_id",
+                  "description": "(Required) Operator ID"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-Soracom-API-Key"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "192a2dcd-1559-4f4e-8778-9075c3587bc7",
+              "name": "OK.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "operators",
+                    ":operator_id",
+                    "system_notifications"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "operator_id",
+                      "description": "(Required) Operator ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Soracom-API-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"emailIdList\": [\n      \"string\",\n      \"string\"\n    ],\n    \"type\": \"billing\",\n    \"updateDateTime\": 1\n  },\n  {\n    \"emailIdList\": [\n      \"string\",\n      \"string\"\n    ],\n    \"type\": \"recovery\",\n    \"updateDateTime\": 2160\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "c4cb6af6-ab63-4ee5-9c62-a9b638b1ed9d",
+          "name": "Delete an email address from the email settings",
+          "request": {
+            "name": "Delete an email address from the email settings",
+            "description": {
+              "content": "Delete an email address from the email settings.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "operators",
+                ":operator_id",
+                "system_notifications",
+                ":type"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "operator_id",
+                  "description": "(Required) Operator ID."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "type",
+                  "description": "(Required) Email address type."
+                }
+              ]
+            },
+            "method": "DELETE",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-Soracom-API-Key"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "42245541-17b7-4bb2-ad97-ca2a89249cc6",
+              "name": "OK.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "operators",
+                    ":operator_id",
+                    "system_notifications",
+                    ":type"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "operator_id",
+                      "description": "(Required) Operator ID."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "type",
+                      "description": "(Required) Email address type."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Soracom-API-Key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "40c9bd7c-4985-4451-acb1-9f57319ff52f",
+          "name": "Get information on email settings",
+          "request": {
+            "name": "Get information on email settings",
+            "description": {
+              "content": "Return information on email settings.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "operators",
+                ":operator_id",
+                "system_notifications",
+                ":type"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "operator_id",
+                  "description": "(Required) Operator ID."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "type",
+                  "description": "(Required) Email address type."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-Soracom-API-Key"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "9fd62d11-19d3-4e9d-ab9d-0a838db81f0c",
+              "name": "OK.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "operators",
+                    ":operator_id",
+                    "system_notifications",
+                    ":type"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "operator_id",
+                      "description": "(Required) Operator ID."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "type",
+                      "description": "(Required) Email address type."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Soracom-API-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"emailIdList\": [\n    \"string\",\n    \"string\"\n  ],\n  \"type\": \"billing\",\n  \"updateDateTime\": 6988\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "82a91d1d-d6e7-4dc2-b9c7-7130cc308140",
+          "name": "Set an email address in the email settings",
+          "request": {
+            "name": "Set an email address in the email settings",
+            "description": {
+              "content": "Set an email address in the email settings.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "operators",
+                ":operator_id",
+                "system_notifications",
+                ":type"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "operator_id",
+                  "description": "(Required) Operator ID"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "type",
+                  "description": "(Required) Email address type."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-Soracom-API-Key"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"emailIdList\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"password\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "f8bcb71e-d6a1-43a2-a6ca-3ec98a1ac88c",
+              "name": "OK.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "operators",
+                    ":operator_id",
+                    "system_notifications",
+                    ":type"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "operator_id",
+                      "description": "(Required) Operator ID"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "type",
+                      "description": "(Required) Email address type."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Soracom-API-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"emailIdList\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"password\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"emailIdList\": [\n    \"string\",\n    \"string\"\n  ],\n  \"type\": \"billing\",\n  \"updateDateTime\": 6988\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.soracom.io/v1",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "80b7f407-258d-4ed4-8fd5-39271cea2c1e",
+    "name": "Soracom and Query Analysis SystemNotification API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Run SQL queries against Soracom Query, fetch query schemas, and search SIMs, Inventory devices, and Sigfox devices.",
+      "type": "text/plain"
+    }
+  }
+}

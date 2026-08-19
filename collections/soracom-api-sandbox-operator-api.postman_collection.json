@@ -1,0 +1,477 @@
+{
+  "item": [
+    {
+      "id": "97a384bf-1e23-416a-b81f-1154edfa97ad",
+      "name": "API Sandbox: Operator",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "f5b04022-58f0-41de-a079-43b8f3f07118",
+          "name": "Creates an operator account",
+          "request": {
+            "name": "Creates an operator account",
+            "description": {
+              "content": "Performs complex signup process at once, including registering dummy payment method. Specify `email` and `password` for an operator which will be created on sandbox, `authKeyId` and `authKey` for a real operator on the production environment. An API Key and an API Token will be included in the response if successful. Use the API Key and the API Token to requests afterwards.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "sandbox",
+                "init"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"<string>\",\n  \"password\": \"<string>\",\n  \"authKeyId\": \"<string>\",\n  \"authKey\": \"<string>\",\n  \"coverageTypes\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"registerPaymentMethod\": true\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "43e0054f-273a-4c54-ab14-78c8310e05ed",
+              "name": "Successfully created a sandbox operator.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "sandbox",
+                    "init"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"email\": \"<string>\",\n  \"password\": \"<string>\",\n  \"authKeyId\": \"<string>\",\n  \"authKey\": \"<string>\",\n  \"coverageTypes\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"registerPaymentMethod\": true\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"apiKey\": \"string\",\n  \"operatorId\": \"string\",\n  \"token\": \"string\",\n  \"userName\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "767fe542-5d65-4216-a8ec-277c9b5d895d",
+              "name": "Email address, AuthKeyId, or AuthKey is not correct.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "sandbox",
+                    "init"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"email\": \"<string>\",\n  \"password\": \"<string>\",\n  \"authKeyId\": \"<string>\",\n  \"authKey\": \"<string>\",\n  \"coverageTypes\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"registerPaymentMethod\": true\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "a4df3954-798f-4bb5-8a00-f1799636fbc5",
+          "name": "Deletes an operator",
+          "request": {
+            "name": "Deletes an operator",
+            "description": {
+              "content": "Deletes the specified operator.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "sandbox",
+                "operators",
+                ":operator_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "operator_id",
+                  "description": "(Required) Operator ID"
+                }
+              ]
+            },
+            "method": "DELETE",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-Soracom-API-Key"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "c8fc3883-917f-4503-826a-0fadb0a0f1b7",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "sandbox",
+                    "operators",
+                    ":operator_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "operator_id",
+                      "description": "(Required) Operator ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Soracom-API-Key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "3eeb491c-868d-41cc-a6d2-ee86489b58e1",
+              "name": "Operator does not exist.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "sandbox",
+                    "operators",
+                    ":operator_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "operator_id",
+                      "description": "(Required) Operator ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Soracom-API-Key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "1e3356b0-f6d8-4dfe-bf79-5ef4197e92bd",
+          "name": "Gets a signup token",
+          "request": {
+            "name": "Gets a signup token",
+            "description": {
+              "content": "Retrieves a 'signup token' for registration confirmation. Please specify a pair of AuthKeyId and AuthKey of a SAM user on the production environment to check if the caller has a valid account on it.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "sandbox",
+                "operators",
+                "token",
+                ":email"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "email",
+                  "description": "(Required) Email"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"authKey\": \"<string>\",\n  \"authKeyId\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "df32a9d1-d3f6-4ace-823d-fb948840ac91",
+              "name": "Successfully retrieved signup token.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "sandbox",
+                    "operators",
+                    "token",
+                    ":email"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "email",
+                      "description": "(Required) Email"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"authKey\": \"<string>\",\n  \"authKeyId\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"token\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "603f36d2-178e-4267-9859-f522b896a5bf",
+              "name": "Email address, AuthKeyId, or AuthKey is not correct.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "sandbox",
+                    "operators",
+                    "token",
+                    ":email"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "email",
+                      "description": "(Required) Email"
+                    }
+                  ]
+                },
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"authKey\": \"<string>\",\n  \"authKeyId\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.soracom.io/v1",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "1372824b-f55e-4a49-9595-14071d81e9b1",
+    "name": "Soracom and Query Analysis API Sandbox: Operator API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Run SQL queries against Soracom Query, fetch query schemas, and search SIMs, Inventory devices, and Sigfox devices.",
+      "type": "text/plain"
+    }
+  }
+}

@@ -1,0 +1,198 @@
+{
+  "item": [
+    {
+      "id": "beea5cf2-5f3a-4db2-ba1d-32ead999d0c7",
+      "name": "Log",
+      "description": {
+        "content": "Error logs",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "d39b6984-31af-4c95-942d-34a8ab2c81ff",
+          "name": "Retrieve Error Logs",
+          "request": {
+            "name": "Retrieve Error Logs",
+            "description": {
+              "content": "Fetches error logs that meet specified criteria. If the error logs exceed one page, a URL to retrieve the next page under the same conditions is included in the `link` header of the response.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "logs"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "resource_type",
+                  "value": "<string>",
+                  "description": "The type of resource for which to retrieve error logs.\n\n- `Subscriber`: IoT SIM.\n- `Device`: Inventory device.\n- `LoraDevice`: LoRaWAN device.\n- `SigfoxDevice`: Sigfox device.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "resource_id",
+                  "value": "<string>",
+                  "description": "The ID of the resource for which to retrieve error logs. The ID to specify varies depending on the value of `resource_type`.\n\n| `resource_type` | ID to specify |\n|-|-|\n| `Subscriber` | The IMSI of the IoT SIM. The IMSI can be obtained from the [Sim:listSims API](#!/Sim/listSims). |\n| `Device` | The ID of the Inventory device. The ID can be obtained from the [Device:listDevices API](#!/Device/listDevices). |\n| `LoraDevice` | The ID of the LoRaWAN device. The ID can be obtained from the [LoraDevice:listLoraDevices API](#!/LoraDevice/listLoraDevices). |\n| `SigfoxDevice` | The ID of the Sigfox device. The ID can be obtained from the [SigfoxDevice:listSigfoxDevices API](#!/SigfoxDevice/listSigfoxDevices). |\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "service",
+                  "value": "<string>",
+                  "description": "The service name to filter error logs.\n\n- `Air`: SORACOM Air\n- `Beam`: SORACOM Beam\n- `Funk`: SORACOM Funk\n- `Funnel`: SORACOM Funnel\n- `Harvest`: SORACOM Harvest Data/Files\n- `Napter`: SORACOM Napter\n- `Orbit`: SORACOM Orbit\n- `Unified`: Unified Endpoint\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "from",
+                  "value": "<integer>",
+                  "description": "Start time of the period for which to retrieve error logs (UNIX time in milliseconds)."
+                },
+                {
+                  "disabled": false,
+                  "key": "to",
+                  "value": "<integer>",
+                  "description": "End time of the period for which to retrieve error logs (UNIX time in milliseconds)."
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "<integer>",
+                  "description": "The maximum number of error logs to retrieve."
+                },
+                {
+                  "disabled": false,
+                  "key": "last_evaluated_key",
+                  "value": "<string>",
+                  "description": "The value contained in the `x-soracom-next-key` header returned when fetching the previous page. Specify this to retrieve the next page. For more information, see [Retrieving Large Amounts of Data (Paging)](/en/docs/tools/api/paging/)."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-Soracom-API-Key"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "dea9661a-0661-4e73-9b90-a8c8a902cf59",
+              "name": "A list of error logs.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "logs"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "resource_type",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "resource_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "service",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "from",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "to",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "last_evaluated_key",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Soracom-API-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"body\": {},\n    \"logLevel\": \"info\",\n    \"operatorId\": \"string\",\n    \"resourceId\": \"string\",\n    \"resourceType\": \"LoraDevice\",\n    \"service\": \"Beam\",\n    \"time\": 4431\n  },\n  {\n    \"body\": {},\n    \"logLevel\": \"info\",\n    \"operatorId\": \"string\",\n    \"resourceId\": \"string\",\n    \"resourceType\": \"LoraDevice\",\n    \"service\": \"Air\",\n    \"time\": 8731\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.soracom.io/v1",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "536758a7-e382-498d-83b5-09ddbb0abac7",
+    "name": "Soracom and Query Analysis Log API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Run SQL queries against Soracom Query, fetch query schemas, and search SIMs, Inventory devices, and Sigfox devices.",
+      "type": "text/plain"
+    }
+  }
+}

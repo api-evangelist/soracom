@@ -1,0 +1,2093 @@
+{
+  "item": [
+    {
+      "id": "3d7db82e-bfbe-4287-a8a9-80d3d005e911",
+      "name": "LoraDevice",
+      "description": {
+        "content": "[Soracom Air for LoRaWAN](/en/docs/air-for-lorawan/) devices",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "a1fb2f05-b4a2-492d-85de-1a04e4b53df4",
+          "name": "List LoRaWAN devices.",
+          "request": {
+            "name": "List LoRaWAN devices.",
+            "description": {
+              "content": "Returns a list of LoRaWAN devices that match certain criteria. If the total number of LoRaWAN devices does not fit in one page, a URL for accessing the next page is returned in the `link` header of the response.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "lora_devices"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "tag_name",
+                  "value": "<string>",
+                  "description": "Tag name for filtering the search (exact match)."
+                },
+                {
+                  "disabled": false,
+                  "key": "tag_value",
+                  "value": "<string>",
+                  "description": "Tag search string for filtering the search. Required when `tag_name` has been specified."
+                },
+                {
+                  "disabled": false,
+                  "key": "tag_value_match_mode",
+                  "value": "exact",
+                  "description": "Tag match mode."
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "<integer>",
+                  "description": "Maximum number of LoRaWAN devices to retrieve."
+                },
+                {
+                  "disabled": false,
+                  "key": "last_evaluated_key",
+                  "value": "<string>",
+                  "description": "The device ID of the last LoRaWAN device retrieved on the previous page. By specifying this parameter, you can continue to retrieve the list from the next LoRaWAN device onward."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-Soracom-API-Key"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "0813df90-c781-487d-a8e5-16e1e4cfda2a",
+              "name": "A list of LoRaWAN devices matching the criteria.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "lora_devices"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "tag_name",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "tag_value",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "tag_value_match_mode",
+                      "value": "exact"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "last_evaluated_key",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Soracom-API-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"device_id\": \"string\",\n    \"groupId\": \"string\",\n    \"lastModifiedTime\": \"2016-04-14T21:24:15.677Z\",\n    \"lastSeen\": {\n      \"rssi\": 3796,\n      \"snr\": 3211,\n      \"time\": \"2010-11-25T21:20:16.408Z\"\n    },\n    \"operatorId\": \"string\",\n    \"status\": \"ready\",\n    \"tags\": {\n      \"key_0\": \"string\",\n      \"key_1\": \"string\"\n    },\n    \"terminationEnabled\": false\n  },\n  {\n    \"device_id\": \"string\",\n    \"groupId\": \"string\",\n    \"lastModifiedTime\": \"2018-05-05T00:38:25.556Z\",\n    \"lastSeen\": {\n      \"rssi\": 7995,\n      \"snr\": 1556,\n      \"time\": \"1952-09-26T21:09:33.820Z\"\n    },\n    \"operatorId\": \"string\",\n    \"status\": \"ready\",\n    \"tags\": {\n      \"key_0\": \"string\"\n    },\n    \"terminationEnabled\": false\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "f82b2147-3515-46d1-830e-34b26cc53c38",
+          "name": "Get LoRaWAN device.",
+          "request": {
+            "name": "Get LoRaWAN device.",
+            "description": {
+              "content": "Returns information about the specified LoRaWAN device.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "lora_devices",
+                ":device_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "device_id",
+                  "description": "(Required) Device ID of the target LoRaWAN device."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-Soracom-API-Key"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "58cea436-6a30-4453-8110-40f9626ab23f",
+              "name": "The LoRaWAN device's detailed information.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "lora_devices",
+                    ":device_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "device_id",
+                      "description": "(Required) Device ID of the target LoRaWAN device."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Soracom-API-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"device_id\": \"string\",\n  \"groupId\": \"string\",\n  \"lastModifiedTime\": \"2025-10-15T01:04:26.225Z\",\n  \"lastSeen\": {\n    \"rssi\": 6281,\n    \"snr\": 5891,\n    \"time\": \"2017-11-27T23:49:52.268Z\"\n  },\n  \"operatorId\": \"string\",\n  \"status\": \"active\",\n  \"tags\": {\n    \"key_0\": \"string\"\n  },\n  \"terminationEnabled\": false\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "d5647b8c-1468-48a9-9991-63847cffa523",
+              "name": "The specified LoRaWAN device does not exist.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "lora_devices",
+                    ":device_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "device_id",
+                      "description": "(Required) Device ID of the target LoRaWAN device."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Soracom-API-Key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "4d67bc56-e4e1-4462-90e1-c4ee30e36a15",
+          "name": "Retrieves data sent from a LoRaWAN device to Harvest Data",
+          "request": {
+            "name": "Retrieves data sent from a LoRaWAN device to Harvest Data",
+            "description": {
+              "content": "Retrieves data that matches the specified conditions from the data sent by the specified LoRaWAN device to Harvest Data. If the data entries do not fit in one page, a URL to retrieve the next page with the same conditions will be included in the `link` header of the response.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "lora_devices",
+                ":device_id",
+                "data"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "from",
+                  "value": "<integer>",
+                  "description": "Start time of the target period (UNIX time in milliseconds)."
+                },
+                {
+                  "disabled": false,
+                  "key": "to",
+                  "value": "<integer>",
+                  "description": "End time of the target period (UNIX time in milliseconds)."
+                },
+                {
+                  "disabled": false,
+                  "key": "sort",
+                  "value": "desc",
+                  "description": "Sort order of data entries. Either descending order (latest data entry first) or ascending order (oldest data entry first)."
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "<integer>",
+                  "description": "Maximum number of data entries to retrieve (1 to 1000). The default is `10`."
+                },
+                {
+                  "disabled": false,
+                  "key": "last_evaluated_key",
+                  "value": "<string>",
+                  "description": "Timestamp of the last data entry retrieved on the previous page. By specifying this parameter, the list starting from the next data entry can be obtained."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "device_id",
+                  "description": "(Required) ID of the LoRaWAN device from which to retrieve data. The ID of a LoRaWAN device can be obtained using the [LoraDevice:listLoraDevices API](#!/LoraDevice/listLoraDevices)."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-Soracom-API-Key"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "4d529bbf-1cd7-4be2-8a5a-2f59df2d6d7f",
+              "name": "A list of data entries.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "lora_devices",
+                    ":device_id",
+                    "data"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "from",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "to",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "sort",
+                      "value": "desc"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "last_evaluated_key",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "device_id",
+                      "description": "(Required) ID of the LoRaWAN device from which to retrieve data. The ID of a LoRaWAN device can be obtained using the [LoraDevice:listLoraDevices API](#!/LoraDevice/listLoraDevices)."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Soracom-API-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"category\": \"string\",\n    \"content\": \"string\",\n    \"contentType\": \"string\",\n    \"resourceId\": \"string\",\n    \"resourceType\": \"SoraCam\",\n    \"time\": 8892\n  },\n  {\n    \"category\": \"string\",\n    \"content\": \"string\",\n    \"contentType\": \"string\",\n    \"resourceId\": \"string\",\n    \"resourceType\": \"Device\",\n    \"time\": 6414\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "ee53e7ff-d874-4a69-aae4-cdf80cca8b15",
+          "name": "Send data to a LoRaWAN device.",
+          "request": {
+            "name": "Send data to a LoRaWAN device.",
+            "description": {
+              "content": "Sends data to the specified LoRaWAN device. The data is sent to the LoRa network server, to be sent out to the device using the next available slot. If another message destined for the same LoRaWAN device ID is already waiting to be sent on the LoRa Network Server, the existing message will be discarded, and the new message will be sent instead. Data is discarded if it is not received by the device for a certain period of time (2 hours).",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "lora_devices",
+                ":device_id",
+                "data"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "device_id",
+                  "description": "(Required) ID of the recipient device."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-Soracom-API-Key"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"data\": \"<string>\",\n  \"fPort\": 2\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "75353e98-95a1-4b60-921c-edd69d18497f",
+              "name": "Data has been received and sent to the LoRa network server for the recipient device to retrieve.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "lora_devices",
+                    ":device_id",
+                    "data"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "device_id",
+                      "description": "(Required) ID of the recipient device."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Soracom-API-Key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"data\": \"<string>\",\n  \"fPort\": 2\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "9face3ed-1fa0-488f-b806-f9d19b8dfb95",
+              "name": "The payload JSON data contains one or more invalid parameters.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "lora_devices",
+                    ":device_id",
+                    "data"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "device_id",
+                      "description": "(Required) ID of the recipient device."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Soracom-API-Key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"data\": \"<string>\",\n  \"fPort\": 2\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "6448a9ac-1751-4da7-8daf-e394b751c5fc",
+              "name": "No such device found.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "lora_devices",
+                    ":device_id",
+                    "data"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "device_id",
+                      "description": "(Required) ID of the recipient device."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Soracom-API-Key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"data\": \"<string>\",\n  \"fPort\": 2\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "9ecfb480-5048-4c14-b668-b304e364c45d",
+          "name": "Disable Termination of LoRaWAN device.",
+          "request": {
+            "name": "Disable Termination of LoRaWAN device.",
+            "description": {
+              "content": "Disables termination of specified LoRaWAN device.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "lora_devices",
+                ":device_id",
+                "disable_termination"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "device_id",
+                  "description": "(Required) Device ID of the target LoRaWAN device."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-Soracom-API-Key"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "e04efb3f-9b37-4152-ae9a-c4f42d8810bf",
+              "name": "The LoRaWAN device's detailed information after the update.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "lora_devices",
+                    ":device_id",
+                    "disable_termination"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "device_id",
+                      "description": "(Required) Device ID of the target LoRaWAN device."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Soracom-API-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"device_id\": \"string\",\n  \"groupId\": \"string\",\n  \"lastModifiedTime\": \"2025-10-15T01:04:26.225Z\",\n  \"lastSeen\": {\n    \"rssi\": 6281,\n    \"snr\": 5891,\n    \"time\": \"2017-11-27T23:49:52.268Z\"\n  },\n  \"operatorId\": \"string\",\n  \"status\": \"active\",\n  \"tags\": {\n    \"key_0\": \"string\"\n  },\n  \"terminationEnabled\": false\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "07ffb5eb-db22-438e-9a47-66f9567ccd74",
+              "name": "The specified LoRaWAN device does not exist.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "lora_devices",
+                    ":device_id",
+                    "disable_termination"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "device_id",
+                      "description": "(Required) Device ID of the target LoRaWAN device."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Soracom-API-Key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "9417e804-579c-476a-b571-1dd9a43eff7b",
+          "name": "Enable Termination of LoRaWAN device.",
+          "request": {
+            "name": "Enable Termination of LoRaWAN device.",
+            "description": {
+              "content": "Enables termination of specified LoRaWAN device.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "lora_devices",
+                ":device_id",
+                "enable_termination"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "device_id",
+                  "description": "(Required) Device ID of the target LoRaWAN device."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-Soracom-API-Key"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "42ed2c4c-7a89-4213-915b-a804184b456f",
+              "name": "The LoRaWAN device's detailed information after the update.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "lora_devices",
+                    ":device_id",
+                    "enable_termination"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "device_id",
+                      "description": "(Required) Device ID of the target LoRaWAN device."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Soracom-API-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"device_id\": \"string\",\n  \"groupId\": \"string\",\n  \"lastModifiedTime\": \"2025-10-15T01:04:26.225Z\",\n  \"lastSeen\": {\n    \"rssi\": 6281,\n    \"snr\": 5891,\n    \"time\": \"2017-11-27T23:49:52.268Z\"\n  },\n  \"operatorId\": \"string\",\n  \"status\": \"active\",\n  \"tags\": {\n    \"key_0\": \"string\"\n  },\n  \"terminationEnabled\": false\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "7fa181df-1664-46bd-826b-b8b0fd2992ee",
+              "name": "The specified LoRaWAN device does not exist.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "lora_devices",
+                    ":device_id",
+                    "enable_termination"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "device_id",
+                      "description": "(Required) Device ID of the target LoRaWAN device."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Soracom-API-Key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "4a525075-068c-4ceb-9ab4-de3794ed76b4",
+          "name": "Register LoRaWAN device.",
+          "request": {
+            "name": "Register LoRaWAN device.",
+            "description": {
+              "content": "Register a LoRaWAN device.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "lora_devices",
+                ":device_id",
+                "register"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "device_id",
+                  "description": "(Required) Device ID of the target LoRaWAN device."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-Soracom-API-Key"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"groupId\": \"<string>\",\n  \"registrationSecret\": \"<string>\",\n  \"tags\": {\n    \"key_0\": \"<string>\",\n    \"key_1\": \"<string>\",\n    \"key_2\": \"<string>\"\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "5b525eb5-d84a-469d-9279-3b4dfee767c4",
+              "name": "LoRaWAN device registration complete.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "lora_devices",
+                    ":device_id",
+                    "register"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "device_id",
+                      "description": "(Required) Device ID of the target LoRaWAN device."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Soracom-API-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"groupId\": \"<string>\",\n  \"registrationSecret\": \"<string>\",\n  \"tags\": {\n    \"key_0\": \"<string>\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"device_id\": \"string\",\n  \"groupId\": \"string\",\n  \"lastModifiedTime\": \"2025-10-15T01:04:26.225Z\",\n  \"lastSeen\": {\n    \"rssi\": 6281,\n    \"snr\": 5891,\n    \"time\": \"2017-11-27T23:49:52.268Z\"\n  },\n  \"operatorId\": \"string\",\n  \"status\": \"active\",\n  \"tags\": {\n    \"key_0\": \"string\"\n  },\n  \"terminationEnabled\": false\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "4ca8f381-cb17-4fb9-8eb1-4ed5ce916a8d",
+          "name": "Adds a LoRaWAN device to a LoRaWAN group",
+          "request": {
+            "name": "Adds a LoRaWAN device to a LoRaWAN group",
+            "description": {
+              "content": "Adds a LoRaWAN device to a LoRaWAN group.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "lora_devices",
+                ":device_id",
+                "set_group"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "device_id",
+                  "description": "(Required) ID of the target LoRaWAN device. The ID of a LoRaWAN device can be obtained using the [LoraDevice:listLoraDevices API](#!/LoraDevice/listLoraDevices)."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-Soracom-API-Key"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"groupId\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "009c59c3-a236-4ea3-8c29-541b26f6f23a",
+              "name": "Detailed information of the updated LoRaWAN device.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "lora_devices",
+                    ":device_id",
+                    "set_group"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "device_id",
+                      "description": "(Required) ID of the target LoRaWAN device. The ID of a LoRaWAN device can be obtained using the [LoraDevice:listLoraDevices API](#!/LoraDevice/listLoraDevices)."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Soracom-API-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"groupId\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"device_id\": \"string\",\n  \"groupId\": \"string\",\n  \"lastModifiedTime\": \"2025-10-15T01:04:26.225Z\",\n  \"lastSeen\": {\n    \"rssi\": 6281,\n    \"snr\": 5891,\n    \"time\": \"2017-11-27T23:49:52.268Z\"\n  },\n  \"operatorId\": \"string\",\n  \"status\": \"active\",\n  \"tags\": {\n    \"key_0\": \"string\"\n  },\n  \"terminationEnabled\": false\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "c83433ef-09ae-43e0-821d-123cd8379cab",
+              "name": "The specified LoRaWAN device does not exist.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "lora_devices",
+                    ":device_id",
+                    "set_group"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "device_id",
+                      "description": "(Required) ID of the target LoRaWAN device. The ID of a LoRaWAN device can be obtained using the [LoraDevice:listLoraDevices API](#!/LoraDevice/listLoraDevices)."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Soracom-API-Key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"groupId\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "390cdc6c-220e-46f8-b5e7-86ee25ec6c57",
+          "name": "Bulk Insert or Update LoRaWAN device Tags.",
+          "request": {
+            "name": "Bulk Insert or Update LoRaWAN device Tags.",
+            "description": {
+              "content": "Inserts/updates tags for the specified LoRaWAN device.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "lora_devices",
+                ":device_id",
+                "tags"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "device_id",
+                  "description": "(Required) Device ID of the target LoRaWAN device."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-Soracom-API-Key"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "[\n  {\n    \"tagName\": \"<string>\",\n    \"tagValue\": \"<string>\"\n  },\n  {\n    \"tagName\": \"<string>\",\n    \"tagValue\": \"<string>\"\n  }\n]",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "c759d461-02e6-4c5e-99ff-b1cfd21c50f9",
+              "name": "The LoRaWAN device's detailed information after the update.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "lora_devices",
+                    ":device_id",
+                    "tags"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "device_id",
+                      "description": "(Required) Device ID of the target LoRaWAN device."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Soracom-API-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "[\n  {\n    \"tagName\": \"<string>\",\n    \"tagValue\": \"<string>\"\n  },\n  {\n    \"tagName\": \"<string>\",\n    \"tagValue\": \"<string>\"\n  }\n]",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"device_id\": \"string\",\n  \"groupId\": \"string\",\n  \"lastModifiedTime\": \"2025-10-15T01:04:26.225Z\",\n  \"lastSeen\": {\n    \"rssi\": 6281,\n    \"snr\": 5891,\n    \"time\": \"2017-11-27T23:49:52.268Z\"\n  },\n  \"operatorId\": \"string\",\n  \"status\": \"active\",\n  \"tags\": {\n    \"key_0\": \"string\"\n  },\n  \"terminationEnabled\": false\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "7c0504c6-d5d4-47f0-b4b0-cc68a63a4da7",
+              "name": "The specified LoRaWAN device does not exist.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "lora_devices",
+                    ":device_id",
+                    "tags"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "device_id",
+                      "description": "(Required) Device ID of the target LoRaWAN device."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Soracom-API-Key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "[\n  {\n    \"tagName\": \"<string>\",\n    \"tagValue\": \"<string>\"\n  },\n  {\n    \"tagName\": \"<string>\",\n    \"tagValue\": \"<string>\"\n  }\n]",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "4eebe4ce-86de-458d-a61d-e0d1864ee29c",
+          "name": "Delete LoRaWAN device Tag.",
+          "request": {
+            "name": "Delete LoRaWAN device Tag.",
+            "description": {
+              "content": "Deletes a tag from the specified LoRaWAN device.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "lora_devices",
+                ":device_id",
+                "tags",
+                ":tag_name"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "device_id",
+                  "description": "(Required) Device ID of the target LoRaWAN device."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "tag_name",
+                  "description": "(Required) Tag name to be deleted. (This will be part of a URL path, so it needs to be percent-encoded. In JavaScript, specify the name after it has been encoded using encodeURIComponent().)"
+                }
+              ]
+            },
+            "method": "DELETE",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-Soracom-API-Key"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "adf5bb1b-93b5-41d9-8789-ebb602007543",
+              "name": "Deletion of specified tag complete.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "lora_devices",
+                    ":device_id",
+                    "tags",
+                    ":tag_name"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "device_id",
+                      "description": "(Required) Device ID of the target LoRaWAN device."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "tag_name",
+                      "description": "(Required) Tag name to be deleted. (This will be part of a URL path, so it needs to be percent-encoded. In JavaScript, specify the name after it has been encoded using encodeURIComponent().)"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Soracom-API-Key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "fa508cef-7bb1-463b-b99f-3c0fc4e1ca09",
+              "name": "The specified LoRaWAN device or the tag does not exist.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "lora_devices",
+                    ":device_id",
+                    "tags",
+                    ":tag_name"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "device_id",
+                      "description": "(Required) Device ID of the target LoRaWAN device."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "tag_name",
+                      "description": "(Required) Tag name to be deleted. (This will be part of a URL path, so it needs to be percent-encoded. In JavaScript, specify the name after it has been encoded using encodeURIComponent().)"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Soracom-API-Key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "59465c21-ded1-428e-837c-08fceb4672d7",
+          "name": "Terminate LoRaWAN device.",
+          "request": {
+            "name": "Terminate LoRaWAN device.",
+            "description": {
+              "content": "Terminates the specified LoRaWAN device.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "lora_devices",
+                ":device_id",
+                "terminate"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "device_id",
+                  "description": "(Required) Device ID of the target LoRaWAN device."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-Soracom-API-Key"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "7449c893-b409-46a3-9b58-ff9d57af812d",
+              "name": "The LoRaWAN device's detailed information after the update.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "lora_devices",
+                    ":device_id",
+                    "terminate"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "device_id",
+                      "description": "(Required) Device ID of the target LoRaWAN device."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Soracom-API-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"device_id\": \"string\",\n  \"groupId\": \"string\",\n  \"lastModifiedTime\": \"2025-10-15T01:04:26.225Z\",\n  \"lastSeen\": {\n    \"rssi\": 6281,\n    \"snr\": 5891,\n    \"time\": \"2017-11-27T23:49:52.268Z\"\n  },\n  \"operatorId\": \"string\",\n  \"status\": \"active\",\n  \"tags\": {\n    \"key_0\": \"string\"\n  },\n  \"terminationEnabled\": false\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "ef83d2be-4692-4da8-8e92-f91af027b7b0",
+              "name": "The specified LoRaWAN device does not exist.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "lora_devices",
+                    ":device_id",
+                    "terminate"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "device_id",
+                      "description": "(Required) Device ID of the target LoRaWAN device."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Soracom-API-Key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "aec6af98-a5b5-4171-a280-389f04e1198c",
+          "name": "Removes a LoRaWAN device from a LoRaWAN group",
+          "request": {
+            "name": "Removes a LoRaWAN device from a LoRaWAN group",
+            "description": {
+              "content": "Removes a LoRaWAN device from a LoRaWAN group.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "lora_devices",
+                ":device_id",
+                "unset_group"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "device_id",
+                  "description": "(Required) ID of the target LoRaWAN device. The ID of a LoRaWAN device can be obtained using the [LoraDevice:listLoraDevices API](#!/LoraDevice/listLoraDevices)."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-Soracom-API-Key"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "3ca3ab5a-c74b-4062-898d-9dd5984b0066",
+              "name": "Detailed information of the updated LoRaWAN device.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "lora_devices",
+                    ":device_id",
+                    "unset_group"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "device_id",
+                      "description": "(Required) ID of the target LoRaWAN device. The ID of a LoRaWAN device can be obtained using the [LoraDevice:listLoraDevices API](#!/LoraDevice/listLoraDevices)."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Soracom-API-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"device_id\": \"string\",\n  \"groupId\": \"string\",\n  \"lastModifiedTime\": \"2025-10-15T01:04:26.225Z\",\n  \"lastSeen\": {\n    \"rssi\": 6281,\n    \"snr\": 5891,\n    \"time\": \"2017-11-27T23:49:52.268Z\"\n  },\n  \"operatorId\": \"string\",\n  \"status\": \"active\",\n  \"tags\": {\n    \"key_0\": \"string\"\n  },\n  \"terminationEnabled\": false\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "dc3cdb07-a593-42df-975e-df2dfc351c38",
+              "name": "The specified LoRaWAN device does not exist.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "lora_devices",
+                    ":device_id",
+                    "unset_group"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "device_id",
+                      "description": "(Required) ID of the target LoRaWAN device. The ID of a LoRaWAN device can be obtained using the [LoraDevice:listLoraDevices API](#!/LoraDevice/listLoraDevices)."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Soracom-API-Key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.soracom.io/v1",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "21f44c29-68c9-45c3-9faf-7779af73f948",
+    "name": "Soracom and Query Analysis LoraDevice API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Run SQL queries against Soracom Query, fetch query schemas, and search SIMs, Inventory devices, and Sigfox devices.",
+      "type": "text/plain"
+    }
+  }
+}

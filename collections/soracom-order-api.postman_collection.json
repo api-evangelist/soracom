@@ -1,0 +1,1749 @@
+{
+  "item": [
+    {
+      "id": "9fc060cb-e0b2-4970-95e6-3b2c0d0ab0f7",
+      "name": "Order",
+      "description": {
+        "content": "- [Coupon codes](/en/guides/accounting/payment/register-coupon/)\n- [Long term discounts](/en/docs/air/volume-discount/)\n- Order management\n- Product catalog\n",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "ab09788f-f423-460c-8661-af6c42c06575",
+          "name": "Create coupon quotation",
+          "request": {
+            "name": "Create coupon quotation",
+            "description": {
+              "content": "Creates a new coupon quotation. If the orderId is put in /coupons/{order_id}/confirm, the order is complete.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "coupons"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-Soracom-API-Key"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"amount\": \"<double>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "04d11c72-6e43-41d5-aabb-0cf92e31319a",
+              "name": "Created.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "coupons"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Soracom-API-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"amount\": \"<double>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"amount\": 9416.042130782258,\n  \"currency\": \"EUR\",\n  \"expiryYearMonth\": \"string\",\n  \"orderId\": \"string\",\n  \"taxAmount\": 5572.626412558112,\n  \"totalAmount\": 2194.747063687548\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "22059875-f944-4801-9c51-b5a267866068",
+          "name": "Create long term discount quotation",
+          "request": {
+            "name": "Create long term discount quotation",
+            "description": {
+              "content": "Creates a new long term discount quotation. If the orderId is put in /volume_discounts/{order_id}/confirm, the order is complete (Currently, long term discount is only applied to plan-D (without bundle), plan-K).",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "volume_discounts"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-Soracom-API-Key"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"volumeDiscountType\": \"<string>\",\n  \"volumeDiscountPaymentType\": \"<string>\",\n  \"contractTermMonth\": 12,\n  \"quantity\": \"<integer>\",\n  \"startDate\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "8f48a4a6-0522-465d-9ed1-2b4798732ba0",
+              "name": "Created.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "volume_discounts"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Soracom-API-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"contractTermMonth\": 12,\n  \"quantity\": 1,\n  \"startDate\": \"20220401\",\n  \"volumeDiscountPaymentType\": \"MONTHLY\",\n  \"volumeDiscountType\": \"SORACOM_AIR_BASIC_CHARGE_V2\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"currency\": \"JPY\",\n  \"orderId\": \"xxxxxxxxxxxxxx_xxxxxxxx\",\n  \"taxAmount\": 0,\n  \"totalAmount\": 0,\n  \"volumeDiscount\": {\n    \"contractTermMonth\": 12,\n    \"endDate\": \"20230331\",\n    \"initialCost\": 0,\n    \"quantity\": 1,\n    \"startDate\": \"20220401\",\n    \"taxIncludedInitialCost\": 0,\n    \"taxIncludedUnitPrice\": 302.5,\n    \"unitPrice\": 275,\n    \"volumeDiscountPaymentType\": \"MONTHLY\",\n    \"volumeDiscountType\": \"SORACOM_AIR_BASIC_CHARGE_V2\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "dc1a196d-8710-43a7-b185-ebe68d95cb41",
+          "name": "Confirm coupon order",
+          "request": {
+            "name": "Confirm coupon order",
+            "description": {
+              "content": "Performs a credit limit and confirms the order if no problems are encountered.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "coupons",
+                ":order_id",
+                "confirm"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "order_id",
+                  "description": "(Required) Order ID. You can get it by calling [Order:createCouponQuotation API](#/Order/createCouponQuotation)."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-Soracom-API-Key"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "39eb12d7-d95d-44c9-b6cd-334edd35f8f8",
+              "name": "The confirmed coupon order.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "coupons",
+                    ":order_id",
+                    "confirm"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "order_id",
+                      "description": "(Required) Order ID. You can get it by calling [Order:createCouponQuotation API](#/Order/createCouponQuotation)."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Soracom-API-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"amount\": 5680.215526018855,\n  \"balance\": 4182.661946258054,\n  \"billItemName\": \"string\",\n  \"couponCode\": \"string\",\n  \"currency\": \"JPY\",\n  \"expiryYearMonth\": \"string\",\n  \"orderId\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "a0054894-63e1-4b57-845f-db5141b134fd",
+          "name": "Get a list of confirmed order history",
+          "request": {
+            "name": "Get a list of confirmed order history",
+            "description": {
+              "content": "Get a list of confirmed order history.\n\n**Warning**: The maximum information you can get is for the last 18 months. If you need the information before that time, please contact [Soracom Support](https://support.soracom.io).\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "orders"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-Soracom-API-Key"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "77471cbf-5345-4c3a-b032-dd35c0ee193d",
+              "name": "A list of confirmed order history.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "orders"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Soracom-API-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"orderList\": [\n    {\n      \"balanceDue\": 6152.779986838179,\n      \"containsTaxIncludedAmounts\": true,\n      \"currency\": \"JPY\",\n      \"email\": \"string\",\n      \"orderChannel\": \"string\",\n      \"orderDateTime\": \"string\",\n      \"orderId\": \"string\",\n      \"orderItemList\": [\n        {\n          \"product\": {\n            \"campaignCode\": \"string\",\n            \"consignorId\": \"string\",\n            \"consignorName\": \"string\",\n            \"count\": 5699.522530707757,\n            \"currency\": \"JPY\",\n            \"description\": \"string\",\n            \"maxQuantity\": 5707,\n            \"price\": 7110.508551599593,\n            \"priceByQuantityList\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ],\n            \"productCode\": \"string\",\n            \"productInfoURL\": \"string\",\n            \"productName\": \"string\",\n            \"productType\": \"sigfox\",\n            \"properties\": {\n              \"key_0\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            \"regularPrice\": 4354.987797664357,\n            \"taxIncludedPrice\": 8899.37465986456,\n            \"taxIncludedRegularPrice\": 930.247189554172,\n            \"termsOfConsignorURL\": \"string\",\n            \"termsOfSolutionName\": \"string\",\n            \"termsOfSolutionURL\": \"string\"\n          },\n          \"productAmount\": 2412.796529337293,\n          \"quantity\": 9043,\n          \"taxIncludedProductAmount\": 5744.182447920632\n        },\n        {\n          \"product\": {\n            \"campaignCode\": \"string\",\n            \"consignorId\": \"string\",\n            \"consignorName\": \"string\",\n            \"count\": 5531.159872008581,\n            \"currency\": \"EUR\",\n            \"description\": \"string\",\n            \"maxQuantity\": 6715,\n            \"price\": 2545.8493162412433,\n            \"priceByQuantityList\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ],\n            \"productCode\": \"string\",\n            \"productInfoURL\": \"string\",\n            \"productName\": \"string\",\n            \"productType\": \"sim\",\n            \"properties\": {\n              \"key_0\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"key_1\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            \"regularPrice\": 8434.265995994318,\n            \"taxIncludedPrice\": 1659.4178185107978,\n            \"taxIncludedRegularPrice\": 6756.012299093764,\n            \"termsOfConsignorURL\": \"string\",\n            \"termsOfSolutionName\": \"string\",\n            \"termsOfSolutionURL\": \"string\"\n          },\n          \"productAmount\": 8834.096297081314,\n          \"quantity\": 9205,\n          \"taxIncludedProductAmount\": 4325.583134159767\n        }\n      ],\n      \"orderStatus\": \"kitting\",\n      \"paymentStatus\": \"lessThanMinimumCharge\",\n      \"preferredDeliveryDate\": \"string\",\n      \"purchaseOrderNumber\": \"string\",\n      \"resourceInitialSetting\": {\n        \"simInitialSettings\": {\n          \"plan01s\": {\n            \"groupId\": \"00000000-1111-2222-3333-444444444444\",\n            \"speedClass\": \"s1.4xfast\",\n            \"tags\": {\n              \"date\": 20221111,\n              \"location\": \"headquarters\"\n            }\n          }\n        }\n      },\n      \"shippingAddress\": {\n        \"addressLine1\": \"string\",\n        \"city\": \"string\",\n        \"state\": \"string\",\n        \"zipCode\": \"string\",\n        \"addressLine2\": \"string\",\n        \"building\": \"string\",\n        \"companyName\": \"string\",\n        \"countryCode\": \"string\",\n        \"department\": \"string\",\n        \"email\": \"string\",\n        \"fullName\": \"string\",\n        \"phoneNumber\": \"string\"\n      },\n      \"shippingAddressId\": \"string\",\n      \"shippingCost\": 7379.20286326898,\n      \"shippingDateTime\": \"string\",\n      \"shippingLabelDetails\": [\n        {\n          \"shipmentCompany\": \"Yamato Transport\",\n          \"trackingNumber\": \"0000-1111-2222\",\n          \"shipmentCompanyUrl\": \"http://track.kuronekoyamato.co.jp/english/tracking\",\n          \"trackingUrl\": \"https://jizen.kuronekoyamato.co.jp/jizen/servlet/crjz.b.NQ0010?id=0000-1111-2222\"\n        },\n        {\n          \"shipmentCompany\": \"Yamato Transport\",\n          \"trackingNumber\": \"0000-1111-2222\",\n          \"shipmentCompanyUrl\": \"http://track.kuronekoyamato.co.jp/english/tracking\",\n          \"trackingUrl\": \"https://jizen.kuronekoyamato.co.jp/jizen/servlet/crjz.b.NQ0010?id=0000-1111-2222\"\n        }\n      ],\n      \"shippingLabelNumber\": \"0000-1111-2222\",\n      \"shippingLabelNumbers\": [\n        \"0000-1111-2222\"\n      ],\n      \"taxAmount\": 955.6182514406464,\n      \"taxIncludedInShippingCost\": 2782.8284274124226,\n      \"taxOnShippingCost\": true,\n      \"totalAmount\": 1244.9165905101167,\n      \"withholdingTaxAmount\": 9001.856815662848\n    },\n    {\n      \"balanceDue\": 7927.1792560878175,\n      \"containsTaxIncludedAmounts\": false,\n      \"currency\": \"EUR\",\n      \"email\": \"string\",\n      \"orderChannel\": \"string\",\n      \"orderDateTime\": \"string\",\n      \"orderId\": \"string\",\n      \"orderItemList\": [\n        {\n          \"product\": {\n            \"campaignCode\": \"string\",\n            \"consignorId\": \"string\",\n            \"consignorName\": \"string\",\n            \"count\": 7382.576693933036,\n            \"currency\": \"EUR\",\n            \"description\": \"string\",\n            \"maxQuantity\": 2702,\n            \"price\": 8073.210153459677,\n            \"priceByQuantityList\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ],\n            \"productCode\": \"string\",\n            \"productInfoURL\": \"string\",\n            \"productName\": \"string\",\n            \"productType\": \"sim\",\n            \"properties\": {\n              \"key_0\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            \"regularPrice\": 1327.0216203149544,\n            \"taxIncludedPrice\": 185.49919767052003,\n            \"taxIncludedRegularPrice\": 6909.8300146669835,\n            \"termsOfConsignorURL\": \"string\",\n            \"termsOfSolutionName\": \"string\",\n            \"termsOfSolutionURL\": \"string\"\n          },\n          \"productAmount\": 9274.153935832255,\n          \"quantity\": 9407,\n          \"taxIncludedProductAmount\": 3709.6135579209745\n        },\n        {\n          \"product\": {\n            \"campaignCode\": \"string\",\n            \"consignorId\": \"string\",\n            \"consignorName\": \"string\",\n            \"count\": 1614.343410657868,\n            \"currency\": \"EUR\",\n            \"description\": \"string\",\n            \"maxQuantity\": 4801,\n            \"price\": 7442.85827873067,\n            \"priceByQuantityList\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ],\n            \"productCode\": \"string\",\n            \"productInfoURL\": \"string\",\n            \"productName\": \"string\",\n            \"productType\": \"lora\",\n            \"properties\": {\n              \"key_0\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"key_1\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"key_2\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            \"regularPrice\": 2156.6931020615953,\n            \"taxIncludedPrice\": 4951.171956827243,\n            \"taxIncludedRegularPrice\": 5697.69482325671,\n            \"termsOfConsignorURL\": \"string\",\n            \"termsOfSolutionName\": \"string\",\n            \"termsOfSolutionURL\": \"string\"\n          },\n          \"productAmount\": 9081.39545217978,\n          \"quantity\": 167,\n          \"taxIncludedProductAmount\": 9604.493547943555\n        }\n      ],\n      \"orderStatus\": \"shipped\",\n      \"paymentStatus\": \"cancelled\",\n      \"preferredDeliveryDate\": \"string\",\n      \"purchaseOrderNumber\": \"string\",\n      \"resourceInitialSetting\": {\n        \"simInitialSettings\": {\n          \"plan01s\": {\n            \"groupId\": \"00000000-1111-2222-3333-444444444444\",\n            \"speedClass\": \"s1.4xfast\",\n            \"tags\": {\n              \"date\": 20221111,\n              \"location\": \"headquarters\"\n            }\n          }\n        }\n      },\n      \"shippingAddress\": {\n        \"addressLine1\": \"string\",\n        \"city\": \"string\",\n        \"state\": \"string\",\n        \"zipCode\": \"string\",\n        \"addressLine2\": \"string\",\n        \"building\": \"string\",\n        \"companyName\": \"string\",\n        \"countryCode\": \"string\",\n        \"department\": \"string\",\n        \"email\": \"string\",\n        \"fullName\": \"string\",\n        \"phoneNumber\": \"string\"\n      },\n      \"shippingAddressId\": \"string\",\n      \"shippingCost\": 9097.265110436385,\n      \"shippingDateTime\": \"string\",\n      \"shippingLabelDetails\": [\n        {\n          \"shipmentCompany\": \"Yamato Transport\",\n          \"trackingNumber\": \"0000-1111-2222\",\n          \"shipmentCompanyUrl\": \"http://track.kuronekoyamato.co.jp/english/tracking\",\n          \"trackingUrl\": \"https://jizen.kuronekoyamato.co.jp/jizen/servlet/crjz.b.NQ0010?id=0000-1111-2222\"\n        },\n        {\n          \"shipmentCompany\": \"Yamato Transport\",\n          \"trackingNumber\": \"0000-1111-2222\",\n          \"shipmentCompanyUrl\": \"http://track.kuronekoyamato.co.jp/english/tracking\",\n          \"trackingUrl\": \"https://jizen.kuronekoyamato.co.jp/jizen/servlet/crjz.b.NQ0010?id=0000-1111-2222\"\n        }\n      ],\n      \"shippingLabelNumber\": \"0000-1111-2222\",\n      \"shippingLabelNumbers\": [\n        \"0000-1111-2222\"\n      ],\n      \"taxAmount\": 289.9494940581959,\n      \"taxIncludedInShippingCost\": 5014.3754248443465,\n      \"taxOnShippingCost\": false,\n      \"totalAmount\": 1378.76870158554,\n      \"withholdingTaxAmount\": 9622.066409947443\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "15358e3a-df0c-4cfc-92af-d134e3648a33",
+          "name": "Create Quotation",
+          "request": {
+            "name": "Create Quotation",
+            "description": {
+              "content": "Creates a new order quotation. If the orderId is put in /orders/{order_id}/confirm, the order is complete.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "orders"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-Soracom-API-Key"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"orderItemList\": [\n    {\n      \"productCode\": \"<string>\",\n      \"quantity\": \"<integer>\"\n    },\n    {\n      \"productCode\": \"<string>\",\n      \"quantity\": \"<integer>\"\n    }\n  ],\n  \"preferredDeliveryDate\": \"<yyyyMMdd>\",\n  \"shippingAddressId\": \"<string>\",\n  \"shippingOptions\": [\n    {\n      \"allowNekopos\": \"<boolean>\",\n      \"shipmentCompany\": \"<string>\"\n    },\n    {\n      \"allowNekopos\": \"<boolean>\",\n      \"shipmentCompany\": \"<string>\"\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "4d805ee3-9c68-4e21-b67c-bab4c9a73db3",
+              "name": "A new order quotation was created.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "orders"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Soracom-API-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"orderItemList\": [\n    {\n      \"productCode\": \"<string>\",\n      \"quantity\": \"<integer>\"\n    },\n    {\n      \"productCode\": \"<string>\",\n      \"quantity\": \"<integer>\"\n    }\n  ],\n  \"preferredDeliveryDate\": \"<yyyyMMdd>\",\n  \"shippingAddressId\": \"<string>\",\n  \"shippingOptions\": [\n    {\n      \"allowNekopos\": \"<boolean>\",\n      \"shipmentCompany\": \"<string>\"\n    },\n    {\n      \"allowNekopos\": \"<boolean>\",\n      \"shipmentCompany\": \"<string>\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"appliedShippingOptions\": [\n    {\n      \"allowNekopos\": \"<boolean>\",\n      \"shipmentCompany\": \"<string>\"\n    },\n    {\n      \"allowNekopos\": \"<boolean>\",\n      \"shipmentCompany\": \"<string>\"\n    }\n  ],\n  \"balanceDue\": 153.21538785875055,\n  \"containsTaxIncludedAmounts\": false,\n  \"currency\": \"USD\",\n  \"email\": \"string\",\n  \"orderChannel\": \"string\",\n  \"orderId\": \"string\",\n  \"orderItemList\": [\n    {\n      \"product\": {\n        \"campaignCode\": \"string\",\n        \"consignorId\": \"string\",\n        \"consignorName\": \"string\",\n        \"count\": 628.4378000695234,\n        \"currency\": \"EUR\",\n        \"description\": \"string\",\n        \"maxQuantity\": 1542,\n        \"price\": 5844.359589362561,\n        \"priceByQuantityList\": [\n          {\n            \"minQuantity\": 1080,\n            \"price\": 784.9634929069938,\n            \"taxIncludedPrice\": 8576.310012644783\n          },\n          {\n            \"minQuantity\": 9078,\n            \"price\": 490.51358106558143,\n            \"taxIncludedPrice\": 9218.678482384845\n          }\n        ],\n        \"productCode\": \"string\",\n        \"productInfoURL\": \"string\",\n        \"productName\": \"string\",\n        \"productType\": \"sigfox\",\n        \"properties\": {\n          \"key_0\": \"string\",\n          \"key_1\": \"string\",\n          \"key_2\": \"string\"\n        },\n        \"regularPrice\": 5900.303729699585,\n        \"taxIncludedPrice\": 6473.961586465726,\n        \"taxIncludedRegularPrice\": 9292.790300245157,\n        \"termsOfConsignorURL\": \"string\",\n        \"termsOfSolutionName\": \"string\",\n        \"termsOfSolutionURL\": \"string\"\n      },\n      \"productAmount\": 9150.349989871129,\n      \"quantity\": 6438,\n      \"taxIncludedProductAmount\": 9966.649509711702\n    },\n    {\n      \"product\": {\n        \"campaignCode\": \"string\",\n        \"consignorId\": \"string\",\n        \"consignorName\": \"string\",\n        \"count\": 9936.38358521704,\n        \"currency\": \"USD\",\n        \"description\": \"string\",\n        \"maxQuantity\": 8910,\n        \"price\": 895.4653134067647,\n        \"priceByQuantityList\": [\n          {\n            \"minQuantity\": 4508,\n            \"price\": 9845.955768626145,\n            \"taxIncludedPrice\": 828.6554986316542\n          },\n          {\n            \"minQuantity\": 3066,\n            \"price\": 7955.157412151103,\n            \"taxIncludedPrice\": 9996.115605942852\n          }\n        ],\n        \"productCode\": \"string\",\n        \"productInfoURL\": \"string\",\n        \"productName\": \"string\",\n        \"productType\": \"lora\",\n        \"properties\": {\n          \"key_0\": \"string\",\n          \"key_1\": \"string\"\n        },\n        \"regularPrice\": 1325.633048081385,\n        \"taxIncludedPrice\": 9949.798085301034,\n        \"taxIncludedRegularPrice\": 8762.070365311829,\n        \"termsOfConsignorURL\": \"string\",\n        \"termsOfSolutionName\": \"string\",\n        \"termsOfSolutionURL\": \"string\"\n      },\n      \"productAmount\": 8769.47437483312,\n      \"quantity\": 8199,\n      \"taxIncludedProductAmount\": 2327.1403970554616\n    }\n  ],\n  \"preferredDeliveryDate\": \"string\",\n  \"purchaseOrderNumber\": \"string\",\n  \"shippingAddress\": {\n    \"addressLine1\": \"string\",\n    \"city\": \"string\",\n    \"state\": \"string\",\n    \"zipCode\": \"string\",\n    \"addressLine2\": \"string\",\n    \"building\": \"string\",\n    \"companyName\": \"string\",\n    \"countryCode\": \"string\",\n    \"department\": \"string\",\n    \"email\": \"string\",\n    \"fullName\": \"string\",\n    \"phoneNumber\": \"string\"\n  },\n  \"shippingAddressId\": \"string\",\n  \"shippingCost\": 1211.5915652055164,\n  \"taxAmount\": 2157.9188977882322,\n  \"taxIncludedInShippingCost\": 9874.433918435234,\n  \"taxOnShippingCost\": true,\n  \"totalAmount\": 5154.649190720594,\n  \"withholdingTaxAmount\": 1669.8333367756502\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "86f24173-3c6b-4df3-a9dd-9131a81f74cb",
+          "name": "Get a confirmed order",
+          "request": {
+            "name": "Get a confirmed order",
+            "description": {
+              "content": "Returns a confirmed order.\n\n**Warning**: The maximum information you can get is for the last 18 months. If you need the information before that time, please contact [Soracom Support](https://support.soracom.io).\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "orders",
+                ":order_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "order_id",
+                  "description": "(Required) Order ID. You can get it by calling [Order:listOrders API](#/Order/listOrders)."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-Soracom-API-Key"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "0a8e7562-d3b1-417f-99e1-046b1ca86058",
+              "name": "The confirmed order information.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "orders",
+                    ":order_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "order_id",
+                      "description": "(Required) Order ID. You can get it by calling [Order:listOrders API](#/Order/listOrders)."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Soracom-API-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"balanceDue\": 5890.500943311276,\n  \"containsTaxIncludedAmounts\": true,\n  \"currency\": \"EUR\",\n  \"email\": \"string\",\n  \"orderChannel\": \"string\",\n  \"orderDateTime\": \"string\",\n  \"orderId\": \"string\",\n  \"orderItemList\": [\n    {\n      \"product\": {\n        \"campaignCode\": \"string\",\n        \"consignorId\": \"string\",\n        \"consignorName\": \"string\",\n        \"count\": 8904.676026060968,\n        \"currency\": \"JPY\",\n        \"description\": \"string\",\n        \"maxQuantity\": 7418,\n        \"price\": 4719.750380815983,\n        \"priceByQuantityList\": [\n          {\n            \"minQuantity\": 5476,\n            \"price\": 7145.2450737897525,\n            \"taxIncludedPrice\": 1611.3939156924018\n          },\n          {\n            \"minQuantity\": 9154,\n            \"price\": 6199.343924172717,\n            \"taxIncludedPrice\": 3107.5093648734455\n          }\n        ],\n        \"productCode\": \"string\",\n        \"productInfoURL\": \"string\",\n        \"productName\": \"string\",\n        \"productType\": \"sigfox\",\n        \"properties\": {\n          \"key_0\": \"string\",\n          \"key_1\": \"string\"\n        },\n        \"regularPrice\": 6575.365788476487,\n        \"taxIncludedPrice\": 6338.306693222098,\n        \"taxIncludedRegularPrice\": 3257.6977712460352,\n        \"termsOfConsignorURL\": \"string\",\n        \"termsOfSolutionName\": \"string\",\n        \"termsOfSolutionURL\": \"string\"\n      },\n      \"productAmount\": 465.21990242146427,\n      \"quantity\": 9443,\n      \"taxIncludedProductAmount\": 4076.6391489603793\n    },\n    {\n      \"product\": {\n        \"campaignCode\": \"string\",\n        \"consignorId\": \"string\",\n        \"consignorName\": \"string\",\n        \"count\": 1140.718364423572,\n        \"currency\": \"USD\",\n        \"description\": \"string\",\n        \"maxQuantity\": 5885,\n        \"price\": 1805.6095851940902,\n        \"priceByQuantityList\": [\n          {\n            \"minQuantity\": 5766,\n            \"price\": 6416.866836381479,\n            \"taxIncludedPrice\": 243.76317195617725\n          },\n          {\n            \"minQuantity\": 9732,\n            \"price\": 1779.0382839813635,\n            \"taxIncludedPrice\": 4297.745062020253\n          }\n        ],\n        \"productCode\": \"string\",\n        \"productInfoURL\": \"string\",\n        \"productName\": \"string\",\n        \"productType\": \"sigfox\",\n        \"properties\": {\n          \"key_0\": \"string\"\n        },\n        \"regularPrice\": 3443.288841264478,\n        \"taxIncludedPrice\": 871.9194165129362,\n        \"taxIncludedRegularPrice\": 8245.58466244235,\n        \"termsOfConsignorURL\": \"string\",\n        \"termsOfSolutionName\": \"string\",\n        \"termsOfSolutionURL\": \"string\"\n      },\n      \"productAmount\": 1906.7161081977656,\n      \"quantity\": 4255,\n      \"taxIncludedProductAmount\": 2919.569972328017\n    }\n  ],\n  \"orderStatus\": \"cancelling\",\n  \"paymentStatus\": \"canceling\",\n  \"preferredDeliveryDate\": \"string\",\n  \"purchaseOrderNumber\": \"string\",\n  \"resourceInitialSetting\": {\n    \"simInitialSettings\": {\n      \"key_0\": {\n        \"groupId\": \"string\",\n        \"speedClass\": \"string\",\n        \"tags\": {\n          \"key_0\": \"string\",\n          \"key_1\": \"string\"\n        }\n      },\n      \"key_1\": {\n        \"groupId\": \"string\",\n        \"speedClass\": \"string\",\n        \"tags\": {\n          \"key_0\": \"string\"\n        }\n      }\n    }\n  },\n  \"shippingAddress\": {\n    \"addressLine1\": \"string\",\n    \"city\": \"string\",\n    \"state\": \"string\",\n    \"zipCode\": \"string\",\n    \"addressLine2\": \"string\",\n    \"building\": \"string\",\n    \"companyName\": \"string\",\n    \"countryCode\": \"string\",\n    \"department\": \"string\",\n    \"email\": \"string\",\n    \"fullName\": \"string\",\n    \"phoneNumber\": \"string\"\n  },\n  \"shippingAddressId\": \"string\",\n  \"shippingCost\": 4236.918225738593,\n  \"shippingDateTime\": \"string\",\n  \"shippingLabelDetails\": [\n    {\n      \"shipmentCompany\": \"Yamato Transport\",\n      \"trackingNumber\": \"0000-1111-2222\",\n      \"shipmentCompanyUrl\": \"http://track.kuronekoyamato.co.jp/english/tracking\",\n      \"trackingUrl\": \"https://jizen.kuronekoyamato.co.jp/jizen/servlet/crjz.b.NQ0010?id=0000-1111-2222\"\n    },\n    {\n      \"shipmentCompany\": \"Yamato Transport\",\n      \"trackingNumber\": \"0000-1111-2222\",\n      \"shipmentCompanyUrl\": \"http://track.kuronekoyamato.co.jp/english/tracking\",\n      \"trackingUrl\": \"https://jizen.kuronekoyamato.co.jp/jizen/servlet/crjz.b.NQ0010?id=0000-1111-2222\"\n    }\n  ],\n  \"shippingLabelNumber\": \"0000-1111-2222\",\n  \"shippingLabelNumbers\": [\n    \"0000-1111-2222\"\n  ],\n  \"taxAmount\": 2066.8636077625592,\n  \"taxIncludedInShippingCost\": 6811.118073089883,\n  \"taxOnShippingCost\": true,\n  \"totalAmount\": 467.66531868685513,\n  \"withholdingTaxAmount\": 6580.860268484381\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "8c7cfec8-bb39-47d9-b33f-e340282e4992",
+          "name": "Cancel order",
+          "request": {
+            "name": "Cancel order",
+            "description": {
+              "content": "Cancels an order. If the order has already been dispatched, an error is returned.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "orders",
+                ":order_id",
+                "cancel"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "order_id",
+                  "description": "(Required) Order ID. You can get it by calling [Order:listOrders API](#/Order/listOrders)."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-Soracom-API-Key"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "34ca9782-1ca7-47ec-bfea-22ca1944ee05",
+              "name": "The order was cancelled.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "orders",
+                    ":order_id",
+                    "cancel"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "order_id",
+                      "description": "(Required) Order ID. You can get it by calling [Order:listOrders API](#/Order/listOrders)."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Soracom-API-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {}
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "\"string\"",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "8d3af6eb-bc30-488e-b070-5c40c78281ed",
+          "name": "Confirm order",
+          "request": {
+            "name": "Confirm order",
+            "description": {
+              "content": "Performs a credit limit and confirms the order if no problems are encountered.\n\n**Warning**: Only orders completed within the past month can be confirmed. If one month has elapsed, please redo the order placement operation.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "orders",
+                ":order_id",
+                "confirm"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "order_id",
+                  "description": "(Required) Order ID. You can get it by calling [Order:listOrders API](#/Order/listOrders)."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-Soracom-API-Key"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "8fc49f41-2ab8-4c01-acfe-0fc649a7d4a4",
+              "name": "The confirmed order information.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "orders",
+                    ":order_id",
+                    "confirm"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "order_id",
+                      "description": "(Required) Order ID. You can get it by calling [Order:listOrders API](#/Order/listOrders)."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Soracom-API-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"balanceDue\": 5890.500943311276,\n  \"containsTaxIncludedAmounts\": true,\n  \"currency\": \"EUR\",\n  \"email\": \"string\",\n  \"orderChannel\": \"string\",\n  \"orderDateTime\": \"string\",\n  \"orderId\": \"string\",\n  \"orderItemList\": [\n    {\n      \"product\": {\n        \"campaignCode\": \"string\",\n        \"consignorId\": \"string\",\n        \"consignorName\": \"string\",\n        \"count\": 8904.676026060968,\n        \"currency\": \"JPY\",\n        \"description\": \"string\",\n        \"maxQuantity\": 7418,\n        \"price\": 4719.750380815983,\n        \"priceByQuantityList\": [\n          {\n            \"minQuantity\": 5476,\n            \"price\": 7145.2450737897525,\n            \"taxIncludedPrice\": 1611.3939156924018\n          },\n          {\n            \"minQuantity\": 9154,\n            \"price\": 6199.343924172717,\n            \"taxIncludedPrice\": 3107.5093648734455\n          }\n        ],\n        \"productCode\": \"string\",\n        \"productInfoURL\": \"string\",\n        \"productName\": \"string\",\n        \"productType\": \"sigfox\",\n        \"properties\": {\n          \"key_0\": \"string\",\n          \"key_1\": \"string\"\n        },\n        \"regularPrice\": 6575.365788476487,\n        \"taxIncludedPrice\": 6338.306693222098,\n        \"taxIncludedRegularPrice\": 3257.6977712460352,\n        \"termsOfConsignorURL\": \"string\",\n        \"termsOfSolutionName\": \"string\",\n        \"termsOfSolutionURL\": \"string\"\n      },\n      \"productAmount\": 465.21990242146427,\n      \"quantity\": 9443,\n      \"taxIncludedProductAmount\": 4076.6391489603793\n    },\n    {\n      \"product\": {\n        \"campaignCode\": \"string\",\n        \"consignorId\": \"string\",\n        \"consignorName\": \"string\",\n        \"count\": 1140.718364423572,\n        \"currency\": \"USD\",\n        \"description\": \"string\",\n        \"maxQuantity\": 5885,\n        \"price\": 1805.6095851940902,\n        \"priceByQuantityList\": [\n          {\n            \"minQuantity\": 5766,\n            \"price\": 6416.866836381479,\n            \"taxIncludedPrice\": 243.76317195617725\n          },\n          {\n            \"minQuantity\": 9732,\n            \"price\": 1779.0382839813635,\n            \"taxIncludedPrice\": 4297.745062020253\n          }\n        ],\n        \"productCode\": \"string\",\n        \"productInfoURL\": \"string\",\n        \"productName\": \"string\",\n        \"productType\": \"sigfox\",\n        \"properties\": {\n          \"key_0\": \"string\"\n        },\n        \"regularPrice\": 3443.288841264478,\n        \"taxIncludedPrice\": 871.9194165129362,\n        \"taxIncludedRegularPrice\": 8245.58466244235,\n        \"termsOfConsignorURL\": \"string\",\n        \"termsOfSolutionName\": \"string\",\n        \"termsOfSolutionURL\": \"string\"\n      },\n      \"productAmount\": 1906.7161081977656,\n      \"quantity\": 4255,\n      \"taxIncludedProductAmount\": 2919.569972328017\n    }\n  ],\n  \"orderStatus\": \"cancelling\",\n  \"paymentStatus\": \"canceling\",\n  \"preferredDeliveryDate\": \"string\",\n  \"purchaseOrderNumber\": \"string\",\n  \"resourceInitialSetting\": {\n    \"simInitialSettings\": {\n      \"key_0\": {\n        \"groupId\": \"string\",\n        \"speedClass\": \"string\",\n        \"tags\": {\n          \"key_0\": \"string\",\n          \"key_1\": \"string\"\n        }\n      },\n      \"key_1\": {\n        \"groupId\": \"string\",\n        \"speedClass\": \"string\",\n        \"tags\": {\n          \"key_0\": \"string\"\n        }\n      }\n    }\n  },\n  \"shippingAddress\": {\n    \"addressLine1\": \"string\",\n    \"city\": \"string\",\n    \"state\": \"string\",\n    \"zipCode\": \"string\",\n    \"addressLine2\": \"string\",\n    \"building\": \"string\",\n    \"companyName\": \"string\",\n    \"countryCode\": \"string\",\n    \"department\": \"string\",\n    \"email\": \"string\",\n    \"fullName\": \"string\",\n    \"phoneNumber\": \"string\"\n  },\n  \"shippingAddressId\": \"string\",\n  \"shippingCost\": 4236.918225738593,\n  \"shippingDateTime\": \"string\",\n  \"shippingLabelDetails\": [\n    {\n      \"shipmentCompany\": \"Yamato Transport\",\n      \"trackingNumber\": \"0000-1111-2222\",\n      \"shipmentCompanyUrl\": \"http://track.kuronekoyamato.co.jp/english/tracking\",\n      \"trackingUrl\": \"https://jizen.kuronekoyamato.co.jp/jizen/servlet/crjz.b.NQ0010?id=0000-1111-2222\"\n    },\n    {\n      \"shipmentCompany\": \"Yamato Transport\",\n      \"trackingNumber\": \"0000-1111-2222\",\n      \"shipmentCompanyUrl\": \"http://track.kuronekoyamato.co.jp/english/tracking\",\n      \"trackingUrl\": \"https://jizen.kuronekoyamato.co.jp/jizen/servlet/crjz.b.NQ0010?id=0000-1111-2222\"\n    }\n  ],\n  \"shippingLabelNumber\": \"0000-1111-2222\",\n  \"shippingLabelNumbers\": [\n    \"0000-1111-2222\"\n  ],\n  \"taxAmount\": 2066.8636077625592,\n  \"taxIncludedInShippingCost\": 6811.118073089883,\n  \"taxOnShippingCost\": true,\n  \"totalAmount\": 467.66531868685513,\n  \"withholdingTaxAmount\": 6580.860268484381\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "dc4f3edd-5afa-44a4-bd09-156a9fe25d24",
+          "name": "Update resource initial setting for an order",
+          "request": {
+            "name": "Update resource initial setting for an order",
+            "description": {
+              "content": "Update resource initial setting for an order.\n\n**Warning**: Initial settings of IoT SIM cannot be specified after confirmation of receipt.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "orders",
+                ":order_id",
+                "resource_initial_setting"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "order_id",
+                  "description": "(Required) Order ID. You can get it by calling [Order:listOrders API](#/Order/listOrders)."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-Soracom-API-Key"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"simInitialSettings\": {\n    \"key_0\": {\n      \"groupId\": \"<string>\",\n      \"speedClass\": \"<string>\",\n      \"tags\": {\n        \"key_0\": \"<string>\",\n        \"key_1\": \"<string>\",\n        \"key_2\": \"<string>\",\n        \"key_3\": \"<string>\"\n      }\n    }\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "1465d8bf-97e6-49cb-975f-f11e3a925a5e",
+              "name": "The initial setting has been successfully updated.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "orders",
+                    ":order_id",
+                    "resource_initial_setting"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "order_id",
+                      "description": "(Required) Order ID. You can get it by calling [Order:listOrders API](#/Order/listOrders)."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Soracom-API-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"simInitialSettings\": {\n    \"key_0\": {\n      \"groupId\": \"<string>\",\n      \"speedClass\": \"<string>\",\n      \"tags\": {\n        \"key_0\": \"<string>\"\n      }\n    },\n    \"key_1\": {\n      \"groupId\": \"<string>\",\n      \"speedClass\": \"<string>\",\n      \"tags\": {\n        \"key_0\": \"<string>\",\n        \"key_1\": \"<string>\"\n      }\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"balanceDue\": 8794.732941819633,\n  \"containsTaxIncludedAmounts\": false,\n  \"currency\": \"EUR\",\n  \"email\": \"string\",\n  \"orderChannel\": \"string\",\n  \"orderDateTime\": \"string\",\n  \"orderId\": \"string\",\n  \"orderItemList\": [\n    {\n      \"product\": {\n        \"campaignCode\": \"string\",\n        \"consignorId\": \"string\",\n        \"consignorName\": \"string\",\n        \"count\": 9527.315405533662,\n        \"currency\": \"USD\",\n        \"description\": \"string\",\n        \"maxQuantity\": 2918,\n        \"price\": 3193.1061745457946,\n        \"priceByQuantityList\": [\n          {\n            \"minQuantity\": 8205,\n            \"price\": 4489.125868980492,\n            \"taxIncludedPrice\": 4459.792207557274\n          },\n          {\n            \"minQuantity\": 2286,\n            \"price\": 2878.6613045866525,\n            \"taxIncludedPrice\": 4162.466730869918\n          }\n        ],\n        \"productCode\": \"string\",\n        \"productInfoURL\": \"string\",\n        \"productName\": \"string\",\n        \"productType\": \"sigfox\",\n        \"properties\": {\n          \"key_0\": \"string\",\n          \"key_1\": \"string\",\n          \"key_2\": \"string\"\n        },\n        \"regularPrice\": 211.70647214348804,\n        \"taxIncludedPrice\": 3614.217144303402,\n        \"taxIncludedRegularPrice\": 2351.5854882400213,\n        \"termsOfConsignorURL\": \"string\",\n        \"termsOfSolutionName\": \"string\",\n        \"termsOfSolutionURL\": \"string\"\n      },\n      \"productAmount\": 1649.1846000899757,\n      \"quantity\": 8486,\n      \"taxIncludedProductAmount\": 3518.908272958099\n    },\n    {\n      \"product\": {\n        \"campaignCode\": \"string\",\n        \"consignorId\": \"string\",\n        \"consignorName\": \"string\",\n        \"count\": 1606.1352952942632,\n        \"currency\": \"JPY\",\n        \"description\": \"string\",\n        \"maxQuantity\": 9455,\n        \"price\": 1431.3083531664815,\n        \"priceByQuantityList\": [\n          {\n            \"minQuantity\": 9643,\n            \"price\": 2322.5377162060668,\n            \"taxIncludedPrice\": 6091.587147546147\n          },\n          {\n            \"minQuantity\": 1402,\n            \"price\": 968.9093123156789,\n            \"taxIncludedPrice\": 2437.27727146559\n          }\n        ],\n        \"productCode\": \"string\",\n        \"productInfoURL\": \"string\",\n        \"productName\": \"string\",\n        \"productType\": \"sigfox\",\n        \"properties\": {\n          \"key_0\": \"string\",\n          \"key_1\": \"string\",\n          \"key_2\": \"string\"\n        },\n        \"regularPrice\": 658.5593427303538,\n        \"taxIncludedPrice\": 9814.377776287414,\n        \"taxIncludedRegularPrice\": 3798.3558811905505,\n        \"termsOfConsignorURL\": \"string\",\n        \"termsOfSolutionName\": \"string\",\n        \"termsOfSolutionURL\": \"string\"\n      },\n      \"productAmount\": 1252.5751296568267,\n      \"quantity\": 9860,\n      \"taxIncludedProductAmount\": 3962.0347422682967\n    }\n  ],\n  \"orderStatus\": \"ordered\",\n  \"paymentStatus\": \"refunded\",\n  \"preferredDeliveryDate\": \"string\",\n  \"purchaseOrderNumber\": \"string\",\n  \"resourceInitialSetting\": {\n    \"simInitialSettings\": {\n      \"key_0\": {\n        \"groupId\": \"<string>\",\n        \"speedClass\": \"<string>\",\n        \"tags\": {\n          \"key_0\": \"<string>\",\n          \"key_1\": \"<string>\"\n        }\n      },\n      \"key_1\": {\n        \"groupId\": \"<string>\",\n        \"speedClass\": \"<string>\",\n        \"tags\": {\n          \"key_0\": \"<string>\",\n          \"key_1\": \"<string>\"\n        }\n      }\n    }\n  },\n  \"shippingAddress\": {\n    \"addressLine1\": \"string\",\n    \"city\": \"string\",\n    \"state\": \"string\",\n    \"zipCode\": \"string\",\n    \"addressLine2\": \"string\",\n    \"building\": \"string\",\n    \"companyName\": \"string\",\n    \"countryCode\": \"string\",\n    \"department\": \"string\",\n    \"email\": \"string\",\n    \"fullName\": \"string\",\n    \"phoneNumber\": \"string\"\n  },\n  \"shippingAddressId\": \"string\",\n  \"shippingCost\": 9703.506030221846,\n  \"shippingDateTime\": \"string\",\n  \"shippingLabelDetails\": [\n    {\n      \"shipmentCompany\": \"Yamato Transport\",\n      \"trackingNumber\": \"0000-1111-2222\",\n      \"shipmentCompanyUrl\": \"http://track.kuronekoyamato.co.jp/english/tracking\",\n      \"trackingUrl\": \"https://jizen.kuronekoyamato.co.jp/jizen/servlet/crjz.b.NQ0010?id=0000-1111-2222\"\n    },\n    {\n      \"shipmentCompany\": \"Yamato Transport\",\n      \"trackingNumber\": \"0000-1111-2222\",\n      \"shipmentCompanyUrl\": \"http://track.kuronekoyamato.co.jp/english/tracking\",\n      \"trackingUrl\": \"https://jizen.kuronekoyamato.co.jp/jizen/servlet/crjz.b.NQ0010?id=0000-1111-2222\"\n    }\n  ],\n  \"shippingLabelNumber\": \"0000-1111-2222\",\n  \"shippingLabelNumbers\": [\n    \"0000-1111-2222\"\n  ],\n  \"taxAmount\": 8008.02753058294,\n  \"taxIncludedInShippingCost\": 1035.3941892294338,\n  \"taxOnShippingCost\": false,\n  \"totalAmount\": 3049.131690295117,\n  \"withholdingTaxAmount\": 8488.794248694943\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "fee369d7-0f2c-4cde-9f78-794f0cc8f6bb",
+              "name": "The specified request has a problem.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "orders",
+                    ":order_id",
+                    "resource_initial_setting"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "order_id",
+                      "description": "(Required) Order ID. You can get it by calling [Order:listOrders API](#/Order/listOrders)."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Soracom-API-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"simInitialSettings\": {\n    \"key_0\": {\n      \"groupId\": \"<string>\",\n      \"speedClass\": \"<string>\",\n      \"tags\": {\n        \"key_0\": \"<string>\"\n      }\n    },\n    \"key_1\": {\n      \"groupId\": \"<string>\",\n      \"speedClass\": \"<string>\",\n      \"tags\": {\n        \"key_0\": \"<string>\",\n        \"key_1\": \"<string>\"\n      }\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "\"string\"",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "47503fbf-3969-4a82-8dea-ecd5dc417cfb",
+              "name": "Order ID not found.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "orders",
+                    ":order_id",
+                    "resource_initial_setting"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "order_id",
+                      "description": "(Required) Order ID. You can get it by calling [Order:listOrders API](#/Order/listOrders)."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Soracom-API-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"simInitialSettings\": {\n    \"key_0\": {\n      \"groupId\": \"<string>\",\n      \"speedClass\": \"<string>\",\n      \"tags\": {\n        \"key_0\": \"<string>\"\n      }\n    },\n    \"key_1\": {\n      \"groupId\": \"<string>\",\n      \"speedClass\": \"<string>\",\n      \"tags\": {\n        \"key_0\": \"<string>\",\n        \"key_1\": \"<string>\"\n      }\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "\"string\"",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "e42ce07f-b3ae-4e05-85ae-14e1d1fdd026",
+          "name": "List ordered subscribers",
+          "request": {
+            "name": "List ordered subscribers",
+            "description": {
+              "content": "List ordered subscribers.\n\n**Warning**: The maximum information you can get is for the last 18 months. If you need the information before that time, please contact [Soracom Support](https://support.soracom.io).\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "orders",
+                ":order_id",
+                "subscribers"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "last_evaluated_key",
+                  "value": "<string>",
+                  "description": "The value of the `x-soracom-next-key` header returned when the previous page was retrieved. Specify if the next page is to be retrieved. For details, see [Handling Pagination](/en/docs/tools/api-reference/#handling-pagination)."
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "<integer>",
+                  "description": "Maximum number of subscribers in a response."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "order_id",
+                  "description": "(Required) Order ID. You can get it by calling [Order:listOrders API](#/Order/listOrders)."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-Soracom-API-Key"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "e9c5614f-b853-47df-8fb7-edd900017427",
+              "name": "A list of ordered subscribers.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "orders",
+                    ":order_id",
+                    "subscribers"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "last_evaluated_key",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "<integer>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "order_id",
+                      "description": "(Required) Order ID. You can get it by calling [Order:listOrders API](#/Order/listOrders)."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Soracom-API-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"orderedSubscriberList\": [\n    {\n      \"bundles\": [\n        \"string\",\n        \"string\"\n      ],\n      \"deviceSerialNumber\": \"string\",\n      \"eiccid\": \"string\",\n      \"iccid\": \"string\",\n      \"imsi\": \"string\",\n      \"msisdn\": \"string\",\n      \"serialNumber\": \"string\",\n      \"simId\": \"string\"\n    },\n    {\n      \"bundles\": [\n        \"string\",\n        \"string\"\n      ],\n      \"deviceSerialNumber\": \"string\",\n      \"eiccid\": \"string\",\n      \"iccid\": \"string\",\n      \"imsi\": \"string\",\n      \"msisdn\": \"string\",\n      \"serialNumber\": \"string\",\n      \"simId\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "0a81825c-9618-40a6-b1a7-613899bc5f63",
+          "name": "Register subscribers for operator",
+          "request": {
+            "name": "Register subscribers for operator",
+            "description": {
+              "content": "Registers the ordered SIM with the operator.\n\n**Warning**: IoT SIMs can only be registered for the past 18 months. If you need to register an IoT SIM that was ordered before the time period, please contact [Soracom Support](https://support.soracom.io).\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "orders",
+                ":order_id",
+                "subscribers",
+                "register"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "order_id",
+                  "description": "(Required) Order ID. You can get it by calling [Order:listOrders API](#/Order/listOrders)."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-Soracom-API-Key"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "b30cabc7-6965-482c-a3e6-5266f7f3d84d",
+              "name": "Subscribers were registered for the operator.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "orders",
+                    ":order_id",
+                    "subscribers",
+                    "register"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "order_id",
+                      "description": "(Required) Order ID. You can get it by calling [Order:listOrders API](#/Order/listOrders)."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Soracom-API-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "\"string\"",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "c0f747a7-21c7-43bc-bdcc-68e22b711dbe",
+          "name": "List products",
+          "request": {
+            "name": "List products",
+            "description": {
+              "content": "Returns a list of products.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "products"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "campaign_code",
+                  "value": "<string>"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-Soracom-API-Key"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "7797a6b1-966e-49ff-8fe9-d70894e0213b",
+              "name": "A list of available products.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "products"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "campaign_code",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Soracom-API-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"productList\": [\n    {\n      \"campaignCode\": \"string\",\n      \"consignorId\": \"string\",\n      \"consignorName\": \"string\",\n      \"count\": 6393.734005973584,\n      \"currency\": \"USD\",\n      \"description\": \"string\",\n      \"maxQuantity\": 4160,\n      \"price\": 2037.8976626084589,\n      \"priceByQuantityList\": [\n        {\n          \"minQuantity\": 8886,\n          \"price\": 9775.749527206373,\n          \"taxIncludedPrice\": 7136.874290429045\n        },\n        {\n          \"minQuantity\": 4254,\n          \"price\": 4326.523604419683,\n          \"taxIncludedPrice\": 2644.010199996388\n        }\n      ],\n      \"productCode\": \"string\",\n      \"productInfoURL\": \"string\",\n      \"productName\": \"string\",\n      \"productType\": \"sim\",\n      \"properties\": {\n        \"key_0\": \"string\",\n        \"key_1\": \"string\"\n      },\n      \"regularPrice\": 2336.5509772891414,\n      \"taxIncludedPrice\": 5457.617870297896,\n      \"taxIncludedRegularPrice\": 9733.667655333362,\n      \"termsOfConsignorURL\": \"string\",\n      \"termsOfSolutionName\": \"string\",\n      \"termsOfSolutionURL\": \"string\"\n    },\n    {\n      \"campaignCode\": \"string\",\n      \"consignorId\": \"string\",\n      \"consignorName\": \"string\",\n      \"count\": 7462.362770350173,\n      \"currency\": \"USD\",\n      \"description\": \"string\",\n      \"maxQuantity\": 8813,\n      \"price\": 3245.7743045308152,\n      \"priceByQuantityList\": [\n        {\n          \"minQuantity\": 2554,\n          \"price\": 8884.503518734073,\n          \"taxIncludedPrice\": 6677.653625845528\n        },\n        {\n          \"minQuantity\": 2823,\n          \"price\": 1977.7610899055198,\n          \"taxIncludedPrice\": 4284.784305870585\n        }\n      ],\n      \"productCode\": \"string\",\n      \"productInfoURL\": \"string\",\n      \"productName\": \"string\",\n      \"productType\": \"network_module\",\n      \"properties\": {\n        \"key_0\": \"string\",\n        \"key_1\": \"string\"\n      },\n      \"regularPrice\": 6398.945310803232,\n      \"taxIncludedPrice\": 1836.331706715042,\n      \"taxIncludedRegularPrice\": 1080.7132473705083,\n      \"termsOfConsignorURL\": \"string\",\n      \"termsOfSolutionName\": \"string\",\n      \"termsOfSolutionURL\": \"string\"\n    }\n  ],\n  \"shippingCostList\": [\n    {\n      \"currency\": \"USD\",\n      \"shippingArea\": \"hokkaido\",\n      \"shippingAreaName\": \"string\",\n      \"shippingCost\": 5245.409924539042,\n      \"size\": 1152\n    },\n    {\n      \"currency\": \"EUR\",\n      \"shippingArea\": \"kanto\",\n      \"shippingAreaName\": \"string\",\n      \"shippingCost\": 8810.364788323386,\n      \"size\": 6388\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "7c216834-2fc4-401b-914f-afa38aa50de2",
+          "name": "Confirm long-term discount order",
+          "request": {
+            "name": "Confirm long-term discount order",
+            "description": {
+              "content": "Performs a credit check and confirms the order if there are no issues.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "volume_discounts",
+                ":order_id",
+                "confirm"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "order_id",
+                  "description": "(Required) Order ID. The order ID can be obtained from the [Order:createVolumeDiscountQuotation API](#/Order/createVolumeDiscountQuotation)."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-Soracom-API-Key"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "36ad6572-030a-4d36-b0dc-79ec85950353",
+              "name": "The confirmed long-term discount order.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "volume_discounts",
+                    ":order_id",
+                    "confirm"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "order_id",
+                      "description": "(Required) Order ID. The order ID can be obtained from the [Order:createVolumeDiscountQuotation API](#/Order/createVolumeDiscountQuotation)."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Soracom-API-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"contractDateTime\": \"yyyyMMddHHmmss\",\n  \"contractId\": \"string\",\n  \"contractTermMonth\": 12,\n  \"currency\": \"USD\",\n  \"endDate\": \"yyyyMMdd\",\n  \"initialCost\": 4597.6890765220105,\n  \"quantity\": 4261,\n  \"startDate\": \"yyyyMMdd\",\n  \"status\": \"expired\",\n  \"unitPrice\": 4481.951467431513,\n  \"volumeDiscountPaymentType\": \"MONTHLY\",\n  \"volumeDiscountType\": \"SORACOM_AIR_MONTHLY_FIXED_BASIC_CHARGE\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "b5784901-1a59-4d7c-8bcb-559de731b3ac",
+          "name": "List available long term discounts",
+          "request": {
+            "name": "List available long term discounts",
+            "description": {
+              "content": "Returns a list of available long term discounts.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "volume_discounts",
+                "available_discounts"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-Soracom-API-Key"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "5bb2295b-ed21-4b35-8edc-a99167a6f925",
+              "name": "A list of available long term discounts.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "volume_discounts",
+                    "available_discounts"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Soracom-API-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"availableLongTermDiscounts\": [\n    {\n      \"contractTermMonth\": 12,\n      \"currency\": \"USD\",\n      \"taxIncludedUnitPrice\": 3526.4155112612193,\n      \"unitPrice\": 1312.7959515791288,\n      \"volumeDiscountPaymentType\": \"PREPAYMENT\",\n      \"volumeDiscountType\": \"SORACOM_AIR_BASIC_CHARGE_V2\"\n    },\n    {\n      \"contractTermMonth\": 12,\n      \"currency\": \"EUR\",\n      \"taxIncludedUnitPrice\": 5885.824405347796,\n      \"unitPrice\": 1065.226190536085,\n      \"volumeDiscountPaymentType\": \"MONTHLY\",\n      \"volumeDiscountType\": \"SORACOM_AIR_BASIC_CHARGE\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.soracom.io/v1",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "d4d6cfb5-47dc-400f-b4d8-edc44cde2dd8",
+    "name": "Soracom and Query Analysis Order API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Run SQL queries against Soracom Query, fetch query schemas, and search SIMs, Inventory devices, and Sigfox devices.",
+      "type": "text/plain"
+    }
+  }
+}

@@ -1,0 +1,381 @@
+{
+  "item": [
+    {
+      "id": "fb40a979-d861-4548-9933-6bf98db5614d",
+      "name": "CellLocation",
+      "description": {
+        "content": "[Cell tower location information](/en/docs/air/get-location-info/#get-cell-tower-location-information)",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "66bde54d-8eb7-42cf-a406-67b36f6306b1",
+          "name": "Get location information for a cell tower",
+          "request": {
+            "name": "Get location information for a cell tower",
+            "description": {
+              "content": "Retrieves location information (latitude/longitude) for a cell tower based on cell information such as Cell ID.\n\n- For 3G, please specify MCC, MNC, LAC, and CID. It is possible to retrieve approximate location information without CID, but the accuracy will be low.\n\n    3G example\n    ```\n    $ curl -X GET \"https://api.soracom.io/v1/cell_locations?mcc=440&mnc=10&lac=196\" \\\n    -H \"X-Soracom-API-Key: $X_SORACOM_API_KEY\" \\\n    -H \"X-Soracom-Token: $X_SORACOM_TOKEN\"\n    ```\n\n- For LTE (4G), please specify MCC, MNC, TAC, and ECID.\n\n    4G example\n    ```\n    $ curl -X GET \"https://api.soracom.io/v1/cell_locations?mcc=440&mnc=10&tac=5680&ecid=48872466\" \\\n    -H \"X-Soracom-API-Key: $X_SORACOM_API_KEY\" \\\n    -H \"X-Soracom-Token: $X_SORACOM_TOKEN\"\n    ```\n\nThe conversion of cell tower information to location information uses the OpenCelliD Project database. The specified cell tower information is used to extract the corresponding location information from the OpenCelliD Project database, but it is possible that the location information may not exist or may be different from the actual location.\n\n[![Creative Commons License](/assets/images/ccbysa_4.0_80x15.png)](https://creativecommons.org/licenses/by-sa/4.0/ \"no-icon-external-link\") <span xmlns:dct=\"http://purl.org/dc/terms/\" property=\"dct:title\"><a xmlns:cc=\"https://creativecommons.org/ns#\" href=\"https://opencellid.org\" property=\"cc:attributionName\" rel=\"cc:attributionURL\" target=\"_blank\">OpenCelliD Project</a></span> is licensed under a <a rel=\"license\" href=\"https://creativecommons.org/licenses/by-sa/4.0/\" target=\"_blank\">Creative Commons Attribution-ShareAlike 4.0 International License</a>\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "cell_locations"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "mcc",
+                  "value": "<string>",
+                  "description": "(Required) MCC - Mobile Country Code."
+                },
+                {
+                  "disabled": false,
+                  "key": "mnc",
+                  "value": "<string>",
+                  "description": "(Required) MNC - Mobile Network Code."
+                },
+                {
+                  "disabled": false,
+                  "key": "lac",
+                  "value": "<string>",
+                  "description": "LAC - Location Area Code (for 3G)."
+                },
+                {
+                  "disabled": false,
+                  "key": "cid",
+                  "value": "<string>",
+                  "description": "CID - Cell ID (for 3G)."
+                },
+                {
+                  "disabled": false,
+                  "key": "tac",
+                  "value": "<string>",
+                  "description": "TAC - Tracking Area Code (for 4G)."
+                },
+                {
+                  "disabled": false,
+                  "key": "ecid",
+                  "value": "<string>",
+                  "description": "ECID - Enhanced Cell ID (for 4G) - specify either `ecid` or `eci`. The result is the same regardless of which value is specified."
+                },
+                {
+                  "disabled": false,
+                  "key": "eci",
+                  "value": "<string>",
+                  "description": "ECID - Enhanced Cell ID (for 4G) - specify either `ecid` or `eci`. The result is the same regardless of which value is specified."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-Soracom-API-Key"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "1760fd5a-4cc4-4feb-8c48-ff22048cbe3f",
+              "name": "Location information for the cell tower.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "cell_locations"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "mcc",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "mnc",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "lac",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "cid",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "tac",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "ecid",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "eci",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Soracom-API-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"avg_strength\": 0,\n  \"created\": \"2022-01-01T00:00:00.000Z\",\n  \"exact\": 0,\n  \"lat\": 35.7119449,\n  \"lon\": 139.813642,\n  \"range\": 476,\n  \"samples\": 7,\n  \"updated\": \"2022-01-01T00:00:00:000Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "800509c5-6aef-47b9-9a82-3ebd389c2d4a",
+              "name": "Location information is not found for the cell tower.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "cell_locations"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "mcc",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "mnc",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "lac",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "cid",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "tac",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "ecid",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "eci",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Soracom-API-Key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "71855c91-c5ca-4a3c-b284-5ec785849939",
+          "name": "List location information for multiple cell towers.",
+          "request": {
+            "name": "List location information for multiple cell towers.",
+            "description": {
+              "content": "Retrieves a list of location information (latitude/longitude) for multiple cell towers based on cell information such as Cell ID. For 3G, please specify MCC, MNC, LAC, and CID. It is possible to retrieve approximate location information without CID, but the accuracy will be low. For LTE (4G), please specify MCC, MNC, TAC, and ECID. The conversion of cell tower information to location information uses the OpenCelliD Project database, so it is possible that the information may not exist or may be incorrect.\n\n[![Creative Commons License](/assets/images/ccbysa_4.0_80x15.png)](https://creativecommons.org/licenses/by-sa/4.0/ \"no-icon-external-link\") <span xmlns:dct=\"http://purl.org/dc/terms/\" property=\"dct:title\"><a xmlns:cc=\"https://creativecommons.org/ns#\" href=\"https://opencellid.org\" property=\"cc:attributionName\" rel=\"cc:attributionURL\" target=\"_blank\">OpenCelliD Project</a></span> is licensed under a <a rel=\"license\" href=\"https://creativecommons.org/licenses/by-sa/4.0/\" target=\"_blank\">Creative Commons Attribution-ShareAlike 4.0 International License</a>\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "cell_locations"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-Soracom-API-Key"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "[\n  {\n    \"cid\": \"<string>\",\n    \"eci\": \"<string>\",\n    \"ecid\": \"<string>\",\n    \"identifier\": \"<string>\",\n    \"lac\": \"<string>\",\n    \"mcc\": \"<string>\",\n    \"mnc\": \"<string>\",\n    \"tac\": \"<string>\"\n  },\n  {\n    \"cid\": \"<string>\",\n    \"eci\": \"<string>\",\n    \"ecid\": \"<string>\",\n    \"identifier\": \"<string>\",\n    \"lac\": \"<string>\",\n    \"mcc\": \"<string>\",\n    \"mnc\": \"<string>\",\n    \"tac\": \"<string>\"\n  }\n]",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "d520e8e6-1259-4943-9494-42c2f8191130",
+              "name": "List of location information for the specified cell towers.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "cell_locations"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Soracom-API-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "[\n  {\n    \"cid\": \"68485165\",\n    \"identifier\": \"test001\",\n    \"lac\": \"195\",\n    \"mcc\": \"440\",\n    \"mnc\": \"10\"\n  },\n  {\n    \"ecid\": \"44668480\",\n    \"identifier\": \"test002\",\n    \"mcc\": \"440\",\n    \"mnc\": \"10\",\n    \"tac\": \"5840\"\n  }\n]",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"avg_strength\": 0,\n    \"created\": \"2022-01-01T00:00:00.000Z\",\n    \"exact\": 0,\n    \"identifier\": \"test001\",\n    \"lat\": 35.6814383,\n    \"lon\": 139.7665133,\n    \"range\": 0,\n    \"samples\": 1,\n    \"updated\": \"2022-01-01T00:00:00:000Z\"\n  },\n  {\n    \"avg_strength\": 0,\n    \"created\": \"2022-01-01T00:00:00.000Z\",\n    \"exact\": 0,\n    \"identifier\": \"test002\",\n    \"lat\": 35.7119449,\n    \"lon\": 139.813642,\n    \"range\": 476,\n    \"samples\": 7,\n    \"updated\": \"2022-01-01T00:00:00:000Z\"\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.soracom.io/v1",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "9a7d07b5-9de8-46da-980e-0e4ae9f4e2d6",
+    "name": "Soracom and Query Analysis CellLocation API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Run SQL queries against Soracom Query, fetch query schemas, and search SIMs, Inventory devices, and Sigfox devices.",
+      "type": "text/plain"
+    }
+  }
+}

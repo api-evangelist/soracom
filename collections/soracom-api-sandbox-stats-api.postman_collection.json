@@ -1,0 +1,412 @@
+{
+  "item": [
+    {
+      "id": "04249e17-f53e-4542-97c8-9779214eb5f6",
+      "name": "API Sandbox: Stats",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "3a40e681-b1d5-4037-8413-1886fd9fd93f",
+          "name": "Inserts Air stats for testing",
+          "request": {
+            "name": "Inserts Air stats for testing",
+            "description": {
+              "content": "Populates Air stats for testing purpose. Inserted data are going to be automatically accumulated. It is not possible to put the data multiple times with the same timestamp.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "sandbox",
+                "stats",
+                "air",
+                "subscribers",
+                ":imsi"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "imsi",
+                  "description": "(Required) IMSI."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-Soracom-API-Key"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"dataTrafficStatsMap\": {\n    \"key_0\": {\n      \"downloadByteSizeTotal\": \"<long>\",\n      \"downloadPacketSizeTotal\": \"<long>\",\n      \"uploadByteSizeTotal\": \"<long>\",\n      \"uploadPacketSizeTotal\": \"<long>\"\n    }\n  },\n  \"unixtime\": \"<long>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "d354d82d-dc83-4967-9c3f-da1cdc261f14",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "sandbox",
+                    "stats",
+                    "air",
+                    "subscribers",
+                    ":imsi"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "imsi",
+                      "description": "(Required) IMSI."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Soracom-API-Key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"dataTrafficStatsMap\": {\n    \"key_0\": {\n      \"downloadByteSizeTotal\": \"<long>\",\n      \"downloadPacketSizeTotal\": \"<long>\",\n      \"uploadByteSizeTotal\": \"<long>\",\n      \"uploadPacketSizeTotal\": \"<long>\"\n    }\n  },\n  \"unixtime\": \"<long>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "9a240757-6bb1-42a4-b72c-8179834c7110",
+              "name": "Data with the same timestamp already exists.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "sandbox",
+                    "stats",
+                    "air",
+                    "subscribers",
+                    ":imsi"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "imsi",
+                      "description": "(Required) IMSI."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Soracom-API-Key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"dataTrafficStatsMap\": {\n    \"key_0\": {\n      \"downloadByteSizeTotal\": \"<long>\",\n      \"downloadPacketSizeTotal\": \"<long>\",\n      \"uploadByteSizeTotal\": \"<long>\",\n      \"uploadPacketSizeTotal\": \"<long>\"\n    }\n  },\n  \"unixtime\": \"<long>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "4b1b826a-b9dd-4581-9212-3e4229b9516b",
+          "name": "Inserts Beam stats for testing",
+          "request": {
+            "name": "Inserts Beam stats for testing",
+            "description": {
+              "content": "Populates Beam stats for testing purpose. Inserted data are going to be automatically accumulated. It is not possible to put the data multiple times with the same timestamp.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "sandbox",
+                "stats",
+                "beam",
+                "subscribers",
+                ":imsi"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "imsi",
+                  "description": "(Required) IMSI."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-Soracom-API-Key"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"beamStatsMap\": {\n    \"inHttp\": {\n      \"count\": \"<long>\"\n    },\n    \"inMqtt\": {\n      \"count\": \"<long>\"\n    },\n    \"inTcp\": {\n      \"count\": \"<long>\"\n    },\n    \"inUdp\": {\n      \"count\": \"<long>\"\n    },\n    \"outHttp\": {\n      \"count\": \"<long>\"\n    },\n    \"outHttps\": {\n      \"count\": \"<long>\"\n    },\n    \"outMqtt\": {\n      \"count\": \"<long>\"\n    },\n    \"outMqtts\": {\n      \"count\": \"<long>\"\n    },\n    \"outTcp\": {\n      \"count\": \"<long>\"\n    },\n    \"outTcps\": {\n      \"count\": \"<long>\"\n    },\n    \"outUdp\": {\n      \"count\": \"<long>\"\n    }\n  },\n  \"unixtime\": \"<long>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "cfe03978-ed8a-44ff-83e1-815130811559",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "sandbox",
+                    "stats",
+                    "beam",
+                    "subscribers",
+                    ":imsi"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "imsi",
+                      "description": "(Required) IMSI."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Soracom-API-Key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"beamStatsMap\": {\n    \"inHttp\": {\n      \"count\": \"<long>\"\n    },\n    \"inMqtt\": {\n      \"count\": \"<long>\"\n    },\n    \"inTcp\": {\n      \"count\": \"<long>\"\n    },\n    \"inUdp\": {\n      \"count\": \"<long>\"\n    },\n    \"outHttp\": {\n      \"count\": \"<long>\"\n    },\n    \"outHttps\": {\n      \"count\": \"<long>\"\n    },\n    \"outMqtt\": {\n      \"count\": \"<long>\"\n    },\n    \"outMqtts\": {\n      \"count\": \"<long>\"\n    },\n    \"outTcp\": {\n      \"count\": \"<long>\"\n    },\n    \"outTcps\": {\n      \"count\": \"<long>\"\n    },\n    \"outUdp\": {\n      \"count\": \"<long>\"\n    }\n  },\n  \"unixtime\": \"<long>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "8122d306-2046-4239-833e-a089bded65e3",
+              "name": "Data with the same timestamp already exists.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "sandbox",
+                    "stats",
+                    "beam",
+                    "subscribers",
+                    ":imsi"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "imsi",
+                      "description": "(Required) IMSI."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Soracom-API-Key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"beamStatsMap\": {\n    \"inHttp\": {\n      \"count\": \"<long>\"\n    },\n    \"inMqtt\": {\n      \"count\": \"<long>\"\n    },\n    \"inTcp\": {\n      \"count\": \"<long>\"\n    },\n    \"inUdp\": {\n      \"count\": \"<long>\"\n    },\n    \"outHttp\": {\n      \"count\": \"<long>\"\n    },\n    \"outHttps\": {\n      \"count\": \"<long>\"\n    },\n    \"outMqtt\": {\n      \"count\": \"<long>\"\n    },\n    \"outMqtts\": {\n      \"count\": \"<long>\"\n    },\n    \"outTcp\": {\n      \"count\": \"<long>\"\n    },\n    \"outTcps\": {\n      \"count\": \"<long>\"\n    },\n    \"outUdp\": {\n      \"count\": \"<long>\"\n    }\n  },\n  \"unixtime\": \"<long>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.soracom.io/v1",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "b4bd5720-51ad-4c7d-aefb-3682e902f823",
+    "name": "Soracom and Query Analysis API Sandbox: Stats API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Run SQL queries against Soracom Query, fetch query schemas, and search SIMs, Inventory devices, and Sigfox devices.",
+      "type": "text/plain"
+    }
+  }
+}

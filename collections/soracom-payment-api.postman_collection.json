@@ -1,0 +1,1597 @@
+{
+  "item": [
+    {
+      "id": "b6c036ca-b632-40a5-b5d7-c3cb10c5b85c",
+      "name": "Payment",
+      "description": {
+        "content": "- [Coupon codes](/en/guides/accounting/payment/register-coupon/)\n- [Usage charges (billing details)](/en/guides/accounting/check-usage/)\n- [Payment methods](/en/guides/accounting/payment/)\n- [Long term discounts](/en/docs/air/volume-discount/)\n",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "ed4f6593-8777-496a-b8a8-d759bb871308",
+          "name": "List coupons.",
+          "request": {
+            "name": "List coupons.",
+            "description": {
+              "content": "Returns a list of currently registered coupons.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "coupons"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-Soracom-API-Key"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "a92b16e9-2435-48cc-acbd-4da26d324c4f",
+              "name": "OK.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "coupons"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Soracom-API-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"couponList\": [\n    {\n      \"amount\": 2841.46063615096,\n      \"balance\": 4212.551400389908,\n      \"billItemName\": \"string\",\n      \"couponCode\": \"string\",\n      \"currency\": \"USD\",\n      \"expiryYearMonth\": \"string\",\n      \"orderId\": \"string\"\n    },\n    {\n      \"amount\": 3322.7509281742573,\n      \"balance\": 5844.775033199358,\n      \"billItemName\": \"string\",\n      \"couponCode\": \"string\",\n      \"currency\": \"EUR\",\n      \"expiryYearMonth\": \"string\",\n      \"orderId\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "11c96fca-4302-4456-ba14-355286e8431f",
+          "name": "Register Coupon",
+          "request": {
+            "name": "Register Coupon",
+            "description": {
+              "content": "Registers a coupon.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "coupons",
+                ":coupon_code",
+                "register"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "coupon_code",
+                  "description": "(Required) Coupon code."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-Soracom-API-Key"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "d46064da-24b5-4efd-91e5-86217aaa5b6d",
+              "name": "OK.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "coupons",
+                    ":coupon_code",
+                    "register"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "coupon_code",
+                      "description": "(Required) Coupon code."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Soracom-API-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"amount\": 6982.437113930696,\n  \"balance\": 4313.972455855353,\n  \"billItemName\": \"string\",\n  \"couponCode\": \"string\",\n  \"currency\": \"USD\",\n  \"expiryYearMonth\": \"string\",\n  \"orderId\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "aeb2420e-2ffa-4fbc-9bf3-d07283de7f02",
+              "name": "The coupon code is invalid or the coupon code registration limit has been reached.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "coupons",
+                    ":coupon_code",
+                    "register"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "coupon_code",
+                      "description": "(Required) Coupon code."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Soracom-API-Key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "4a80f145-88bd-4dbc-9618-27efab90efab",
+          "name": "Get payment transaction result.",
+          "request": {
+            "name": "Get payment transaction result.",
+            "description": {
+              "content": "Returns result of a payment transaction.\n\n**Warning**: The maximum information you can get is for the last 18 months. If you need the information before that time, please contact [Soracom Support](https://support.soracom.io).\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "payment_history",
+                "transactions",
+                ":payment_transaction_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "payment_transaction_id",
+                  "description": "(Required) Payment transaction ID. It can be obtained via [Billing:getBillingHistory API](#!/Billing/getBillingHistory) or [Billing:getBilling API](#!/Billing/getBilling)."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-Soracom-API-Key"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "73f40ff9-d4ad-429f-b5ee-53466a3fd33b",
+              "name": "OK.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "payment_history",
+                    "transactions",
+                    ":payment_transaction_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "payment_transaction_id",
+                      "description": "(Required) Payment transaction ID. It can be obtained via [Billing:getBillingHistory API](#!/Billing/getBillingHistory) or [Billing:getBilling API](#!/Billing/getBilling)."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Soracom-API-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"amount\": {\n    \"currency\": \"JPY\",\n    \"paymentAmount\": 8076.193691113067,\n    \"subTotalAmount\": 7062.986305833125,\n    \"taxAmount\": 3736.656322638512,\n    \"taxFreeSubTotalAmount\": 7795.115040323818,\n    \"taxRate\": {},\n    \"taxableSubTotalAmount\": 7919.436297440233,\n    \"totalAmount\": 973.7029901830097,\n    \"withholdingTaxAmount\": 1734.7388886008764\n  },\n  \"description\": {\n    \"description\": \"string\",\n    \"itemList\": [\n      \"string\",\n      \"string\"\n    ]\n  },\n  \"message\": \"string\",\n  \"messageCode\": \"invalid_expiry_month\",\n  \"status\": \"error\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "a8a47538-9b0e-4151-9f64-c11d34e73b8c",
+              "name": "Invalid payment transaction ID.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "payment_history",
+                    "transactions",
+                    ":payment_transaction_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "payment_transaction_id",
+                      "description": "(Required) Payment transaction ID. It can be obtained via [Billing:getBillingHistory API](#!/Billing/getBillingHistory) or [Billing:getBilling API](#!/Billing/getBilling)."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Soracom-API-Key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "f98dde7c-49db-47b3-8900-498c7b0311e1",
+              "name": "Payment transaction result not found.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "payment_history",
+                    "transactions",
+                    ":payment_transaction_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "payment_transaction_id",
+                      "description": "(Required) Payment transaction ID. It can be obtained via [Billing:getBillingHistory API](#!/Billing/getBillingHistory) or [Billing:getBilling API](#!/Billing/getBilling)."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Soracom-API-Key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "7d015a8a-e68f-4f10-9154-adfa665e51a8",
+          "name": "Get current payment method information.",
+          "request": {
+            "name": "Get current payment method information.",
+            "description": {
+              "content": "Returns current payment methods. Detailed information is included in the properties.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "payment_methods",
+                "current"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-Soracom-API-Key"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "2f058985-ca88-4afd-af84-dea17be7a3ab",
+              "name": "OK.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "payment_methods",
+                    "current"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Soracom-API-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errorCode\": \"incorrect_number\",\n  \"errorMessage\": \"string\",\n  \"properties\": \"string\",\n  \"providerType\": \"WebPay\",\n  \"updateDate\": \"yyyyMMddHHmmss\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "5891db61-9da5-4671-8438-48edce927f40",
+              "name": "Payment method not found.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "payment_methods",
+                    "current"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Soracom-API-Key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "6ce42aa6-616a-4f97-aacd-dfc6c9af2179",
+          "name": "Activate current payment method",
+          "request": {
+            "name": "Activate current payment method",
+            "description": {
+              "content": "Activates a current payment method that has an error.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "payment_methods",
+                "current",
+                "activate"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-Soracom-API-Key"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "47a238f0-eea1-4693-8f4b-6baa8e540b04",
+              "name": "OK.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "payment_methods",
+                    "current",
+                    "activate"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Soracom-API-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "7ed5986a-1861-43a6-bdf3-edaa25b83e68",
+              "name": "Payment method not found.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "payment_methods",
+                    "current",
+                    "activate"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Soracom-API-Key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "6b0e79cd-88a7-4a22-bdd3-ff734fcfe07a",
+          "name": "List payment statements",
+          "request": {
+            "name": "List payment statements",
+            "description": {
+              "content": "List payment statements.\n\n**Warning**: The maximum information you can get is for the last 18 months. If you need the information before that time, please contact [Soracom Support](https://support.soracom.io).\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "payment_statements"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-Soracom-API-Key"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "4f274c70-1ebe-4ffa-85db-0e438ff1f9cb",
+              "name": "OK.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "payment_statements"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Soracom-API-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"paymentStatementsList\": [\n    {\n      \"amount\": 88.48538841741859,\n      \"chargedYearMonths\": [\n        \"string\",\n        \"string\"\n      ],\n      \"currency\": \"USD\",\n      \"orderId\": \"string\",\n      \"paymentDateTime\": 1393,\n      \"paymentInstrument\": \"string\",\n      \"paymentMethod\": \"string\",\n      \"paymentStatementId\": \"string\",\n      \"paymentStatementInfo\": \"string\"\n    },\n    {\n      \"amount\": 2191.3159524961643,\n      \"chargedYearMonths\": [\n        \"string\",\n        \"string\"\n      ],\n      \"currency\": \"EUR\",\n      \"orderId\": \"string\",\n      \"paymentDateTime\": 4296,\n      \"paymentInstrument\": \"string\",\n      \"paymentMethod\": \"string\",\n      \"paymentStatementId\": \"string\",\n      \"paymentStatementInfo\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "c6c3c398-1032-422a-902f-ff8d37bf3b12",
+          "name": "Export payment statement",
+          "request": {
+            "name": "Export payment statement",
+            "description": {
+              "content": "Export payment statement.\n\n**Warning**: The maximum information you can get is for the last 18 months. If you need the information before that time, please contact [Soracom Support](https://support.soracom.io).\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "payment_statements",
+                ":payment_statement_id",
+                "export"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "export_mode",
+                  "value": "<string>",
+                  "description": "Export mode (async, sync)"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "payment_statement_id",
+                  "description": "(Required) Payment statement ID"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-Soracom-API-Key"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "ee026a47-2a32-4833-81aa-7b70cbde1ba3",
+              "name": "OK.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "payment_statements",
+                    ":payment_statement_id",
+                    "export"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "export_mode",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "payment_statement_id",
+                      "description": "(Required) Payment statement ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Soracom-API-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"exportedFileId\": \"string\",\n  \"exportedFilePath\": \"string\",\n  \"url\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "72376f0e-3af0-4362-a380-06fbdee6a232",
+              "name": "Invalid payment statement ID.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "payment_statements",
+                    ":payment_statement_id",
+                    "export"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "export_mode",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "payment_statement_id",
+                      "description": "(Required) Payment statement ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Soracom-API-Key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "a5e7dfb2-23d5-4fe9-b952-a8e653799aab",
+          "name": "Export payer information",
+          "request": {
+            "name": "Export payer information",
+            "description": {
+              "content": "Export payer information.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "payment_statements",
+                "payer_information"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-Soracom-API-Key"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "2b2d8e77-117d-46f4-b89c-e64528c5e5aa",
+              "name": "OK.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "payment_statements",
+                    "payer_information"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Soracom-API-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"companyName\": \"string\",\n  \"department\": \"string\",\n  \"fullName\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "916ce0f6-7da7-41fe-b211-16a0dafea934",
+              "name": "Payer information not found.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "payment_statements",
+                    "payer_information"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Soracom-API-Key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "3d4100b6-3bc3-4c1f-9cbe-0edb473c9a72",
+          "name": "Register payer information",
+          "request": {
+            "name": "Register payer information",
+            "description": {
+              "content": "Register payer information.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "payment_statements",
+                "payer_information"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-Soracom-API-Key"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"companyName\": \"<string>\",\n  \"department\": \"<string>\",\n  \"fullName\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "605fa6fc-70c0-43b8-8777-4b4ab48ee4b5",
+              "name": "Created.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "payment_statements",
+                    "payer_information"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Soracom-API-Key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"companyName\": \"<string>\",\n  \"department\": \"<string>\",\n  \"fullName\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "30547f7c-6c9c-4c6b-9b6f-f0e29aada6e8",
+              "name": "Invalid payer information.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "payment_statements",
+                    "payer_information"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Soracom-API-Key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"companyName\": \"<string>\",\n  \"department\": \"<string>\",\n  \"fullName\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "15030ee3-58a1-40de-a3ad-06bb709c4b58",
+          "name": "List long term discounts",
+          "request": {
+            "name": "List long term discounts",
+            "description": {
+              "content": "Returns a list of contracted long term discounts.\n\n**Warning**: Information can be obtained up to 18 months in the past or 6 months after the contract ends. If you need the information before that time, please contact [Soracom Support](https://support.soracom.io).\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "volume_discounts"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-Soracom-API-Key"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "6f78f332-db3f-4cae-abed-63865c6dbe5a",
+              "name": "OK.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "volume_discounts"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Soracom-API-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"volumeDiscountList\": [\n    {\n      \"contractDateTime\": \"yyyyMMddHHmmss\",\n      \"contractId\": \"string\",\n      \"contractTermMonth\": 12,\n      \"currency\": \"USD\",\n      \"endDate\": \"yyyyMMdd\",\n      \"initialCost\": 9832.676213005885,\n      \"quantity\": 3169,\n      \"startDate\": \"yyyyMMdd\",\n      \"status\": \"expired\",\n      \"unitPrice\": 3281.8642437169988,\n      \"volumeDiscountPaymentType\": \"PREPAYMENT\",\n      \"volumeDiscountType\": \"SORACOM_AIR_MONTHLY_FIXED_BASIC_CHARGE\"\n    },\n    {\n      \"contractDateTime\": \"yyyyMMddHHmmss\",\n      \"contractId\": \"string\",\n      \"contractTermMonth\": 12,\n      \"currency\": \"USD\",\n      \"endDate\": \"yyyyMMdd\",\n      \"initialCost\": 1571.2772235030493,\n      \"quantity\": 9677,\n      \"startDate\": \"yyyyMMdd\",\n      \"status\": \"expired\",\n      \"unitPrice\": 7904.277975957396,\n      \"volumeDiscountPaymentType\": \"MONTHLY\",\n      \"volumeDiscountType\": \"SORACOM_AIR_BASIC_CHARGE_V2\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "ec37547c-a647-4678-826a-8b933844c3c8",
+          "name": "Get long term discount",
+          "request": {
+            "name": "Get long term discount",
+            "description": {
+              "content": "Returns contracted long term discount.\n\n**Warning**: Information can be obtained up to 18 months in the past or 6 months after the contract ends. If you need the information before that time, please contact [Soracom Support](https://support.soracom.io).\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "volume_discounts",
+                ":contract_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "contract_id",
+                  "description": "(Required) Contract ID."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-Soracom-API-Key"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "77a0ddc3-7a03-4d93-ae51-13c58d0fbdb4",
+              "name": "OK.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "volume_discounts",
+                    ":contract_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "contract_id",
+                      "description": "(Required) Contract ID."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Soracom-API-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"contractDateTime\": \"yyyyMMddHHmmss\",\n  \"contractId\": \"string\",\n  \"contractTermMonth\": 12,\n  \"currency\": \"USD\",\n  \"endDate\": \"yyyyMMdd\",\n  \"initialCost\": 3232.015680087269,\n  \"quantity\": 1903,\n  \"startDate\": \"yyyyMMdd\",\n  \"status\": \"expired\",\n  \"unitPrice\": 4069.2846471016073,\n  \"volumeDiscountPaymentType\": \"MONTHLY\",\n  \"volumeDiscountType\": \"SORACOM_AIR_MONTHLY_FIXED_BASIC_CHARGE\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "f17067eb-4928-4dbe-9d13-eb01a2e63861",
+              "name": "Long term discount not found.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "volume_discounts",
+                    ":contract_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "contract_id",
+                      "description": "(Required) Contract ID."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Soracom-API-Key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.soracom.io/v1",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "a820d328-e9d1-48c3-b9b6-994b1ea70101",
+    "name": "Soracom and Query Analysis Payment API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Run SQL queries against Soracom Query, fetch query schemas, and search SIMs, Inventory devices, and Sigfox devices.",
+      "type": "text/plain"
+    }
+  }
+}

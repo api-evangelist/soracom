@@ -1,0 +1,1409 @@
+{
+  "item": [
+    {
+      "id": "7a104993-3a73-4133-823a-99cf9bd14dd0",
+      "name": "FileEntry",
+      "description": {
+        "content": "[Soracom Harvest Files](/en/docs/harvest/)",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "9a17503e-f13a-40b0-bfb6-ef60ebca4a7c",
+          "name": "Find files with prefix query parameter in the scope",
+          "request": {
+            "name": "Find files with prefix query parameter in the scope",
+            "description": {
+              "content": "Returns a list of file entries which beginnings of their file paths are matched with the `prefix` query string in the ascending sorted UTF-8 bytes order of their file paths. An empty list is returned if the prefix does not match with any paths of file entries.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "files"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "scope",
+                  "value": "<string>",
+                  "description": "(Required) Scope of the request. Specify `private` to handle files uploaded to Harvest Files."
+                },
+                {
+                  "disabled": false,
+                  "key": "prefix",
+                  "value": "<string>",
+                  "description": "(Required) Prefix to match with file path."
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "10",
+                  "description": "Maximum number of file entries to be returned."
+                },
+                {
+                  "disabled": false,
+                  "key": "last_evaluated_key",
+                  "value": "<string>",
+                  "description": "The filePath of the last file entry retrieved on the previous page. By specifying this parameter, you can continue to retrieve the list from the next file entry onward."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-Soracom-API-Key"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "468e545b-a404-4008-b980-c6b8d16497a6",
+              "name": "List of file entries found with query parameters. Empty list if there is no file entry matching prefix.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "files"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "scope",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "prefix",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "10"
+                    },
+                    {
+                      "key": "last_evaluated_key",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Soracom-API-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"contentLength\": 7192,\n    \"contentType\": \"string\",\n    \"createdTime\": 7025,\n    \"directory\": \"string\",\n    \"etag\": \"string\",\n    \"filePath\": \"string\",\n    \"filename\": \"string\",\n    \"isDirectory\": true,\n    \"lastModifiedTime\": 6393\n  },\n  {\n    \"contentLength\": 7000,\n    \"contentType\": \"string\",\n    \"createdTime\": 1400,\n    \"directory\": \"string\",\n    \"etag\": \"string\",\n    \"filePath\": \"string\",\n    \"filename\": \"string\",\n    \"isDirectory\": true,\n    \"lastModifiedTime\": 3236\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "26c61ad2-a85c-4007-94e0-e53a2c99269e",
+              "name": "The specified scope does not exist.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "files"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "scope",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "prefix",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "10"
+                    },
+                    {
+                      "key": "last_evaluated_key",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Soracom-API-Key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "f25463ca-7bff-4d62-a28c-46af0b259ea2",
+          "name": "Deletes the file specified by scope and path.",
+          "request": {
+            "name": "Deletes the file specified by scope and path.",
+            "description": {
+              "content": "Deletes the file specified by scope and path. Only `private` scope is allowed for the operation.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "files",
+                ":scope",
+                ":path"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "private",
+                  "key": "scope",
+                  "description": "(Required) Scope of the request. Specify `private` to handle files uploaded to Harvest Files."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "path",
+                  "description": "(Required) Target path."
+                }
+              ]
+            },
+            "method": "DELETE",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-Soracom-API-Key"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "ae8129ef-330a-43d4-a1f6-7bc879493ed9",
+              "name": "The specified file is successfully deleted.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "files",
+                    ":scope",
+                    ":path"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "private",
+                      "key": "scope",
+                      "description": "(Required) Scope of the request. Specify `private` to handle files uploaded to Harvest Files."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "path",
+                      "description": "(Required) Target path."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Soracom-API-Key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "cd502747-48b1-4080-838d-543a952284db",
+              "name": "No such file.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "files",
+                    ":scope",
+                    ":path"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "private",
+                      "key": "scope",
+                      "description": "(Required) Scope of the request. Specify `private` to handle files uploaded to Harvest Files."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "path",
+                      "description": "(Required) Target path."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Soracom-API-Key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "ea3d94c3-43e3-40c4-a7bf-452ff4b602af",
+          "name": "Download file specified by the path and the scope",
+          "request": {
+            "name": "Download file specified by the path and the scope",
+            "description": {
+              "content": "Download file specified by the path and the scope. Note that [FileEntry:listFiles API](#!/FileEntry/listFiles) will be called if the path ends with `/`.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "files",
+                ":scope",
+                ":path"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "private",
+                  "key": "scope",
+                  "description": "(Required) Scope of the request. Specify `private` to handle files uploaded to Harvest Files."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "path",
+                  "description": "(Required) Target path."
+                }
+              ]
+            },
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-Soracom-API-Key"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "12b71556-ccba-4ec2-971a-f47d2579397f",
+              "name": "Redirection to a link to download a file. If the specified path is a directory, redirection to the listFiles API.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "files",
+                    ":scope",
+                    ":path"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "private",
+                      "key": "scope",
+                      "description": "(Required) Scope of the request. Specify `private` to handle files uploaded to Harvest Files."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "path",
+                      "description": "(Required) Target path."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Soracom-API-Key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Found",
+              "code": 302,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "5f3da7d9-ee38-4480-807a-bd7a198640ab",
+              "name": "No such file.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "files",
+                    ":scope",
+                    ":path"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "private",
+                      "key": "scope",
+                      "description": "(Required) Scope of the request. Specify `private` to handle files uploaded to Harvest Files."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "path",
+                      "description": "(Required) Target path."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Soracom-API-Key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "f7e05f73-4315-4596-bb9d-741751beb7b6",
+          "name": "Gets the metadata of the file specified by the path and the scope",
+          "request": {
+            "name": "Gets the metadata of the file specified by the path and the scope",
+            "description": {
+              "content": "Gets the metadata of the file specified by the path and the scope.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "files",
+                ":scope",
+                ":path"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "private",
+                  "key": "scope",
+                  "description": "(Required) Scope of the request. Specify `private` to handle files uploaded to Harvest Files."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "path",
+                  "description": "(Required) Target path."
+                }
+              ]
+            },
+            "method": "HEAD",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-Soracom-API-Key"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "1a472a9d-1b64-48ee-975e-6f881187afbe",
+              "name": "Metadata of the file",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "files",
+                    ":scope",
+                    ":path"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "private",
+                      "key": "scope",
+                      "description": "(Required) Scope of the request. Specify `private` to handle files uploaded to Harvest Files."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "path",
+                      "description": "(Required) Target path."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Soracom-API-Key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "HEAD",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "File size (bytes)",
+                  "key": "Content-Length",
+                  "value": "6797"
+                },
+                {
+                  "disabled": false,
+                  "description": "Identifier representing the file version",
+                  "key": "ETag",
+                  "value": "string"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "f0d360bd-3b28-4f03-b404-cd0b5c4a932d",
+              "name": "No such file.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "files",
+                    ":scope",
+                    ":path"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "private",
+                      "key": "scope",
+                      "description": "(Required) Scope of the request. Specify `private` to handle files uploaded to Harvest Files."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "path",
+                      "description": "(Required) Target path."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Soracom-API-Key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "HEAD",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "5e6c29e3-afd2-4722-89f5-c3698b203051",
+          "name": "Uploads the file to the specified path in the scope.",
+          "request": {
+            "name": "Uploads the file to the specified path in the scope.",
+            "description": {
+              "content": "Uploads the file to the specified path in the scope. Only `private` scope is allowed for the operation.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "files",
+                ":scope",
+                ":path"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "private",
+                  "key": "scope",
+                  "description": "(Required) Scope of the request. Specify `private` to handle files uploaded to Harvest Files."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "path",
+                  "description": "(Required) Target path."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "*/*"
+              }
+            ],
+            "method": "PUT",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-Soracom-API-Key"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            },
+            "body": {
+              "mode": "file"
+            }
+          },
+          "response": [
+            {
+              "id": "9c7be28b-01f4-4c3c-be69-8ad696bb2f20",
+              "name": "File is successfully updated with the content.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "files",
+                    ":scope",
+                    ":path"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "private",
+                      "key": "scope",
+                      "description": "(Required) Scope of the request. Specify `private` to handle files uploaded to Harvest Files."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "path",
+                      "description": "(Required) Target path."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Soracom-API-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Content-Type of the file to be uploaded.",
+                    "key": "content-type",
+                    "value": "string"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "file"
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "e96f5e49-f9cd-46c4-b1f8-6f7e622344f0",
+              "name": "File is successfully created.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "files",
+                    ":scope",
+                    ":path"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "private",
+                      "key": "scope",
+                      "description": "(Required) Scope of the request. Specify `private` to handle files uploaded to Harvest Files."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "path",
+                      "description": "(Required) Target path."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Soracom-API-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Content-Type of the file to be uploaded.",
+                    "key": "content-type",
+                    "value": "string"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "file"
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "bb9a3fb8-8cfa-4838-b78a-76073dc63fd9",
+          "name": "Deletes the directory specified by scope and path",
+          "request": {
+            "name": "Deletes the directory specified by scope and path",
+            "description": {
+              "content": "Deletes the directory specified by scope and path. Only `private` scope is allowed for the operation.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "files",
+                ":scope",
+                ":path",
+                ""
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "private",
+                  "key": "scope",
+                  "description": "(Required) Scope of the request. Specify `private` to handle files uploaded to Harvest Files."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "path",
+                  "description": "(Required) Target path."
+                }
+              ]
+            },
+            "method": "DELETE",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-Soracom-API-Key"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "af00f7f8-d170-40fc-b48f-8dbfee8777c7",
+              "name": "The specified directory is successfully deleted.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "files",
+                    ":scope",
+                    ":path",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "private",
+                      "key": "scope",
+                      "description": "(Required) Scope of the request. Specify `private` to handle files uploaded to Harvest Files."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "path",
+                      "description": "(Required) Target path."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Soracom-API-Key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "5e28cfcc-3e3b-472d-a148-95d112da02e6",
+              "name": "The specified directory is not empty.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "files",
+                    ":scope",
+                    ":path",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "private",
+                      "key": "scope",
+                      "description": "(Required) Scope of the request. Specify `private` to handle files uploaded to Harvest Files."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "path",
+                      "description": "(Required) Target path."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Soracom-API-Key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "6ae6e59e-4f3e-47e8-997f-116528877402",
+              "name": "No such directory.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "files",
+                    ":scope",
+                    ":path",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "private",
+                      "key": "scope",
+                      "description": "(Required) Scope of the request. Specify `private` to handle files uploaded to Harvest Files."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "path",
+                      "description": "(Required) Target path."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Soracom-API-Key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "b836b78a-2112-40e3-9ec9-c344a30c5949",
+          "name": "Returns files and directories from the directory specified by the scope and path.",
+          "request": {
+            "name": "Returns files and directories from the directory specified by the scope and path.",
+            "description": {
+              "content": "Returns files and directories from the directory specified by the scope and path. Note that [FileEntry:getFile API](#!/FileEntry/getFile) will be called if the path does not end in `/`. If the total number of entries does not fit in one page, a URL for accessing the next page is returned in the `link` header of the response.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "files",
+                ":scope",
+                ":path",
+                ""
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "10",
+                  "description": "Maximum number of file entries to be returned."
+                },
+                {
+                  "disabled": false,
+                  "key": "last_evaluated_key",
+                  "value": "<string>",
+                  "description": "The filename of the last file entry retrieved on the previous page. By specifying this parameter, you can continue to retrieve the list from the next file entry onward."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "private",
+                  "key": "scope",
+                  "description": "(Required) Scope of the request. Specify `private` to handle files uploaded to Harvest Files."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "/",
+                  "key": "path",
+                  "description": "(Required) Target path."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-Soracom-API-Key"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "92f440cc-e950-460a-92a9-90b17ba42865",
+              "name": "Files and directories from the directory specified by the scope and path.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "files",
+                    ":scope",
+                    ":path",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "10"
+                    },
+                    {
+                      "key": "last_evaluated_key",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "private",
+                      "key": "scope",
+                      "description": "(Required) Scope of the request. Specify `private` to handle files uploaded to Harvest Files."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "/",
+                      "key": "path",
+                      "description": "(Required) Target path."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Soracom-API-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"contentLength\": 7192,\n    \"contentType\": \"string\",\n    \"createdTime\": 7025,\n    \"directory\": \"string\",\n    \"etag\": \"string\",\n    \"filePath\": \"string\",\n    \"filename\": \"string\",\n    \"isDirectory\": true,\n    \"lastModifiedTime\": 6393\n  },\n  {\n    \"contentLength\": 7000,\n    \"contentType\": \"string\",\n    \"createdTime\": 1400,\n    \"directory\": \"string\",\n    \"etag\": \"string\",\n    \"filePath\": \"string\",\n    \"filename\": \"string\",\n    \"isDirectory\": true,\n    \"lastModifiedTime\": 3236\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "5e96de44-467c-41a6-a05c-a9ea414b0d4b",
+              "name": "No such directory.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "files",
+                    ":scope",
+                    ":path",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "10"
+                    },
+                    {
+                      "key": "last_evaluated_key",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "private",
+                      "key": "scope",
+                      "description": "(Required) Scope of the request. Specify `private` to handle files uploaded to Harvest Files."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "/",
+                      "key": "path",
+                      "description": "(Required) Target path."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Soracom-API-Key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.soracom.io/v1",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "5642a170-7d99-4554-9678-6fe5b3c0e344",
+    "name": "Soracom and Query Analysis FileEntry API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Run SQL queries against Soracom Query, fetch query schemas, and search SIMs, Inventory devices, and Sigfox devices.",
+      "type": "text/plain"
+    }
+  }
+}

@@ -1,0 +1,43 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Soracom and Query Analysis Files API",
+    "version": "20250903-043502"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Files",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get the progress of the process when the file is exported asynchronously.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.soracom.io/v1/files/exported/:exported_file_id",
+            "params": [
+              {
+                "name": "exported_file_id",
+                "value": "",
+                "type": "path",
+                "description": "File export ID."
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-Soracom-API-Key",
+              "value": "{{X-Soracom-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Get the progress of the process when the file is exported asynchronously. If the export is complete, you will get the URL to download the file. You can download the file from the URL.\n\nThe following APIs are available to export files asynchronously. The `exported_file_id` is the file output ID (the value of `exportedFileId`) obtained from the following API.\n\n- [Billing:exportBilling API](#!/Billing/exportBilling)\n- [Billing:exportLatestBilling API](#!/Billing/exportLatestBilling)\n- [Payment:expo"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

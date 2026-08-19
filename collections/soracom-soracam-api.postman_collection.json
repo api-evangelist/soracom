@@ -1,1552 +1,7 @@
 {
   "item": [
     {
-      "id": "96f759a1-183f-4055-b95c-da0910b4461f",
-      "name": "Gadget",
-      "description": {
-        "content": "Gadget API compatible devices<ul><li>[SoraCam dedicated cellular pack](/en/guides/soracom-cloud-camera-services/setting-cellular-pack/)</li></ul>",
-        "type": "text/plain"
-      },
-      "item": [
-        {
-          "id": "c4590f3c-8df2-440a-ab5d-421cebfa1d94",
-          "name": "List gadgets",
-          "request": {
-            "name": "List gadgets",
-            "description": {
-              "content": "Returns a list of gadgets that match certain criteria. If the total number of gadgets does not fit in one page, a URL for accessing the next page is returned in the `link` header of the response.\n",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "gadgets"
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [
-                {
-                  "disabled": false,
-                  "key": "product_id",
-                  "value": "<string>",
-                  "description": "Product ID of the target Gadget API compatible device for filtering the search.\n\n- `wimax`: Soracom Cloud Camera Services Cellular Pack.\n"
-                },
-                {
-                  "disabled": false,
-                  "key": "tag_name",
-                  "value": "<string>",
-                  "description": "Tag name for filtering the search. The search is always an exact match, regardless of the setting of `tag_value_match_mode`."
-                },
-                {
-                  "disabled": false,
-                  "key": "tag_value",
-                  "value": "<string>",
-                  "description": "Specifies a tag value to search for in a URL-encoded (percent-encoded) string. Required when `tag_name` has been specified."
-                },
-                {
-                  "disabled": false,
-                  "key": "tag_value_match_mode",
-                  "value": "exact",
-                  "description": "Tag match mode.\n\n- `exact`: exact match.\n- `prefix`: prefix match.\n"
-                },
-                {
-                  "disabled": false,
-                  "key": "limit",
-                  "value": "<integer>",
-                  "description": "Maximum number of Gadget API compatible devices data to retrieve."
-                },
-                {
-                  "disabled": false,
-                  "key": "last_evaluated_key",
-                  "value": "<string>",
-                  "description": "The ID (`{product_id}/{serial_number}`) of the last gadget retrieved on the previous page in URL encoding (percent encoding).\n\nBy specifying this parameter, you can continue to retrieve the list from the next Gadget API compatible device onward.\n\nThe value of the `last_evaluated_key` of `rel=next` returned in the `link` header when the API is called is expected to be specified in the next call, but any ID (`{productId}/{serialNumber}`) can be specified.\n"
-                }
-              ],
-              "variable": []
-            },
-            "header": [
-              {
-                "key": "Accept",
-                "value": "application/json"
-              }
-            ],
-            "method": "GET",
-            "auth": {
-              "type": "apikey",
-              "apikey": [
-                {
-                  "key": "key",
-                  "value": "X-Soracom-API-Key"
-                },
-                {
-                  "key": "value",
-                  "value": "{{apiKey}}"
-                },
-                {
-                  "key": "in",
-                  "value": "header"
-                }
-              ]
-            }
-          },
-          "response": [
-            {
-              "id": "6424b3ff-fb34-4061-a51d-e443408aa211",
-              "name": "A list of Gadget API compatible devices.",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "gadgets"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [
-                    {
-                      "key": "product_id",
-                      "value": "<string>"
-                    },
-                    {
-                      "key": "tag_name",
-                      "value": "<string>"
-                    },
-                    {
-                      "key": "tag_value",
-                      "value": "<string>"
-                    },
-                    {
-                      "key": "tag_value_match_mode",
-                      "value": "exact"
-                    },
-                    {
-                      "key": "limit",
-                      "value": "<integer>"
-                    },
-                    {
-                      "key": "last_evaluated_key",
-                      "value": "<string>"
-                    }
-                  ],
-                  "variable": []
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: apikey",
-                      "type": "text/plain"
-                    },
-                    "key": "X-Soracom-API-Key",
-                    "value": "<API Key>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "OK",
-              "code": 200,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "[\n  {\n    \"attributes\": {\n      \"wimaxBillingStartDate\": \"string\",\n      \"wimaxIccid\": \"string\",\n      \"wimaxImei\": \"string\"\n    },\n    \"createdTime\": 4918,\n    \"id\": \"string\",\n    \"lastModifiedTime\": 7617,\n    \"operatorId\": \"string\",\n    \"productId\": \"button\",\n    \"serialNumber\": \"string\",\n    \"status\": \"terminated\",\n    \"tags\": {\n      \"key_0\": \"string\"\n    },\n    \"terminatedTime\": 7165,\n    \"terminationEnabled\": false\n  },\n  {\n    \"attributes\": {\n      \"wimaxBillingStartDate\": \"string\",\n      \"wimaxIccid\": \"string\",\n      \"wimaxImei\": \"string\"\n    },\n    \"createdTime\": 5737,\n    \"id\": \"string\",\n    \"lastModifiedTime\": 2059,\n    \"operatorId\": \"string\",\n    \"productId\": \"wimax\",\n    \"serialNumber\": \"string\",\n    \"status\": \"terminated\",\n    \"tags\": {\n      \"key_0\": \"string\"\n    },\n    \"terminatedTime\": 9342,\n    \"terminationEnabled\": false\n  }\n]",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            }
-          ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
-        },
-        {
-          "id": "47fe8f2e-0e61-413b-b362-68e17adcd01e",
-          "name": "Get Gadget API compatible device",
-          "request": {
-            "name": "Get Gadget API compatible device",
-            "description": {
-              "content": "Returns information about the specified Gadget API compatible device.",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "gadgets",
-                ":product_id",
-                ":serial_number"
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [],
-              "variable": [
-                {
-                  "disabled": false,
-                  "type": "any",
-                  "value": "<string>",
-                  "key": "product_id",
-                  "description": "(Required) Product ID of the target Gadget API compatible device.\n\n- `wimax`: Soracom Cloud Camera Services Cellular Pack.\n"
-                },
-                {
-                  "disabled": false,
-                  "type": "any",
-                  "value": "<string>",
-                  "key": "serial_number",
-                  "description": "(Required) Serial Number of the target Gadget API compatible device."
-                }
-              ]
-            },
-            "header": [
-              {
-                "key": "Accept",
-                "value": "application/json"
-              }
-            ],
-            "method": "GET",
-            "auth": {
-              "type": "apikey",
-              "apikey": [
-                {
-                  "key": "key",
-                  "value": "X-Soracom-API-Key"
-                },
-                {
-                  "key": "value",
-                  "value": "{{apiKey}}"
-                },
-                {
-                  "key": "in",
-                  "value": "header"
-                }
-              ]
-            }
-          },
-          "response": [
-            {
-              "id": "e4e3bf86-695b-467a-841e-615103008dce",
-              "name": "Detailed information about the specified Gadget API compatible device.",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "gadgets",
-                    ":product_id",
-                    ":serial_number"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "product_id",
-                      "description": "(Required) Product ID of the target Gadget API compatible device.\n\n- `wimax`: Soracom Cloud Camera Services Cellular Pack.\n"
-                    },
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "serial_number",
-                      "description": "(Required) Serial Number of the target Gadget API compatible device."
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: apikey",
-                      "type": "text/plain"
-                    },
-                    "key": "X-Soracom-API-Key",
-                    "value": "<API Key>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "OK",
-              "code": 200,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"attributes\": {\n    \"wimaxBillingStartDate\": \"string\",\n    \"wimaxIccid\": \"string\",\n    \"wimaxImei\": \"string\"\n  },\n  \"createdTime\": 9448,\n  \"id\": \"string\",\n  \"lastModifiedTime\": 9435,\n  \"operatorId\": \"string\",\n  \"productId\": \"wimax\",\n  \"serialNumber\": \"string\",\n  \"status\": \"active\",\n  \"tags\": {\n    \"key_0\": \"string\"\n  },\n  \"terminatedTime\": 1220,\n  \"terminationEnabled\": false\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "db75000b-358a-4fac-998b-ad5c2640e78d",
-              "name": "The specified Gadget API compatible device does not exist.",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "gadgets",
-                    ":product_id",
-                    ":serial_number"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "product_id",
-                      "description": "(Required) Product ID of the target Gadget API compatible device.\n\n- `wimax`: Soracom Cloud Camera Services Cellular Pack.\n"
-                    },
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "serial_number",
-                      "description": "(Required) Serial Number of the target Gadget API compatible device."
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: apikey",
-                      "type": "text/plain"
-                    },
-                    "key": "X-Soracom-API-Key",
-                    "value": "<API Key>"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "Not Found",
-              "code": 404,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "text/plain"
-                }
-              ],
-              "body": "",
-              "cookie": [],
-              "_postman_previewlanguage": "text"
-            }
-          ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
-        },
-        {
-          "id": "e0450bc6-c7a0-4bf1-8526-d85ab9aff9ab",
-          "name": "Disables Termination of Gadget API compatible device",
-          "request": {
-            "name": "Disables Termination of Gadget API compatible device",
-            "description": {
-              "content": "Disables termination of specified Gadget API compatible device.",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "gadgets",
-                ":product_id",
-                ":serial_number",
-                "disable_termination"
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [],
-              "variable": [
-                {
-                  "disabled": false,
-                  "type": "any",
-                  "value": "<string>",
-                  "key": "product_id",
-                  "description": "(Required) Product ID of the target Gadget API compatible device.\n\n- `wimax`: Soracom Cloud Camera Services Cellular Pack.\n"
-                },
-                {
-                  "disabled": false,
-                  "type": "any",
-                  "value": "<string>",
-                  "key": "serial_number",
-                  "description": "(Required) Serial Number of the target Gadget API compatible device."
-                }
-              ]
-            },
-            "header": [
-              {
-                "key": "Accept",
-                "value": "application/json"
-              }
-            ],
-            "method": "POST",
-            "auth": {
-              "type": "apikey",
-              "apikey": [
-                {
-                  "key": "key",
-                  "value": "X-Soracom-API-Key"
-                },
-                {
-                  "key": "value",
-                  "value": "{{apiKey}}"
-                },
-                {
-                  "key": "in",
-                  "value": "header"
-                }
-              ]
-            }
-          },
-          "response": [
-            {
-              "id": "1fb9f077-2796-4ccb-9f4e-fcef0e38d5ee",
-              "name": "Detailed information about the updated Gadget API compatible device.",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "gadgets",
-                    ":product_id",
-                    ":serial_number",
-                    "disable_termination"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "product_id",
-                      "description": "(Required) Product ID of the target Gadget API compatible device.\n\n- `wimax`: Soracom Cloud Camera Services Cellular Pack.\n"
-                    },
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "serial_number",
-                      "description": "(Required) Serial Number of the target Gadget API compatible device."
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: apikey",
-                      "type": "text/plain"
-                    },
-                    "key": "X-Soracom-API-Key",
-                    "value": "<API Key>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "POST",
-                "body": {}
-              },
-              "status": "OK",
-              "code": 200,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"attributes\": {\n    \"wimaxBillingStartDate\": \"string\",\n    \"wimaxIccid\": \"string\",\n    \"wimaxImei\": \"string\"\n  },\n  \"createdTime\": 9448,\n  \"id\": \"string\",\n  \"lastModifiedTime\": 9435,\n  \"operatorId\": \"string\",\n  \"productId\": \"wimax\",\n  \"serialNumber\": \"string\",\n  \"status\": \"active\",\n  \"tags\": {\n    \"key_0\": \"string\"\n  },\n  \"terminatedTime\": 1220,\n  \"terminationEnabled\": false\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "5852e07c-0891-4b77-82da-dc47b1043696",
-              "name": "The specified Gadget API compatible device does not exist.",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "gadgets",
-                    ":product_id",
-                    ":serial_number",
-                    "disable_termination"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "product_id",
-                      "description": "(Required) Product ID of the target Gadget API compatible device.\n\n- `wimax`: Soracom Cloud Camera Services Cellular Pack.\n"
-                    },
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "serial_number",
-                      "description": "(Required) Serial Number of the target Gadget API compatible device."
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: apikey",
-                      "type": "text/plain"
-                    },
-                    "key": "X-Soracom-API-Key",
-                    "value": "<API Key>"
-                  }
-                ],
-                "method": "POST",
-                "body": {}
-              },
-              "status": "Not Found",
-              "code": 404,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "text/plain"
-                }
-              ],
-              "body": "",
-              "cookie": [],
-              "_postman_previewlanguage": "text"
-            }
-          ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
-        },
-        {
-          "id": "ec78b369-bdfb-4063-ac5c-6cd941d3d1d3",
-          "name": "Enables Termination of Gadget API compatible device",
-          "request": {
-            "name": "Enables Termination of Gadget API compatible device",
-            "description": {
-              "content": "Enables termination of specified Gadget API compatible device.",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "gadgets",
-                ":product_id",
-                ":serial_number",
-                "enable_termination"
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [],
-              "variable": [
-                {
-                  "disabled": false,
-                  "type": "any",
-                  "value": "<string>",
-                  "key": "product_id",
-                  "description": "(Required) Product ID of the target Gadget API compatible device.\n\n- `wimax`: Soracom Cloud Camera Services Cellular Pack.\n"
-                },
-                {
-                  "disabled": false,
-                  "type": "any",
-                  "value": "<string>",
-                  "key": "serial_number",
-                  "description": "(Required) Serial Number of the target Gadget API compatible device."
-                }
-              ]
-            },
-            "header": [
-              {
-                "key": "Accept",
-                "value": "application/json"
-              }
-            ],
-            "method": "POST",
-            "auth": {
-              "type": "apikey",
-              "apikey": [
-                {
-                  "key": "key",
-                  "value": "X-Soracom-API-Key"
-                },
-                {
-                  "key": "value",
-                  "value": "{{apiKey}}"
-                },
-                {
-                  "key": "in",
-                  "value": "header"
-                }
-              ]
-            }
-          },
-          "response": [
-            {
-              "id": "f2675977-83f8-422c-83b0-cc893df558d3",
-              "name": "Detailed information about the updated Gadget API compatible device.",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "gadgets",
-                    ":product_id",
-                    ":serial_number",
-                    "enable_termination"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "product_id",
-                      "description": "(Required) Product ID of the target Gadget API compatible device.\n\n- `wimax`: Soracom Cloud Camera Services Cellular Pack.\n"
-                    },
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "serial_number",
-                      "description": "(Required) Serial Number of the target Gadget API compatible device."
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: apikey",
-                      "type": "text/plain"
-                    },
-                    "key": "X-Soracom-API-Key",
-                    "value": "<API Key>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "POST",
-                "body": {}
-              },
-              "status": "OK",
-              "code": 200,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"attributes\": {\n    \"wimaxBillingStartDate\": \"string\",\n    \"wimaxIccid\": \"string\",\n    \"wimaxImei\": \"string\"\n  },\n  \"createdTime\": 9448,\n  \"id\": \"string\",\n  \"lastModifiedTime\": 9435,\n  \"operatorId\": \"string\",\n  \"productId\": \"wimax\",\n  \"serialNumber\": \"string\",\n  \"status\": \"active\",\n  \"tags\": {\n    \"key_0\": \"string\"\n  },\n  \"terminatedTime\": 1220,\n  \"terminationEnabled\": false\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "5b0005dd-f5a7-4c8d-af3e-55ade2c3b4a7",
-              "name": "The specified Gadget API compatible device does not exist.",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "gadgets",
-                    ":product_id",
-                    ":serial_number",
-                    "enable_termination"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "product_id",
-                      "description": "(Required) Product ID of the target Gadget API compatible device.\n\n- `wimax`: Soracom Cloud Camera Services Cellular Pack.\n"
-                    },
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "serial_number",
-                      "description": "(Required) Serial Number of the target Gadget API compatible device."
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: apikey",
-                      "type": "text/plain"
-                    },
-                    "key": "X-Soracom-API-Key",
-                    "value": "<API Key>"
-                  }
-                ],
-                "method": "POST",
-                "body": {}
-              },
-              "status": "Not Found",
-              "code": 404,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "text/plain"
-                }
-              ],
-              "body": "",
-              "cookie": [],
-              "_postman_previewlanguage": "text"
-            }
-          ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
-        },
-        {
-          "id": "1af1dea7-d28b-478c-b350-d59bc4e000a1",
-          "name": "Registers a Gadget API compatible device",
-          "request": {
-            "name": "Registers a Gadget API compatible device",
-            "description": {
-              "content": "Registers a Gadget API compatible device.",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "gadgets",
-                ":product_id",
-                ":serial_number",
-                "register"
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [],
-              "variable": [
-                {
-                  "disabled": false,
-                  "type": "any",
-                  "value": "<string>",
-                  "key": "product_id",
-                  "description": "(Required) Product ID of the target Gadget API compatible device.\n\n- `wimax`: Soracom Cloud Camera Services Cellular Pack.\n"
-                },
-                {
-                  "disabled": false,
-                  "type": "any",
-                  "value": "<string>",
-                  "key": "serial_number",
-                  "description": "(Required) Serial Number of the target Gadget API compatible device."
-                }
-              ]
-            },
-            "header": [
-              {
-                "key": "Content-Type",
-                "value": "application/json"
-              },
-              {
-                "key": "Accept",
-                "value": "application/json"
-              }
-            ],
-            "method": "POST",
-            "auth": {
-              "type": "apikey",
-              "apikey": [
-                {
-                  "key": "key",
-                  "value": "X-Soracom-API-Key"
-                },
-                {
-                  "key": "value",
-                  "value": "{{apiKey}}"
-                },
-                {
-                  "key": "in",
-                  "value": "header"
-                }
-              ]
-            },
-            "body": {
-              "mode": "raw",
-              "raw": "{\n  \"tags\": {\n    \"key_0\": \"<string>\"\n  }\n}",
-              "options": {
-                "raw": {
-                  "language": "json"
-                }
-              }
-            }
-          },
-          "response": [
-            {
-              "id": "ae63543b-c397-4a5e-b2a3-5cc02bfacccf",
-              "name": "Gadget API compatible device successfully registered.",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "gadgets",
-                    ":product_id",
-                    ":serial_number",
-                    "register"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "product_id",
-                      "description": "(Required) Product ID of the target Gadget API compatible device.\n\n- `wimax`: Soracom Cloud Camera Services Cellular Pack.\n"
-                    },
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "serial_number",
-                      "description": "(Required) Serial Number of the target Gadget API compatible device."
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: apikey",
-                      "type": "text/plain"
-                    },
-                    "key": "X-Soracom-API-Key",
-                    "value": "<API Key>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "POST",
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\n  \"tags\": {\n    \"key_0\": \"<string>\"\n  }\n}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
-                }
-              },
-              "status": "OK",
-              "code": 200,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"attributes\": {\n    \"wimaxBillingStartDate\": \"string\",\n    \"wimaxIccid\": \"string\",\n    \"wimaxImei\": \"string\"\n  },\n  \"createdTime\": 9448,\n  \"id\": \"string\",\n  \"lastModifiedTime\": 9435,\n  \"operatorId\": \"string\",\n  \"productId\": \"wimax\",\n  \"serialNumber\": \"string\",\n  \"status\": \"active\",\n  \"tags\": {\n    \"key_0\": \"string\"\n  },\n  \"terminatedTime\": 1220,\n  \"terminationEnabled\": false\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "ec3b66a3-302a-42a0-a7c3-00f6a3d2efa4",
-              "name": "No such resource found.",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "gadgets",
-                    ":product_id",
-                    ":serial_number",
-                    "register"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "product_id",
-                      "description": "(Required) Product ID of the target Gadget API compatible device.\n\n- `wimax`: Soracom Cloud Camera Services Cellular Pack.\n"
-                    },
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "serial_number",
-                      "description": "(Required) Serial Number of the target Gadget API compatible device."
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: apikey",
-                      "type": "text/plain"
-                    },
-                    "key": "X-Soracom-API-Key",
-                    "value": "<API Key>"
-                  }
-                ],
-                "method": "POST",
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\n  \"tags\": {\n    \"key_0\": \"<string>\"\n  }\n}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
-                }
-              },
-              "status": "Not Found",
-              "code": 404,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "text/plain"
-                }
-              ],
-              "body": "",
-              "cookie": [],
-              "_postman_previewlanguage": "text"
-            }
-          ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
-        },
-        {
-          "id": "8dcdfe9f-8861-4c9d-9db5-ecd1241ad7e3",
-          "name": "Bulk Insert or Update Gadget API compatible device tags",
-          "request": {
-            "name": "Bulk Insert or Update Gadget API compatible device tags",
-            "description": {
-              "content": "Inserts/updates tags for the specified Gadget API compatible device.",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "gadgets",
-                ":product_id",
-                ":serial_number",
-                "tags"
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [],
-              "variable": [
-                {
-                  "disabled": false,
-                  "type": "any",
-                  "value": "<string>",
-                  "key": "product_id",
-                  "description": "(Required) Product ID of the target Gadget API compatible device.\n\n- `wimax`: Soracom Cloud Camera Services Cellular Pack.\n"
-                },
-                {
-                  "disabled": false,
-                  "type": "any",
-                  "value": "<string>",
-                  "key": "serial_number",
-                  "description": "(Required) Serial Number of the target Gadget API compatible device."
-                }
-              ]
-            },
-            "header": [
-              {
-                "key": "Content-Type",
-                "value": "application/json"
-              },
-              {
-                "key": "Accept",
-                "value": "application/json"
-              }
-            ],
-            "method": "PUT",
-            "auth": {
-              "type": "apikey",
-              "apikey": [
-                {
-                  "key": "key",
-                  "value": "X-Soracom-API-Key"
-                },
-                {
-                  "key": "value",
-                  "value": "{{apiKey}}"
-                },
-                {
-                  "key": "in",
-                  "value": "header"
-                }
-              ]
-            },
-            "body": {
-              "mode": "raw",
-              "raw": "[\n  {\n    \"tagName\": \"<string>\",\n    \"tagValue\": \"<string>\"\n  },\n  {\n    \"tagName\": \"<string>\",\n    \"tagValue\": \"<string>\"\n  }\n]",
-              "options": {
-                "raw": {
-                  "language": "json"
-                }
-              }
-            }
-          },
-          "response": [
-            {
-              "id": "f93f852f-4e54-48f5-892c-25b65c52f78d",
-              "name": "Detailed information about the updated Gadget API compatible device.",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "gadgets",
-                    ":product_id",
-                    ":serial_number",
-                    "tags"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "product_id",
-                      "description": "(Required) Product ID of the target Gadget API compatible device.\n\n- `wimax`: Soracom Cloud Camera Services Cellular Pack.\n"
-                    },
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "serial_number",
-                      "description": "(Required) Serial Number of the target Gadget API compatible device."
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: apikey",
-                      "type": "text/plain"
-                    },
-                    "key": "X-Soracom-API-Key",
-                    "value": "<API Key>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "PUT",
-                "body": {
-                  "mode": "raw",
-                  "raw": "[\n  {\n    \"tagName\": \"<string>\",\n    \"tagValue\": \"<string>\"\n  },\n  {\n    \"tagName\": \"<string>\",\n    \"tagValue\": \"<string>\"\n  }\n]",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
-                }
-              },
-              "status": "OK",
-              "code": 200,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"attributes\": {\n    \"wimaxBillingStartDate\": \"string\",\n    \"wimaxIccid\": \"string\",\n    \"wimaxImei\": \"string\"\n  },\n  \"createdTime\": 9448,\n  \"id\": \"string\",\n  \"lastModifiedTime\": 9435,\n  \"operatorId\": \"string\",\n  \"productId\": \"wimax\",\n  \"serialNumber\": \"string\",\n  \"status\": \"active\",\n  \"tags\": {\n    \"key_0\": \"string\"\n  },\n  \"terminatedTime\": 1220,\n  \"terminationEnabled\": false\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "89a38757-5cf1-4bcb-a0bb-feebec81d09a",
-              "name": "The specified Gadget API compatible device does not exist.",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "gadgets",
-                    ":product_id",
-                    ":serial_number",
-                    "tags"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "product_id",
-                      "description": "(Required) Product ID of the target Gadget API compatible device.\n\n- `wimax`: Soracom Cloud Camera Services Cellular Pack.\n"
-                    },
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "serial_number",
-                      "description": "(Required) Serial Number of the target Gadget API compatible device."
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: apikey",
-                      "type": "text/plain"
-                    },
-                    "key": "X-Soracom-API-Key",
-                    "value": "<API Key>"
-                  }
-                ],
-                "method": "PUT",
-                "body": {
-                  "mode": "raw",
-                  "raw": "[\n  {\n    \"tagName\": \"<string>\",\n    \"tagValue\": \"<string>\"\n  },\n  {\n    \"tagName\": \"<string>\",\n    \"tagValue\": \"<string>\"\n  }\n]",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
-                }
-              },
-              "status": "Not Found",
-              "code": 404,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "text/plain"
-                }
-              ],
-              "body": "",
-              "cookie": [],
-              "_postman_previewlanguage": "text"
-            }
-          ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
-        },
-        {
-          "id": "b06ee083-1e6b-46cf-9e98-51bbb0332fc3",
-          "name": "Deletes tags from Gadget API compatible device",
-          "request": {
-            "name": "Deletes tags from Gadget API compatible device",
-            "description": {
-              "content": "Deletes a tag from the specified Gadget API compatible device.",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "gadgets",
-                ":product_id",
-                ":serial_number",
-                "tags",
-                ":tag_name"
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [],
-              "variable": [
-                {
-                  "disabled": false,
-                  "type": "any",
-                  "value": "<string>",
-                  "key": "product_id",
-                  "description": "(Required) Product ID of the target Gadget API compatible device.\n\n- `wimax`: Soracom Cloud Camera Services Cellular Pack.\n"
-                },
-                {
-                  "disabled": false,
-                  "type": "any",
-                  "value": "<string>",
-                  "key": "serial_number",
-                  "description": "(Required) Serial Number of the target Gadget API compatible device."
-                },
-                {
-                  "disabled": false,
-                  "type": "any",
-                  "value": "<string>",
-                  "key": "tag_name",
-                  "description": "(Required) Tag name to be deleted. (This will be part of a URL path, so it needs to be percent-encoded. In JavaScript, specify the name after it has been encoded using encodeURIComponent().)"
-                }
-              ]
-            },
-            "method": "DELETE",
-            "auth": {
-              "type": "apikey",
-              "apikey": [
-                {
-                  "key": "key",
-                  "value": "X-Soracom-API-Key"
-                },
-                {
-                  "key": "value",
-                  "value": "{{apiKey}}"
-                },
-                {
-                  "key": "in",
-                  "value": "header"
-                }
-              ]
-            }
-          },
-          "response": [
-            {
-              "id": "16b3643a-439c-4109-a836-d2a9973a4ef7",
-              "name": "Deletion of specified tag complete.",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "gadgets",
-                    ":product_id",
-                    ":serial_number",
-                    "tags",
-                    ":tag_name"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "product_id",
-                      "description": "(Required) Product ID of the target Gadget API compatible device.\n\n- `wimax`: Soracom Cloud Camera Services Cellular Pack.\n"
-                    },
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "serial_number",
-                      "description": "(Required) Serial Number of the target Gadget API compatible device."
-                    },
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "tag_name",
-                      "description": "(Required) Tag name to be deleted. (This will be part of a URL path, so it needs to be percent-encoded. In JavaScript, specify the name after it has been encoded using encodeURIComponent().)"
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: apikey",
-                      "type": "text/plain"
-                    },
-                    "key": "X-Soracom-API-Key",
-                    "value": "<API Key>"
-                  }
-                ],
-                "method": "DELETE",
-                "body": {}
-              },
-              "status": "No Content",
-              "code": 204,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "text/plain"
-                }
-              ],
-              "body": "",
-              "cookie": [],
-              "_postman_previewlanguage": "text"
-            },
-            {
-              "id": "183425bb-c098-4ef0-9ef6-6dd26f29b731",
-              "name": "The specified Gadget API compatible devices or the tags does not exist.",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "gadgets",
-                    ":product_id",
-                    ":serial_number",
-                    "tags",
-                    ":tag_name"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "product_id",
-                      "description": "(Required) Product ID of the target Gadget API compatible device.\n\n- `wimax`: Soracom Cloud Camera Services Cellular Pack.\n"
-                    },
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "serial_number",
-                      "description": "(Required) Serial Number of the target Gadget API compatible device."
-                    },
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "tag_name",
-                      "description": "(Required) Tag name to be deleted. (This will be part of a URL path, so it needs to be percent-encoded. In JavaScript, specify the name after it has been encoded using encodeURIComponent().)"
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: apikey",
-                      "type": "text/plain"
-                    },
-                    "key": "X-Soracom-API-Key",
-                    "value": "<API Key>"
-                  }
-                ],
-                "method": "DELETE",
-                "body": {}
-              },
-              "status": "Not Found",
-              "code": 404,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "text/plain"
-                }
-              ],
-              "body": "",
-              "cookie": [],
-              "_postman_previewlanguage": "text"
-            }
-          ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
-        },
-        {
-          "id": "419ebf69-11f9-4d32-ba2d-132748fa064e",
-          "name": "Terminates the specified Gadget API compatible device",
-          "request": {
-            "name": "Terminates the specified Gadget API compatible device",
-            "description": {
-              "content": "Terminates the specified Gadget API compatible device.",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "gadgets",
-                ":product_id",
-                ":serial_number",
-                "terminate"
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [],
-              "variable": [
-                {
-                  "disabled": false,
-                  "type": "any",
-                  "value": "<string>",
-                  "key": "product_id",
-                  "description": "(Required) Product ID of the target Gadget API compatible device.\n\n- `wimax`: Soracom Cloud Camera Services Cellular Pack.\n"
-                },
-                {
-                  "disabled": false,
-                  "type": "any",
-                  "value": "<string>",
-                  "key": "serial_number",
-                  "description": "(Required) Serial Number of the target Gadget API compatible device."
-                }
-              ]
-            },
-            "header": [
-              {
-                "key": "Accept",
-                "value": "application/json"
-              }
-            ],
-            "method": "POST",
-            "auth": {
-              "type": "apikey",
-              "apikey": [
-                {
-                  "key": "key",
-                  "value": "X-Soracom-API-Key"
-                },
-                {
-                  "key": "value",
-                  "value": "{{apiKey}}"
-                },
-                {
-                  "key": "in",
-                  "value": "header"
-                }
-              ]
-            }
-          },
-          "response": [
-            {
-              "id": "89ebcab7-da52-4a79-973f-5d87619244b1",
-              "name": "Detailed information about the updated Gadget API compatible device.",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "gadgets",
-                    ":product_id",
-                    ":serial_number",
-                    "terminate"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "product_id",
-                      "description": "(Required) Product ID of the target Gadget API compatible device.\n\n- `wimax`: Soracom Cloud Camera Services Cellular Pack.\n"
-                    },
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "serial_number",
-                      "description": "(Required) Serial Number of the target Gadget API compatible device."
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: apikey",
-                      "type": "text/plain"
-                    },
-                    "key": "X-Soracom-API-Key",
-                    "value": "<API Key>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "POST",
-                "body": {}
-              },
-              "status": "OK",
-              "code": 200,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"attributes\": {\n    \"wimaxBillingStartDate\": \"string\",\n    \"wimaxIccid\": \"string\",\n    \"wimaxImei\": \"string\"\n  },\n  \"createdTime\": 9448,\n  \"id\": \"string\",\n  \"lastModifiedTime\": 9435,\n  \"operatorId\": \"string\",\n  \"productId\": \"wimax\",\n  \"serialNumber\": \"string\",\n  \"status\": \"active\",\n  \"tags\": {\n    \"key_0\": \"string\"\n  },\n  \"terminatedTime\": 1220,\n  \"terminationEnabled\": false\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "f2b66dd6-07e5-4ef9-86ae-c8a25669a85f",
-              "name": "The specified Gadget API compatible device does not exist.",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "gadgets",
-                    ":product_id",
-                    ":serial_number",
-                    "terminate"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "product_id",
-                      "description": "(Required) Product ID of the target Gadget API compatible device.\n\n- `wimax`: Soracom Cloud Camera Services Cellular Pack.\n"
-                    },
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "serial_number",
-                      "description": "(Required) Serial Number of the target Gadget API compatible device."
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: apikey",
-                      "type": "text/plain"
-                    },
-                    "key": "X-Soracom-API-Key",
-                    "value": "<API Key>"
-                  }
-                ],
-                "method": "POST",
-                "body": {}
-              },
-              "status": "Not Found",
-              "code": 404,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "text/plain"
-                }
-              ],
-              "body": "",
-              "cookie": [],
-              "_postman_previewlanguage": "text"
-            }
-          ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
-        }
-      ],
-      "event": []
-    },
-    {
-      "id": "3219d034-a21a-48f6-9c89-d46e92155cc0",
+      "id": "e68cd46f-c4fc-4c0c-9255-cd78aa110a19",
       "name": "SoraCam",
       "description": {
         "content": "[Soracom Cloud Camera Services](/en/guides/soracom-cloud-camera-services/)",
@@ -1554,7 +9,7 @@
       },
       "item": [
         {
-          "id": "a25260e8-3689-410a-a1e0-6f0678c12212",
+          "id": "e6db9d5b-4f1a-432d-b9bc-e2ce9185d3d0",
           "name": "List SoraCam compatible camera devices.",
           "request": {
             "name": "List SoraCam compatible camera devices.",
@@ -1600,7 +55,7 @@
           },
           "response": [
             {
-              "id": "d35d1a79-4417-48ba-b8f2-db3684545422",
+              "id": "208cc46e-2200-4fd4-8213-9fd929eff69b",
               "name": "A list of SoraCam compatible camera devices.",
               "originalRequest": {
                 "url": {
@@ -1650,7 +105,7 @@
           }
         },
         {
-          "id": "2a4fde4d-ba3c-45f6-a3f0-90ef81557c26",
+          "id": "f0b30fb7-0e35-4826-a984-b28e6b861cf8",
           "name": "Delete the SoraCam compatible camera device identified by device_id.",
           "request": {
             "name": "Delete the SoraCam compatible camera device identified by device_id.",
@@ -1699,7 +154,7 @@
           },
           "response": [
             {
-              "id": "bd3c795f-12ea-4681-b33f-8ac08def4415",
+              "id": "544edeb9-63fc-4b7c-98f7-bc17835b9e1e",
               "name": "OK.",
               "originalRequest": {
                 "url": {
@@ -1748,7 +203,7 @@
               "_postman_previewlanguage": "text"
             },
             {
-              "id": "badae099-a006-4ec7-a3df-264321dcf082",
+              "id": "4385c333-4cef-4432-9814-ba81feae7af4",
               "name": "The specified SoraCam compatible camera device could not be found.",
               "originalRequest": {
                 "url": {
@@ -1803,7 +258,7 @@
           }
         },
         {
-          "id": "89c1558f-4f49-46c2-9e68-cbd1737281a0",
+          "id": "d452f80b-444f-4c48-8295-51d83fae01aa",
           "name": "Get the SoraCam compatible camera device information identified by device_id.",
           "request": {
             "name": "Get the SoraCam compatible camera device information identified by device_id.",
@@ -1858,7 +313,7 @@
           },
           "response": [
             {
-              "id": "47ea31a6-b7a0-45da-a344-2df97512e15b",
+              "id": "65535068-9b73-4eb6-8e4d-eb0ee012d298",
               "name": "OK.",
               "originalRequest": {
                 "url": {
@@ -1911,7 +366,7 @@
               "_postman_previewlanguage": "json"
             },
             {
-              "id": "3921cefd-09be-466d-b89e-091d2a30c65a",
+              "id": "5c42d8f7-b1e2-45c1-ab7f-05de1426319f",
               "name": "The specified SoraCam compatible camera device could not be found.",
               "originalRequest": {
                 "url": {
@@ -1966,7 +421,7 @@
           }
         },
         {
-          "id": "56a526bd-a529-43ee-beb3-b6c28e63c569",
+          "id": "20b0a39e-795c-4689-a427-c638224e38c3",
           "name": "Retrieve firmware update information for a SoraCam compatible camera device",
           "request": {
             "name": "Retrieve firmware update information for a SoraCam compatible camera device",
@@ -2024,7 +479,7 @@
           },
           "response": [
             {
-              "id": "1af72b46-fa28-4c06-8ba2-051f32f3e4ad",
+              "id": "0848208f-e3f9-442f-bad9-822d6fe898ec",
               "name": "OK.",
               "originalRequest": {
                 "url": {
@@ -2080,7 +535,7 @@
               "_postman_previewlanguage": "json"
             },
             {
-              "id": "4546cd1d-5b38-4b97-87bb-718ae0324a7e",
+              "id": "03bfe975-4bf5-4ec2-8d2a-f22a3f758d85",
               "name": "There are no firmware versions available for update for the specified SoraCam compatible camera device.",
               "originalRequest": {
                 "url": {
@@ -2132,7 +587,7 @@
               "_postman_previewlanguage": "text"
             },
             {
-              "id": "a651bbf5-bfaf-4464-8da5-15bdc0625af3",
+              "id": "c15ee79c-5f08-4e4d-bcc3-5678011491cf",
               "name": "The specified SoraCam compatible camera device could not be found.",
               "originalRequest": {
                 "url": {
@@ -2190,7 +645,7 @@
           }
         },
         {
-          "id": "44f59e99-de13-4cc7-94cb-f0d790b118e9",
+          "id": "f58052ab-57bc-413f-a55e-c6c5729360d9",
           "name": "Update a firmware for a SoraCam compatible camera device",
           "request": {
             "name": "Update a firmware for a SoraCam compatible camera device",
@@ -2242,7 +697,7 @@
           },
           "response": [
             {
-              "id": "491e8990-5f71-4d8b-b55b-de830fce0bec",
+              "id": "36fec62e-3d74-4a16-805a-b5fb0a07a525",
               "name": "OK.",
               "originalRequest": {
                 "url": {
@@ -2294,7 +749,7 @@
               "_postman_previewlanguage": "text"
             },
             {
-              "id": "9a685332-5e23-418b-9102-bc445c1c0497",
+              "id": "62d081c5-1b29-442e-8e7c-673c9391362c",
               "name": "No firmware update found.",
               "originalRequest": {
                 "url": {
@@ -2346,7 +801,7 @@
               "_postman_previewlanguage": "text"
             },
             {
-              "id": "a3ee6de2-0fd6-44af-971f-20ddff9da237",
+              "id": "e9a6becf-e62b-4ac1-bb14-08a78cfbf5b2",
               "name": "The specified SoraCam compatible camera device could not be found.",
               "originalRequest": {
                 "url": {
@@ -2404,7 +859,7 @@
           }
         },
         {
-          "id": "ae9ae397-fe8e-4ed6-ad69-d66b27687fe2",
+          "id": "c197edc3-f024-49e3-b7e5-8850f9bd92d3",
           "name": "Unassign the license from a SoraCam compatible camera device",
           "request": {
             "name": "Unassign the license from a SoraCam compatible camera device",
@@ -2455,7 +910,7 @@
           },
           "response": [
             {
-              "id": "ba5a6228-9cb1-4878-83f2-4e4667178d38",
+              "id": "6a19f6b9-9d88-429a-9322-d2ffdcd98da2",
               "name": "License successfully unassigned.",
               "originalRequest": {
                 "url": {
@@ -2506,7 +961,7 @@
               "_postman_previewlanguage": "text"
             },
             {
-              "id": "ba7683ab-102c-4716-b675-dbdf03aec1f5",
+              "id": "f15f034d-2d4d-4253-a619-f63428ff9420",
               "name": "Unable to unassign the license. Possible reasons include:\n\n- Insufficient permissions.\n- The device is shared by another operator.\n",
               "originalRequest": {
                 "url": {
@@ -2557,7 +1012,7 @@
               "_postman_previewlanguage": "text"
             },
             {
-              "id": "375b5436-2b9f-4336-b8de-7f28317766d9",
+              "id": "94aebb23-a26e-440f-b162-e198e1a08acd",
               "name": "The specified device could not be found under the operator or has no assigned license.",
               "originalRequest": {
                 "url": {
@@ -2614,7 +1069,7 @@
           }
         },
         {
-          "id": "c77de00f-1f42-4533-8975-8b80d835f912",
+          "id": "ec2adc33-b376-431a-9bb2-ff57344087af",
           "name": "Update the assigned license for a SoraCam compatible camera device",
           "request": {
             "name": "Update the assigned license for a SoraCam compatible camera device",
@@ -2684,7 +1139,7 @@
           },
           "response": [
             {
-              "id": "d45f18ea-360e-46e3-a221-b728bdee0a4b",
+              "id": "9e440cec-e60b-4cc6-ba36-81e387886c0a",
               "name": "License successfully updated.",
               "originalRequest": {
                 "url": {
@@ -2747,7 +1202,7 @@
               "_postman_previewlanguage": "json"
             },
             {
-              "id": "fe00956e-2fdf-4cfd-98bd-8f926062068e",
+              "id": "5e028eee-780a-4aea-8ea5-fcd2f6556f49",
               "name": "No changes were made to the existing license.",
               "originalRequest": {
                 "url": {
@@ -2806,7 +1261,7 @@
               "_postman_previewlanguage": "text"
             },
             {
-              "id": "7dc28c5a-48f1-491d-ab4d-b42391dc6d4e",
+              "id": "6fc615b2-311b-4b15-a985-557ac5c516c9",
               "name": "Invalid input data or license type specified.",
               "originalRequest": {
                 "url": {
@@ -2865,7 +1320,7 @@
               "_postman_previewlanguage": "text"
             },
             {
-              "id": "67ad1677-b83c-4053-a903-6ffdd1fa337e",
+              "id": "bb22a4a2-1585-487f-9557-80cba1ea7bb4",
               "name": "Unable to assign the license. Possible reasons include:\n\n- Insufficient permissions.\n- No available purchased licenses.\n- The device is shared by another operator.\n",
               "originalRequest": {
                 "url": {
@@ -2924,7 +1379,7 @@
               "_postman_previewlanguage": "text"
             },
             {
-              "id": "d6cdfa4e-56f7-48dc-bba0-b290be776081",
+              "id": "e11024dd-230a-482e-9481-8724b724c6e3",
               "name": "The specified device could not be found under the operator.",
               "originalRequest": {
                 "url": {
@@ -2989,7 +1444,7 @@
           }
         },
         {
-          "id": "f45c5fad-6b1c-4a2b-90fe-57bbd4985f9a",
+          "id": "f6649498-2538-488f-bdc2-af8c940ab73a",
           "name": "Get a live image from a SoraCam compatible camera device",
           "request": {
             "name": "Get a live image from a SoraCam compatible camera device",
@@ -3046,7 +1501,7 @@
           },
           "response": [
             {
-              "id": "02580f5e-ea6b-4dc7-80c6-fae38872ac6b",
+              "id": "de1ed687-8738-45a9-b3fb-db1d32b10897",
               "name": "Successfully retrieved live image URL.",
               "originalRequest": {
                 "url": {
@@ -3101,7 +1556,7 @@
               "_postman_previewlanguage": "json"
             },
             {
-              "id": "a9994b6a-a97a-4233-aa2f-884b62514283",
+              "id": "cf0ec966-e0e6-4f4c-9856-7943ec77bb5b",
               "name": "The specified SoraCam compatible camera device could not be found.",
               "originalRequest": {
                 "url": {
@@ -3152,7 +1607,7 @@
               "_postman_previewlanguage": "text"
             },
             {
-              "id": "922fe278-b35f-4542-9dd1-077ebafcbcdd",
+              "id": "951e79c6-c42e-40b0-80e5-91d9c57dda9c",
               "name": "The SoraCam compatible camera device and server cannot be connected. This may occur when the device is offline or real-time access is not enabled.",
               "originalRequest": {
                 "url": {
@@ -3209,7 +1664,7 @@
           }
         },
         {
-          "id": "a9b8aff4-0afa-4e74-a354-6bf789a5e498",
+          "id": "f27d6f1c-cd12-4cd7-9a8a-c939489ffc42",
           "name": "Retrieve enabled options for a SoraCam-compatible camera",
           "request": {
             "name": "Retrieve enabled options for a SoraCam-compatible camera",
@@ -3266,7 +1721,7 @@
           },
           "response": [
             {
-              "id": "ca8e20f2-d79d-438c-829b-1814db9ad161",
+              "id": "4e2c0d29-8d5a-4643-9a8e-fa0fa5692ee2",
               "name": "A list of enabled optional features for the SoraCam-compatible camera.",
               "originalRequest": {
                 "url": {
@@ -3321,7 +1776,7 @@
               "_postman_previewlanguage": "json"
             },
             {
-              "id": "cb4cf612-3cec-4423-aca0-08d871ae3ee5",
+              "id": "2f6b16f1-3fc1-4a65-a950-485d171584ee",
               "name": "The specified SoraCam-compatible camera was not found.",
               "originalRequest": {
                 "url": {
@@ -3378,7 +1833,7 @@
           }
         },
         {
-          "id": "d11a9460-8859-421e-af40-d755a030cebc",
+          "id": "827969de-53cd-437f-9224-6d8550fe8996",
           "name": "Enable or disable real-time access for a SoraCam-compatible camera",
           "request": {
             "name": "Enable or disable real-time access for a SoraCam-compatible camera",
@@ -3449,7 +1904,7 @@
           },
           "response": [
             {
-              "id": "55181c34-1287-4c6d-883b-257fac26f36a",
+              "id": "90dcc2f7-4af0-4591-904d-eb8d1950c4ed",
               "name": "Real-time access has been enabled/disabled.",
               "originalRequest": {
                 "url": {
@@ -3513,7 +1968,7 @@
               "_postman_previewlanguage": "json"
             },
             {
-              "id": "63128fc1-be20-475f-9c70-d0e6c7e643e8",
+              "id": "3423f5a4-d609-42b6-8582-e16fed2ebe47",
               "name": "The request payload is invalid.",
               "originalRequest": {
                 "url": {
@@ -3573,7 +2028,7 @@
               "_postman_previewlanguage": "text"
             },
             {
-              "id": "b38ee980-5e9e-4c7f-b7c3-d887c01825de",
+              "id": "bd770550-f7b6-4a05-bd93-cf7f47d4883d",
               "name": "The specified SoraCam-compatible camera was not found.",
               "originalRequest": {
                 "url": {
@@ -3639,7 +2094,7 @@
           }
         },
         {
-          "id": "e5e2ea32-dffc-4815-a3d7-2f1def081e60",
+          "id": "d95e6944-983e-4033-843f-93158e8e40b5",
           "name": "Retrieve the camera's various settings",
           "request": {
             "name": "Retrieve the camera's various settings",
@@ -3696,7 +2151,7 @@
           },
           "response": [
             {
-              "id": "9084f056-43b3-480a-8c4c-f230c7a2083a",
+              "id": "03f76600-be70-40e0-9a42-0c3cae25ec14",
               "name": "OK.",
               "originalRequest": {
                 "url": {
@@ -3751,7 +2206,7 @@
               "_postman_previewlanguage": "json"
             },
             {
-              "id": "73142eaa-32fd-4228-a61a-fb79324a353d",
+              "id": "a3d6ce16-9b07-4d64-974c-cbea7d6cc391",
               "name": "The specified SoraCam compatible camera device could not be found.",
               "originalRequest": {
                 "url": {
@@ -3808,7 +2263,7 @@
           }
         },
         {
-          "id": "8309d554-4d4b-4c88-94a5-9b443cdfdcdc",
+          "id": "a6070d1c-49a6-41c7-9a9f-786a9a3dd469",
           "name": "Retrieve the display settings for the ATOM tech Inc. logo shown on the bottom left of the captured image",
           "request": {
             "name": "Retrieve the display settings for the ATOM tech Inc. logo shown on the bottom left of the captured image",
@@ -3866,7 +2321,7 @@
           },
           "response": [
             {
-              "id": "efb6dca9-7ca6-452b-a5f0-bdbcffe4c5c7",
+              "id": "9cf860f7-f13d-4d6f-aac7-336147430fd3",
               "name": "OK.",
               "originalRequest": {
                 "url": {
@@ -3922,7 +2377,7 @@
               "_postman_previewlanguage": "json"
             },
             {
-              "id": "0357999b-3d33-4c18-89d7-b75ea1422dd2",
+              "id": "6d1fa2d6-37bb-4a93-ae41-c962e1694911",
               "name": "The specified SoraCam compatible camera device could not be found.",
               "originalRequest": {
                 "url": {
@@ -3980,7 +2435,7 @@
           }
         },
         {
-          "id": "87fb707d-a55f-4b08-a8ce-6fed73c37727",
+          "id": "daa85d81-a09a-4e51-844c-17da21d97e2a",
           "name": "Change the display settings for the ATOM tech Inc. logo shown on the bottom left of the captured image",
           "request": {
             "name": "Change the display settings for the ATOM tech Inc. logo shown on the bottom left of the captured image",
@@ -4047,7 +2502,7 @@
           },
           "response": [
             {
-              "id": "8ba44f19-eae9-468a-9ded-ece7c252a44a",
+              "id": "8a68e82a-38a3-4ebd-abd8-f3de4f8c098f",
               "name": "OK.",
               "originalRequest": {
                 "url": {
@@ -4107,7 +2562,7 @@
               "_postman_previewlanguage": "text"
             },
             {
-              "id": "471f73a3-6c43-4287-86c6-50cbf9c3868f",
+              "id": "cc4bef09-7ea4-4123-925c-170605264a6e",
               "name": "The specified value is invalid.",
               "originalRequest": {
                 "url": {
@@ -4167,7 +2622,7 @@
               "_postman_previewlanguage": "text"
             },
             {
-              "id": "c965996d-efe1-4464-b0f6-df46858d499f",
+              "id": "a0fed35a-457a-4b6f-91ba-795fdc605ae8",
               "name": "The specified SoraCam compatible camera device could not be found.",
               "originalRequest": {
                 "url": {
@@ -4233,7 +2688,7 @@
           }
         },
         {
-          "id": "006d6684-dae5-4928-b202-f71ca502a71a",
+          "id": "f3a14e7b-3012-46c4-aea4-837d317bc903",
           "name": "Retrieve the settings for motion detection",
           "request": {
             "name": "Retrieve the settings for motion detection",
@@ -4291,7 +2746,7 @@
           },
           "response": [
             {
-              "id": "fcd4a0ed-5fd1-4026-9beb-050d657ef67d",
+              "id": "e3c5f961-2a78-4d1f-82e7-c5736ceb59be",
               "name": "OK.",
               "originalRequest": {
                 "url": {
@@ -4347,7 +2802,7 @@
               "_postman_previewlanguage": "json"
             },
             {
-              "id": "417f2fa6-7d65-491f-9d2c-fa5f277a654f",
+              "id": "6eeac1b3-dd63-42b5-9192-10941fbc3d0d",
               "name": "The specified SoraCam compatible camera device could not be found.",
               "originalRequest": {
                 "url": {
@@ -4405,7 +2860,7 @@
           }
         },
         {
-          "id": "72432303-060c-4419-ae03-2696690e0c1c",
+          "id": "1eb26162-e49f-4400-b852-6ffc008f48b5",
           "name": "Change the settings for motion",
           "request": {
             "name": "Change the settings for motion",
@@ -4472,7 +2927,7 @@
           },
           "response": [
             {
-              "id": "91a27f63-9615-4e8b-b340-96eb4ad5a462",
+              "id": "5b1e9108-98ae-47c6-adf9-f5abf9a3b4fc",
               "name": "OK.",
               "originalRequest": {
                 "url": {
@@ -4532,7 +2987,7 @@
               "_postman_previewlanguage": "text"
             },
             {
-              "id": "b70a87d9-f499-4936-8d30-40d72d7f8522",
+              "id": "d22902bc-c361-436d-a03a-476ebba9b6d5",
               "name": "The specified value is invalid.",
               "originalRequest": {
                 "url": {
@@ -4592,7 +3047,7 @@
               "_postman_previewlanguage": "text"
             },
             {
-              "id": "6c7f8f9e-5f99-4593-9e47-1708744b448e",
+              "id": "c3dbfbad-d210-4703-9092-a0fd8a61f505",
               "name": "The specified SoraCam compatible camera device could not be found.",
               "originalRequest": {
                 "url": {
@@ -4658,7 +3113,7 @@
           }
         },
         {
-          "id": "a6bd3723-7d1b-48c8-9f4c-15e08ec63bd5",
+          "id": "3ed74c99-9f29-49e0-bb0c-38355fcd93ef",
           "name": "Retrieve the settings for motion sensitivity",
           "request": {
             "name": "Retrieve the settings for motion sensitivity",
@@ -4716,7 +3171,7 @@
           },
           "response": [
             {
-              "id": "0c228738-ca1b-43be-990c-a3ef97fad46f",
+              "id": "d2796054-a3e5-4926-8b16-05c9a97bbe72",
               "name": "OK.",
               "originalRequest": {
                 "url": {
@@ -4772,7 +3227,7 @@
               "_postman_previewlanguage": "json"
             },
             {
-              "id": "601ea3a3-97aa-4262-ba76-368db6f5208a",
+              "id": "9d7ad802-94f3-45c2-bce4-8b962fa30eea",
               "name": "The specified SoraCam compatible camera device could not be found.",
               "originalRequest": {
                 "url": {
@@ -4830,7 +3285,7 @@
           }
         },
         {
-          "id": "547c41fc-9b7b-4c27-b16d-e9a82555b918",
+          "id": "1a5f04eb-7b56-4fed-a037-91b701a8e2eb",
           "name": "Change the settings for motion sensitivity",
           "request": {
             "name": "Change the settings for motion sensitivity",
@@ -4897,7 +3352,7 @@
           },
           "response": [
             {
-              "id": "333d9788-f8bf-461a-b568-7e82c7c6b43b",
+              "id": "f6a9de4c-da9e-440f-9c1b-5cbd2da22375",
               "name": "OK.",
               "originalRequest": {
                 "url": {
@@ -4957,7 +3412,7 @@
               "_postman_previewlanguage": "text"
             },
             {
-              "id": "623edc6a-6e5a-48f3-8bc1-a6f52bf7028b",
+              "id": "99eed488-77ce-4f03-951c-857efcb6f520",
               "name": "The specified value is invalid.",
               "originalRequest": {
                 "url": {
@@ -5017,7 +3472,7 @@
               "_postman_previewlanguage": "text"
             },
             {
-              "id": "32151cd3-54a3-4249-a307-1a534a4da377",
+              "id": "6b479ce8-74e8-4f27-ae20-8b9a3243a079",
               "name": "The specified SoraCam compatible camera device could not be found.",
               "originalRequest": {
                 "url": {
@@ -5083,7 +3538,7 @@
           }
         },
         {
-          "id": "b0742b2d-6d52-4bb1-9b83-ac73086a8661",
+          "id": "3a3f2a89-a169-4b84-bcc6-afc14501145e",
           "name": "Retrieve the display settings for motion tagging",
           "request": {
             "name": "Retrieve the display settings for motion tagging",
@@ -5141,7 +3596,7 @@
           },
           "response": [
             {
-              "id": "44bb54fe-b7dc-4981-8b15-ced78f374971",
+              "id": "bce2b7fd-6028-4db8-80bc-754be62e7b5d",
               "name": "OK.",
               "originalRequest": {
                 "url": {
@@ -5197,7 +3652,7 @@
               "_postman_previewlanguage": "json"
             },
             {
-              "id": "59ed5037-8ad3-47c9-b6b8-c3ff63969a3a",
+              "id": "de4debb9-a785-45ee-b0ec-fc2938d3a920",
               "name": "The specified SoraCam compatible camera device could not be found.",
               "originalRequest": {
                 "url": {
@@ -5255,7 +3710,7 @@
           }
         },
         {
-          "id": "6b0ef89b-5706-425b-a579-4ce0cd8ed245",
+          "id": "8d9a3da1-39a9-4323-8e5e-781909ae5571",
           "name": "Change the display settings for motion tagging",
           "request": {
             "name": "Change the display settings for motion tagging",
@@ -5322,7 +3777,7 @@
           },
           "response": [
             {
-              "id": "a98eaded-743f-457c-b2e5-804bde7d2918",
+              "id": "be30775d-7335-4246-8f2f-67c037053fe9",
               "name": "OK.",
               "originalRequest": {
                 "url": {
@@ -5382,7 +3837,7 @@
               "_postman_previewlanguage": "text"
             },
             {
-              "id": "084a4310-9405-4627-8607-18cc3a256721",
+              "id": "cb37d5f2-a6c3-4ff5-8d02-e378b88ef3aa",
               "name": "The specified value is invalid.",
               "originalRequest": {
                 "url": {
@@ -5442,7 +3897,7 @@
               "_postman_previewlanguage": "text"
             },
             {
-              "id": "8dd42679-b9bb-4d98-ba94-e4a598b36dca",
+              "id": "a79d7185-5cec-4f7b-8597-3761b013a0c1",
               "name": "The specified SoraCam compatible camera device could not be found.",
               "originalRequest": {
                 "url": {
@@ -5508,7 +3963,7 @@
           }
         },
         {
-          "id": "19596eab-32e7-4822-b519-0875804290c9",
+          "id": "a0957b21-7f87-4d6a-8930-7a451f254357",
           "name": "Retrieve the settings for night vision mode",
           "request": {
             "name": "Retrieve the settings for night vision mode",
@@ -5566,7 +4021,7 @@
           },
           "response": [
             {
-              "id": "0540ca56-b74d-4cf0-8c4b-71b46b9261a2",
+              "id": "f345048c-4fba-4b17-a1a6-2585f30aa226",
               "name": "OK.",
               "originalRequest": {
                 "url": {
@@ -5622,7 +4077,7 @@
               "_postman_previewlanguage": "json"
             },
             {
-              "id": "d5dc4365-a078-41ad-aaa9-bb8918cbe273",
+              "id": "b6c8153d-195f-42fb-9d2c-badf6bb32880",
               "name": "The specified SoraCam compatible camera device could not be found.",
               "originalRequest": {
                 "url": {
@@ -5680,7 +4135,7 @@
           }
         },
         {
-          "id": "e384e87b-50d2-47e7-ae01-176010bd93d9",
+          "id": "9c949dcb-1665-44d2-831a-0d304beaf99b",
           "name": "Change the settings for night vision mode",
           "request": {
             "name": "Change the settings for night vision mode",
@@ -5747,7 +4202,7 @@
           },
           "response": [
             {
-              "id": "4d1b202d-6662-4281-85c1-c7ad0e449cab",
+              "id": "eac4db5d-eb3c-4341-a5a8-db99ac1573ae",
               "name": "OK.",
               "originalRequest": {
                 "url": {
@@ -5807,7 +4262,7 @@
               "_postman_previewlanguage": "text"
             },
             {
-              "id": "14cbb9f1-e5c0-40a7-9c83-f426f2ab5bdd",
+              "id": "52e485fd-1cee-4c35-bf9c-0d1563676781",
               "name": "The specified value is invalid.",
               "originalRequest": {
                 "url": {
@@ -5867,7 +4322,7 @@
               "_postman_previewlanguage": "text"
             },
             {
-              "id": "0ebb89e3-7053-480f-ab6d-74d6524964f3",
+              "id": "2ef60948-b053-4faa-b283-3f7d365e3fa4",
               "name": "The specified SoraCam compatible camera device could not be found.",
               "originalRequest": {
                 "url": {
@@ -5933,7 +4388,7 @@
           }
         },
         {
-          "id": "e038364e-07d4-4911-aa16-2f1bb4137579",
+          "id": "3b13b062-2e37-4505-896e-7458d6ce7d4f",
           "name": "Retrieve the quality settings",
           "request": {
             "name": "Retrieve the quality settings",
@@ -5991,7 +4446,7 @@
           },
           "response": [
             {
-              "id": "b3d316ff-5e40-4982-b2de-223f9bf28f4a",
+              "id": "dca47cd0-afa2-4b1b-aa6c-e3540568302b",
               "name": "OK.",
               "originalRequest": {
                 "url": {
@@ -6047,7 +4502,7 @@
               "_postman_previewlanguage": "json"
             },
             {
-              "id": "52d1039e-9ff1-4820-9b8f-23075dc5afdb",
+              "id": "d3652733-2979-4762-af5b-a58ae9da1ce2",
               "name": "The specified SoraCam compatible camera device could not be found.",
               "originalRequest": {
                 "url": {
@@ -6105,7 +4560,7 @@
           }
         },
         {
-          "id": "c8d85426-5b89-4f75-8d7c-41bfda8933fb",
+          "id": "3a0580a9-c14f-4cf7-bfdd-04efb0869b0a",
           "name": "Change the quality settings",
           "request": {
             "name": "Change the quality settings",
@@ -6172,7 +4627,7 @@
           },
           "response": [
             {
-              "id": "2fcd1664-feff-431b-a1e9-8693e3d3a553",
+              "id": "25fe34bd-90b9-4d61-b411-080185bcec9b",
               "name": "OK.",
               "originalRequest": {
                 "url": {
@@ -6232,7 +4687,7 @@
               "_postman_previewlanguage": "text"
             },
             {
-              "id": "009f1957-9b1c-45b3-a344-7484e89112df",
+              "id": "3a7f877d-390a-44be-8e86-a836d26d1c1d",
               "name": "The specified value is invalid.",
               "originalRequest": {
                 "url": {
@@ -6292,7 +4747,7 @@
               "_postman_previewlanguage": "text"
             },
             {
-              "id": "c244859f-56cb-43ff-8b5f-b699debea1fa",
+              "id": "dfea9197-70f6-4baf-9bf5-72a101fe328d",
               "name": "The specified SoraCam compatible camera device could not be found.",
               "originalRequest": {
                 "url": {
@@ -6358,7 +4813,7 @@
           }
         },
         {
-          "id": "d173537e-d789-4882-ac59-44e125beb487",
+          "id": "8a7a51b2-c2ff-4e3c-912c-5caa69a23189",
           "name": "Retrieve the settings for rotating the image by 180 degrees",
           "request": {
             "name": "Retrieve the settings for rotating the image by 180 degrees",
@@ -6416,7 +4871,7 @@
           },
           "response": [
             {
-              "id": "e3b25aa6-2f59-49e4-99f8-9059c54fb35c",
+              "id": "55888b74-7823-4a4d-a43d-fb52528976bc",
               "name": "OK.",
               "originalRequest": {
                 "url": {
@@ -6472,7 +4927,7 @@
               "_postman_previewlanguage": "json"
             },
             {
-              "id": "981bf833-0368-488b-939a-671e7b1f828f",
+              "id": "53d77709-95b5-478a-b1d7-2e452ddb6988",
               "name": "The specified SoraCam compatible camera device could not be found.",
               "originalRequest": {
                 "url": {
@@ -6530,7 +4985,7 @@
           }
         },
         {
-          "id": "6f3dcef2-feb3-4652-a209-9e07fe6cd63a",
+          "id": "f2761ba6-cac8-4f12-9875-94e4ed328b1c",
           "name": "Change the settings for rotating the image by 180 degrees",
           "request": {
             "name": "Change the settings for rotating the image by 180 degrees",
@@ -6597,7 +5052,7 @@
           },
           "response": [
             {
-              "id": "090c0170-4775-4a85-84ef-987bd585a255",
+              "id": "8c4c1b51-779d-4808-8433-e26d8a400871",
               "name": "OK.",
               "originalRequest": {
                 "url": {
@@ -6657,7 +5112,7 @@
               "_postman_previewlanguage": "text"
             },
             {
-              "id": "12d32613-8527-4c9a-a7ba-80864cf3060a",
+              "id": "4637d93b-83f9-4600-b760-d67c71d7590a",
               "name": "The specified value is invalid.",
               "originalRequest": {
                 "url": {
@@ -6717,7 +5172,7 @@
               "_postman_previewlanguage": "text"
             },
             {
-              "id": "cea7b572-ce4d-4081-b492-bd665bb35d58",
+              "id": "bb2976c7-1de3-41cd-bf3e-d5b6b2ae325e",
               "name": "The specified SoraCam compatible camera device could not be found.",
               "originalRequest": {
                 "url": {
@@ -6783,7 +5238,7 @@
           }
         },
         {
-          "id": "3ac0d991-7586-4d05-9d93-690e1e8aae33",
+          "id": "dfb4b88a-ee5a-4e40-83f0-f7178fa8265d",
           "name": "Retrieve the settings for sound detection",
           "request": {
             "name": "Retrieve the settings for sound detection",
@@ -6841,7 +5296,7 @@
           },
           "response": [
             {
-              "id": "e7a67428-2787-4a78-b856-9b667ce64119",
+              "id": "daf51aed-1fde-4868-afa4-387d9593aab0",
               "name": "OK.",
               "originalRequest": {
                 "url": {
@@ -6897,7 +5352,7 @@
               "_postman_previewlanguage": "json"
             },
             {
-              "id": "6f6d0544-5ada-4693-9f01-52fd94664daa",
+              "id": "cd575684-6f60-4049-86ee-9826b9008867",
               "name": "The specified SoraCam compatible camera device could not be found.",
               "originalRequest": {
                 "url": {
@@ -6955,7 +5410,7 @@
           }
         },
         {
-          "id": "71c5675c-9b8e-44dc-a557-076474998c64",
+          "id": "802a93a4-066d-4f54-9b78-4e4a5f28d8f2",
           "name": "Change the settings for sound detection",
           "request": {
             "name": "Change the settings for sound detection",
@@ -7022,7 +5477,7 @@
           },
           "response": [
             {
-              "id": "e3c5d9ba-2ca4-4bdc-8774-00325482cd8f",
+              "id": "ac476e71-8b80-474f-b8e1-64a460ba748a",
               "name": "OK.",
               "originalRequest": {
                 "url": {
@@ -7082,7 +5537,7 @@
               "_postman_previewlanguage": "text"
             },
             {
-              "id": "f213a182-2d9e-491b-93fd-f77f6f506dd3",
+              "id": "0684eaba-9a97-4084-8144-120c9ae3ab6b",
               "name": "The specified value is invalid.",
               "originalRequest": {
                 "url": {
@@ -7142,7 +5597,7 @@
               "_postman_previewlanguage": "text"
             },
             {
-              "id": "15799e99-2e63-49e4-9c48-457167bde8dc",
+              "id": "24c6f0a6-dcba-4a88-80e3-dd1ffc901691",
               "name": "The specified SoraCam compatible camera device could not be found.",
               "originalRequest": {
                 "url": {
@@ -7208,7 +5663,7 @@
           }
         },
         {
-          "id": "8c7aa077-1429-479c-b411-939fc47a82e6",
+          "id": "537df1dd-5c19-4a01-9d4c-da755181f4f5",
           "name": "Retrieve the settings for sound sensitivity",
           "request": {
             "name": "Retrieve the settings for sound sensitivity",
@@ -7266,7 +5721,7 @@
           },
           "response": [
             {
-              "id": "abd141a5-21a8-4502-92d4-cd3fac4098bc",
+              "id": "c997af6c-6de2-4759-8b91-895be5dda040",
               "name": "OK.",
               "originalRequest": {
                 "url": {
@@ -7322,7 +5777,7 @@
               "_postman_previewlanguage": "json"
             },
             {
-              "id": "8181dd5b-3f0b-470c-8dc8-341fa27eb8db",
+              "id": "c00684ee-aa75-4ee9-bc3e-5821f035c043",
               "name": "The specified SoraCam compatible camera device could not be found.",
               "originalRequest": {
                 "url": {
@@ -7380,7 +5835,7 @@
           }
         },
         {
-          "id": "cfd2f41f-8ec2-4ccb-bd83-fb7b54c3787e",
+          "id": "e0a8f50f-2c44-4c5c-a950-e17f1f26a07c",
           "name": "Change the settings for sound sensitivity",
           "request": {
             "name": "Change the settings for sound sensitivity",
@@ -7447,7 +5902,7 @@
           },
           "response": [
             {
-              "id": "c52d4dda-3ab8-4031-a2da-a51e6a4ce838",
+              "id": "9468931c-c9a7-4b05-8264-92d2c93ef17b",
               "name": "OK.",
               "originalRequest": {
                 "url": {
@@ -7507,7 +5962,7 @@
               "_postman_previewlanguage": "text"
             },
             {
-              "id": "7f08ea01-cd4f-430c-a3e0-eb0eeee890f2",
+              "id": "a997e089-6d96-4c95-a72b-f7923b8dbee2",
               "name": "The specified value is invalid.",
               "originalRequest": {
                 "url": {
@@ -7567,7 +6022,7 @@
               "_postman_previewlanguage": "text"
             },
             {
-              "id": "86b5e25b-89f3-4df5-bc7a-e9d55cc5bdd9",
+              "id": "2456f136-df7b-47da-b5ca-88d4a30604f9",
               "name": "The specified SoraCam compatible camera device could not be found.",
               "originalRequest": {
                 "url": {
@@ -7633,7 +6088,7 @@
           }
         },
         {
-          "id": "b24716ec-6ab3-4b3b-b4cc-ab283071eec9",
+          "id": "ca91b7f6-1a3a-4ebf-a508-514e27167c81",
           "name": "Retrieve the settings for the status light (indicator light that shows the status of the camera)",
           "request": {
             "name": "Retrieve the settings for the status light (indicator light that shows the status of the camera)",
@@ -7691,7 +6146,7 @@
           },
           "response": [
             {
-              "id": "4cee44bd-92c2-4b7d-b152-7329805315dd",
+              "id": "1f4f3c58-9360-4262-9f95-08a462767ffb",
               "name": "OK.",
               "originalRequest": {
                 "url": {
@@ -7747,7 +6202,7 @@
               "_postman_previewlanguage": "json"
             },
             {
-              "id": "1f3fe100-0e3e-45b9-8861-a814d246416d",
+              "id": "1ab2ead3-4df2-4e91-a268-d5055a1cf7a3",
               "name": "The specified SoraCam compatible camera device could not be found.",
               "originalRequest": {
                 "url": {
@@ -7805,7 +6260,7 @@
           }
         },
         {
-          "id": "6875a7e5-6c0d-49aa-a238-5621bccf4613",
+          "id": "2986c900-a1bd-4b7f-b79e-4e156e134770",
           "name": "Change the settings for the status light (indicator light that shows the status of the camera)",
           "request": {
             "name": "Change the settings for the status light (indicator light that shows the status of the camera)",
@@ -7872,7 +6327,7 @@
           },
           "response": [
             {
-              "id": "33e7bcaf-32fb-4d14-9238-3faada230418",
+              "id": "b385e644-a236-4743-8e09-99fb46871a84",
               "name": "OK.",
               "originalRequest": {
                 "url": {
@@ -7932,7 +6387,7 @@
               "_postman_previewlanguage": "text"
             },
             {
-              "id": "b509cc80-09a0-4e59-a36c-6ea3e249941c",
+              "id": "0032a011-043c-4cd8-af1f-26b9b7d08f5a",
               "name": "The specified value is invalid.",
               "originalRequest": {
                 "url": {
@@ -7992,7 +6447,7 @@
               "_postman_previewlanguage": "text"
             },
             {
-              "id": "d232ffa9-3a72-4194-a5f1-bf9913b88271",
+              "id": "9694a6a9-77f7-4ed8-b774-3fd6f06b103f",
               "name": "The specified SoraCam compatible camera device could not be found.",
               "originalRequest": {
                 "url": {
@@ -8058,7 +6513,7 @@
           }
         },
         {
-          "id": "89284878-91f6-4c66-bc8a-7f90528bead1",
+          "id": "1ea4ab95-b0de-4a93-9d2a-d92855cd0c23",
           "name": "Retrieve the display settings for the timestamp shown on the bottom right of the captured image",
           "request": {
             "name": "Retrieve the display settings for the timestamp shown on the bottom right of the captured image",
@@ -8116,7 +6571,7 @@
           },
           "response": [
             {
-              "id": "e59fe118-a83f-4be7-a6ab-a4a01d1ca4ed",
+              "id": "f2e43637-0f04-46d6-b95b-d57bf057d8a9",
               "name": "OK.",
               "originalRequest": {
                 "url": {
@@ -8172,7 +6627,7 @@
               "_postman_previewlanguage": "json"
             },
             {
-              "id": "d4be7169-8179-4091-b4d7-4d50a928a30e",
+              "id": "560f71c6-1d10-4dce-b682-f10336e53822",
               "name": "The specified SoraCam compatible camera device could not be found.",
               "originalRequest": {
                 "url": {
@@ -8230,7 +6685,7 @@
           }
         },
         {
-          "id": "b97f222b-8974-4849-85ac-a377c45ccf58",
+          "id": "143bc9cb-709e-45a9-a38f-9ed21bc23c24",
           "name": "Change the display settings for the timestamp shown on the bottom right of the captured image",
           "request": {
             "name": "Change the display settings for the timestamp shown on the bottom right of the captured image",
@@ -8297,7 +6752,7 @@
           },
           "response": [
             {
-              "id": "944553cd-1bd8-4656-b663-1758f8b987ce",
+              "id": "27ebd0d1-e775-44b3-b5ba-7704d4cbebeb",
               "name": "OK.",
               "originalRequest": {
                 "url": {
@@ -8357,7 +6812,7 @@
               "_postman_previewlanguage": "text"
             },
             {
-              "id": "a17f4c85-57be-42cf-a236-ef6d2a617c17",
+              "id": "7f3c752e-9bd7-4908-bffa-bbfef460a320",
               "name": "The specified value is invalid.",
               "originalRequest": {
                 "url": {
@@ -8417,7 +6872,7 @@
               "_postman_previewlanguage": "text"
             },
             {
-              "id": "24cfb901-6162-4dd7-b7fd-4020e013169a",
+              "id": "ed2ce347-81de-4e58-90f1-9366b211f76b",
               "name": "The specified SoraCam compatible camera device could not be found.",
               "originalRequest": {
                 "url": {
@@ -8483,7 +6938,7 @@
           }
         },
         {
-          "id": "5f200991-934c-450f-9a3a-5a278b3ba251",
+          "id": "1885d7e4-da4e-4ab7-a888-5a2c0a3db2c6",
           "name": "Save arbitrary data to Harvest Data linked to a SoraCam compatible camera device",
           "request": {
             "name": "Save arbitrary data to Harvest Data linked to a SoraCam compatible camera device",
@@ -8548,7 +7003,7 @@
           },
           "response": [
             {
-              "id": "5cf0adf2-a064-4b5c-80aa-f95723b08ef9",
+              "id": "bc30fa96-b56f-4949-861b-742ec78af672",
               "name": "Data has been successfully saved to Harvest Data.",
               "originalRequest": {
                 "url": {
@@ -8612,7 +7067,7 @@
               "_postman_previewlanguage": "text"
             },
             {
-              "id": "e030de0f-ca05-4715-b54a-97c82f1db26f",
+              "id": "6fbbfc5c-3575-4fb8-a843-63067ae8420d",
               "name": "The specified SoraCam compatible camera device could not be found.",
               "originalRequest": {
                 "url": {
@@ -8682,7 +7137,7 @@
           }
         },
         {
-          "id": "912bf55d-7913-4a08-a876-7d119f5e40ec",
+          "id": "ae1a2b2d-58d9-4a21-afdb-c85c21f2166a",
           "name": "Save arbitrary data to Harvest Data linked to a SoraCam compatible camera device and timestamp",
           "request": {
             "name": "Save arbitrary data to Harvest Data linked to a SoraCam compatible camera device and timestamp",
@@ -8755,7 +7210,7 @@
           },
           "response": [
             {
-              "id": "d1f795e0-bb57-4d9a-81d9-e3748ae7fe6e",
+              "id": "500f6830-808a-419e-81ef-a2b8062ab21d",
               "name": "Data was successfully saved to Harvest Data.",
               "originalRequest": {
                 "url": {
@@ -8827,7 +7282,7 @@
               "_postman_previewlanguage": "text"
             },
             {
-              "id": "3c8678ae-22b8-45d5-9a8b-e3252c1019cf",
+              "id": "0e01d040-64a4-4bf8-9db9-1fd8e117bf97",
               "name": "The specified SoraCam compatible camera device could not be found.",
               "originalRequest": {
                 "url": {
@@ -8905,7 +7360,7 @@
           }
         },
         {
-          "id": "e116e6df-89c8-41aa-afd4-1bbcd0ffcef4",
+          "id": "5ac86e5a-4df6-406c-a49a-16d4bb19d952",
           "name": "List SoraCam events for the specified device.",
           "request": {
             "name": "List SoraCam events for the specified device.",
@@ -8992,7 +7447,7 @@
           },
           "response": [
             {
-              "id": "f9b364c2-6d7c-4660-807a-dedcc768ad78",
+              "id": "2d5c5221-1330-4ae0-8a70-a7c84e6fe60b",
               "name": "OK.",
               "originalRequest": {
                 "url": {
@@ -9067,7 +7522,7 @@
               "_postman_previewlanguage": "json"
             },
             {
-              "id": "19915155-6ad4-44f2-8b01-5d9755ae7718",
+              "id": "b251d879-7a94-4dd7-90e4-b65f2c838b79",
               "name": "The specified value is invalid.",
               "originalRequest": {
                 "url": {
@@ -9138,7 +7593,7 @@
               "_postman_previewlanguage": "text"
             },
             {
-              "id": "df2a9954-1f2b-4a5b-8a10-2a4d204a2906",
+              "id": "895b88f6-975f-4ad8-b489-66d7967b6a8b",
               "name": "The specified SoraCam compatible camera device could not be found.",
               "originalRequest": {
                 "url": {
@@ -9215,7 +7670,7 @@
           }
         },
         {
-          "id": "25b30522-082d-4a7b-9c5a-e9241127f1f3",
+          "id": "493f7b7a-53e3-47ad-aa32-847192641f64",
           "name": "Get the remaining number of still images that can be exported and the remaining exportable time of recorded video.",
           "request": {
             "name": "Get the remaining number of still images that can be exported and the remaining exportable time of recorded video.",
@@ -9272,7 +7727,7 @@
           },
           "response": [
             {
-              "id": "e948050a-e177-46e2-a46a-494b23794b38",
+              "id": "c73d0d5d-2332-45d1-9ac1-20ebcfc98e19",
               "name": "OK.",
               "originalRequest": {
                 "url": {
@@ -9327,7 +7782,7 @@
               "_postman_previewlanguage": "json"
             },
             {
-              "id": "64c046ae-61cf-40d8-a2aa-22b83fb73fe1",
+              "id": "710ab40a-e7a6-4b34-8f19-7bf8c5ee256e",
               "name": "The specified SoraCam compatible camera device could not be found.",
               "originalRequest": {
                 "url": {
@@ -9384,7 +7839,7 @@
           }
         },
         {
-          "id": "e5ff6f7a-3435-4390-a79e-1e5f8068426b",
+          "id": "2f119e6f-d3d1-41bd-91fc-9fd787219e23",
           "name": "Reset the monthly limit on the recorded video time available for export for SoraCam compatible camera device to the default value.",
           "request": {
             "name": "Reset the monthly limit on the recorded video time available for export for SoraCam compatible camera device to the default value.",
@@ -9436,7 +7891,7 @@
           },
           "response": [
             {
-              "id": "a4568f5e-db1d-4d16-90c0-462c366c4424",
+              "id": "6186a0e1-7843-4aa6-bb07-827deadee7fa",
               "name": "OK, deleted.",
               "originalRequest": {
                 "url": {
@@ -9488,7 +7943,7 @@
               "_postman_previewlanguage": "text"
             },
             {
-              "id": "57805686-966f-4879-bc4c-d742f33b1e19",
+              "id": "01d7499f-48b2-4c70-b968-ce21e1f610b4",
               "name": "The specified SoraCam compatible camera device could not be found.",
               "originalRequest": {
                 "url": {
@@ -9546,7 +8001,7 @@
           }
         },
         {
-          "id": "e68a1a24-8acf-461f-8c50-34d31f4e889f",
+          "id": "b9d9e7f5-254c-4fed-bb58-fc5a49afb436",
           "name": "Set the monthly limit on the recorded video time available for export for SoraCam compatible camera device.",
           "request": {
             "name": "Set the monthly limit on the recorded video time available for export for SoraCam compatible camera device.",
@@ -9617,7 +8072,7 @@
           },
           "response": [
             {
-              "id": "e8934182-1a9f-4aac-ab58-fec24c767b82",
+              "id": "c403a9e0-bde7-4579-ab92-42f52a33ca26",
               "name": "OK, updated.",
               "originalRequest": {
                 "url": {
@@ -9681,7 +8136,7 @@
               "_postman_previewlanguage": "json"
             },
             {
-              "id": "9e058adf-ab1a-498a-8dc9-0d8a9936ab44",
+              "id": "2a33c1b5-d190-4602-b8f7-d2f0ff0cf417",
               "name": "The specified limit override is not acceptable.",
               "originalRequest": {
                 "url": {
@@ -9741,7 +8196,7 @@
               "_postman_previewlanguage": "text"
             },
             {
-              "id": "c1404651-6c3b-4ede-810d-9b70e1113db0",
+              "id": "557f83d1-becc-4911-ae98-a4373e6d0a8e",
               "name": "The specified SoraCam compatible camera device could not be found.",
               "originalRequest": {
                 "url": {
@@ -9807,7 +8262,7 @@
           }
         },
         {
-          "id": "cb4b1605-7934-4d72-aa3c-59bf5f70c92d",
+          "id": "2344ac98-9ca7-4fc3-a40f-a2673fb353a9",
           "name": "Get a list of the current status of the process of exporting still image from recorded video taken with a SoraCam compatible camera device.",
           "request": {
             "name": "Get a list of the current status of the process of exporting still image from recorded video taken with a SoraCam compatible camera device.",
@@ -9883,7 +8338,7 @@
           },
           "response": [
             {
-              "id": "b33e09f0-91d1-4ea0-83bd-2dcb3090eb1b",
+              "id": "decf8829-cc99-4786-9c5b-5343726bcfc8",
               "name": "OK.",
               "originalRequest": {
                 "url": {
@@ -9951,7 +8406,7 @@
               "_postman_previewlanguage": "json"
             },
             {
-              "id": "44e4beb2-8319-430d-ba2e-a4f028707142",
+              "id": "c1373187-d1c3-4618-a4ad-dd2be85e0112",
               "name": "The specified SoraCam compatible camera device could not be found.",
               "originalRequest": {
                 "url": {
@@ -10021,7 +8476,7 @@
           }
         },
         {
-          "id": "dbd6c52d-3c86-4476-b7f8-57d8b309ccef",
+          "id": "12a921fd-b5b4-49d7-890c-ad145190f087",
           "name": "Start the process of exporting still images from recorded video saved on the cloud",
           "request": {
             "name": "Start the process of exporting still images from recorded video saved on the cloud",
@@ -10091,7 +8546,7 @@
           },
           "response": [
             {
-              "id": "72ac6ff3-58ba-4994-bd53-c5c7ec801669",
+              "id": "da3d24c5-2217-4793-9ea8-3debaf3eab10",
               "name": "OK.",
               "originalRequest": {
                 "url": {
@@ -10154,7 +8609,7 @@
               "_postman_previewlanguage": "json"
             },
             {
-              "id": "4acbf93e-c446-4f01-8a8f-a03fb7b98bfb",
+              "id": "00109c5a-fa29-476d-8cd2-559839c3ef09",
               "name": "The value specified for `time` is invalid.",
               "originalRequest": {
                 "url": {
@@ -10213,7 +8668,7 @@
               "_postman_previewlanguage": "text"
             },
             {
-              "id": "8df51579-db52-461d-ba0f-7dc8ea72dd94",
+              "id": "df089b17-3780-4796-b4ae-cc10c294783b",
               "name": "You do not have the required permission (FileEntry:putFile) to export to Harvest Files.",
               "originalRequest": {
                 "url": {
@@ -10272,7 +8727,7 @@
               "_postman_previewlanguage": "text"
             },
             {
-              "id": "8c1d4ce8-53d4-41aa-b35b-8b4751d6b6b6",
+              "id": "0fbbae2f-4d90-4f05-a8cd-0d9d612916fd",
               "name": "The specified SoraCam compatible camera device could not be found.",
               "originalRequest": {
                 "url": {
@@ -10337,7 +8792,7 @@
           }
         },
         {
-          "id": "16913a81-8040-4078-a59c-58bb4a64f927",
+          "id": "0d082a79-b945-4a72-b331-99e38e66a5ec",
           "name": "Get the current status of the process of exporting still images from recorded video taken with a SoraCam compatible camera device",
           "request": {
             "name": "Get the current status of the process of exporting still images from recorded video taken with a SoraCam compatible camera device",
@@ -10402,7 +8857,7 @@
           },
           "response": [
             {
-              "id": "ecbb8d8e-1dc5-49c9-9792-cb5310238e66",
+              "id": "e3cbd231-5600-4059-9e29-342649634eb7",
               "name": "OK.",
               "originalRequest": {
                 "url": {
@@ -10465,7 +8920,7 @@
               "_postman_previewlanguage": "json"
             },
             {
-              "id": "a3e96f9a-9112-4d06-9033-e874dba45c98",
+              "id": "e9f58222-3dad-496b-ab7d-b40283f8ff60",
               "name": "The specified SoraCam compatible camera device or export process could not be found.",
               "originalRequest": {
                 "url": {
@@ -10530,7 +8985,7 @@
           }
         },
         {
-          "id": "12112d34-a783-4118-8f1b-52bd08b65aae",
+          "id": "b426fccd-1f9d-4756-bbf3-7426cc6ae2b7",
           "name": "Get the current name of the SoraCam compatible camera device.",
           "request": {
             "name": "Get the current name of the SoraCam compatible camera device.",
@@ -10586,7 +9041,7 @@
           },
           "response": [
             {
-              "id": "a822b539-9611-4dae-a50a-c609fc7110e7",
+              "id": "0932b486-6c00-45dc-822b-2b05ee5ec5fb",
               "name": "OK.",
               "originalRequest": {
                 "url": {
@@ -10640,7 +9095,7 @@
               "_postman_previewlanguage": "json"
             },
             {
-              "id": "a6b5f5cf-ce90-4925-a3eb-b5cd3b765a4b",
+              "id": "310162e3-427c-4f42-955c-32ea09ef7a3b",
               "name": "The specified SoraCam compatible camera device could not be found.",
               "originalRequest": {
                 "url": {
@@ -10696,7 +9151,7 @@
           }
         },
         {
-          "id": "4513e0af-7cc6-4f3d-80a4-e43bc9f774ba",
+          "id": "a7d61799-f4be-48b6-a91f-cccade07afaf",
           "name": "Changes the name of the SoraCam compatible camera device.",
           "request": {
             "name": "Changes the name of the SoraCam compatible camera device.",
@@ -10761,7 +9216,7 @@
           },
           "response": [
             {
-              "id": "54edccf7-b010-4fd1-bfc5-ff94fa6d1c42",
+              "id": "7b3e1c70-92ad-450b-887d-e9f4e12fcb2e",
               "name": "OK.",
               "originalRequest": {
                 "url": {
@@ -10819,7 +9274,7 @@
               "_postman_previewlanguage": "text"
             },
             {
-              "id": "665f6842-1d4c-4d85-bd5e-0e7c1a7aaf7f",
+              "id": "a7ff3303-c50d-41ed-b7cb-6599c460d2b2",
               "name": "The specified value is invalid.",
               "originalRequest": {
                 "url": {
@@ -10877,7 +9332,7 @@
               "_postman_previewlanguage": "text"
             },
             {
-              "id": "648df67c-2f13-475f-a4f5-c11c003013de",
+              "id": "5a99dba8-1cfb-4c25-98a6-f89a12f75fca",
               "name": "The specified SoraCam compatible camera device could not be found.",
               "originalRequest": {
                 "url": {
@@ -10941,7 +9396,7 @@
           }
         },
         {
-          "id": "f84f8f61-6ba8-40ec-821c-c87321ee87a1",
+          "id": "df5d5512-2ff6-4d07-8433-938e6657dd43",
           "name": "Get the current power state of the SoraCam compatible camera device.",
           "request": {
             "name": "Get the current power state of the SoraCam compatible camera device.",
@@ -10997,7 +9452,7 @@
           },
           "response": [
             {
-              "id": "e1af88b7-3034-44be-85a6-075a112ea372",
+              "id": "6a34afca-881e-4327-b10d-118d9f20a8dd",
               "name": "OK.",
               "originalRequest": {
                 "url": {
@@ -11051,7 +9506,7 @@
               "_postman_previewlanguage": "json"
             },
             {
-              "id": "8cd2033f-4be5-4d8e-9a45-ee605b323d06",
+              "id": "7b155c83-4096-414f-ad3d-ad866c8981c0",
               "name": "The specified SoraCam compatible camera device could not be found.",
               "originalRequest": {
                 "url": {
@@ -11107,7 +9562,7 @@
           }
         },
         {
-          "id": "bf3d2813-b261-4def-b43c-6e037777bc6c",
+          "id": "b79ff1b8-9f04-449d-8195-0e57a665dd11",
           "name": "Changes the power state of the SoraCam compatible camera device.",
           "request": {
             "name": "Changes the power state of the SoraCam compatible camera device.",
@@ -11172,7 +9627,7 @@
           },
           "response": [
             {
-              "id": "ecf82597-3a24-4529-8d40-4d79b17a061f",
+              "id": "ceee752e-5d92-43a9-8d0f-a7775824edde",
               "name": "OK.",
               "originalRequest": {
                 "url": {
@@ -11230,7 +9685,7 @@
               "_postman_previewlanguage": "text"
             },
             {
-              "id": "9b3315d0-c682-4522-bbc2-046df454fd44",
+              "id": "a017ee4f-9564-4c8a-86ad-313571a52cf8",
               "name": "The specified value is invalid.",
               "originalRequest": {
                 "url": {
@@ -11288,7 +9743,7 @@
               "_postman_previewlanguage": "text"
             },
             {
-              "id": "92e6a9c1-a071-4433-948e-fcb636caf62d",
+              "id": "31385e47-ff51-4b5d-9144-d0e3b3803b16",
               "name": "The specified SoraCam compatible camera device could not be found.",
               "originalRequest": {
                 "url": {
@@ -11352,7 +9807,7 @@
           }
         },
         {
-          "id": "d29b8c35-c1a8-4ea0-93c6-f07699506af4",
+          "id": "964a2c36-0f3a-47d1-979b-6051e373db7f",
           "name": "Reboot the SoraCam compatible camera device.",
           "request": {
             "name": "Reboot the SoraCam compatible camera device.",
@@ -11402,7 +9857,7 @@
           },
           "response": [
             {
-              "id": "d6cda02d-183c-4d21-a6e5-ca64dcb724a0",
+              "id": "d70fe93f-d5f3-479d-b226-16d681fa9ff7",
               "name": "OK.",
               "originalRequest": {
                 "url": {
@@ -11452,7 +9907,7 @@
               "_postman_previewlanguage": "text"
             },
             {
-              "id": "df68902c-5f5e-4eef-9550-11551fc7c721",
+              "id": "aee92f73-40cc-4f90-9a71-89fc1bc8e73c",
               "name": "The specified SoraCam compatible camera device could not be found.",
               "originalRequest": {
                 "url": {
@@ -11508,7 +9963,7 @@
           }
         },
         {
-          "id": "0d9c43bd-6939-46da-b6dc-da61684c589d",
+          "id": "72f1b3a2-c08b-4e59-b1bc-6ca0417e5dce",
           "name": "Retrieve a list of recording periods and events for a SoraCam compatible camera device",
           "request": {
             "name": "Retrieve a list of recording periods and events for a SoraCam compatible camera device",
@@ -11589,7 +10044,7 @@
           },
           "response": [
             {
-              "id": "b53ce4b5-1d5a-4d16-83de-7e87ffaed73a",
+              "id": "cd1b9973-ec02-4cf5-b7f7-591652721a8f",
               "name": "OK.",
               "originalRequest": {
                 "url": {
@@ -11660,7 +10115,7 @@
               "_postman_previewlanguage": "json"
             },
             {
-              "id": "cee47ae2-3985-45b2-bee9-7dcb41729118",
+              "id": "faf49d15-6e7e-4a32-bc2f-703f1f4f9548",
               "name": "The specified argument is invalid.",
               "originalRequest": {
                 "url": {
@@ -11727,7 +10182,7 @@
               "_postman_previewlanguage": "text"
             },
             {
-              "id": "9184bce5-26e0-4b2b-9db9-be460298f340",
+              "id": "7c7d675c-6346-4893-8c5f-b2be9b0549ee",
               "name": "The specified SoraCam compatible camera device, or the recordings for the specified period, could not be found.",
               "originalRequest": {
                 "url": {
@@ -11800,7 +10255,7 @@
           }
         },
         {
-          "id": "e57feb28-1d90-4bbf-8304-daef270e611e",
+          "id": "f8046b7f-39ba-4a59-8a71-3b7b6de2f053",
           "name": "Get information for streaming recorded video from the cloud.",
           "request": {
             "name": "Get information for streaming recorded video from the cloud.",
@@ -11869,7 +10324,7 @@
           },
           "response": [
             {
-              "id": "28c34cbb-f189-4296-8015-59cfd46b2ade",
+              "id": "39747902-fe43-4df1-8563-d9cf80268b70",
               "name": "Successfully retrieved streaming video information.",
               "originalRequest": {
                 "url": {
@@ -11932,7 +10387,7 @@
               "_postman_previewlanguage": "json"
             },
             {
-              "id": "a9f59c38-bac6-4756-9c8d-3846c03de3eb",
+              "id": "29b03f41-52e5-40a0-ab1d-228f98c084d5",
               "name": "Invalid parameters. Check that from/to values are valid timestamps and time range does not exceed 900 seconds.",
               "originalRequest": {
                 "url": {
@@ -11991,7 +10446,7 @@
               "_postman_previewlanguage": "text"
             },
             {
-              "id": "7f27694b-2612-4962-8671-2532d2a8c91c",
+              "id": "1e490d89-1ebf-4f92-becb-b23bab3b0a6c",
               "name": "The specified SoraCam compatible camera device could not be found or has no recorded video for the specified time range.",
               "originalRequest": {
                 "url": {
@@ -12056,7 +10511,7 @@
           }
         },
         {
-          "id": "3d3c88e6-7dae-4dc1-9c31-36c49b9df58e",
+          "id": "1bc2e455-b7bd-46ea-b87c-d038c0a755e2",
           "name": "Get a list of the current status of the process of exporting recorded video taken with a SoraCam compatible camera device.",
           "request": {
             "name": "Get a list of the current status of the process of exporting recorded video taken with a SoraCam compatible camera device.",
@@ -12132,7 +10587,7 @@
           },
           "response": [
             {
-              "id": "04d0a117-648c-4ce6-8060-75ea83391f11",
+              "id": "138df369-4e6c-4874-8644-4a6e617828cc",
               "name": "OK.",
               "originalRequest": {
                 "url": {
@@ -12200,7 +10655,7 @@
               "_postman_previewlanguage": "json"
             },
             {
-              "id": "cbb64102-da29-4c81-9214-2dd58b8175c2",
+              "id": "080d237e-4d9c-449c-803f-0f61ef063d87",
               "name": "The specified SoraCam compatible camera device could not be found.",
               "originalRequest": {
                 "url": {
@@ -12270,7 +10725,7 @@
           }
         },
         {
-          "id": "039e05d1-cd68-41af-8518-347e17d76ca0",
+          "id": "d816d59d-231c-45ac-b283-8633df7f3279",
           "name": "Start the process of exporting recorded video saved on the cloud",
           "request": {
             "name": "Start the process of exporting recorded video saved on the cloud",
@@ -12340,7 +10795,7 @@
           },
           "response": [
             {
-              "id": "d7174a60-397c-4df3-85cf-77ae80609ade",
+              "id": "16b448c9-6b5f-4450-afaa-dc323a9a9468",
               "name": "OK.",
               "originalRequest": {
                 "url": {
@@ -12403,7 +10858,7 @@
               "_postman_previewlanguage": "json"
             },
             {
-              "id": "b9009021-5d33-409d-8a58-0d0a9d2aa2b8",
+              "id": "c0c6d936-7af0-46f1-8b48-fc9304cbd768",
               "name": "- The value specified for `from` or `to` is invalid.\n- No exportable recordings were found in the specified time range.\n- `Content-Type: application/json` header is not specified.\n",
               "originalRequest": {
                 "url": {
@@ -12462,7 +10917,7 @@
               "_postman_previewlanguage": "text"
             },
             {
-              "id": "560cd890-5c6d-43c0-8968-04b2a6389d25",
+              "id": "179566ad-4edc-47b8-aeb1-a109c33bd221",
               "name": "You do not have the required permission (FileEntry:putFile) to export to Harvest Files.",
               "originalRequest": {
                 "url": {
@@ -12521,7 +10976,7 @@
               "_postman_previewlanguage": "text"
             },
             {
-              "id": "f70205eb-e948-44ee-9843-b86399524a40",
+              "id": "8f41b616-6a44-43a3-bc3c-cc809bbe04c1",
               "name": "The specified SoraCam compatible camera device could not be found.",
               "originalRequest": {
                 "url": {
@@ -12586,7 +11041,7 @@
           }
         },
         {
-          "id": "c0c59f23-dfd2-46ef-928b-35f7e70e6dcf",
+          "id": "126e6489-7087-4981-8c9c-22b43c3da5b8",
           "name": "Get the current status of the process of exporting recorded video taken with a SoraCam compatible camera device",
           "request": {
             "name": "Get the current status of the process of exporting recorded video taken with a SoraCam compatible camera device",
@@ -12651,7 +11106,7 @@
           },
           "response": [
             {
-              "id": "e03b3758-8df5-43e8-ab8f-dde5be7ef8b7",
+              "id": "bc11a504-d7bc-45d3-b6e4-17898085c501",
               "name": "OK.",
               "originalRequest": {
                 "url": {
@@ -12714,7 +11169,7 @@
               "_postman_previewlanguage": "json"
             },
             {
-              "id": "bf94de0a-9a91-4b42-b517-2a4827ad7c18",
+              "id": "d1bb6f41-76d6-4b0a-a6c2-12b3e1f1f425",
               "name": "The specified SoraCam compatible camera device or export process could not be found.",
               "originalRequest": {
                 "url": {
@@ -12779,7 +11234,7 @@
           }
         },
         {
-          "id": "f90cdc1f-44c8-4a37-b6c8-b1b80b07bb82",
+          "id": "7f952f74-9ee5-4d5b-b85f-04d1ca3591f3",
           "name": "Retrieve a list of SoraCam compatible camera devices that can update the firmware",
           "request": {
             "name": "Retrieve a list of SoraCam compatible camera devices that can update the firmware",
@@ -12828,7 +11283,7 @@
           },
           "response": [
             {
-              "id": "f07044a8-e295-4bff-95b6-cdf024067c20",
+              "id": "d23ea3be-bfa7-4abe-9076-c120963419f0",
               "name": "OK.",
               "originalRequest": {
                 "url": {
@@ -12881,7 +11336,7 @@
           }
         },
         {
-          "id": "406ad35c-91f9-4476-ad64-7672706652c8",
+          "id": "e8037341-c7ed-4767-b70a-1285aff2bfc0",
           "name": "List SoraCam events.",
           "request": {
             "name": "List SoraCam events.",
@@ -12965,7 +11420,7 @@
           },
           "response": [
             {
-              "id": "ea561005-169f-405a-86e8-bbe601a243ee",
+              "id": "4d8e4229-1ed9-4e4f-aa0f-685ede8697d3",
               "name": "OK.",
               "originalRequest": {
                 "url": {
@@ -13035,7 +11490,7 @@
               "_postman_previewlanguage": "json"
             },
             {
-              "id": "ee354d9f-537f-4442-bfee-ee6aa6fdc002",
+              "id": "996bc24a-4e39-40fd-87ae-9472d4c29f39",
               "name": "The specified value is invalid.",
               "originalRequest": {
                 "url": {
@@ -13107,7 +11562,7 @@
           }
         },
         {
-          "id": "6a60c9e8-aea0-4bcc-9ea4-10495b6d1af2",
+          "id": "39ef014d-dd43-418a-b585-085419cdc46c",
           "name": "Get a list of the current status of the process of exporting still image from recorded video taken with a SoraCam compatible camera device.",
           "request": {
             "name": "Get a list of the current status of the process of exporting still image from recorded video taken with a SoraCam compatible camera device.",
@@ -13180,7 +11635,7 @@
           },
           "response": [
             {
-              "id": "a1bb3fc3-e8f8-4ea6-a2bb-35d316b0b550",
+              "id": "21d5f606-bee6-48ac-a640-5f1125acaec3",
               "name": "A list of image export processes.",
               "originalRequest": {
                 "url": {
@@ -13243,7 +11698,7 @@
               "_postman_previewlanguage": "json"
             },
             {
-              "id": "4c5b886f-f1d6-4ac2-9fd8-b485ec24ca0d",
+              "id": "acd85024-f516-4b3d-ac1a-eaa49ba77d5f",
               "name": "The specified SoraCam compatible camera device could not be found.",
               "originalRequest": {
                 "url": {
@@ -13308,7 +11763,7 @@
           }
         },
         {
-          "id": "ac8e53d2-aed6-4398-8cab-8723dd206818",
+          "id": "826b24ee-35a4-4268-9b55-3f1bdbfd400b",
           "name": "Get a list of the current status of the process of exporting recorded video taken with a SoraCam compatible camera device.",
           "request": {
             "name": "Get a list of the current status of the process of exporting recorded video taken with a SoraCam compatible camera device.",
@@ -13381,7 +11836,7 @@
           },
           "response": [
             {
-              "id": "d7e6dafa-6eac-408e-8665-002c263ffdf1",
+              "id": "47779cca-2ed2-4c2e-8cdb-ed4b14259a05",
               "name": "A list of video export processes.",
               "originalRequest": {
                 "url": {
@@ -13444,7 +11899,7 @@
               "_postman_previewlanguage": "json"
             },
             {
-              "id": "468e681b-d2f5-45a3-905b-978026b9bb5f",
+              "id": "71552b25-6285-4e85-af15-c38137bacb9f",
               "name": "The specified SoraCam compatible camera device could not be found.",
               "originalRequest": {
                 "url": {
@@ -13509,7 +11964,7 @@
           }
         },
         {
-          "id": "b0b0fc3f-a998-48e3-acb0-6608f4b831e6",
+          "id": "e271dc12-f9d0-43d2-a6ed-1f251929cfea",
           "name": "List license packs of Soracom Cloud Camera Services",
           "request": {
             "name": "List license packs of Soracom Cloud Camera Services",
@@ -13555,7 +12010,7 @@
           },
           "response": [
             {
-              "id": "eb124823-9855-478c-98c5-eb1cf9c15100",
+              "id": "63067114-99e2-4a6c-92b3-a8cc4eddc527",
               "name": "The license pack list was returned.",
               "originalRequest": {
                 "url": {
@@ -13599,7 +12054,7 @@
               "_postman_previewlanguage": "json"
             },
             {
-              "id": "d9a20256-a9da-45f3-8a7d-9f98fe314fdf",
+              "id": "7e5e0d5d-c6fb-4e9b-9ec8-960fdf6563b8",
               "name": "The request is invalid.",
               "originalRequest": {
                 "url": {
@@ -13645,7 +12100,7 @@
           }
         },
         {
-          "id": "adf2e52d-0e92-4a6f-9074-29b5fccc572b",
+          "id": "3ff466e0-1c88-4201-a43c-d40e493a327f",
           "name": "Update the license quantity of Soracom Cloud Camera Services",
           "request": {
             "name": "Update the license quantity of Soracom Cloud Camera Services",
@@ -13710,7 +12165,7 @@
           },
           "response": [
             {
-              "id": "18caef2e-76c4-447c-ae43-c4bf2c592dfb",
+              "id": "3a43c9dd-a8c4-44fc-8fa3-93abfce4b0ba",
               "name": "The license quantity was updated.",
               "originalRequest": {
                 "url": {
@@ -13768,7 +12223,7 @@
               "_postman_previewlanguage": "text"
             },
             {
-              "id": "00a70ab1-4dd2-4931-9265-cf3216603ea3",
+              "id": "9166ffce-9b8c-44b0-a45f-05af9d7a4f84",
               "name": "The updating request is invalid.",
               "originalRequest": {
                 "url": {
@@ -13844,11 +12299,11 @@
     }
   ],
   "info": {
-    "_postman_id": "1c057113-58b9-41cd-ad43-dd4dc3d15454",
-    "name": "Soracom Cloud Camera Services API",
+    "_postman_id": "67a477b8-e07d-4afe-bf44-1799b51b4dbe",
+    "name": "Soracom and Query Analysis SoraCam API",
     "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
     "description": {
-      "content": "Manage Soracom Cloud Camera Services (SoraCam) devices, recordings, images, and events.",
+      "content": "Run SQL queries against Soracom Query, fetch query schemas, and search SIMs, Inventory devices, and Sigfox devices.",
       "type": "text/plain"
     }
   }

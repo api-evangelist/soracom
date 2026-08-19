@@ -1,0 +1,141 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Soracom and Query Analysis Email API",
+    "version": "20250903-043502"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Email",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List email addresses",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.soracom.io/v1/operators/:operator_id/emails",
+            "params": [
+              {
+                "name": "operator_id",
+                "value": "",
+                "type": "path",
+                "description": "Operator ID."
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-Soracom-API-Key",
+              "value": "{{X-Soracom-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Retrieves a list of email addresses registered to the operator.\n"
+        },
+        {
+          "info": {
+            "name": "Get email address",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.soracom.io/v1/operators/:operator_id/emails/:email_id",
+            "params": [
+              {
+                "name": "operator_id",
+                "value": "",
+                "type": "path",
+                "description": "Operator ID."
+              },
+              {
+                "name": "email_id",
+                "value": "",
+                "type": "path",
+                "description": "Email address ID."
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-Soracom-API-Key",
+              "value": "{{X-Soracom-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Retrieves information for the email address corresponding to the specified email address ID.\n"
+        },
+        {
+          "info": {
+            "name": "Delete email address",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.soracom.io/v1/operators/:operator_id/emails/:email_id",
+            "params": [
+              {
+                "name": "operator_id",
+                "value": "",
+                "type": "path",
+                "description": "Operator ID."
+              },
+              {
+                "name": "email_id",
+                "value": "",
+                "type": "path",
+                "description": "Email address ID."
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-Soracom-API-Key",
+              "value": "{{X-Soracom-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Deletes the email address corresponding to the specified email address ID from the operator.\n"
+        },
+        {
+          "info": {
+            "name": "Issue an authentication token to add an email address",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.soracom.io/v1/operators/add_email_token/issue",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-Soracom-API-Key",
+              "value": "{{X-Soracom-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Generates an authentication token for adding a new email address and sends it to the specified email address. This authentication token is used with [Email:verifyAddEmailToken API](#/Email/verifyAddEmailToken) to complete email address verification and addition.\n\n**Warning**: This API can only be executed with root user credentials.\n"
+        },
+        {
+          "info": {
+            "name": "Verify an authentication token to add an email address",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.soracom.io/v1/operators/add_email_token/verify",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Verifies the authentication token issued by [Email:issueAddEmailToken API](#/Email/issueAddEmailToken) and adds the email address to the operator.\n\n**Warning**: Authentication tokens have an expiration time. Expired authentication tokens cannot be used.\n"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,192 @@
+{
+  "item": [
+    {
+      "id": "ace308bd-f838-4bc4-898f-a9739f9981bd",
+      "name": "ResourceSummary",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "561a7061-5620-474a-b89c-d13562b81e92",
+          "name": "Get the resource summary identified by resource_summary_type",
+          "request": {
+            "name": "Get the resource summary identified by resource_summary_type",
+            "description": {
+              "content": "Obtain a resource summary information identified by resource_summary_type.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "resource_summaries",
+                ":resource_summary_type"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "resource_summary_type",
+                  "description": "(Required) The type of the resource summary.\n\n- `simsPerStatus`: The number of IoT SIMs per status.\n"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-Soracom-API-Key"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "fddfa648-f4ee-49bd-811c-6375feb997a1",
+              "name": "The resource summary was found.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "resource_summaries",
+                    ":resource_summary_type"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "resource_summary_type",
+                      "description": "(Required) The type of the resource summary.\n\n- `simsPerStatus`: The number of IoT SIMs per status.\n"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Soracom-API-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"resourceSummaryItems\": [\n    {\n      \"updatedTime\": 1654007722000,\n      \"values\": [\n        {\n          \"name\": \"activeSims\",\n          \"value\": 1\n        },\n        {\n          \"name\": \"activeSims\",\n          \"value\": 1\n        }\n      ]\n    },\n    {\n      \"updatedTime\": 1654007722000,\n      \"values\": [\n        {\n          \"name\": \"activeSims\",\n          \"value\": 1\n        },\n        {\n          \"name\": \"activeSims\",\n          \"value\": 1\n        }\n      ]\n    }\n  ],\n  \"resourceSummaryType\": \"simsPerStatus\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "55633674-8422-4ba2-88ae-4280be58c9ed",
+              "name": "No such resource summary.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "resource_summaries",
+                    ":resource_summary_type"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "resource_summary_type",
+                      "description": "(Required) The type of the resource summary.\n\n- `simsPerStatus`: The number of IoT SIMs per status.\n"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Soracom-API-Key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.soracom.io/v1",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "d51fc797-846d-47a9-8e07-353ab366c61e",
+    "name": "Soracom and Query Analysis ResourceSummary API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Run SQL queries against Soracom Query, fetch query schemas, and search SIMs, Inventory devices, and Sigfox devices.",
+      "type": "text/plain"
+    }
+  }
+}

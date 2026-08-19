@@ -1,0 +1,355 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Soracom and Query Analysis Order API",
+    "version": "20250903-043502"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Order",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Create coupon quotation",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.soracom.io/v1/coupons",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-Soracom-API-Key",
+              "value": "{{X-Soracom-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Creates a new coupon quotation. If the orderId is put in /coupons/{order_id}/confirm, the order is complete."
+        },
+        {
+          "info": {
+            "name": "Create long term discount quotation",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.soracom.io/v1/volume_discounts",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-Soracom-API-Key",
+              "value": "{{X-Soracom-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Creates a new long term discount quotation. If the orderId is put in /volume_discounts/{order_id}/confirm, the order is complete (Currently, long term discount is only applied to plan-D (without bundle), plan-K)."
+        },
+        {
+          "info": {
+            "name": "Confirm coupon order",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.soracom.io/v1/coupons/:order_id/confirm",
+            "params": [
+              {
+                "name": "order_id",
+                "value": "",
+                "type": "path",
+                "description": "Order ID. You can get it by calling [Order:createCouponQuotation API](#/Order/createCouponQuotation)."
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-Soracom-API-Key",
+              "value": "{{X-Soracom-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Performs a credit limit and confirms the order if no problems are encountered."
+        },
+        {
+          "info": {
+            "name": "Get a list of confirmed order history",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.soracom.io/v1/orders",
+            "auth": {
+              "type": "apikey",
+              "key": "X-Soracom-API-Key",
+              "value": "{{X-Soracom-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Get a list of confirmed order history.\n\n**Warning**: The maximum information you can get is for the last 18 months. If you need the information before that time, please contact [Soracom Support](https://support.soracom.io).\n"
+        },
+        {
+          "info": {
+            "name": "Create Quotation",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.soracom.io/v1/orders",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-Soracom-API-Key",
+              "value": "{{X-Soracom-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Creates a new order quotation. If the orderId is put in /orders/{order_id}/confirm, the order is complete."
+        },
+        {
+          "info": {
+            "name": "Get a confirmed order",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.soracom.io/v1/orders/:order_id",
+            "params": [
+              {
+                "name": "order_id",
+                "value": "",
+                "type": "path",
+                "description": "Order ID. You can get it by calling [Order:listOrders API](#/Order/listOrders)."
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-Soracom-API-Key",
+              "value": "{{X-Soracom-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Returns a confirmed order.\n\n**Warning**: The maximum information you can get is for the last 18 months. If you need the information before that time, please contact [Soracom Support](https://support.soracom.io).\n"
+        },
+        {
+          "info": {
+            "name": "Cancel order",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.soracom.io/v1/orders/:order_id/cancel",
+            "params": [
+              {
+                "name": "order_id",
+                "value": "",
+                "type": "path",
+                "description": "Order ID. You can get it by calling [Order:listOrders API](#/Order/listOrders)."
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-Soracom-API-Key",
+              "value": "{{X-Soracom-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Cancels an order. If the order has already been dispatched, an error is returned."
+        },
+        {
+          "info": {
+            "name": "Confirm order",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.soracom.io/v1/orders/:order_id/confirm",
+            "params": [
+              {
+                "name": "order_id",
+                "value": "",
+                "type": "path",
+                "description": "Order ID. You can get it by calling [Order:listOrders API](#/Order/listOrders)."
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-Soracom-API-Key",
+              "value": "{{X-Soracom-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Performs a credit limit and confirms the order if no problems are encountered.\n\n**Warning**: Only orders completed within the past month can be confirmed. If one month has elapsed, please redo the order placement operation.\n"
+        },
+        {
+          "info": {
+            "name": "Update resource initial setting for an order",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.soracom.io/v1/orders/:order_id/resource_initial_setting",
+            "params": [
+              {
+                "name": "order_id",
+                "value": "",
+                "type": "path",
+                "description": "Order ID. You can get it by calling [Order:listOrders API](#/Order/listOrders)."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-Soracom-API-Key",
+              "value": "{{X-Soracom-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Update resource initial setting for an order.\n\n**Warning**: Initial settings of IoT SIM cannot be specified after confirmation of receipt.\n"
+        },
+        {
+          "info": {
+            "name": "List ordered subscribers",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.soracom.io/v1/orders/:order_id/subscribers",
+            "params": [
+              {
+                "name": "order_id",
+                "value": "",
+                "type": "path",
+                "description": "Order ID. You can get it by calling [Order:listOrders API](#/Order/listOrders)."
+              },
+              {
+                "name": "last_evaluated_key",
+                "value": "",
+                "type": "query",
+                "description": "The value of the `x-soracom-next-key` header returned when the previous page was retrieved. Specify if the next page is to be retrieved. For details, see [Handling Pagination](/en/docs/tools/api-reference/#handling-pagination)."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of subscribers in a response."
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-Soracom-API-Key",
+              "value": "{{X-Soracom-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "List ordered subscribers.\n\n**Warning**: The maximum information you can get is for the last 18 months. If you need the information before that time, please contact [Soracom Support](https://support.soracom.io).\n"
+        },
+        {
+          "info": {
+            "name": "Register subscribers for operator",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.soracom.io/v1/orders/:order_id/subscribers/register",
+            "params": [
+              {
+                "name": "order_id",
+                "value": "",
+                "type": "path",
+                "description": "Order ID. You can get it by calling [Order:listOrders API](#/Order/listOrders)."
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-Soracom-API-Key",
+              "value": "{{X-Soracom-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Registers the ordered SIM with the operator.\n\n**Warning**: IoT SIMs can only be registered for the past 18 months. If you need to register an IoT SIM that was ordered before the time period, please contact [Soracom Support](https://support.soracom.io).\n"
+        },
+        {
+          "info": {
+            "name": "List products",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.soracom.io/v1/products",
+            "params": [
+              {
+                "name": "campaign_code",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-Soracom-API-Key",
+              "value": "{{X-Soracom-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Returns a list of products."
+        },
+        {
+          "info": {
+            "name": "Confirm long-term discount order",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.soracom.io/v1/volume_discounts/:order_id/confirm",
+            "params": [
+              {
+                "name": "order_id",
+                "value": "",
+                "type": "path",
+                "description": "Order ID. The order ID can be obtained from the [Order:createVolumeDiscountQuotation API](#/Order/createVolumeDiscountQuotation)."
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-Soracom-API-Key",
+              "value": "{{X-Soracom-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Performs a credit check and confirms the order if there are no issues."
+        },
+        {
+          "info": {
+            "name": "List available long term discounts",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.soracom.io/v1/volume_discounts/available_discounts",
+            "auth": {
+              "type": "apikey",
+              "key": "X-Soracom-API-Key",
+              "value": "{{X-Soracom-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Returns a list of available long term discounts."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

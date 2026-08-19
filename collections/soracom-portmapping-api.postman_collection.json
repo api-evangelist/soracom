@@ -1,0 +1,898 @@
+{
+  "item": [
+    {
+      "id": "f7f2e1c1-9055-4262-a340-11bf5abc0062",
+      "name": "PortMapping",
+      "description": {
+        "content": "[Soracom Napter](/en/docs/napter/)",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "030a573d-19ca-448e-8623-5f944ebce94e",
+          "name": "Retrieve a list of Napter On-Demand Remote Access entries",
+          "request": {
+            "name": "Retrieve a list of Napter On-Demand Remote Access entries",
+            "description": {
+              "content": "Returns a list of Napter On-Demand Remote Access entries.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "port_mappings"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "<integer>",
+                  "description": "Maximum number of results per response page."
+                },
+                {
+                  "disabled": false,
+                  "key": "last_evaluated_key",
+                  "value": "<string>",
+                  "description": "The last On-Demand Remote Access ID retrieved on the previous page. By specifying this parameter, you can continue to retrieve the list from the next entry onward."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-Soracom-API-Key"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "0c030bac-44f3-460c-98bc-2d97fb58077e",
+              "name": "A list of On-Demand Remote Access entries.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "port_mappings"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "last_evaluated_key",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Soracom-API-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"createdTime\": 8770,\n    \"destination\": {\n      \"port\": 2044.8830368778924,\n      \"destinationChoosingStrategy\": \"ARC_PRIORITIZED\",\n      \"imsi\": \"string\",\n      \"service\": \"air\",\n      \"simId\": \"string\"\n    },\n    \"duration\": 7860.901304796991,\n    \"endpoint\": \"string\",\n    \"expired\": false,\n    \"expiredTime\": 6773,\n    \"hostname\": \"string\",\n    \"imsi\": \"string\",\n    \"ipAddress\": \"string\",\n    \"operatorId\": \"string\",\n    \"placement\": \"string\",\n    \"port\": 2542.7507085672028,\n    \"simId\": \"string\",\n    \"source\": {\n      \"ipRanges\": [\n        \"string\",\n        \"string\"\n      ]\n    },\n    \"tlsRequired\": false\n  },\n  {\n    \"createdTime\": 6451,\n    \"destination\": {\n      \"port\": 5698.555966009098,\n      \"destinationChoosingStrategy\": \"ARC_PRIORITIZED\",\n      \"imsi\": \"string\",\n      \"service\": \"arc\",\n      \"simId\": \"string\"\n    },\n    \"duration\": 6768.4248203884235,\n    \"endpoint\": \"string\",\n    \"expired\": false,\n    \"expiredTime\": 2312,\n    \"hostname\": \"string\",\n    \"imsi\": \"string\",\n    \"ipAddress\": \"string\",\n    \"operatorId\": \"string\",\n    \"placement\": \"string\",\n    \"port\": 8064.545916690671,\n    \"simId\": \"string\",\n    \"source\": {\n      \"ipRanges\": [\n        \"string\",\n        \"string\"\n      ]\n    },\n    \"tlsRequired\": false\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "3ea79122-6def-4706-9551-78b1a681aff0",
+          "name": "Create Napter On-Demand Remote Access entry",
+          "request": {
+            "name": "Create Napter On-Demand Remote Access entry",
+            "description": {
+              "content": "Create a new Napter On-Demand Remote Access entry.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "port_mappings"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-Soracom-API-Key"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"destination\": {\n    \"port\": \"<number>\",\n    \"destinationChoosingStrategy\": \"<string>\",\n    \"imsi\": \"<string>\",\n    \"service\": \"<string>\",\n    \"simId\": \"<string>\"\n  },\n  \"duration\": \"<number>\",\n  \"source\": {\n    \"ipRanges\": [\n      \"<string>\",\n      \"<string>\"\n    ]\n  },\n  \"tlsRequired\": \"<boolean>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "2a487488-306d-4a46-ac18-3ebb4804b9ce",
+              "name": "The On-Demand Remote Access entry has been created.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "port_mappings"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Soracom-API-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"destination\": {\n    \"port\": \"<number>\",\n    \"destinationChoosingStrategy\": \"<string>\",\n    \"imsi\": \"<string>\",\n    \"service\": \"<string>\",\n    \"simId\": \"<string>\"\n  },\n  \"duration\": \"<number>\",\n  \"source\": {\n    \"ipRanges\": [\n      \"<string>\",\n      \"<string>\"\n    ]\n  },\n  \"tlsRequired\": \"<boolean>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"createdTime\": 8384,\n  \"destination\": {\n    \"port\": \"<number>\",\n    \"destinationChoosingStrategy\": \"<string>\",\n    \"imsi\": \"<string>\",\n    \"service\": \"<string>\",\n    \"simId\": \"<string>\"\n  },\n  \"duration\": 6347.559237877837,\n  \"endpoint\": \"string\",\n  \"expired\": true,\n  \"expiredTime\": 2697,\n  \"hostname\": \"string\",\n  \"imsi\": \"string\",\n  \"ipAddress\": \"string\",\n  \"operatorId\": \"string\",\n  \"placement\": \"string\",\n  \"port\": 5370.5537958694185,\n  \"simId\": \"string\",\n  \"source\": {\n    \"ipRanges\": [\n      \"<string>\",\n      \"<string>\"\n    ]\n  },\n  \"tlsRequired\": false\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "d22d0f40-55c7-4903-b359-dfbeb095a53a",
+          "name": "Delete Napter On-Demand Remote Access entry",
+          "request": {
+            "name": "Delete Napter On-Demand Remote Access entry",
+            "description": {
+              "content": "Deletes the specified Napter On-Demand Remote Access entry.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "port_mappings",
+                ":ip_address",
+                ":port"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "ip_address",
+                  "description": "(Required) IP address of the On-Demand Remote Access entry to be deleted."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "port",
+                  "description": "(Required) Port number of the On-Demand Remote Access entry to be deleted."
+                }
+              ]
+            },
+            "method": "DELETE",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-Soracom-API-Key"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "f1eb467d-b447-443b-b0ba-eb990707f6b4",
+              "name": "The specified On-Demand Remote Access entry has been deleted.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "port_mappings",
+                    ":ip_address",
+                    ":port"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "ip_address",
+                      "description": "(Required) IP address of the On-Demand Remote Access entry to be deleted."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "port",
+                      "description": "(Required) Port number of the On-Demand Remote Access entry to be deleted."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Soracom-API-Key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "eed852c4-87d6-4c3a-8967-82d1b79fb5fb",
+              "name": "The specified On-Demand Remote Access entry does not exist.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "port_mappings",
+                    ":ip_address",
+                    ":port"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "ip_address",
+                      "description": "(Required) IP address of the On-Demand Remote Access entry to be deleted."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "port",
+                      "description": "(Required) Port number of the On-Demand Remote Access entry to be deleted."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Soracom-API-Key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "0cb6ef06-fc9b-48de-9839-5c45f055e97f",
+          "name": "Retrieve a list of Napter On-Demand Remote Access entries created with specified SIM ID",
+          "request": {
+            "name": "Retrieve a list of Napter On-Demand Remote Access entries created with specified SIM ID",
+            "description": {
+              "content": "Retrieves a list of Napter On-Demand Remote Access entries created with the specified SIM ID.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "port_mappings",
+                "sims",
+                ":sim_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "sim_id",
+                  "description": "(Required) SIM ID of the target IoT SIM."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-Soracom-API-Key"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "35c49dce-7eda-4c6f-b11c-15a6e9707ec8",
+              "name": "A list of On-Demand Remote Access entries created with the specified SIM ID.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "port_mappings",
+                    "sims",
+                    ":sim_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "sim_id",
+                      "description": "(Required) SIM ID of the target IoT SIM."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Soracom-API-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"createdTime\": 2133,\n    \"destination\": {\n      \"port\": \"<number>\",\n      \"destinationChoosingStrategy\": \"<string>\",\n      \"imsi\": \"<string>\",\n      \"service\": \"<string>\",\n      \"simId\": \"<string>\"\n    },\n    \"duration\": 5714.662605272992,\n    \"endpoint\": \"string\",\n    \"expired\": false,\n    \"expiredTime\": 2790,\n    \"hostname\": \"string\",\n    \"imsi\": \"string\",\n    \"ipAddress\": \"string\",\n    \"operatorId\": \"string\",\n    \"placement\": \"string\",\n    \"port\": 9935.082960900398,\n    \"simId\": \"string\",\n    \"source\": {\n      \"ipRanges\": [\n        \"<string>\",\n        \"<string>\"\n      ]\n    },\n    \"tlsRequired\": false\n  },\n  {\n    \"createdTime\": 8821,\n    \"destination\": {\n      \"port\": \"<number>\",\n      \"destinationChoosingStrategy\": \"<string>\",\n      \"imsi\": \"<string>\",\n      \"service\": \"<string>\",\n      \"simId\": \"<string>\"\n    },\n    \"duration\": 6413.892964561084,\n    \"endpoint\": \"string\",\n    \"expired\": false,\n    \"expiredTime\": 8778,\n    \"hostname\": \"string\",\n    \"imsi\": \"string\",\n    \"ipAddress\": \"string\",\n    \"operatorId\": \"string\",\n    \"placement\": \"string\",\n    \"port\": 4509.647152613157,\n    \"simId\": \"string\",\n    \"source\": {\n      \"ipRanges\": [\n        \"<string>\",\n        \"<string>\"\n      ]\n    },\n    \"tlsRequired\": false\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "e0dee5d2-a1b5-4f02-ad71-0693d13b6140",
+              "name": "No On-Demand Remote Access entries exist for the specified SIM ID.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "port_mappings",
+                    "sims",
+                    ":sim_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "sim_id",
+                      "description": "(Required) SIM ID of the target IoT SIM."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Soracom-API-Key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "4a69f8c2-9c8e-4502-b180-a005921eac6e",
+          "name": "Create Napter On-Demand Remote Access entry with specified SIM ID",
+          "request": {
+            "name": "Create Napter On-Demand Remote Access entry with specified SIM ID",
+            "description": {
+              "content": "Create a new Napter On-Demand Remote Access entry with the specified SIM ID.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "port_mappings",
+                "sims",
+                ":sim_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "sim_id",
+                  "description": "(Required) SIM ID of the target IoT SIM."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-Soracom-API-Key"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"destination\": {\n    \"port\": \"<number>\",\n    \"service\": \"<string>\"\n  },\n  \"duration\": \"<number>\",\n  \"source\": {\n    \"ipRanges\": [\n      \"<string>\",\n      \"<string>\"\n    ]\n  },\n  \"tlsRequired\": \"<boolean>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "bf2e3c79-24b4-4210-bb04-663335b82e85",
+              "name": "The On-Demand Remote Access entry has been created.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "port_mappings",
+                    "sims",
+                    ":sim_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "sim_id",
+                      "description": "(Required) SIM ID of the target IoT SIM."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Soracom-API-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"destination\": {\n    \"port\": \"<number>\",\n    \"service\": \"<string>\"\n  },\n  \"duration\": \"<number>\",\n  \"source\": {\n    \"ipRanges\": [\n      \"<string>\",\n      \"<string>\"\n    ]\n  },\n  \"tlsRequired\": \"<boolean>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"createdTime\": 8384,\n  \"destination\": {\n    \"port\": \"<number>\",\n    \"destinationChoosingStrategy\": \"<string>\",\n    \"imsi\": \"<string>\",\n    \"service\": \"<string>\",\n    \"simId\": \"<string>\"\n  },\n  \"duration\": 6347.559237877837,\n  \"endpoint\": \"string\",\n  \"expired\": true,\n  \"expiredTime\": 2697,\n  \"hostname\": \"string\",\n  \"imsi\": \"string\",\n  \"ipAddress\": \"string\",\n  \"operatorId\": \"string\",\n  \"placement\": \"string\",\n  \"port\": 5370.5537958694185,\n  \"simId\": \"string\",\n  \"source\": {\n    \"ipRanges\": [\n      \"<string>\",\n      \"<string>\"\n    ]\n  },\n  \"tlsRequired\": false\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "9febd520-941d-4d48-bfc5-319914791635",
+          "name": "Retrieve a list of Napter On-Demand Remote Access entries created with specified IMSI",
+          "request": {
+            "name": "Retrieve a list of Napter On-Demand Remote Access entries created with specified IMSI",
+            "description": {
+              "content": "Retrieves a list of Napter On-Demand Remote Access entries where `destinationChoosingStrategy` is `IMSI_PRIORITIZED` (entries created with specified IMSI).\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "port_mappings",
+                "subscribers",
+                ":imsi"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "imsi",
+                  "description": "(Required) IMSI of the target."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-Soracom-API-Key"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "ff0aab21-09e6-473d-9f9e-0b0a1e78309c",
+              "name": "A list of On-Demand Remote Access entries where `destinationChoosingStrategy` is `IMSI_PRIORITIZED`.\n",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "port_mappings",
+                    "subscribers",
+                    ":imsi"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "imsi",
+                      "description": "(Required) IMSI of the target."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Soracom-API-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"createdTime\": 2133,\n    \"destination\": {\n      \"port\": \"<number>\",\n      \"destinationChoosingStrategy\": \"<string>\",\n      \"imsi\": \"<string>\",\n      \"service\": \"<string>\",\n      \"simId\": \"<string>\"\n    },\n    \"duration\": 5714.662605272992,\n    \"endpoint\": \"string\",\n    \"expired\": false,\n    \"expiredTime\": 2790,\n    \"hostname\": \"string\",\n    \"imsi\": \"string\",\n    \"ipAddress\": \"string\",\n    \"operatorId\": \"string\",\n    \"placement\": \"string\",\n    \"port\": 9935.082960900398,\n    \"simId\": \"string\",\n    \"source\": {\n      \"ipRanges\": [\n        \"<string>\",\n        \"<string>\"\n      ]\n    },\n    \"tlsRequired\": false\n  },\n  {\n    \"createdTime\": 8821,\n    \"destination\": {\n      \"port\": \"<number>\",\n      \"destinationChoosingStrategy\": \"<string>\",\n      \"imsi\": \"<string>\",\n      \"service\": \"<string>\",\n      \"simId\": \"<string>\"\n    },\n    \"duration\": 6413.892964561084,\n    \"endpoint\": \"string\",\n    \"expired\": false,\n    \"expiredTime\": 8778,\n    \"hostname\": \"string\",\n    \"imsi\": \"string\",\n    \"ipAddress\": \"string\",\n    \"operatorId\": \"string\",\n    \"placement\": \"string\",\n    \"port\": 4509.647152613157,\n    \"simId\": \"string\",\n    \"source\": {\n      \"ipRanges\": [\n        \"<string>\",\n        \"<string>\"\n      ]\n    },\n    \"tlsRequired\": false\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "3c93522b-b15f-4f59-93e3-35b003676c19",
+              "name": "No On-Demand Remote Access entries exist for the specified IMSI.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "port_mappings",
+                    "subscribers",
+                    ":imsi"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "imsi",
+                      "description": "(Required) IMSI of the target."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Soracom-API-Key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.soracom.io/v1",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "a7108d2a-b62e-4730-865e-e9acd233d891",
+    "name": "Soracom and Query Analysis PortMapping API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Run SQL queries against Soracom Query, fetch query schemas, and search SIMs, Inventory devices, and Sigfox devices.",
+      "type": "text/plain"
+    }
+  }
+}

@@ -1,0 +1,1551 @@
+{
+  "item": [
+    {
+      "id": "34db8f91-8e5c-4033-80fd-901a53e2314d",
+      "name": "LoraGateway",
+      "description": {
+        "content": "[Soracom Air for LoRaWAN](/en/docs/air-for-lorawan/) gateways",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "64496d0d-6e80-46ed-b9c0-36f65d0b7d1b",
+          "name": "List LoRaWAN Gateways",
+          "request": {
+            "name": "List LoRaWAN Gateways",
+            "description": {
+              "content": "Returns a list of LoRaWAN gateways that match certain criteria. If the total number of LoRaWAN gateways does not fit in one page, a URL for accessing the next page is returned in the `link` header of the response.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "lora_gateways"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "tag_name",
+                  "value": "<string>",
+                  "description": "Tag name for filtering the search (exact match)."
+                },
+                {
+                  "disabled": false,
+                  "key": "tag_value",
+                  "value": "<string>",
+                  "description": "Tag search string for filtering the search. Required when `tag_name` has been specified."
+                },
+                {
+                  "disabled": false,
+                  "key": "tag_value_match_mode",
+                  "value": "exact",
+                  "description": "Tag match mode."
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "<int32d>",
+                  "description": "Maximum number of LoRaWAN gateways to retrieve."
+                },
+                {
+                  "disabled": false,
+                  "key": "last_evaluated_key",
+                  "value": "<string>",
+                  "description": "The Gateway ID of the last LoRaWAN gateway retrieved on the current page. By specifying this parameter, you can continue to retrieve the list from the next LoRaWAN gateway onward."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-Soracom-API-Key"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "68a9f101-534d-4cec-8731-c1e329a7e107",
+              "name": "A list of LoRaWAN gateways.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "lora_gateways"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "tag_name",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "tag_value",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "tag_value_match_mode",
+                      "value": "exact"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "<int32d>"
+                    },
+                    {
+                      "key": "last_evaluated_key",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Soracom-API-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"address\": \"string\",\n    \"createdTime\": \"1977-01-11T20:25:35.366Z\",\n    \"gatewayId\": \"string\",\n    \"lastModifiedTime\": \"2009-11-10T16:48:01.383Z\",\n    \"networkSetId\": \"string\",\n    \"online\": false,\n    \"operatorId\": \"string\",\n    \"owned\": false,\n    \"status\": \"ready\",\n    \"tags\": {\n      \"key_0\": \"string\",\n      \"key_1\": \"string\",\n      \"key_2\": \"string\",\n      \"key_3\": \"string\"\n    },\n    \"terminationEnabled\": false\n  },\n  {\n    \"address\": \"string\",\n    \"createdTime\": \"1984-03-07T01:59:32.462Z\",\n    \"gatewayId\": \"string\",\n    \"lastModifiedTime\": \"1975-08-31T02:36:33.784Z\",\n    \"networkSetId\": \"string\",\n    \"online\": false,\n    \"operatorId\": \"string\",\n    \"owned\": false,\n    \"status\": \"terminated\",\n    \"tags\": {\n      \"key_0\": \"string\",\n      \"key_1\": \"string\",\n      \"key_2\": \"string\",\n      \"key_3\": \"string\"\n    },\n    \"terminationEnabled\": false\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "318cc712-4bd9-4bb9-b84d-b965a79cf5f1",
+          "name": "Get LoRaWAN gateway",
+          "request": {
+            "name": "Get LoRaWAN gateway",
+            "description": {
+              "content": "Returns information about the specified LoRaWAN gateway.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "lora_gateways",
+                ":gateway_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "gateway_id",
+                  "description": "(Required) Gateway ID of the target LoRaWAN gateway."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-Soracom-API-Key"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "cbbf4634-07f5-436a-8f69-4dfdec7db2df",
+              "name": "The LoRaWAN gateway's detailed information.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "lora_gateways",
+                    ":gateway_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "gateway_id",
+                      "description": "(Required) Gateway ID of the target LoRaWAN gateway."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Soracom-API-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"address\": \"string\",\n  \"createdTime\": \"1949-10-22T10:41:58.087Z\",\n  \"gatewayId\": \"string\",\n  \"lastModifiedTime\": \"1965-03-27T20:15:29.381Z\",\n  \"networkSetId\": \"string\",\n  \"online\": false,\n  \"operatorId\": \"string\",\n  \"owned\": false,\n  \"status\": \"ready\",\n  \"tags\": {\n    \"key_0\": \"string\"\n  },\n  \"terminationEnabled\": false\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "2f83be6d-e301-46ee-ad20-38719f5a68b7",
+              "name": "The specified LoRaWAN gateway does not exist.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "lora_gateways",
+                    ":gateway_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "gateway_id",
+                      "description": "(Required) Gateway ID of the target LoRaWAN gateway."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Soracom-API-Key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "7464456e-272b-403d-aedf-1b32cb90be03",
+          "name": "Disable Termination of LoRaWAN gateway",
+          "request": {
+            "name": "Disable Termination of LoRaWAN gateway",
+            "description": {
+              "content": "Disables termination of specified LoRaWAN gateway.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "lora_gateways",
+                ":gateway_id",
+                "disable_termination"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "gateway_id",
+                  "description": "(Required) ID of the target LoRaWAN gateway."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-Soracom-API-Key"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "938ee23e-8687-4883-852e-6d967d965e58",
+              "name": "The LoRaWAN gateway's detailed information after the update.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "lora_gateways",
+                    ":gateway_id",
+                    "disable_termination"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "gateway_id",
+                      "description": "(Required) ID of the target LoRaWAN gateway."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Soracom-API-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"address\": \"string\",\n  \"createdTime\": \"1949-10-22T10:41:58.087Z\",\n  \"gatewayId\": \"string\",\n  \"lastModifiedTime\": \"1965-03-27T20:15:29.381Z\",\n  \"networkSetId\": \"string\",\n  \"online\": false,\n  \"operatorId\": \"string\",\n  \"owned\": false,\n  \"status\": \"ready\",\n  \"tags\": {\n    \"key_0\": \"string\"\n  },\n  \"terminationEnabled\": false\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "fa135b0c-6d31-44be-831a-a99336272a43",
+              "name": "The specified LoRaWAN gateway does not exist.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "lora_gateways",
+                    ":gateway_id",
+                    "disable_termination"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "gateway_id",
+                      "description": "(Required) ID of the target LoRaWAN gateway."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Soracom-API-Key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "1b853851-2001-46e9-9e9d-63934f2bef10",
+          "name": "Enable Termination of LoRaWAN gateway",
+          "request": {
+            "name": "Enable Termination of LoRaWAN gateway",
+            "description": {
+              "content": "Enables termination of specified LoRaWAN gateway.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "lora_gateways",
+                ":gateway_id",
+                "enable_termination"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "gateway_id",
+                  "description": "(Required) ID of the target LoRaWAN gateway."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-Soracom-API-Key"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "13500b6f-6b46-4990-aaf0-5e077709e83c",
+              "name": "The LoRaWAN gateway's detailed information after the update.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "lora_gateways",
+                    ":gateway_id",
+                    "enable_termination"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "gateway_id",
+                      "description": "(Required) ID of the target LoRaWAN gateway."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Soracom-API-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"address\": \"string\",\n  \"createdTime\": \"1949-10-22T10:41:58.087Z\",\n  \"gatewayId\": \"string\",\n  \"lastModifiedTime\": \"1965-03-27T20:15:29.381Z\",\n  \"networkSetId\": \"string\",\n  \"online\": false,\n  \"operatorId\": \"string\",\n  \"owned\": false,\n  \"status\": \"ready\",\n  \"tags\": {\n    \"key_0\": \"string\"\n  },\n  \"terminationEnabled\": false\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "5e2ca731-9b9a-4b14-8a80-2fc37689afc7",
+              "name": "The specified LoRaWAN gateway does not exist.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "lora_gateways",
+                    ":gateway_id",
+                    "enable_termination"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "gateway_id",
+                      "description": "(Required) ID of the target LoRaWAN gateway."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Soracom-API-Key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "593a8e9d-a4a3-4d45-be20-435a100c8d96",
+          "name": "Set Network Set ID of LoRaWAN gateway",
+          "request": {
+            "name": "Set Network Set ID of LoRaWAN gateway",
+            "description": {
+              "content": "Sets or overwrites network set ID for the specified LoRaWAN gateway.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "lora_gateways",
+                ":gateway_id",
+                "set_network_set"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "gateway_id",
+                  "description": "(Required) ID of the target LoRaWAN gateway."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-Soracom-API-Key"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"networkSetId\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "52578b21-764e-4d61-90ae-7e106287e510",
+              "name": "The LoRaWAN gateway's detailed information after the update.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "lora_gateways",
+                    ":gateway_id",
+                    "set_network_set"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "gateway_id",
+                      "description": "(Required) ID of the target LoRaWAN gateway."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Soracom-API-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"networkSetId\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"address\": \"string\",\n  \"createdTime\": \"1949-10-22T10:41:58.087Z\",\n  \"gatewayId\": \"string\",\n  \"lastModifiedTime\": \"1965-03-27T20:15:29.381Z\",\n  \"networkSetId\": \"string\",\n  \"online\": false,\n  \"operatorId\": \"string\",\n  \"owned\": false,\n  \"status\": \"ready\",\n  \"tags\": {\n    \"key_0\": \"string\"\n  },\n  \"terminationEnabled\": false\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "34551c12-99c7-4c04-91b3-905ab1d08d61",
+              "name": "The specified LoRaWAN gateway does not exist.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "lora_gateways",
+                    ":gateway_id",
+                    "set_network_set"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "gateway_id",
+                      "description": "(Required) ID of the target LoRaWAN gateway."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Soracom-API-Key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"networkSetId\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "f9e61763-b2d5-4521-ad03-e17bb10aadba",
+          "name": "Bulk Insert or Update LoRaWAN gateway Tags",
+          "request": {
+            "name": "Bulk Insert or Update LoRaWAN gateway Tags",
+            "description": {
+              "content": "Inserts/updates tags for the specified LoRaWAN gateway.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "lora_gateways",
+                ":gateway_id",
+                "tags"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "gateway_id",
+                  "description": "(Required) ID of the target LoRaWAN gateway."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-Soracom-API-Key"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "[\n  {\n    \"tagName\": \"<string>\",\n    \"tagValue\": \"<string>\"\n  },\n  {\n    \"tagName\": \"<string>\",\n    \"tagValue\": \"<string>\"\n  }\n]",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "e53c4e85-9e4b-46c2-9b28-98c275415f06",
+              "name": "The LoRaWAN gateway's detailed information after the update.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "lora_gateways",
+                    ":gateway_id",
+                    "tags"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "gateway_id",
+                      "description": "(Required) ID of the target LoRaWAN gateway."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Soracom-API-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "[\n  {\n    \"tagName\": \"<string>\",\n    \"tagValue\": \"<string>\"\n  },\n  {\n    \"tagName\": \"<string>\",\n    \"tagValue\": \"<string>\"\n  }\n]",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"address\": \"string\",\n  \"createdTime\": \"1949-10-22T10:41:58.087Z\",\n  \"gatewayId\": \"string\",\n  \"lastModifiedTime\": \"1965-03-27T20:15:29.381Z\",\n  \"networkSetId\": \"string\",\n  \"online\": false,\n  \"operatorId\": \"string\",\n  \"owned\": false,\n  \"status\": \"ready\",\n  \"tags\": {\n    \"key_0\": \"string\"\n  },\n  \"terminationEnabled\": false\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "2f2afe88-6e9e-455e-83fc-edbcde14df64",
+              "name": "The specified LoRaWAN gateway does not exist.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "lora_gateways",
+                    ":gateway_id",
+                    "tags"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "gateway_id",
+                      "description": "(Required) ID of the target LoRaWAN gateway."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Soracom-API-Key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "[\n  {\n    \"tagName\": \"<string>\",\n    \"tagValue\": \"<string>\"\n  },\n  {\n    \"tagName\": \"<string>\",\n    \"tagValue\": \"<string>\"\n  }\n]",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "604f088f-fbec-4642-a543-76da32cbf83d",
+          "name": "Delete LoRaWAN gateway tag",
+          "request": {
+            "name": "Delete LoRaWAN gateway tag",
+            "description": {
+              "content": "Deletes a tag from the specified LoRaWAN gateway.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "lora_gateways",
+                ":gateway_id",
+                "tags",
+                ":tag_name"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "gateway_id",
+                  "description": "(Required) ID of the target LoRaWAN gateway."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "tag_name",
+                  "description": "(Required) Tag name to be deleted. (This will be part of a URL path, so it needs to be percent-encoded. In JavaScript, specify the name after it has been encoded using encodeURIComponent().)"
+                }
+              ]
+            },
+            "method": "DELETE",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-Soracom-API-Key"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "f6e35d14-df65-4dfd-b1a9-03fbed9d3bbb",
+              "name": "Deletion of specified tag complete.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "lora_gateways",
+                    ":gateway_id",
+                    "tags",
+                    ":tag_name"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "gateway_id",
+                      "description": "(Required) ID of the target LoRaWAN gateway."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "tag_name",
+                      "description": "(Required) Tag name to be deleted. (This will be part of a URL path, so it needs to be percent-encoded. In JavaScript, specify the name after it has been encoded using encodeURIComponent().)"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Soracom-API-Key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "fbdecd2a-e819-4775-8663-8275dfd48b20",
+              "name": "The specified LoRaWAN gateway or the tag does not exist.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "lora_gateways",
+                    ":gateway_id",
+                    "tags",
+                    ":tag_name"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "gateway_id",
+                      "description": "(Required) ID of the target LoRaWAN gateway."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "tag_name",
+                      "description": "(Required) Tag name to be deleted. (This will be part of a URL path, so it needs to be percent-encoded. In JavaScript, specify the name after it has been encoded using encodeURIComponent().)"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Soracom-API-Key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "2cb23c24-97cb-419e-81b5-aac6bcda1044",
+          "name": "Terminate LoRaWAN gateway",
+          "request": {
+            "name": "Terminate LoRaWAN gateway",
+            "description": {
+              "content": "Terminates the specified LoRaWAN gateway.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "lora_gateways",
+                ":gateway_id",
+                "terminate"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "gateway_id",
+                  "description": "(Required) ID of the target LoRaWAN gateway."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-Soracom-API-Key"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "4d4cbb4c-1aba-4fd9-a6cc-76d141f06dc5",
+              "name": "The LoRaWAN gateway's detailed information after the update.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "lora_gateways",
+                    ":gateway_id",
+                    "terminate"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "gateway_id",
+                      "description": "(Required) ID of the target LoRaWAN gateway."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Soracom-API-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"address\": \"string\",\n  \"createdTime\": \"1949-10-22T10:41:58.087Z\",\n  \"gatewayId\": \"string\",\n  \"lastModifiedTime\": \"1965-03-27T20:15:29.381Z\",\n  \"networkSetId\": \"string\",\n  \"online\": false,\n  \"operatorId\": \"string\",\n  \"owned\": false,\n  \"status\": \"ready\",\n  \"tags\": {\n    \"key_0\": \"string\"\n  },\n  \"terminationEnabled\": false\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "cca80fe8-36ea-4b72-98f6-ba2fce1e98a2",
+              "name": "The specified LoRaWAN gateway does not exist.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "lora_gateways",
+                    ":gateway_id",
+                    "terminate"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "gateway_id",
+                      "description": "(Required) ID of the target LoRaWAN gateway."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Soracom-API-Key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "a2c94a8d-ff9f-472b-a0e0-cf5962886ed0",
+          "name": "Unset Network Set ID of LoRaWAN gateway",
+          "request": {
+            "name": "Unset Network Set ID of LoRaWAN gateway",
+            "description": {
+              "content": "Unset network set ID of the specified LoRaWAN gateway.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "lora_gateways",
+                ":gateway_id",
+                "unset_network_set"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "gateway_id",
+                  "description": "(Required) ID of the target LoRaWAN gateway."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-Soracom-API-Key"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "a918a8d4-1b33-419c-bd97-b824e7be08ef",
+              "name": "The LoRaWAN gateway's detailed information after the update.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "lora_gateways",
+                    ":gateway_id",
+                    "unset_network_set"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "gateway_id",
+                      "description": "(Required) ID of the target LoRaWAN gateway."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Soracom-API-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"address\": \"string\",\n  \"createdTime\": \"1949-10-22T10:41:58.087Z\",\n  \"gatewayId\": \"string\",\n  \"lastModifiedTime\": \"1965-03-27T20:15:29.381Z\",\n  \"networkSetId\": \"string\",\n  \"online\": false,\n  \"operatorId\": \"string\",\n  \"owned\": false,\n  \"status\": \"ready\",\n  \"tags\": {\n    \"key_0\": \"string\"\n  },\n  \"terminationEnabled\": false\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "046f25a4-fffa-46b0-a26a-8de6b6c58dfd",
+              "name": "The specified LoRaWAN gateway does not exist.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "lora_gateways",
+                    ":gateway_id",
+                    "unset_network_set"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "gateway_id",
+                      "description": "(Required) ID of the target LoRaWAN gateway."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Soracom-API-Key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.soracom.io/v1",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "62fd5fae-fc23-479c-b115-4a4cbc59224e",
+    "name": "Soracom and Query Analysis LoraGateway API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Run SQL queries against Soracom Query, fetch query schemas, and search SIMs, Inventory devices, and Sigfox devices.",
+      "type": "text/plain"
+    }
+  }
+}

@@ -1,0 +1,346 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Soracom and Query Analysis Role API",
+    "version": "20250903-043502"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Role",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Roles",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.soracom.io/v1/operators/:operator_id/roles",
+            "params": [
+              {
+                "name": "operator_id",
+                "value": "",
+                "type": "path",
+                "description": "Operator ID."
+              },
+              {
+                "name": "owner",
+                "value": "",
+                "type": "query",
+                "description": "Filters by the type of the role. Specify one of the following:\n- `operator`: Operator managed role (default)\n- `soracom`: Soracom managed role\n- `all`: All roles\n"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-Soracom-API-Key",
+              "value": "{{X-Soracom-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Returns a list of roles."
+        },
+        {
+          "info": {
+            "name": "Get Role",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.soracom.io/v1/operators/:operator_id/roles/:role_id",
+            "params": [
+              {
+                "name": "operator_id",
+                "value": "",
+                "type": "path",
+                "description": "Operator ID."
+              },
+              {
+                "name": "role_id",
+                "value": "",
+                "type": "path",
+                "description": "Role ID. For operator managed roles, specify the role ID provided during role creation. For Soracom managed roles, specify in SRN (Soracom Resource Name) format.\n"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-Soracom-API-Key",
+              "value": "{{X-Soracom-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Retrieves a role."
+        },
+        {
+          "info": {
+            "name": "Create Operator Managed Role",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.soracom.io/v1/operators/:operator_id/roles/:role_id",
+            "params": [
+              {
+                "name": "operator_id",
+                "value": "",
+                "type": "path",
+                "description": "Operator ID."
+              },
+              {
+                "name": "role_id",
+                "value": "",
+                "type": "path",
+                "description": "Role ID."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-Soracom-API-Key",
+              "value": "{{X-Soracom-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Adds a new operator managed role."
+        },
+        {
+          "info": {
+            "name": "Update Operator Managed Role",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.soracom.io/v1/operators/:operator_id/roles/:role_id",
+            "params": [
+              {
+                "name": "operator_id",
+                "value": "",
+                "type": "path",
+                "description": "Operator ID."
+              },
+              {
+                "name": "role_id",
+                "value": "",
+                "type": "path",
+                "description": "Role ID."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-Soracom-API-Key",
+              "value": "{{X-Soracom-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Edits an operator managed role."
+        },
+        {
+          "info": {
+            "name": "Delete Operator Managed Role",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.soracom.io/v1/operators/:operator_id/roles/:role_id",
+            "params": [
+              {
+                "name": "operator_id",
+                "value": "",
+                "type": "path",
+                "description": "Operator ID."
+              },
+              {
+                "name": "role_id",
+                "value": "",
+                "type": "path",
+                "description": "Role ID."
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-Soracom-API-Key",
+              "value": "{{X-Soracom-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Deletes an operator managed role."
+        },
+        {
+          "info": {
+            "name": "List Role Attached Users",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.soracom.io/v1/operators/:operator_id/roles/:role_id/users",
+            "params": [
+              {
+                "name": "operator_id",
+                "value": "",
+                "type": "path",
+                "description": "Operator ID."
+              },
+              {
+                "name": "role_id",
+                "value": "",
+                "type": "path",
+                "description": "Role ID. For operator managed roles, specify the role ID provided during role creation. For Soracom managed roles, specify in SRN (Soracom Resource Name) format.\n"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-Soracom-API-Key",
+              "value": "{{X-Soracom-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Retrieves a list of users attached to a role."
+        },
+        {
+          "info": {
+            "name": "Get Soracom Managed Role Versions",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.soracom.io/v1/operators/:operator_id/roles/:role_id/versions",
+            "params": [
+              {
+                "name": "operator_id",
+                "value": "",
+                "type": "path",
+                "description": "Operator ID."
+              },
+              {
+                "name": "role_id",
+                "value": "",
+                "type": "path",
+                "description": "SRN (Soracom Resource Name) of the Soracom managed role. The format is `srn:soracom:::Role:[roleName]`."
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-Soracom-API-Key",
+              "value": "{{X-Soracom-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Retrieves a list of versions for a Soracom managed role."
+        },
+        {
+          "info": {
+            "name": "List User Roles",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.soracom.io/v1/operators/:operator_id/users/:user_name/roles",
+            "params": [
+              {
+                "name": "operator_id",
+                "value": "",
+                "type": "path",
+                "description": "Operator ID."
+              },
+              {
+                "name": "user_name",
+                "value": "",
+                "type": "path",
+                "description": "SAM user name."
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-Soracom-API-Key",
+              "value": "{{X-Soracom-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Retrieves a list of the user's roles."
+        },
+        {
+          "info": {
+            "name": "Attach Role to User",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.soracom.io/v1/operators/:operator_id/users/:user_name/roles",
+            "params": [
+              {
+                "name": "operator_id",
+                "value": "",
+                "type": "path",
+                "description": "Operator ID."
+              },
+              {
+                "name": "user_name",
+                "value": "",
+                "type": "path",
+                "description": "SAM user name."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-Soracom-API-Key",
+              "value": "{{X-Soracom-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Attaches a role to a user."
+        },
+        {
+          "info": {
+            "name": "Detach Role from User",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.soracom.io/v1/operators/:operator_id/users/:user_name/roles/:role_id",
+            "params": [
+              {
+                "name": "operator_id",
+                "value": "",
+                "type": "path",
+                "description": "Operator ID."
+              },
+              {
+                "name": "user_name",
+                "value": "",
+                "type": "path",
+                "description": "SAM user name."
+              },
+              {
+                "name": "role_id",
+                "value": "",
+                "type": "path",
+                "description": "Role ID. For operator managed roles, specify the role ID provided during role creation. For Soracom managed roles, specify in SRN (Soracom Resource Name) format.\n"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-Soracom-API-Key",
+              "value": "{{X-Soracom-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Detaches a role from a user."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,1436 @@
+{
+  "item": [
+    {
+      "id": "06933e52-1587-463a-a608-26e90a29c229",
+      "name": "LoraNetworkSet",
+      "description": {
+        "content": "[Soracom Air for LoRaWAN](/en/docs/air-for-lorawan/) network sets",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "ad0f8035-2c39-4d9b-8792-e6e1ec9e1830",
+          "name": "List LoRaWAN Network Sets",
+          "request": {
+            "name": "List LoRaWAN Network Sets",
+            "description": {
+              "content": "Returns a list of LoRaWAN network sets that match certain criteria. If the total number of LoRaWAN network sets does not fit in one page, a URL for accessing the next page is returned in the `link` header of the response.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "lora_network_sets"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "tag_name",
+                  "value": "<string>",
+                  "description": "Tag name for filtering the search (exact match)."
+                },
+                {
+                  "disabled": false,
+                  "key": "tag_value",
+                  "value": "<string>",
+                  "description": "Tag search string for filtering the search. Required when `tag_name` has been specified."
+                },
+                {
+                  "disabled": false,
+                  "key": "tag_value_match_mode",
+                  "value": "exact",
+                  "description": "Tag match mode."
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "<int32d>",
+                  "description": "Maximum number of LoRaWAN network set to retrieve."
+                },
+                {
+                  "disabled": false,
+                  "key": "last_evaluated_key",
+                  "value": "<string>",
+                  "description": "The ID of the last network set retrieved on the current page. By specifying this parameter, you can continue to retrieve the list from the next device onward."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-Soracom-API-Key"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "ac92d065-9ab9-46c1-af95-6c3ae330ccfe",
+              "name": "A list of LoRaWAN network sets.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "lora_network_sets"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "tag_name",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "tag_value",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "tag_value_match_mode",
+                      "value": "exact"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "<int32d>"
+                    },
+                    {
+                      "key": "last_evaluated_key",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Soracom-API-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"allowedOperators\": [\n      \"string\"\n    ],\n    \"createdTime\": \"2004-11-23T23:48:11.297Z\",\n    \"lastModifiedTime\": \"1996-03-24T05:17:57.456Z\",\n    \"networkSetId\": \"string\",\n    \"operatorId\": \"string\",\n    \"tags\": {\n      \"key_0\": \"string\",\n      \"key_1\": \"string\",\n      \"key_2\": \"string\"\n    }\n  },\n  {\n    \"allowedOperators\": [\n      \"string\"\n    ],\n    \"createdTime\": \"1979-01-01T08:57:55.836Z\",\n    \"lastModifiedTime\": \"1973-10-30T08:46:36.520Z\",\n    \"networkSetId\": \"string\",\n    \"operatorId\": \"string\",\n    \"tags\": {\n      \"key_0\": \"string\",\n      \"key_1\": \"string\"\n    }\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "cc2903b2-d0f0-4510-a424-331b8196209b",
+          "name": "Create a LoRaWAN network set",
+          "request": {
+            "name": "Create a LoRaWAN network set",
+            "description": {
+              "content": "Creates a specified LoRaWAN network set.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "lora_network_sets"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-Soracom-API-Key"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"allowedOperators\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"createdTime\": \"<dateTime>\",\n  \"lastModifiedTime\": \"<dateTime>\",\n  \"networkSetId\": \"<string>\",\n  \"operatorId\": \"<string>\",\n  \"tags\": {\n    \"key_0\": \"<string>\",\n    \"key_1\": \"<string>\"\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "20485ee8-6122-4e4a-b66b-3cc9ad31a0a1",
+              "name": "A LoRaWAN network set was created.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "lora_network_sets"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Soracom-API-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"allowedOperators\": [\n    \"<string>\"\n  ],\n  \"createdTime\": \"<dateTime>\",\n  \"lastModifiedTime\": \"<dateTime>\",\n  \"networkSetId\": \"<string>\",\n  \"operatorId\": \"<string>\",\n  \"tags\": {\n    \"key_0\": \"<string>\",\n    \"key_1\": \"<string>\",\n    \"key_2\": \"<string>\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"allowedOperators\": [\n    \"<string>\"\n  ],\n  \"createdTime\": \"<dateTime>\",\n  \"lastModifiedTime\": \"<dateTime>\",\n  \"networkSetId\": \"<string>\",\n  \"operatorId\": \"<string>\",\n  \"tags\": {\n    \"key_0\": \"<string>\",\n    \"key_1\": \"<string>\",\n    \"key_2\": \"<string>\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "1f699b10-1b3c-4820-89c2-5e6f9a47a17f",
+          "name": "Delete LoRaWAN network set",
+          "request": {
+            "name": "Delete LoRaWAN network set",
+            "description": {
+              "content": "Deletes the specified LoRaWAN network set.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "lora_network_sets",
+                ":ns_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "ns_id",
+                  "description": "(Required) ID of the target LoRaWAN network set."
+                }
+              ]
+            },
+            "method": "DELETE",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-Soracom-API-Key"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "24555da0-e064-4145-a013-38337bcbd7f3",
+              "name": "Successfully deleted.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "lora_network_sets",
+                    ":ns_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "ns_id",
+                      "description": "(Required) ID of the target LoRaWAN network set."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Soracom-API-Key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "09be3695-e8df-4662-bad8-49a518035b5e",
+              "name": "The specified LoRaWAN network set does not exist.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "lora_network_sets",
+                    ":ns_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "ns_id",
+                      "description": "(Required) ID of the target LoRaWAN network set."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Soracom-API-Key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "64a2a0f6-9e24-4847-a186-96a0114613ba",
+          "name": "Get LoRaWAN network set",
+          "request": {
+            "name": "Get LoRaWAN network set",
+            "description": {
+              "content": "Returns information about the specified LoRaWAN network set.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "lora_network_sets",
+                ":ns_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "ns_id",
+                  "description": "(Required) ID of the target LoRaWAN network set."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-Soracom-API-Key"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "0f762ef3-392d-48b9-baac-955a88109eb7",
+              "name": "The LoRaWAN network set's detailed information.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "lora_network_sets",
+                    ":ns_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "ns_id",
+                      "description": "(Required) ID of the target LoRaWAN network set."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Soracom-API-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"allowedOperators\": [\n    \"<string>\"\n  ],\n  \"createdTime\": \"<dateTime>\",\n  \"lastModifiedTime\": \"<dateTime>\",\n  \"networkSetId\": \"<string>\",\n  \"operatorId\": \"<string>\",\n  \"tags\": {\n    \"key_0\": \"<string>\",\n    \"key_1\": \"<string>\",\n    \"key_2\": \"<string>\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "69317181-f7d6-49d1-a504-f1eb7d7a19d1",
+              "name": "The specified LoRaWAN network set does not exist.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "lora_network_sets",
+                    ":ns_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "ns_id",
+                      "description": "(Required) ID of the target LoRaWAN network set."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Soracom-API-Key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "f5b0edd1-571b-49bb-afad-0086effff25c",
+          "name": "Adds permission to a LoRaWAN network set",
+          "request": {
+            "name": "Adds permission to a LoRaWAN network set",
+            "description": {
+              "content": "Adds permission to allow another operator to use the network set.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "lora_network_sets",
+                ":ns_id",
+                "add_permission"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "ns_id",
+                  "description": "(Required) ID of the target LoRaWAN network set."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-Soracom-API-Key"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"operatorId\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "e81a9595-dc8b-4f13-a9fb-ebba894baf2b",
+              "name": "Permission added to the network set.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "lora_network_sets",
+                    ":ns_id",
+                    "add_permission"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "ns_id",
+                      "description": "(Required) ID of the target LoRaWAN network set."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Soracom-API-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"operatorId\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"allowedOperators\": [\n    \"<string>\"\n  ],\n  \"createdTime\": \"<dateTime>\",\n  \"lastModifiedTime\": \"<dateTime>\",\n  \"networkSetId\": \"<string>\",\n  \"operatorId\": \"<string>\",\n  \"tags\": {\n    \"key_0\": \"<string>\",\n    \"key_1\": \"<string>\",\n    \"key_2\": \"<string>\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "535dbbf4-9417-40a7-a3c1-453760f65ba1",
+          "name": "List LoRaWAN Gateways in a Network Set",
+          "request": {
+            "name": "List LoRaWAN Gateways in a Network Set",
+            "description": {
+              "content": "Returns a list of LoRaWAN gateways that belong to the specified network set. If the total number of LoRaWAN gateways does not fit in one page, a URL for accessing the next page is returned in the `link` header of the response.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "lora_network_sets",
+                ":ns_id",
+                "gateways"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "<int32d>",
+                  "description": "Maximum number of LoRaWAN gateways to retrieve."
+                },
+                {
+                  "disabled": false,
+                  "key": "last_evaluated_key",
+                  "value": "<string>",
+                  "description": "The Gateway ID of the last LoRaWAN gateway retrieved on the current page. By specifying this parameter, you can continue to retrieve the list from the next LoRaWAN gateway onward."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "ns_id",
+                  "description": "(Required) ID of the target LoRaWAN network set."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-Soracom-API-Key"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "bad280aa-d0bc-4693-84d2-154a68d2a0ec",
+              "name": "A list of LoRaWAN gateways.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "lora_network_sets",
+                    ":ns_id",
+                    "gateways"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "<int32d>"
+                    },
+                    {
+                      "key": "last_evaluated_key",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "ns_id",
+                      "description": "(Required) ID of the target LoRaWAN network set."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Soracom-API-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"address\": \"string\",\n    \"createdTime\": \"1990-06-11T10:59:38.941Z\",\n    \"gatewayId\": \"string\",\n    \"lastModifiedTime\": \"1965-05-28T00:25:00.156Z\",\n    \"networkSetId\": \"string\",\n    \"online\": false,\n    \"operatorId\": \"string\",\n    \"owned\": false,\n    \"status\": \"active\",\n    \"tags\": {\n      \"key_0\": \"string\",\n      \"key_1\": \"string\",\n      \"key_2\": \"string\"\n    },\n    \"terminationEnabled\": false\n  },\n  {\n    \"address\": \"string\",\n    \"createdTime\": \"2020-04-26T17:41:24.872Z\",\n    \"gatewayId\": \"string\",\n    \"lastModifiedTime\": \"1947-09-05T21:50:26.280Z\",\n    \"networkSetId\": \"string\",\n    \"online\": false,\n    \"operatorId\": \"string\",\n    \"owned\": false,\n    \"status\": \"terminated\",\n    \"tags\": {\n      \"key_0\": \"string\",\n      \"key_1\": \"string\",\n      \"key_2\": \"string\"\n    },\n    \"terminationEnabled\": false\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "d272e22e-8dc7-4a6d-8f2a-7b4f2ef45677",
+              "name": "The specified LoRaWAN network set does not exist.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "lora_network_sets",
+                    ":ns_id",
+                    "gateways"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "<int32d>"
+                    },
+                    {
+                      "key": "last_evaluated_key",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "ns_id",
+                      "description": "(Required) ID of the target LoRaWAN network set."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Soracom-API-Key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "bedcc1e7-6d17-4788-acae-27acf2a7e760",
+          "name": "Revokes a permission from a LoRaWAN network set",
+          "request": {
+            "name": "Revokes a permission from a LoRaWAN network set",
+            "description": {
+              "content": "Revokes a permission and removes an operator from the list of allowed operators in the network set.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "lora_network_sets",
+                ":ns_id",
+                "revoke_permission"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "ns_id",
+                  "description": "(Required) ID of the target LoRaWAN network set."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-Soracom-API-Key"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"operatorId\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "86dd6804-bfdc-4e46-a1f1-ac255505f22e",
+              "name": "Permission revoked from the network set.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "lora_network_sets",
+                    ":ns_id",
+                    "revoke_permission"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "ns_id",
+                      "description": "(Required) ID of the target LoRaWAN network set."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Soracom-API-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"operatorId\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"allowedOperators\": [\n    \"<string>\"\n  ],\n  \"createdTime\": \"<dateTime>\",\n  \"lastModifiedTime\": \"<dateTime>\",\n  \"networkSetId\": \"<string>\",\n  \"operatorId\": \"<string>\",\n  \"tags\": {\n    \"key_0\": \"<string>\",\n    \"key_1\": \"<string>\",\n    \"key_2\": \"<string>\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "9799bf86-580c-483f-9e09-ba28d510c434",
+          "name": "Bulk Insert or Update LoRaWAN network set tags",
+          "request": {
+            "name": "Bulk Insert or Update LoRaWAN network set tags",
+            "description": {
+              "content": "Inserts/updates tags for the specified LoRaWAN network set.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "lora_network_sets",
+                ":ns_id",
+                "tags"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "ns_id",
+                  "description": "(Required) ID of the target LoRaWAN network set."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-Soracom-API-Key"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "[\n  {\n    \"tagName\": \"<string>\",\n    \"tagValue\": \"<string>\"\n  },\n  {\n    \"tagName\": \"<string>\",\n    \"tagValue\": \"<string>\"\n  }\n]",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "8673bedb-b3ca-4d6d-a259-3052bc831e5c",
+              "name": "The LoRaWAN network set's detailed information after the update.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "lora_network_sets",
+                    ":ns_id",
+                    "tags"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "ns_id",
+                      "description": "(Required) ID of the target LoRaWAN network set."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Soracom-API-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "[\n  {\n    \"tagName\": \"<string>\",\n    \"tagValue\": \"<string>\"\n  },\n  {\n    \"tagName\": \"<string>\",\n    \"tagValue\": \"<string>\"\n  }\n]",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"allowedOperators\": [\n    \"<string>\"\n  ],\n  \"createdTime\": \"<dateTime>\",\n  \"lastModifiedTime\": \"<dateTime>\",\n  \"networkSetId\": \"<string>\",\n  \"operatorId\": \"<string>\",\n  \"tags\": {\n    \"key_0\": \"<string>\",\n    \"key_1\": \"<string>\",\n    \"key_2\": \"<string>\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "ab291c17-d907-4318-87a4-7a6ca4c31c81",
+              "name": "The specified LoRaWAN network set does not exist.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "lora_network_sets",
+                    ":ns_id",
+                    "tags"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "ns_id",
+                      "description": "(Required) ID of the target LoRaWAN network set."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Soracom-API-Key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "[\n  {\n    \"tagName\": \"<string>\",\n    \"tagValue\": \"<string>\"\n  },\n  {\n    \"tagName\": \"<string>\",\n    \"tagValue\": \"<string>\"\n  }\n]",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "185b7533-8327-446c-b829-d0a69f38c0e0",
+          "name": "Delete LoRaWAN network set tag",
+          "request": {
+            "name": "Delete LoRaWAN network set tag",
+            "description": {
+              "content": "Deletes a tag from the specified LoRaWAN network set.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "lora_network_sets",
+                ":ns_id",
+                "tags",
+                ":tag_name"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "ns_id",
+                  "description": "(Required) ID of the target LoRaWAN network set."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "tag_name",
+                  "description": "(Required) Tag name to be deleted. (This will be part of a URL path, so it needs to be percent-encoded. In JavaScript, specify the name after it has been encoded using encodeURIComponent().)"
+                }
+              ]
+            },
+            "method": "DELETE",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-Soracom-API-Key"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "f0582799-8623-4eac-99f4-41af774a05dd",
+              "name": "Deletion of specified tag complete.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "lora_network_sets",
+                    ":ns_id",
+                    "tags",
+                    ":tag_name"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "ns_id",
+                      "description": "(Required) ID of the target LoRaWAN network set."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "tag_name",
+                      "description": "(Required) Tag name to be deleted. (This will be part of a URL path, so it needs to be percent-encoded. In JavaScript, specify the name after it has been encoded using encodeURIComponent().)"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Soracom-API-Key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "4e897f0a-e7a2-45d0-81b8-3f53ebeb6a60",
+              "name": "The specified LoRaWAN network set or the tag does not exist.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "lora_network_sets",
+                    ":ns_id",
+                    "tags",
+                    ":tag_name"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "ns_id",
+                      "description": "(Required) ID of the target LoRaWAN network set."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "tag_name",
+                      "description": "(Required) Tag name to be deleted. (This will be part of a URL path, so it needs to be percent-encoded. In JavaScript, specify the name after it has been encoded using encodeURIComponent().)"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Soracom-API-Key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.soracom.io/v1",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "8cb47a75-e3ce-462a-b785-01f19d175639",
+    "name": "Soracom and Query Analysis LoraNetworkSet API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Run SQL queries against Soracom Query, fetch query schemas, and search SIMs, Inventory devices, and Sigfox devices.",
+      "type": "text/plain"
+    }
+  }
+}

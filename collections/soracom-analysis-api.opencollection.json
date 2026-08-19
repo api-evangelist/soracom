@@ -1,0 +1,81 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Soracom and Query Analysis API",
+    "version": "20250903-043502"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Analysis",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Execute a new SQL query asynchronously",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.soracom.io/v1/analysis/queries",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-Soracom-API-Key",
+              "value": "{{X-Soracom-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Executes a SQL query asynchronously. You can check the status of a SQL query execution with the [Analysis:getAnalysisQueries API](#/Analysis/getAnalysisQueries)."
+        },
+        {
+          "info": {
+            "name": "Retrieve the execution status of a SQL query",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.soracom.io/v1/analysis/queries/:query_id",
+            "params": [
+              {
+                "name": "query_id",
+                "value": "",
+                "type": "path",
+                "description": "SQL query ID."
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-Soracom-API-Key",
+              "value": "{{X-Soracom-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Retrieve the execution status of a SQL query."
+        },
+        {
+          "info": {
+            "name": "Retrieve available database schemas",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.soracom.io/v1/analysis/schemas",
+            "auth": {
+              "type": "apikey",
+              "key": "X-Soracom-API-Key",
+              "value": "{{X-Soracom-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Retrieves the available schemas and their column information within the database. You can use this information as a reference when converting data types of data retrieved with the [Analysis:startAnalysisQueries API](#/Analysis/startAnalysisQueries).\nExample: If the column `type` is `string` as shown below, it can be treated as a string.\n```json\n{\n  \"name\": \"SIM_SESSION_EVENTS\",\n  \"columnInfo\": [\n      {\n          \"name\": \"APN\",\n          \"type\": \"string\",\n          \"databaseType\": \"TEXT\",\n      "
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

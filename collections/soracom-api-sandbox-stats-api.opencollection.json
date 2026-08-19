@@ -1,0 +1,76 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Soracom and Query Analysis API Sandbox: Stats API",
+    "version": "20250903-043502"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "API Sandbox: Stats",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Inserts Air stats for testing",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.soracom.io/v1/sandbox/stats/air/subscribers/:imsi",
+            "params": [
+              {
+                "name": "imsi",
+                "value": "",
+                "type": "path",
+                "description": "IMSI."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-Soracom-API-Key",
+              "value": "{{X-Soracom-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Populates Air stats for testing purpose. Inserted data are going to be automatically accumulated. It is not possible to put the data multiple times with the same timestamp."
+        },
+        {
+          "info": {
+            "name": "Inserts Beam stats for testing",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.soracom.io/v1/sandbox/stats/beam/subscribers/:imsi",
+            "params": [
+              {
+                "name": "imsi",
+                "value": "",
+                "type": "path",
+                "description": "IMSI."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-Soracom-API-Key",
+              "value": "{{X-Soracom-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Populates Beam stats for testing purpose. Inserted data are going to be automatically accumulated. It is not possible to put the data multiple times with the same timestamp."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,1365 @@
+{
+  "item": [
+    {
+      "id": "cfbfab71-fe26-49c0-8c9c-401f379949f9",
+      "name": "Soralet",
+      "description": {
+        "content": "[Soracom Orbit](/en/docs/orbit/) Soralet",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "6fbfc2ab-0a7a-4e9d-abc7-7bd2c758386b",
+          "name": "List Soralets",
+          "request": {
+            "name": "List Soralets",
+            "description": {
+              "content": "Returns a list of Soralets.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "soralets"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "sort",
+                  "value": "asc",
+                  "description": "Sort order of the data entries. Either descending (latest data entry first) or ascending (oldest data entry first)."
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "<integer>",
+                  "description": "The maximum number of items in a response."
+                },
+                {
+                  "disabled": false,
+                  "key": "last_evaluated_key",
+                  "value": "<string>",
+                  "description": "The identifier of the last Soralet retrieved on the current page. By specifying this parameter, you can continue to retrieve the list from the next Soralet onward."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-Soracom-API-Key"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "8c5be990-6fb3-482c-bb70-5054190b2ee9",
+              "name": "OK.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "soralets"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "sort",
+                      "value": "asc"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "last_evaluated_key",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Soracom-API-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"createdTime\": 5001,\n    \"description\": \"string\",\n    \"operatorId\": \"string\",\n    \"soraletId\": \"string\",\n    \"updatedTime\": 342\n  },\n  {\n    \"createdTime\": 6168,\n    \"description\": \"string\",\n    \"operatorId\": \"string\",\n    \"soraletId\": \"string\",\n    \"updatedTime\": 7490\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "208d9110-5cb9-409b-8570-931e899e7241",
+          "name": "Create a Soralet",
+          "request": {
+            "name": "Create a Soralet",
+            "description": {
+              "content": "Create a Soralet.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "soralets"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-Soracom-API-Key"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"soraletId\": \"<string>\",\n  \"description\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "3d5984cc-4cda-40b3-b577-65fd35ac3fd3",
+              "name": "Successfully created a new Soralet.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "soralets"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Soracom-API-Key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"soraletId\": \"<string>\",\n  \"description\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "dc279ea7-0426-4e42-a966-1963237cec32",
+              "name": "The specified Soralet already exists or the specified soralet_id was invalid.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "soralets"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Soracom-API-Key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"soraletId\": \"<string>\",\n  \"description\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "f8bbef50-5b15-43b9-90b8-c21389584067",
+          "name": "Delete Soralet",
+          "request": {
+            "name": "Delete Soralet",
+            "description": {
+              "content": "Delete the specified Soralet.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "soralets",
+                ":soralet_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "soralet_id",
+                  "description": "(Required) The identifier of Soralet."
+                }
+              ]
+            },
+            "method": "DELETE",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-Soracom-API-Key"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "d22475cb-9e1c-486b-b201-22e103f28241",
+              "name": "Successfully deleted the specified Soralet.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "soralets",
+                    ":soralet_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "soralet_id",
+                      "description": "(Required) The identifier of Soralet."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Soracom-API-Key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "37514c4e-1aef-4cb9-ab46-3b58cf38acd3",
+              "name": "The specified Soralet is not found.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "soralets",
+                    ":soralet_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "soralet_id",
+                      "description": "(Required) The identifier of Soralet."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Soracom-API-Key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "517930cb-54ab-4ac6-8d89-8ea450c3df06",
+          "name": "Get a Soralet",
+          "request": {
+            "name": "Get a Soralet",
+            "description": {
+              "content": "Returns a Soralet.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "soralets",
+                ":soralet_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "soralet_id",
+                  "description": "(Required) The identifier of Soralet."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-Soracom-API-Key"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "eb4b1d55-6a86-44e4-a398-c8ee36bef51c",
+              "name": "OK.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "soralets",
+                    ":soralet_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "soralet_id",
+                      "description": "(Required) The identifier of Soralet."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Soracom-API-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"createdTime\": 9697,\n  \"description\": \"string\",\n  \"operatorId\": \"string\",\n  \"soraletId\": \"string\",\n  \"updatedTime\": 5744\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "76d0430e-6c19-49d1-9660-b02fb97ba8f2",
+              "name": "The specified Soralet is not found.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "soralets",
+                    ":soralet_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "soralet_id",
+                      "description": "(Required) The identifier of Soralet."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Soracom-API-Key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "66f5301f-e26f-4605-ba52-62694a54bf01",
+          "name": "Get log messages from Soralet",
+          "request": {
+            "name": "Get log messages from Soralet",
+            "description": {
+              "content": "Returns a list of log messages from the specified Soralet.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "soralets",
+                ":soralet_id",
+                "logs"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "sort",
+                  "value": "desc",
+                  "description": "Sort order of the data entries. Either descending (latest data entry first) or ascending (oldest data entry first)."
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "<integer>",
+                  "description": "The maximum number of items in a response."
+                },
+                {
+                  "disabled": false,
+                  "key": "last_evaluated_key",
+                  "value": "<string>",
+                  "description": "The identifier of the last log message retrieved on the current page. By specifying this parameter, you can continue to retrieve the list from the next log message onward."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "soralet_id",
+                  "description": "(Required) The identifier of Soralet."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-Soracom-API-Key"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "6baab1d5-e24f-4e13-9e01-30d8db8237c2",
+              "name": "OK.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "soralets",
+                    ":soralet_id",
+                    "logs"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "sort",
+                      "value": "desc"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "last_evaluated_key",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "soralet_id",
+                      "description": "(Required) The identifier of Soralet."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Soracom-API-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"createdTime\": 2925,\n    \"message\": \"string\",\n    \"operatorId\": \"string\",\n    \"soraletId\": \"string\",\n    \"version\": 4465\n  },\n  {\n    \"createdTime\": 1400,\n    \"message\": \"string\",\n    \"operatorId\": \"string\",\n    \"soraletId\": \"string\",\n    \"version\": 1617\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "2060eb4a-e784-4d3f-a9c5-1abda99c82fe",
+          "name": "Execute Soralet with arguments",
+          "request": {
+            "name": "Execute Soralet with arguments",
+            "description": {
+              "content": "Execute the specified Soralet with the specified arguments.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "soralets",
+                ":soralet_id",
+                "test"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "soralet_id",
+                  "description": "(Required) The identifier of Soralet."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-Soracom-API-Key"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"version\": \"<string>\",\n  \"direction\": \"<string>\",\n  \"contentType\": \"<string>\",\n  \"payload\": \"<string>\",\n  \"source\": {\n    \"key_0\": {\n      \"resourceType\": \"<string>\",\n      \"resourceId\": \"<string>\"\n    },\n    \"key_1\": {\n      \"resourceType\": \"<string>\",\n      \"resourceId\": \"<string>\"\n    },\n    \"key_2\": {\n      \"resourceType\": \"<string>\",\n      \"resourceId\": \"<string>\"\n    }\n  },\n  \"encodingType\": \"<string>\",\n  \"userdata\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "488241d6-e7a7-49d0-9598-75a7274ae840",
+              "name": "OK.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "soralets",
+                    ":soralet_id",
+                    "test"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "soralet_id",
+                      "description": "(Required) The identifier of Soralet."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Soracom-API-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"version\": \"<string>\",\n  \"direction\": \"<string>\",\n  \"contentType\": \"<string>\",\n  \"payload\": \"<string>\",\n  \"source\": {\n    \"key_0\": {\n      \"resourceType\": \"<string>\",\n      \"resourceId\": \"<string>\"\n    },\n    \"key_1\": {\n      \"resourceType\": \"<string>\",\n      \"resourceId\": \"<string>\"\n    },\n    \"key_2\": {\n      \"resourceType\": \"<string>\",\n      \"resourceId\": \"<string>\"\n    },\n    \"key_3\": {\n      \"resourceType\": \"<string>\",\n      \"resourceId\": \"<string>\"\n    }\n  },\n  \"encodingType\": \"<string>\",\n  \"userdata\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"body\": \"string\",\n  \"contentType\": \"string\",\n  \"encodingType\": \"string\",\n  \"resultCode\": 6208\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "5f60e27b-90bc-4bd5-8f5e-b54aa9025d37",
+          "name": "List versions of Soralet",
+          "request": {
+            "name": "List versions of Soralet",
+            "description": {
+              "content": "Returns a list of Soralet versions.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "soralets",
+                ":soralet_id",
+                "versions"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "sort",
+                  "value": "desc",
+                  "description": "Sort order of the data entries. Either descending (latest data entry first) or ascending (oldest data entry first)."
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "<integer>",
+                  "description": "The maximum number of items in a response."
+                },
+                {
+                  "disabled": false,
+                  "key": "last_evaluated_key",
+                  "value": "<string>",
+                  "description": "The identifier of the last version retrieved on the current page. By specifying this parameter, you can continue to retrieve the list from the next version onward."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "soralet_id",
+                  "description": "(Required) The identifier of Soralet."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-Soracom-API-Key"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "3fdd8394-2e64-49c2-a4ac-3d21e23cb492",
+              "name": "OK.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "soralets",
+                    ":soralet_id",
+                    "versions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "sort",
+                      "value": "desc"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "last_evaluated_key",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "soralet_id",
+                      "description": "(Required) The identifier of Soralet."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Soracom-API-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"createdTime\": 5913,\n    \"hash\": \"string\",\n    \"operatorId\": \"string\",\n    \"size\": 8514,\n    \"soraletId\": \"string\",\n    \"srn\": \"string\",\n    \"version\": 5121\n  },\n  {\n    \"createdTime\": 2593,\n    \"hash\": \"string\",\n    \"operatorId\": \"string\",\n    \"size\": 9734,\n    \"soraletId\": \"string\",\n    \"srn\": \"string\",\n    \"version\": 1402\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "bd4a80d4-44c5-4a85-bcc4-0ca7df913617",
+          "name": "Upload code and create a new version",
+          "request": {
+            "name": "Upload code and create a new version",
+            "description": {
+              "content": "Upload code and create a new version.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "soralets",
+                ":soralet_id",
+                "versions"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "soralet_id",
+                  "description": "(Required) The identifier of Soralet."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-Soracom-API-Key"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            },
+            "body": {
+              "mode": "file",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "5f0350d7-f184-4d19-a5bb-4a89bdaae001",
+              "name": "Successfully created a new version.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "soralets",
+                    ":soralet_id",
+                    "versions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "soralet_id",
+                      "description": "(Required) The identifier of Soralet."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Soracom-API-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Content type of the file to upload. When uploading .wasm files, please specify `application/json`.",
+                    "key": "content-type",
+                    "value": "string"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "file",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"createdTime\": 7504,\n  \"hash\": \"string\",\n  \"operatorId\": \"string\",\n  \"size\": 8872,\n  \"soraletId\": \"string\",\n  \"srn\": \"string\",\n  \"version\": 758\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "ca01b285-de7e-4608-8a36-aabcfbce3fe1",
+          "name": "Delete a Soralet version",
+          "request": {
+            "name": "Delete a Soralet version",
+            "description": {
+              "content": "Delete the specified Soralet version.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "soralets",
+                ":soralet_id",
+                "versions",
+                ":version"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "soralet_id",
+                  "description": "(Required) The identifier of Soralet."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "version",
+                  "description": "(Required) Soralet version."
+                }
+              ]
+            },
+            "method": "DELETE",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-Soracom-API-Key"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "3c4abe5b-aac7-447e-9abb-8c9c64607e1d",
+              "name": "Successfully deleted the specified Soralet version.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "soralets",
+                    ":soralet_id",
+                    "versions",
+                    ":version"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "soralet_id",
+                      "description": "(Required) The identifier of Soralet."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "version",
+                      "description": "(Required) Soralet version."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Soracom-API-Key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "13d598c6-8083-4784-a832-84f77dd776a8",
+              "name": "The specified Soralet version is not found.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "soralets",
+                    ":soralet_id",
+                    "versions",
+                    ":version"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "soralet_id",
+                      "description": "(Required) The identifier of Soralet."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "version",
+                      "description": "(Required) Soralet version."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Soracom-API-Key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.soracom.io/v1",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "f55c5fd0-e5f0-4eba-a0af-350737ccfd24",
+    "name": "Soracom and Query Analysis Soralet API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Run SQL queries against Soracom Query, fetch query schemas, and search SIMs, Inventory devices, and Sigfox devices.",
+      "type": "text/plain"
+    }
+  }
+}

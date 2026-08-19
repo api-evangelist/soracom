@@ -1,0 +1,2112 @@
+{
+  "item": [
+    {
+      "id": "10f82c53-6067-4ab1-88c9-38e462d06d0d",
+      "name": "Role",
+      "description": {
+        "content": "[Access management (Soracom Access Management)](/en/docs/sam/)",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "b7a1854b-de0f-466b-9a3d-2ec3053436e8",
+          "name": "List Roles",
+          "request": {
+            "name": "List Roles",
+            "description": {
+              "content": "Returns a list of roles.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "operators",
+                ":operator_id",
+                "roles"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "owner",
+                  "value": "<string>",
+                  "description": "Filters by the type of the role. Specify one of the following:\n- `operator`: Operator managed role (default)\n- `soracom`: Soracom managed role\n- `all`: All roles\n"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "operator_id",
+                  "description": "(Required) Operator ID."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-Soracom-API-Key"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "d1473ebd-21c3-4a82-ab55-49fa32fd05e9",
+              "name": "OK.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "operators",
+                    ":operator_id",
+                    "roles"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "owner",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "operator_id",
+                      "description": "(Required) Operator ID."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Soracom-API-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"createDateTime\": 1722480500,\n    \"roleId\": \"my-role\",\n    \"updateDateTime\": 1722480600,\n    \"description\": \"This is my role\",\n    \"owner\": \"soracom\",\n    \"roleName\": \"my-role\"\n  },\n  {\n    \"createDateTime\": 1722480500,\n    \"roleId\": \"my-role\",\n    \"updateDateTime\": 1722480600,\n    \"description\": \"This is my role\",\n    \"owner\": \"operator\",\n    \"roleName\": \"my-role\"\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "a1110ffb-42a5-4e27-b1c9-66f37635993b",
+          "name": "Delete Operator Managed Role",
+          "request": {
+            "name": "Delete Operator Managed Role",
+            "description": {
+              "content": "Deletes an operator managed role.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "operators",
+                ":operator_id",
+                "roles",
+                ":role_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "operator_id",
+                  "description": "(Required) Operator ID."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "role_id",
+                  "description": "(Required) Role ID."
+                }
+              ]
+            },
+            "method": "DELETE",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-Soracom-API-Key"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "4780887b-40fb-4bc5-bee9-429f774ab093",
+              "name": "The role was deleted.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "operators",
+                    ":operator_id",
+                    "roles",
+                    ":role_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "operator_id",
+                      "description": "(Required) Operator ID."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "role_id",
+                      "description": "(Required) Role ID."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Soracom-API-Key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "8a34cfd1-955c-4438-808a-88e1f645748d",
+              "name": "The role is still in use.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "operators",
+                    ":operator_id",
+                    "roles",
+                    ":role_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "operator_id",
+                      "description": "(Required) Operator ID."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "role_id",
+                      "description": "(Required) Role ID."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Soracom-API-Key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "f7045444-895b-4f7c-816d-1800c9793809",
+              "name": "Role not found.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "operators",
+                    ":operator_id",
+                    "roles",
+                    ":role_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "operator_id",
+                      "description": "(Required) Operator ID."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "role_id",
+                      "description": "(Required) Role ID."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Soracom-API-Key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "0518123c-b3f4-42a0-985c-0ea12ba66c75",
+          "name": "Get Role",
+          "request": {
+            "name": "Get Role",
+            "description": {
+              "content": "Retrieves a role.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "operators",
+                ":operator_id",
+                "roles",
+                ":role_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "operator_id",
+                  "description": "(Required) Operator ID."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "role_id",
+                  "description": "(Required) Role ID. For operator managed roles, specify the role ID provided during role creation. For Soracom managed roles, specify in SRN (Soracom Resource Name) format.\n"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-Soracom-API-Key"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "d56df7da-d4fc-482b-a7f9-49056dda76b0",
+              "name": "OK.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "operators",
+                    ":operator_id",
+                    "roles",
+                    ":role_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "operator_id",
+                      "description": "(Required) Operator ID."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "role_id",
+                      "description": "(Required) Role ID. For operator managed roles, specify the role ID provided during role creation. For Soracom managed roles, specify in SRN (Soracom Resource Name) format.\n"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Soracom-API-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"createDateTime\": 1066,\n  \"description\": \"string\",\n  \"owner\": \"operator\",\n  \"permission\": \"string\",\n  \"roleId\": \"string\",\n  \"roleName\": \"my-role\",\n  \"updateDateTime\": 3215\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "d7d6612e-d518-4f59-8821-5e0aed81b9de",
+              "name": "Role not found.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "operators",
+                    ":operator_id",
+                    "roles",
+                    ":role_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "operator_id",
+                      "description": "(Required) Operator ID."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "role_id",
+                      "description": "(Required) Role ID. For operator managed roles, specify the role ID provided during role creation. For Soracom managed roles, specify in SRN (Soracom Resource Name) format.\n"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Soracom-API-Key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "8ea5c6fa-3017-497a-9cf5-fc103f6749d5",
+          "name": "Create Operator Managed Role",
+          "request": {
+            "name": "Create Operator Managed Role",
+            "description": {
+              "content": "Adds a new operator managed role.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "operators",
+                ":operator_id",
+                "roles",
+                ":role_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "operator_id",
+                  "description": "(Required) Operator ID."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "role_id",
+                  "description": "(Required) Role ID."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-Soracom-API-Key"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"permission\": \"<string>\",\n  \"description\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "15cec399-3482-4ceb-8675-72a88ca87e26",
+              "name": "OK.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "operators",
+                    ":operator_id",
+                    "roles",
+                    ":role_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "operator_id",
+                      "description": "(Required) Operator ID."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "role_id",
+                      "description": "(Required) Role ID."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Soracom-API-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"permission\": \"<string>\",\n  \"description\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"roleId\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "117372b0-3f09-4986-8146-a7e047171b4c",
+              "name": "Failed to create an operator managed role.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "operators",
+                    ":operator_id",
+                    "roles",
+                    ":role_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "operator_id",
+                      "description": "(Required) Operator ID."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "role_id",
+                      "description": "(Required) Role ID."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Soracom-API-Key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"permission\": \"<string>\",\n  \"description\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "1c3b8999-48b6-44c9-a472-75553429cc7e",
+          "name": "Update Operator Managed Role",
+          "request": {
+            "name": "Update Operator Managed Role",
+            "description": {
+              "content": "Edits an operator managed role.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "operators",
+                ":operator_id",
+                "roles",
+                ":role_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "operator_id",
+                  "description": "(Required) Operator ID."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "role_id",
+                  "description": "(Required) Role ID."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-Soracom-API-Key"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"permission\": \"<string>\",\n  \"description\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "2d63e296-1a18-4186-93de-4f8bd63513ca",
+              "name": "OK.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "operators",
+                    ":operator_id",
+                    "roles",
+                    ":role_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "operator_id",
+                      "description": "(Required) Operator ID."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "role_id",
+                      "description": "(Required) Role ID."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Soracom-API-Key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"permission\": \"<string>\",\n  \"description\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "f9854f02-43b4-4841-9cd3-46c56c2903cd",
+              "name": "Operator managed role not found.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "operators",
+                    ":operator_id",
+                    "roles",
+                    ":role_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "operator_id",
+                      "description": "(Required) Operator ID."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "role_id",
+                      "description": "(Required) Role ID."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Soracom-API-Key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"permission\": \"<string>\",\n  \"description\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "3756b56e-9e02-4ddd-89b3-f73791930b9d",
+          "name": "List Role Attached Users",
+          "request": {
+            "name": "List Role Attached Users",
+            "description": {
+              "content": "Retrieves a list of users attached to a role.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "operators",
+                ":operator_id",
+                "roles",
+                ":role_id",
+                "users"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "operator_id",
+                  "description": "(Required) Operator ID."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "role_id",
+                  "description": "(Required) Role ID. For operator managed roles, specify the role ID provided during role creation. For Soracom managed roles, specify in SRN (Soracom Resource Name) format.\n"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-Soracom-API-Key"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "8aee305b-6b5d-401f-abcd-bd5871851a8d",
+              "name": "OK.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "operators",
+                    ":operator_id",
+                    "roles",
+                    ":role_id",
+                    "users"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "operator_id",
+                      "description": "(Required) Operator ID."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "role_id",
+                      "description": "(Required) Role ID. For operator managed roles, specify the role ID provided during role creation. For Soracom managed roles, specify in SRN (Soracom Resource Name) format.\n"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Soracom-API-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"authKeyList\": [\n      {\n        \"authKeyId\": \"keyId-xxx\",\n        \"createDateTime\": 1722480500,\n        \"lastUsedDateTime\": 1722480600\n      },\n      {\n        \"authKeyId\": \"keyId-xxx\",\n        \"createDateTime\": 1722480500,\n        \"lastUsedDateTime\": 1722480600\n      }\n    ],\n    \"createDateTime\": 1722480500,\n    \"hasPassword\": true,\n    \"roleList\": [\n      {\n        \"createDateTime\": 1722480500,\n        \"roleId\": \"my-role\",\n        \"updateDateTime\": 1722480600,\n        \"description\": \"This is my role\",\n        \"owner\": \"soracom\",\n        \"roleName\": \"my-role\"\n      },\n      {\n        \"createDateTime\": 1722480500,\n        \"roleId\": \"my-role\",\n        \"updateDateTime\": 1722480600,\n        \"description\": \"This is my role\",\n        \"owner\": \"soracom\",\n        \"roleName\": \"my-role\"\n      }\n    ],\n    \"updateDateTime\": 1722480600,\n    \"userName\": \"my-user\",\n    \"description\": \"This is my user\",\n    \"permission\": \"{\\\"statements\\\":[{\\\"api\\\":\\\"*\\\",\\\"effect\\\":\\\"allow\\\"}]}\"\n  },\n  {\n    \"authKeyList\": [\n      {\n        \"authKeyId\": \"keyId-xxx\",\n        \"createDateTime\": 1722480500,\n        \"lastUsedDateTime\": 1722480600\n      },\n      {\n        \"authKeyId\": \"keyId-xxx\",\n        \"createDateTime\": 1722480500,\n        \"lastUsedDateTime\": 1722480600\n      }\n    ],\n    \"createDateTime\": 1722480500,\n    \"hasPassword\": true,\n    \"roleList\": [\n      {\n        \"createDateTime\": 1722480500,\n        \"roleId\": \"my-role\",\n        \"updateDateTime\": 1722480600,\n        \"description\": \"This is my role\",\n        \"owner\": \"soracom\",\n        \"roleName\": \"my-role\"\n      },\n      {\n        \"createDateTime\": 1722480500,\n        \"roleId\": \"my-role\",\n        \"updateDateTime\": 1722480600,\n        \"description\": \"This is my role\",\n        \"owner\": \"operator\",\n        \"roleName\": \"my-role\"\n      }\n    ],\n    \"updateDateTime\": 1722480600,\n    \"userName\": \"my-user\",\n    \"description\": \"This is my user\",\n    \"permission\": \"{\\\"statements\\\":[{\\\"api\\\":\\\"*\\\",\\\"effect\\\":\\\"allow\\\"}]}\"\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "1bf27181-106c-4e04-ac6a-8f094b617bc0",
+              "name": "Role not found.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "operators",
+                    ":operator_id",
+                    "roles",
+                    ":role_id",
+                    "users"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "operator_id",
+                      "description": "(Required) Operator ID."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "role_id",
+                      "description": "(Required) Role ID. For operator managed roles, specify the role ID provided during role creation. For Soracom managed roles, specify in SRN (Soracom Resource Name) format.\n"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Soracom-API-Key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "1248e43f-0a47-40cc-b0e3-0908379935c8",
+          "name": "Get Soracom Managed Role Versions",
+          "request": {
+            "name": "Get Soracom Managed Role Versions",
+            "description": {
+              "content": "Retrieves a list of versions for a Soracom managed role.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "operators",
+                ":operator_id",
+                "roles",
+                ":role_id",
+                "versions"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "operator_id",
+                  "description": "(Required) Operator ID."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "role_id",
+                  "description": "(Required) SRN (Soracom Resource Name) of the Soracom managed role. The format is `srn:soracom:::Role:[roleName]`."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-Soracom-API-Key"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "43131d6a-689a-4e60-b3a4-8c05264786a4",
+              "name": "OK.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "operators",
+                    ":operator_id",
+                    "roles",
+                    ":role_id",
+                    "versions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "operator_id",
+                      "description": "(Required) Operator ID."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "role_id",
+                      "description": "(Required) SRN (Soracom Resource Name) of the Soracom managed role. The format is `srn:soracom:::Role:[roleName]`."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Soracom-API-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"description\": \"string\",\n    \"owner\": \"operator\",\n    \"permission\": \"string\",\n    \"publishDateTime\": 2839,\n    \"roleId\": \"string\",\n    \"roleName\": \"my-role\",\n    \"version\": 8914\n  },\n  {\n    \"description\": \"string\",\n    \"owner\": \"operator\",\n    \"permission\": \"string\",\n    \"publishDateTime\": 7059,\n    \"roleId\": \"string\",\n    \"roleName\": \"my-role\",\n    \"version\": 8838\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "c494b667-ee80-4689-a6ac-96ecc6d5a8ae",
+              "name": "Operator managed roles cannot be specified.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "operators",
+                    ":operator_id",
+                    "roles",
+                    ":role_id",
+                    "versions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "operator_id",
+                      "description": "(Required) Operator ID."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "role_id",
+                      "description": "(Required) SRN (Soracom Resource Name) of the Soracom managed role. The format is `srn:soracom:::Role:[roleName]`."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Soracom-API-Key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "7a642fa1-157f-4334-9d0e-26f80620dbc9",
+              "name": "Soracom managed role not found.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "operators",
+                    ":operator_id",
+                    "roles",
+                    ":role_id",
+                    "versions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "operator_id",
+                      "description": "(Required) Operator ID."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "role_id",
+                      "description": "(Required) SRN (Soracom Resource Name) of the Soracom managed role. The format is `srn:soracom:::Role:[roleName]`."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Soracom-API-Key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "bc79ffa0-6443-4933-93fe-d529061adf60",
+          "name": "List User Roles",
+          "request": {
+            "name": "List User Roles",
+            "description": {
+              "content": "Retrieves a list of the user's roles.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "operators",
+                ":operator_id",
+                "users",
+                ":user_name",
+                "roles"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "operator_id",
+                  "description": "(Required) Operator ID."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "user_name",
+                  "description": "(Required) SAM user name."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-Soracom-API-Key"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "7d2fd9c8-d851-478d-b62b-47a77602a2ad",
+              "name": "OK.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "operators",
+                    ":operator_id",
+                    "users",
+                    ":user_name",
+                    "roles"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "operator_id",
+                      "description": "(Required) Operator ID."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "user_name",
+                      "description": "(Required) SAM user name."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Soracom-API-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"createDateTime\": 9308,\n    \"description\": \"string\",\n    \"owner\": \"operator\",\n    \"permission\": \"string\",\n    \"roleId\": \"string\",\n    \"roleName\": \"my-role\",\n    \"updateDateTime\": 4242\n  },\n  {\n    \"createDateTime\": 9889,\n    \"description\": \"string\",\n    \"owner\": \"soracom\",\n    \"permission\": \"string\",\n    \"roleId\": \"string\",\n    \"roleName\": \"my-role\",\n    \"updateDateTime\": 7293\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "92e6762f-bb07-493f-aed1-55857cfe8226",
+              "name": "SAM user not found.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "operators",
+                    ":operator_id",
+                    "users",
+                    ":user_name",
+                    "roles"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "operator_id",
+                      "description": "(Required) Operator ID."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "user_name",
+                      "description": "(Required) SAM user name."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Soracom-API-Key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "c06943da-8612-496c-b1c5-dcdadb25d22c",
+          "name": "Attach Role to User",
+          "request": {
+            "name": "Attach Role to User",
+            "description": {
+              "content": "Attaches a role to a user.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "operators",
+                ":operator_id",
+                "users",
+                ":user_name",
+                "roles"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "operator_id",
+                  "description": "(Required) Operator ID."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "user_name",
+                  "description": "(Required) SAM user name."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-Soracom-API-Key"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"roleId\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "0dc2c607-af28-463f-b171-55399553765c",
+              "name": "OK.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "operators",
+                    ":operator_id",
+                    "users",
+                    ":user_name",
+                    "roles"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "operator_id",
+                      "description": "(Required) Operator ID."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "user_name",
+                      "description": "(Required) SAM user name."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Soracom-API-Key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"roleId\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "8642fa0f-a149-4aae-bf03-70688e29144d",
+              "name": "The role has already been attached or not found.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "operators",
+                    ":operator_id",
+                    "users",
+                    ":user_name",
+                    "roles"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "operator_id",
+                      "description": "(Required) Operator ID."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "user_name",
+                      "description": "(Required) SAM user name."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Soracom-API-Key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"roleId\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "321931cb-9835-4c94-b905-0b07aec67006",
+              "name": "SAM user not found.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "operators",
+                    ":operator_id",
+                    "users",
+                    ":user_name",
+                    "roles"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "operator_id",
+                      "description": "(Required) Operator ID."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "user_name",
+                      "description": "(Required) SAM user name."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Soracom-API-Key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"roleId\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "88b65bb2-8cbf-4304-9575-c7d00d9d9400",
+          "name": "Detach Role from User",
+          "request": {
+            "name": "Detach Role from User",
+            "description": {
+              "content": "Detaches a role from a user.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "operators",
+                ":operator_id",
+                "users",
+                ":user_name",
+                "roles",
+                ":role_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "operator_id",
+                  "description": "(Required) Operator ID."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "user_name",
+                  "description": "(Required) SAM user name."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "role_id",
+                  "description": "(Required) Role ID. For operator managed roles, specify the role ID provided during role creation. For Soracom managed roles, specify in SRN (Soracom Resource Name) format.\n"
+                }
+              ]
+            },
+            "method": "DELETE",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-Soracom-API-Key"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "d425c336-6f69-410f-bed6-4e0d5c3958dc",
+              "name": "OK.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "operators",
+                    ":operator_id",
+                    "users",
+                    ":user_name",
+                    "roles",
+                    ":role_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "operator_id",
+                      "description": "(Required) Operator ID."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "user_name",
+                      "description": "(Required) SAM user name."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "role_id",
+                      "description": "(Required) Role ID. For operator managed roles, specify the role ID provided during role creation. For Soracom managed roles, specify in SRN (Soracom Resource Name) format.\n"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Soracom-API-Key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "0198236d-0d33-40e6-b64e-26bc77434156",
+              "name": "SAM user or role not found.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "operators",
+                    ":operator_id",
+                    "users",
+                    ":user_name",
+                    "roles",
+                    ":role_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "operator_id",
+                      "description": "(Required) Operator ID."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "user_name",
+                      "description": "(Required) SAM user name."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "role_id",
+                      "description": "(Required) Role ID. For operator managed roles, specify the role ID provided during role creation. For Soracom managed roles, specify in SRN (Soracom Resource Name) format.\n"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Soracom-API-Key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.soracom.io/v1",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "02aea967-ab36-4264-801a-1acb08525561",
+    "name": "Soracom and Query Analysis Role API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Run SQL queries against Soracom Query, fetch query schemas, and search SIMs, Inventory devices, and Sigfox devices.",
+      "type": "text/plain"
+    }
+  }
+}

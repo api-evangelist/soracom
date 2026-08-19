@@ -1,0 +1,359 @@
+{
+  "item": [
+    {
+      "id": "31921420-2d5a-4260-b7a8-498a83a42b24",
+      "name": "Analysis",
+      "description": {
+        "content": "[Soracom Query](/en/docs/query/)",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "2360d5d0-1833-4544-ae9a-00640ecbc788",
+          "name": "Execute a new SQL query asynchronously",
+          "request": {
+            "name": "Execute a new SQL query asynchronously",
+            "description": {
+              "content": "Executes a SQL query asynchronously. You can check the status of a SQL query execution with the [Analysis:getAnalysisQueries API](#/Analysis/getAnalysisQueries).",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "analysis",
+                "queries"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-Soracom-API-Key"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"from\": \"<integer>\",\n  \"sql\": \"<string>\",\n  \"to\": \"<integer>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "53d0c9c9-7692-4708-8fcb-3a7491e10b19",
+              "name": "A new SQL query execution has started.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "analysis",
+                    "queries"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Soracom-API-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"from\": 1743465600,\n  \"sql\": \"SELECT * FROM SIM_SESSION_EVENTS LIMIT 10\",\n  \"to\": 1743552000\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"queryId\": \"ffa91d0c371d45c4bf53d55ab5c14955\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "61009ff5-c230-43f5-8cb6-547538967d6f",
+          "name": "Retrieve the execution status of a SQL query",
+          "request": {
+            "name": "Retrieve the execution status of a SQL query",
+            "description": {
+              "content": "Retrieve the execution status of a SQL query.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "analysis",
+                "queries",
+                ":query_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "query_id",
+                  "description": "(Required) SQL query ID."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-Soracom-API-Key"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "eebc0b4d-709a-40b9-90f9-f2dc2d2c770c",
+              "name": "The execution status, results, and download URL of the SQL query.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "analysis",
+                    "queries",
+                    ":query_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "query_id",
+                      "description": "(Required) SQL query ID."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Soracom-API-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"columnInfo\": [\n    {\n      \"databaseType\": \"FIXED\",\n      \"name\": \"ICCID\",\n      \"type\": \"string\"\n    },\n    {\n      \"databaseType\": \"TEXT\",\n      \"name\": \"IMEI\",\n      \"type\": \"string\"\n    },\n    {\n      \"databaseType\": \"NUMBER\",\n      \"name\": \"IMSI\",\n      \"type\": \"number\"\n    }\n  ],\n  \"fileSize\": 12345678,\n  \"rowCount\": 12345,\n  \"status\": \"COMPLETED\",\n  \"url\": \"https://soracom-analysis-export.s3.amazonaws.com/ffa91d0c-371d-45c4-bf53-d55ab5c14955.csv.gz\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "1365c045-75fa-42bd-879c-57b295729c3a",
+          "name": "Retrieve available database schemas",
+          "request": {
+            "name": "Retrieve available database schemas",
+            "description": {
+              "content": "Retrieves the available schemas and their column information within the database. You can use this information as a reference when converting data types of data retrieved with the [Analysis:startAnalysisQueries API](#/Analysis/startAnalysisQueries).\nExample: If the column `type` is `string` as shown below, it can be treated as a string.\n```json\n{\n  \"name\": \"SIM_SESSION_EVENTS\",\n  \"columnInfo\": [\n      {\n          \"name\": \"APN\",\n          \"type\": \"string\",\n          \"databaseType\": \"TEXT\",\n          \"description\": \"Access Point Name indicating the network gateway for the SIM session.\"\n      }\n  ]\n}\n```\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "analysis",
+                "schemas"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-Soracom-API-Key"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "e2d7cc6c-4cec-4a87-b3bc-8d7a3a2f974e",
+              "name": "A list of available database schemas and their column information.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "analysis",
+                    "schemas"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Soracom-API-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"columnInfo\": [\n      {\n        \"databaseType\": \"TEXT\",\n        \"description\": \"Access Point Name indicating the network gateway for the SIM session.\",\n        \"name\": \"APN\",\n        \"type\": \"string\"\n      },\n      {\n        \"databaseType\": \"TEXT\",\n        \"description\": \"The primary DNS server IP address used during the SIM session.\",\n        \"name\": \"DNS0\",\n        \"type\": \"string\"\n      },\n      {\n        \"databaseType\": \"TEXT\",\n        \"description\": \"The secondary DNS server IP address used during the SIM session.\",\n        \"name\": \"DNS1\",\n        \"type\": \"string\"\n      },\n      {\n        \"databaseType\": \"TEXT\",\n        \"description\": \"Describes the type of event associated with the SIM session, such as Created, Deleted, or Updated.\",\n        \"name\": \"EVENT\",\n        \"type\": \"string\"\n      },\n      {\n        \"databaseType\": \"TEXT\",\n        \"description\": \"Home Public Land Mobile Network code that identifies the home network operator.\",\n        \"name\": \"HPLMN\",\n        \"type\": \"string\"\n      },\n      {\n        \"databaseType\": \"TEXT\",\n        \"description\": \"The Integrated Circuit Card Identifier, a unique number assigned to the SIM card.\",\n        \"name\": \"ICCID\",\n        \"type\": \"string\"\n      }\n    ],\n    \"name\": \"SIM_SESSION_EVENTS\"\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.soracom.io/v1",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "8f91a65f-d193-416f-a39e-adc61c992ffd",
+    "name": "Soracom and Query Analysis API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Run SQL queries against Soracom Query, fetch query schemas, and search SIMs, Inventory devices, and Sigfox devices.",
+      "type": "text/plain"
+    }
+  }
+}

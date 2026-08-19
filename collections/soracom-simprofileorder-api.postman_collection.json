@@ -1,0 +1,946 @@
+{
+  "item": [
+    {
+      "id": "b492ddd4-0e7a-406d-9494-592f2c5a39ef",
+      "name": "SimProfileOrder",
+      "description": {
+        "content": "[eSIM profiles](/en/docs/air/provision-esim/)",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "fd0ef3b5-bf34-4b6a-a55e-b049b82e804a",
+          "name": "List eSIM profile orders",
+          "request": {
+            "name": "List eSIM profile orders",
+            "description": {
+              "content": "Returns a list of eSIM profile orders. If the total number of orders does not fit in one page, a URL for accessing the next page is returned in the `link` header of the response.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "sim_profile_orders"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "100",
+                  "description": "Maximum number of eSIM profile orders to retrieve. However, the number of eSIM profile orders returned may be less than the specified value."
+                },
+                {
+                  "disabled": false,
+                  "key": "last_evaluated_key",
+                  "value": "<string>",
+                  "description": "The ID of the last eSIM profile order retrieved on the previous page. By repeating the API call while specifying this parameter, the next page of eSIM profile orders will be returned."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-Soracom-API-Key"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "58f44530-7888-4143-93f0-a514e1aa7e7d",
+              "name": "Returned a list of eSIM profile orders.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "sim_profile_orders"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "100"
+                    },
+                    {
+                      "key": "last_evaluated_key",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Soracom-API-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"bundles\": [],\n    \"description\": \"This is a test order\",\n    \"orderedTime\": 1718756585000,\n    \"profileOrderId\": \"01902ddd-1cf3-77d9-afc0-fe8d410cadb1\",\n    \"quantity\": 10,\n    \"speedClass\": \"s1.4xfast\",\n    \"status\": \"DRAFT\",\n    \"subscription\": \"plan01s\"\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "361a2fde-c9ff-47a0-a6a4-eb9b14d34761",
+          "name": "Create a new eSIM profile order",
+          "request": {
+            "name": "Create a new eSIM profile order",
+            "description": {
+              "content": "Creates a new eSIM profile order without confirming it. An unconfirmed order is valid for 1 day, after which it is automatically canceled.\nUse the [SimProfileOrder:confirmProfileOrder API](#/SimProfileOrder/confirmProfileOrder) to confirm the order.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "sim_profile_orders"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-Soracom-API-Key"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"subscription\": \"<string>\",\n  \"quantity\": \"<integer>\",\n  \"bundles\": [\n    \"<string>\"\n  ],\n  \"description\": \"<string>\",\n  \"speedClass\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "a2764d81-d24d-441a-8d64-f9e7ffa9367c",
+              "name": "eSIM profile order has been created.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "sim_profile_orders"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Soracom-API-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"description\": \"This is a test order\",\n  \"quantity\": 10,\n  \"speedClass\": \"s1.4xfast\",\n  \"subscription\": \"plan01s\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"bundles\": [],\n  \"description\": \"This is a test order\",\n  \"orderedTime\": 1718756585000,\n  \"profileOrderId\": \"01902ddd-1cf3-77d9-afc0-fe8d410cadb1\",\n  \"quantity\": 10,\n  \"speedClass\": \"s1.4xfast\",\n  \"status\": \"DRAFT\",\n  \"subscription\": \"plan01s\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "c55cfdc3-e2bf-456a-841f-992fafe0fb38",
+              "name": "The request is invalid.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "sim_profile_orders"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Soracom-API-Key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"description\": \"This is a test order\",\n  \"quantity\": 10,\n  \"speedClass\": \"s1.4xfast\",\n  \"subscription\": \"plan01s\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "79cb423c-7a1d-4f2c-8c21-1f406f98b738",
+          "name": "Cancel an eSIM profile order",
+          "request": {
+            "name": "Cancel an eSIM profile order",
+            "description": {
+              "content": "Cancels an unconfirmed eSIM profile order.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "sim_profile_orders",
+                ":profile_order_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "profile_order_id",
+                  "description": "(Required) The ID of the eSIM profile order."
+                }
+              ]
+            },
+            "method": "DELETE",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-Soracom-API-Key"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "7a8b3eba-8d8f-4eae-9df9-43906131f759",
+              "name": "eSIM profile order has been canceled.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "sim_profile_orders",
+                    ":profile_order_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "profile_order_id",
+                      "description": "(Required) The ID of the eSIM profile order."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Soracom-API-Key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "4ca049a1-9de5-4ef5-aea5-5214d56f6d1f",
+              "name": "The eSIM profile order was not found.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "sim_profile_orders",
+                    ":profile_order_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "profile_order_id",
+                      "description": "(Required) The ID of the eSIM profile order."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Soracom-API-Key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "0ba1c013-e0ac-4e09-ae12-7a087cf524b4",
+          "name": "Get an eSIM profile order",
+          "request": {
+            "name": "Get an eSIM profile order",
+            "description": {
+              "content": "Get an eSIM profile order.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "sim_profile_orders",
+                ":profile_order_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "profile_order_id",
+                  "description": "(Required) The ID of the eSIM profile order."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-Soracom-API-Key"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "d7aa7758-ebc0-4dd6-bf0f-a3cc66d746ed",
+              "name": "Returned the eSIM profile order.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "sim_profile_orders",
+                    ":profile_order_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "profile_order_id",
+                      "description": "(Required) The ID of the eSIM profile order."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Soracom-API-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"bundles\": [],\n  \"description\": \"This is a test order\",\n  \"orderedTime\": 1718756585000,\n  \"profileOrderId\": \"01902ddd-1cf3-77d9-afc0-fe8d410cadb1\",\n  \"quantity\": 10,\n  \"speedClass\": \"s1.4xfast\",\n  \"status\": \"DRAFT\",\n  \"subscription\": \"plan01s\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "d1722f14-9ee6-499d-9d43-146ac1a84ff3",
+              "name": "The eSIM profile order was not found.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "sim_profile_orders",
+                    ":profile_order_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "profile_order_id",
+                      "description": "(Required) The ID of the eSIM profile order."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Soracom-API-Key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "bcdf940e-979b-4bb5-a757-28cb703cadd0",
+          "name": "Confirm an eSIM profile order",
+          "request": {
+            "name": "Confirm an eSIM profile order",
+            "description": {
+              "content": "Confirms an unconfirmed eSIM profile order and completes the order.\nOnce confirmed, an eSIM profile order cannot be canceled.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "sim_profile_orders",
+                ":profile_order_id",
+                "confirm"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "profile_order_id",
+                  "description": "(Required) The ID of the eSIM profile order."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-Soracom-API-Key"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "acb9cf2a-2dbb-485f-bf58-75200b6175d5",
+              "name": "The eSIM profile order has been confirmed.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "sim_profile_orders",
+                    ":profile_order_id",
+                    "confirm"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "profile_order_id",
+                      "description": "(Required) The ID of the eSIM profile order."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Soracom-API-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"bundles\": [],\n  \"confirmedTime\": 1718756585000,\n  \"description\": \"This is a test order\",\n  \"orderedTime\": 1718756585000,\n  \"profileOrderId\": \"01902ddd-1cf3-77d9-afc0-fe8d410cadb1\",\n  \"quantity\": 10,\n  \"speedClass\": \"s1.4xfast\",\n  \"status\": \"CONFIRMED\",\n  \"subscription\": \"plan01s\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "e91c9f7e-e87c-44c4-93cd-90bdb2534ace",
+              "name": "The eSIM profile order was not found.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "sim_profile_orders",
+                    ":profile_order_id",
+                    "confirm"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "profile_order_id",
+                      "description": "(Required) The ID of the eSIM profile order."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Soracom-API-Key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "a1e2f1ef-d32b-44cd-9a78-9034e4fcc544",
+          "name": "List eSIM profiles created by the eSIM profile order",
+          "request": {
+            "name": "List eSIM profiles created by the eSIM profile order",
+            "description": {
+              "content": "Returns a list of eSIM profiles created by the specified eSIM profile order.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "sim_profile_orders",
+                ":profile_order_id",
+                "profiles"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "profile_order_id",
+                  "description": "(Required) The ID of the eSIM profile order."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-Soracom-API-Key"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "d45ccbe5-2773-4281-82bf-214c3ff7322e",
+              "name": "Returned a list of eSIM profiles.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "sim_profile_orders",
+                    ":profile_order_id",
+                    "profiles"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "profile_order_id",
+                      "description": "(Required) The ID of the eSIM profile order."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Soracom-API-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"profileOrderId\": \"01902ddd-1cf3-77d9-afc0-fe8d410cadb1\",\n    \"iccid\": \"12345678901234567890\",\n    \"imsi\": \"string\",\n    \"matchingId\": \"ABCDEFGHIJKLMNOPQRSTUVWXYZ\",\n    \"smdpAddress\": \"example.com\",\n    \"activationCode\": \"LPA:1$example.com$ABCDEFGHIJKLMNOPQRSTUVWXYZ\",\n    \"profileStatus\": \"DELETION_SUCCEEDED\",\n    \"createdTime\": 1718756585000,\n    \"lastModifiedTime\": 1718756585000,\n    \"installedTime\": 1718756585000,\n    \"subscription\": \"plan01s\"\n  },\n  {\n    \"profileOrderId\": \"01902ddd-1cf3-77d9-afc0-fe8d410cadb1\",\n    \"iccid\": \"12345678901234567890\",\n    \"imsi\": \"string\",\n    \"matchingId\": \"ABCDEFGHIJKLMNOPQRSTUVWXYZ\",\n    \"smdpAddress\": \"example.com\",\n    \"activationCode\": \"LPA:1$example.com$ABCDEFGHIJKLMNOPQRSTUVWXYZ\",\n    \"profileStatus\": \"DELETION_SUCCEEDED\",\n    \"createdTime\": 1718756585000,\n    \"lastModifiedTime\": 1718756585000,\n    \"installedTime\": 1718756585000,\n    \"subscription\": \"plan01s\"\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "c2af1a96-524a-4283-8c3f-77bea2a6cb2f",
+              "name": "The eSIM profile order was not found.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "sim_profile_orders",
+                    ":profile_order_id",
+                    "profiles"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "profile_order_id",
+                      "description": "(Required) The ID of the eSIM profile order."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Soracom-API-Key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.soracom.io/v1",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "cc602283-62b0-4b82-b642-670c01e99a5a",
+    "name": "Soracom and Query Analysis SimProfileOrder API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Run SQL queries against Soracom Query, fetch query schemas, and search SIMs, Inventory devices, and Sigfox devices.",
+      "type": "text/plain"
+    }
+  }
+}

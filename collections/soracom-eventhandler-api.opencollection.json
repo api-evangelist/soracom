@@ -1,0 +1,230 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Soracom and Query Analysis EventHandler API",
+    "version": "20250903-043502"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "EventHandler",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Event Handlers",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.soracom.io/v1/event_handlers",
+            "params": [
+              {
+                "name": "target",
+                "value": "",
+                "type": "query",
+                "description": "The event handler target (the target for executing events)."
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-Soracom-API-Key",
+              "value": "{{X-Soracom-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Returns a list of event handlers."
+        },
+        {
+          "info": {
+            "name": "Create Event Handler",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.soracom.io/v1/event_handlers",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-Soracom-API-Key",
+              "value": "{{X-Soracom-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Creates a new event handler. Please see also https://developers.soracom.io/en/docs/air/event-handler/."
+        },
+        {
+          "info": {
+            "name": "Get Event Handler",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.soracom.io/v1/event_handlers/:handler_id",
+            "params": [
+              {
+                "name": "handler_id",
+                "value": "",
+                "type": "path",
+                "description": "Event handler ID."
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-Soracom-API-Key",
+              "value": "{{X-Soracom-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Returns information about the specified event handler."
+        },
+        {
+          "info": {
+            "name": "Update Event Handler",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.soracom.io/v1/event_handlers/:handler_id",
+            "params": [
+              {
+                "name": "handler_id",
+                "value": "",
+                "type": "path",
+                "description": "Event handler ID."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-Soracom-API-Key",
+              "value": "{{X-Soracom-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Updates the specified event handler. Please see also https://developers.soracom.io/en/docs/air/event-handler/."
+        },
+        {
+          "info": {
+            "name": "Delete Event Handler",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.soracom.io/v1/event_handlers/:handler_id",
+            "params": [
+              {
+                "name": "handler_id",
+                "value": "",
+                "type": "path",
+                "description": "Event handler ID."
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-Soracom-API-Key",
+              "value": "{{X-Soracom-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Deletes the specified event handler."
+        },
+        {
+          "info": {
+            "name": "Ignore Event Handler",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.soracom.io/v1/event_handlers/:handler_id/subscribers/:imsi/ignore",
+            "params": [
+              {
+                "name": "imsi",
+                "value": "",
+                "type": "path",
+                "description": "IMSI."
+              },
+              {
+                "name": "handler_id",
+                "value": "",
+                "type": "path",
+                "description": "Event handler ID."
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-Soracom-API-Key",
+              "value": "{{X-Soracom-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Adds a setting for ignoring the specified event handler of the specified IMSI."
+        },
+        {
+          "info": {
+            "name": "Delete Ignore Event Handler",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.soracom.io/v1/event_handlers/:handler_id/subscribers/:imsi/ignore",
+            "params": [
+              {
+                "name": "imsi",
+                "value": "",
+                "type": "path",
+                "description": "IMSI."
+              },
+              {
+                "name": "handler_id",
+                "value": "",
+                "type": "path",
+                "description": "Event handler ID."
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-Soracom-API-Key",
+              "value": "{{X-Soracom-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Deletes the setting for ignoring the specified event handler of the specified IMSI."
+        },
+        {
+          "info": {
+            "name": "List Event Handlers related to Subscriber",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.soracom.io/v1/event_handlers/subscribers/:imsi",
+            "params": [
+              {
+                "name": "imsi",
+                "value": "",
+                "type": "path",
+                "description": "IMSI."
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-Soracom-API-Key",
+              "value": "{{X-Soracom-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Returns a list of event handlers related to the specified IMSI."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,170 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Soracom and Query Analysis SimProfileOrder API",
+    "version": "20250903-043502"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "SimProfileOrder",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List eSIM profile orders",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.soracom.io/v1/sim_profile_orders",
+            "params": [
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of eSIM profile orders to retrieve. However, the number of eSIM profile orders returned may be less than the specified value."
+              },
+              {
+                "name": "last_evaluated_key",
+                "value": "",
+                "type": "query",
+                "description": "The ID of the last eSIM profile order retrieved on the previous page. By repeating the API call while specifying this parameter, the next page of eSIM profile orders will be returned."
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-Soracom-API-Key",
+              "value": "{{X-Soracom-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Returns a list of eSIM profile orders. If the total number of orders does not fit in one page, a URL for accessing the next page is returned in the `link` header of the response.\n"
+        },
+        {
+          "info": {
+            "name": "Create a new eSIM profile order",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.soracom.io/v1/sim_profile_orders",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-Soracom-API-Key",
+              "value": "{{X-Soracom-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Creates a new eSIM profile order without confirming it. An unconfirmed order is valid for 1 day, after which it is automatically canceled.\nUse the [SimProfileOrder:confirmProfileOrder API](#/SimProfileOrder/confirmProfileOrder) to confirm the order.\n"
+        },
+        {
+          "info": {
+            "name": "Get an eSIM profile order",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.soracom.io/v1/sim_profile_orders/:profile_order_id",
+            "params": [
+              {
+                "name": "profile_order_id",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the eSIM profile order."
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-Soracom-API-Key",
+              "value": "{{X-Soracom-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Get an eSIM profile order.\n"
+        },
+        {
+          "info": {
+            "name": "Cancel an eSIM profile order",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.soracom.io/v1/sim_profile_orders/:profile_order_id",
+            "params": [
+              {
+                "name": "profile_order_id",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the eSIM profile order."
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-Soracom-API-Key",
+              "value": "{{X-Soracom-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Cancels an unconfirmed eSIM profile order.\n"
+        },
+        {
+          "info": {
+            "name": "Confirm an eSIM profile order",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.soracom.io/v1/sim_profile_orders/:profile_order_id/confirm",
+            "params": [
+              {
+                "name": "profile_order_id",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the eSIM profile order."
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-Soracom-API-Key",
+              "value": "{{X-Soracom-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Confirms an unconfirmed eSIM profile order and completes the order.\nOnce confirmed, an eSIM profile order cannot be canceled.\n"
+        },
+        {
+          "info": {
+            "name": "List eSIM profiles created by the eSIM profile order",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.soracom.io/v1/sim_profile_orders/:profile_order_id/profiles",
+            "params": [
+              {
+                "name": "profile_order_id",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the eSIM profile order."
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-Soracom-API-Key",
+              "value": "{{X-Soracom-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Returns a list of eSIM profiles created by the specified eSIM profile order.\n"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

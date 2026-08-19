@@ -1,0 +1,140 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Soracom and Query Analysis SystemNotification API",
+    "version": "20250903-043502"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "SystemNotification",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List email settings",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.soracom.io/v1/operators/:operator_id/system_notifications",
+            "params": [
+              {
+                "name": "operator_id",
+                "value": "",
+                "type": "path",
+                "description": "Operator ID"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-Soracom-API-Key",
+              "value": "{{X-Soracom-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Returns a list of email settings."
+        },
+        {
+          "info": {
+            "name": "Get information on email settings",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.soracom.io/v1/operators/:operator_id/system_notifications/:type",
+            "params": [
+              {
+                "name": "operator_id",
+                "value": "",
+                "type": "path",
+                "description": "Operator ID."
+              },
+              {
+                "name": "type",
+                "value": "",
+                "type": "path",
+                "description": "Email address type."
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-Soracom-API-Key",
+              "value": "{{X-Soracom-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Return information on email settings."
+        },
+        {
+          "info": {
+            "name": "Set an email address in the email settings",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.soracom.io/v1/operators/:operator_id/system_notifications/:type",
+            "params": [
+              {
+                "name": "operator_id",
+                "value": "",
+                "type": "path",
+                "description": "Operator ID"
+              },
+              {
+                "name": "type",
+                "value": "",
+                "type": "path",
+                "description": "Email address type."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-Soracom-API-Key",
+              "value": "{{X-Soracom-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Set an email address in the email settings."
+        },
+        {
+          "info": {
+            "name": "Delete an email address from the email settings",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.soracom.io/v1/operators/:operator_id/system_notifications/:type",
+            "params": [
+              {
+                "name": "operator_id",
+                "value": "",
+                "type": "path",
+                "description": "Operator ID."
+              },
+              {
+                "name": "type",
+                "value": "",
+                "type": "path",
+                "description": "Email address type."
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-Soracom-API-Key",
+              "value": "{{X-Soracom-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Delete an email address from the email settings."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

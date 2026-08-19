@@ -1,0 +1,338 @@
+{
+  "item": [
+    {
+      "id": "bac49cb0-37f5-4abf-ba72-21071d9bc420",
+      "name": "AuditLog",
+      "description": {
+        "content": "[Audit logs](/en/docs/api-audit-logs/)",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "286b1c25-7a06-4284-b590-05078c43ac56",
+          "name": "Retrieve audit logs for Soracom API calls",
+          "request": {
+            "name": "Retrieve audit logs for Soracom API calls",
+            "description": {
+              "content": "Retrieve audit logs for Soracom API calls.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "audit_logs",
+                "api"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "api_kind",
+                  "value": "<string>",
+                  "description": "Filter item for audit log retrieval by API kind (e.g. `/v1/auth`)."
+                },
+                {
+                  "disabled": false,
+                  "key": "from_epoch_ms",
+                  "value": "<integer>",
+                  "description": "Start time for the log search range (unixtime milliseconds)."
+                },
+                {
+                  "disabled": false,
+                  "key": "to_epoch_ms",
+                  "value": "<integer>",
+                  "description": "End time for the log search range (unixtime milliseconds)."
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "<integer>",
+                  "description": "Maximum number of log entries to retrieve (value range is 1 to 1000)."
+                },
+                {
+                  "disabled": false,
+                  "key": "last_evaluated_key",
+                  "value": "<string>",
+                  "description": "The value of `requestedTimeEpochMs` in the last log entry retrieved in the previous page. By specifying this parameter, you can continue to retrieve the list from the next page onward."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-Soracom-API-Key"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "f285741f-01cf-4207-aaff-de33d159f084",
+              "name": "A list of Soracom API audit log entries.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "audit_logs",
+                    "api"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "api_kind",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "from_epoch_ms",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "to_epoch_ms",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "last_evaluated_key",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Soracom-API-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"apiKind\": \"/v1/bills\",\n    \"operatorId\": \"OPXXXXXXXXXX\",\n    \"remoteIpAddress\": \"xxx.xxx.xxx.xxx\",\n    \"requestPath\": \"/v1/bills\",\n    \"requestedTimeEpocMs\": 1234567890123,\n    \"statusCode\": 200,\n    \"userName\": \"SORACOMAPI\"\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "7d14f811-4146-4533-887e-91ed18242149",
+          "name": "Retrieve audit logs for Soracom Napter",
+          "request": {
+            "name": "Retrieve audit logs for Soracom Napter",
+            "description": {
+              "content": "Retrieve audit logs for Soracom Napter.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "audit_logs",
+                "napter"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "resource_type",
+                  "value": "<string>",
+                  "description": "Type of the target resource to query log entries."
+                },
+                {
+                  "disabled": false,
+                  "key": "resource_id",
+                  "value": "<string>",
+                  "description": "Identity of the target resource to query log entries."
+                },
+                {
+                  "disabled": false,
+                  "key": "from",
+                  "value": "<integer>",
+                  "description": "Start time for the log search range (unixtime milliseconds)."
+                },
+                {
+                  "disabled": false,
+                  "key": "to",
+                  "value": "<integer>",
+                  "description": "End time for the log search range (unixtime milliseconds)."
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "<integer>",
+                  "description": "Maximum number of log entries to retrieve (value range is 1 to 1000)."
+                },
+                {
+                  "disabled": false,
+                  "key": "last_evaluated_key",
+                  "value": "<string>",
+                  "description": "The value of `time` in the last log entry retrieved in the previous page. By specifying this parameter, you can continue to retrieve the list from the next page onward."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-Soracom-API-Key"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "d61d5ee1-f620-4fab-9407-168a0b3867cd",
+              "name": "A list of Napter audit log entries.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "audit_logs",
+                    "napter"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "resource_type",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "resource_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "from",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "to",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "last_evaluated_key",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Soracom-API-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"connectionId\": \"12345678-abcd-1234-abcd-123456789010\",\n    \"createdAt\": 1234567890123,\n    \"direction\": {\n      \"destinationIPAddress\": \"xxx.xxx.xxx.xxx\",\n      \"destinationPort\": 22,\n      \"sourceIPAddress\": \"xxx.xxx.xxx.xxx\",\n      \"sourcePort\": 51720\n    },\n    \"imsi\": \"123456789012345\",\n    \"operatorId\": \"OPXXXXXXXXXX\",\n    \"tls\": false,\n    \"type\": \"CLOSED\"\n  },\n  {\n    \"connectionId\": \"12345678-abcd-1234-abcd-123456789011\",\n    \"createdAt\": 1234567890123,\n    \"direction\": {\n      \"destinationIPAddress\": \"xxx.xxx.xxx.xxx\",\n      \"destinationPort\": 22,\n      \"sourceIPAddress\": \"xxx.xxx.xxx.xxx\",\n      \"sourcePort\": 51720\n    },\n    \"imsi\": \"234567890123456\",\n    \"operatorId\": \"OPXXXXXXXXXX\",\n    \"tls\": false,\n    \"type\": \"EXPIRED\"\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.soracom.io/v1",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "32eac23b-10f4-46ab-8912-e36c25481d23",
+    "name": "Soracom and Query Analysis AuditLog API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Run SQL queries against Soracom Query, fetch query schemas, and search SIMs, Inventory devices, and Sigfox devices.",
+      "type": "text/plain"
+    }
+  }
+}

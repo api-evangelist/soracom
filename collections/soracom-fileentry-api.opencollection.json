@@ -1,0 +1,265 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Soracom and Query Analysis FileEntry API",
+    "version": "20250903-043502"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "FileEntry",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Find files with prefix query parameter in the scope",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.soracom.io/v1/files",
+            "params": [
+              {
+                "name": "scope",
+                "value": "",
+                "type": "query",
+                "description": "Scope of the request. Specify `private` to handle files uploaded to Harvest Files."
+              },
+              {
+                "name": "prefix",
+                "value": "",
+                "type": "query",
+                "description": "Prefix to match with file path."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of file entries to be returned."
+              },
+              {
+                "name": "last_evaluated_key",
+                "value": "",
+                "type": "query",
+                "description": "The filePath of the last file entry retrieved on the previous page. By specifying this parameter, you can continue to retrieve the list from the next file entry onward."
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-Soracom-API-Key",
+              "value": "{{X-Soracom-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Returns a list of file entries which beginnings of their file paths are matched with the `prefix` query string in the ascending sorted UTF-8 bytes order of their file paths. An empty list is returned if the prefix does not match with any paths of file entries."
+        },
+        {
+          "info": {
+            "name": "Download file specified by the path and the scope",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.soracom.io/v1/files/:scope/:path",
+            "params": [
+              {
+                "name": "scope",
+                "value": "",
+                "type": "path",
+                "description": "Scope of the request. Specify `private` to handle files uploaded to Harvest Files."
+              },
+              {
+                "name": "path",
+                "value": "",
+                "type": "path",
+                "description": "Target path."
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-Soracom-API-Key",
+              "value": "{{X-Soracom-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Download file specified by the path and the scope. Note that [FileEntry:listFiles API](#!/FileEntry/listFiles) will be called if the path ends with `/`."
+        },
+        {
+          "info": {
+            "name": "Uploads the file to the specified path in the scope.",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.soracom.io/v1/files/:scope/:path",
+            "headers": [
+              {
+                "name": "content-type",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "scope",
+                "value": "",
+                "type": "path",
+                "description": "Scope of the request. Specify `private` to handle files uploaded to Harvest Files."
+              },
+              {
+                "name": "path",
+                "value": "",
+                "type": "path",
+                "description": "Target path."
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-Soracom-API-Key",
+              "value": "{{X-Soracom-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Uploads the file to the specified path in the scope. Only `private` scope is allowed for the operation."
+        },
+        {
+          "info": {
+            "name": "Deletes the file specified by scope and path.",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.soracom.io/v1/files/:scope/:path",
+            "params": [
+              {
+                "name": "scope",
+                "value": "",
+                "type": "path",
+                "description": "Scope of the request. Specify `private` to handle files uploaded to Harvest Files."
+              },
+              {
+                "name": "path",
+                "value": "",
+                "type": "path",
+                "description": "Target path."
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-Soracom-API-Key",
+              "value": "{{X-Soracom-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Deletes the file specified by scope and path. Only `private` scope is allowed for the operation."
+        },
+        {
+          "info": {
+            "name": "Gets the metadata of the file specified by the path and the scope",
+            "type": "http"
+          },
+          "http": {
+            "method": "HEAD",
+            "url": "https://api.soracom.io/v1/files/:scope/:path",
+            "params": [
+              {
+                "name": "scope",
+                "value": "",
+                "type": "path",
+                "description": "Scope of the request. Specify `private` to handle files uploaded to Harvest Files."
+              },
+              {
+                "name": "path",
+                "value": "",
+                "type": "path",
+                "description": "Target path."
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-Soracom-API-Key",
+              "value": "{{X-Soracom-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Gets the metadata of the file specified by the path and the scope."
+        },
+        {
+          "info": {
+            "name": "Returns files and directories from the directory specified by the scope and path.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.soracom.io/v1/files/:scope/:path/",
+            "params": [
+              {
+                "name": "scope",
+                "value": "",
+                "type": "path",
+                "description": "Scope of the request. Specify `private` to handle files uploaded to Harvest Files."
+              },
+              {
+                "name": "path",
+                "value": "",
+                "type": "path",
+                "description": "Target path."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of file entries to be returned."
+              },
+              {
+                "name": "last_evaluated_key",
+                "value": "",
+                "type": "query",
+                "description": "The filename of the last file entry retrieved on the previous page. By specifying this parameter, you can continue to retrieve the list from the next file entry onward."
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-Soracom-API-Key",
+              "value": "{{X-Soracom-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Returns files and directories from the directory specified by the scope and path. Note that [FileEntry:getFile API](#!/FileEntry/getFile) will be called if the path does not end in `/`. If the total number of entries does not fit in one page, a URL for accessing the next page is returned in the `link` header of the response.\n"
+        },
+        {
+          "info": {
+            "name": "Deletes the directory specified by scope and path",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.soracom.io/v1/files/:scope/:path/",
+            "params": [
+              {
+                "name": "scope",
+                "value": "",
+                "type": "path",
+                "description": "Scope of the request. Specify `private` to handle files uploaded to Harvest Files."
+              },
+              {
+                "name": "path",
+                "value": "",
+                "type": "path",
+                "description": "Target path."
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-Soracom-API-Key",
+              "value": "{{X-Soracom-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Deletes the directory specified by scope and path. Only `private` scope is allowed for the operation."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,724 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Soracom and Query Analysis Operator API",
+    "version": "20250903-043502"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Operator",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get Operator",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.soracom.io/v1/operators/:operator_id",
+            "params": [
+              {
+                "name": "operator_id",
+                "value": "",
+                "type": "path",
+                "description": "Operator ID."
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-Soracom-API-Key",
+              "value": "{{X-Soracom-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Returns information about the operator."
+        },
+        {
+          "info": {
+            "name": "List Operator AuthKeys",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.soracom.io/v1/operators/:operator_id/auth_keys",
+            "params": [
+              {
+                "name": "operator_id",
+                "value": "",
+                "type": "path",
+                "description": "Operator ID."
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-Soracom-API-Key",
+              "value": "{{X-Soracom-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Returns the operator's AuthKey list."
+        },
+        {
+          "info": {
+            "name": "Generate Operator AuthKey",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.soracom.io/v1/operators/:operator_id/auth_keys",
+            "params": [
+              {
+                "name": "operator_id",
+                "value": "",
+                "type": "path",
+                "description": "Operator ID."
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-Soracom-API-Key",
+              "value": "{{X-Soracom-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Generates an AuthKey for the operator."
+        },
+        {
+          "info": {
+            "name": "Delete Operator AuthKey",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.soracom.io/v1/operators/:operator_id/auth_keys/:auth_key_id",
+            "params": [
+              {
+                "name": "operator_id",
+                "value": "",
+                "type": "path",
+                "description": "Operator ID."
+              },
+              {
+                "name": "auth_key_id",
+                "value": "",
+                "type": "path",
+                "description": "AuthKey ID."
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-Soracom-API-Key",
+              "value": "{{X-Soracom-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Deletes an AuthKey from the operator."
+        },
+        {
+          "info": {
+            "name": "Get company information",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.soracom.io/v1/operators/:operator_id/company_information",
+            "params": [
+              {
+                "name": "operator_id",
+                "value": "",
+                "type": "path",
+                "description": "Operator ID."
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-Soracom-API-Key",
+              "value": "{{X-Soracom-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Gets the operator's company information."
+        },
+        {
+          "info": {
+            "name": "Create company information",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.soracom.io/v1/operators/:operator_id/company_information",
+            "params": [
+              {
+                "name": "operator_id",
+                "value": "",
+                "type": "path",
+                "description": "Operator ID."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-Soracom-API-Key",
+              "value": "{{X-Soracom-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Creates the operator's company information."
+        },
+        {
+          "info": {
+            "name": "Update company information",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.soracom.io/v1/operators/:operator_id/company_information",
+            "params": [
+              {
+                "name": "operator_id",
+                "value": "",
+                "type": "path",
+                "description": "Operator ID."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-Soracom-API-Key",
+              "value": "{{X-Soracom-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Updates the operator's company information."
+        },
+        {
+          "info": {
+            "name": "Get operator configuration of the namespace",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.soracom.io/v1/operators/:operator_id/configuration/:namespace",
+            "params": [
+              {
+                "name": "operator_id",
+                "value": "",
+                "type": "path",
+                "description": "Operator ID."
+              },
+              {
+                "name": "namespace",
+                "value": "",
+                "type": "path",
+                "description": "Namespace of operator configuration."
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-Soracom-API-Key",
+              "value": "{{X-Soracom-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Gets operator configuration of the namespace."
+        },
+        {
+          "info": {
+            "name": "Set operator configuration of the namespace",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.soracom.io/v1/operators/:operator_id/configuration/:namespace",
+            "params": [
+              {
+                "name": "operator_id",
+                "value": "",
+                "type": "path",
+                "description": "Operator ID."
+              },
+              {
+                "name": "namespace",
+                "value": "",
+                "type": "path",
+                "description": "Namespace of operator configuration."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-Soracom-API-Key",
+              "value": "{{X-Soracom-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Sets operator configuration of the namespace."
+        },
+        {
+          "info": {
+            "name": "Delete operator configuration of the namespace",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.soracom.io/v1/operators/:operator_id/configuration/:namespace",
+            "params": [
+              {
+                "name": "operator_id",
+                "value": "",
+                "type": "path",
+                "description": "Operator ID."
+              },
+              {
+                "name": "namespace",
+                "value": "",
+                "type": "path",
+                "description": "Namespace of operator configuration."
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-Soracom-API-Key",
+              "value": "{{X-Soracom-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Deletes operator configuration of the namespace."
+        },
+        {
+          "info": {
+            "name": "Add Operator Contract",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.soracom.io/v1/operators/:operator_id/contracts",
+            "params": [
+              {
+                "name": "operator_id",
+                "value": "",
+                "type": "path",
+                "description": "Operator ID."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-Soracom-API-Key",
+              "value": "{{X-Soracom-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Adds the operator's contract."
+        },
+        {
+          "info": {
+            "name": "Delete Operator Contract",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.soracom.io/v1/operators/:operator_id/contracts/:contract_name",
+            "params": [
+              {
+                "name": "operator_id",
+                "value": "",
+                "type": "path",
+                "description": "Operator ID."
+              },
+              {
+                "name": "contract_name",
+                "value": "",
+                "type": "path",
+                "description": "Contract name."
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-Soracom-API-Key",
+              "value": "{{X-Soracom-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Deletes the operator's contract."
+        },
+        {
+          "info": {
+            "name": "Add coverage type",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.soracom.io/v1/operators/:operator_id/coverage_type/:coverage_type",
+            "params": [
+              {
+                "name": "operator_id",
+                "value": "",
+                "type": "path",
+                "description": "Operator ID."
+              },
+              {
+                "name": "coverage_type",
+                "value": "",
+                "type": "path",
+                "description": "Coverage type."
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-Soracom-API-Key",
+              "value": "{{X-Soracom-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Adds the operator's coverage type."
+        },
+        {
+          "info": {
+            "name": "Get individual information",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.soracom.io/v1/operators/:operator_id/individual_information",
+            "params": [
+              {
+                "name": "operator_id",
+                "value": "",
+                "type": "path",
+                "description": "Operator ID."
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-Soracom-API-Key",
+              "value": "{{X-Soracom-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Gets the operator's individual information."
+        },
+        {
+          "info": {
+            "name": "Create individual information",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.soracom.io/v1/operators/:operator_id/individual_information",
+            "params": [
+              {
+                "name": "operator_id",
+                "value": "",
+                "type": "path",
+                "description": "Operator ID."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-Soracom-API-Key",
+              "value": "{{X-Soracom-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Creates the operator's individual information."
+        },
+        {
+          "info": {
+            "name": "Update individual information",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.soracom.io/v1/operators/:operator_id/individual_information",
+            "params": [
+              {
+                "name": "operator_id",
+                "value": "",
+                "type": "path",
+                "description": "Operator ID."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-Soracom-API-Key",
+              "value": "{{X-Soracom-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Updates the operator's individual information."
+        },
+        {
+          "info": {
+            "name": "Get Operator's MFA Status",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.soracom.io/v1/operators/:operator_id/mfa",
+            "params": [
+              {
+                "name": "operator_id",
+                "value": "",
+                "type": "path",
+                "description": "Operator ID."
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-Soracom-API-Key",
+              "value": "{{X-Soracom-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Gets operator's MFA status. The MFA status is one of `ACTIVE`, `INACTIVE` or `UNCONFIRMED`."
+        },
+        {
+          "info": {
+            "name": "Enable Operator's MFA",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.soracom.io/v1/operators/:operator_id/mfa",
+            "params": [
+              {
+                "name": "operator_id",
+                "value": "",
+                "type": "path",
+                "description": "Operator ID."
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-Soracom-API-Key",
+              "value": "{{X-Soracom-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Enables operator's MFA. After calling this API, it should be verified by calling `Operator:verifyMFA` API."
+        },
+        {
+          "info": {
+            "name": "Revoke Operator's MFA",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.soracom.io/v1/operators/:operator_id/mfa",
+            "params": [
+              {
+                "name": "operator_id",
+                "value": "",
+                "type": "path",
+                "description": "Operator ID."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-Soracom-API-Key",
+              "value": "{{X-Soracom-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Revokes operator's MFA without backup codes."
+        },
+        {
+          "info": {
+            "name": "Verify Operator's MFA OTP Code",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.soracom.io/v1/operators/:operator_id/mfa/verify",
+            "params": [
+              {
+                "name": "operator_id",
+                "value": "",
+                "type": "path",
+                "description": "Operator ID."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-Soracom-API-Key",
+              "value": "{{X-Soracom-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Verifies operator's MFA with OTP code. This API must be called after calling `Operator:enableMFA`. MFA will not be activated unless the MFA OTP is verified with this API. Be sure to securely store the backup code returned in the response to this API."
+        },
+        {
+          "info": {
+            "name": "Update Operator Password",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.soracom.io/v1/operators/:operator_id/password",
+            "params": [
+              {
+                "name": "operator_id",
+                "value": "",
+                "type": "path",
+                "description": "Operator ID."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-Soracom-API-Key",
+              "value": "{{X-Soracom-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Updates the operator's password."
+        },
+        {
+          "info": {
+            "name": "Generate Token for Support Console",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.soracom.io/v1/operators/:operator_id/support/token",
+            "params": [
+              {
+                "name": "operator_id",
+                "value": "",
+                "type": "path",
+                "description": "Operator ID."
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-Soracom-API-Key",
+              "value": "{{X-Soracom-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Returns a token for accessing the support console."
+        },
+        {
+          "info": {
+            "name": "Generate API Token",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.soracom.io/v1/operators/:operator_id/token",
+            "params": [
+              {
+                "name": "operator_id",
+                "value": "",
+                "type": "path",
+                "description": "Operator ID."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-Soracom-API-Key",
+              "value": "{{X-Soracom-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Generates a new API token. If you insert the current API token into the header and make a request, a response is returned containing the new API token. You can then use the new API token in future requests."
+        },
+        {
+          "info": {
+            "name": "Revoke all API keys and API tokens that were generated by the root user",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.soracom.io/v1/operators/:operator_id/tokens",
+            "params": [
+              {
+                "name": "operator_id",
+                "value": "",
+                "type": "path",
+                "description": "Operator ID."
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-Soracom-API-Key",
+              "value": "{{X-Soracom-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Revoke all API keys and API tokens that were generated by the root user. Once revoked, the API key and API token cannot be used to call the Soracom API, regardless of their expiration time."
+        },
+        {
+          "info": {
+            "name": "Issue Operator's MFA Revoke Token",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.soracom.io/v1/operators/mfa_revoke_token/issue",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Issues a token to revoke operator's MFA. The issued token will be sent to the operator via email."
+        },
+        {
+          "info": {
+            "name": "Verify Operator's MFA revoke token",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.soracom.io/v1/operators/mfa_revoke_token/verify",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Verifies the one-time token which is previously issued by calling `/operators/mfa_revoke_token/issue` API, operator's email address, password, and one of the backup codes. If verified, operator's MFA is going to be revoked."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,64 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Soracom and Query Analysis Diagnostic API",
+    "version": "20250903-043502"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Diagnostic",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Send diagnostic request",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.soracom.io/v1/diagnostics",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-Soracom-API-Key",
+              "value": "{{X-Soracom-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Send a diagnostic request."
+        },
+        {
+          "info": {
+            "name": "Get diagnostic",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.soracom.io/v1/diagnostics/:diagnostic_id",
+            "params": [
+              {
+                "name": "diagnostic_id",
+                "value": "",
+                "type": "path",
+                "description": "The identifier of diagnostic request."
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-Soracom-API-Key",
+              "value": "{{X-Soracom-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Returns a diagnostic."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

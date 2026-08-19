@@ -1,0 +1,247 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Soracom and Query Analysis Payment API",
+    "version": "20250903-043502"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Payment",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List coupons.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.soracom.io/v1/coupons",
+            "auth": {
+              "type": "apikey",
+              "key": "X-Soracom-API-Key",
+              "value": "{{X-Soracom-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Returns a list of currently registered coupons."
+        },
+        {
+          "info": {
+            "name": "Register Coupon",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.soracom.io/v1/coupons/:coupon_code/register",
+            "params": [
+              {
+                "name": "coupon_code",
+                "value": "",
+                "type": "path",
+                "description": "Coupon code."
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-Soracom-API-Key",
+              "value": "{{X-Soracom-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Registers a coupon."
+        },
+        {
+          "info": {
+            "name": "Get payment transaction result.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.soracom.io/v1/payment_history/transactions/:payment_transaction_id",
+            "params": [
+              {
+                "name": "payment_transaction_id",
+                "value": "",
+                "type": "path",
+                "description": "Payment transaction ID. It can be obtained via [Billing:getBillingHistory API](#!/Billing/getBillingHistory) or [Billing:getBilling API](#!/Billing/getBilling)."
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-Soracom-API-Key",
+              "value": "{{X-Soracom-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Returns result of a payment transaction.\n\n**Warning**: The maximum information you can get is for the last 18 months. If you need the information before that time, please contact [Soracom Support](https://support.soracom.io).\n"
+        },
+        {
+          "info": {
+            "name": "Get current payment method information.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.soracom.io/v1/payment_methods/current",
+            "auth": {
+              "type": "apikey",
+              "key": "X-Soracom-API-Key",
+              "value": "{{X-Soracom-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Returns current payment methods. Detailed information is included in the properties."
+        },
+        {
+          "info": {
+            "name": "Activate current payment method",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.soracom.io/v1/payment_methods/current/activate",
+            "auth": {
+              "type": "apikey",
+              "key": "X-Soracom-API-Key",
+              "value": "{{X-Soracom-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Activates a current payment method that has an error."
+        },
+        {
+          "info": {
+            "name": "List payment statements",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.soracom.io/v1/payment_statements",
+            "auth": {
+              "type": "apikey",
+              "key": "X-Soracom-API-Key",
+              "value": "{{X-Soracom-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "List payment statements.\n\n**Warning**: The maximum information you can get is for the last 18 months. If you need the information before that time, please contact [Soracom Support](https://support.soracom.io).\n"
+        },
+        {
+          "info": {
+            "name": "Export payment statement",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.soracom.io/v1/payment_statements/:payment_statement_id/export",
+            "params": [
+              {
+                "name": "payment_statement_id",
+                "value": "",
+                "type": "path",
+                "description": "Payment statement ID"
+              },
+              {
+                "name": "export_mode",
+                "value": "",
+                "type": "query",
+                "description": "Export mode (async, sync)"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-Soracom-API-Key",
+              "value": "{{X-Soracom-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Export payment statement.\n\n**Warning**: The maximum information you can get is for the last 18 months. If you need the information before that time, please contact [Soracom Support](https://support.soracom.io).\n"
+        },
+        {
+          "info": {
+            "name": "Export payer information",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.soracom.io/v1/payment_statements/payer_information",
+            "auth": {
+              "type": "apikey",
+              "key": "X-Soracom-API-Key",
+              "value": "{{X-Soracom-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Export payer information."
+        },
+        {
+          "info": {
+            "name": "Register payer information",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.soracom.io/v1/payment_statements/payer_information",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-Soracom-API-Key",
+              "value": "{{X-Soracom-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Register payer information."
+        },
+        {
+          "info": {
+            "name": "List long term discounts",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.soracom.io/v1/volume_discounts",
+            "auth": {
+              "type": "apikey",
+              "key": "X-Soracom-API-Key",
+              "value": "{{X-Soracom-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Returns a list of contracted long term discounts.\n\n**Warning**: Information can be obtained up to 18 months in the past or 6 months after the contract ends. If you need the information before that time, please contact [Soracom Support](https://support.soracom.io).\n"
+        },
+        {
+          "info": {
+            "name": "Get long term discount",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.soracom.io/v1/volume_discounts/:contract_id",
+            "params": [
+              {
+                "name": "contract_id",
+                "value": "",
+                "type": "path",
+                "description": "Contract ID."
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-Soracom-API-Key",
+              "value": "{{X-Soracom-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Returns contracted long term discount.\n\n**Warning**: Information can be obtained up to 18 months in the past or 6 months after the contract ends. If you need the information before that time, please contact [Soracom Support](https://support.soracom.io).\n"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

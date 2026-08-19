@@ -1,0 +1,690 @@
+{
+  "item": [
+    {
+      "id": "8de810c2-e030-46c3-bd45-bcfbd4d2efdd",
+      "name": "Email",
+      "description": {
+        "content": "[Email addresses](/en/docs/email/)",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "48897082-4354-4985-9ee3-d943d7db36c6",
+          "name": "List email addresses",
+          "request": {
+            "name": "List email addresses",
+            "description": {
+              "content": "Retrieves a list of email addresses registered to the operator.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "operators",
+                ":operator_id",
+                "emails"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "operator_id",
+                  "description": "(Required) Operator ID."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-Soracom-API-Key"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "cfd27e14-5812-458d-9bc1-9ea1886e18f8",
+              "name": "A list of email addresses registered to the operator.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "operators",
+                    ":operator_id",
+                    "emails"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "operator_id",
+                      "description": "(Required) Operator ID."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Soracom-API-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"emailId\": \"string\",\n    \"email\": \"string\",\n    \"verified\": true,\n    \"createDateTime\": 2069,\n    \"updateDateTime\": 1803\n  },\n  {\n    \"emailId\": \"string\",\n    \"email\": \"string\",\n    \"verified\": true,\n    \"createDateTime\": 4835,\n    \"updateDateTime\": 4016\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "d0a9461d-8cc1-4fca-aa32-786f08395daa",
+              "name": "Invoked using SAM user credentials. This operation is allowed only for root user.\n",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "operators",
+                    ":operator_id",
+                    "emails"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "operator_id",
+                      "description": "(Required) Operator ID."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Soracom-API-Key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "08502b55-027b-4644-8413-dd431cb4ca89",
+          "name": "Delete email address",
+          "request": {
+            "name": "Delete email address",
+            "description": {
+              "content": "Deletes the email address corresponding to the specified email address ID from the operator.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "operators",
+                ":operator_id",
+                "emails",
+                ":email_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "operator_id",
+                  "description": "(Required) Operator ID."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "email_id",
+                  "description": "(Required) Email address ID."
+                }
+              ]
+            },
+            "method": "DELETE",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-Soracom-API-Key"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "d91fd9ef-102f-4975-bc02-9dc53e7989fe",
+              "name": "Email address successfully deleted.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "operators",
+                    ":operator_id",
+                    "emails",
+                    ":email_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "operator_id",
+                      "description": "(Required) Operator ID."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "email_id",
+                      "description": "(Required) Email address ID."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Soracom-API-Key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "1f0c3e6b-5afe-4ece-9b3e-e557b87d768f",
+          "name": "Get email address",
+          "request": {
+            "name": "Get email address",
+            "description": {
+              "content": "Retrieves information for the email address corresponding to the specified email address ID.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "operators",
+                ":operator_id",
+                "emails",
+                ":email_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "operator_id",
+                  "description": "(Required) Operator ID."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "email_id",
+                  "description": "(Required) Email address ID."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-Soracom-API-Key"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "db1b1389-b03f-4385-a573-cfb63ace4cdd",
+              "name": "Information about the specified email address.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "operators",
+                    ":operator_id",
+                    "emails",
+                    ":email_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "operator_id",
+                      "description": "(Required) Operator ID."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "email_id",
+                      "description": "(Required) Email address ID."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Soracom-API-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"emailId\": \"string\",\n  \"email\": \"string\",\n  \"verified\": false,\n  \"createDateTime\": 4397,\n  \"updateDateTime\": 5749\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "a0c3d864-23fb-4736-9441-e4a698290e45",
+          "name": "Issue an authentication token to add an email address",
+          "request": {
+            "name": "Issue an authentication token to add an email address",
+            "description": {
+              "content": "Generates an authentication token for adding a new email address and sends it to the specified email address. This authentication token is used with [Email:verifyAddEmailToken API](#/Email/verifyAddEmailToken) to complete email address verification and addition.\n\n**Warning**: This API can only be executed with root user credentials.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "operators",
+                "add_email_token",
+                "issue"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-Soracom-API-Key"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"<string>\",\n  \"password\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "9e3b5322-1866-49ca-a52c-a2cb79a68bf3",
+              "name": "Authentication token successfully issued and sent to the specified email address.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "operators",
+                    "add_email_token",
+                    "issue"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Soracom-API-Key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"email\": \"<string>\",\n  \"password\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "3ca37b05-0aaf-408b-a8f6-56b76d9f9601",
+              "name": "Exceeds maximum number of emails.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "operators",
+                    "add_email_token",
+                    "issue"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Soracom-API-Key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"email\": \"<string>\",\n  \"password\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "32192077-283a-4df5-a038-2435c4868401",
+          "name": "Verify an authentication token to add an email address",
+          "request": {
+            "name": "Verify an authentication token to add an email address",
+            "description": {
+              "content": "Verifies the authentication token issued by [Email:issueAddEmailToken API](#/Email/issueAddEmailToken) and adds the email address to the operator.\n\n**Warning**: Authentication tokens have an expiration time. Expired authentication tokens cannot be used.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "operators",
+                "add_email_token",
+                "verify"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"token\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "addb90da-61d9-4b8f-bc49-f11bbed3c7a3",
+              "name": "Email address successfully verified and added to the operator.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "operators",
+                    "add_email_token",
+                    "verify"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"token\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.soracom.io/v1",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "72539166-df51-4938-81bd-cb4faf8ea540",
+    "name": "Soracom and Query Analysis Email API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Run SQL queries against Soracom Query, fetch query schemas, and search SIMs, Inventory devices, and Sigfox devices.",
+      "type": "text/plain"
+    }
+  }
+}

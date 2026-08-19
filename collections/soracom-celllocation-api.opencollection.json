@@ -1,0 +1,100 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Soracom and Query Analysis CellLocation API",
+    "version": "20250903-043502"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "CellLocation",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get location information for a cell tower",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.soracom.io/v1/cell_locations",
+            "params": [
+              {
+                "name": "mcc",
+                "value": "440",
+                "type": "query",
+                "description": "MCC - Mobile Country Code."
+              },
+              {
+                "name": "mnc",
+                "value": "10",
+                "type": "query",
+                "description": "MNC - Mobile Network Code."
+              },
+              {
+                "name": "lac",
+                "value": "",
+                "type": "query",
+                "description": "LAC - Location Area Code (for 3G)."
+              },
+              {
+                "name": "cid",
+                "value": "",
+                "type": "query",
+                "description": "CID - Cell ID (for 3G)."
+              },
+              {
+                "name": "tac",
+                "value": "5680",
+                "type": "query",
+                "description": "TAC - Tracking Area Code (for 4G)."
+              },
+              {
+                "name": "ecid",
+                "value": "48872466",
+                "type": "query",
+                "description": "ECID - Enhanced Cell ID (for 4G) - specify either `ecid` or `eci`. The result is the same regardless of which value is specified."
+              },
+              {
+                "name": "eci",
+                "value": "",
+                "type": "query",
+                "description": "ECID - Enhanced Cell ID (for 4G) - specify either `ecid` or `eci`. The result is the same regardless of which value is specified."
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-Soracom-API-Key",
+              "value": "{{X-Soracom-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Retrieves location information (latitude/longitude) for a cell tower based on cell information such as Cell ID.\n\n- For 3G, please specify MCC, MNC, LAC, and CID. It is possible to retrieve approximate location information without CID, but the accuracy will be low.\n\n    3G example\n    ```\n    $ curl -X GET \"https://api.soracom.io/v1/cell_locations?mcc=440&mnc=10&lac=196\" \\\n    -H \"X-Soracom-API-Key: $X_SORACOM_API_KEY\" \\\n    -H \"X-Soracom-Token: $X_SORACOM_TOKEN\"\n    ```\n\n- For LTE (4G), please s"
+        },
+        {
+          "info": {
+            "name": "List location information for multiple cell towers.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.soracom.io/v1/cell_locations",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-Soracom-API-Key",
+              "value": "{{X-Soracom-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Retrieves a list of location information (latitude/longitude) for multiple cell towers based on cell information such as Cell ID. For 3G, please specify MCC, MNC, LAC, and CID. It is possible to retrieve approximate location information without CID, but the accuracy will be low. For LTE (4G), please specify MCC, MNC, TAC, and ECID. The conversion of cell tower information to location information uses the OpenCelliD Project database, so it is possible that the information may not exist or may be "
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

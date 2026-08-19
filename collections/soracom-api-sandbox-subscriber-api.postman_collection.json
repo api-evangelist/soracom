@@ -1,0 +1,151 @@
+{
+  "item": [
+    {
+      "id": "8b95a522-c7f2-4b42-ab50-23735463c6b6",
+      "name": "API Sandbox: Subscriber",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "477b4d32-be55-4ff8-aaa9-00a9c257a876",
+          "name": "Creates a new subscriber for sandbox",
+          "request": {
+            "name": "Creates a new subscriber for sandbox",
+            "description": {
+              "content": "Creates a new subscriber for sandbox.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "sandbox",
+                "subscribers",
+                "create"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-Soracom-API-Key"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"bundles\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"subscription\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "c7f8ba9d-2215-4b87-ba90-444779c9843b",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "sandbox",
+                    "subscribers",
+                    "create"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Soracom-API-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"bundle\": [\n    \"D-300MB\"\n  ],\n  \"subscription\": \"plan-D\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"apn\": \"string\",\n  \"createdAt\": 4698,\n  \"expiryTime\": 1492,\n  \"imsi\": \"string\",\n  \"ipAddress\": \"string\",\n  \"lastModifiedAt\": 1688,\n  \"msisdn\": \"string\",\n  \"operatorId\": \"string\",\n  \"registrationSecret\": \"string\",\n  \"serialNumber\": \"string\",\n  \"speedClass\": \"string\",\n  \"status\": \"string\",\n  \"subscription\": \"string\",\n  \"tags\": {\n    \"key_0\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.soracom.io/v1",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "bbb8779c-c878-4f20-a01c-43126059a4c1",
+    "name": "Soracom and Query Analysis API Sandbox: Subscriber API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Run SQL queries against Soracom Query, fetch query schemas, and search SIMs, Inventory devices, and Sigfox devices.",
+      "type": "text/plain"
+    }
+  }
+}
