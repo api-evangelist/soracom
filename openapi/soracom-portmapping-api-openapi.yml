@@ -1,8 +1,8 @@
-openapi: 3.0.0
+openapi: 3.2.0
 info:
-  title: Soracom and Query Analysis PortMapping API
-  description: Run SQL queries against Soracom Query, fetch query schemas, and search SIMs, Inventory devices, and Sigfox devices.
+  title: Soracom Port Mapping API
   version: 20250903-043502
+  description: 'Operations tagged PortMapping across 2 of this provider''s published API definitions: soracom-napter-api-openapi.yml, soracom-platform-api-openapi.yml. Each path carries the servers of the definition it was published in.'
 servers:
 - description: Japan coverage production API endpoint
   url: https://api.soracom.io/v1
@@ -76,6 +76,11 @@ paths:
       - PortMapping
       x-soracom-cli:
       - port-mappings create
+    servers:
+    - description: Japan coverage production API endpoint
+      url: https://api.soracom.io/v1
+    - description: Global coverage production API endpoint
+      url: https://g.api.soracom.io/v1
   /port_mappings/{ip_address}/{port}:
     delete:
       description: Deletes the specified Napter On-Demand Remote Access entry.
@@ -106,6 +111,11 @@ paths:
       - PortMapping
       x-soracom-cli:
       - port-mappings delete
+    servers:
+    - description: Japan coverage production API endpoint
+      url: https://api.soracom.io/v1
+    - description: Global coverage production API endpoint
+      url: https://g.api.soracom.io/v1
   /port_mappings/sims/{sim_id}:
     get:
       description: Retrieves a list of Napter On-Demand Remote Access entries created with the specified SIM ID.
@@ -168,6 +178,11 @@ paths:
       - PortMapping
       x-soracom-cli:
       - port-mappings create-for-sim
+    servers:
+    - description: Japan coverage production API endpoint
+      url: https://api.soracom.io/v1
+    - description: Global coverage production API endpoint
+      url: https://g.api.soracom.io/v1
   /port_mappings/subscribers/{imsi}:
     get:
       description: 'Retrieves a list of Napter On-Demand Remote Access entries where `destinationChoosingStrategy` is `IMSI_PRIORITIZED` (entries created with specified IMSI).
@@ -203,12 +218,47 @@ paths:
       x-soracom-cli:
       - port-mappings get
       - port-mappings list-for-subscriber
+    servers:
+    - description: Japan coverage production API endpoint
+      url: https://api.soracom.io/v1
+    - description: Global coverage production API endpoint
+      url: https://g.api.soracom.io/v1
 components:
   schemas:
-    CreatePortMappingRequestForSim:
+    PortMappingDestinationForSim:
+      description: 'Information about the destination when creating an On-Demand Remote Access entry.
+
+        '
+      properties:
+        port:
+          description: The port number on the device using IoT SIM or virtual SIM, waiting for connection.
+          type: number
+        service:
+          description: 'The target for creating an On-Demand Remote Access entry.
+
+
+            - `air`: Target Soracom Air subscribers'' sessions that are online.
+
+            - `arc`: Target Soracom Arc virtual SIM.
+
+
+            **Warning**: If `service` is omitted, online subscriber sessions will be the target for creating an On-Demand Remote Access entry. If multiple online subscriber sessions exist (e.g., both Soracom Air and Soracom Arc sessions are online), it is not guaranteed which session will be used. Please specify either `air` or `arc`.
+
+
+            **Warning**: This property is required when creating an On-Demand Remote Access entry. It will not be included in the response.
+
+            '
+          enum:
+          - air
+          - arc
+          type: string
+      required:
+      - port
+      type: object
+    CreatePortMappingRequest:
       properties:
         destination:
-          $ref: '#/components/schemas/PortMappingDestinationForSim'
+          $ref: '#/components/schemas/PortMappingDestination'
         duration:
           description: 'The duration (in seconds) to maintain the On-Demand Remote Access entry (the time to allow remote access). After the specified time has passed, the On-Demand Remote Access entry will be automatically deleted. The maximum duration is 8 hours.
 
@@ -228,6 +278,16 @@ components:
           type: boolean
       required:
       - destination
+      type: object
+    PortMappingSource:
+      properties:
+        ipRanges:
+          description: 'The IP address ranges (in CIDR notation) allowed to access the On-Demand Remote Access. Specify global IP addresses. Only devices from IP addresses within the specified ranges will be able to access the device remotely.
+
+            '
+          items:
+            type: string
+          type: array
       type: object
     PortMappingDestination:
       description: 'When creating an On-Demand Remote Access entry, you must specify either `imsi` or `simId`.
@@ -276,6 +336,30 @@ components:
           type: string
       required:
       - port
+      type: object
+    CreatePortMappingRequestForSim:
+      properties:
+        destination:
+          $ref: '#/components/schemas/PortMappingDestinationForSim'
+        duration:
+          description: 'The duration (in seconds) to maintain the On-Demand Remote Access entry (the time to allow remote access). After the specified time has passed, the On-Demand Remote Access entry will be automatically deleted. The maximum duration is 8 hours.
+
+            '
+          type: number
+        source:
+          $ref: '#/components/schemas/PortMappingSource'
+        tlsRequired:
+          description: 'Whether to encrypt the connection from the source to Soracom using TLS.
+
+
+            - `true`: Encrypt using TLS. Specify this if the device is listening on HTTP.
+
+            - `false`: Do not use TLS. Specify this when connecting to the device via SSH or if the device is listening on HTTPS. Note that communication from the source to the device is encrypted in SSH and HTTPS.
+
+            '
+          type: boolean
+      required:
+      - destination
       type: object
     PortMapping:
       properties:
@@ -348,70 +432,6 @@ components:
             '
           type: boolean
       type: object
-    PortMappingSource:
-      properties:
-        ipRanges:
-          description: 'The IP address ranges (in CIDR notation) allowed to access the On-Demand Remote Access. Specify global IP addresses. Only devices from IP addresses within the specified ranges will be able to access the device remotely.
-
-            '
-          items:
-            type: string
-          type: array
-      type: object
-    CreatePortMappingRequest:
-      properties:
-        destination:
-          $ref: '#/components/schemas/PortMappingDestination'
-        duration:
-          description: 'The duration (in seconds) to maintain the On-Demand Remote Access entry (the time to allow remote access). After the specified time has passed, the On-Demand Remote Access entry will be automatically deleted. The maximum duration is 8 hours.
-
-            '
-          type: number
-        source:
-          $ref: '#/components/schemas/PortMappingSource'
-        tlsRequired:
-          description: 'Whether to encrypt the connection from the source to Soracom using TLS.
-
-
-            - `true`: Encrypt using TLS. Specify this if the device is listening on HTTP.
-
-            - `false`: Do not use TLS. Specify this when connecting to the device via SSH or if the device is listening on HTTPS. Note that communication from the source to the device is encrypted in SSH and HTTPS.
-
-            '
-          type: boolean
-      required:
-      - destination
-      type: object
-    PortMappingDestinationForSim:
-      description: 'Information about the destination when creating an On-Demand Remote Access entry.
-
-        '
-      properties:
-        port:
-          description: The port number on the device using IoT SIM or virtual SIM, waiting for connection.
-          type: number
-        service:
-          description: 'The target for creating an On-Demand Remote Access entry.
-
-
-            - `air`: Target Soracom Air subscribers'' sessions that are online.
-
-            - `arc`: Target Soracom Arc virtual SIM.
-
-
-            **Warning**: If `service` is omitted, online subscriber sessions will be the target for creating an On-Demand Remote Access entry. If multiple online subscriber sessions exist (e.g., both Soracom Air and Soracom Arc sessions are online), it is not guaranteed which session will be used. Please specify either `air` or `arc`.
-
-
-            **Warning**: This property is required when creating an On-Demand Remote Access entry. It will not be included in the response.
-
-            '
-          enum:
-          - air
-          - arc
-          type: string
-      required:
-      - port
-      type: object
   securitySchemes:
     api_key:
       description: 'API key for authentication. Obtain this from the Soracom User Console or via the Auth API.
@@ -429,3 +449,6 @@ components:
       in: header
       name: X-Soracom-Token
       type: apiKey
+x-refined-from:
+- soracom-napter-api-openapi.yml
+- soracom-platform-api-openapi.yml

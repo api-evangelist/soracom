@@ -1,7 +1,7 @@
-openapi: 3.0.0
+openapi: 3.2.0
 info:
-  title: Soracom and Query Analysis Stats API
-  description: Run SQL queries against Soracom Query, fetch query schemas, and search SIMs, Inventory devices, and Sigfox devices.
+  description: Soracom API v1
+  title: Soracom Stats API
   version: 20250903-043502
 servers:
 - description: Japan coverage production API endpoint
@@ -748,17 +748,13 @@ paths:
       - stats napter audit-logs get
 components:
   schemas:
-    FunnelStatsResponse:
+    SoracomFunkStats:
       properties:
-        funnelStatsMap:
-          additionalProperties:
-            $ref: '#/components/schemas/SoracomFunnelStats'
-          type: object
-        unixtime:
+        count:
           format: int64
           type: integer
       type: object
-    SoracomFunkStats:
+    SoracomBeamStats:
       properties:
         count:
           format: int64
@@ -771,6 +767,75 @@ components:
             $ref: '#/components/schemas/SoracomHarvestStats'
           type: object
         unixtime:
+          format: int64
+          type: integer
+      type: object
+    SoracomFunnelStats:
+      properties:
+        count:
+          format: int64
+          type: integer
+      type: object
+    AirAggregatedStatsResponse:
+      properties:
+        downloadByteSizeTotal:
+          description: Number of bytes downloaded during the period covered by the aggregate
+          format: int64
+          type: integer
+        unixtime:
+          description: Start date and time of the period under consideration (UNIX time in seconds)
+          format: int64
+          type: integer
+        uploadByteSizeTotal:
+          description: Number of bytes uploaded during the period covered by the aggregate
+          format: int64
+          type: integer
+      type: object
+    FunkStatsResponse:
+      properties:
+        funkStatsMap:
+          additionalProperties:
+            $ref: '#/components/schemas/SoracomFunkStats'
+          type: object
+        unixtime:
+          format: int64
+          type: integer
+      type: object
+    AirStatsResponse:
+      properties:
+        dataTrafficStatsMap:
+          additionalProperties:
+            $ref: '#/components/schemas/DataTrafficStats'
+          type: object
+        date:
+          description: Date and time (Coordinated Universal Time (UTC))
+          type: string
+        unixtime:
+          format: int64
+          type: integer
+      type: object
+    FunnelStatsResponse:
+      properties:
+        funnelStatsMap:
+          additionalProperties:
+            $ref: '#/components/schemas/SoracomFunnelStats'
+          type: object
+        unixtime:
+          format: int64
+          type: integer
+      type: object
+    DataTrafficStats:
+      properties:
+        downloadByteSizeTotal:
+          format: int64
+          type: integer
+        downloadPacketSizeTotal:
+          format: int64
+          type: integer
+        uploadByteSizeTotal:
+          format: int64
+          type: integer
+        uploadPacketSizeTotal:
           format: int64
           type: integer
       type: object
@@ -795,79 +860,6 @@ components:
           description: yearMonth
           type: string
       type: object
-    FunkStatsResponse:
-      properties:
-        funkStatsMap:
-          additionalProperties:
-            $ref: '#/components/schemas/SoracomFunkStats'
-          type: object
-        unixtime:
-          format: int64
-          type: integer
-      type: object
-    FileExportResponse:
-      properties:
-        exportedFileId:
-          description: File Export ID. Specify this ID when calling [Files:getExportedFile API](#!/Files/getExportedFile) to get the URL to download the file. Included only if `export_mode` is `async`.
-          type: string
-        exportedFilePath:
-          description: Path of the exported file. Included only if `export_mode` is `async`.
-          type: string
-        url:
-          description: URL to download the file. Included only if `export_mode` is `sync`.
-          type: string
-      type: object
-    SoracomFunnelStats:
-      properties:
-        count:
-          format: int64
-          type: integer
-      type: object
-    HarvestExportedDataStatsResponse:
-      properties:
-        exportedBytes:
-          description: exportedBytes
-          type: integer
-        yearMonth:
-          description: yearMonth
-          type: string
-      type: object
-    AirAggregatedStatsResponse:
-      properties:
-        downloadByteSizeTotal:
-          description: Number of bytes downloaded during the period covered by the aggregate
-          format: int64
-          type: integer
-        unixtime:
-          description: Start date and time of the period under consideration (UNIX time in seconds)
-          format: int64
-          type: integer
-        uploadByteSizeTotal:
-          description: Number of bytes uploaded during the period covered by the aggregate
-          format: int64
-          type: integer
-      type: object
-    SoracomBeamStats:
-      properties:
-        count:
-          format: int64
-          type: integer
-      type: object
-    DataTrafficStats:
-      properties:
-        downloadByteSizeTotal:
-          format: int64
-          type: integer
-        downloadPacketSizeTotal:
-          format: int64
-          type: integer
-        uploadByteSizeTotal:
-          format: int64
-          type: integer
-        uploadPacketSizeTotal:
-          format: int64
-          type: integer
-      type: object
     ExportRequest:
       properties:
         from:
@@ -888,24 +880,32 @@ components:
           format: int64
           type: integer
       type: object
-    AirStatsResponse:
-      properties:
-        dataTrafficStatsMap:
-          additionalProperties:
-            $ref: '#/components/schemas/DataTrafficStats'
-          type: object
-        date:
-          description: Date and time (Coordinated Universal Time (UTC))
-          type: string
-        unixtime:
-          format: int64
-          type: integer
-      type: object
     SoracomHarvestStats:
       properties:
         count:
           format: int64
           type: integer
+      type: object
+    FileExportResponse:
+      properties:
+        exportedFileId:
+          description: File Export ID. Specify this ID when calling [Files:getExportedFile API](#!/Files/getExportedFile) to get the URL to download the file. Included only if `export_mode` is `async`.
+          type: string
+        exportedFilePath:
+          description: Path of the exported file. Included only if `export_mode` is `async`.
+          type: string
+        url:
+          description: URL to download the file. Included only if `export_mode` is `sync`.
+          type: string
+      type: object
+    HarvestExportedDataStatsResponse:
+      properties:
+        exportedBytes:
+          description: exportedBytes
+          type: integer
+        yearMonth:
+          description: yearMonth
+          type: string
       type: object
   securitySchemes:
     api_key:

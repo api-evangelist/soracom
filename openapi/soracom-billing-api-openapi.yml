@@ -1,7 +1,7 @@
-openapi: 3.0.0
+openapi: 3.2.0
 info:
-  title: Soracom and Query Analysis Billing API
-  description: Run SQL queries against Soracom Query, fetch query schemas, and search SIMs, Inventory devices, and Sigfox devices.
+  description: Soracom API v1
+  title: Soracom Billing API
   version: 20250903-043502
 servers:
 - description: Japan coverage production API endpoint
@@ -307,6 +307,36 @@ paths:
       - bills summaries get-sims
 components:
   schemas:
+    DailyBill:
+      properties:
+        amount:
+          description: Amount of bills.
+          format: double
+          type: number
+        currency:
+          description: Currency of bills.
+          enum:
+          - JPY
+          - USD
+          - EUR
+          type: string
+        date:
+          description: Date
+          format: yyyyMMdd
+          type: string
+      type: object
+    BillItemCostBreakdown:
+      properties:
+        amount:
+          description: Amount.
+          format: double
+          type: number
+        billItemCategory:
+          description: Bill item category.
+          type: string
+        billItemName:
+          description: Bill item name.
+          type: string
     GetLatestBill:
       properties:
         amount:
@@ -325,18 +355,37 @@ components:
           example: yyyyMMddHHmmss
           type: string
       type: object
-    BillItemCostBreakdown:
+    SimCostBreakdown:
       properties:
         amount:
           description: Amount.
           format: double
           type: number
-        billItemCategory:
-          description: Bill item category.
+        simId:
+          description: SIM ID.
           type: string
-        billItemName:
-          description: Bill item name.
+    BillingSummaryResponseOfSims:
+      properties:
+        costBreakdownList:
+          description: List of cost breakdown. The list is sorted by amount in descending order, and include up to 100 items.
+          items:
+            $ref: '#/components/schemas/SimCostBreakdown'
+          type: array
+        currency:
+          description: Currency of bills.
+          enum:
+          - JPY
+          - USD
+          - EUR
           type: string
+        updatedTime:
+          description: Last updated time in UNIX time in seconds.
+          format: int64
+          type: integer
+        yearMonth:
+          description: Year and month.
+          type: string
+      type: object
     MonthlyBill:
       properties:
         amount:
@@ -421,6 +470,14 @@ components:
           format: yyyyMM
           type: string
       type: object
+    GetBillingHistoryResponse:
+      properties:
+        billList:
+          description: List of monthly bills.
+          items:
+            $ref: '#/components/schemas/MonthlyBill'
+          type: array
+      type: object
     DailyBillResponse:
       properties:
         billList:
@@ -428,55 +485,6 @@ components:
           items:
             $ref: '#/components/schemas/DailyBill'
           type: array
-      type: object
-    BillingSummaryResponseOfSims:
-      properties:
-        costBreakdownList:
-          description: List of cost breakdown. The list is sorted by amount in descending order, and include up to 100 items.
-          items:
-            $ref: '#/components/schemas/SimCostBreakdown'
-          type: array
-        currency:
-          description: Currency of bills.
-          enum:
-          - JPY
-          - USD
-          - EUR
-          type: string
-        updatedTime:
-          description: Last updated time in UNIX time in seconds.
-          format: int64
-          type: integer
-        yearMonth:
-          description: Year and month.
-          type: string
-      type: object
-    SimCostBreakdown:
-      properties:
-        amount:
-          description: Amount.
-          format: double
-          type: number
-        simId:
-          description: SIM ID.
-          type: string
-    DailyBill:
-      properties:
-        amount:
-          description: Amount of bills.
-          format: double
-          type: number
-        currency:
-          description: Currency of bills.
-          enum:
-          - JPY
-          - USD
-          - EUR
-          type: string
-        date:
-          description: Date
-          format: yyyyMMdd
-          type: string
       type: object
     BillingSummaryResponseOfBillItems:
       properties:
@@ -499,14 +507,6 @@ components:
         yearMonth:
           description: Year and month.
           type: string
-      type: object
-    GetBillingHistoryResponse:
-      properties:
-        billList:
-          description: List of monthly bills.
-          items:
-            $ref: '#/components/schemas/MonthlyBill'
-          type: array
       type: object
     FileExportResponse:
       properties:

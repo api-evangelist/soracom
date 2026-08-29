@@ -1,7 +1,7 @@
-openapi: 3.0.0
+openapi: 3.2.0
 info:
-  title: Soracom and Query Analysis SimProfileOrder API
-  description: Run SQL queries against Soracom Query, fetch query schemas, and search SIMs, Inventory devices, and Sigfox devices.
+  description: Soracom API v1
+  title: Soracom Sim Profile Order API
   version: 20250903-043502
 servers:
 - description: Japan coverage production API endpoint
@@ -248,113 +248,6 @@ paths:
       - sim-profile-orders list-profiles
 components:
   schemas:
-    OrderedSimProfileResponse:
-      description: Represents an eSIM profile ordered.
-      properties:
-        activationCode:
-          description: The Activation code of the eSIM profile. This value will be used to install the profile on the device.
-          example: LPA:1$example.com$ABCDEFGHIJKLMNOPQRSTUVWXYZ
-          type: string
-        createdTime:
-          description: The time the eSIM profile was created (unix time in milliseconds).
-          example: 1718756585000
-          format: int64
-          type: integer
-        iccid:
-          description: The ICCID of the eSIM profile.
-          example: '12345678901234567890'
-          type: string
-        imsi:
-          description: The IMSI of the eSIM profile.
-          example: 123456789012345
-          type: string
-        installedTime:
-          description: The time the eSIM profile was installed (unix time in milliseconds).
-          example: 1718756585000
-          format: int64
-          type: integer
-        lastModifiedTime:
-          description: The time the eSIM profile was last modified (unix time in milliseconds).
-          example: 1718756585000
-          format: int64
-          type: integer
-        matchingId:
-          description: The Matching ID of the eSIM profile. This value will be used to install the profile on the device.
-          example: ABCDEFGHIJKLMNOPQRSTUVWXYZ
-          type: string
-        profileOrderId:
-          description: The ID of the eSIM profile order associated with this eSIM profile.
-          example: 01902ddd-1cf3-77d9-afc0-fe8d410cadb1
-          type: string
-        profileStatus:
-          description: 'The status of the eSIM profile.
-
-
-            - `SUBSCRIBER_REGISTRATION_SUCCEEDED`: The IoT SIM corresponding to the eSIM profile has been registered to your Soracom operator account
-
-            - `INSTALLATION_SUCCEEDED`: The eSIM profile has been installed on the device
-
-            - `INSTALLATION_FAILED`: The eSIM profile could not be installed on the device
-
-            - `ACTIVATION_SUCCEEDED`: The eSIM profile has been activated on the device
-
-            - `ACTIVATION_FAILED`: The eSIM profile could not be activated on the device
-
-            - `INACTIVATION_SUCCEEDED`: The eSIM profile has been deactivated on the device
-
-            - `INACTIVATION_FAILED`: The eSIM profile could not be deactivated on the device
-
-            - `DELETION_SUCCEEDED`: The eSIM profile has been deleted from the device
-
-            - `DELETION_FAILED`: The eSIM profile could not be deleted from the device
-
-            '
-          enum:
-          - SUBSCRIBER_REGISTRATION_SUCCEEDED
-          - INSTALLATION_SUCCEEDED
-          - INSTALLATION_FAILED
-          - ACTIVATION_SUCCEEDED
-          - ACTIVATION_FAILED
-          - INACTIVATION_SUCCEEDED
-          - INACTIVATION_FAILED
-          - DELETION_SUCCEEDED
-          - DELETION_FAILED
-          example: DELETION_SUCCEEDED
-          type: string
-        smdpAddress:
-          description: The SM-DP+ address of the eSIM profile. This value will be used to install the profile on the device.
-          example: example.com
-          type: string
-        subscription:
-          description: 'The subscription of the eSIM profile.
-
-
-            - `plan01s`
-
-            - `planP1`
-
-            - `planX1`
-
-            - `planX2`
-
-            - `planX3`
-
-            - `plan-US`
-
-            '
-          example: plan01s
-          type: string
-      required:
-      - profileOrderId
-      - iccid
-      - imsi
-      - matchingId
-      - smdpAddress
-      - activationCode
-      - profileStatus
-      - createdTime
-      - lastModifiedTime
-      type: object
     CreateSimProfileOrderRequest:
       description: Represents a request to place a eSIM profile order without confirming it.
       properties:
@@ -519,6 +412,113 @@ components:
       - quantity
       - status
       - orderedTime
+      type: object
+    OrderedSimProfileResponse:
+      description: Represents an eSIM profile ordered.
+      properties:
+        activationCode:
+          description: The Activation code of the eSIM profile. This value will be used to install the profile on the device.
+          example: LPA:1$example.com$ABCDEFGHIJKLMNOPQRSTUVWXYZ
+          type: string
+        createdTime:
+          description: The time the eSIM profile was created (unix time in milliseconds).
+          example: 1718756585000
+          format: int64
+          type: integer
+        iccid:
+          description: The ICCID of the eSIM profile.
+          example: '12345678901234567890'
+          type: string
+        imsi:
+          description: The IMSI of the eSIM profile.
+          example: 123456789012345
+          type: string
+        installedTime:
+          description: The time the eSIM profile was installed (unix time in milliseconds).
+          example: 1718756585000
+          format: int64
+          type: integer
+        lastModifiedTime:
+          description: The time the eSIM profile was last modified (unix time in milliseconds).
+          example: 1718756585000
+          format: int64
+          type: integer
+        matchingId:
+          description: The Matching ID of the eSIM profile. This value will be used to install the profile on the device.
+          example: ABCDEFGHIJKLMNOPQRSTUVWXYZ
+          type: string
+        profileOrderId:
+          description: The ID of the eSIM profile order associated with this eSIM profile.
+          example: 01902ddd-1cf3-77d9-afc0-fe8d410cadb1
+          type: string
+        profileStatus:
+          description: 'The status of the eSIM profile.
+
+
+            - `SUBSCRIBER_REGISTRATION_SUCCEEDED`: The IoT SIM corresponding to the eSIM profile has been registered to your Soracom operator account
+
+            - `INSTALLATION_SUCCEEDED`: The eSIM profile has been installed on the device
+
+            - `INSTALLATION_FAILED`: The eSIM profile could not be installed on the device
+
+            - `ACTIVATION_SUCCEEDED`: The eSIM profile has been activated on the device
+
+            - `ACTIVATION_FAILED`: The eSIM profile could not be activated on the device
+
+            - `INACTIVATION_SUCCEEDED`: The eSIM profile has been deactivated on the device
+
+            - `INACTIVATION_FAILED`: The eSIM profile could not be deactivated on the device
+
+            - `DELETION_SUCCEEDED`: The eSIM profile has been deleted from the device
+
+            - `DELETION_FAILED`: The eSIM profile could not be deleted from the device
+
+            '
+          enum:
+          - SUBSCRIBER_REGISTRATION_SUCCEEDED
+          - INSTALLATION_SUCCEEDED
+          - INSTALLATION_FAILED
+          - ACTIVATION_SUCCEEDED
+          - ACTIVATION_FAILED
+          - INACTIVATION_SUCCEEDED
+          - INACTIVATION_FAILED
+          - DELETION_SUCCEEDED
+          - DELETION_FAILED
+          example: DELETION_SUCCEEDED
+          type: string
+        smdpAddress:
+          description: The SM-DP+ address of the eSIM profile. This value will be used to install the profile on the device.
+          example: example.com
+          type: string
+        subscription:
+          description: 'The subscription of the eSIM profile.
+
+
+            - `plan01s`
+
+            - `planP1`
+
+            - `planX1`
+
+            - `planX2`
+
+            - `planX3`
+
+            - `plan-US`
+
+            '
+          example: plan01s
+          type: string
+      required:
+      - profileOrderId
+      - iccid
+      - imsi
+      - matchingId
+      - smdpAddress
+      - activationCode
+      - profileStatus
+      - createdTime
+      - lastModifiedTime
       type: object
   securitySchemes:
     api_key:

@@ -1,7 +1,7 @@
-openapi: 3.0.0
+openapi: 3.2.0
 info:
-  title: Soracom and Query Analysis Payment API
-  description: Run SQL queries against Soracom Query, fetch query schemas, and search SIMs, Inventory devices, and Sigfox devices.
+  description: Soracom API v1
+  title: Soracom Payment API
   version: 20250903-043502
 servers:
 - description: Japan coverage production API endpoint
@@ -313,19 +313,10 @@ paths:
       - volume-discounts get
 components:
   schemas:
-    GetPaymentTransactionResult:
+    GetPaymentMethodResult:
       properties:
-        amount:
-          $ref: '#/components/schemas/PaymentAmount'
-          description: Billing amount
-        description:
-          $ref: '#/components/schemas/PaymentDescription'
-          description: Billing description
-        message:
-          description: Message
-          type: string
-        messageCode:
-          description: Message code
+        errorCode:
+          description: Error code (only if payment information is invalid)
           enum:
           - success
           - processing
@@ -343,11 +334,20 @@ components:
           - missing
           - processing_error
           type: string
-        status:
-          description: Status
+        errorMessage:
+          description: Error message (only if payment information is invalid)
+          type: string
+        properties:
+          description: Payment information
+          type: string
+        providerType:
+          description: Provider type
           enum:
-          - success
-          - error
+          - WebPay
+          type: string
+        updateDate:
+          description: Update date
+          example: yyyyMMddHHmmss
           type: string
       type: object
     PaymentStatementResponse:
@@ -388,20 +388,27 @@ components:
           description: Payment statement information
           type: string
       type: object
-    PaymentDescription:
-      description: Payment description.
+    ListPaymentStatementResponse:
       properties:
-        description:
-          type: string
-        itemList:
+        paymentStatementsList:
+          description: Payment statements.
           items:
-            type: string
+            $ref: '#/components/schemas/PaymentStatementResponse'
           type: array
       type: object
-    GetPaymentMethodResult:
+    GetPaymentTransactionResult:
       properties:
-        errorCode:
-          description: Error code (only if payment information is invalid)
+        amount:
+          $ref: '#/components/schemas/PaymentAmount'
+          description: Billing amount
+        description:
+          $ref: '#/components/schemas/PaymentDescription'
+          description: Billing description
+        message:
+          description: Message
+          type: string
+        messageCode:
+          description: Message code
           enum:
           - success
           - processing
@@ -419,20 +426,23 @@ components:
           - missing
           - processing_error
           type: string
-        errorMessage:
-          description: Error message (only if payment information is invalid)
-          type: string
-        properties:
-          description: Payment information
-          type: string
-        providerType:
-          description: Provider type
+        status:
+          description: Status
           enum:
-          - WebPay
+          - success
+          - error
           type: string
-        updateDate:
-          description: Update date
-          example: yyyyMMddHHmmss
+      type: object
+    RegisterPayerInformationModel:
+      properties:
+        companyName:
+          description: Company name
+          type: string
+        department:
+          description: Department.
+          type: string
+        fullName:
+          description: Full name.
           type: string
       type: object
     PaymentAmount:
@@ -479,6 +489,67 @@ components:
           items:
             $ref: '#/components/schemas/GetVolumeDiscountResponse'
           type: array
+      type: object
+    PaymentDescription:
+      description: Payment description.
+      properties:
+        description:
+          type: string
+        itemList:
+          items:
+            type: string
+          type: array
+      type: object
+    CouponResponse:
+      properties:
+        amount:
+          description: Amount.
+          format: double
+          type: number
+        balance:
+          description: Balance.
+          format: double
+          type: number
+        billItemName:
+          description: Item.
+          type: string
+        couponCode:
+          description: Coupon code.
+          type: string
+        currency:
+          description: Currency.
+          enum:
+          - JPY
+          - USD
+          - EUR
+          type: string
+        expiryYearMonth:
+          description: Expiry month.
+          format: yyyyMM
+          type: string
+        orderId:
+          description: Order ID.
+          type: string
+      type: object
+    ListCouponResponse:
+      properties:
+        couponList:
+          description: Coupons
+          items:
+            $ref: '#/components/schemas/CouponResponse'
+          type: array
+      type: object
+    FileExportResponse:
+      properties:
+        exportedFileId:
+          description: File Export ID. Specify this ID when calling [Files:getExportedFile API](#!/Files/getExportedFile) to get the URL to download the file. Included only if `export_mode` is `async`.
+          type: string
+        exportedFilePath:
+          description: Path of the exported file. Included only if `export_mode` is `async`.
+          type: string
+        url:
+          description: URL to download the file. Included only if `export_mode` is `sync`.
+          type: string
       type: object
     GetVolumeDiscountResponse:
       properties:
@@ -539,77 +610,6 @@ components:
           - SORACOM_AIR_BASIC_CHARGE_V2
           - SORACOM_AIR_BASIC_CHARGE
           - SORACOM_AIR_MONTHLY_FIXED_BASIC_CHARGE
-          type: string
-      type: object
-    ListCouponResponse:
-      properties:
-        couponList:
-          description: Coupons
-          items:
-            $ref: '#/components/schemas/CouponResponse'
-          type: array
-      type: object
-    ListPaymentStatementResponse:
-      properties:
-        paymentStatementsList:
-          description: Payment statements.
-          items:
-            $ref: '#/components/schemas/PaymentStatementResponse'
-          type: array
-      type: object
-    CouponResponse:
-      properties:
-        amount:
-          description: Amount.
-          format: double
-          type: number
-        balance:
-          description: Balance.
-          format: double
-          type: number
-        billItemName:
-          description: Item.
-          type: string
-        couponCode:
-          description: Coupon code.
-          type: string
-        currency:
-          description: Currency.
-          enum:
-          - JPY
-          - USD
-          - EUR
-          type: string
-        expiryYearMonth:
-          description: Expiry month.
-          format: yyyyMM
-          type: string
-        orderId:
-          description: Order ID.
-          type: string
-      type: object
-    FileExportResponse:
-      properties:
-        exportedFileId:
-          description: File Export ID. Specify this ID when calling [Files:getExportedFile API](#!/Files/getExportedFile) to get the URL to download the file. Included only if `export_mode` is `async`.
-          type: string
-        exportedFilePath:
-          description: Path of the exported file. Included only if `export_mode` is `async`.
-          type: string
-        url:
-          description: URL to download the file. Included only if `export_mode` is `sync`.
-          type: string
-      type: object
-    RegisterPayerInformationModel:
-      properties:
-        companyName:
-          description: Company name
-          type: string
-        department:
-          description: Department.
-          type: string
-        fullName:
-          description: Full name.
           type: string
       type: object
   securitySchemes:

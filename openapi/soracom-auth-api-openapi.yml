@@ -1,7 +1,7 @@
-openapi: 3.0.0
+openapi: 3.2.0
 info:
-  title: Soracom and Query Analysis Auth API
-  description: Run SQL queries against Soracom Query, fetch query schemas, and search SIMs, Inventory devices, and Sigfox devices.
+  description: Soracom API v1
+  title: Soracom Auth API
   version: 20250903-043502
 servers:
 - description: Japan coverage production API endpoint
@@ -173,6 +173,35 @@ components:
       - password
       - token
       type: object
+    AuthRequest:
+      properties:
+        authKey:
+          type: string
+        authKeyId:
+          type: string
+        email:
+          type: string
+        mfaOTPCode:
+          type: string
+        operatorId:
+          type: string
+        password:
+          type: string
+        tokenTimeoutSeconds:
+          default: 86400
+          format: int64
+          maximum: 172800
+          type: integer
+        userName:
+          type: string
+      type: object
+    IssuePasswordResetTokenRequest:
+      properties:
+        email:
+          type: string
+      required:
+      - email
+      type: object
     AuthResponse:
       properties:
         apiKey:
@@ -209,35 +238,6 @@ components:
         userName:
           description: The SAM user name of the specified operator ID to be switched to.
           type: string
-      type: object
-    AuthRequest:
-      properties:
-        authKey:
-          type: string
-        authKeyId:
-          type: string
-        email:
-          type: string
-        mfaOTPCode:
-          type: string
-        operatorId:
-          type: string
-        password:
-          type: string
-        tokenTimeoutSeconds:
-          default: 86400
-          format: int64
-          maximum: 172800
-          type: integer
-        userName:
-          type: string
-      type: object
-    IssuePasswordResetTokenRequest:
-      properties:
-        email:
-          type: string
-      required:
-      - email
       type: object
   securitySchemes:
     api_key:

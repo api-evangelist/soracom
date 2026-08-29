@@ -1,13 +1,10 @@
-openapi: 3.0.0
+openapi: 3.2.0
 info:
-  title: 'Soracom and Query Analysis API Sandbox: Subscriber API'
-  description: Run SQL queries against Soracom Query, fetch query schemas, and search SIMs, Inventory devices, and Sigfox devices.
-  version: 20250903-043502
+  description: SORACOM SANDBOX API v1
+  title: 'SORACOM SANDBOX API Sandbox: Subscriber API'
+  version: 20230923-005714
 servers:
-- description: Japan coverage production API endpoint
-  url: https://api.soracom.io/v1
-- description: Global coverage production API endpoint
-  url: https://g.api.soracom.io/v1
+- url: https://api-sandbox.soracom.io/v1
 tags:
 - name: 'API Sandbox: Subscriber'
 paths:
@@ -47,38 +44,6 @@ paths:
       - sandbox subscribers create
 components:
   schemas:
-    TagSet:
-      additionalProperties:
-        type: string
-      type: object
-    sandboxCreateSubscriberRequest:
-      properties:
-        bundles:
-          description: 'Bundle. If necessary, specify one of:'
-          items:
-            enum:
-            - X3-5MB
-            - D-300MB
-            - DU-10GB
-            - DU-50GB
-            - DU-100GB
-            - K2-300MB
-            type: string
-          type: array
-        subscription:
-          description: 'Subscription. Specify one of:'
-          enum:
-          - plan01s
-          - plan01s-low_data_volume
-          - planP1
-          - planX3
-          - plan-D
-          - plan-K
-          - plan-KM1
-          - plan-DU
-          - plan-K2
-          type: string
-      type: object
     sandboxCreateSubscriberResponse:
       properties:
         apn:
@@ -113,20 +78,35 @@ components:
         tags:
           $ref: '#/components/schemas/TagSet'
       type: object
-  securitySchemes:
-    api_key:
-      description: 'API key for authentication. Obtain this from the Soracom User Console or via the Auth API.
-
-        Required in combination with an API token for all authenticated requests.
-
-        '
-      in: header
-      name: X-Soracom-API-Key
-      type: apiKey
-    api_token:
-      description: 'API token for authentication. This token has an expiration time and must be refreshed periodically.
-
-        Required in combination with an API key for all authenticated requests.'
-      in: header
-      name: X-Soracom-Token
-      type: apiKey
+    sandboxCreateSubscriberRequest:
+      properties:
+        bundles:
+          description: 'Bundle. If necessary, specify one of:'
+          items:
+            enum:
+            - X3-5MB
+            - D-300MB
+            - DU-10GB
+            - DU-50GB
+            - DU-100GB
+            - K2-300MB
+            type: string
+          type: array
+        subscription:
+          description: 'Subscription. Specify one of:'
+          enum:
+          - plan01s
+          - plan01s-low_data_volume
+          - planP1
+          - planX3
+          - plan-D
+          - plan-K
+          - plan-KM1
+          - plan-DU
+          - plan-K2
+          type: string
+      type: object
+    TagSet:
+      additionalProperties:
+        type: string
+      type: object

@@ -1,7 +1,7 @@
-openapi: 3.0.0
+openapi: 3.2.0
 info:
-  title: Soracom and Query Analysis Diagnostic API
-  description: Run SQL queries against Soracom Query, fetch query schemas, and search SIMs, Inventory devices, and Sigfox devices.
+  description: Soracom API v1
+  title: Soracom Diagnostic API
   version: 20250903-043502
 servers:
 - description: Japan coverage production API endpoint
@@ -87,75 +87,6 @@ components:
         url:
           type: string
       type: object
-    DiagnosticRequest:
-      properties:
-        from:
-          description: Start time for diagnostic (UNIX time in milliseconds).
-          format: int64
-          type: integer
-        resourceId:
-          description: 'Identifier according to resourceType.
-
-
-            - If resourceType is `sim`, specify the SIM ID.
-
-            '
-          type: string
-        resourceType:
-          enum:
-          - sim
-          type: string
-        service:
-          enum:
-          - Air
-          type: string
-        to:
-          description: End time for diagnostic (UNIX time in milliseconds).
-          format: int64
-          type: integer
-      required:
-      - service
-      - resourceType
-      - resourceId
-      type: object
-    Insight:
-      properties:
-        anomalyDetectedTimes:
-          description: Times that possible anomaly behaviors were detected. The format depends on the timestamp of events relating to the category. (e.g., UNIX time in milliseconds for session category)
-          items:
-            type: string
-          type: array
-        category:
-          enum:
-          - data
-          - session
-          - sim
-          - others
-          - unknown
-          type: string
-        insightId:
-          type: string
-        message:
-          type: string
-        referenceUrls:
-          description: Reference URLs that is related to the insight.
-          items:
-            $ref: '#/components/schemas/ReferenceUrl'
-          type: array
-        severity:
-          enum:
-          - error
-          - warning
-          - info
-          - none
-          - unknown
-          type: string
-      required:
-      - insightId
-      - message
-      - category
-      - severity
-      type: object
     DiagnosticResponse:
       properties:
         diagnosticId:
@@ -198,6 +129,75 @@ components:
       - from
       - to
       - insights
+      type: object
+    Insight:
+      properties:
+        anomalyDetectedTimes:
+          description: Times that possible anomaly behaviors were detected. The format depends on the timestamp of events relating to the category. (e.g., UNIX time in milliseconds for session category)
+          items:
+            type: string
+          type: array
+        category:
+          enum:
+          - data
+          - session
+          - sim
+          - others
+          - unknown
+          type: string
+        insightId:
+          type: string
+        message:
+          type: string
+        referenceUrls:
+          description: Reference URLs that is related to the insight.
+          items:
+            $ref: '#/components/schemas/ReferenceUrl'
+          type: array
+        severity:
+          enum:
+          - error
+          - warning
+          - info
+          - none
+          - unknown
+          type: string
+      required:
+      - insightId
+      - message
+      - category
+      - severity
+      type: object
+    DiagnosticRequest:
+      properties:
+        from:
+          description: Start time for diagnostic (UNIX time in milliseconds).
+          format: int64
+          type: integer
+        resourceId:
+          description: 'Identifier according to resourceType.
+
+
+            - If resourceType is `sim`, specify the SIM ID.
+
+            '
+          type: string
+        resourceType:
+          enum:
+          - sim
+          type: string
+        service:
+          enum:
+          - Air
+          type: string
+        to:
+          description: End time for diagnostic (UNIX time in milliseconds).
+          format: int64
+          type: integer
+      required:
+      - service
+      - resourceType
+      - resourceId
       type: object
   securitySchemes:
     api_key:

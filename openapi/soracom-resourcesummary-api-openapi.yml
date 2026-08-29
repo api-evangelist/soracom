@@ -1,8 +1,8 @@
-openapi: 3.0.0
+openapi: 3.2.0
 info:
-  title: Soracom and Query Analysis ResourceSummary API
-  description: Run SQL queries against Soracom Query, fetch query schemas, and search SIMs, Inventory devices, and Sigfox devices.
+  title: Soracom Resource Summary API
   version: 20250903-043502
+  description: 'Operations tagged ResourceSummary across 2 of this provider''s published API definitions: soracom-analysis-query-api-openapi.yml, soracom-platform-api-openapi.yml. Each path carries the servers of the definition it was published in.'
 servers:
 - description: Japan coverage production API endpoint
   url: https://api.soracom.io/v1
@@ -46,6 +46,11 @@ paths:
       - ResourceSummary
       x-soracom-cli:
       - resource-summaries get
+    servers:
+    - description: Japan coverage production API endpoint
+      url: https://api.soracom.io/v1
+    - description: Global coverage production API endpoint
+      url: https://g.api.soracom.io/v1
 components:
   schemas:
     ResourceSummaryItemValue:
@@ -68,6 +73,23 @@ components:
           description: The value of the resource summary item dimension.
           type: string
       type: object
+    ResourceSummary:
+      properties:
+        resourceSummaryItems:
+          description: A list of resource summary items.
+          items:
+            $ref: '#/components/schemas/ResourceSummaryItem'
+          type: array
+        resourceSummaryType:
+          description: 'The type of the resource summary.
+
+
+            - `simsPerStatus`: The number of IoT SIMs per status.
+
+            '
+          example: simsPerStatus
+          type: string
+      type: object
     ResourceSummaryItem:
       properties:
         dimensions:
@@ -87,23 +109,6 @@ components:
             $ref: '#/components/schemas/ResourceSummaryItemValue'
           type: array
       type: object
-    ResourceSummary:
-      properties:
-        resourceSummaryItems:
-          description: A list of resource summary items.
-          items:
-            $ref: '#/components/schemas/ResourceSummaryItem'
-          type: array
-        resourceSummaryType:
-          description: 'The type of the resource summary.
-
-
-            - `simsPerStatus`: The number of IoT SIMs per status.
-
-            '
-          example: simsPerStatus
-          type: string
-      type: object
   securitySchemes:
     api_key:
       description: 'API key for authentication. Obtain this from the Soracom User Console or via the Auth API.
@@ -121,3 +126,6 @@ components:
       in: header
       name: X-Soracom-Token
       type: apiKey
+x-refined-from:
+- soracom-analysis-query-api-openapi.yml
+- soracom-platform-api-openapi.yml

@@ -1,7 +1,7 @@
-openapi: 3.0.0
+openapi: 3.2.0
 info:
-  title: Soracom and Query Analysis Lagoon API
-  description: Run SQL queries against Soracom Query, fetch query schemas, and search SIMs, Inventory devices, and Sigfox devices.
+  description: Soracom API v1
+  title: Soracom Lagoon API
   version: 20250903-043502
 servers:
 - description: Japan coverage production API endpoint
@@ -352,13 +352,59 @@ paths:
       - lagoon users update-permission
 components:
   schemas:
-    LagoonPlanChangingRequest:
+    LagoonUserCreationRequest:
       properties:
-        plan:
+        role:
+          description: A role that represents the permission.
           enum:
-          - maker
-          - pro
-          - free
+          - Viewer
+          - Editor
+          type: string
+        userEmail:
+          type: string
+        userPassword:
+          type: string
+      type: object
+    LagoonUserPermissionUpdatingRequest:
+      properties:
+        role:
+          description: A role that represents the permission.
+          enum:
+          - Viewer
+          - Editor
+          type: string
+      type: object
+    LagoonUserCreationResponse:
+      properties:
+        id:
+          description: Lagoon user ID assigned to the created user.
+          type: integer
+      type: object
+    LagoonUser:
+      properties:
+        email:
+          description: This value used on login.
+          type: string
+        id:
+          type: number
+        lastSeenAt:
+          description: The last login datetime.
+          type: string
+        lastSeenAtAge:
+          description: The last login datetime as age.
+          type: string
+        role:
+          description: A role that represents the permission.
+          enum:
+          - Viewer
+          - Editor
+          type: string
+      type: object
+    LagoonUserPasswordUpdatingRequest:
+      properties:
+        newPassword:
+          type: string
+        oldPassword:
           type: string
       type: object
     LagoonLicensePacksUpdatingRequest:
@@ -384,6 +430,21 @@ components:
             type: object
           type: array
       type: object
+    LagoonRegistrationResponse:
+      properties:
+        lagoonUserEmail:
+          description: This email address is used on login with the initial user.
+          type: string
+      type: object
+    LagoonPlanChangingRequest:
+      properties:
+        plan:
+          enum:
+          - maker
+          - pro
+          - free
+          type: string
+      type: object
     LagoonRegistrationRequest:
       properties:
         plan:
@@ -401,28 +462,6 @@ components:
         userEmail:
           type: string
       type: object
-    LagoonUserPermissionUpdatingRequest:
-      properties:
-        role:
-          description: A role that represents the permission.
-          enum:
-          - Viewer
-          - Editor
-          type: string
-      type: object
-    LagoonUserCreationRequest:
-      properties:
-        role:
-          description: A role that represents the permission.
-          enum:
-          - Viewer
-          - Editor
-          type: string
-        userEmail:
-          type: string
-        userPassword:
-          type: string
-      type: object
     LagoonLicensePackStatusResponse:
       properties:
         licensePackName:
@@ -430,45 +469,6 @@ components:
         quantity:
           format: int32
           type: integer
-      type: object
-    LagoonUser:
-      properties:
-        email:
-          description: This value used on login.
-          type: string
-        id:
-          type: number
-        lastSeenAt:
-          description: The last login datetime.
-          type: string
-        lastSeenAtAge:
-          description: The last login datetime as age.
-          type: string
-        role:
-          description: A role that represents the permission.
-          enum:
-          - Viewer
-          - Editor
-          type: string
-      type: object
-    LagoonRegistrationResponse:
-      properties:
-        lagoonUserEmail:
-          description: This email address is used on login with the initial user.
-          type: string
-      type: object
-    LagoonUserCreationResponse:
-      properties:
-        id:
-          description: Lagoon user ID assigned to the created user.
-          type: integer
-      type: object
-    LagoonUserPasswordUpdatingRequest:
-      properties:
-        newPassword:
-          type: string
-        oldPassword:
-          type: string
       type: object
   securitySchemes:
     api_key:

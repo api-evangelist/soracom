@@ -1,8 +1,8 @@
-openapi: 3.0.0
+openapi: 3.2.0
 info:
-  title: Soracom and Query Analysis API
-  description: Run SQL queries against Soracom Query, fetch query schemas, and search SIMs, Inventory devices, and Sigfox devices.
+  title: Soracom Analysis API
   version: 20250903-043502
+  description: 'Operations tagged Analysis across 2 of this provider''s published API definitions: soracom-analysis-query-api-openapi.yml, soracom-platform-api-openapi.yml. Each path carries the servers of the definition it was published in.'
 servers:
 - description: Japan coverage production API endpoint
   url: https://api.soracom.io/v1
@@ -44,6 +44,11 @@ paths:
       - Analysis
       x-soracom-cli:
       - analysis queries start
+    servers:
+    - description: Japan coverage production API endpoint
+      url: https://api.soracom.io/v1
+    - description: Global coverage production API endpoint
+      url: https://g.api.soracom.io/v1
   /analysis/queries/{query_id}:
     get:
       description: Retrieve the execution status of a SQL query.
@@ -85,6 +90,11 @@ paths:
       - Analysis
       x-soracom-cli:
       - analysis queries get
+    servers:
+    - description: Japan coverage production API endpoint
+      url: https://api.soracom.io/v1
+    - description: Global coverage production API endpoint
+      url: https://g.api.soracom.io/v1
   /analysis/schemas:
     get:
       description: "Retrieves the available schemas and their column information within the database. You can use this information as a reference when converting data types of data retrieved with the [Analysis:startAnalysisQueries API](#/Analysis/startAnalysisQueries).\nExample: If the column `type` is `string` as shown below, it can be treated as a string.\n```json\n{\n  \"name\": \"SIM_SESSION_EVENTS\",\n  \"columnInfo\": [\n      {\n          \"name\": \"APN\",\n          \"type\": \"string\",\n          \"databaseType\": \"TEXT\",\n          \"description\": \"Access Point Name indicating the network gateway for the SIM session.\"\n      }\n  ]\n}\n```\n"
@@ -131,6 +141,11 @@ paths:
       - Analysis
       x-soracom-cli:
       - analysis schemas
+    servers:
+    - description: Japan coverage production API endpoint
+      url: https://api.soracom.io/v1
+    - description: Global coverage production API endpoint
+      url: https://g.api.soracom.io/v1
 components:
   schemas:
     GetAnalysisQueriesResponse:
@@ -302,3 +317,6 @@ components:
       in: header
       name: X-Soracom-Token
       type: apiKey
+x-refined-from:
+- soracom-analysis-query-api-openapi.yml
+- soracom-platform-api-openapi.yml

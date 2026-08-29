@@ -1,8 +1,8 @@
-openapi: 3.0.0
+openapi: 3.2.0
 info:
-  title: Soracom and Query Analysis EventHandler API
-  description: Run SQL queries against Soracom Query, fetch query schemas, and search SIMs, Inventory devices, and Sigfox devices.
+  title: Soracom Event Handler API
   version: 20250903-043502
+  description: 'Operations tagged EventHandler across 2 of this provider''s published API definitions: soracom-event-handler-api-openapi.yml, soracom-platform-api-openapi.yml. Each path carries the servers of the definition it was published in.'
 servers:
 - description: Japan coverage production API endpoint
   url: https://api.soracom.io/v1
@@ -472,6 +472,11 @@ paths:
       - EventHandler
       x-soracom-cli:
       - event-handlers create
+    servers:
+    - description: Japan coverage production API endpoint
+      url: https://api.soracom.io/v1
+    - description: Global coverage production API endpoint
+      url: https://g.api.soracom.io/v1
   /event_handlers/{handler_id}:
     delete:
       description: Deletes the specified event handler.
@@ -553,6 +558,11 @@ paths:
       - EventHandler
       x-soracom-cli:
       - event-handlers update
+    servers:
+    - description: Japan coverage production API endpoint
+      url: https://api.soracom.io/v1
+    - description: Global coverage production API endpoint
+      url: https://g.api.soracom.io/v1
   /event_handlers/{handler_id}/subscribers/{imsi}/ignore:
     delete:
       description: Deletes the setting for ignoring the specified event handler of the specified IMSI.
@@ -610,6 +620,11 @@ paths:
       - EventHandler
       x-soracom-cli:
       - event-handlers ignore
+    servers:
+    - description: Japan coverage production API endpoint
+      url: https://api.soracom.io/v1
+    - description: Global coverage production API endpoint
+      url: https://g.api.soracom.io/v1
   /event_handlers/subscribers/{imsi}:
     get:
       description: Returns a list of event handlers related to the specified IMSI.
@@ -640,204 +655,13 @@ paths:
       - EventHandler
       x-soracom-cli:
       - event-handlers list-for-subscriber
+    servers:
+    - description: Japan coverage production API endpoint
+      url: https://api.soracom.io/v1
+    - description: Global coverage production API endpoint
+      url: https://g.api.soracom.io/v1
 components:
   schemas:
-    UpdateEventHandlerRequest:
-      $ref: '#/components/schemas/CreateEventHandlerRequest'
-    RuleConfigProperty:
-      properties:
-        inactiveTimeoutDateConst:
-          description: "The timing for re-evaluation. For more details, refer to [Rule Parameters](/en/docs/air/event-handler/#rule-parameters). Specify one of the following, depending on the `type` value:\n\n- For types `SubscriberDailyTrafficRule`, `SubscriberMonthlyTrafficRule`, `SubscriberCumulativeTrafficRule` (*1), `SimDailyTotalTrafficRule`, `SimMonthlyTotalTrafficRule`, `SimCumulativeTotalTrafficRule` (*1), `SimSubscriptionStatusRule`, `DailyTotalTrafficRule`, `MonthlyTotalTrafficRule`:\n  - `BEGINNING_OF_NEXT_MONTH`\n  - `BEGINNING_OF_NEXT_DAY`\n  - `AFTER_ONE_DAY`\n  - `NEVER`\n\n  (*1) Since cumulative data traffic volume does not reset, actions are repeatedly executed at re-evaluation timing after exceeding the threshold.\n- For type `SubscriberFirstTrafficRule`:\n  - `NEVER`\n- For types `SubscriberStatusAttributeRule`, `SubscriberSpeedClassAttributeRule`, `SubscriberExpiredRule`, `SubscriberImeiMismatchedRule`, `SimStatusAttributeRule`, `SimSpeedClassAttributeRule`, `SimExpiredRule`, `SimImeiMismatchedRule`, `MonthlyChargeRule`:\n  - `IMMEDIATELY`\n  - `BEGINNING_OF_NEXT_MONTH`\n  - `BEGINNING_OF_NEXT_DAY`\n  - `AFTER_ONE_DAY`\n  - `NEVER`\n"
-          enum:
-          - IMMEDIATELY
-          - BEGINNING_OF_NEXT_MONTH
-          - BEGINNING_OF_NEXT_DAY
-          - AFTER_ONE_DAY
-          - NEVER
-          type: string
-        inactiveTimeoutOffsetMinutes:
-          description: 'Offset (in minutes) for rule re-evaluation. For more details, refer to [Rule Parameters](/en/docs/air/event-handler/#rule-parameters). The default is `0`. Specify an integer between `0` and `525600` as a string.
-
-
-            If `inactiveTimeoutDateConst` is set to `NEVER`, `inactiveTimeoutOffsetMinutes` cannot be specified.
-
-            '
-          type: string
-        limitTotalAmount:
-          description: 'The threshold for "this month''s usage fees for the operator". The unit is yen (for Japan coverage) or USD (for global coverage). Specify an integer between `1` and `2147483647` as a string.
-
-            '
-          type: string
-        limitTotalTrafficMegaByte:
-          description: 'The threshold for data traffic volume. The unit is MiB. Specify an integer between `1` and `2147483647` as a string.
-
-            '
-          type: string
-        runOnceAmongTarget:
-          description: 'Do not re-execute until the timing for re-evaluation. For more details, refer to [Rule Parameters](/en/docs/air/event-handler/#rule-parameters).
-
-            '
-          enum:
-          - true
-          - false
-          type: string
-        sourceStatus:
-          description: 'The status of the IoT SIM before change. Specify one of the following when limiting the action execution to a specific pre-change status. If omitted, the action is executed when the status changes from any status.
-
-
-            - `ready`
-
-            - `active`
-
-            - `inactive`
-
-            - `standby`
-
-            - `suspended`
-
-
-            If both `sourceStatus` and `targetStatus` are omitted, the action is executed whenever the IoT SIM''s status changes, regardless of the status.
-
-            '
-          enum:
-          - ready
-          - active
-          - inactive
-          - standby
-          - suspended
-          type: string
-        targetOtaStatus:
-          description: 'The post-change status of OTA. Specify when executing an action based on the limited OTA status.
-
-
-            - (Omitted): The action is executed when any status change occurs.
-
-            - `started`: The action is executed when OTA starts.
-
-            - `finished`: The action is executed when OTA is successfully completed.
-
-            - `failed`: The action is executed when OTA fails.
-
-            '
-          enum:
-          - started
-          - finished
-          - failed
-          type: string
-        targetSpeedClass:
-          description: "The speed class after the change. Specify one of the following when limiting the action execution to a specific post-change speed class. If omitted, the action is executed when the speed class changes to any class.\n\n- For plans plan01s, plan01s - Low Data Volume, planX3 (X3-5MB), planP1, plan-D (without bundle), plan-D (D-300MB), plan-K2 (K2-300MB), plan-K:\n    - `s1.minimum`\n    - `s1.slow`\n    - `s1.standard`\n    - `s1.fast`\n    - `s1.4xfast`\n- For plan-US:\n    - `s1.minimum`\n    - `s1.slow`\n    - `s1.standard`\n    - `s1.fast`\n    - `s1.4xfast`\n    - `s1.8xfast`\n- For plan-DU:\n    - `u1.standard`\n    - `u1.slow`\n\n**Warning**: For plan-KM1 and virtual SIM/Subscriber, the speed class cannot be changed as there is only one type available.\n"
-          enum:
-          - s1.minimum
-          - s1.slow
-          - s1.standard
-          - s1.fast
-          - s1.4xfast
-          - s1.8xfast
-          - u1.standard
-          - u1.slow
-          type: string
-        targetStatus:
-          description: 'The status of the IoT SIM after change. Specify one of the following when limiting the action execution to a specific post-change status. If omitted, the action is executed when the status changes to any status.
-
-
-            - `ready`
-
-            - `active`
-
-            - `inactive`
-
-            - `standby`
-
-            - `suspended`
-
-            - `terminated`
-
-
-            If both `sourceStatus` and `targetStatus` are omitted, the action is executed whenever the IoT SIM''s status changes, regardless of the status.
-
-            '
-          enum:
-          - ready
-          - active
-          - inactive
-          - standby
-          - suspended
-          - terminated
-          type: string
-      required:
-      - inactiveTimeoutDateConst
-      type: object
-    CreateEventHandlerRequest:
-      properties:
-        actionConfigList:
-          description: 'Action type. For more details, refer to [Actions](/en/docs/air/event-handler/#actions).
-
-            '
-          items:
-            $ref: '#/components/schemas/ActionConfig'
-          type: array
-        description:
-          description: Summary.
-          type: string
-        name:
-          description: Event name.
-          type: string
-        ruleConfig:
-          $ref: '#/components/schemas/RuleConfig'
-          description: 'Rule. For more details, refer to [Rules](/en/docs/air/event-handler/#rules).
-
-            '
-        status:
-          description: 'The status of the event handler, whether it is active or inactive.
-
-
-            - `active`: Active
-
-            - `inactive`: Inactive
-
-            '
-          enum:
-          - inactive
-          - active
-          type: string
-        targetGroupId:
-          description: 'The target group. All IoT SIMs belonging to the group are monitored.
-
-
-            Specify only one of `targetGroupId`, `targetImsi`, `targetOperatorId`, or `targetSimId`.
-
-            '
-          type: string
-        targetImsi:
-          description: 'The target IMSI of the IoT SIM.
-
-
-            Specify only one of `targetGroupId`, `targetImsi`, `targetOperatorId`, or `targetSimId`.
-
-            '
-          type: string
-        targetOperatorId:
-          description: 'The target operator. All IoT SIMs in your account.
-
-
-            Specify only one of `targetGroupId`, `targetImsi`, `targetOperatorId`, or `targetSimId`.
-
-            '
-          type: string
-        targetSimId:
-          description: 'The target SIM ID of the IoT SIM.
-
-
-            Specify only one of `targetGroupId`, `targetImsi`, `targetOperatorId`, or `targetSimId`.
-
-            '
-          type: string
-      required:
-      - actionConfigList
-      - name
-      - ruleConfig
-      - status
-      type: object
     RuleConfig:
       properties:
         properties:
@@ -1079,6 +903,202 @@ components:
       - status
       - name
       type: object
+    CreateEventHandlerRequest:
+      properties:
+        actionConfigList:
+          description: 'Action type. For more details, refer to [Actions](/en/docs/air/event-handler/#actions).
+
+            '
+          items:
+            $ref: '#/components/schemas/ActionConfig'
+          type: array
+        description:
+          description: Summary.
+          type: string
+        name:
+          description: Event name.
+          type: string
+        ruleConfig:
+          $ref: '#/components/schemas/RuleConfig'
+          description: 'Rule. For more details, refer to [Rules](/en/docs/air/event-handler/#rules).
+
+            '
+        status:
+          description: 'The status of the event handler, whether it is active or inactive.
+
+
+            - `active`: Active
+
+            - `inactive`: Inactive
+
+            '
+          enum:
+          - inactive
+          - active
+          type: string
+        targetGroupId:
+          description: 'The target group. All IoT SIMs belonging to the group are monitored.
+
+
+            Specify only one of `targetGroupId`, `targetImsi`, `targetOperatorId`, or `targetSimId`.
+
+            '
+          type: string
+        targetImsi:
+          description: 'The target IMSI of the IoT SIM.
+
+
+            Specify only one of `targetGroupId`, `targetImsi`, `targetOperatorId`, or `targetSimId`.
+
+            '
+          type: string
+        targetOperatorId:
+          description: 'The target operator. All IoT SIMs in your account.
+
+
+            Specify only one of `targetGroupId`, `targetImsi`, `targetOperatorId`, or `targetSimId`.
+
+            '
+          type: string
+        targetSimId:
+          description: 'The target SIM ID of the IoT SIM.
+
+
+            Specify only one of `targetGroupId`, `targetImsi`, `targetOperatorId`, or `targetSimId`.
+
+            '
+          type: string
+      required:
+      - actionConfigList
+      - name
+      - ruleConfig
+      - status
+      type: object
+    UpdateEventHandlerRequest:
+      $ref: '#/components/schemas/CreateEventHandlerRequest'
+    RuleConfigProperty:
+      properties:
+        inactiveTimeoutDateConst:
+          description: "The timing for re-evaluation. For more details, refer to [Rule Parameters](/en/docs/air/event-handler/#rule-parameters). Specify one of the following, depending on the `type` value:\n\n- For types `SubscriberDailyTrafficRule`, `SubscriberMonthlyTrafficRule`, `SubscriberCumulativeTrafficRule` (*1), `SimDailyTotalTrafficRule`, `SimMonthlyTotalTrafficRule`, `SimCumulativeTotalTrafficRule` (*1), `SimSubscriptionStatusRule`, `DailyTotalTrafficRule`, `MonthlyTotalTrafficRule`:\n  - `BEGINNING_OF_NEXT_MONTH`\n  - `BEGINNING_OF_NEXT_DAY`\n  - `AFTER_ONE_DAY`\n  - `NEVER`\n\n  (*1) Since cumulative data traffic volume does not reset, actions are repeatedly executed at re-evaluation timing after exceeding the threshold.\n- For type `SubscriberFirstTrafficRule`:\n  - `NEVER`\n- For types `SubscriberStatusAttributeRule`, `SubscriberSpeedClassAttributeRule`, `SubscriberExpiredRule`, `SubscriberImeiMismatchedRule`, `SimStatusAttributeRule`, `SimSpeedClassAttributeRule`, `SimExpiredRule`, `SimImeiMismatchedRule`, `MonthlyChargeRule`:\n  - `IMMEDIATELY`\n  - `BEGINNING_OF_NEXT_MONTH`\n  - `BEGINNING_OF_NEXT_DAY`\n  - `AFTER_ONE_DAY`\n  - `NEVER`\n"
+          enum:
+          - IMMEDIATELY
+          - BEGINNING_OF_NEXT_MONTH
+          - BEGINNING_OF_NEXT_DAY
+          - AFTER_ONE_DAY
+          - NEVER
+          type: string
+        inactiveTimeoutOffsetMinutes:
+          description: 'Offset (in minutes) for rule re-evaluation. For more details, refer to [Rule Parameters](/en/docs/air/event-handler/#rule-parameters). The default is `0`. Specify an integer between `0` and `525600` as a string.
+
+
+            If `inactiveTimeoutDateConst` is set to `NEVER`, `inactiveTimeoutOffsetMinutes` cannot be specified.
+
+            '
+          type: string
+        limitTotalAmount:
+          description: 'The threshold for "this month''s usage fees for the operator". The unit is yen (for Japan coverage) or USD (for global coverage). Specify an integer between `1` and `2147483647` as a string.
+
+            '
+          type: string
+        limitTotalTrafficMegaByte:
+          description: 'The threshold for data traffic volume. The unit is MiB. Specify an integer between `1` and `2147483647` as a string.
+
+            '
+          type: string
+        runOnceAmongTarget:
+          description: 'Do not re-execute until the timing for re-evaluation. For more details, refer to [Rule Parameters](/en/docs/air/event-handler/#rule-parameters).
+
+            '
+          enum:
+          - true
+          - false
+          type: string
+        sourceStatus:
+          description: 'The status of the IoT SIM before change. Specify one of the following when limiting the action execution to a specific pre-change status. If omitted, the action is executed when the status changes from any status.
+
+
+            - `ready`
+
+            - `active`
+
+            - `inactive`
+
+            - `standby`
+
+            - `suspended`
+
+
+            If both `sourceStatus` and `targetStatus` are omitted, the action is executed whenever the IoT SIM''s status changes, regardless of the status.
+
+            '
+          enum:
+          - ready
+          - active
+          - inactive
+          - standby
+          - suspended
+          type: string
+        targetOtaStatus:
+          description: 'The post-change status of OTA. Specify when executing an action based on the limited OTA status.
+
+
+            - (Omitted): The action is executed when any status change occurs.
+
+            - `started`: The action is executed when OTA starts.
+
+            - `finished`: The action is executed when OTA is successfully completed.
+
+            - `failed`: The action is executed when OTA fails.
+
+            '
+          enum:
+          - started
+          - finished
+          - failed
+          type: string
+        targetSpeedClass:
+          description: "The speed class after the change. Specify one of the following when limiting the action execution to a specific post-change speed class. If omitted, the action is executed when the speed class changes to any class.\n\n- For plans plan01s, plan01s - Low Data Volume, planX3 (X3-5MB), planP1, plan-D (without bundle), plan-D (D-300MB), plan-K2 (K2-300MB), plan-K:\n    - `s1.minimum`\n    - `s1.slow`\n    - `s1.standard`\n    - `s1.fast`\n    - `s1.4xfast`\n- For plan-US:\n    - `s1.minimum`\n    - `s1.slow`\n    - `s1.standard`\n    - `s1.fast`\n    - `s1.4xfast`\n    - `s1.8xfast`\n- For plan-DU:\n    - `u1.standard`\n    - `u1.slow`\n\n**Warning**: For plan-KM1 and virtual SIM/Subscriber, the speed class cannot be changed as there is only one type available.\n"
+          enum:
+          - s1.minimum
+          - s1.slow
+          - s1.standard
+          - s1.fast
+          - s1.4xfast
+          - s1.8xfast
+          - u1.standard
+          - u1.slow
+          type: string
+        targetStatus:
+          description: 'The status of the IoT SIM after change. Specify one of the following when limiting the action execution to a specific post-change status. If omitted, the action is executed when the status changes to any status.
+
+
+            - `ready`
+
+            - `active`
+
+            - `inactive`
+
+            - `standby`
+
+            - `suspended`
+
+            - `terminated`
+
+
+            If both `sourceStatus` and `targetStatus` are omitted, the action is executed whenever the IoT SIM''s status changes, regardless of the status.
+
+            '
+          enum:
+          - ready
+          - active
+          - inactive
+          - standby
+          - suspended
+          - terminated
+          type: string
+      required:
+      - inactiveTimeoutDateConst
+      type: object
   securitySchemes:
     api_key:
       description: 'API key for authentication. Obtain this from the Soracom User Console or via the Auth API.
@@ -1096,3 +1116,6 @@ components:
       in: header
       name: X-Soracom-Token
       type: apiKey
+x-refined-from:
+- soracom-event-handler-api-openapi.yml
+- soracom-platform-api-openapi.yml

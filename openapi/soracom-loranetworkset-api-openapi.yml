@@ -1,8 +1,8 @@
-openapi: 3.0.0
+openapi: 3.2.0
 info:
-  title: Soracom and Query Analysis LoraNetworkSet API
-  description: Run SQL queries against Soracom Query, fetch query schemas, and search SIMs, Inventory devices, and Sigfox devices.
+  title: Soracom Lora Network Set API
   version: 20250903-043502
+  description: 'Operations tagged LoraNetworkSet across 2 of this provider''s published API definitions: soracom-lorawan-api-openapi.yml, soracom-platform-api-openapi.yml. Each path carries the servers of the definition it was published in.'
 servers:
 - description: Japan coverage production API endpoint
   url: https://api.soracom.io/v1
@@ -101,6 +101,11 @@ paths:
       - LoraNetworkSet
       x-soracom-cli:
       - lora-network-sets create
+    servers:
+    - description: Japan coverage production API endpoint
+      url: https://api.soracom.io/v1
+    - description: Global coverage production API endpoint
+      url: https://g.api.soracom.io/v1
   /lora_network_sets/{ns_id}:
     delete:
       description: Deletes the specified LoRaWAN network set.
@@ -152,6 +157,11 @@ paths:
       - LoraNetworkSet
       x-soracom-cli:
       - lora-network-sets get
+    servers:
+    - description: Japan coverage production API endpoint
+      url: https://api.soracom.io/v1
+    - description: Global coverage production API endpoint
+      url: https://g.api.soracom.io/v1
   /lora_network_sets/{ns_id}/add_permission:
     post:
       description: Adds permission to allow another operator to use the network set.
@@ -185,6 +195,11 @@ paths:
       - LoraNetworkSet
       x-soracom-cli:
       - lora-network-sets add-permission
+    servers:
+    - description: Japan coverage production API endpoint
+      url: https://api.soracom.io/v1
+    - description: Global coverage production API endpoint
+      url: https://g.api.soracom.io/v1
   /lora_network_sets/{ns_id}/gateways:
     get:
       description: 'Returns a list of LoRaWAN gateways that belong to the specified network set. If the total number of LoRaWAN gateways does not fit in one page, a URL for accessing the next page is returned in the `link` header of the response.
@@ -235,6 +250,11 @@ paths:
           param: last_evaluated_key
         response:
           header: x-soracom-next-key
+    servers:
+    - description: Japan coverage production API endpoint
+      url: https://api.soracom.io/v1
+    - description: Global coverage production API endpoint
+      url: https://g.api.soracom.io/v1
   /lora_network_sets/{ns_id}/revoke_permission:
     post:
       description: Revokes a permission and removes an operator from the list of allowed operators in the network set.
@@ -268,6 +288,11 @@ paths:
       - LoraNetworkSet
       x-soracom-cli:
       - lora-network-sets revoke-permission
+    servers:
+    - description: Japan coverage production API endpoint
+      url: https://api.soracom.io/v1
+    - description: Global coverage production API endpoint
+      url: https://g.api.soracom.io/v1
   /lora_network_sets/{ns_id}/tags:
     put:
       description: Inserts/updates tags for the specified LoRaWAN network set.
@@ -305,6 +330,11 @@ paths:
       - LoraNetworkSet
       x-soracom-cli:
       - lora-network-sets put-tag
+    servers:
+    - description: Japan coverage production API endpoint
+      url: https://api.soracom.io/v1
+    - description: Global coverage production API endpoint
+      url: https://g.api.soracom.io/v1
   /lora_network_sets/{ns_id}/tags/{tag_name}:
     delete:
       description: Deletes a tag from the specified LoRaWAN network set.
@@ -335,8 +365,35 @@ paths:
       - LoraNetworkSet
       x-soracom-cli:
       - lora-network-sets delete-tag
+    servers:
+    - description: Japan coverage production API endpoint
+      url: https://api.soracom.io/v1
+    - description: Global coverage production API endpoint
+      url: https://g.api.soracom.io/v1
 components:
   schemas:
+    LoraNetworkSet:
+      properties:
+        allowedOperators:
+          items:
+            type: string
+          type: array
+          uniqueItems: true
+        createdTime:
+          format: date-time
+          type: string
+        lastModifiedTime:
+          format: date-time
+          type: string
+        networkSetId:
+          type: string
+        operatorId:
+          type: string
+        tags:
+          additionalProperties:
+            type: string
+          type: object
+      type: object
     UpdatePermissionRequest:
       properties:
         operatorId:
@@ -389,28 +446,6 @@ components:
           default: false
           type: boolean
       type: object
-    LoraNetworkSet:
-      properties:
-        allowedOperators:
-          items:
-            type: string
-          type: array
-          uniqueItems: true
-        createdTime:
-          format: date-time
-          type: string
-        lastModifiedTime:
-          format: date-time
-          type: string
-        networkSetId:
-          type: string
-        operatorId:
-          type: string
-        tags:
-          additionalProperties:
-            type: string
-          type: object
-      type: object
   securitySchemes:
     api_key:
       description: 'API key for authentication. Obtain this from the Soracom User Console or via the Auth API.
@@ -428,3 +463,6 @@ components:
       in: header
       name: X-Soracom-Token
       type: apiKey
+x-refined-from:
+- soracom-lorawan-api-openapi.yml
+- soracom-platform-api-openapi.yml

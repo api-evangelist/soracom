@@ -1,7 +1,7 @@
-openapi: 3.0.0
+openapi: 3.2.0
 info:
-  title: Soracom and Query Analysis Batch API
-  description: Run SQL queries against Soracom Query, fetch query schemas, and search SIMs, Inventory devices, and Sigfox devices.
+  description: Soracom API v1
+  title: Soracom Batch API
   version: 20250903-043502
 servers:
 - description: Japan coverage production API endpoint
@@ -382,6 +382,97 @@ paths:
           header: x-soracom-next-key
 components:
   schemas:
+    BatchTaskRequest:
+      properties:
+        request:
+          $ref: '#/components/schemas/BatchTaskApiRequest'
+          description: (Not shown because $ref is used at the same level in base/batch.yaml)
+      required:
+      - request
+      type: object
+    BatchTaskApiRequest:
+      description: The API request of this task.
+      properties:
+        body:
+          description: Body of the API request.
+          example:
+            groupId: 11111111-2222-3333-4444-555555555555
+          type: object
+        method:
+          description: HTTP method of the API request.
+          enum:
+          - POST
+          - GET
+          - PUT
+          - DELETE
+          example: POST
+          type: string
+        path:
+          description: Path of the API request.
+          example: /v1/sims/8981100001234567890/set_group
+          type: string
+      required:
+      - path
+      - method
+      type: object
+    CreateBatchJobRequest:
+      properties:
+        abortOnFailure:
+          description: Whether to immediately abort upon encountering an error during batch job execution.
+          example: false
+          type: boolean
+        description:
+          description: Description of the batch job.
+          maxLength: 500
+          type: string
+        jobName:
+          description: Batch job name.
+          example: July 16th 2025 Set group
+          maxLength: 100
+          type: string
+        tasks:
+          description: "List of tasks to be executed in the batch job.\n\nSupported Soracom APIs:\n\n- [Sim:activateSim API](#/Sim/activateSim)\n- [Sim:deactivateSim API](#/Sim/deactivateSim)\n- [Sim:setSimToStandby API](#/Sim/setSimToStandby)\n- [Sim:suspendSim API](#/Sim/suspendSim)\n- [Sim:setSimGroup API](#/Sim/setSimGroup)\n- [Sim:unsetSimGroup API](#/Sim/unsetSimGroup)\n- [Sim:putSimTags API](#/Sim/putSimTags)\n- [VirtualPrivateGateway:putVirtualPrivateGatewayIpAddressMapEntry API](#/VirtualPrivateGateway/putVirtualPrivateGatewayIpAddressMapEntry)\n\nSpecify the API request path, HTTP method, and body in the `request` field according to the Soracom API specification. For example, to call the Sim:activateSim API, specify as follows:\n\n```json\n{\n  \"request\": {\n    \"path\": \"/v1/sims/8981100001234567890/activate\",\n    \"method\": \"POST\",\n    \"body\": {\n      \"sim_id\": \"8981100001234567890\"\n    }\n  }\n}\n```\n"
+          items:
+            $ref: '#/components/schemas/BatchTaskRequest'
+          type: array
+      required:
+      - tasks
+      type: object
+    BatchGroupResponse:
+      properties:
+        batchGroupId:
+          description: Batch group ID.
+          example: aaaa1111
+          type: string
+        batchGroupName:
+          description: Batch group name.
+          example: Monthly SIM Tag Update
+          type: string
+        createdTime:
+          description: Created time.
+          example: 1704067200
+          format: int64
+          type: integer
+        description:
+          description: Description of the batch group.
+          type: string
+        updatedTime:
+          description: Updated time.
+          example: 1704153600
+          format: int64
+          type: integer
+      type: object
+    BatchTaskApiResponse:
+      description: このタスクの API レスポンス。
+      properties:
+        body:
+          description: Body in the response.
+          type: object
+        statusCode:
+          description: Status code in the response.
+          example: 200
+          type: integer
+      type: object
     CreateBatchGroupRequest:
       properties:
         batchGroupName:
@@ -395,17 +486,6 @@ components:
           type: string
       required:
       - batchGroupName
-      type: object
-    BatchTaskApiResponse:
-      description: このタスクの API レスポンス。
-      properties:
-        body:
-          description: Body in the response.
-          type: object
-        statusCode:
-          description: Status code in the response.
-          example: 200
-          type: integer
       type: object
     BatchJobResponse:
       properties:
@@ -470,60 +550,6 @@ components:
           format: int64
           type: integer
       type: object
-    UpdateBatchGroupRequest:
-      properties:
-        batchGroupName:
-          description: Batch group name.
-          maxLength: 100
-          type: string
-        description:
-          description: Description of the batch group.
-          maxLength: 500
-          type: string
-      type: object
-    BatchGroupResponse:
-      properties:
-        batchGroupId:
-          description: Batch group ID.
-          example: aaaa1111
-          type: string
-        batchGroupName:
-          description: Batch group name.
-          example: Monthly SIM Tag Update
-          type: string
-        createdTime:
-          description: Created time.
-          example: 1704067200
-          format: int64
-          type: integer
-        description:
-          description: Description of the batch group.
-          type: string
-        updatedTime:
-          description: Updated time.
-          example: 1704153600
-          format: int64
-          type: integer
-      type: object
-    BatchJobSummary:
-      description: Number of tasks for each status. These numbers are periodically updated during the batch job execution.
-      properties:
-        error:
-          description: Number of tasks that failed to execute.
-          example: 0
-          format: int32
-          type: integer
-        pending:
-          description: Number of tasks waiting for execution.
-          example: 5
-          format: int32
-          type: integer
-        success:
-          description: Number of tasks that have successfully executed.
-          example: 95
-          format: int32
-          type: integer
-      type: object
     BatchTaskResponse:
       properties:
         finishedTime:
@@ -564,61 +590,35 @@ components:
           format: int32
           type: integer
       type: object
-    CreateBatchJobRequest:
+    UpdateBatchGroupRequest:
       properties:
-        abortOnFailure:
-          description: Whether to immediately abort upon encountering an error during batch job execution.
-          example: false
-          type: boolean
-        description:
-          description: Description of the batch job.
-          maxLength: 500
-          type: string
-        jobName:
-          description: Batch job name.
-          example: July 16th 2025 Set group
+        batchGroupName:
+          description: Batch group name.
           maxLength: 100
           type: string
-        tasks:
-          description: "List of tasks to be executed in the batch job.\n\nSupported Soracom APIs:\n\n- [Sim:activateSim API](#/Sim/activateSim)\n- [Sim:deactivateSim API](#/Sim/deactivateSim)\n- [Sim:setSimToStandby API](#/Sim/setSimToStandby)\n- [Sim:suspendSim API](#/Sim/suspendSim)\n- [Sim:setSimGroup API](#/Sim/setSimGroup)\n- [Sim:unsetSimGroup API](#/Sim/unsetSimGroup)\n- [Sim:putSimTags API](#/Sim/putSimTags)\n- [VirtualPrivateGateway:putVirtualPrivateGatewayIpAddressMapEntry API](#/VirtualPrivateGateway/putVirtualPrivateGatewayIpAddressMapEntry)\n\nSpecify the API request path, HTTP method, and body in the `request` field according to the Soracom API specification. For example, to call the Sim:activateSim API, specify as follows:\n\n```json\n{\n  \"request\": {\n    \"path\": \"/v1/sims/8981100001234567890/activate\",\n    \"method\": \"POST\",\n    \"body\": {\n      \"sim_id\": \"8981100001234567890\"\n    }\n  }\n}\n```\n"
-          items:
-            $ref: '#/components/schemas/BatchTaskRequest'
-          type: array
-      required:
-      - tasks
-      type: object
-    BatchTaskRequest:
-      properties:
-        request:
-          $ref: '#/components/schemas/BatchTaskApiRequest'
-          description: (Not shown because $ref is used at the same level in base/batch.yaml)
-      required:
-      - request
-      type: object
-    BatchTaskApiRequest:
-      description: The API request of this task.
-      properties:
-        body:
-          description: Body of the API request.
-          example:
-            groupId: 11111111-2222-3333-4444-555555555555
-          type: object
-        method:
-          description: HTTP method of the API request.
-          enum:
-          - POST
-          - GET
-          - PUT
-          - DELETE
-          example: POST
+        description:
+          description: Description of the batch group.
+          maxLength: 500
           type: string
-        path:
-          description: Path of the API request.
-          example: /v1/sims/8981100001234567890/set_group
-          type: string
-      required:
-      - path
-      - method
+      type: object
+    BatchJobSummary:
+      description: Number of tasks for each status. These numbers are periodically updated during the batch job execution.
+      properties:
+        error:
+          description: Number of tasks that failed to execute.
+          example: 0
+          format: int32
+          type: integer
+        pending:
+          description: Number of tasks waiting for execution.
+          example: 5
+          format: int32
+          type: integer
+        success:
+          description: Number of tasks that have successfully executed.
+          example: 95
+          format: int32
+          type: integer
       type: object
   securitySchemes:
     api_key:

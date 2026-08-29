@@ -1,8 +1,8 @@
-openapi: 3.0.0
+openapi: 3.2.0
 info:
-  title: Soracom and Query Analysis DataEntry API
-  description: Run SQL queries against Soracom Query, fetch query schemas, and search SIMs, Inventory devices, and Sigfox devices.
+  title: Soracom Data Entry API
   version: 20250903-043502
+  description: 'Operations tagged DataEntry across 2 of this provider''s published API definitions: soracom-harvest-api-openapi.yml, soracom-platform-api-openapi.yml. Each path carries the servers of the definition it was published in.'
 servers:
 - description: Japan coverage production API endpoint
   url: https://api.soracom.io/v1
@@ -115,6 +115,11 @@ paths:
           param: last_evaluated_key
         response:
           header: x-soracom-next-key
+    servers:
+    - description: Japan coverage production API endpoint
+      url: https://api.soracom.io/v1
+    - description: Global coverage production API endpoint
+      url: https://g.api.soracom.io/v1
   /data/{resource_type}/{resource_id}/{time}:
     delete:
       description: Deletes a data entry identified with resource ID and timestamp
@@ -240,6 +245,11 @@ paths:
       - DataEntry
       x-soracom-cli:
       - data get-entry
+    servers:
+    - description: Japan coverage production API endpoint
+      url: https://api.soracom.io/v1
+    - description: Global coverage production API endpoint
+      url: https://g.api.soracom.io/v1
   /data/categories/{category}:
     get:
       description: 'Returns a list of data entries that belong to a specific category. If the total number of entries does not fit in one page, a URL for accessing the next page is returned in the `link` header of the response.
@@ -311,6 +321,11 @@ paths:
           param: last_evaluated_key
         response:
           header: x-soracom-next-key
+    servers:
+    - description: Japan coverage production API endpoint
+      url: https://api.soracom.io/v1
+    - description: Global coverage production API endpoint
+      url: https://g.api.soracom.io/v1
   /data/metadata/resources:
     get:
       description: 'Returns a list of data source resources that have sent data. If the total number of data source resources does not fit in one page, a URL for accessing the next page is returned in the `link` header of the response.
@@ -380,6 +395,11 @@ paths:
           param: last_evaluated_key
         response:
           header: x-soracom-next-key
+    servers:
+    - description: Japan coverage production API endpoint
+      url: https://api.soracom.io/v1
+    - description: Global coverage production API endpoint
+      url: https://g.api.soracom.io/v1
   /data/resources:
     get:
       deprecated: true
@@ -450,8 +470,27 @@ paths:
           param: last_evaluated_key
         response:
           header: x-soracom-next-key
+    servers:
+    - description: Japan coverage production API endpoint
+      url: https://api.soracom.io/v1
+    - description: Global coverage production API endpoint
+      url: https://g.api.soracom.io/v1
 components:
   schemas:
+    DataResourceMetadata:
+      properties:
+        attributeNames:
+          items:
+            type: string
+          type: array
+        lastModifiedTime:
+          format: int64
+          type: integer
+        resourceId:
+          type: string
+        resourceType:
+          type: string
+      type: object
     DataEntry:
       properties:
         category:
@@ -475,20 +514,6 @@ components:
           format: int64
           type: integer
       type: object
-    DataResourceMetadata:
-      properties:
-        attributeNames:
-          items:
-            type: string
-          type: array
-        lastModifiedTime:
-          format: int64
-          type: integer
-        resourceId:
-          type: string
-        resourceType:
-          type: string
-      type: object
   securitySchemes:
     api_key:
       description: 'API key for authentication. Obtain this from the Soracom User Console or via the Auth API.
@@ -506,3 +531,6 @@ components:
       in: header
       name: X-Soracom-Token
       type: apiKey
+x-refined-from:
+- soracom-harvest-api-openapi.yml
+- soracom-platform-api-openapi.yml

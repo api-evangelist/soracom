@@ -1,7 +1,7 @@
-openapi: 3.0.0
+openapi: 3.2.0
 info:
-  title: Soracom and Query Analysis Gadget API
-  description: Run SQL queries against Soracom Query, fetch query schemas, and search SIMs, Inventory devices, and Sigfox devices.
+  description: Soracom API v1
+  title: Soracom Gadget API
   version: 20250903-043502
 servers:
 - description: Japan coverage production API endpoint
@@ -419,6 +419,24 @@ paths:
       - gadgets terminate
 components:
   schemas:
+    TagUpdateRequest:
+      properties:
+        tagName:
+          type: string
+        tagValue:
+          type: string
+      required:
+      - tagName
+      - tagValue
+      type: object
+    GadgetRegistrationRequest:
+      properties:
+        tags:
+          additionalProperties:
+            type: string
+          description: Tags.
+          type: object
+      type: object
     Gadget:
       properties:
         attributes:
@@ -494,24 +512,6 @@ components:
 
             '
           type: boolean
-      type: object
-    TagUpdateRequest:
-      properties:
-        tagName:
-          type: string
-        tagValue:
-          type: string
-      required:
-      - tagName
-      - tagValue
-      type: object
-    GadgetRegistrationRequest:
-      properties:
-        tags:
-          additionalProperties:
-            type: string
-          description: Tags.
-          type: object
       type: object
   securitySchemes:
     api_key:

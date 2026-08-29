@@ -1,7 +1,7 @@
-openapi: 3.0.0
+openapi: 3.2.0
 info:
-  title: Soracom and Query Analysis User API
-  description: Run SQL queries against Soracom Query, fetch query schemas, and search SIMs, Inventory devices, and Sigfox devices.
+  description: Soracom API v1
+  title: Soracom User API
   version: 20250903-043502
 servers:
 - description: Japan coverage production API endpoint
@@ -915,22 +915,27 @@ paths:
       - users default-permissions update
 components:
   schemas:
-    GetUserPasswordResponse:
+    GenerateUserAuthKeyResponse:
       properties:
-        hasPassword:
-          type: boolean
-      type: object
-    APICallErrorMessage:
-      properties:
-        code:
-          description: Error code.
+        authKey:
           type: string
-        message:
-          description: Error message. You can select the output language for error messages by setting the language (en, ja) in the X-Soracom-Lang header at request time.
+        authKeyId:
+          type: string
+      type: object
+    UpdatePasswordRequest:
+      properties:
+        currentPassword:
+          type: string
+        newPassword:
           type: string
       required:
-      - code
-      - message
+      - currentPassword
+      - newPassword
+      type: object
+    MFAStatusOfUseResponse:
+      properties:
+        status:
+          type: string
       type: object
     AuthKeyResponse:
       properties:
@@ -952,31 +957,17 @@ components:
       - authKeyId
       - createDateTime
       type: object
-    APICallError:
-      properties:
-        errorMessage:
-          $ref: '#/components/schemas/APICallErrorMessage'
-        httpStatus:
-          format: int32
-          type: integer
-      type: object
-    SetUserPermissionRequest:
+    UpdateUserRequest:
       properties:
         description:
           type: string
-        permission:
-          description: JSON string of permissions
-          type: string
-      required:
-      - permission
       type: object
-    GetUserPermissionResponse:
+    EnableMFAOTPResponse:
       properties:
-        permission:
-          description: JSON string of permissions
+        totpUri:
           type: string
       required:
-      - permission
+      - totpUri
       type: object
     GetUserTrustPolicyResponse:
       properties:
@@ -993,82 +984,6 @@ components:
 
             '
           type: string
-      type: object
-    ListRolesResponse:
-      properties:
-        createDateTime:
-          description: The creation date and time of the role (UNIX time in seconds).
-          example: 1722480500
-          format: int64
-          type: integer
-        description:
-          description: The description of the role.
-          example: This is my role
-          type: string
-        owner:
-          description: 'The type of the role. It can be one of the following:
-
-            - soracom: Soracom managed role
-
-            - operator: Operator managed role
-
-            '
-          enum:
-          - operator
-          - soracom
-          type: string
-        roleId:
-          description: The role ID. If the role is a Soracom managed role, it will be in SRN (Soracom Resource Name) format.
-          example: my-role
-          type: string
-        roleName:
-          description: The role name. If the role is an operator managed role, it will be the same as `roleId`. If the role is a Soracom managed role, it will be the resource ID part of the SRN.
-          example: my-role
-          type: string
-        updateDateTime:
-          description: The update date and time of the role (UNIX time in seconds).
-          example: 1722480600
-          format: int64
-          type: integer
-      required:
-      - createDateTime
-      - roleId
-      - updateDateTime
-      type: object
-    MFAAuthenticationRequest:
-      properties:
-        mfaOTPCode:
-          type: string
-      type: object
-    MFAStatusOfUseResponse:
-      properties:
-        status:
-          type: string
-      type: object
-    CreateUserPasswordRequest:
-      properties:
-        password:
-          type: string
-      type: object
-    EnableMFAOTPResponse:
-      properties:
-        totpUri:
-          type: string
-      required:
-      - totpUri
-      type: object
-    CreateUserRequest:
-      properties:
-        description:
-          type: string
-      type: object
-    UpdateDefaultPermissionsRequest:
-      properties:
-        permissions:
-          description: JSON string of permissions
-          type: string
-      required:
-      - permissions
       type: object
     UserDetailResponse:
       properties:
@@ -1115,28 +1030,6 @@ components:
       - updateDateTime
       - userName
       type: object
-    GenerateUserAuthKeyResponse:
-      properties:
-        authKey:
-          type: string
-        authKeyId:
-          type: string
-      type: object
-    UpdatePasswordRequest:
-      properties:
-        currentPassword:
-          type: string
-        newPassword:
-          type: string
-      required:
-      - currentPassword
-      - newPassword
-      type: object
-    GetDefaultPermissionsResponse:
-      properties:
-        defaultPermissions:
-          type: string
-      type: object
     SetUserTrustPolicyRequest:
       properties:
         trustPolicy:
@@ -1144,9 +1037,116 @@ components:
           example: '{"statements": [{"effect":"allow","principal":{"soracom":["srn:soracom:OPXXXXXXXXXX::User:accounting"]}}]}'
           type: string
       type: object
-    UpdateUserRequest:
+    UpdateDefaultPermissionsRequest:
+      properties:
+        permissions:
+          description: JSON string of permissions
+          type: string
+      required:
+      - permissions
+      type: object
+    SetUserPermissionRequest:
       properties:
         description:
+          type: string
+        permission:
+          description: JSON string of permissions
+          type: string
+      required:
+      - permission
+      type: object
+    ListRolesResponse:
+      properties:
+        createDateTime:
+          description: The creation date and time of the role (UNIX time in seconds).
+          example: 1722480500
+          format: int64
+          type: integer
+        description:
+          description: The description of the role.
+          example: This is my role
+          type: string
+        owner:
+          description: 'The type of the role. It can be one of the following:
+
+            - soracom: Soracom managed role
+
+            - operator: Operator managed role
+
+            '
+          enum:
+          - operator
+          - soracom
+          type: string
+        roleId:
+          description: The role ID. If the role is a Soracom managed role, it will be in SRN (Soracom Resource Name) format.
+          example: my-role
+          type: string
+        roleName:
+          description: The role name. If the role is an operator managed role, it will be the same as `roleId`. If the role is a Soracom managed role, it will be the resource ID part of the SRN.
+          example: my-role
+          type: string
+        updateDateTime:
+          description: The update date and time of the role (UNIX time in seconds).
+          example: 1722480600
+          format: int64
+          type: integer
+      required:
+      - createDateTime
+      - roleId
+      - updateDateTime
+      type: object
+    CreateUserRequest:
+      properties:
+        description:
+          type: string
+      type: object
+    GetUserPasswordResponse:
+      properties:
+        hasPassword:
+          type: boolean
+      type: object
+    GetDefaultPermissionsResponse:
+      properties:
+        defaultPermissions:
+          type: string
+      type: object
+    GetUserPermissionResponse:
+      properties:
+        permission:
+          description: JSON string of permissions
+          type: string
+      required:
+      - permission
+      type: object
+    APICallError:
+      properties:
+        errorMessage:
+          $ref: '#/components/schemas/APICallErrorMessage'
+        httpStatus:
+          format: int32
+          type: integer
+      type: object
+    APICallErrorMessage:
+      properties:
+        code:
+          description: Error code.
+          type: string
+        message:
+          description: Error message. You can select the output language for error messages by setting the language (en, ja) in the X-Soracom-Lang header at request time.
+          type: string
+      required:
+      - code
+      - message
+      type: object
+    MFAAuthenticationRequest:
+      properties:
+        mfaOTPCode:
+          type: string
+      type: object
+    CreateUserPasswordRequest:
+      properties:
+        password:
           type: string
       type: object
   securitySchemes:

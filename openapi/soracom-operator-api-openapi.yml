@@ -1,7 +1,7 @@
-openapi: 3.0.0
+openapi: 3.2.0
 info:
-  title: Soracom and Query Analysis Operator API
-  description: Run SQL queries against Soracom Query, fetch query schemas, and search SIMs, Inventory devices, and Sigfox devices.
+  description: Soracom API v1
+  title: Soracom Operator API
   version: 20250903-043502
 servers:
 - description: Japan coverage production API endpoint
@@ -786,37 +786,84 @@ paths:
       - operator verify-mfa-revoke-token
 components:
   schemas:
-    EmailConfigurationOfBilling:
+    OperatorConfigurationOfEmail:
       properties:
-        attachInvoicePdfEnabled:
-          description: 'The setting to decide whether to attach the invoice PDF issued by Soracom to a monthly billing notification mail (Global coverage only).
+        billing:
+          $ref: '#/components/schemas/EmailConfigurationOfBilling'
+        notification:
+          $ref: '#/components/schemas/EmailConfigurationOfNotification'
+      type: object
+    GenerateTokenRequest:
+      properties:
+        tokenTimeoutSeconds:
+          default: 86400
+          description: 'New API token expiry duration in seconds.
 
+            Default: 86400 [seconds] (24 hours).
 
-            - `true`: The invoice will be attached.
-
-            - `false`: The invoice will not be attached.
+            Maximum: 172800 [seconds] (48 hours).
 
             '
+          maximum: 172800
+          type: integer
+      type: object
+    OperatorConfigurationModel:
+      properties:
+        configuration:
+          oneOf:
+          - $ref: '#/components/schemas/OperatorConfigurationOfEmail'
+          - $ref: '#/components/schemas/OperatorConfigurationOfSupport'
+          - $ref: '#/components/schemas/OperatorConfigurationOfUserConsole'
+        isModifiable:
+          description: If false, the operator configuration cannot be updated by setOperatorConfigurationNamespace API.
           type: boolean
+        namespace:
+          description: Each namespace has its own configuration. See configuration parameter for details.
+          enum:
+          - Support
+          - Email
+          type: string
+        version:
+          description: The version of this configuration.
+          type: number
       type: object
-    MFAIssueRevokingTokenRequest:
+    UpdatePasswordRequest:
       properties:
-        email:
+        currentPassword:
           type: string
-        password:
-          type: string
-      type: object
-    APICallErrorMessage:
-      properties:
-        code:
-          description: Error code.
-          type: string
-        message:
-          description: Error message. You can select the output language for error messages by setting the language (en, ja) in the X-Soracom-Lang header at request time.
+        newPassword:
           type: string
       required:
-      - code
-      - message
+      - currentPassword
+      - newPassword
+      type: object
+    OperatorConfigurationOfSupport:
+      properties:
+        paymentCoverage:
+          allOf:
+          - $ref: '#/components/schemas/CoverageType'
+          description: Coverage type that pays for the support fee.
+        tier:
+          allOf:
+          - $ref: '#/components/schemas/SupportTier'
+          description: Current support tier.
+        upcomingTier:
+          allOf:
+          - $ref: '#/components/schemas/SupportTier'
+          description: Support tier that will be applied for the next month. If the value is null, the current tier will continue for the next month.
+      type: object
+    MFAStatusOfUseResponse:
+      properties:
+        status:
+          type: string
+      type: object
+    MFARevokeRequest:
+      properties:
+        password:
+          description: Root user's password.
+          type: string
+      required:
+      - password
       type: object
     AuthKeyResponse:
       properties:
@@ -838,129 +885,38 @@ components:
       - authKeyId
       - createDateTime
       type: object
-    SupportTokenResponse:
+    MFAIssueRevokingTokenRequest:
       properties:
-        token:
-          type: string
-      required:
-      - token
-      type: object
-    IndividualInformationModel:
-      properties:
-        addressLine1:
-          type: string
-        addressLine2:
-          type: string
-        building:
-          type: string
-        city:
-          type: string
-        countryCode:
-          type: string
-        fullName:
-          type: string
-        phoneNumber:
-          type: string
-        state:
-          type: string
-        zipCode:
-          type: string
-      required:
-      - fullName
-      - countryCode
-      - zipCode
-      - phoneNumber
-      type: object
-    OperatorConfigurationOfEmail:
-      properties:
-        billing:
-          $ref: '#/components/schemas/EmailConfigurationOfBilling'
-        notification:
-          $ref: '#/components/schemas/EmailConfigurationOfNotification'
-      type: object
-    GetOperatorResponse:
-      properties:
-        createDate:
-          type: string
-        description:
-          type: string
         email:
           type: string
-        operatorId:
+        password:
           type: string
-        rootOperatorId:
-          type: string
-        updateDate:
-          type: string
-      required:
-      - createDate
-      - description
-      - email
-      - operatorId
-      - rootOperatorId
-      - updateDate
       type: object
     CoverageType:
       enum:
       - jp
       - g
       type: string
-    EmailConfigurationOfNotification:
+    GenerateTokenResponse:
       properties:
-        exceedBundleDisabled:
-          description: 'The setting for notifications to the primary email address regarding data usage. For more information, refer to [Disabling Low Data Remaining Notifications](/en/docs/air/data-usage/#disabling-low-data-remaining-notifications).
-
-
-            - `true`: All notifications to the primary email address regarding data usage will be disabled.
-
-            - `false`: All notifications to the primary email address regarding data usage will be enabled.
-
-            '
-          type: boolean
+        token:
+          type: string
+      required:
+      - token
       type: object
-    OperatorConfigurationOfSupport:
+    GenerateOperatorsAuthKeyResponse:
       properties:
-        paymentCoverage:
-          allOf:
-          - $ref: '#/components/schemas/CoverageType'
-          description: Coverage type that pays for the support fee.
-        tier:
-          allOf:
-          - $ref: '#/components/schemas/SupportTier'
-          description: Current support tier.
-        upcomingTier:
-          allOf:
-          - $ref: '#/components/schemas/SupportTier'
-          description: Support tier that will be applied for the next month. If the value is null, the current tier will continue for the next month.
-      type: object
-    OperatorConfigurationOfUserConsole:
-      properties:
-        usageMetricsAcknowledged:
-          description: This setting is to check if an operator has acknowledged and had the chance to opt-out of usage metrics collection. Usage metrics includes information such as page views and performance statistics.
-          type: boolean
-        usageMetricsDisabled:
-          description: The setting whether to disable usage metrics collection for an operator of the User Console. Usage metrics includes information such as page views and performance statistics.
-          type: boolean
-      type: object
-    GenerateTokenRequest:
-      properties:
-        tokenTimeoutSeconds:
-          default: 86400
-          description: 'New API token expiry duration in seconds.
-
-            Default: 86400 [seconds] (24 hours).
-
-            Maximum: 172800 [seconds] (48 hours).
-
-            '
-          maximum: 172800
-          type: integer
-      type: object
-    MFAAuthenticationRequest:
-      properties:
-        mfaOTPCode:
+        authKey:
+          type: string
+        authKeyId:
           type: string
       type: object
+    SupportTier:
+      enum:
+      - basic
+      - priority
+      - enterprise
+      type: string
     ContractUpdatedResponse:
       properties:
         contractDetail:
@@ -975,27 +931,41 @@ components:
           - support
           type: string
       type: object
-    MFAStatusOfUseResponse:
+    OperatorConfigurationOfUserConsole:
       properties:
-        status:
-          type: string
+        usageMetricsAcknowledged:
+          description: This setting is to check if an operator has acknowledged and had the chance to opt-out of usage metrics collection. Usage metrics includes information such as page views and performance statistics.
+          type: boolean
+        usageMetricsDisabled:
+          description: The setting whether to disable usage metrics collection for an operator of the User Console. Usage metrics includes information such as page views and performance statistics.
+          type: boolean
       type: object
-    ContractUpdatingRequest:
+    EnableMFAOTPResponse:
       properties:
-        contractDetail:
-          oneOf:
-          - $ref: '#/components/schemas/ContractDetailOfHarvest'
-          - $ref: '#/components/schemas/ContractDetailOfSupport'
-        contractName:
-          enum:
-          - api_audit_log
-          - harvest
-          - napter
-          - support
-          example: harvest
+        totpUri:
           type: string
       required:
-      - contractName
+      - totpUri
+      type: object
+    SetOperatorConfigurationNamespaceRequest:
+      properties:
+        configuration:
+          oneOf:
+          - $ref: '#/components/schemas/OperatorConfigurationOfSupport'
+          - $ref: '#/components/schemas/OperatorConfigurationOfEmail'
+          - $ref: '#/components/schemas/OperatorConfigurationOfUserConsole'
+        expectedVersion:
+          description: This property is used to avoid update confliction. To use it, retrieve the version by getOperatorConfigurationNamespace API, then specify the version here. If the expectedVersion is not specified, the API does not check an update confliction.
+          type: number
+      required:
+      - configuration
+      type: object
+    SupportTokenResponse:
+      properties:
+        token:
+          type: string
+      required:
+      - token
       type: object
     CompanyInformationModel:
       properties:
@@ -1031,80 +1001,69 @@ components:
       - contactPersonName
       - phoneNumber
       type: object
-    OperatorConfigurationModel:
+    IndividualInformationModel:
       properties:
-        configuration:
+        addressLine1:
+          type: string
+        addressLine2:
+          type: string
+        building:
+          type: string
+        city:
+          type: string
+        countryCode:
+          type: string
+        fullName:
+          type: string
+        phoneNumber:
+          type: string
+        state:
+          type: string
+        zipCode:
+          type: string
+      required:
+      - fullName
+      - countryCode
+      - zipCode
+      - phoneNumber
+      type: object
+    ContractUpdatingRequest:
+      properties:
+        contractDetail:
           oneOf:
-          - $ref: '#/components/schemas/OperatorConfigurationOfEmail'
-          - $ref: '#/components/schemas/OperatorConfigurationOfSupport'
-          - $ref: '#/components/schemas/OperatorConfigurationOfUserConsole'
-        isModifiable:
-          description: If false, the operator configuration cannot be updated by setOperatorConfigurationNamespace API.
+          - $ref: '#/components/schemas/ContractDetailOfHarvest'
+          - $ref: '#/components/schemas/ContractDetailOfSupport'
+        contractName:
+          enum:
+          - api_audit_log
+          - harvest
+          - napter
+          - support
+          example: harvest
+          type: string
+      required:
+      - contractName
+      type: object
+    OperatorMFAVerifyingResponse:
+      properties:
+        backupCodes:
+          items:
+            type: string
+          type: array
+      type: object
+    EmailConfigurationOfBilling:
+      properties:
+        attachInvoicePdfEnabled:
+          description: 'The setting to decide whether to attach the invoice PDF issued by Soracom to a monthly billing notification mail (Global coverage only).
+
+
+            - `true`: The invoice will be attached.
+
+            - `false`: The invoice will not be attached.
+
+            '
           type: boolean
-        namespace:
-          description: Each namespace has its own configuration. See configuration parameter for details.
-          enum:
-          - Support
-          - Email
-          type: string
-        version:
-          description: The version of this configuration.
-          type: number
       type: object
-    ContractDetailOfHarvest:
-      properties:
-        plan:
-          description: The contract plan. Currently only "extended" is acceptable.
-          enum:
-          - extended
-          type: string
-        ttl:
-          description: Data retention period in days. Currently only 731 is acceptable.
-          example: 731
-          format: int64
-          type: integer
-      type: object
-    EnableMFAOTPResponse:
-      properties:
-        totpUri:
-          type: string
-      required:
-      - totpUri
-      type: object
-    SetOperatorConfigurationNamespaceRequest:
-      properties:
-        configuration:
-          oneOf:
-          - $ref: '#/components/schemas/OperatorConfigurationOfSupport'
-          - $ref: '#/components/schemas/OperatorConfigurationOfEmail'
-          - $ref: '#/components/schemas/OperatorConfigurationOfUserConsole'
-        expectedVersion:
-          description: This property is used to avoid update confliction. To use it, retrieve the version by getOperatorConfigurationNamespace API, then specify the version here. If the expectedVersion is not specified, the API does not check an update confliction.
-          type: number
-      required:
-      - configuration
-      type: object
-    MFARevokeRequest:
-      properties:
-        password:
-          description: Root user's password.
-          type: string
-      required:
-      - password
-      type: object
-    GenerateTokenResponse:
-      properties:
-        token:
-          type: string
-      required:
-      - token
-      type: object
-    SupportTier:
-      enum:
-      - basic
-      - priority
-      - enterprise
-      type: string
     MFARevokingTokenVerifyRequest:
       properties:
         backupCode:
@@ -1115,16 +1074,6 @@ components:
           type: string
         token:
           type: string
-      type: object
-    UpdatePasswordRequest:
-      properties:
-        currentPassword:
-          type: string
-        newPassword:
-          type: string
-      required:
-      - currentPassword
-      - newPassword
       type: object
     ContractDetailOfSupport:
       properties:
@@ -1140,19 +1089,53 @@ components:
           - priority
           type: string
       type: object
-    GenerateOperatorsAuthKeyResponse:
+    EmailConfigurationOfNotification:
       properties:
-        authKey:
-          type: string
-        authKeyId:
-          type: string
+        exceedBundleDisabled:
+          description: 'The setting for notifications to the primary email address regarding data usage. For more information, refer to [Disabling Low Data Remaining Notifications](/en/docs/air/data-usage/#disabling-low-data-remaining-notifications).
+
+
+            - `true`: All notifications to the primary email address regarding data usage will be disabled.
+
+            - `false`: All notifications to the primary email address regarding data usage will be enabled.
+
+            '
+          type: boolean
       type: object
-    OperatorMFAVerifyingResponse:
+    ContractDetailOfHarvest:
       properties:
-        backupCodes:
-          items:
-            type: string
-          type: array
+        plan:
+          description: The contract plan. Currently only "extended" is acceptable.
+          enum:
+          - extended
+          type: string
+        ttl:
+          description: Data retention period in days. Currently only 731 is acceptable.
+          example: 731
+          format: int64
+          type: integer
+      type: object
+    GetOperatorResponse:
+      properties:
+        createDate:
+          type: string
+        description:
+          type: string
+        email:
+          type: string
+        operatorId:
+          type: string
+        rootOperatorId:
+          type: string
+        updateDate:
+          type: string
+      required:
+      - createDate
+      - description
+      - email
+      - operatorId
+      - rootOperatorId
+      - updateDate
       type: object
     APICallError:
       properties:
@@ -1161,6 +1144,23 @@ components:
         httpStatus:
           format: int32
           type: integer
+      type: object
+    APICallErrorMessage:
+      properties:
+        code:
+          description: Error code.
+          type: string
+        message:
+          description: Error message. You can select the output language for error messages by setting the language (en, ja) in the X-Soracom-Lang header at request time.
+          type: string
+      required:
+      - code
+      - message
+      type: object
+    MFAAuthenticationRequest:
+      properties:
+        mfaOTPCode:
+          type: string
       type: object
   securitySchemes:
     api_key:

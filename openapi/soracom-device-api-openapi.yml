@@ -1,8 +1,8 @@
-openapi: 3.0.0
+openapi: 3.2.0
 info:
-  title: Soracom and Query Analysis Device API
-  description: Run SQL queries against Soracom Query, fetch query schemas, and search SIMs, Inventory devices, and Sigfox devices.
+  title: Soracom Device API
   version: 20250903-043502
+  description: 'Operations tagged Device across 2 of this provider''s published API definitions: soracom-inventory-api-openapi.yml, soracom-platform-api-openapi.yml. Each path carries the servers of the definition it was published in.'
 servers:
 - description: Japan coverage production API endpoint
   url: https://api.soracom.io/v1
@@ -96,6 +96,11 @@ paths:
       - Device
       x-soracom-cli:
       - devices create
+    servers:
+    - description: Japan coverage production API endpoint
+      url: https://api.soracom.io/v1
+    - description: Global coverage production API endpoint
+      url: https://g.api.soracom.io/v1
   /devices/{device_id}:
     delete:
       description: Delete Device
@@ -154,6 +159,11 @@ paths:
       - Device
       x-soracom-cli:
       - devices get
+    servers:
+    - description: Japan coverage production API endpoint
+      url: https://api.soracom.io/v1
+    - description: Global coverage production API endpoint
+      url: https://g.api.soracom.io/v1
   /devices/{device_id}/{object}/{instance}:
     get:
       description: Get resources under an object instance of a device
@@ -203,6 +213,11 @@ paths:
       - Device
       x-soracom-cli:
       - devices get-instance
+    servers:
+    - description: Japan coverage production API endpoint
+      url: https://api.soracom.io/v1
+    - description: Global coverage production API endpoint
+      url: https://g.api.soracom.io/v1
   /devices/{device_id}/{object}/{instance}/{resource}:
     get:
       description: Get the specified resource of a device
@@ -316,6 +331,11 @@ paths:
       - Device
       x-soracom-cli:
       - devices put-resource
+    servers:
+    - description: Japan coverage production API endpoint
+      url: https://api.soracom.io/v1
+    - description: Global coverage production API endpoint
+      url: https://g.api.soracom.io/v1
   /devices/{device_id}/{object}/{instance}/{resource}/execute:
     post:
       description: Executes a resource of a device
@@ -369,6 +389,11 @@ paths:
       - Device
       x-soracom-cli:
       - devices execute-resource
+    servers:
+    - description: Japan coverage production API endpoint
+      url: https://api.soracom.io/v1
+    - description: Global coverage production API endpoint
+      url: https://g.api.soracom.io/v1
   /devices/{device_id}/{object}/{instance}/{resource}/observe:
     post:
       description: Triggers observation of the specified resource of a device. Once observation is started, the server will be notified when there is a change in value on the device side.
@@ -420,6 +445,11 @@ paths:
       - Device
       x-soracom-cli:
       - devices observe-resource
+    servers:
+    - description: Japan coverage production API endpoint
+      url: https://api.soracom.io/v1
+    - description: Global coverage production API endpoint
+      url: https://g.api.soracom.io/v1
   /devices/{device_id}/{object}/{instance}/{resource}/unobserve:
     post:
       description: Stops observation of a resource of a device
@@ -462,6 +492,11 @@ paths:
       - Device
       x-soracom-cli:
       - devices unobserve-resource
+    servers:
+    - description: Japan coverage production API endpoint
+      url: https://api.soracom.io/v1
+    - description: Global coverage production API endpoint
+      url: https://g.api.soracom.io/v1
   /devices/{device_id}/{object}/{instance}/observe:
     post:
       description: Triggers observation of resources under an object instance of a device
@@ -507,6 +542,11 @@ paths:
       - Device
       x-soracom-cli:
       - devices observe-resources
+    servers:
+    - description: Japan coverage production API endpoint
+      url: https://api.soracom.io/v1
+    - description: Global coverage production API endpoint
+      url: https://g.api.soracom.io/v1
   /devices/{device_id}/{object}/{instance}/unobserve:
     post:
       description: Stops observation of resources under an object instance of a device
@@ -543,6 +583,11 @@ paths:
       - Device
       x-soracom-cli:
       - devices unobserve-resources
+    servers:
+    - description: Japan coverage production API endpoint
+      url: https://api.soracom.io/v1
+    - description: Global coverage production API endpoint
+      url: https://g.api.soracom.io/v1
   /devices/{device_id}/data:
     get:
       description: 'Retrieves data that matches the specified conditions from the data sent by the specified Inventory device to Harvest Data. If the data entries do not fit in one page, a URL to retrieve the next page with the same conditions will be included in the `link` header of the response.
@@ -614,6 +659,11 @@ paths:
           param: last_evaluated_key
         response:
           header: x-soracom-next-key
+    servers:
+    - description: Japan coverage production API endpoint
+      url: https://api.soracom.io/v1
+    - description: Global coverage production API endpoint
+      url: https://g.api.soracom.io/v1
   /devices/{device_id}/set_group:
     post:
       description: Adds an Inventory device to an Inventory group.
@@ -648,6 +698,11 @@ paths:
       - Device
       x-soracom-cli:
       - devices set-group
+    servers:
+    - description: Japan coverage production API endpoint
+      url: https://api.soracom.io/v1
+    - description: Global coverage production API endpoint
+      url: https://g.api.soracom.io/v1
   /devices/{device_id}/tags:
     put:
       description: Updates device tags
@@ -685,6 +740,11 @@ paths:
       - Device
       x-soracom-cli:
       - devices put-device-tags
+    servers:
+    - description: Japan coverage production API endpoint
+      url: https://api.soracom.io/v1
+    - description: Global coverage production API endpoint
+      url: https://g.api.soracom.io/v1
   /devices/{device_id}/tags/{tag_name}:
     delete:
       description: Delete device tag
@@ -715,6 +775,11 @@ paths:
       - Device
       x-soracom-cli:
       - devices delete-device-tag
+    servers:
+    - description: Japan coverage production API endpoint
+      url: https://api.soracom.io/v1
+    - description: Global coverage production API endpoint
+      url: https://g.api.soracom.io/v1
   /devices/{device_id}/unset_group:
     post:
       description: Removes an Inventory device from an Inventory group.
@@ -743,8 +808,36 @@ paths:
       - Device
       x-soracom-cli:
       - devices unset-group
+    servers:
+    - description: Japan coverage production API endpoint
+      url: https://api.soracom.io/v1
+    - description: Global coverage production API endpoint
+      url: https://g.api.soracom.io/v1
 components:
   schemas:
+    ObjectInstance:
+      properties:
+        id:
+          format: int32
+          type: integer
+        observed:
+          default: false
+          type: boolean
+        resources:
+          additionalProperties:
+            $ref: '#/components/schemas/ResourceInstance'
+          type: object
+      type: object
+    TagUpdateRequest:
+      properties:
+        tagName:
+          type: string
+        tagValue:
+          type: string
+      required:
+      - tagName
+      - tagValue
+      type: object
     DataEntry:
       properties:
         category:
@@ -767,6 +860,12 @@ components:
         time:
           format: int64
           type: integer
+      type: object
+    SetGroupRequest:
+      properties:
+        groupId:
+          description: Group ID. The group ID can be obtained using the [Group:listGroups API](#!/Group/listGroups).
+          type: string
       type: object
     ResourceInstance:
       properties:
@@ -857,35 +956,6 @@ components:
             type: string
           type: object
       type: object
-    SetGroupRequest:
-      properties:
-        groupId:
-          description: Group ID. The group ID can be obtained using the [Group:listGroups API](#!/Group/listGroups).
-          type: string
-      type: object
-    ObjectInstance:
-      properties:
-        id:
-          format: int32
-          type: integer
-        observed:
-          default: false
-          type: boolean
-        resources:
-          additionalProperties:
-            $ref: '#/components/schemas/ResourceInstance'
-          type: object
-      type: object
-    TagUpdateRequest:
-      properties:
-        tagName:
-          type: string
-        tagValue:
-          type: string
-      required:
-      - tagName
-      - tagValue
-      type: object
   securitySchemes:
     api_key:
       description: 'API key for authentication. Obtain this from the Soracom User Console or via the Auth API.
@@ -903,3 +973,6 @@ components:
       in: header
       name: X-Soracom-Token
       type: apiKey
+x-refined-from:
+- soracom-inventory-api-openapi.yml
+- soracom-platform-api-openapi.yml
