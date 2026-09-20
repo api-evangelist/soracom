@@ -1,0 +1,91 @@
+slug: soracom
+provider: Soracom
+generated_by: planning/capability-mapping/scripts/classify_capabilities.py
+model: claude-opus-5
+frame:
+- Telecommunications
+min_confidence: 0.7
+capability_model:
+  source: https://github.com/vincentmakes/turbo-ea-capabilities
+  license: CC-BY-4.0
+  attribution: Turbo EA Capabilities by Vincent Verdet — Turbo EA, https://github.com/vincentmakes/turbo-ea-capabilities,
+    CC BY 4.0
+  notice: NOTICE
+edge_count: 7
+edges:
+- tag: Sim
+  spec_file: soracom-sim-api-openapi.yml
+  capability_id: BC-2640.20
+  capability_id_l1: BC-2640
+  capability_name: SIM & eSIM Lifecycle Management
+  confidence: 0.9
+  evidence: '"createSim  Creates a new virtual SIM/Subscriber", "activateSim  Activate SIM", "deactivateSim  Deactivate
+    SIM", "disableSimTermination  Disables termination of the SIM", schema "ImeiLock"'
+  reason: Full lifecycle control of IoT SIMs — creation, activation, deactivation, termination, session
+    and IMEI lock — which is squarely SIM & eSIM lifecycle management for a cellular connectivity provider.
+- tag: User
+  spec_file: soracom-user-api-openapi.yml
+  capability_id: BC-620.20
+  capability_id_l1: BC-620
+  capability_name: Identity & Access Management
+  confidence: 0.88
+  evidence: '"listUsers  Retrieve a list of SAM users", "generateUserAuthKey  Generate AuthKey.", "enableUserMFA  Enable
+    SAM user''s MFA", schemas "SetUserPermissionRequest", "ListRolesResponse"'
+  reason: Management of platform users, credentials, MFA, roles, trust policies and permissions is identity
+    and access management. Note this is administrative IAM for the operator account, not subscriber network
+    authentication.
+- tag: Billing
+  spec_file: soracom-billing-api-openapi.yml
+  capability_id: BC-2660
+  capability_id_l1: BC-2660
+  capability_name: Telecom Billing & Revenue Management
+  confidence: 0.85
+  evidence: GET /bills getBillingHistory Gets a list of finalized past billing history; GET /bills/summaries/sims
+    Gets a billing summary of SIMs
+  reason: 'Billing for cellular IoT connectivity: finalized monthly and daily bills, latest bill, detailed
+    billing CSV export, and summaries by bill item and by SIM. This is squarely telecom billing and revenue
+    management. Left at L1 because the operations mix bill retrieval/presentment with billing-cycle output
+    and cost breakdown, so no single sub-capability is unambiguously named.'
+- tag: Role
+  spec_file: soracom-role-api-openapi.yml
+  capability_id: BC-620.20
+  capability_id_l1: BC-620
+  capability_name: Identity & Access Management
+  confidence: 0.85
+  evidence: '"createRole  Create Operator Managed Role", "attachRole  Attach Role to User", "detachRole  Detach
+    Role from User", "listRoleAttachedUsers"'
+  reason: Role definition and role-to-user assignment for account users is squarely identity and access
+    management (authorisation administration).
+- tag: SimProfileOrder
+  spec_file: soracom-simprofileorder-api-openapi.yml
+  capability_id: BC-2640.20
+  capability_id_l1: BC-2640
+  capability_name: SIM & eSIM Lifecycle Management
+  confidence: 0.85
+  evidence: '"createProfileOrder  Create a new eSIM profile order", "listOrderedProfiles  List eSIM profiles
+    created by the eSIM profile order"'
+  reason: Ordering, confirming, cancelling and listing eSIM profiles is eSIM profile provisioning/personalisation
+    — the eSIM half of SIM & eSIM Lifecycle Management. Slight order-management flavour but the object
+    managed is the eSIM profile.
+- tag: Subscriber
+  spec_file: soracom-subscriber-api-openapi.yml
+  capability_id: BC-2640.10
+  capability_id_l1: BC-2640
+  capability_name: Subscriber Identity Management
+  confidence: 0.85
+  evidence: '"getSubscriber" keyed on {imsi}, "activateSubscriber  Activate Subscriber.", "registerSubscriber  Register
+    Subscriber.", schemas "LocationRegistrationStatusForNetwork", "ImeiLock"'
+  reason: Lifecycle of subscriber identities addressed by IMSI — register, activate, deactivate, terminate,
+    session and bundle assignment — which is subscriber identity/profile management in the subscriber
+    data layer.
+- tag: Analysis
+  spec_file: soracom-analysis-api-openapi.yml
+  capability_id: BC-610.50
+  capability_id_l1: BC-610
+  capability_name: Analytics & BI Management
+  confidence: 0.7
+  evidence: POST /analysis/queries startAnalysisQueries Execute a new SQL query asynchronously; GET /analysis/schemas
+    Retrieve available database schemas
+  reason: The tag exposes an ad-hoc SQL analytics query service over platform data, with schema discovery
+    and asynchronous query status. That is analytics/BI delivery over collected data. Confidence moderate
+    because the surface is generic query execution and could equally be read as a data-platform primitive.
