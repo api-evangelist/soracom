@@ -11,7 +11,7 @@ capability_model:
   attribution: Turbo EA Capabilities by Vincent Verdet — Turbo EA, https://github.com/vincentmakes/turbo-ea-capabilities,
     CC BY 4.0
   notice: NOTICE
-edge_count: 7
+edge_count: 9
 edges:
 - tag: Sim
   spec_file: soracom-sim-api-openapi.yml
@@ -78,6 +78,31 @@ edges:
   reason: Lifecycle of subscriber identities addressed by IMSI — register, activate, deactivate, terminate,
     session and bundle assignment — which is subscriber identity/profile management in the subscriber
     data layer.
+- tag: VirtualPrivateGateway
+  spec_file: soracom-virtualprivategateway-api-openapi.yml
+  capability_id: BC-600.50
+  capability_id_l1: BC-600
+  capability_name: IT Infrastructure Management
+  confidence: 0.85
+  evidence: '"createVirtualPrivateGateway  Create Virtual Private Gateway"; "createCustomerRoute  Create
+    routing table entry"; "assignFixedPublicIpAddresses"; schema "CreateVpcPeeringConnectionRequest"'
+  reason: Gateways, routing tables, IP address assignment and VPC/transit-gateway peering are network
+    infrastructure provisioning and configuration.
+  recovered_from: sweep-20260829T005356Z-edges.json
+- tag: Payment
+  spec_file: soracom-payment-api-openapi.yml
+  capability_id: BC-4250
+  capability_id_l1: BC-4250
+  capability_name: Subscription Billing & Revenue Management
+  confidence: 0.8
+  evidence: GET /payment_methods/current getPaymentMethod Get current payment method information.; GET
+    /payment_statements listPaymentStatements List payment statements; GET /payment_history/transactions/{payment_transaction_id}
+    getPaymentTransaction
+  reason: Payment-method management, payment transaction results, billing statements, payer information
+    and coupons/volume discounts — the billing and payment collection side of the recurring service. Evidence
+    spans both invoicing/statements and payment collection, so the L1 is asserted without committing to
+    a sub-capability.
+  recovered_from: sweep-20260829T005356Z-edges.json
 - tag: Analysis
   spec_file: soracom-analysis-api-openapi.yml
   capability_id: BC-610.50
