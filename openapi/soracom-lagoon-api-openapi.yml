@@ -9,11 +9,9 @@ servers:
 - description: Global coverage production API endpoint
   url: https://g.api.soracom.io/v1
 tags:
-- description: '[Soracom Lagoon](/en/docs/lagoon-v3/)
+- description: 'Soracom Lagoon
 
-    User and plan management
-
-    '
+    User and plan management'
   name: Lagoon
 paths:
   /lagoon/image/link:
@@ -64,9 +62,7 @@ paths:
       description: 'Update the quantities for license packs of Soracom Lagoon.
 
 
-        **Warning**: This API must be called with the root user credentials. The quantities for license packs of Soracom Lagoon cannot be updated with SAM user credentials.
-
-        '
+        **Warning**: This API must be called with the root user credentials. The quantities for license packs of Soracom Lagoon cannot be updated with SAM user credentials.'
       operationId: updateLagoonLicensePack
       requestBody:
         content:
@@ -95,9 +91,7 @@ paths:
       description: 'Update the plan of Soracom Lagoon.
 
 
-        **Warning**: This API must be called with the root user credentials. The plan of Lagoon cannot be updated with SAM user credentials.
-
-        '
+        **Warning**: This API must be called with the root user credentials. The plan of Lagoon cannot be updated with SAM user credentials.'
       operationId: updateLagoonPlan
       requestBody:
         content:
@@ -125,9 +119,7 @@ paths:
       description: 'Register (activate) Soracom Lagoon.
 
 
-        **Warning**: This API must be called with the root user credentials. Lagoon cannot be registered with SAM user credentials.
-
-        '
+        **Warning**: This API must be called with the root user credentials. Lagoon cannot be registered with SAM user credentials.'
       operationId: registerLagoon
       requestBody:
         content:
@@ -158,9 +150,7 @@ paths:
       description: 'Terminate (deactivate) Soracom Lagoon.
 
 
-        **Warning**: This API must be called with the root user credentials. Lagoon cannot be terminated with SAM user credentials.
-
-        '
+        **Warning**: This API must be called with the root user credentials. Lagoon cannot be terminated with SAM user credentials.'
       operationId: terminateLagoon
       responses:
         '204':
@@ -352,19 +342,6 @@ paths:
       - lagoon users update-permission
 components:
   schemas:
-    LagoonUserCreationRequest:
-      properties:
-        role:
-          description: A role that represents the permission.
-          enum:
-          - Viewer
-          - Editor
-          type: string
-        userEmail:
-          type: string
-        userPassword:
-          type: string
-      type: object
     LagoonUserPermissionUpdatingRequest:
       properties:
         role:
@@ -379,33 +356,6 @@ components:
         id:
           description: Lagoon user ID assigned to the created user.
           type: integer
-      type: object
-    LagoonUser:
-      properties:
-        email:
-          description: This value used on login.
-          type: string
-        id:
-          type: number
-        lastSeenAt:
-          description: The last login datetime.
-          type: string
-        lastSeenAtAge:
-          description: The last login datetime as age.
-          type: string
-        role:
-          description: A role that represents the permission.
-          enum:
-          - Viewer
-          - Editor
-          type: string
-      type: object
-    LagoonUserPasswordUpdatingRequest:
-      properties:
-        newPassword:
-          type: string
-        oldPassword:
-          type: string
       type: object
     LagoonLicensePacksUpdatingRequest:
       properties:
@@ -430,19 +380,30 @@ components:
             type: object
           type: array
       type: object
-    LagoonRegistrationResponse:
+    LagoonLicensePackStatusResponse:
       properties:
-        lagoonUserEmail:
-          description: This email address is used on login with the initial user.
+        licensePackName:
+          type: string
+        quantity:
+          format: int32
+          type: integer
+      type: object
+    LagoonUserEmailUpdatingRequest:
+      properties:
+        userEmail:
           type: string
       type: object
-    LagoonPlanChangingRequest:
+    LagoonUserCreationRequest:
       properties:
-        plan:
+        role:
+          description: A role that represents the permission.
           enum:
-          - maker
-          - pro
-          - free
+          - Viewer
+          - Editor
+          type: string
+        userEmail:
+          type: string
+        userPassword:
           type: string
       type: object
     LagoonRegistrationRequest:
@@ -457,18 +418,47 @@ components:
           description: This password is used by the initial user's login.
           type: string
       type: object
-    LagoonUserEmailUpdatingRequest:
+    LagoonUserPasswordUpdatingRequest:
       properties:
-        userEmail:
+        newPassword:
+          type: string
+        oldPassword:
           type: string
       type: object
-    LagoonLicensePackStatusResponse:
+    LagoonPlanChangingRequest:
       properties:
-        licensePackName:
+        plan:
+          enum:
+          - maker
+          - pro
+          - free
           type: string
-        quantity:
-          format: int32
-          type: integer
+      type: object
+    LagoonUser:
+      properties:
+        email:
+          description: This value used on login.
+          type: string
+        id:
+          type: number
+        lastSeenAt:
+          description: The last login datetime.
+          type: string
+        lastSeenAtAge:
+          description: The last login datetime as age.
+          type: string
+        role:
+          description: A role that represents the permission.
+          enum:
+          - Viewer
+          - Editor
+          type: string
+      type: object
+    LagoonRegistrationResponse:
+      properties:
+        lagoonUserEmail:
+          description: This email address is used on login with the initial user.
+          type: string
       type: object
   securitySchemes:
     api_key:

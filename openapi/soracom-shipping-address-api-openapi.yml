@@ -10,7 +10,7 @@ servers:
   url: https://g.api.soracom.io/v1
 tags:
 - description: Shipping address operations for direct sales
-  name: ShippingAddress
+  name: Shipping Address
 paths:
   /operators/{operator_id}/shipping_addresses:
     get:
@@ -35,7 +35,7 @@ paths:
         api_token: []
       summary: List shipping addresses
       tags:
-      - ShippingAddress
+      - Shipping Address
       x-soracom-cli:
       - shipping-addresses list
     post:
@@ -67,7 +67,7 @@ paths:
         api_token: []
       summary: Create shipping address
       tags:
-      - ShippingAddress
+      - Shipping Address
       x-soracom-cli:
       - shipping-addresses create
   /operators/{operator_id}/shipping_addresses/{shipping_address_id}:
@@ -95,7 +95,7 @@ paths:
         api_token: []
       summary: Delete shipping address
       tags:
-      - ShippingAddress
+      - Shipping Address
       x-soracom-cli:
       - shipping-addresses delete
     get:
@@ -126,7 +126,7 @@ paths:
         api_token: []
       summary: Get shipping address
       tags:
-      - ShippingAddress
+      - Shipping Address
       x-soracom-cli:
       - shipping-addresses get
     put:
@@ -160,11 +160,48 @@ paths:
         api_token: []
       summary: Update shipping address
       tags:
-      - ShippingAddress
+      - Shipping Address
       x-soracom-cli:
       - shipping-addresses update
 components:
   schemas:
+    GetShippingAddressResponse:
+      properties:
+        addressLine1:
+          type: string
+        addressLine2:
+          type: string
+        building:
+          type: string
+        city:
+          type: string
+        companyName:
+          type: string
+        department:
+          type: string
+        fullName:
+          type: string
+        phoneNumber:
+          type: string
+        shippingAddressId:
+          description: ID of shipping address.
+          type: string
+        shippingArea:
+          description: Shipping area.
+          type: string
+        state:
+          type: string
+        zipCode:
+          type: string
+      required:
+      - addressLine1
+      - city
+      - phoneNumber
+      - shippingAddressId
+      - shippingArea
+      - state
+      - zipCode
+      type: object
     ListShippingAddressResponse:
       properties:
         shippingAddresses:
@@ -202,43 +239,6 @@ components:
       required:
       - addressLine1
       - city
-      - state
-      - zipCode
-      type: object
-    GetShippingAddressResponse:
-      properties:
-        addressLine1:
-          type: string
-        addressLine2:
-          type: string
-        building:
-          type: string
-        city:
-          type: string
-        companyName:
-          type: string
-        department:
-          type: string
-        fullName:
-          type: string
-        phoneNumber:
-          type: string
-        shippingAddressId:
-          description: ID of shipping address.
-          type: string
-        shippingArea:
-          description: Shipping area.
-          type: string
-        state:
-          type: string
-        zipCode:
-          type: string
-      required:
-      - addressLine1
-      - city
-      - phoneNumber
-      - shippingAddressId
-      - shippingArea
       - state
       - zipCode
       type: object

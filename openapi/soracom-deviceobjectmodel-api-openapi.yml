@@ -1,20 +1,19 @@
 openapi: 3.2.0
 info:
+  description: Soracom API v1
   title: Soracom Device Object Model API
   version: 20250903-043502
-  description: 'Operations tagged DeviceObjectModel across 2 of this provider''s published API definitions: soracom-inventory-api-openapi.yml, soracom-platform-api-openapi.yml. Each path carries the servers of the definition it was published in.'
 servers:
 - description: Japan coverage production API endpoint
   url: https://api.soracom.io/v1
 - description: Global coverage production API endpoint
   url: https://g.api.soracom.io/v1
 tags:
-- description: '[Soracom Inventory object model](/en/docs/inventory/define-custom-object/)'
+- description: Soracom Inventory object model
   name: DeviceObjectModel
 paths:
   /device_object_models:
     get:
-      description: Returns a list of device object models
       operationId: listDeviceObjectModels
       parameters:
       - description: ID of the last device object model in the previous page. By specifying this parameter, you can continue to retrieve the list from the next device object models onward.
@@ -54,7 +53,6 @@ paths:
         response:
           header: x-soracom-next-key
     post:
-      description: Creates a new device object model
       operationId: createDeviceObjectModel
       requestBody:
         content:
@@ -82,14 +80,8 @@ paths:
       - DeviceObjectModel
       x-soracom-cli:
       - devices create-object-model
-    servers:
-    - description: Japan coverage production API endpoint
-      url: https://api.soracom.io/v1
-    - description: Global coverage production API endpoint
-      url: https://g.api.soracom.io/v1
   /device_object_models/{model_id}:
     delete:
-      description: Deletes a device object model
       operationId: deleteDeviceObjectModel
       parameters:
       - description: Target device object model ID
@@ -112,7 +104,6 @@ paths:
       x-soracom-cli:
       - devices delete-object-model
     get:
-      description: Gets a device object model
       operationId: getDeviceObjectModel
       parameters:
       - description: Target device object model ID
@@ -139,7 +130,6 @@ paths:
       x-soracom-cli:
       - devices get-object-model
     post:
-      description: Updates a device object model
       operationId: updateDeviceObjectModel
       parameters:
       - description: Target device object model ID
@@ -176,14 +166,8 @@ paths:
       - DeviceObjectModel
       x-soracom-cli:
       - devices update-object-model
-    servers:
-    - description: Japan coverage production API endpoint
-      url: https://api.soracom.io/v1
-    - description: Global coverage production API endpoint
-      url: https://g.api.soracom.io/v1
   /device_object_models/{model_id}/set_scope:
     post:
-      description: Sets scope for a device object model
       operationId: setDeviceObjectModelScope
       parameters:
       - description: Target device object model ID
@@ -216,13 +200,13 @@ paths:
       - DeviceObjectModel
       x-soracom-cli:
       - devices set-object-model-scope
-    servers:
-    - description: Japan coverage production API endpoint
-      url: https://api.soracom.io/v1
-    - description: Global coverage production API endpoint
-      url: https://g.api.soracom.io/v1
 components:
   schemas:
+    SetDeviceObjectModelScopeRequest:
+      properties:
+        scope:
+          type: string
+      type: object
     DeviceObjectModel:
       properties:
         createdTime:
@@ -245,11 +229,6 @@ components:
         scope:
           type: string
       type: object
-    SetDeviceObjectModelScopeRequest:
-      properties:
-        scope:
-          type: string
-      type: object
   securitySchemes:
     api_key:
       description: 'API key for authentication. Obtain this from the Soracom User Console or via the Auth API.
@@ -267,6 +246,3 @@ components:
       in: header
       name: X-Soracom-Token
       type: apiKey
-x-refined-from:
-- soracom-inventory-api-openapi.yml
-- soracom-platform-api-openapi.yml

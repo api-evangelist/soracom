@@ -9,15 +9,13 @@ servers:
 - description: Global coverage production API endpoint
   url: https://g.api.soracom.io/v1
 tags:
-- description: '- [Coupon codes](/en/guides/accounting/payment/register-coupon/)
+- description: '- Coupon codes
 
-    - [Usage charges (billing details)](/en/guides/accounting/check-usage/)
+    - Usage charges (billing details)
 
-    - [Payment methods](/en/guides/accounting/payment/)
+    - Payment methods
 
-    - [Long term discounts](/en/docs/air/volume-discount/)
-
-    '
+    - Long term discounts'
   name: Payment
 paths:
   /coupons:
@@ -34,7 +32,7 @@ paths:
       security:
       - api_key: []
         api_token: []
-      summary: List coupons.
+      summary: List coupons
       tags:
       - Payment
       x-soracom-cli:
@@ -72,9 +70,7 @@ paths:
       description: 'Returns result of a payment transaction.
 
 
-        **Warning**: The maximum information you can get is for the last 18 months. If you need the information before that time, please contact [Soracom Support](https://support.soracom.io).
-
-        '
+        **Warning**: The maximum information you can get is for the last 18 months. If you need the information before that time, please contact Soracom Support.'
       operationId: getPaymentTransaction
       parameters:
       - description: Payment transaction ID. It can be obtained via [Billing:getBillingHistory API](#!/Billing/getBillingHistory) or [Billing:getBilling API](#!/Billing/getBilling).
@@ -97,7 +93,7 @@ paths:
       security:
       - api_key: []
         api_token: []
-      summary: Get payment transaction result.
+      summary: Get payment transaction result
       tags:
       - Payment
       x-soracom-cli:
@@ -118,7 +114,7 @@ paths:
       security:
       - api_key: []
         api_token: []
-      summary: Get current payment method information.
+      summary: Get current payment method information
       tags:
       - Payment
       x-soracom-cli:
@@ -149,9 +145,7 @@ paths:
       description: 'List payment statements.
 
 
-        **Warning**: The maximum information you can get is for the last 18 months. If you need the information before that time, please contact [Soracom Support](https://support.soracom.io).
-
-        '
+        **Warning**: The maximum information you can get is for the last 18 months. If you need the information before that time, please contact Soracom Support.'
       operationId: listPaymentStatements
       responses:
         '200':
@@ -173,9 +167,7 @@ paths:
       description: 'Export payment statement.
 
 
-        **Warning**: The maximum information you can get is for the last 18 months. If you need the information before that time, please contact [Soracom Support](https://support.soracom.io).
-
-        '
+        **Warning**: The maximum information you can get is for the last 18 months. If you need the information before that time, please contact Soracom Support.'
       operationId: exportPaymentStatement
       parameters:
       - description: Payment statement ID
@@ -259,9 +251,7 @@ paths:
       description: 'Returns a list of contracted long term discounts.
 
 
-        **Warning**: Information can be obtained up to 18 months in the past or 6 months after the contract ends. If you need the information before that time, please contact [Soracom Support](https://support.soracom.io).
-
-        '
+        **Warning**: Information can be obtained up to 18 months in the past or 6 months after the contract ends. If you need the information before that time, please contact Soracom Support.'
       operationId: listVolumeDiscounts
       responses:
         '200':
@@ -283,9 +273,7 @@ paths:
       description: 'Returns contracted long term discount.
 
 
-        **Warning**: Information can be obtained up to 18 months in the past or 6 months after the contract ends. If you need the information before that time, please contact [Soracom Support](https://support.soracom.io).
-
-        '
+        **Warning**: Information can be obtained up to 18 months in the past or 6 months after the contract ends. If you need the information before that time, please contact Soracom Support.'
       operationId: getVolumeDiscount
       parameters:
       - description: Contract ID.
@@ -313,42 +301,60 @@ paths:
       - volume-discounts get
 components:
   schemas:
-    GetPaymentMethodResult:
+    PaymentAmount:
+      description: Payment amount.
       properties:
-        errorCode:
-          description: Error code (only if payment information is invalid)
+        currency:
+          description: Currency.
           enum:
-          - success
-          - processing
-          - invalid_request
-          - invalid_number
-          - incorrect_number
-          - invalid_name
-          - invalid_expiry_month
-          - invalid_expiry_year
-          - invalid_expiry
-          - incorrect_expiry
-          - invalid_cvc
-          - incorrect_cvc
-          - card_declined
-          - missing
-          - processing_error
+          - JPY
+          - USD
+          - EUR
           type: string
-        errorMessage:
-          description: Error message (only if payment information is invalid)
+        paymentAmount:
+          type: number
+        subTotalAmount:
+          type: number
+        taxAmount:
+          description: Tax amount.
+          format: double
+          type: number
+        taxFreeSubTotalAmount:
+          description: Tax free sub total amount.
+          format: double
+          type: number
+        taxRate:
+          type: object
+        taxableSubTotalAmount:
+          description: Taxable sub total amount.
+          format: double
+          type: number
+        totalAmount:
+          description: Total amount (tax included).
+          format: double
+          type: number
+        withholdingTaxAmount:
+          description: Withholding tax amount.
+          format: double
+          type: number
+      type: object
+    ListCouponResponse:
+      properties:
+        couponList:
+          description: Coupons
+          items:
+            $ref: '#/components/schemas/CouponResponse'
+          type: array
+      type: object
+    PaymentDescription:
+      description: Payment description.
+      properties:
+        description:
           type: string
-        properties:
-          description: Payment information
-          type: string
-        providerType:
-          description: Provider type
-          enum:
-          - WebPay
-          type: string
-        updateDate:
-          description: Update date
-          example: yyyyMMddHHmmss
-          type: string
+        itemList:
+          items:
+            type: string
+          type: array
       type: object
     PaymentStatementResponse:
       properties:
@@ -388,13 +394,17 @@ components:
           description: Payment statement information
           type: string
       type: object
-    ListPaymentStatementResponse:
+    FileExportResponse:
       properties:
-        paymentStatementsList:
-          description: Payment statements.
-          items:
-            $ref: '#/components/schemas/PaymentStatementResponse'
-          type: array
+        exportedFileId:
+          description: File Export ID. Specify this ID when calling [Files:getExportedFile API](#!/Files/getExportedFile) to get the URL to download the file. Included only if `export_mode` is `async`.
+          type: string
+        exportedFilePath:
+          description: Path of the exported file. Included only if `export_mode` is `async`.
+          type: string
+        url:
+          description: URL to download the file. Included only if `export_mode` is `sync`.
+          type: string
       type: object
     GetPaymentTransactionResult:
       properties:
@@ -433,73 +443,6 @@ components:
           - error
           type: string
       type: object
-    RegisterPayerInformationModel:
-      properties:
-        companyName:
-          description: Company name
-          type: string
-        department:
-          description: Department.
-          type: string
-        fullName:
-          description: Full name.
-          type: string
-      type: object
-    PaymentAmount:
-      description: Payment amount.
-      properties:
-        currency:
-          description: Currency.
-          enum:
-          - JPY
-          - USD
-          - EUR
-          type: string
-        paymentAmount:
-          type: number
-        subTotalAmount:
-          type: number
-        taxAmount:
-          description: Tax amount.
-          format: double
-          type: number
-        taxFreeSubTotalAmount:
-          description: Tax free sub total amount.
-          format: double
-          type: number
-        taxRate:
-          type: object
-        taxableSubTotalAmount:
-          description: Taxable sub total amount.
-          format: double
-          type: number
-        totalAmount:
-          description: Total amount (tax included).
-          format: double
-          type: number
-        withholdingTaxAmount:
-          description: Withholding tax amount.
-          format: double
-          type: number
-      type: object
-    ListVolumeDiscountResponse:
-      properties:
-        volumeDiscountList:
-          description: Contracted long term discounts.
-          items:
-            $ref: '#/components/schemas/GetVolumeDiscountResponse'
-          type: array
-      type: object
-    PaymentDescription:
-      description: Payment description.
-      properties:
-        description:
-          type: string
-        itemList:
-          items:
-            type: string
-          type: array
-      type: object
     CouponResponse:
       properties:
         amount:
@@ -531,25 +474,70 @@ components:
           description: Order ID.
           type: string
       type: object
-    ListCouponResponse:
+    ListVolumeDiscountResponse:
       properties:
-        couponList:
-          description: Coupons
+        volumeDiscountList:
+          description: Contracted long term discounts.
           items:
-            $ref: '#/components/schemas/CouponResponse'
+            $ref: '#/components/schemas/GetVolumeDiscountResponse'
           type: array
       type: object
-    FileExportResponse:
+    RegisterPayerInformationModel:
       properties:
-        exportedFileId:
-          description: File Export ID. Specify this ID when calling [Files:getExportedFile API](#!/Files/getExportedFile) to get the URL to download the file. Included only if `export_mode` is `async`.
+        companyName:
+          description: Company name
           type: string
-        exportedFilePath:
-          description: Path of the exported file. Included only if `export_mode` is `async`.
+        department:
+          description: Department.
           type: string
-        url:
-          description: URL to download the file. Included only if `export_mode` is `sync`.
+        fullName:
+          description: Full name.
           type: string
+      type: object
+    GetPaymentMethodResult:
+      properties:
+        errorCode:
+          description: Error code (only if payment information is invalid)
+          enum:
+          - success
+          - processing
+          - invalid_request
+          - invalid_number
+          - incorrect_number
+          - invalid_name
+          - invalid_expiry_month
+          - invalid_expiry_year
+          - invalid_expiry
+          - incorrect_expiry
+          - invalid_cvc
+          - incorrect_cvc
+          - card_declined
+          - missing
+          - processing_error
+          type: string
+        errorMessage:
+          description: Error message (only if payment information is invalid)
+          type: string
+        properties:
+          description: Payment information
+          type: string
+        providerType:
+          description: Provider type
+          enum:
+          - WebPay
+          type: string
+        updateDate:
+          description: Update date
+          example: yyyyMMddHHmmss
+          type: string
+      type: object
+    ListPaymentStatementResponse:
+      properties:
+        paymentStatementsList:
+          description: Payment statements.
+          items:
+            $ref: '#/components/schemas/PaymentStatementResponse'
+          type: array
       type: object
     GetVolumeDiscountResponse:
       properties:

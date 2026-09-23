@@ -9,8 +9,8 @@ servers:
 - description: Global coverage production API endpoint
   url: https://g.api.soracom.io/v1
 tags:
-- description: '[Audit logs](/en/docs/api-audit-logs/)'
-  name: AuditLog
+- description: Audit logs
+  name: Audit Log
 paths:
   /audit_logs/api:
     get:
@@ -71,7 +71,7 @@ paths:
         api_token: []
       summary: Retrieve audit logs for Soracom API calls
       tags:
-      - AuditLog
+      - Audit Log
       x-soracom-cli:
       - audit-logs api get
       x-soracom-cli-pagination:
@@ -161,7 +161,7 @@ paths:
         api_token: []
       summary: Retrieve audit logs for Soracom Napter
       tags:
-      - AuditLog
+      - Audit Log
       x-soracom-cli:
       - audit-logs napter get
       x-soracom-cli-pagination:
@@ -171,27 +171,18 @@ paths:
           header: x-soracom-next-key
 components:
   schemas:
-    APIAuditLogEntry:
+    NapterAuditLogDirection:
       properties:
-        apiKind:
-          description: The kind of the API (e.g., `/v1/auth`).
+        destinationIPAddress:
           type: string
-        operatorId:
-          description: The operator ID that called the API.
-          type: string
-        remoteIpAddress:
-          description: The IP address of the caller.
-          type: string
-        requestPath:
-          description: The request path that has been called.
-          type: string
-        requestedTimeEpochMs:
-          description: The timestamp of the API call. This can be used as the `last_evaluated_key` request parameter, for pagination.
+        destinationPort:
           format: int64
           type: integer
-        userName:
-          description: The SAM username that called the API. If this parameter is empty, it means the caller user is the root user.
+        sourceIPAddress:
           type: string
+        sourcePort:
+          format: int64
+          type: integer
       type: object
     NapterAuditLogEntry:
       properties:
@@ -220,18 +211,27 @@ components:
           - EXPIRED
           type: string
       type: object
-    NapterAuditLogDirection:
+    APIAuditLogEntry:
       properties:
-        destinationIPAddress:
+        apiKind:
+          description: The kind of the API (e.g., `/v1/auth`).
           type: string
-        destinationPort:
+        operatorId:
+          description: The operator ID that called the API.
+          type: string
+        remoteIpAddress:
+          description: The IP address of the caller.
+          type: string
+        requestPath:
+          description: The request path that has been called.
+          type: string
+        requestedTimeEpochMs:
+          description: The timestamp of the API call. This can be used as the `last_evaluated_key` request parameter, for pagination.
           format: int64
           type: integer
-        sourceIPAddress:
+        userName:
+          description: The SAM username that called the API. If this parameter is empty, it means the caller user is the root user.
           type: string
-        sourcePort:
-          format: int64
-          type: integer
       type: object
   securitySchemes:
     api_key:

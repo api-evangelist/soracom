@@ -9,13 +9,11 @@ servers:
 - description: Global coverage production API endpoint
   url: https://g.api.soracom.io/v1
 tags:
-- description: '- [Generate API key and token](/en/tools/api/key-and-token/)
+- description: '- Generate API key and token
 
     - Password reset token generation and verification
 
-    - [Switch user](/en/docs/switch-user/) API key and token generation
-
-    '
+    - Switch user API key and token generation'
   name: Auth
 paths:
   /auth:
@@ -30,9 +28,7 @@ paths:
         - To perform authentication by a SAM user, specify `operatorId`, `userName` and `password`.
 
 
-        An API key and API token will be included in the response if successful. Use the API key and API token to perform subsequent requests.
-
-        '
+        An API key and API token will be included in the response if successful. Use the API key and API token to perform subsequent requests.'
       operationId: auth
       requestBody:
         content:
@@ -64,7 +60,7 @@ paths:
           description: Authentication successful.
         '401':
           description: Authentication failed.
-      summary: Performs authentication to access to the Soracom API.
+      summary: Performs authentication to access to the Soracom API
       tags:
       - Auth
       x-soracom-cli:
@@ -79,7 +75,7 @@ paths:
       security:
       - api_key: []
         api_token: []
-      summary: Revokes an API key and API token in order to remove access to the Soracom API.
+      summary: Revokes an API key and API token in order to remove access to the Soracom API
       tags:
       - Auth
       x-soracom-cli:
@@ -102,7 +98,7 @@ paths:
           description: Password reset token successfully sent to the specified email address.
         '400':
           description: Invalid email address.
-      summary: Issues a password reset token for the operator.
+      summary: Issues a password reset token for the operator
       tags:
       - Auth
       x-soracom-cli:
@@ -128,14 +124,14 @@ paths:
           description: Invalid token.
         '404':
           description: Token expired.
-      summary: Verifies the password reset token and updates password.
+      summary: Verifies the password reset token and updates password
       tags:
       - Auth
       x-soracom-cli:
       - auth verify-password-reset-token
   /auth/switch_user:
     post:
-      description: Using the API key and API token of the original user, call this API to issue an API key and API token of the target user that you are switching to. The original user should already be registered in the target user's trust policy. See [User:updateUserTrustPolicy](#!/User/updateUserTrustPolicy) for information on updating the trust policy.
+      description: Using the API key and API token of the original user, call this API to issue an API key and API token of the target user that you are switching to. The original user should already be registered in the target user's trust policy. See User:updateUserTrustPolicy for information on updating the trust policy.
       operationId: switchUser
       requestBody:
         content:
@@ -156,23 +152,13 @@ paths:
       security:
       - api_key: []
         api_token: []
-      summary: Generates an API key and an API token to call APIs as a different user.
+      summary: Generates an API key and an API token to call APIs as a different user
       tags:
       - Auth
       x-soracom-cli:
       - auth switch-user
 components:
   schemas:
-    VerifyPasswordResetTokenRequest:
-      properties:
-        password:
-          type: string
-        token:
-          type: string
-      required:
-      - password
-      - token
-      type: object
     AuthRequest:
       properties:
         authKey:
@@ -194,13 +180,6 @@ components:
           type: integer
         userName:
           type: string
-      type: object
-    IssuePasswordResetTokenRequest:
-      properties:
-        email:
-          type: string
-      required:
-      - email
       type: object
     AuthResponse:
       properties:
@@ -238,6 +217,23 @@ components:
         userName:
           description: The SAM user name of the specified operator ID to be switched to.
           type: string
+      type: object
+    VerifyPasswordResetTokenRequest:
+      properties:
+        password:
+          type: string
+        token:
+          type: string
+      required:
+      - password
+      - token
+      type: object
+    IssuePasswordResetTokenRequest:
+      properties:
+        email:
+          type: string
+      required:
+      - email
       type: object
   securitySchemes:
     api_key:

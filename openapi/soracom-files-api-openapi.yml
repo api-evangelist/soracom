@@ -1,8 +1,8 @@
 openapi: 3.2.0
 info:
+  description: Soracom API v1
   title: Soracom Files API
   version: 20250903-043502
-  description: 'Operations tagged Files across 2 of this provider''s published API definitions: soracom-harvest-api-openapi.yml, soracom-platform-api-openapi.yml. Each path carries the servers of the definition it was published in.'
 servers:
 - description: Japan coverage production API endpoint
   url: https://api.soracom.io/v1
@@ -11,15 +11,13 @@ servers:
 tags:
 - description: 'Download files exported by the following APIs:
 
-    - [Billing](#/Billing)
+    - Billing
 
-    - [Payment: exportPaymentStatement](#/Payment/exportPaymentStatement)
+    - Payment: exportPaymentStatement
 
-    - [Stats](#/Stats)
+    - Stats
 
-    - [Subscriber:exportSubscribers](#/Subscriber/exportSubscribers)
-
-    '
+    - Subscriber:exportSubscribers'
   name: Files
 paths:
   /files/exported/{exported_file_id}:
@@ -30,23 +28,21 @@ paths:
         The following APIs are available to export files asynchronously. The `exported_file_id` is the file output ID (the value of `exportedFileId`) obtained from the following API.
 
 
-        - [Billing:exportBilling API](#!/Billing/exportBilling)
+        - Billing:exportBilling API
 
-        - [Billing:exportLatestBilling API](#!/Billing/exportLatestBilling)
+        - Billing:exportLatestBilling API
 
-        - [Payment:exportPaymentStatement API](#!/Payment/exportPaymentStatement)
+        - Payment:exportPaymentStatement API
 
-        - [Stats:exportAirStats API](#!/Stats/exportAirStats)
+        - Stats:exportAirStats API
 
-        - [Stats:exportBeamStats API](#!/Stats/exportBeamStats)
+        - Stats:exportBeamStats API
 
-        - [Stats:exportFunkStats API](#!/Stats/exportFunkStats)
+        - Stats:exportFunkStats API
 
-        - [Stats:exportFunnelStats API](#!/Stats/exportFunnelStats)
+        - Stats:exportFunnelStats API
 
-        - [Subscriber:exportSubscribers API](#!/Subscriber/exportSubscribers)
-
-        '
+        - Subscriber:exportSubscribers API'
       operationId: getExportedFile
       parameters:
       - description: File export ID.
@@ -68,16 +64,11 @@ paths:
       security:
       - api_key: []
         api_token: []
-      summary: Get the progress of the process when the file is exported asynchronously.
+      summary: Get the progress of the process when the file is exported asynchronously
       tags:
       - Files
       x-soracom-cli:
       - files get-exported
-    servers:
-    - description: Japan coverage production API endpoint
-      url: https://api.soracom.io/v1
-    - description: Global coverage production API endpoint
-      url: https://g.api.soracom.io/v1
 components:
   schemas:
     GetExportedFileResponse:
@@ -128,6 +119,3 @@ components:
       in: header
       name: X-Soracom-Token
       type: apiKey
-x-refined-from:
-- soracom-harvest-api-openapi.yml
-- soracom-platform-api-openapi.yml

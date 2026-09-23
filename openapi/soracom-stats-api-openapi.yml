@@ -9,7 +9,7 @@ servers:
 - description: Global coverage production API endpoint
   url: https://g.api.soracom.io/v1
 tags:
-- description: '[Data usage history](/en/docs/air/view-data-usage/) retrieval'
+- description: Data usage history retrieval
   name: Stats
 paths:
   /stats/air/groups/{group_id}:
@@ -58,7 +58,7 @@ paths:
       security:
       - api_key: []
         api_token: []
-      summary: Get Air Usage Report of a Group.
+      summary: Get Air Usage Report of a Group
       tags:
       - Stats
       x-soracom-cli:
@@ -109,7 +109,7 @@ paths:
       security:
       - api_key: []
         api_token: []
-      summary: Get Air Usage Report of an Operator.
+      summary: Get Air Usage Report of an Operator
       tags:
       - Stats
       x-soracom-cli:
@@ -121,9 +121,7 @@ paths:
 
         **Warning**: If there is no data usage during the specified period, a CSV file with only a header row will be output.
 
-        **Info**: You can also check the data usage of terminated IoT SIMs.
-
-        '
+        **Info**: You can also check the data usage of terminated IoT SIMs.'
       operationId: exportAirStats
       parameters:
       - description: Operator ID. The operator ID can be obtained from the [Operator:getOperator API](#!/Operator/getOperator).
@@ -203,9 +201,7 @@ paths:
       description: 'Retrieves the usage report for the SIM specified by the SIM ID.
 
 
-        **Warning**: The data traffic of the terminated IoT SIM cannot be confirmed.
-
-        '
+        **Warning**: The data traffic of the terminated IoT SIM cannot be confirmed.'
       operationId: getAirStatsOfSim
       parameters:
       - description: SIM ID of the target SIM. The SIM ID can be obtained from the [Sim:listSims API](#!/Sim/listSims).
@@ -248,7 +244,7 @@ paths:
       security:
       - api_key: []
         api_token: []
-      summary: Get Air Usage Report of SIM.
+      summary: Get Air Usage Report of SIM
       tags:
       - Stats
       x-soracom-cli:
@@ -258,9 +254,7 @@ paths:
       description: 'Retrieves the usage report for the subscriber specified by the IMSI.
 
 
-        **Warning**: The data traffic of the terminated IoT SIM cannot be confirmed.
-
-        '
+        **Warning**: The data traffic of the terminated IoT SIM cannot be confirmed.'
       operationId: getAirStats
       parameters:
       - description: The target IMSI. The IMSI can be obtained from the [Sim:listSims API](#!/Sim/listSims).
@@ -303,7 +297,7 @@ paths:
       security:
       - api_key: []
         api_token: []
-      summary: Get Air Usage Report of Subscriber.
+      summary: Get Air Usage Report of Subscriber
       tags:
       - Stats
       x-soracom-cli:
@@ -611,7 +605,7 @@ paths:
       security:
       - api_key: []
         api_token: []
-      summary: Get 'Harvest usage report' for the specified operator.
+      summary: Get 'Harvest usage report' for the specified operator
       tags:
       - Stats
       x-soracom-cli:
@@ -621,9 +615,7 @@ paths:
       description: 'Download the Harvest Data Write Count Results Data CSV file that contains the usage report of all the IoT SIMs for the specified operator.
 
 
-        **Info**: You can also check the Harvest Data write counts of the terminated IoT SIM.
-
-        '
+        **Info**: You can also check the Harvest Data write counts of the terminated IoT SIM.'
       operationId: exportHarvestStats
       parameters:
       - description: Operator ID.
@@ -741,65 +733,30 @@ paths:
       security:
       - api_key: []
         api_token: []
-      summary: Get Napter audit logs' monthly exported data stats.
+      summary: Get Napter audit logs' monthly exported data stats
       tags:
       - Stats
       x-soracom-cli:
       - stats napter audit-logs get
 components:
   schemas:
-    SoracomFunkStats:
+    HarvestExportedDataStatsResponse:
       properties:
-        count:
-          format: int64
+        exportedBytes:
+          description: exportedBytes
           type: integer
+        yearMonth:
+          description: yearMonth
+          type: string
       type: object
-    SoracomBeamStats:
+    NapterAuditLogsExportedDataStatsResponse:
       properties:
-        count:
-          format: int64
+        exportedBytes:
+          description: exportedBytes
           type: integer
-      type: object
-    HarvestStatsResponse:
-      properties:
-        harvestStatsMap:
-          additionalProperties:
-            $ref: '#/components/schemas/SoracomHarvestStats'
-          type: object
-        unixtime:
-          format: int64
-          type: integer
-      type: object
-    SoracomFunnelStats:
-      properties:
-        count:
-          format: int64
-          type: integer
-      type: object
-    AirAggregatedStatsResponse:
-      properties:
-        downloadByteSizeTotal:
-          description: Number of bytes downloaded during the period covered by the aggregate
-          format: int64
-          type: integer
-        unixtime:
-          description: Start date and time of the period under consideration (UNIX time in seconds)
-          format: int64
-          type: integer
-        uploadByteSizeTotal:
-          description: Number of bytes uploaded during the period covered by the aggregate
-          format: int64
-          type: integer
-      type: object
-    FunkStatsResponse:
-      properties:
-        funkStatsMap:
-          additionalProperties:
-            $ref: '#/components/schemas/SoracomFunkStats'
-          type: object
-        unixtime:
-          format: int64
-          type: integer
+        yearMonth:
+          description: yearMonth
+          type: string
       type: object
     AirStatsResponse:
       properties:
@@ -814,6 +771,28 @@ components:
           format: int64
           type: integer
       type: object
+    HarvestStatsResponse:
+      properties:
+        harvestStatsMap:
+          additionalProperties:
+            $ref: '#/components/schemas/SoracomHarvestStats'
+          type: object
+        unixtime:
+          format: int64
+          type: integer
+      type: object
+    SoracomBeamStats:
+      properties:
+        count:
+          format: int64
+          type: integer
+      type: object
+    SoracomHarvestStats:
+      properties:
+        count:
+          format: int64
+          type: integer
+      type: object
     FunnelStatsResponse:
       properties:
         funnelStatsMap:
@@ -823,42 +802,6 @@ components:
         unixtime:
           format: int64
           type: integer
-      type: object
-    DataTrafficStats:
-      properties:
-        downloadByteSizeTotal:
-          format: int64
-          type: integer
-        downloadPacketSizeTotal:
-          format: int64
-          type: integer
-        uploadByteSizeTotal:
-          format: int64
-          type: integer
-        uploadPacketSizeTotal:
-          format: int64
-          type: integer
-      type: object
-    BeamStatsResponse:
-      properties:
-        beamStatsMap:
-          additionalProperties:
-            $ref: '#/components/schemas/SoracomBeamStats'
-          type: object
-        date:
-          type: string
-        unixtime:
-          format: int64
-          type: integer
-      type: object
-    NapterAuditLogsExportedDataStatsResponse:
-      properties:
-        exportedBytes:
-          description: exportedBytes
-          type: integer
-        yearMonth:
-          description: yearMonth
-          type: string
       type: object
     ExportRequest:
       properties:
@@ -880,12 +823,6 @@ components:
           format: int64
           type: integer
       type: object
-    SoracomHarvestStats:
-      properties:
-        count:
-          format: int64
-          type: integer
-      type: object
     FileExportResponse:
       properties:
         exportedFileId:
@@ -898,14 +835,69 @@ components:
           description: URL to download the file. Included only if `export_mode` is `sync`.
           type: string
       type: object
-    HarvestExportedDataStatsResponse:
+    SoracomFunnelStats:
       properties:
-        exportedBytes:
-          description: exportedBytes
+        count:
+          format: int64
           type: integer
-        yearMonth:
-          description: yearMonth
+      type: object
+    SoracomFunkStats:
+      properties:
+        count:
+          format: int64
+          type: integer
+      type: object
+    FunkStatsResponse:
+      properties:
+        funkStatsMap:
+          additionalProperties:
+            $ref: '#/components/schemas/SoracomFunkStats'
+          type: object
+        unixtime:
+          format: int64
+          type: integer
+      type: object
+    BeamStatsResponse:
+      properties:
+        beamStatsMap:
+          additionalProperties:
+            $ref: '#/components/schemas/SoracomBeamStats'
+          type: object
+        date:
           type: string
+        unixtime:
+          format: int64
+          type: integer
+      type: object
+    DataTrafficStats:
+      properties:
+        downloadByteSizeTotal:
+          format: int64
+          type: integer
+        downloadPacketSizeTotal:
+          format: int64
+          type: integer
+        uploadByteSizeTotal:
+          format: int64
+          type: integer
+        uploadPacketSizeTotal:
+          format: int64
+          type: integer
+      type: object
+    AirAggregatedStatsResponse:
+      properties:
+        downloadByteSizeTotal:
+          description: Number of bytes downloaded during the period covered by the aggregate
+          format: int64
+          type: integer
+        unixtime:
+          description: Start date and time of the period under consideration (UNIX time in seconds)
+          format: int64
+          type: integer
+        uploadByteSizeTotal:
+          description: Number of bytes uploaded during the period covered by the aggregate
+          format: int64
+          type: integer
       type: object
   securitySchemes:
     api_key:

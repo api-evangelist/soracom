@@ -9,14 +9,15 @@ servers:
 - description: Global coverage production API endpoint
   url: https://g.api.soracom.io/v1
 tags:
-- description: Gadget API compatible devices<ul><li>[SoraCam dedicated cellular pack](/en/guides/soracom-cloud-camera-services/setting-cellular-pack/)</li></ul>
+- description: 'Gadget API compatible devices
+
+
+    SoraCam dedicated cellular pack'
   name: Gadget
 paths:
   /gadgets:
     get:
-      description: 'Returns a list of gadgets that match certain criteria. If the total number of gadgets does not fit in one page, a URL for accessing the next page is returned in the `link` header of the response.
-
-        '
+      description: Returns a list of gadgets that match certain criteria. If the total number of gadgets does not fit in one page, a URL for accessing the next page is returned in the `link` header of the response.
       operationId: listGadgets
       parameters:
       - description: 'Product ID of the target Gadget API compatible device for filtering the search.
@@ -419,24 +420,6 @@ paths:
       - gadgets terminate
 components:
   schemas:
-    TagUpdateRequest:
-      properties:
-        tagName:
-          type: string
-        tagValue:
-          type: string
-      required:
-      - tagName
-      - tagValue
-      type: object
-    GadgetRegistrationRequest:
-      properties:
-        tags:
-          additionalProperties:
-            type: string
-          description: Tags.
-          type: object
-      type: object
     Gadget:
       properties:
         attributes:
@@ -512,6 +495,24 @@ components:
 
             '
           type: boolean
+      type: object
+    GadgetRegistrationRequest:
+      properties:
+        tags:
+          additionalProperties:
+            type: string
+          description: Tags.
+          type: object
+      type: object
+    TagUpdateRequest:
+      properties:
+        tagName:
+          type: string
+        tagValue:
+          type: string
+      required:
+      - tagName
+      - tagValue
       type: object
   securitySchemes:
     api_key:

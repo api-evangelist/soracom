@@ -1,20 +1,20 @@
 openapi: 3.2.0
 info:
+  description: Soracom API v1
   title: Soracom Analysis API
   version: 20250903-043502
-  description: 'Operations tagged Analysis across 2 of this provider''s published API definitions: soracom-analysis-query-api-openapi.yml, soracom-platform-api-openapi.yml. Each path carries the servers of the definition it was published in.'
 servers:
 - description: Japan coverage production API endpoint
   url: https://api.soracom.io/v1
 - description: Global coverage production API endpoint
   url: https://g.api.soracom.io/v1
 tags:
-- description: '[Soracom Query](/en/docs/query/)'
+- description: Soracom Query
   name: Analysis
 paths:
   /analysis/queries:
     post:
-      description: Executes a SQL query asynchronously. You can check the status of a SQL query execution with the [Analysis:getAnalysisQueries API](#/Analysis/getAnalysisQueries).
+      description: Executes a SQL query asynchronously. You can check the status of a SQL query execution with the Analysis:getAnalysisQueries API.
       operationId: startAnalysisQueries
       requestBody:
         content:
@@ -44,11 +44,6 @@ paths:
       - Analysis
       x-soracom-cli:
       - analysis queries start
-    servers:
-    - description: Japan coverage production API endpoint
-      url: https://api.soracom.io/v1
-    - description: Global coverage production API endpoint
-      url: https://g.api.soracom.io/v1
   /analysis/queries/{query_id}:
     get:
       description: Retrieve the execution status of a SQL query.
@@ -90,14 +85,37 @@ paths:
       - Analysis
       x-soracom-cli:
       - analysis queries get
-    servers:
-    - description: Japan coverage production API endpoint
-      url: https://api.soracom.io/v1
-    - description: Global coverage production API endpoint
-      url: https://g.api.soracom.io/v1
   /analysis/schemas:
     get:
-      description: "Retrieves the available schemas and their column information within the database. You can use this information as a reference when converting data types of data retrieved with the [Analysis:startAnalysisQueries API](#/Analysis/startAnalysisQueries).\nExample: If the column `type` is `string` as shown below, it can be treated as a string.\n```json\n{\n  \"name\": \"SIM_SESSION_EVENTS\",\n  \"columnInfo\": [\n      {\n          \"name\": \"APN\",\n          \"type\": \"string\",\n          \"databaseType\": \"TEXT\",\n          \"description\": \"Access Point Name indicating the network gateway for the SIM session.\"\n      }\n  ]\n}\n```\n"
+      description: 'Retrieves the available schemas and their column information within the database. You can use this information as a reference when converting data types of data retrieved with the Analysis:startAnalysisQueries API.
+
+        Example: If the column `type` is `string` as shown below, it can be treated as a string.
+
+        ```json
+
+        {
+
+        "name": "SIM_SESSION_EVENTS",
+
+        "columnInfo": [
+
+        {
+
+        "name": "APN",
+
+        "type": "string",
+
+        "databaseType": "TEXT",
+
+        "description": "Access Point Name indicating the network gateway for the SIM session."
+
+        }
+
+        ]
+
+        }
+
+        ```'
       operationId: getAnalysisSchemas
       responses:
         '200':
@@ -141,13 +159,14 @@ paths:
       - Analysis
       x-soracom-cli:
       - analysis schemas
-    servers:
-    - description: Japan coverage production API endpoint
-      url: https://api.soracom.io/v1
-    - description: Global coverage production API endpoint
-      url: https://g.api.soracom.io/v1
 components:
   schemas:
+    StartAnalysisQueriesResponse:
+      properties:
+        queryId:
+          description: SQL query ID.
+          type: string
+      type: object
     GetAnalysisQueriesResponse:
       properties:
         columnInfo:
@@ -230,12 +249,6 @@ components:
           description: Number of SQL queries executed this month.
           type: integer
       type: object
-    StartAnalysisQueriesResponse:
-      properties:
-        queryId:
-          description: SQL query ID.
-          type: string
-      type: object
     StartAnalysisQueriesRequest:
       properties:
         from:
@@ -317,6 +330,3 @@ components:
       in: header
       name: X-Soracom-Token
       type: apiKey
-x-refined-from:
-- soracom-analysis-query-api-openapi.yml
-- soracom-platform-api-openapi.yml

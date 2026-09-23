@@ -1,22 +1,20 @@
 openapi: 3.2.0
 info:
+  description: Soracom API v1
   title: Soracom Lora Device API
   version: 20250903-043502
-  description: 'Operations tagged LoraDevice across 2 of this provider''s published API definitions: soracom-lorawan-api-openapi.yml, soracom-platform-api-openapi.yml. Each path carries the servers of the definition it was published in.'
 servers:
 - description: Japan coverage production API endpoint
   url: https://api.soracom.io/v1
 - description: Global coverage production API endpoint
   url: https://g.api.soracom.io/v1
 tags:
-- description: '[Soracom Air for LoRaWAN](/en/docs/air-for-lorawan/) devices'
+- description: Soracom Air for LoRaWAN devices
   name: LoraDevice
 paths:
   /lora_devices:
     get:
-      description: 'Returns a list of LoRaWAN devices that match certain criteria. If the total number of LoRaWAN devices does not fit in one page, a URL for accessing the next page is returned in the `link` header of the response.
-
-        '
+      description: Returns a list of LoRaWAN devices that match certain criteria. If the total number of LoRaWAN devices does not fit in one page, a URL for accessing the next page is returned in the `link` header of the response.
       operationId: listLoraDevices
       parameters:
       - description: Tag name for filtering the search (exact match).
@@ -65,7 +63,7 @@ paths:
       security:
       - api_key: []
         api_token: []
-      summary: List LoRaWAN devices.
+      summary: List LoRaWAN devices
       tags:
       - LoraDevice
       x-soracom-cli:
@@ -75,11 +73,6 @@ paths:
           param: last_evaluated_key
         response:
           header: x-soracom-next-key
-    servers:
-    - description: Japan coverage production API endpoint
-      url: https://api.soracom.io/v1
-    - description: Global coverage production API endpoint
-      url: https://g.api.soracom.io/v1
   /lora_devices/{device_id}:
     get:
       description: Returns information about the specified LoRaWAN device.
@@ -103,21 +96,14 @@ paths:
       security:
       - api_key: []
         api_token: []
-      summary: Get LoRaWAN device.
+      summary: Get LoRaWAN device
       tags:
       - LoraDevice
       x-soracom-cli:
       - lora-devices get
-    servers:
-    - description: Japan coverage production API endpoint
-      url: https://api.soracom.io/v1
-    - description: Global coverage production API endpoint
-      url: https://g.api.soracom.io/v1
   /lora_devices/{device_id}/data:
     get:
-      description: 'Retrieves data that matches the specified conditions from the data sent by the specified LoRaWAN device to Harvest Data. If the data entries do not fit in one page, a URL to retrieve the next page with the same conditions will be included in the `link` header of the response.
-
-        '
+      description: Retrieves data that matches the specified conditions from the data sent by the specified LoRaWAN device to Harvest Data. If the data entries do not fit in one page, a URL to retrieve the next page with the same conditions will be included in the `link` header of the response.
       operationId: getDataFromLoraDevice
       parameters:
       - description: ID of the LoRaWAN device from which to retrieve data. The ID of a LoRaWAN device can be obtained using the [LoraDevice:listLoraDevices API](#!/LoraDevice/listLoraDevices).
@@ -211,16 +197,11 @@ paths:
       security:
       - api_key: []
         api_token: []
-      summary: Send data to a LoRaWAN device.
+      summary: Send data to a LoRaWAN device
       tags:
       - LoraDevice
       x-soracom-cli:
       - lora-devices send-data
-    servers:
-    - description: Japan coverage production API endpoint
-      url: https://api.soracom.io/v1
-    - description: Global coverage production API endpoint
-      url: https://g.api.soracom.io/v1
   /lora_devices/{device_id}/disable_termination:
     post:
       description: Disables termination of specified LoRaWAN device.
@@ -244,16 +225,11 @@ paths:
       security:
       - api_key: []
         api_token: []
-      summary: Disable Termination of LoRaWAN device.
+      summary: Disable Termination of LoRaWAN device
       tags:
       - LoraDevice
       x-soracom-cli:
       - lora-devices disable-termination
-    servers:
-    - description: Japan coverage production API endpoint
-      url: https://api.soracom.io/v1
-    - description: Global coverage production API endpoint
-      url: https://g.api.soracom.io/v1
   /lora_devices/{device_id}/enable_termination:
     post:
       description: Enables termination of specified LoRaWAN device.
@@ -277,16 +253,11 @@ paths:
       security:
       - api_key: []
         api_token: []
-      summary: Enable Termination of LoRaWAN device.
+      summary: Enable Termination of LoRaWAN device
       tags:
       - LoraDevice
       x-soracom-cli:
       - lora-devices enable-termination
-    servers:
-    - description: Japan coverage production API endpoint
-      url: https://api.soracom.io/v1
-    - description: Global coverage production API endpoint
-      url: https://g.api.soracom.io/v1
   /lora_devices/{device_id}/register:
     post:
       description: Register a LoRaWAN device.
@@ -315,16 +286,11 @@ paths:
       security:
       - api_key: []
         api_token: []
-      summary: Register LoRaWAN device.
+      summary: Register LoRaWAN device
       tags:
       - LoraDevice
       x-soracom-cli:
       - lora-devices register
-    servers:
-    - description: Japan coverage production API endpoint
-      url: https://api.soracom.io/v1
-    - description: Global coverage production API endpoint
-      url: https://g.api.soracom.io/v1
   /lora_devices/{device_id}/set_group:
     post:
       description: Adds a LoRaWAN device to a LoRaWAN group.
@@ -359,11 +325,6 @@ paths:
       - LoraDevice
       x-soracom-cli:
       - lora-devices set-group
-    servers:
-    - description: Japan coverage production API endpoint
-      url: https://api.soracom.io/v1
-    - description: Global coverage production API endpoint
-      url: https://g.api.soracom.io/v1
   /lora_devices/{device_id}/tags:
     put:
       description: Inserts/updates tags for the specified LoRaWAN device.
@@ -396,16 +357,11 @@ paths:
       security:
       - api_key: []
         api_token: []
-      summary: Bulk Insert or Update LoRaWAN device Tags.
+      summary: Bulk Insert or Update LoRaWAN device Tags
       tags:
       - LoraDevice
       x-soracom-cli:
       - lora-devices put-tags
-    servers:
-    - description: Japan coverage production API endpoint
-      url: https://api.soracom.io/v1
-    - description: Global coverage production API endpoint
-      url: https://g.api.soracom.io/v1
   /lora_devices/{device_id}/tags/{tag_name}:
     delete:
       description: Deletes a tag from the specified LoRaWAN device.
@@ -431,17 +387,12 @@ paths:
       security:
       - api_key: []
         api_token: []
-      summary: Delete LoRaWAN device Tag.
+      summary: Delete LoRaWAN device Tag
       tags:
       - LoraDevice
       x-sam-operationId: deleteTag
       x-soracom-cli:
       - lora-devices delete-tag
-    servers:
-    - description: Japan coverage production API endpoint
-      url: https://api.soracom.io/v1
-    - description: Global coverage production API endpoint
-      url: https://g.api.soracom.io/v1
   /lora_devices/{device_id}/terminate:
     post:
       description: Terminates the specified LoRaWAN device.
@@ -465,16 +416,11 @@ paths:
       security:
       - api_key: []
         api_token: []
-      summary: Terminate LoRaWAN device.
+      summary: Terminate LoRaWAN device
       tags:
       - LoraDevice
       x-soracom-cli:
       - lora-devices terminate
-    servers:
-    - description: Japan coverage production API endpoint
-      url: https://api.soracom.io/v1
-    - description: Global coverage production API endpoint
-      url: https://g.api.soracom.io/v1
   /lora_devices/{device_id}/unset_group:
     post:
       description: Removes a LoRaWAN device from a LoRaWAN group.
@@ -503,22 +449,44 @@ paths:
       - LoraDevice
       x-soracom-cli:
       - lora-devices unset-group
-    servers:
-    - description: Japan coverage production API endpoint
-      url: https://api.soracom.io/v1
-    - description: Global coverage production API endpoint
-      url: https://g.api.soracom.io/v1
 components:
   schemas:
-    TagUpdateRequest:
+    LastSeen:
       properties:
-        tagName:
+        rssi:
+          format: int32
+          type: integer
+        snr:
+          format: int32
+          type: integer
+        time:
+          format: date-time
           type: string
-        tagValue:
+      type: object
+    RegisterLoraDeviceRequest:
+      properties:
+        groupId:
           type: string
-      required:
-      - tagName
-      - tagValue
+        registrationSecret:
+          type: string
+        tags:
+          additionalProperties:
+            type: string
+          type: object
+      type: object
+    LoraData:
+      properties:
+        data:
+          type: string
+        fPort:
+          default: 2
+          type: integer
+      type: object
+    SetGroupRequest:
+      properties:
+        groupId:
+          description: Group ID. The group ID can be obtained using the [Group:listGroups API](#!/Group/listGroups).
+          type: string
       type: object
     DataEntry:
       properties:
@@ -542,35 +510,6 @@ components:
         time:
           format: int64
           type: integer
-      type: object
-    RegisterLoraDeviceRequest:
-      properties:
-        groupId:
-          type: string
-        registrationSecret:
-          type: string
-        tags:
-          additionalProperties:
-            type: string
-          type: object
-      type: object
-    LastSeen:
-      properties:
-        rssi:
-          format: int32
-          type: integer
-        snr:
-          format: int32
-          type: integer
-        time:
-          format: date-time
-          type: string
-      type: object
-    SetGroupRequest:
-      properties:
-        groupId:
-          description: Group ID. The group ID can be obtained using the [Group:listGroups API](#!/Group/listGroups).
-          type: string
       type: object
     LoraDevice:
       properties:
@@ -600,13 +539,15 @@ components:
           default: false
           type: boolean
       type: object
-    LoraData:
+    TagUpdateRequest:
       properties:
-        data:
+        tagName:
           type: string
-        fPort:
-          default: 2
-          type: integer
+        tagValue:
+          type: string
+      required:
+      - tagName
+      - tagValue
       type: object
   securitySchemes:
     api_key:
@@ -625,6 +566,3 @@ components:
       in: header
       name: X-Soracom-Token
       type: apiKey
-x-refined-from:
-- soracom-lorawan-api-openapi.yml
-- soracom-platform-api-openapi.yml

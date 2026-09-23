@@ -9,12 +9,50 @@ servers:
 - description: Global coverage production API endpoint
   url: https://g.api.soracom.io/v1
 tags:
-- description: '[Cell tower location information](/en/docs/air/get-location-info/#get-cell-tower-location-information)'
+- description: Cell tower location information
   name: CellLocation
 paths:
   /cell_locations:
     get:
-      description: "Retrieves location information (latitude/longitude) for a cell tower based on cell information such as Cell ID.\n\n- For 3G, please specify MCC, MNC, LAC, and CID. It is possible to retrieve approximate location information without CID, but the accuracy will be low.\n\n    3G example\n    ```\n    $ curl -X GET \"https://api.soracom.io/v1/cell_locations?mcc=440&mnc=10&lac=196\" \\\n    -H \"X-Soracom-API-Key: $X_SORACOM_API_KEY\" \\\n    -H \"X-Soracom-Token: $X_SORACOM_TOKEN\"\n    ```\n\n- For LTE (4G), please specify MCC, MNC, TAC, and ECID.\n\n    4G example\n    ```\n    $ curl -X GET \"https://api.soracom.io/v1/cell_locations?mcc=440&mnc=10&tac=5680&ecid=48872466\" \\\n    -H \"X-Soracom-API-Key: $X_SORACOM_API_KEY\" \\\n    -H \"X-Soracom-Token: $X_SORACOM_TOKEN\"\n    ```\n\nThe conversion of cell tower information to location information uses the OpenCelliD Project database. The specified cell tower information is used to extract the corresponding location information from the OpenCelliD Project database, but it is possible that the location information may not exist or may be different from the actual location.\n\n[![Creative Commons License](/assets/images/ccbysa_4.0_80x15.png)](https://creativecommons.org/licenses/by-sa/4.0/ \"no-icon-external-link\") <span xmlns:dct=\"http://purl.org/dc/terms/\" property=\"dct:title\"><a xmlns:cc=\"https://creativecommons.org/ns#\" href=\"https://opencellid.org\" property=\"cc:attributionName\" rel=\"cc:attributionURL\" target=\"_blank\">OpenCelliD Project</a></span> is licensed under a <a rel=\"license\" href=\"https://creativecommons.org/licenses/by-sa/4.0/\" target=\"_blank\">Creative Commons Attribution-ShareAlike 4.0 International License</a>\n"
+      description: 'Retrieves location information (latitude/longitude) for a cell tower based on cell information such as Cell ID.
+
+
+        - For 3G, please specify MCC, MNC, LAC, and CID. It is possible to retrieve approximate location information without CID, but the accuracy will be low.
+
+
+        3G example
+
+        ```
+
+        $ curl -X GET "https://api.soracom.io/v1/cell_locations?mcc=440&mnc=10&lac=196" \
+
+        -H "X-Soracom-API-Key: $X_SORACOM_API_KEY" \
+
+        -H "X-Soracom-Token: $X_SORACOM_TOKEN"
+
+        ```
+
+
+        - For LTE (4G), please specify MCC, MNC, TAC, and ECID.
+
+
+        4G example
+
+        ```
+
+        $ curl -X GET "https://api.soracom.io/v1/cell_locations?mcc=440&mnc=10&tac=5680&ecid=48872466" \
+
+        -H "X-Soracom-API-Key: $X_SORACOM_API_KEY" \
+
+        -H "X-Soracom-Token: $X_SORACOM_TOKEN"
+
+        ```
+
+
+        The conversion of cell tower information to location information uses the OpenCelliD Project database. The specified cell tower information is used to extract the corresponding location information from the OpenCelliD Project database, but it is possible that the location information may not exist or may be different from the actual location.
+
+
+        ![Creative Commons License](https://creativecommons.org/licenses/by-sa/4.0/ "no-icon-external-link") OpenCelliD Project is licensed under a Creative Commons Attribution-ShareAlike 4.0 International License'
       operationId: getCellLocation
       parameters:
       - description: MCC - Mobile Country Code.
@@ -93,9 +131,7 @@ paths:
       description: 'Retrieves a list of location information (latitude/longitude) for multiple cell towers based on cell information such as Cell ID. For 3G, please specify MCC, MNC, LAC, and CID. It is possible to retrieve approximate location information without CID, but the accuracy will be low. For LTE (4G), please specify MCC, MNC, TAC, and ECID. The conversion of cell tower information to location information uses the OpenCelliD Project database, so it is possible that the information may not exist or may be incorrect.
 
 
-        [![Creative Commons License](/assets/images/ccbysa_4.0_80x15.png)](https://creativecommons.org/licenses/by-sa/4.0/ "no-icon-external-link") <span xmlns:dct="http://purl.org/dc/terms/" property="dct:title"><a xmlns:cc="https://creativecommons.org/ns#" href="https://opencellid.org" property="cc:attributionName" rel="cc:attributionURL" target="_blank">OpenCelliD Project</a></span> is licensed under a <a rel="license" href="https://creativecommons.org/licenses/by-sa/4.0/" target="_blank">Creative Commons Attribution-ShareAlike 4.0 International License</a>
-
-        '
+        ![Creative Commons License](https://creativecommons.org/licenses/by-sa/4.0/ "no-icon-external-link") OpenCelliD Project is licensed under a Creative Commons Attribution-ShareAlike 4.0 International License'
       operationId: batchGetCellLocations
       requestBody:
         content:
@@ -148,13 +184,33 @@ paths:
       security:
       - api_key: []
         api_token: []
-      summary: List location information for multiple cell towers.
+      summary: List location information for multiple cell towers
       tags:
       - CellLocation
       x-soracom-cli:
       - cell-locations batch-get
 components:
   schemas:
+    CellIdentifier:
+      properties:
+        cid:
+          type: string
+        eci:
+          type: string
+        ecid:
+          type: string
+        identifier:
+          description: An identifier to link a request to the result of that request. Optional.
+          type: string
+        lac:
+          type: string
+        mcc:
+          type: string
+        mnc:
+          type: string
+        tac:
+          type: string
+      type: object
     CellLocation:
       properties:
         avg_strength:
@@ -191,26 +247,6 @@ components:
         updated:
           description: Timestamp of the time (UTC) when this record was most recently modified.
           format: date-time
-          type: string
-      type: object
-    CellIdentifier:
-      properties:
-        cid:
-          type: string
-        eci:
-          type: string
-        ecid:
-          type: string
-        identifier:
-          description: An identifier to link a request to the result of that request. Optional.
-          type: string
-        lac:
-          type: string
-        mcc:
-          type: string
-        mnc:
-          type: string
-        tac:
           type: string
       type: object
   securitySchemes:

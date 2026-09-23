@@ -1,15 +1,15 @@
 openapi: 3.2.0
 info:
+  description: Soracom API v1
   title: Soracom Soralet API
   version: 20250903-043502
-  description: 'Operations tagged Soralet across 2 of this provider''s published API definitions: soracom-event-handler-api-openapi.yml, soracom-platform-api-openapi.yml. Each path carries the servers of the definition it was published in.'
 servers:
 - description: Japan coverage production API endpoint
   url: https://api.soracom.io/v1
 - description: Global coverage production API endpoint
   url: https://g.api.soracom.io/v1
 tags:
-- description: '[Soracom Orbit](/en/docs/orbit/) Soralet'
+- description: Soracom Orbit Soralet
   name: Soralet
 paths:
   /soralets:
@@ -84,11 +84,6 @@ paths:
       - Soralet
       x-soracom-cli:
       - soralets create
-    servers:
-    - description: Japan coverage production API endpoint
-      url: https://api.soracom.io/v1
-    - description: Global coverage production API endpoint
-      url: https://g.api.soracom.io/v1
   /soralets/{soralet_id}:
     delete:
       description: Delete the specified Soralet.
@@ -140,11 +135,6 @@ paths:
       - Soralet
       x-soracom-cli:
       - soralets get
-    servers:
-    - description: Japan coverage production API endpoint
-      url: https://api.soracom.io/v1
-    - description: Global coverage production API endpoint
-      url: https://g.api.soracom.io/v1
   /soralets/{soralet_id}/logs:
     get:
       description: Returns a list of log messages from the specified Soralet.
@@ -200,11 +190,6 @@ paths:
           param: last_evaluated_key
         response:
           header: x-soracom-next-key
-    servers:
-    - description: Japan coverage production API endpoint
-      url: https://api.soracom.io/v1
-    - description: Global coverage production API endpoint
-      url: https://g.api.soracom.io/v1
   /soralets/{soralet_id}/test:
     post:
       description: Execute the specified Soralet with the specified arguments.
@@ -239,11 +224,6 @@ paths:
       x-soracom-cli:
       - soralets test
       - soralets exec
-    servers:
-    - description: Japan coverage production API endpoint
-      url: https://api.soracom.io/v1
-    - description: Global coverage production API endpoint
-      url: https://g.api.soracom.io/v1
   /soralets/{soralet_id}/versions:
     get:
       description: Returns a list of Soralet versions.
@@ -337,11 +317,6 @@ paths:
       - Soralet
       x-soracom-cli:
       - soralets upload
-    servers:
-    - description: Japan coverage production API endpoint
-      url: https://api.soracom.io/v1
-    - description: Global coverage production API endpoint
-      url: https://g.api.soracom.io/v1
   /soralets/{soralet_id}/versions/{version}:
     delete:
       description: Delete the specified Soralet version.
@@ -372,68 +347,8 @@ paths:
       - Soralet
       x-soracom-cli:
       - soralets delete-version
-    servers:
-    - description: Japan coverage production API endpoint
-      url: https://api.soracom.io/v1
-    - description: Global coverage production API endpoint
-      url: https://g.api.soracom.io/v1
 components:
   schemas:
-    ExecuteSoraletRequest:
-      properties:
-        contentType:
-          type: string
-        direction:
-          enum:
-          - uplink
-          - downlink
-          type: string
-        encodingType:
-          enum:
-          - text
-          - binary
-          type: string
-        payload:
-          type: string
-        source:
-          additionalProperties:
-            $ref: '#/components/schemas/SoraletDataSource'
-          type: object
-        userdata:
-          type: string
-        version:
-          type: string
-      required:
-      - version
-      - direction
-      - contentType
-      - payload
-      - source
-      type: object
-    CreateSoraletRequest:
-      properties:
-        description:
-          type: string
-        soraletId:
-          type: string
-      required:
-      - soraletId
-      type: object
-    SoraletLog:
-      properties:
-        createdTime:
-          format: int64
-          type: integer
-        message:
-          type: string
-        operatorId:
-          type: string
-        soraletId:
-          type: string
-        version:
-          format: int64
-          type: integer
-      type: object
     SoraletVersion:
       properties:
         createdTime:
@@ -491,6 +406,61 @@ components:
           format: int32
           type: integer
       type: object
+    CreateSoraletRequest:
+      properties:
+        description:
+          type: string
+        soraletId:
+          type: string
+      required:
+      - soraletId
+      type: object
+    ExecuteSoraletRequest:
+      properties:
+        contentType:
+          type: string
+        direction:
+          enum:
+          - uplink
+          - downlink
+          type: string
+        encodingType:
+          enum:
+          - text
+          - binary
+          type: string
+        payload:
+          type: string
+        source:
+          additionalProperties:
+            $ref: '#/components/schemas/SoraletDataSource'
+          type: object
+        userdata:
+          type: string
+        version:
+          type: string
+      required:
+      - version
+      - direction
+      - contentType
+      - payload
+      - source
+      type: object
+    SoraletLog:
+      properties:
+        createdTime:
+          format: int64
+          type: integer
+        message:
+          type: string
+        operatorId:
+          type: string
+        soraletId:
+          type: string
+        version:
+          format: int64
+          type: integer
+      type: object
   securitySchemes:
     api_key:
       description: 'API key for authentication. Obtain this from the Soracom User Console or via the Auth API.
@@ -508,6 +478,3 @@ components:
       in: header
       name: X-Soracom-Token
       type: apiKey
-x-refined-from:
-- soracom-event-handler-api-openapi.yml
-- soracom-platform-api-openapi.yml

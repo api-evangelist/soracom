@@ -9,7 +9,7 @@ servers:
 - description: Global coverage production API endpoint
   url: https://g.api.soracom.io/v1
 tags:
-- description: '[Diagnostic features](/en/guides/diagnostic/)'
+- description: Diagnostic features
   name: Diagnostic
 paths:
   /diagnostics:
@@ -80,13 +80,6 @@ paths:
       - diagnostics get
 components:
   schemas:
-    ReferenceUrl:
-      properties:
-        title:
-          type: string
-        url:
-          type: string
-      type: object
     DiagnosticResponse:
       properties:
         diagnosticId:
@@ -130,6 +123,44 @@ components:
       - to
       - insights
       type: object
+    ReferenceUrl:
+      properties:
+        title:
+          type: string
+        url:
+          type: string
+      type: object
+    DiagnosticRequest:
+      properties:
+        from:
+          description: Start time for diagnostic (UNIX time in milliseconds).
+          format: int64
+          type: integer
+        resourceId:
+          description: 'Identifier according to resourceType.
+
+
+            - If resourceType is `sim`, specify the SIM ID.
+
+            '
+          type: string
+        resourceType:
+          enum:
+          - sim
+          type: string
+        service:
+          enum:
+          - Air
+          type: string
+        to:
+          description: End time for diagnostic (UNIX time in milliseconds).
+          format: int64
+          type: integer
+      required:
+      - service
+      - resourceType
+      - resourceId
+      type: object
     Insight:
       properties:
         anomalyDetectedTimes:
@@ -167,37 +198,6 @@ components:
       - message
       - category
       - severity
-      type: object
-    DiagnosticRequest:
-      properties:
-        from:
-          description: Start time for diagnostic (UNIX time in milliseconds).
-          format: int64
-          type: integer
-        resourceId:
-          description: 'Identifier according to resourceType.
-
-
-            - If resourceType is `sim`, specify the SIM ID.
-
-            '
-          type: string
-        resourceType:
-          enum:
-          - sim
-          type: string
-        service:
-          enum:
-          - Air
-          type: string
-        to:
-          description: End time for diagnostic (UNIX time in milliseconds).
-          format: int64
-          type: integer
-      required:
-      - service
-      - resourceType
-      - resourceId
       type: object
   securitySchemes:
     api_key:

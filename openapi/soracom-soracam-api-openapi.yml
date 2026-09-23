@@ -9,7 +9,7 @@ servers:
 - description: Global coverage production API endpoint
   url: https://g.api.soracom.io/v1
 tags:
-- description: '[Soracom Cloud Camera Services](/en/guides/soracom-cloud-camera-services/)'
+- description: Soracom Cloud Camera Services
   name: SoraCam
 paths:
   /sora_cam/devices:
@@ -17,9 +17,7 @@ paths:
       description: 'Obtains a list of cameras that are compatible with the Soracom Cloud Camera Services.
 
 
-        **Warning**: When calling this API using a SAM User''s API key and API token, the SAM User must also have permission to call the `OAuth2:authorize` API in addition to permission to call this API. For more information on setting permissions, see [Access Levels](/en/docs/security/users-and-roles/#access-levels).
-
-        '
+        **Warning**: When calling this API using a SAM User''s API key and API token, the SAM User must also have permission to call the `OAuth2:authorize` API in addition to permission to call this API. For more information on setting permissions, see Access Levels.'
       operationId: listSoraCamDevices
       responses:
         '200':
@@ -47,7 +45,7 @@ paths:
       security:
       - api_key: []
         api_token: []
-      summary: List SoraCam compatible camera devices.
+      summary: List SoraCam compatible camera devices
       tags:
       - SoraCam
       x-soracom-cli:
@@ -57,9 +55,7 @@ paths:
       description: 'Delete a SoraCam compatible camera device from the operator identified by device_id.
 
 
-        **Warning**: When calling this API using a SAM User''s API key and API token, the SAM User must also have permission to call the `OAuth2:authorize` API in addition to permission to call this API. For more information on setting permissions, see [Access Levels](/en/docs/security/users-and-roles/#access-levels).
-
-        '
+        **Warning**: When calling this API using a SAM User''s API key and API token, the SAM User must also have permission to call the `OAuth2:authorize` API in addition to permission to call this API. For more information on setting permissions, see Access Levels.'
       operationId: handleDeleteSoraCamDevice
       parameters:
       - description: Device ID of the target SoraCam compatible camera device.
@@ -76,7 +72,7 @@ paths:
       security:
       - api_key: []
         api_token: []
-      summary: Delete the SoraCam compatible camera device identified by device_id.
+      summary: Delete the SoraCam compatible camera device identified by device_id
       tags:
       - SoraCam
       x-soracom-cli:
@@ -85,9 +81,7 @@ paths:
       description: 'Obtain a SoraCam compatible camera device record for the device identified by device_id.
 
 
-        **Warning**: When calling this API using a SAM User''s API key and API token, the SAM User must also have permission to call the `OAuth2:authorize` API in addition to permission to call this API. For more information on setting permissions, see [Access Levels](/en/docs/security/users-and-roles/#access-levels).
-
-        '
+        **Warning**: When calling this API using a SAM User''s API key and API token, the SAM User must also have permission to call the `OAuth2:authorize` API in addition to permission to call this API. For more information on setting permissions, see Access Levels.'
       operationId: getSoraCamDevice
       parameters:
       - description: Device ID of the target SoraCam compatible camera device.
@@ -125,7 +119,7 @@ paths:
       security:
       - api_key: []
         api_token: []
-      summary: Get the SoraCam compatible camera device information identified by device_id.
+      summary: Get the SoraCam compatible camera device information identified by device_id
       tags:
       - SoraCam
       x-soracom-cli:
@@ -135,9 +129,7 @@ paths:
       description: 'Returns available firmware update information for a SoraCam compatible camera device.
 
 
-        **Warning**: If you will run this API with a SAM user''s API key and API token, please add the `OAuth2:authorize` permission to the SAM user in addition to the permission required to call this API (e.g. `SoraCam:*`). For more information on setting permissions, see [Access Levels](/en/docs/security/users-and-roles/#access-levels).
-
-        '
+        **Warning**: If you will run this API with a SAM user''s API key and API token, please add the `OAuth2:authorize` permission to the SAM user in addition to the permission required to call this API (e.g. `SoraCam:*`). For more information on setting permissions, see Access Levels.'
       operationId: getSoraCamDeviceAtomCamFirmwareUpdate
       parameters:
       - in: path
@@ -177,9 +169,7 @@ paths:
         **Warning**: Please do not turn off the power while updating.
 
 
-        **Warning**: If you will run this API with a SAM user''s API key and API token, please add the `OAuth2:authorize` permission to the SAM user in addition to the permission required to call this API (e.g. `SoraCam:*`). For more information on setting permissions, see [Access Levels](/en/docs/security/users-and-roles/#access-levels).
-
-        '
+        **Warning**: If you will run this API with a SAM user''s API key and API token, please add the `OAuth2:authorize` permission to the SAM user in addition to the permission required to call this API (e.g. `SoraCam:*`). For more information on setting permissions, see Access Levels.'
       operationId: updateSoraCamDeviceAtomCamFirmware
       parameters:
       - in: path
@@ -207,7 +197,7 @@ paths:
       description: 'Unassigns the license from a specified SoraCam compatible camera device.
 
 
-        **Warning**: If you will run this API with a SAM user''s API key and API token, please add the `OAuth2:authorize` permission to the SAM user in addition to the permission required to call this API (e.g. `SoraCam:*`). For more information on setting permissions, see [Access Levels](/en/docs/security/users-and-roles/#access-levels).
+        **Warning**: If you will run this API with a SAM user''s API key and API token, please add the `OAuth2:authorize` permission to the SAM user in addition to the permission required to call this API (e.g. `SoraCam:*`). For more information on setting permissions, see Access Levels.
 
 
         **Warning**: Devices will not undergo cloud recording by Soracom Cloud Camera Services unless a license is assigned.
@@ -216,9 +206,7 @@ paths:
         **Warning**: A license is required to view footage already recorded to the cloud. This does not affect already exported videos/still images.
 
 
-        **Warning**: Unassigning the license will not stop license charges from being applied. To stop billing, cancel the license after unassigning it via the [SoraCam:listSoraCamLicensePacks API](#/SoraCam/listSoraCamLicensePacks) or the User Console.
-
-        '
+        **Warning**: Unassigning the license will not stop license charges from being applied. To stop billing, cancel the license after unassigning it via the SoraCam:listSoraCamLicensePacks API or the User Console.'
       operationId: unassignSoraCamDeviceAtomCamLicense
       parameters:
       - in: path
@@ -252,9 +240,7 @@ paths:
       description: 'Updates the license for a specified SoraCam compatible camera device.
 
 
-        **Warning**: If you will run this API with a SAM user''s API key and API token, please add the `OAuth2:authorize` permission to the SAM user in addition to the permission required to call this API (e.g. `SoraCam:*`). For more information on setting permissions, see [Access Levels](/en/docs/security/users-and-roles/#access-levels).
-
-        '
+        **Warning**: If you will run this API with a SAM user''s API key and API token, please add the `OAuth2:authorize` permission to the SAM user in addition to the permission required to call this API (e.g. `SoraCam:*`). For more information on setting permissions, see Access Levels.'
       operationId: assignSoraCamDeviceAtomCamLicense
       parameters:
       - in: path
@@ -307,12 +293,10 @@ paths:
       description: 'Gets a live image from a SoraCam compatible camera device. Images are captured at the time the API is called and a download URL is returned.
 
 
-        **Warning**: When calling this API using a SAM User''s API key and API token, the SAM User must also have permission to call the `OAuth2:authorize` API in addition to permission to call this API. For more information on setting permissions, see [Access Levels](/en/docs/security/users-and-roles/#access-levels).
+        **Warning**: When calling this API using a SAM User''s API key and API token, the SAM User must also have permission to call the `OAuth2:authorize` API in addition to permission to call this API. For more information on setting permissions, see Access Levels.
 
 
-        **Info**: To use this API, you must enable real-time access.
-
-        '
+        **Info**: To use this API, you must enable real-time access.'
       operationId: getSoraCamDeviceAtomCamLiveImage
       parameters:
       - description: Device ID of the target SoraCam compatible camera device.
@@ -347,9 +331,7 @@ paths:
       description: 'Gets a list of whether the following options are enabled for a SoraCam-compatible camera.
 
 
-        - [Real-time access](https://users.soracom.io/ja-jp/docs/soracom-cloud-camera-services/real-time-access/) (Japanese)
-
-        '
+        - Real-time access (Japanese)'
       operationId: getSoraCamDeviceAtomCamOptions
       parameters:
       - description: The device ID of the SoraCam-compatible camera.
@@ -385,9 +367,7 @@ paths:
         When enabled, the camera can be accessed directly via P2P communication for retrieving camera feed and performing operations in real time.
 
 
-        **Warning:** Real-time access is a paid feature. For more details, see the [documentation](https://users.soracom.io/ja-jp/docs/soracom-cloud-camera-services/real-time-access/) (Japanese).
-
-        '
+        **Warning:** Real-time access is a paid feature. For more details, see the documentation (Japanese).'
       operationId: updateSoraCamDeviceAtomCamOptionsRealTimeAccess
       parameters:
       - description: The device ID of the SoraCam-compatible camera.
@@ -427,12 +407,10 @@ paths:
       description: 'Retrieve the camera''s various settings.
 
 
-        **Warning**: When calling this API using a SAM User''s API key and API token, the SAM User must also have permission to call the `OAuth2:authorize` API in addition to permission to call this API. For more information on setting permissions, see [Access Levels](/en/docs/security/users-and-roles/#access-levels).
+        **Warning**: When calling this API using a SAM User''s API key and API token, the SAM User must also have permission to call the `OAuth2:authorize` API in addition to permission to call this API. For more information on setting permissions, see Access Levels.
 
 
-        **Info**: To use this API, you must either assign a cloud license to the target Soracom-compatible camera or enable real-time access.
-
-        '
+        **Info**: To use this API, you must either assign a cloud license to the target Soracom-compatible camera or enable real-time access.'
       operationId: getSoraCamDeviceAtomCamSettings
       parameters:
       - description: Device ID of the target SoraCam compatible camera device.
@@ -475,12 +453,10 @@ paths:
       description: 'Retrieve the display settings for the ATOM tech Inc. logo shown on the bottom left of the captured image.
 
 
-        **Warning**: When calling this API using a SAM User''s API key and API token, the SAM User must also have permission to call the `OAuth2:authorize` API in addition to permission to call this API. For more information on setting permissions, see [Access Levels](/en/docs/security/users-and-roles/#access-levels).
+        **Warning**: When calling this API using a SAM User''s API key and API token, the SAM User must also have permission to call the `OAuth2:authorize` API in addition to permission to call this API. For more information on setting permissions, see Access Levels.
 
 
-        **Info**: To use this API, you must either assign a cloud license to the target Soracom-compatible camera or enable real-time access.
-
-        '
+        **Info**: To use this API, you must either assign a cloud license to the target Soracom-compatible camera or enable real-time access.'
       operationId: getSoraCamDeviceAtomCamSettingsLogo
       parameters:
       - description: Device ID of the target SoraCam compatible camera device.
@@ -503,7 +479,7 @@ paths:
       security:
       - api_key: []
         api_token: []
-      summary: Retrieve the display settings for the ATOM tech Inc. logo shown on the bottom left of the captured image
+      summary: Retrieve the display settings for the ATOM tech Inc.
       tags:
       - SoraCam
       x-soracom-cli:
@@ -512,12 +488,10 @@ paths:
       description: 'Change the display settings for the ATOM tech Inc. logo shown on the bottom left of the captured image.
 
 
-        **Warning**: When calling this API using a SAM User''s API key and API token, the SAM User must also have permission to call the `OAuth2:authorize` API in addition to permission to call this API. For more information on setting permissions, see [Access Levels](/en/docs/security/users-and-roles/#access-levels).
+        **Warning**: When calling this API using a SAM User''s API key and API token, the SAM User must also have permission to call the `OAuth2:authorize` API in addition to permission to call this API. For more information on setting permissions, see Access Levels.
 
 
-        **Info**: To use this API, you must either assign a cloud license to the target Soracom-compatible camera or enable real-time access.
-
-        '
+        **Info**: To use this API, you must either assign a cloud license to the target Soracom-compatible camera or enable real-time access.'
       operationId: setSoraCamDeviceAtomCamSettingsLogo
       parameters:
       - description: Device ID of the target SoraCam compatible camera device.
@@ -543,7 +517,7 @@ paths:
       security:
       - api_key: []
         api_token: []
-      summary: Change the display settings for the ATOM tech Inc. logo shown on the bottom left of the captured image
+      summary: Change the display settings for the ATOM tech Inc.
       tags:
       - SoraCam
       x-soracom-cli:
@@ -556,12 +530,10 @@ paths:
         **Warning**: Even if a Cloud Motion Detection "Unlimited" Recording License is assigned to the SoraCam compatible camera device, no recording will occur if motion detection is disabled, as it will not detect any moving objects.
 
 
-        **Warning**: When calling this API using a SAM User''s API key and API token, the SAM User must also have permission to call the `OAuth2:authorize` API in addition to permission to call this API. For more information on setting permissions, see [Access Levels](/en/docs/security/users-and-roles/#access-levels).
+        **Warning**: When calling this API using a SAM User''s API key and API token, the SAM User must also have permission to call the `OAuth2:authorize` API in addition to permission to call this API. For more information on setting permissions, see Access Levels.
 
 
-        **Info**: To use this API, you must either assign a cloud license to the target Soracom-compatible camera or enable real-time access.
-
-        '
+        **Info**: To use this API, you must either assign a cloud license to the target Soracom-compatible camera or enable real-time access.'
       operationId: getSoraCamDeviceAtomCamSettingsMotion
       parameters:
       - description: Device ID of the target SoraCam compatible camera device.
@@ -596,12 +568,10 @@ paths:
         **Warning**: Even if a Cloud Motion Detection "Unlimited" Recording License is assigned to the SoraCam compatible camera device, no recording will occur if motion detection is disabled, as it will not detect any moving objects.
 
 
-        **Warning**: When calling this API using a SAM User''s API key and API token, the SAM User must also have permission to call the `OAuth2:authorize` API in addition to permission to call this API. For more information on setting permissions, see [Access Levels](/en/docs/security/users-and-roles/#access-levels).
+        **Warning**: When calling this API using a SAM User''s API key and API token, the SAM User must also have permission to call the `OAuth2:authorize` API in addition to permission to call this API. For more information on setting permissions, see Access Levels.
 
 
-        **Info**: To use this API, you must either assign a cloud license to the target Soracom-compatible camera or enable real-time access.
-
-        '
+        **Info**: To use this API, you must either assign a cloud license to the target Soracom-compatible camera or enable real-time access.'
       operationId: setSoraCamDeviceAtomCamSettingsMotion
       parameters:
       - description: Device ID of the target SoraCam compatible camera device.
@@ -637,12 +607,10 @@ paths:
       description: 'Retrieve the settings for motion sensitivity.
 
 
-        **Warning**: When calling this API using a SAM User''s API key and API token, the SAM User must also have permission to call the `OAuth2:authorize` API in addition to permission to call this API. For more information on setting permissions, see [Access Levels](/en/docs/security/users-and-roles/#access-levels).
+        **Warning**: When calling this API using a SAM User''s API key and API token, the SAM User must also have permission to call the `OAuth2:authorize` API in addition to permission to call this API. For more information on setting permissions, see Access Levels.
 
 
-        **Info**: To use this API, you must either assign a cloud license to the target Soracom-compatible camera or enable real-time access.
-
-        '
+        **Info**: To use this API, you must either assign a cloud license to the target Soracom-compatible camera or enable real-time access.'
       operationId: getSoraCamDeviceAtomCamSettingsMotionSensitivity
       parameters:
       - description: Device ID of the target SoraCam compatible camera device.
@@ -674,12 +642,10 @@ paths:
       description: 'Change the settings for motion sensitivity.
 
 
-        **Warning**: When calling this API using a SAM User''s API key and API token, the SAM User must also have permission to call the `OAuth2:authorize` API in addition to permission to call this API. For more information on setting permissions, see [Access Levels](/en/docs/security/users-and-roles/#access-levels).
+        **Warning**: When calling this API using a SAM User''s API key and API token, the SAM User must also have permission to call the `OAuth2:authorize` API in addition to permission to call this API. For more information on setting permissions, see Access Levels.
 
 
-        **Info**: To use this API, you must either assign a cloud license to the target Soracom-compatible camera or enable real-time access.
-
-        '
+        **Info**: To use this API, you must either assign a cloud license to the target Soracom-compatible camera or enable real-time access.'
       operationId: setSoraCamDeviceAtomCamSettingsMotionSensitivity
       parameters:
       - description: Device ID of the target SoraCam compatible camera device.
@@ -715,12 +681,10 @@ paths:
       description: 'Retrieve the display settings for motion tagging. Motion tagging is a green frame that is displayed when motion is detected.
 
 
-        **Warning**: When calling this API using a SAM User''s API key and API token, the SAM User must also have permission to call the `OAuth2:authorize` API in addition to permission to call this API. For more information on setting permissions, see [Access Levels](/en/docs/security/users-and-roles/#access-levels).
+        **Warning**: When calling this API using a SAM User''s API key and API token, the SAM User must also have permission to call the `OAuth2:authorize` API in addition to permission to call this API. For more information on setting permissions, see Access Levels.
 
 
-        **Info**: To use this API, you must either assign a cloud license to the target Soracom-compatible camera or enable real-time access.
-
-        '
+        **Info**: To use this API, you must either assign a cloud license to the target Soracom-compatible camera or enable real-time access.'
       operationId: getSoraCamDeviceAtomCamSettingsMotionTagging
       parameters:
       - description: Device ID of the target SoraCam compatible camera device.
@@ -752,12 +716,10 @@ paths:
       description: 'Change the display settings for motion tagging. Motion tagging is a green frame that is displayed when motion is detected.
 
 
-        **Warning**: When calling this API using a SAM User''s API key and API token, the SAM User must also have permission to call the `OAuth2:authorize` API in addition to permission to call this API. For more information on setting permissions, see [Access Levels](/en/docs/security/users-and-roles/#access-levels).
+        **Warning**: When calling this API using a SAM User''s API key and API token, the SAM User must also have permission to call the `OAuth2:authorize` API in addition to permission to call this API. For more information on setting permissions, see Access Levels.
 
 
-        **Info**: To use this API, you must either assign a cloud license to the target Soracom-compatible camera or enable real-time access.
-
-        '
+        **Info**: To use this API, you must either assign a cloud license to the target Soracom-compatible camera or enable real-time access.'
       operationId: setSoraCamDeviceAtomCamSettingsMotionTagging
       parameters:
       - description: Device ID of the target SoraCam compatible camera device.
@@ -793,12 +755,10 @@ paths:
       description: 'Retrieve the settings for night vision mode.
 
 
-        **Warning**: When calling this API using a SAM User''s API key and API token, the SAM User must also have permission to call the `OAuth2:authorize` API in addition to permission to call this API. For more information on setting permissions, see [Access Levels](/en/docs/security/users-and-roles/#access-levels).
+        **Warning**: When calling this API using a SAM User''s API key and API token, the SAM User must also have permission to call the `OAuth2:authorize` API in addition to permission to call this API. For more information on setting permissions, see Access Levels.
 
 
-        **Info**: To use this API, you must either assign a cloud license to the target Soracom-compatible camera or enable real-time access.
-
-        '
+        **Info**: To use this API, you must either assign a cloud license to the target Soracom-compatible camera or enable real-time access.'
       operationId: getSoraCamDeviceAtomCamSettingsNightVision
       parameters:
       - description: Device ID of the target SoraCam compatible camera device.
@@ -830,12 +790,10 @@ paths:
       description: 'Change the settings for night vision mode.
 
 
-        **Warning**: When calling this API using a SAM User''s API key and API token, the SAM User must also have permission to call the `OAuth2:authorize` API in addition to permission to call this API. For more information on setting permissions, see [Access Levels](/en/docs/security/users-and-roles/#access-levels).
+        **Warning**: When calling this API using a SAM User''s API key and API token, the SAM User must also have permission to call the `OAuth2:authorize` API in addition to permission to call this API. For more information on setting permissions, see Access Levels.
 
 
-        **Info**: To use this API, you must either assign a cloud license to the target Soracom-compatible camera or enable real-time access.
-
-        '
+        **Info**: To use this API, you must either assign a cloud license to the target Soracom-compatible camera or enable real-time access.'
       operationId: setSoraCamDeviceAtomCamSettingsNightVision
       parameters:
       - description: Device ID of the target SoraCam compatible camera device.
@@ -871,12 +829,10 @@ paths:
       description: 'Retrieve the quality settings.
 
 
-        **Warning**: When calling this API using a SAM User''s API key and API token, the SAM User must also have permission to call the `OAuth2:authorize` API in addition to permission to call this API. For more information on setting permissions, see [Access Levels](/en/docs/security/users-and-roles/#access-levels).
+        **Warning**: When calling this API using a SAM User''s API key and API token, the SAM User must also have permission to call the `OAuth2:authorize` API in addition to permission to call this API. For more information on setting permissions, see Access Levels.
 
 
-        **Info**: To use this API, you must either assign a cloud license to the target Soracom-compatible camera or enable real-time access.
-
-        '
+        **Info**: To use this API, you must either assign a cloud license to the target Soracom-compatible camera or enable real-time access.'
       operationId: getSoraCamDeviceAtomCamSettingsQuality
       parameters:
       - description: Device ID of the target SoraCam compatible camera device.
@@ -908,12 +864,10 @@ paths:
       description: 'Changes the quality settings. The quality settings will be applied to all videos and still images captured by the specified SoraCam compatible camera device. Note that if the Wi-Fi bandwidth is insufficient, the quality settings may automatically be adjusted.
 
 
-        **Warning**: When calling this API using a SAM User''s API key and API token, the SAM User must also have permission to call the `OAuth2:authorize` API in addition to permission to call this API. For more information on setting permissions, see [Access Levels](/en/docs/security/users-and-roles/#access-levels).
+        **Warning**: When calling this API using a SAM User''s API key and API token, the SAM User must also have permission to call the `OAuth2:authorize` API in addition to permission to call this API. For more information on setting permissions, see Access Levels.
 
 
-        **Info**: To use this API, you must either assign a cloud license to the target Soracom-compatible camera or enable real-time access.
-
-        '
+        **Info**: To use this API, you must either assign a cloud license to the target Soracom-compatible camera or enable real-time access.'
       operationId: setSoraCamDeviceAtomCamSettingsQuality
       parameters:
       - description: Device ID of the target SoraCam compatible camera device.
@@ -949,12 +903,10 @@ paths:
       description: 'Retrieve the settings for rotating the image by 180 degrees.
 
 
-        **Warning**: When calling this API using a SAM User''s API key and API token, the SAM User must also have permission to call the `OAuth2:authorize` API in addition to permission to call this API. For more information on setting permissions, see [Access Levels](/en/docs/security/users-and-roles/#access-levels).
+        **Warning**: When calling this API using a SAM User''s API key and API token, the SAM User must also have permission to call the `OAuth2:authorize` API in addition to permission to call this API. For more information on setting permissions, see Access Levels.
 
 
-        **Info**: To use this API, you must either assign a cloud license to the target Soracom-compatible camera or enable real-time access.
-
-        '
+        **Info**: To use this API, you must either assign a cloud license to the target Soracom-compatible camera or enable real-time access.'
       operationId: getSoraCamDeviceAtomCamSettingsRotation
       parameters:
       - description: Device ID of the target SoraCam compatible camera device.
@@ -986,12 +938,10 @@ paths:
       description: 'Change the settings for rotating the image by 180 degrees.
 
 
-        **Warning**: When calling this API using a SAM User''s API key and API token, the SAM User must also have permission to call the `OAuth2:authorize` API in addition to permission to call this API. For more information on setting permissions, see [Access Levels](/en/docs/security/users-and-roles/#access-levels).
+        **Warning**: When calling this API using a SAM User''s API key and API token, the SAM User must also have permission to call the `OAuth2:authorize` API in addition to permission to call this API. For more information on setting permissions, see Access Levels.
 
 
-        **Info**: To use this API, you must either assign a cloud license to the target Soracom-compatible camera or enable real-time access.
-
-        '
+        **Info**: To use this API, you must either assign a cloud license to the target Soracom-compatible camera or enable real-time access.'
       operationId: setSoraCamDeviceAtomCamSettingsRotation
       parameters:
       - description: Device ID of the target SoraCam compatible camera device.
@@ -1027,15 +977,13 @@ paths:
       description: 'Retrieve the settings for sound detection. If sound detection is enabled, recording will start when the SoraCam compatible camera device detects sound.
 
 
-        **Warning**: When calling this API using a SAM User''s API key and API token, the SAM User must also have permission to call the `OAuth2:authorize` API in addition to permission to call this API. For more information on setting permissions, see [Access Levels](/en/docs/security/users-and-roles/#access-levels).
+        **Warning**: When calling this API using a SAM User''s API key and API token, the SAM User must also have permission to call the `OAuth2:authorize` API in addition to permission to call this API. For more information on setting permissions, see Access Levels.
 
 
-        **Warning**: Video recorded via sound detection cannot be downloaded separately via the Soracom User Console, Soracom CLI, or Soracom API. However, if a Cloud Continuous Recording License is assigned, you can check the time that sound was detected using [SoraCam:listSoraCamDeviceEventsForDevice API](#/SoraCam/listSoraCamDeviceEventsForDevice) and then download the video recorded during that time.
+        **Warning**: Video recorded via sound detection cannot be downloaded separately via the Soracom User Console, Soracom CLI, or Soracom API. However, if a Cloud Continuous Recording License is assigned, you can check the time that sound was detected using SoraCam:listSoraCamDeviceEventsForDevice API and then download the video recorded during that time.
 
 
-        **Info**: To use this API, you must either assign a cloud license to the target Soracom-compatible camera or enable real-time access.
-
-        '
+        **Info**: To use this API, you must either assign a cloud license to the target Soracom-compatible camera or enable real-time access.'
       operationId: getSoraCamDeviceAtomCamSettingsSound
       parameters:
       - description: Device ID of the target SoraCam compatible camera device.
@@ -1067,15 +1015,13 @@ paths:
       description: 'Change the settings for sound detection. If sound detection is enabled, recording will start when the SoraCam compatible camera device detects sound.
 
 
-        **Warning**: When calling this API using a SAM User''s API key and API token, the SAM User must also have permission to call the `OAuth2:authorize` API in addition to permission to call this API. For more information on setting permissions, see [Access Levels](/en/docs/security/users-and-roles/#access-levels).
+        **Warning**: When calling this API using a SAM User''s API key and API token, the SAM User must also have permission to call the `OAuth2:authorize` API in addition to permission to call this API. For more information on setting permissions, see Access Levels.
 
 
-        **Warning**: Video recorded via sound detection cannot be downloaded separately via the Soracom User Console, Soracom CLI, or Soracom API. However, if a Cloud Continuous Recording License is assigned, you can check the time that sound was detected using [SoraCam:listSoraCamDeviceEventsForDevice API](#/SoraCam/listSoraCamDeviceEventsForDevice) and then download the video recorded during that time.
+        **Warning**: Video recorded via sound detection cannot be downloaded separately via the Soracom User Console, Soracom CLI, or Soracom API. However, if a Cloud Continuous Recording License is assigned, you can check the time that sound was detected using SoraCam:listSoraCamDeviceEventsForDevice API and then download the video recorded during that time.
 
 
-        **Info**: To use this API, you must either assign a cloud license to the target Soracom-compatible camera or enable real-time access.
-
-        '
+        **Info**: To use this API, you must either assign a cloud license to the target Soracom-compatible camera or enable real-time access.'
       operationId: setSoraCamDeviceAtomCamSettingsSound
       parameters:
       - description: Device ID of the target SoraCam compatible camera device.
@@ -1111,12 +1057,10 @@ paths:
       description: 'Retrieve the settings for sound sensitivity.
 
 
-        **Warning**: When calling this API using a SAM User''s API key and API token, the SAM User must also have permission to call the `OAuth2:authorize` API in addition to permission to call this API. For more information on setting permissions, see [Access Levels](/en/docs/security/users-and-roles/#access-levels).
+        **Warning**: When calling this API using a SAM User''s API key and API token, the SAM User must also have permission to call the `OAuth2:authorize` API in addition to permission to call this API. For more information on setting permissions, see Access Levels.
 
 
-        **Info**: To use this API, you must either assign a cloud license to the target Soracom-compatible camera or enable real-time access.
-
-        '
+        **Info**: To use this API, you must either assign a cloud license to the target Soracom-compatible camera or enable real-time access.'
       operationId: getSoraCamDeviceAtomCamSettingsSoundSensitivity
       parameters:
       - description: Device ID of the target SoraCam compatible camera device.
@@ -1148,12 +1092,10 @@ paths:
       description: 'Change the settings for sound sensitivity.
 
 
-        **Warning**: When calling this API using a SAM User''s API key and API token, the SAM User must also have permission to call the `OAuth2:authorize` API in addition to permission to call this API. For more information on setting permissions, see [Access Levels](/en/docs/security/users-and-roles/#access-levels).
+        **Warning**: When calling this API using a SAM User''s API key and API token, the SAM User must also have permission to call the `OAuth2:authorize` API in addition to permission to call this API. For more information on setting permissions, see Access Levels.
 
 
-        **Info**: To use this API, you must either assign a cloud license to the target Soracom-compatible camera or enable real-time access.
-
-        '
+        **Info**: To use this API, you must either assign a cloud license to the target Soracom-compatible camera or enable real-time access.'
       operationId: setSoraCamDeviceAtomCamSettingsSoundSensitivity
       parameters:
       - description: Device ID of the target SoraCam compatible camera device.
@@ -1189,12 +1131,10 @@ paths:
       description: 'Retrieve the settings for the status light (indicator light that shows the status of the camera).
 
 
-        **Warning**: When calling this API using a SAM User''s API key and API token, the SAM User must also have permission to call the `OAuth2:authorize` API in addition to permission to call this API. For more information on setting permissions, see [Access Levels](/en/docs/security/users-and-roles/#access-levels).
+        **Warning**: When calling this API using a SAM User''s API key and API token, the SAM User must also have permission to call the `OAuth2:authorize` API in addition to permission to call this API. For more information on setting permissions, see Access Levels.
 
 
-        **Info**: To use this API, you must either assign a cloud license to the target Soracom-compatible camera or enable real-time access.
-
-        '
+        **Info**: To use this API, you must either assign a cloud license to the target Soracom-compatible camera or enable real-time access.'
       operationId: getSoraCamDeviceAtomCamSettingsStatusLight
       parameters:
       - description: Device ID of the target SoraCam compatible camera device.
@@ -1217,7 +1157,7 @@ paths:
       security:
       - api_key: []
         api_token: []
-      summary: Retrieve the settings for the status light (indicator light that shows the status of the camera)
+      summary: Retrieve the settings for the status light (indicator light that shows the…
       tags:
       - SoraCam
       x-soracom-cli:
@@ -1226,12 +1166,10 @@ paths:
       description: 'Change the settings for the status light (indicator light that shows the status of the camera).
 
 
-        **Warning**: When calling this API using a SAM User''s API key and API token, the SAM User must also have permission to call the `OAuth2:authorize` API in addition to permission to call this API. For more information on setting permissions, see [Access Levels](/en/docs/security/users-and-roles/#access-levels).
+        **Warning**: When calling this API using a SAM User''s API key and API token, the SAM User must also have permission to call the `OAuth2:authorize` API in addition to permission to call this API. For more information on setting permissions, see Access Levels.
 
 
-        **Info**: To use this API, you must either assign a cloud license to the target Soracom-compatible camera or enable real-time access.
-
-        '
+        **Info**: To use this API, you must either assign a cloud license to the target Soracom-compatible camera or enable real-time access.'
       operationId: setSoraCamDeviceAtomCamSettingsStatusLight
       parameters:
       - description: Device ID of the target SoraCam compatible camera device.
@@ -1257,7 +1195,7 @@ paths:
       security:
       - api_key: []
         api_token: []
-      summary: Change the settings for the status light (indicator light that shows the status of the camera)
+      summary: Change the settings for the status light (indicator light that shows the status…
       tags:
       - SoraCam
       x-soracom-cli:
@@ -1267,12 +1205,10 @@ paths:
       description: 'Retrieve the display settings for the timestamp shown on the bottom right of the captured image.
 
 
-        **Warning**: When calling this API using a SAM User''s API key and API token, the SAM User must also have permission to call the `OAuth2:authorize` API in addition to permission to call this API. For more information on setting permissions, see [Access Levels](/en/docs/security/users-and-roles/#access-levels).
+        **Warning**: When calling this API using a SAM User''s API key and API token, the SAM User must also have permission to call the `OAuth2:authorize` API in addition to permission to call this API. For more information on setting permissions, see Access Levels.
 
 
-        **Info**: To use this API, you must either assign a cloud license to the target Soracom-compatible camera or enable real-time access.
-
-        '
+        **Info**: To use this API, you must either assign a cloud license to the target Soracom-compatible camera or enable real-time access.'
       operationId: getSoraCamDeviceAtomCamSettingsTimestamp
       parameters:
       - description: Device ID of the target SoraCam compatible camera device.
@@ -1295,7 +1231,7 @@ paths:
       security:
       - api_key: []
         api_token: []
-      summary: Retrieve the display settings for the timestamp shown on the bottom right of the captured image
+      summary: Retrieve the display settings for the timestamp shown on the bottom right of…
       tags:
       - SoraCam
       x-soracom-cli:
@@ -1304,12 +1240,10 @@ paths:
       description: 'Change the display settings for the timestamp shown on the bottom right of the captured image.
 
 
-        **Warning**: When calling this API using a SAM User''s API key and API token, the SAM User must also have permission to call the `OAuth2:authorize` API in addition to permission to call this API. For more information on setting permissions, see [Access Levels](/en/docs/security/users-and-roles/#access-levels).
+        **Warning**: When calling this API using a SAM User''s API key and API token, the SAM User must also have permission to call the `OAuth2:authorize` API in addition to permission to call this API. For more information on setting permissions, see Access Levels.
 
 
-        **Info**: To use this API, you must either assign a cloud license to the target Soracom-compatible camera or enable real-time access.
-
-        '
+        **Info**: To use this API, you must either assign a cloud license to the target Soracom-compatible camera or enable real-time access.'
       operationId: setSoraCamDeviceAtomCamSettingsTimestamp
       parameters:
       - description: Device ID of the target SoraCam compatible camera device.
@@ -1335,7 +1269,7 @@ paths:
       security:
       - api_key: []
         api_token: []
-      summary: Change the display settings for the timestamp shown on the bottom right of the captured image
+      summary: Change the display settings for the timestamp shown on the bottom right of the…
       tags:
       - SoraCam
       x-soracom-cli:
@@ -1348,15 +1282,13 @@ paths:
         For example, to save JSON data, set `Content-Type: application/json` in the header and specify `{ "person_count": 5 }` in the request body.
 
 
-        **Warning**: When using a SAM user''s API key and API token to execute this API, you must grant the SAM user the `OAuth2:authorize` permission in addition to the permissions required to call this API (e.g., `SoraCam:*`). For details about permission settings, refer to [Configuring SAM User Permissions](/en/docs/sam/set-permissions/).
+        **Warning**: When using a SAM user''s API key and API token to execute this API, you must grant the SAM user the `OAuth2:authorize` permission in addition to the permissions required to call this API (e.g., `SoraCam:*`). For details about permission settings, refer to Configuring SAM User Permissions.
 
 
-        **Info**: To retrieve saved data entries, use the [DataEntry:getDataEntry API](#/DataEntry/getDataEntry). To delete data entries, use the [DataEntry:deleteDataEntry API](#/DataEntry/deleteDataEntry).
+        **Info**: To retrieve saved data entries, use the DataEntry:getDataEntry API. To delete data entries, use the DataEntry:deleteDataEntry API.
 
 
-        **Info**: For more information about Harvest Data, please refer to [Soracom Harvest](/en/docs/harvest/).
-
-        '
+        **Info**: For more information about Harvest Data, please refer to Soracom Harvest.'
       operationId: createSoraCamDeviceDataEntry
       parameters:
       - description: Device ID of the target SoraCam compatible camera device.
@@ -1419,15 +1351,13 @@ paths:
         For example, to save JSON data, set `Content-Type: application/json` in the header and specify `{ "person_count": 5 }` in the request body.
 
 
-        **Warning**: When using a SAM user''s API key and API token to execute this API, you must grant the SAM user the `OAuth2:authorize` permission in addition to the permissions required to call this API (e.g., `SoraCam:*`). For details about permission settings, refer to [Configuring SAM User Permissions](/en/docs/sam/set-permissions/).
+        **Warning**: When using a SAM user''s API key and API token to execute this API, you must grant the SAM user the `OAuth2:authorize` permission in addition to the permissions required to call this API (e.g., `SoraCam:*`). For details about permission settings, refer to Configuring SAM User Permissions.
 
 
-        **Info**: To retrieve saved data entries, use the [DataEntry:getDataEntry API](#/DataEntry/getDataEntry). To delete data entries, use the [DataEntry:deleteDataEntry API](#/DataEntry/deleteDataEntry).
+        **Info**: To retrieve saved data entries, use the DataEntry:getDataEntry API. To delete data entries, use the DataEntry:deleteDataEntry API.
 
 
-        **Info**: For more information about Harvest Data, please refer to [Soracom Harvest](/en/docs/harvest/).
-
-        '
+        **Info**: For more information about Harvest Data, please refer to Soracom Harvest.'
       operationId: updateSoraCamDeviceDataEntry
       parameters:
       - description: Device ID of the target SoraCam compatible camera device.
@@ -1479,7 +1409,7 @@ paths:
       security:
       - api_key: []
         api_token: []
-      summary: Save arbitrary data to Harvest Data linked to a SoraCam compatible camera device and timestamp
+      summary: Save arbitrary data to Harvest Data linked to a SoraCam compatible camera…
       tags:
       - SoraCam
       x-soracom-cli:
@@ -1489,9 +1419,7 @@ paths:
       description: 'Returns list of SoraCam events for the specified device.
 
 
-        **Warning**: When calling this API using a SAM User''s API key and API token, the SAM User must also have permission to call the `OAuth2:authorize` API in addition to permission to call this API. For more information on setting permissions, see [Access Levels](/en/docs/security/users-and-roles/#access-levels).
-
-        '
+        **Warning**: When calling this API using a SAM User''s API key and API token, the SAM User must also have permission to call the `OAuth2:authorize` API in addition to permission to call this API. For more information on setting permissions, see Access Levels.'
       operationId: listSoraCamDeviceEventsForDevice
       parameters:
       - description: Device ID of the target SoraCam compatible camera device.
@@ -1573,7 +1501,7 @@ paths:
       security:
       - api_key: []
         api_token: []
-      summary: List SoraCam events for the specified device.
+      summary: List SoraCam events for the specified device
       tags:
       - SoraCam
       x-soracom-cli:
@@ -1591,9 +1519,7 @@ paths:
         **Warning**: Exporting either still images or recorded video will consume the available video viewing time (72 hours per month by default).
 
 
-        **Warning**: When calling this API using a SAM User''s API key and API token, the SAM User must also have permission to call the `OAuth2:authorize` API in addition to permission to call this API. For more information on setting permissions, see [Access Levels](/en/docs/security/users-and-roles/#access-levels).
-
-        '
+        **Warning**: When calling this API using a SAM User''s API key and API token, the SAM User must also have permission to call the `OAuth2:authorize` API in addition to permission to call this API. For more information on setting permissions, see Access Levels.'
       operationId: getSoraCamDeviceExportUsage
       parameters:
       - description: Device ID of the target SoraCam compatible camera device.
@@ -1627,7 +1553,7 @@ paths:
       security:
       - api_key: []
         api_token: []
-      summary: Get the remaining number of still images that can be exported and the remaining exportable time of recorded video.
+      summary: Get the remaining number of still images that can be exported and the remaining…
       tags:
       - SoraCam
       x-soracom-cli:
@@ -1637,9 +1563,7 @@ paths:
       description: 'Reset the monthly limit on the recorded video time available for export to the default value. By default, the limit is set to 72 hours per month.
 
 
-        **Warning**: When calling this API using a SAM User''s API key and API token, the SAM User must also have permission to call the `OAuth2:authorize` API in addition to permission to call this API. For more information on setting permissions, see [Access Levels](/en/docs/security/users-and-roles/#access-levels).
-
-        '
+        **Warning**: When calling this API using a SAM User''s API key and API token, the SAM User must also have permission to call the `OAuth2:authorize` API in addition to permission to call this API. For more information on setting permissions, see Access Levels.'
       operationId: deleteSoraCamDeviceExportUsageLimitOverride
       parameters:
       - description: Device ID of the target SoraCam compatible camera device.
@@ -1656,7 +1580,7 @@ paths:
       security:
       - api_key: []
         api_token: []
-      summary: Reset the monthly limit on the recorded video time available for export for SoraCam compatible camera device to the default value.
+      summary: Reset the monthly limit on the recorded video time available for export for…
       tags:
       - SoraCam
       x-soracom-cli:
@@ -1665,15 +1589,13 @@ paths:
       description: 'Set the monthly limit on the recorded video time available for export. By default, the limit is set to 72 hours per month. A maximum of 1,500 hours can be set.
 
 
-        **Warning**: Additional costs will be incurred for recorded video exported beyond 72 hours. Simply changing the monthly limit does not result in any charges.. However, exceeding 72 hours of export time consumption will incur charges regardless of the set export time limit. For more information about fees, see Soracom Cloud Camera Services [about fees](https://soracom.jp/sora_cam/#pricing) (Japanese).
+        **Warning**: Additional costs will be incurred for recorded video exported beyond 72 hours. Simply changing the monthly limit does not result in any charges.. However, exceeding 72 hours of export time consumption will incur charges regardless of the set export time limit. For more information about fees, see Soracom Cloud Camera Services about fees (Japanese).
 
 
         **Warning**: The monthly limit can be set to less than 72 hours. In such cases, there will be no change in the charge.
 
 
-        **Warning**: When calling this API using a SAM User''s API key and API token, the SAM User must also have permission to call the `OAuth2:authorize` API in addition to permission to call this API. For more information on setting permissions, see [Access Levels](/en/docs/security/users-and-roles/#access-levels).
-
-        '
+        **Warning**: When calling this API using a SAM User''s API key and API token, the SAM User must also have permission to call the `OAuth2:authorize` API in addition to permission to call this API. For more information on setting permissions, see Access Levels.'
       operationId: updateSoraCamDeviceExportUsageLimitOverride
       parameters:
       - description: Device ID of the target SoraCam compatible camera device.
@@ -1717,25 +1639,23 @@ paths:
       security:
       - api_key: []
         api_token: []
-      summary: Set the monthly limit on the recorded video time available for export for SoraCam compatible camera device.
+      summary: Set the monthly limit on the recorded video time available for export for…
       tags:
       - SoraCam
       x-soracom-cli:
       - sora-cam devices update-export-usage-limit-override
   /sora_cam/devices/{device_id}/images/exports:
     get:
-      description: 'Gets the list of the current status of the process of exporting still image from recorded video taken with a SoraCam compatible camera device started by [SoraCam:exportSoraCamDeviceRecordedImage API](#!/SoraCam/exportSoraCamDeviceRecordedImage). This API limits the target to one SoraCam compatible camera device.
+      description: 'Gets the list of the current status of the process of exporting still image from recorded video taken with a SoraCam compatible camera device started by SoraCam:exportSoraCamDeviceRecordedImage API. This API limits the target to one SoraCam compatible camera device.
 
 
-        If the target is not limited to one SoraCam compatible camera device, but all SoraCam compatible camera devices owned by the operator, use [SoraCam:listSoraCamDeviceImageExports API](#!/SoraCam/listSoraCamDeviceImageExports).
+        If the target is not limited to one SoraCam compatible camera device, but all SoraCam compatible camera devices owned by the operator, use SoraCam:listSoraCamDeviceImageExports API.
 
 
         **Warning**: The URL becomes unusable 10 minutes after export completion. The time until the URL becomes unusable can be checked with `expiryTime`. Additionally, over time, it will be removed from the list.
 
 
-        **Warning**: When calling this API using a SAM User''s API key and API token, the SAM User must also have permission to call the `OAuth2:authorize` API in addition to permission to call this API. For more information on setting permissions, see [Access Levels](/en/docs/security/users-and-roles/#access-levels).
-
-        '
+        **Warning**: When calling this API using a SAM User''s API key and API token, the SAM User must also have permission to call the `OAuth2:authorize` API in addition to permission to call this API. For more information on setting permissions, see Access Levels.'
       operationId: listSoraCamDeviceImageExportsForDevice
       parameters:
       - description: Device ID of the target SoraCam compatible camera device.
@@ -1840,7 +1760,7 @@ paths:
       security:
       - api_key: []
         api_token: []
-      summary: Get a list of the current status of the process of exporting still image from recorded video taken with a SoraCam compatible camera device.
+      summary: Get a list of the current status of the process of exporting still image from…
       tags:
       - SoraCam
       x-soracom-cli:
@@ -1851,25 +1771,23 @@ paths:
         response:
           header: x-soracom-next-key
     post:
-      description: 'Starts the process of extracting and exporting still images from recorded video saved on the cloud. The export process is processed asynchronously. The progress of the export process and the URL of the exported file can be obtained with the [SoraCam:listSoraCamDeviceImageExports API](#!/SoraCam/listSoraCamDeviceImageExports). The URL has an expiration time.
+      description: 'Starts the process of extracting and exporting still images from recorded video saved on the cloud. The export process is processed asynchronously. The progress of the export process and the URL of the exported file can be obtained with the SoraCam:listSoraCamDeviceImageExports API. The URL has an expiration time.
 
 
         - At the time of obtaining the URL, the available video viewing time (72 hours per month by default) will be consumed regardless of whether the download has started or not.
 
         - Exporting results are not cached. If you export the same time twice, it will consume twice the available video viewing time (72 hours per month by default).
 
-        - Exporting to Harvest Files will incur costs according to Harvest Files fees, and files will be retained for a period according to the Harvest Files retention period. For details, refer to [Pricing & Fee Schedule](/en/docs/reference/fees/#soracom-harvest-files).
+        - Exporting to Harvest Files will incur costs according to Harvest Files fees, and files will be retained for a period according to the Harvest Files retention period. For details, refer to Pricing & Fee Schedule.
 
 
         **Warning**: Images from cameras that have not been assigned a Cloud Continuous Recording License or Cloud Motion Detection "Unlimited" Recording License cannot be exported.
 
 
-        **Warning**: When calling this API using a SAM User''s API key and API token, the SAM User must also have permission to call the `OAuth2:authorize` API in addition to permission to call this API. Additionally, to export to Harvest Files, the [FileEntry:putFile API](#/FileEntry/putFile) permission must be granted. For more information on setting permissions, see [Access Levels](/en/docs/security/users-and-roles/#access-levels).
+        **Warning**: When calling this API using a SAM User''s API key and API token, the SAM User must also have permission to call the `OAuth2:authorize` API in addition to permission to call this API. Additionally, to export to Harvest Files, the FileEntry:putFile API permission must be granted. For more information on setting permissions, see Access Levels.
 
 
-        **Info**: The image size of the exported still images is 1920 x 1080 pixels.
-
-        '
+        **Info**: The image size of the exported still images is 1920 x 1080 pixels.'
       operationId: exportSoraCamDeviceRecordedImage
       parameters:
       - description: Device ID of the target SoraCam compatible camera device.
@@ -1915,19 +1833,17 @@ paths:
       security:
       - api_key: []
         api_token: []
-      summary: Start the process of exporting still images from recorded video saved on the cloud
+      summary: Start the process of exporting still images from recorded video saved on the…
       tags:
       - SoraCam
       x-soracom-cli:
       - sora-cam devices images export
   /sora_cam/devices/{device_id}/images/exports/{export_id}:
     get:
-      description: 'Gets the current status of the process of exporting still image from recorded video taken with a SoraCam compatible camera device started by [SoraCam:exportSoraCamDeviceRecordedImage API](#!/SoraCam/exportSoraCamDeviceRecordedImage). This API limits the target to one export process.
+      description: 'Gets the current status of the process of exporting still image from recorded video taken with a SoraCam compatible camera device started by SoraCam:exportSoraCamDeviceRecordedImage API. This API limits the target to one export process.
 
 
-        **Warning**: When calling this API using a SAM User''s API key and API token, the SAM User must also have permission to call the `OAuth2:authorize` API in addition to permission to call this API. For more information on setting permissions, see [Access Levels](/en/docs/security/users-and-roles/#access-levels).
-
-        '
+        **Warning**: When calling this API using a SAM User''s API key and API token, the SAM User must also have permission to call the `OAuth2:authorize` API in addition to permission to call this API. For more information on setting permissions, see Access Levels.'
       operationId: getSoraCamDeviceExportedImage
       parameters:
       - description: Device ID of the target SoraCam compatible camera device.
@@ -2006,7 +1922,7 @@ paths:
       security:
       - api_key: []
         api_token: []
-      summary: Get the current status of the process of exporting still images from recorded video taken with a SoraCam compatible camera device
+      summary: Get the current status of the process of exporting still images from recorded…
       tags:
       - SoraCam
       x-soracom-cli:
@@ -2036,7 +1952,7 @@ paths:
       security:
       - api_key: []
         api_token: []
-      summary: Get the current name of the SoraCam compatible camera device.
+      summary: Get the current name of the SoraCam compatible camera device
       tags:
       - SoraCam
       x-soracom-cli:
@@ -2068,7 +1984,7 @@ paths:
       security:
       - api_key: []
         api_token: []
-      summary: Changes the name of the SoraCam compatible camera device.
+      summary: Changes the name of the SoraCam compatible camera device
       tags:
       - SoraCam
       x-soracom-cli:
@@ -2098,7 +2014,7 @@ paths:
       security:
       - api_key: []
         api_token: []
-      summary: Get the current power state of the SoraCam compatible camera device.
+      summary: Get the current power state of the SoraCam compatible camera device
       tags:
       - SoraCam
       x-soracom-cli:
@@ -2130,7 +2046,7 @@ paths:
       security:
       - api_key: []
         api_token: []
-      summary: Changes the power state of the SoraCam compatible camera device.
+      summary: Changes the power state of the SoraCam compatible camera device
       tags:
       - SoraCam
       x-soracom-cli:
@@ -2154,7 +2070,7 @@ paths:
       security:
       - api_key: []
         api_token: []
-      summary: Reboot the SoraCam compatible camera device.
+      summary: Reboot the SoraCam compatible camera device
       tags:
       - SoraCam
       x-soracom-cli:
@@ -2164,9 +2080,7 @@ paths:
       description: 'Returns a list of recordings and events for a SoraCam compatible camera device.
 
 
-        **Warning**: If you will run this API with a SAM user''s API key and API token, please add the `OAuth2:authorize` permission to the SAM user in addition to the permission required to call this API (e.g. `SoraCam:*`). For more information on setting permissions, see [Access Levels](/en/docs/security/users-and-roles/#access-levels).
-
-        '
+        **Warning**: If you will run this API with a SAM user''s API key and API token, please add the `OAuth2:authorize` permission to the SAM user in addition to the permission required to call this API (e.g. `SoraCam:*`). For more information on setting permissions, see Access Levels.'
       operationId: listSoraCamDeviceRecordingsAndEvents
       parameters:
       - description: Device ID of the target SoraCam compatible camera device.
@@ -2241,7 +2155,7 @@ paths:
       security:
       - api_key: []
         api_token: []
-      summary: Retrieve a list of recording periods and events for a SoraCam compatible camera device
+      summary: Retrieve a list of recording periods and events for a SoraCam compatible camera…
       tags:
       - SoraCam
       x-soracom-cli:
@@ -2253,7 +2167,26 @@ paths:
           header: x-soracom-next-key
   /sora_cam/devices/{device_id}/stream:
     get:
-      description: "Get information for streaming recorded video from the cloud. Specifically, you can get an array of URLs that support a streaming method called MPEG-DASH (Dynamic Adaptive Streaming over HTTP). The URL has an expiration time.\n\n- To stream the latest video, omit both `from` and `to`. Please be aware of the following points in that case:\n  - You can get a URL to stream the latest 300 seconds (5 minutes) of video based on the time of the API called. To continue watching, call the API again to get the next URL.\n  - At the time of obtaining the URL, 5 minutes of the available video viewing time (72 hours per month by default) will be consumed regardless of the viewing status.\n- To stream recorded video at a specific point in time, specify either `from` or `to`. Please be aware of the following points:\n  - You can get a URL to stream up to 900 seconds (15 minutes) of recorded video.\n  - At the time of obtaining the URL, the available video viewing time (72 hours per month by default) will be consumed regardless of the viewing status.\n\n**Warning**: **Latest video** refers to the most recent recorded footage saved in the cloud. This API cannot be used to play **Live streaming video** that can be played on the ATOM app. To view **Live streaming video**, use real-time access (Early access).\n\n**Warning**: When calling this API using a SAM User's API key and API token, the SAM User must also have permission to call the `OAuth2:authorize` API in addition to permission to call this API. For more information on setting permissions, see [Access Levels](/en/docs/security/users-and-roles/#access-levels).\n"
+      description: 'Get information for streaming recorded video from the cloud. Specifically, you can get an array of URLs that support a streaming method called MPEG-DASH (Dynamic Adaptive Streaming over HTTP). The URL has an expiration time.
+
+
+        - To stream the latest video, omit both `from` and `to`. Please be aware of the following points in that case:
+
+        - You can get a URL to stream the latest 300 seconds (5 minutes) of video based on the time of the API called. To continue watching, call the API again to get the next URL.
+
+        - At the time of obtaining the URL, 5 minutes of the available video viewing time (72 hours per month by default) will be consumed regardless of the viewing status.
+
+        - To stream recorded video at a specific point in time, specify either `from` or `to`. Please be aware of the following points:
+
+        - You can get a URL to stream up to 900 seconds (15 minutes) of recorded video.
+
+        - At the time of obtaining the URL, the available video viewing time (72 hours per month by default) will be consumed regardless of the viewing status.
+
+
+        **Warning**: **Latest video** refers to the most recent recorded footage saved in the cloud. This API cannot be used to play **Live streaming video** that can be played on the ATOM app. To view **Live streaming video**, use real-time access (Early access).
+
+
+        **Warning**: When calling this API using a SAM User''s API key and API token, the SAM User must also have permission to call the `OAuth2:authorize` API in addition to permission to call this API. For more information on setting permissions, see Access Levels.'
       operationId: getSoraCamDeviceStreamingVideo
       parameters:
       - description: Device ID of the target SoraCam compatible camera device.
@@ -2307,25 +2240,23 @@ paths:
       security:
       - api_key: []
         api_token: []
-      summary: Get information for streaming recorded video from the cloud.
+      summary: Get information for streaming recorded video from the cloud
       tags:
       - SoraCam
       x-soracom-cli:
       - sora-cam devices get-streaming-video
   /sora_cam/devices/{device_id}/videos/exports:
     get:
-      description: 'Gets the list of the current status of the process of exporting recorded video taken with a SoraCam compatible camera device started by [SoraCam:exportSoraCamDeviceRecordedVideo API](#!/SoraCam/exportSoraCamDeviceRecordedVideo). This API limits the target to one SoraCam compatible camera device.
+      description: 'Gets the list of the current status of the process of exporting recorded video taken with a SoraCam compatible camera device started by SoraCam:exportSoraCamDeviceRecordedVideo API. This API limits the target to one SoraCam compatible camera device.
 
 
-        If the target is not limited to one SoraCam compatible camera device, but all SoraCam compatible camera devices owned by the operator, use [SoraCam:listSoraCamDeviceVideoExports API](#!/SoraCam/listSoraCamDeviceVideoExports).
+        If the target is not limited to one SoraCam compatible camera device, but all SoraCam compatible camera devices owned by the operator, use SoraCam:listSoraCamDeviceVideoExports API.
 
 
         **Warning**: The URL becomes unusable 10 minutes after export completion. The time until the URL becomes unusable can be checked with `expiryTime`. Additionally, over time, it will be removed from the list.
 
 
-        **Warning**: When calling this API using a SAM User''s API key and API token, the SAM User must also have permission to call the `OAuth2:authorize` API in addition to permission to call this API. For more information on setting permissions, see [Access Levels](/en/docs/security/users-and-roles/#access-levels).
-
-        '
+        **Warning**: When calling this API using a SAM User''s API key and API token, the SAM User must also have permission to call the `OAuth2:authorize` API in addition to permission to call this API. For more information on setting permissions, see Access Levels.'
       operationId: listSoraCamDeviceVideoExportsForDevice
       parameters:
       - description: Device ID of the target SoraCam compatible camera device.
@@ -2430,7 +2361,7 @@ paths:
       security:
       - api_key: []
         api_token: []
-      summary: Get a list of the current status of the process of exporting recorded video taken with a SoraCam compatible camera device.
+      summary: Get a list of the current status of the process of exporting recorded video…
       tags:
       - SoraCam
       x-soracom-cli:
@@ -2441,7 +2372,7 @@ paths:
         response:
           header: x-soracom-next-key
     post:
-      description: 'Starts the process of exporting recorded video saved on the cloud in a format that can be downloaded (zipped mp4 files). The export process is processed asynchronously. The progress of the export process and the URL of the exported file can be obtained with the [SoraCam:listSoraCamDeviceVideoExports API](#!/SoraCam/listSoraCamDeviceVideoExports). The URL has an expiration time.
+      description: 'Starts the process of exporting recorded video saved on the cloud in a format that can be downloaded (zipped mp4 files). The export process is processed asynchronously. The progress of the export process and the URL of the exported file can be obtained with the SoraCam:listSoraCamDeviceVideoExports API. The URL has an expiration time.
 
 
         - The maximum export time for a single URL is 900 seconds (15 minutes).
@@ -2450,15 +2381,13 @@ paths:
 
         - Exporting results are not cached. If you export the same time twice, it will consume twice the available video viewing time (72 hours per month by default).
 
-        - Exporting to Harvest Files will incur costs according to Harvest Files fees, and files will be retained for a period according to the Harvest Files retention period. For details, refer to [Pricing & Fee Schedule](/en/docs/reference/fees/#soracom-harvest-files).
+        - Exporting to Harvest Files will incur costs according to Harvest Files fees, and files will be retained for a period according to the Harvest Files retention period. For details, refer to Pricing & Fee Schedule.
 
 
         **Warning**: Recordings from cameras that have not been assigned a Cloud Continuous Recording License or Cloud Motion Detection "Unlimited" Recording License cannot be exported.
 
 
-        **Warning**: When calling this API using a SAM User''s API key and API token, the SAM User must also have permission to call the `OAuth2:authorize` API in addition to permission to call this API. Additionally, to export to Harvest Files, the [FileEntry:putFile API](#/FileEntry/putFile) permission must be granted. For more information on setting permissions, see [Access Levels](/en/docs/security/users-and-roles/#access-levels).
-
-        '
+        **Warning**: When calling this API using a SAM User''s API key and API token, the SAM User must also have permission to call the `OAuth2:authorize` API in addition to permission to call this API. Additionally, to export to Harvest Files, the FileEntry:putFile API permission must be granted. For more information on setting permissions, see Access Levels.'
       operationId: exportSoraCamDeviceRecordedVideo
       parameters:
       - description: Device ID of the target SoraCam compatible camera device.
@@ -2511,12 +2440,10 @@ paths:
       - sora-cam devices videos export
   /sora_cam/devices/{device_id}/videos/exports/{export_id}:
     get:
-      description: 'Gets the current status of the process of exporting recorded video taken with a SoraCam compatible camera device started by [SoraCam:exportSoraCamDeviceRecordedVideo API](#!/SoraCam/exportSoraCamDeviceRecordedVideo). This API limits the target to one export process.
+      description: 'Gets the current status of the process of exporting recorded video taken with a SoraCam compatible camera device started by SoraCam:exportSoraCamDeviceRecordedVideo API. This API limits the target to one export process.
 
 
-        **Warning**: When calling this API using a SAM User''s API key and API token, the SAM User must also have permission to call the `OAuth2:authorize` API in addition to permission to call this API. For more information on setting permissions, see [Access Levels](/en/docs/security/users-and-roles/#access-levels).
-
-        '
+        **Warning**: When calling this API using a SAM User''s API key and API token, the SAM User must also have permission to call the `OAuth2:authorize` API in addition to permission to call this API. For more information on setting permissions, see Access Levels.'
       operationId: getSoraCamDeviceExportedVideo
       parameters:
       - description: Device ID of the target SoraCam compatible camera device.
@@ -2595,7 +2522,7 @@ paths:
       security:
       - api_key: []
         api_token: []
-      summary: Get the current status of the process of exporting recorded video taken with a SoraCam compatible camera device
+      summary: Get the current status of the process of exporting recorded video taken with a…
       tags:
       - SoraCam
       x-soracom-cli:
@@ -2605,9 +2532,7 @@ paths:
       description: 'Returns a list of SoraCam compatible camera devices that can update the firmware.
 
 
-        **Warning**: If you will run this API with a SAM user''s API key and API token, please add the `OAuth2:authorize` permission to the SAM user in addition to the permission required to call this API (e.g. `SoraCam:*`). For more information on setting permissions, see [Access Levels](/en/docs/security/users-and-roles/#access-levels).
-
-        '
+        **Warning**: If you will run this API with a SAM user''s API key and API token, please add the `OAuth2:authorize` permission to the SAM user in addition to the permission required to call this API (e.g. `SoraCam:*`). For more information on setting permissions, see Access Levels.'
       operationId: listSoraCamDeviceAtomCamFirmwareUpdates
       responses:
         '200':
@@ -2625,7 +2550,7 @@ paths:
       security:
       - api_key: []
         api_token: []
-      summary: Retrieve a list of SoraCam compatible camera devices that can update the firmware
+      summary: Retrieve a list of SoraCam compatible camera devices that can update the…
       tags:
       - SoraCam
       x-soracom-cli:
@@ -2712,7 +2637,7 @@ paths:
       security:
       - api_key: []
         api_token: []
-      summary: List SoraCam events.
+      summary: List SoraCam events
       tags:
       - SoraCam
       x-soracom-cli:
@@ -2724,15 +2649,13 @@ paths:
           header: x-soracom-next-key
   /sora_cam/devices/images/exports:
     get:
-      description: 'Gets the list of the current status of the process of exporting still image from recorded video taken with a SoraCam compatible camera device started by [SoraCam:exportSoraCamDeviceRecordedImage API](#!/SoraCam/exportSoraCamDeviceRecordedImage). This API can target all devices owned by the operator, or limit it to one SoraCam compatible camera device.
+      description: 'Gets the list of the current status of the process of exporting still image from recorded video taken with a SoraCam compatible camera device started by SoraCam:exportSoraCamDeviceRecordedImage API. This API can target all devices owned by the operator, or limit it to one SoraCam compatible camera device.
 
 
         **Warning**: The URL becomes unusable 10 minutes after export completion. The time until the URL becomes unusable can be checked with `expiryTime`. Additionally, over time, it will be removed from the list.
 
 
-        **Warning**: When calling this API using a SAM User''s API key and API token, the SAM User must also have permission to call the `OAuth2:authorize` API in addition to permission to call this API. For more information on setting permissions, see [Access Levels](/en/docs/security/users-and-roles/#access-levels).
-
-        '
+        **Warning**: When calling this API using a SAM User''s API key and API token, the SAM User must also have permission to call the `OAuth2:authorize` API in addition to permission to call this API. For more information on setting permissions, see Access Levels.'
       operationId: listSoraCamDeviceImageExports
       parameters:
       - description: Device ID of the target SoraCam compatible camera device. If not specified, returns all SoraCam compatible camera devices owned by the operator.
@@ -2837,7 +2760,7 @@ paths:
       security:
       - api_key: []
         api_token: []
-      summary: Get a list of the current status of the process of exporting still image from recorded video taken with a SoraCam compatible camera device.
+      summary: Get a list of the current status of the process of exporting still image from…
       tags:
       - SoraCam
       x-soracom-cli:
@@ -2849,15 +2772,13 @@ paths:
           header: x-soracom-next-key
   /sora_cam/devices/videos/exports:
     get:
-      description: 'Gets the list of the current status of the process of exporting recorded video taken with a SoraCam compatible camera device started by [SoraCam:exportSoraCamDeviceRecordedVideo API](#!/SoraCam/exportSoraCamDeviceRecordedVideo). This API can target all devices owned by the operator, or limit it to one SoraCam compatible camera device.
+      description: 'Gets the list of the current status of the process of exporting recorded video taken with a SoraCam compatible camera device started by SoraCam:exportSoraCamDeviceRecordedVideo API. This API can target all devices owned by the operator, or limit it to one SoraCam compatible camera device.
 
 
         **Warning**: The URL becomes unusable 10 minutes after export completion. The time until the URL becomes unusable can be checked with `expiryTime`. Additionally, over time, it will be removed from the list.
 
 
-        **Warning**: When calling this API using a SAM User''s API key and API token, the SAM User must also have permission to call the `OAuth2:authorize` API in addition to permission to call this API. For more information on setting permissions, see [Access Levels](/en/docs/security/users-and-roles/#access-levels).
-
-        '
+        **Warning**: When calling this API using a SAM User''s API key and API token, the SAM User must also have permission to call the `OAuth2:authorize` API in addition to permission to call this API. For more information on setting permissions, see Access Levels.'
       operationId: listSoraCamDeviceVideoExports
       parameters:
       - description: Device ID of the target SoraCam compatible camera device. If not specified, returns all SoraCam compatible camera devices owned by the operator.
@@ -2962,7 +2883,7 @@ paths:
       security:
       - api_key: []
         api_token: []
-      summary: Get a list of the current status of the process of exporting recorded video taken with a SoraCam compatible camera device.
+      summary: Get a list of the current status of the process of exporting recorded video…
       tags:
       - SoraCam
       x-soracom-cli:
@@ -3059,23 +2980,93 @@ paths:
       - sora-cam license-packs update-quantity
 components:
   schemas:
-    SoraCamAtomCamSettingsLogo:
+    SoraCamImageExportUsage:
       properties:
-        state:
-          description: 'Display settings for the ATOM tech Inc. logo shown on the bottom left of the captured image.
+        billedFrames:
+          description: The number of still images, assuming that all of the recorded video time available for export has been used for exporting still images. In other words, when the value is 0, no charge is incurred. Note that the billing calculation uses `billedSeconds`, not the frame count.
+          type: integer
+        limitFrames:
+          description: The number of still images that can be exported by assuming that all of the available export time for the video is used for exporting still images. The recorded video time available for export is output in the number of still images that can be exported.
+          type: integer
+        remainingFrames:
+          description: The number of still images that can be exported, assuming that all of the available export time for the video is used for exporting still images, up to the maximum possible video export time. `limitFrames` minus `usedFrames`.
+          type: integer
+        usedFrames:
+          description: The number of still images exported, assuming that all the recorded video time available for export consumed in the current month was used for exporting still images.
+          type: integer
+      required:
+      - billedFrames
+      - limitFrames
+      - remainingFrames
+      - usedFrames
+      type: object
+    SoraCamVideoExportInfo:
+      properties:
+        deviceId:
+          description: Device ID of the SoraCam compatible camera device.
+          type: string
+        expiryTime:
+          description: Expiration timestamp of the URL (unix time in milliseconds). The URL becomes unusable 10 minutes after export completion. Only included if `status` is `completed`.
+          format: int64
+          type: integer
+        exportId:
+          description: 'Export ID. If you specify the export ID obtained in [SoraCam:exportSoraCamDeviceRecordedVideo API](#!/SoraCam/exportSoraCamDeviceRecordedVideo) to [SoraCam:getSoraCamDeviceExportedVideo API](#!/SoraCam/getSoraCamDeviceExportedVideo), you can obtain the URL for downloading the zipped mp4 file.
+
+            '
+          type: string
+        operatorId:
+          description: 'Operator ID that called [SoraCam:exportSoraCamDeviceRecordedVideo API](#!/SoraCam/exportSoraCamDeviceRecordedVideo).
+
+            '
+          type: string
+        requestedTime:
+          description: 'The date and time when the Soracom platform accepted the export request from [SoraCam:exportSoraCamDeviceRecordedVideo API](#!/SoraCam/exportSoraCamDeviceRecordedVideo) (unix time in milliseconds).
+
+            '
+          format: int64
+          type: integer
+        status:
+          description: 'Current status of the export.
 
 
-            - `on`
+            - `initializing`: Initial state.
 
-            - `off`
+            - `processing`: Processing.
+
+            - `completed`: Export completed.
+
+            - `retrying`: Retry export.
+
+            - `failed`: Export failed.
+
+            - `limitExceeded`: Video cannot be exported because the recorded video time available for export has been exceeded.
+
+            - `expired`: Exported URL is expired.
 
             '
           enum:
-          - 'on'
-          - 'off'
+          - initializing
+          - processing
+          - completed
+          - retrying
+          - failed
+          - limitExceeded
+          - expired
+          type: string
+        url:
+          description: 'URL to download a zipped mp4 file. Only included if `status` is `completed`.
+
+
+            - You can get mp4 files by extracting the downloaded zip file.
+
+            '
           type: string
       required:
-      - state
+      - exportId
+      - requestedTime
+      - operatorId
+      - deviceId
+      - status
       type: object
     SoraCamImageExportInfo:
       properties:
@@ -3140,449 +3131,31 @@ components:
       - deviceId
       - status
       type: object
-    SoraCamDeviceRealTimeAccessOption:
-      properties:
-        enabled:
-          type: boolean
-      required:
-      - enabled
-      type: object
-    SoraCamVideoExportSpecification:
-      properties:
-        archive:
-          default: true
-          description: 'Specifies whether exported files should be compressed. Defaults to `true`.
-
-
-            - `true`: Compresses video files in zip format.
-
-            - `false`: Exports video files as uncompressed MP4 files.
-
-            '
-          type: boolean
-        audioCodec:
-          default: pcm_s16le
-          description: 'Specifies the audio codec for exported videos. Defaults to `pcm_s16le`.
-
-
-            - `mp3`: MP3
-
-            - `pcm_s16le`: PCM 16-bit (WAV file)
-
-
-            **Warning**: If `mp3` is specified, it will consume twice the recorded video time available for export.
-
-            '
-          enum:
-          - pcm_s16le
-          - mp3
-          type: string
-        from:
-          description: Start time for exporting (unix time in milliseconds).
-          format: int64
-          type: integer
-        harvestFiles:
-          $ref: '#/components/schemas/SoraCamExportVideoToHarvestFiles'
-        to:
-          description: 'End time for exporting (unix time in milliseconds).
-
-
-            - The maximum duration that can be exported in a single API call is 900 seconds (15 minutes). Make sure the difference between `from` and `to` does not exceed 900 seconds.
-
-            '
-          format: int64
-          type: integer
-      required:
-      - from
-      - to
-      type: object
-    SoraCamExportImageToHarvestFiles:
-      description: 'Specifies the settings for exporting images to Harvest Files.
-
-
-        Example: `harvestFiles: { pathPrefix: "/sora_cam/{device_id}" }`
-
-
-        If the `pathPrefix` is omitted or set to an empty string, the export will be saved in the root directory of Harvest Files.
-
-
-        Example of exporting to the root directory: `harvestFiles: { pathPrefix: "" }`
-
-        '
-      properties:
-        pathPrefix:
-          description: 'The directory name where the images will be saved when exporting to Harvest Files.
-
-
-            The following strings can be entered, and they will be replaced according to the rules during export:
-
-
-            - `{export_id}`: The export ID (e.g., `123e4567-e89b-12d3-a456-426614174000`).
-
-            - `{device_id}`: The device ID (e.g., `001A2B3C4D5E`).
-
-            - `{date}`: The request date and time of the export (e.g., `2024/10/01/12/34`).
-
-            - `{time}`: The capture time of the image (UNIX time in milliseconds) (e.g., `1728393803000`).
-
-
-            For example, if you enter `/sora_cam/{device_id}`, the images will be exported to a directory unique to each SoraCam compatible camera device. `{date}` and `{time}` are useful when saving images captured/exported at the same time from multiple SoraCam compatible camera devices to the same directory.
-
-
-            **Info**: If omitted or set to an empty string, the export will be saved in the root directory of Harvest Files.
-
-            '
-          type: string
-      type: object
-    SoraCamAtomCamSettingsStatusLight:
+    SoraCamAtomCamSettingsSoundSensitivity:
       properties:
         state:
-          description: 'Settings for the status light (indicator light that shows the status of the camera).
+          description: 'Settings for sound detection sensitivity. The higher the sensitivity, the easier it is to detect small sounds.
 
 
-            - `on`
+            - `high`
 
-            - `off`
+            - `medium`
+
+            - `low`
 
             '
           enum:
-          - 'on'
-          - 'off'
+          - high
+          - medium
+          - low
           type: string
       required:
       - state
       type: object
-    SoraCamEvent:
-      properties:
-        deviceId:
-          description: An identifier to identify the device.
-          type: string
-        deviceType:
-          description: Type of the device.
-          format: string
-          type: string
-        eventId:
-          description: An identifier to identify of the event.
-          type: string
-        eventInfo:
-          properties:
-            atomEventV1:
-              description: Detail of the event.
-              properties:
-                endTime:
-                  description: Timestamp when the event is ended (unix time in milliseconds).
-                  format: int64
-                  type: integer
-                labels:
-                  description: List of the detected objects in the event.
-                  items:
-                    type: string
-                  type: array
-                movie:
-                  description: 'URL of the video recorded by the event; if it has expired, call the API again.
-
-
-                    - If the Cloud Motion Detection "Unlimited" Recording license is applied, the URL of the video recorded by the motion detection is not included here; use the [SoraCam:exportSoraCamDeviceRecordedVideo API](#!/SoraCam/exportSoraCamDeviceRecordedVideo) to export it.
-
-                    - URLs are included here for events other than motion detection, even if the Cloud Motion Detection "Unlimited" Recording license is applied.
-
-                    '
-                  type: string
-                picture:
-                  description: URL for the picture of `startTime`. If the URL has expired, please call the API again.
-                  type: string
-                recordingStatus:
-                  description: Status of the event recording.
-                  enum:
-                  - completed
-                  - recording
-                  - failed
-                  type: string
-                startTime:
-                  description: Timestamp when the event is started (unix time in milliseconds).
-                  format: int64
-                  type: integer
-                type:
-                  description: "Type of the event.\n  - `motion`: Motion Alert.\n  - `sound`: Sound Alert.\n  - `other`: Others.\n"
-                  enum:
-                  - motion
-                  - sound
-                  - other
-                  type: string
-              type: object
-            infoType:
-              description: Type of the event detail. May vary depend on `deviceType`.
-              type: string
-          required:
-          - infoType
-          type: object
-        time:
-          description: Timestamp of the event (unix time in milliseconds).
-          format: int64
-          type: integer
-      required:
-      - deviceId
-      - eventId
-      - time
-      - deviceType
-      type: object
-    SoraCamExportUsageLimitOverrideSpecification:
-      properties:
-        limitHours:
-          description: New value for the monthly limit for the amount of hours that recorded video can be exported.
-          type: integer
-      required:
-      - limitHours
-      type: object
-    SoraCamAtomCamSettingsRotation:
+    SoraCamAtomCamSettingsLogo:
       properties:
         state:
-          description: 'Settings for rotating the image by 180 degrees. Set to `180` when installing the SoraCam compatible camera device upside down.
-
-
-            - `0`: OFF (no rotation).
-
-            - `180`: ON (180-degree rotation).
-
-            '
-          enum:
-          - 0
-          - 180
-          type: integer
-      required:
-      - state
-      type: object
-    SoraCamAtomCamSettingsMotion:
-      properties:
-        state:
-          description: 'Settings for motion detection.
-
-
-            - `on`
-
-            - `off`
-
-            '
-          enum:
-          - 'on'
-          - 'off'
-          type: string
-      required:
-      - state
-      type: object
-    SoraCamDeviceOptions:
-      properties:
-        realTimeAccess:
-          $ref: '#/components/schemas/SoraCamDeviceRealTimeAccessOption'
-      required:
-      - realTimeAccess
-      type: object
-    SoraCamImageExportSpecification:
-      properties:
-        harvestFiles:
-          $ref: '#/components/schemas/SoraCamExportImageToHarvestFiles'
-        imageFilters:
-          description: Image filters to be applied to the exported image.
-          items:
-            enum:
-            - wide_angle_correction
-            type: string
-          type: array
-        time:
-          description: Time to be exported (unix time in milliseconds). A still image is exported from the recorded video taken at the specified time.
-          format: int64
-          type: integer
-      required:
-      - time
-      type: object
-    SoraCamDeviceLicenseUpdate:
-      properties:
-        type:
-          description: 'Type of license to assign.
-
-
-            - `CR7-SC`: Cloud Continuous Recording License (7 Days).
-
-            - `CR14-SC`: Cloud Continuous Recording License (14 Days).
-
-            - `CR30-SC`: Cloud Continuous Recording License (30 Days).
-
-            - `MR7-SC`: Cloud Motion Detection "Unlimited" Recording License (7 Days).
-
-            - `MR14-SC`: Cloud Motion Detection "Unlimited" Recording License (14 Days).
-
-            '
-          enum:
-          - CR7-SC
-          - CR14-SC
-          - CR30-SC
-          - MR7-SC
-          - MR14-SC
-          type: string
-      type: object
-    SoraCamExportVideoToHarvestFiles:
-      description: 'Specifies the settings for exporting video to Harvest Files.
-
-
-        Example: `harvestFiles: { pathPrefix: "/sora_cam/{device_id}" }`
-
-
-        If the `pathPrefix` is omitted or set to an empty string, the export will be saved in the root directory of Harvest Files.
-
-
-        Example of exporting to the root directory: `harvestFiles: { pathPrefix: "" }`
-
-        '
-      properties:
-        pathPrefix:
-          description: 'The directory name where the video will be saved when exporting to Harvest Files.
-
-
-            The following strings can be entered, and they will be replaced according to the rules during export:
-
-
-            - `{export_id}`: The export ID (e.g., `123e4567-e89b-12d3-a456-426614174000`).
-
-            - `{device_id}`: The device ID (e.g., `001A2B3C4D5E`).
-
-            - `{date}`: The request date and time of the export (e.g., `2024/10/01/12/34`).
-
-            - `{from}`: The start time of the video (UNIX time in milliseconds) (e.g., `1728393803000`).
-
-            - `{to}`: The end time of the video (UNIX time in milliseconds) (e.g., `1728394700000`).
-
-
-            For example, if you enter `/sora_cam/{device_id}`, the video will be exported to a directory unique to each SoraCam compatible camera device. `{date}`, `{from}`, and `{to}` are useful when saving videos recorded/exported at the same time from multiple SoraCam compatible camera devices to the same directory.
-
-
-            **Info**: If omitted or set to an empty string, the export will be saved in the root directory of Harvest Files.
-
-            '
-          type: string
-      type: object
-    SoraCamRecordingsAndEventsList:
-      properties:
-        events:
-          items:
-            properties:
-              endTime:
-                description: Timestamp when the event is ended (unix time in milliseconds).
-                format: int64
-                type: integer
-              startTime:
-                description: Timestamp when the event is started (unix time in milliseconds).
-                format: int64
-                type: integer
-              type:
-                description: 'Type of the event.
-
-
-                  - `motion`: Motion Alert.
-
-                  - `sound`: Sound Alert.
-
-                  - `other`: Others.
-
-                  '
-                enum:
-                - motion
-                - sound
-                - other
-                type: string
-            required:
-            - startTime
-            - type
-            type: object
-          type: array
-        records:
-          items:
-            properties:
-              endTime:
-                description: Timestamp when the recording is ended (unix time in milliseconds). `endTime` is not included for ongoing recordings.
-                format: int64
-                type: integer
-              startTime:
-                description: Timestamp when the recording is started (unix time in milliseconds).
-                format: int64
-                type: integer
-            required:
-            - startTime
-            type: object
-          type: array
-      required:
-      - records
-      - events
-      type: object
-    SoraCamDevicesFirmwareUpdate:
-      properties:
-        deviceId:
-          description: 'Device ID of the SoraCam compatible camera device.
-
-            '
-          type: string
-        firmwareVersion:
-          description: 'Available firmware version for the SoraCam compatible camera device.
-
-            '
-          type: string
-        timeout:
-          description: 'Timeout for the firmware update process (in seconds). If the firmware update process is not completed within this time, the process is considered to have failed.
-
-            '
-          format: int64
-          type: integer
-      required:
-      - deviceId
-      - firmwareVersion
-      - timeout
-      type: object
-    SoraCamLicensePackResponse:
-      properties:
-        id:
-          description: ID of the license pack.
-          example: CR7-SC
-          type: string
-        name:
-          description: Name of the license pack.
-          example: Cloud Recording License (7 Days)
-          type: string
-        quantity:
-          description: The quantity of licenses in the license pack.
-          example: 1
-          format: int32
-          type: integer
-        quantityInUse:
-          description: The quantity of licenses in the license pack currently in use.
-          example: 1
-          format: int32
-          type: integer
-        salesChannel:
-          description: Sales channel of the license pack.
-          example: SORACOM Inc.
-          type: string
-      type: object
-    SoraCamPowerState:
-      properties:
-        powerState:
-          description: 'Power state of the SoraCam compatible camera device.
-
-
-            - `on`
-
-            - `sleep`
-
-            '
-          enum:
-          - 'on'
-          - sleep
-          type: string
-      required:
-      - powerState
-      type: object
-    SoraCamAtomCamSettingsMotionTagging:
-      properties:
-        state:
-          description: 'Display settings for motion tagging.
+          description: 'Display settings for the ATOM tech Inc. logo shown on the bottom left of the captured image.
 
 
             - `on`
@@ -3615,216 +3188,12 @@ components:
       required:
       - state
       type: object
-    SoraCamImageExportUsage:
-      properties:
-        billedFrames:
-          description: The number of still images, assuming that all of the recorded video time available for export has been used for exporting still images. In other words, when the value is 0, no charge is incurred. Note that the billing calculation uses `billedSeconds`, not the frame count.
-          type: integer
-        limitFrames:
-          description: The number of still images that can be exported by assuming that all of the available export time for the video is used for exporting still images. The recorded video time available for export is output in the number of still images that can be exported.
-          type: integer
-        remainingFrames:
-          description: The number of still images that can be exported, assuming that all of the available export time for the video is used for exporting still images, up to the maximum possible video export time. `limitFrames` minus `usedFrames`.
-          type: integer
-        usedFrames:
-          description: The number of still images exported, assuming that all the recorded video time available for export consumed in the current month was used for exporting still images.
-          type: integer
-      required:
-      - billedFrames
-      - limitFrames
-      - remainingFrames
-      - usedFrames
-      type: object
-    SoraCamAtomCamSettingsMotionSensitivity:
-      properties:
-        state:
-          description: 'Settings for the motion detection sensitivity. The higher the sensitivity, the smaller the image changes that can be detected.
-
-
-            - `high`
-
-            - `medium`
-
-            - `low`
-
-            '
-          enum:
-          - high
-          - medium
-          - low
-          type: string
-      required:
-      - state
-      type: object
-    SoraCamStreamingVideo:
-      properties:
-        expiryTime:
-          description: Expiration timestamp of all URLs in playList (UNIX time in milliseconds).
-          format: int64
-          type: integer
-        playList:
-          description: 'Array of playlist entries for streaming video (latest video / recorded video).
-
-
-            - For the latest video, only one video file is always returned. In addition, `from` and `to` are omitted.
-
-            - For recorded video, the video file may be split depending on the recording status.
-
-            '
-          items:
-            $ref: '#/components/schemas/SoraCamPlayListEntry'
-          type: array
-      required:
-      - expiryTime
-      type: object
-    SoraCamAtomCamSettingsTimestamp:
-      properties:
-        state:
-          description: 'Display settings for the timestamp shown on the bottom right of the captured image.
-
-
-            - `on`
-
-            - `off`
-
-            '
-          enum:
-          - 'on'
-          - 'off'
-          type: string
-      required:
-      - state
-      type: object
     SoraCamAtomCamLiveImageResponse:
       properties:
         url:
           type: string
       required:
       - url
-      type: object
-    SoraCamExportUsage:
-      properties:
-        deviceId:
-          description: Device ID of the SoraCam compatible camera device.
-          type: string
-        image:
-          $ref: '#/components/schemas/SoraCamImageExportUsage'
-          description: The number of still images, assuming that all of the recorded video time available for export is used for exporting still images.
-        meteredYearMonth:
-          description: 'The year and month (format: ''YYYYMM'') for which the video can be exported. In the case of `202301`, this means that the available export time of the video for January 2023 is output.'
-          type: string
-        video:
-          $ref: '#/components/schemas/SoraCamVideoExportUsage'
-          description: The number of seconds of video, assuming that all of the recorded video time available for export is used for exporting as video.
-      required:
-      - deviceId
-      - meteredYearMonth
-      - video
-      - image
-      type: object
-    SoraCamAtomCamSettingsQuality:
-      properties:
-        state:
-          description: 'Settings for the live video and cloud recording quality. Note that for cloud recordings, the resolution is 1080p (1920 x 1080 pixels), regardless of the quality setting.
-
-
-            - `low`: The same quality as selecting "360p" in the ATOM app.
-
-            - `medium`: The same quality as selecting "SD" in the ATOM app.
-
-            - `high`: The same quality as selecting "HD (1080p)" in the ATOM app.
-
-            '
-          enum:
-          - low
-          - medium
-          - high
-          type: string
-      required:
-      - state
-      type: object
-    SoraCamLicensePackQuantityUpdatingRequest:
-      properties:
-        currentQuantity:
-          description: Current license quantity of the license pack.
-          example: 1
-          format: int32
-          type: integer
-        desiredQuantity:
-          description: Desired license quantity of the license pack.
-          example: 2
-          format: int32
-          type: integer
-      type: object
-    SoraCamPlayListEntry:
-      properties:
-        from:
-          description: The start time of the recorded video (UNIX time in milliseconds). Omitted for the latest video.
-          format: int64
-          type: integer
-        to:
-          description: The end time of the recorded video (UNIX time in milliseconds). Omitted for the latest video.
-          format: int64
-          type: integer
-        url:
-          description: "URL to get mpd file of streaming video (latest video / recorded video).\n\n- No URL is returned in the following cases:\n  - When trying to get the latest video, the power of the SoraCam compatible camera device is not turned on.\n  - When trying to get the latest video, cloud recording has not started on a SoraCam compatible camera device.\n  - When trying to get recorded video, there is no recorded video between the specified `from` and `to`.\n"
-          type: string
-      required:
-      - url
-      type: object
-    SoraCamAtomCamSettingsNightVision:
-      properties:
-        state:
-          description: 'Settings for night vision mode.
-
-
-            - `on`: Night vision mode.
-
-            - `off`: Normal mode.
-
-            - `auto`: Auto-switching.
-
-            '
-          enum:
-          - 'on'
-          - 'off'
-          - auto
-          type: string
-      required:
-      - state
-      type: object
-    SoraCamDeviceConfiguration:
-      description: Configuration of the SoraCam compatible camera device.
-      properties:
-        audioAlarmEnabled:
-          description: Whether audio alarm is enabled or not.
-          type: boolean
-        motionDetectionEnabled:
-          description: Whether motion detection is enabled or not.
-          type: boolean
-        smokeAlarmEnabled:
-          description: Whether smoke alarm is enabled or not.
-          type: boolean
-      type: object
-    SoraCamVideoExportUsage:
-      properties:
-        billedSeconds:
-          description: The number of seconds of video, assuming that all of the recorded video time available for export has been used for exporting video. In other words, when the value is 0, no charge is incurred. Note that only `billedSeconds` are used in the calculation of the billing amount.
-          type: integer
-        limitSeconds:
-          description: The number of seconds of video, assuming that all of the available export time for the video is used for exporting video. The maximum available export time for the video is output in seconds of video.
-          type: integer
-        remainingSeconds:
-          description: The number of seconds of video that can be exported, assuming that all of  the available export time for the video is used for exporting as video, up to the maximum possible video export time. `limitSeconds` minus `usedSeconds`.
-          type: integer
-        usedSeconds:
-          description: The number of seconds of video exported, assuming that all the recorded video time available for export consumed in the current month was used for exporting video.
-          type: integer
-      required:
-      - billedSeconds
-      - limitSeconds
-      - remainingSeconds
-      - usedSeconds
       type: object
     SoraCamAtomCamSettingsAll:
       properties:
@@ -3995,91 +3364,266 @@ components:
       - soundSensitivity
       - nightVision
       type: object
-    SoraCamVideoExportInfo:
+    SoraCamExportImageToHarvestFiles:
+      description: 'Specifies the settings for exporting images to Harvest Files.
+
+
+        Example: `harvestFiles: { pathPrefix: "/sora_cam/{device_id}" }`
+
+
+        If the `pathPrefix` is omitted or set to an empty string, the export will be saved in the root directory of Harvest Files.
+
+
+        Example of exporting to the root directory: `harvestFiles: { pathPrefix: "" }`
+
+        '
       properties:
-        deviceId:
-          description: Device ID of the SoraCam compatible camera device.
-          type: string
-        expiryTime:
-          description: Expiration timestamp of the URL (unix time in milliseconds). The URL becomes unusable 10 minutes after export completion. Only included if `status` is `completed`.
-          format: int64
-          type: integer
-        exportId:
-          description: 'Export ID. If you specify the export ID obtained in [SoraCam:exportSoraCamDeviceRecordedVideo API](#!/SoraCam/exportSoraCamDeviceRecordedVideo) to [SoraCam:getSoraCamDeviceExportedVideo API](#!/SoraCam/getSoraCamDeviceExportedVideo), you can obtain the URL for downloading the zipped mp4 file.
+        pathPrefix:
+          description: 'The directory name where the images will be saved when exporting to Harvest Files.
+
+
+            The following strings can be entered, and they will be replaced according to the rules during export:
+
+
+            - `{export_id}`: The export ID (e.g., `123e4567-e89b-12d3-a456-426614174000`).
+
+            - `{device_id}`: The device ID (e.g., `001A2B3C4D5E`).
+
+            - `{date}`: The request date and time of the export (e.g., `2024/10/01/12/34`).
+
+            - `{time}`: The capture time of the image (UNIX time in milliseconds) (e.g., `1728393803000`).
+
+
+            For example, if you enter `/sora_cam/{device_id}`, the images will be exported to a directory unique to each SoraCam compatible camera device. `{date}` and `{time}` are useful when saving images captured/exported at the same time from multiple SoraCam compatible camera devices to the same directory.
+
+
+            **Info**: If omitted or set to an empty string, the export will be saved in the root directory of Harvest Files.
 
             '
           type: string
-        operatorId:
-          description: 'Operator ID that called [SoraCam:exportSoraCamDeviceRecordedVideo API](#!/SoraCam/exportSoraCamDeviceRecordedVideo).
-
-            '
-          type: string
-        requestedTime:
-          description: 'The date and time when the Soracom platform accepted the export request from [SoraCam:exportSoraCamDeviceRecordedVideo API](#!/SoraCam/exportSoraCamDeviceRecordedVideo) (unix time in milliseconds).
-
-            '
-          format: int64
-          type: integer
-        status:
-          description: 'Current status of the export.
-
-
-            - `initializing`: Initial state.
-
-            - `processing`: Processing.
-
-            - `completed`: Export completed.
-
-            - `retrying`: Retry export.
-
-            - `failed`: Export failed.
-
-            - `limitExceeded`: Video cannot be exported because the recorded video time available for export has been exceeded.
-
-            - `expired`: Exported URL is expired.
-
-            '
-          enum:
-          - initializing
-          - processing
-          - completed
-          - retrying
-          - failed
-          - limitExceeded
-          - expired
-          type: string
-        url:
-          description: 'URL to download a zipped mp4 file. Only included if `status` is `completed`.
-
-
-            - You can get mp4 files by extracting the downloaded zip file.
-
-            '
-          type: string
-      required:
-      - exportId
-      - requestedTime
-      - operatorId
-      - deviceId
-      - status
       type: object
-    SoraCamAtomCamSettingsSoundSensitivity:
+    SoraCamAtomCamSettingsNightVision:
       properties:
         state:
-          description: 'Settings for sound detection sensitivity. The higher the sensitivity, the easier it is to detect small sounds.
+          description: 'Settings for night vision mode.
 
 
-            - `high`
+            - `on`: Night vision mode.
 
-            - `medium`
+            - `off`: Normal mode.
 
-            - `low`
+            - `auto`: Auto-switching.
 
             '
           enum:
-          - high
-          - medium
+          - 'on'
+          - 'off'
+          - auto
+          type: string
+      required:
+      - state
+      type: object
+    SoraCamDeviceRealTimeAccessOption:
+      properties:
+        enabled:
+          type: boolean
+      required:
+      - enabled
+      type: object
+    SoraCamPlayListEntry:
+      properties:
+        from:
+          description: The start time of the recorded video (UNIX time in milliseconds). Omitted for the latest video.
+          format: int64
+          type: integer
+        to:
+          description: The end time of the recorded video (UNIX time in milliseconds). Omitted for the latest video.
+          format: int64
+          type: integer
+        url:
+          description: "URL to get mpd file of streaming video (latest video / recorded video).\n\n- No URL is returned in the following cases:\n  - When trying to get the latest video, the power of the SoraCam compatible camera device is not turned on.\n  - When trying to get the latest video, cloud recording has not started on a SoraCam compatible camera device.\n  - When trying to get recorded video, there is no recorded video between the specified `from` and `to`.\n"
+          type: string
+      required:
+      - url
+      type: object
+    SoraCamPowerState:
+      properties:
+        powerState:
+          description: 'Power state of the SoraCam compatible camera device.
+
+
+            - `on`
+
+            - `sleep`
+
+            '
+          enum:
+          - 'on'
+          - sleep
+          type: string
+      required:
+      - powerState
+      type: object
+    SoraCamAtomCamSettingsQuality:
+      properties:
+        state:
+          description: 'Settings for the live video and cloud recording quality. Note that for cloud recordings, the resolution is 1080p (1920 x 1080 pixels), regardless of the quality setting.
+
+
+            - `low`: The same quality as selecting "360p" in the ATOM app.
+
+            - `medium`: The same quality as selecting "SD" in the ATOM app.
+
+            - `high`: The same quality as selecting "HD (1080p)" in the ATOM app.
+
+            '
+          enum:
           - low
+          - medium
+          - high
+          type: string
+      required:
+      - state
+      type: object
+    SoraCamRecordingsAndEventsList:
+      properties:
+        events:
+          items:
+            properties:
+              endTime:
+                description: Timestamp when the event is ended (unix time in milliseconds).
+                format: int64
+                type: integer
+              startTime:
+                description: Timestamp when the event is started (unix time in milliseconds).
+                format: int64
+                type: integer
+              type:
+                description: 'Type of the event.
+
+
+                  - `motion`: Motion Alert.
+
+                  - `sound`: Sound Alert.
+
+                  - `other`: Others.
+
+                  '
+                enum:
+                - motion
+                - sound
+                - other
+                type: string
+            required:
+            - startTime
+            - type
+            type: object
+          type: array
+        records:
+          items:
+            properties:
+              endTime:
+                description: Timestamp when the recording is ended (unix time in milliseconds). `endTime` is not included for ongoing recordings.
+                format: int64
+                type: integer
+              startTime:
+                description: Timestamp when the recording is started (unix time in milliseconds).
+                format: int64
+                type: integer
+            required:
+            - startTime
+            type: object
+          type: array
+      required:
+      - records
+      - events
+      type: object
+    SoraCamAtomCamSettingsMotionTagging:
+      properties:
+        state:
+          description: 'Display settings for motion tagging.
+
+
+            - `on`
+
+            - `off`
+
+            '
+          enum:
+          - 'on'
+          - 'off'
+          type: string
+      required:
+      - state
+      type: object
+    SoraCamAtomCamSettingsMotion:
+      properties:
+        state:
+          description: 'Settings for motion detection.
+
+
+            - `on`
+
+            - `off`
+
+            '
+          enum:
+          - 'on'
+          - 'off'
+          type: string
+      required:
+      - state
+      type: object
+    SoraCamAtomCamSettingsStatusLight:
+      properties:
+        state:
+          description: 'Settings for the status light (indicator light that shows the status of the camera).
+
+
+            - `on`
+
+            - `off`
+
+            '
+          enum:
+          - 'on'
+          - 'off'
+          type: string
+      required:
+      - state
+      type: object
+    SoraCamAtomCamSettingsRotation:
+      properties:
+        state:
+          description: 'Settings for rotating the image by 180 degrees. Set to `180` when installing the SoraCam compatible camera device upside down.
+
+
+            - `0`: OFF (no rotation).
+
+            - `180`: ON (180-degree rotation).
+
+            '
+          enum:
+          - 0
+          - 180
+          type: integer
+      required:
+      - state
+      type: object
+    SoraCamAtomCamSettingsTimestamp:
+      properties:
+        state:
+          description: 'Display settings for the timestamp shown on the bottom right of the captured image.
+
+
+            - `on`
+
+            - `off`
+
+            '
+          enum:
+          - 'on'
+          - 'off'
           type: string
       required:
       - state
@@ -4119,6 +3663,252 @@ components:
       required:
       - name
       - value
+      type: object
+    SoraCamDeviceLicenseUpdate:
+      properties:
+        type:
+          description: 'Type of license to assign.
+
+
+            - `CR7-SC`: Cloud Continuous Recording License (7 Days).
+
+            - `CR14-SC`: Cloud Continuous Recording License (14 Days).
+
+            - `CR30-SC`: Cloud Continuous Recording License (30 Days).
+
+            - `MR7-SC`: Cloud Motion Detection "Unlimited" Recording License (7 Days).
+
+            - `MR14-SC`: Cloud Motion Detection "Unlimited" Recording License (14 Days).
+
+            '
+          enum:
+          - CR7-SC
+          - CR14-SC
+          - CR30-SC
+          - MR7-SC
+          - MR14-SC
+          type: string
+      type: object
+    SoraCamLicensePackResponse:
+      properties:
+        id:
+          description: ID of the license pack.
+          example: CR7-SC
+          type: string
+        name:
+          description: Name of the license pack.
+          example: Cloud Recording License (7 Days)
+          type: string
+        quantity:
+          description: The quantity of licenses in the license pack.
+          example: 1
+          format: int32
+          type: integer
+        quantityInUse:
+          description: The quantity of licenses in the license pack currently in use.
+          example: 1
+          format: int32
+          type: integer
+        salesChannel:
+          description: Sales channel of the license pack.
+          example: SORACOM Inc.
+          type: string
+      type: object
+    SoraCamLicensePackQuantityUpdatingRequest:
+      properties:
+        currentQuantity:
+          description: Current license quantity of the license pack.
+          example: 1
+          format: int32
+          type: integer
+        desiredQuantity:
+          description: Desired license quantity of the license pack.
+          example: 2
+          format: int32
+          type: integer
+      type: object
+    SoraCamVideoExportUsage:
+      properties:
+        billedSeconds:
+          description: The number of seconds of video, assuming that all of the recorded video time available for export has been used for exporting video. In other words, when the value is 0, no charge is incurred. Note that only `billedSeconds` are used in the calculation of the billing amount.
+          type: integer
+        limitSeconds:
+          description: The number of seconds of video, assuming that all of the available export time for the video is used for exporting video. The maximum available export time for the video is output in seconds of video.
+          type: integer
+        remainingSeconds:
+          description: The number of seconds of video that can be exported, assuming that all of  the available export time for the video is used for exporting as video, up to the maximum possible video export time. `limitSeconds` minus `usedSeconds`.
+          type: integer
+        usedSeconds:
+          description: The number of seconds of video exported, assuming that all the recorded video time available for export consumed in the current month was used for exporting video.
+          type: integer
+      required:
+      - billedSeconds
+      - limitSeconds
+      - remainingSeconds
+      - usedSeconds
+      type: object
+    SoraCamVideoExportSpecification:
+      properties:
+        archive:
+          default: true
+          description: 'Specifies whether exported files should be compressed. Defaults to `true`.
+
+
+            - `true`: Compresses video files in zip format.
+
+            - `false`: Exports video files as uncompressed MP4 files.
+
+            '
+          type: boolean
+        audioCodec:
+          default: pcm_s16le
+          description: 'Specifies the audio codec for exported videos. Defaults to `pcm_s16le`.
+
+
+            - `mp3`: MP3
+
+            - `pcm_s16le`: PCM 16-bit (WAV file)
+
+
+            **Warning**: If `mp3` is specified, it will consume twice the recorded video time available for export.
+
+            '
+          enum:
+          - pcm_s16le
+          - mp3
+          type: string
+        from:
+          description: Start time for exporting (unix time in milliseconds).
+          format: int64
+          type: integer
+        harvestFiles:
+          $ref: '#/components/schemas/SoraCamExportVideoToHarvestFiles'
+        to:
+          description: 'End time for exporting (unix time in milliseconds).
+
+
+            - The maximum duration that can be exported in a single API call is 900 seconds (15 minutes). Make sure the difference between `from` and `to` does not exceed 900 seconds.
+
+            '
+          format: int64
+          type: integer
+      required:
+      - from
+      - to
+      type: object
+    SoraCamExportVideoToHarvestFiles:
+      description: 'Specifies the settings for exporting video to Harvest Files.
+
+
+        Example: `harvestFiles: { pathPrefix: "/sora_cam/{device_id}" }`
+
+
+        If the `pathPrefix` is omitted or set to an empty string, the export will be saved in the root directory of Harvest Files.
+
+
+        Example of exporting to the root directory: `harvestFiles: { pathPrefix: "" }`
+
+        '
+      properties:
+        pathPrefix:
+          description: 'The directory name where the video will be saved when exporting to Harvest Files.
+
+
+            The following strings can be entered, and they will be replaced according to the rules during export:
+
+
+            - `{export_id}`: The export ID (e.g., `123e4567-e89b-12d3-a456-426614174000`).
+
+            - `{device_id}`: The device ID (e.g., `001A2B3C4D5E`).
+
+            - `{date}`: The request date and time of the export (e.g., `2024/10/01/12/34`).
+
+            - `{from}`: The start time of the video (UNIX time in milliseconds) (e.g., `1728393803000`).
+
+            - `{to}`: The end time of the video (UNIX time in milliseconds) (e.g., `1728394700000`).
+
+
+            For example, if you enter `/sora_cam/{device_id}`, the video will be exported to a directory unique to each SoraCam compatible camera device. `{date}`, `{from}`, and `{to}` are useful when saving videos recorded/exported at the same time from multiple SoraCam compatible camera devices to the same directory.
+
+
+            **Info**: If omitted or set to an empty string, the export will be saved in the root directory of Harvest Files.
+
+            '
+          type: string
+      type: object
+    SoraCamEvent:
+      properties:
+        deviceId:
+          description: An identifier to identify the device.
+          type: string
+        deviceType:
+          description: Type of the device.
+          format: string
+          type: string
+        eventId:
+          description: An identifier to identify of the event.
+          type: string
+        eventInfo:
+          properties:
+            atomEventV1:
+              description: Detail of the event.
+              properties:
+                endTime:
+                  description: Timestamp when the event is ended (unix time in milliseconds).
+                  format: int64
+                  type: integer
+                labels:
+                  description: List of the detected objects in the event.
+                  items:
+                    type: string
+                  type: array
+                movie:
+                  description: 'URL of the video recorded by the event; if it has expired, call the API again.
+
+
+                    - If the Cloud Motion Detection "Unlimited" Recording license is applied, the URL of the video recorded by the motion detection is not included here; use the [SoraCam:exportSoraCamDeviceRecordedVideo API](#!/SoraCam/exportSoraCamDeviceRecordedVideo) to export it.
+
+                    - URLs are included here for events other than motion detection, even if the Cloud Motion Detection "Unlimited" Recording license is applied.
+
+                    '
+                  type: string
+                picture:
+                  description: URL for the picture of `startTime`. If the URL has expired, please call the API again.
+                  type: string
+                recordingStatus:
+                  description: Status of the event recording.
+                  enum:
+                  - completed
+                  - recording
+                  - failed
+                  type: string
+                startTime:
+                  description: Timestamp when the event is started (unix time in milliseconds).
+                  format: int64
+                  type: integer
+                type:
+                  description: "Type of the event.\n  - `motion`: Motion Alert.\n  - `sound`: Sound Alert.\n  - `other`: Others.\n"
+                  enum:
+                  - motion
+                  - sound
+                  - other
+                  type: string
+              type: object
+            infoType:
+              description: Type of the event detail. May vary depend on `deviceType`.
+              type: string
+          required:
+          - infoType
+          type: object
+        time:
+          description: Timestamp of the event (unix time in milliseconds).
+          format: int64
+          type: integer
+      required:
+      - deviceId
+      - eventId
+      - time
+      - deviceType
       type: object
     SoraCamDevice:
       properties:
@@ -4172,6 +3962,137 @@ components:
       - firmwareVersion
       - productDisplayName
       - powerState
+      type: object
+    SoraCamStreamingVideo:
+      properties:
+        expiryTime:
+          description: Expiration timestamp of all URLs in playList (UNIX time in milliseconds).
+          format: int64
+          type: integer
+        playList:
+          description: 'Array of playlist entries for streaming video (latest video / recorded video).
+
+
+            - For the latest video, only one video file is always returned. In addition, `from` and `to` are omitted.
+
+            - For recorded video, the video file may be split depending on the recording status.
+
+            '
+          items:
+            $ref: '#/components/schemas/SoraCamPlayListEntry'
+          type: array
+      required:
+      - expiryTime
+      type: object
+    SoraCamAtomCamSettingsMotionSensitivity:
+      properties:
+        state:
+          description: 'Settings for the motion detection sensitivity. The higher the sensitivity, the smaller the image changes that can be detected.
+
+
+            - `high`
+
+            - `medium`
+
+            - `low`
+
+            '
+          enum:
+          - high
+          - medium
+          - low
+          type: string
+      required:
+      - state
+      type: object
+    SoraCamExportUsage:
+      properties:
+        deviceId:
+          description: Device ID of the SoraCam compatible camera device.
+          type: string
+        image:
+          $ref: '#/components/schemas/SoraCamImageExportUsage'
+          description: The number of still images, assuming that all of the recorded video time available for export is used for exporting still images.
+        meteredYearMonth:
+          description: 'The year and month (format: ''YYYYMM'') for which the video can be exported. In the case of `202301`, this means that the available export time of the video for January 2023 is output.'
+          type: string
+        video:
+          $ref: '#/components/schemas/SoraCamVideoExportUsage'
+          description: The number of seconds of video, assuming that all of the recorded video time available for export is used for exporting as video.
+      required:
+      - deviceId
+      - meteredYearMonth
+      - video
+      - image
+      type: object
+    SoraCamDeviceOptions:
+      properties:
+        realTimeAccess:
+          $ref: '#/components/schemas/SoraCamDeviceRealTimeAccessOption'
+      required:
+      - realTimeAccess
+      type: object
+    SoraCamDevicesFirmwareUpdate:
+      properties:
+        deviceId:
+          description: 'Device ID of the SoraCam compatible camera device.
+
+            '
+          type: string
+        firmwareVersion:
+          description: 'Available firmware version for the SoraCam compatible camera device.
+
+            '
+          type: string
+        timeout:
+          description: 'Timeout for the firmware update process (in seconds). If the firmware update process is not completed within this time, the process is considered to have failed.
+
+            '
+          format: int64
+          type: integer
+      required:
+      - deviceId
+      - firmwareVersion
+      - timeout
+      type: object
+    SoraCamImageExportSpecification:
+      properties:
+        harvestFiles:
+          $ref: '#/components/schemas/SoraCamExportImageToHarvestFiles'
+        imageFilters:
+          description: Image filters to be applied to the exported image.
+          items:
+            enum:
+            - wide_angle_correction
+            type: string
+          type: array
+        time:
+          description: Time to be exported (unix time in milliseconds). A still image is exported from the recorded video taken at the specified time.
+          format: int64
+          type: integer
+      required:
+      - time
+      type: object
+    SoraCamDeviceConfiguration:
+      description: Configuration of the SoraCam compatible camera device.
+      properties:
+        audioAlarmEnabled:
+          description: Whether audio alarm is enabled or not.
+          type: boolean
+        motionDetectionEnabled:
+          description: Whether motion detection is enabled or not.
+          type: boolean
+        smokeAlarmEnabled:
+          description: Whether smoke alarm is enabled or not.
+          type: boolean
+      type: object
+    SoraCamExportUsageLimitOverrideSpecification:
+      properties:
+        limitHours:
+          description: New value for the monthly limit for the amount of hours that recorded video can be exported.
+          type: integer
+      required:
+      - limitHours
       type: object
   securitySchemes:
     api_key:

@@ -9,7 +9,7 @@ servers:
 - description: Global coverage production API endpoint
   url: https://g.api.soracom.io/v1
 tags:
-- description: '[Usage charges (billing details)](/en/guides/accounting/check-usage/)'
+- description: Usage charges (billing details)
   name: Billing
 paths:
   /bills:
@@ -17,9 +17,7 @@ paths:
       description: 'Gets a list of finalized past billing history.
 
 
-        **Warning**: The maximum information you can get is for the last 18 months. If you need the information before that time, please contact [Soracom Support](https://support.soracom.io).
-
-        '
+        **Warning**: The maximum information you can get is for the last 18 months. If you need the information before that time, please contact Soracom Support.'
       operationId: getBillingHistory
       responses:
         '200':
@@ -53,9 +51,7 @@ paths:
       description: 'Gets a finalized past billing history for the specified month. If you specify current month (the month in which the usage fee has not yet been finalized), you will get the preliminary value.
 
 
-        **Warning**: The maximum information you can get is for the last 18 months. If you need the information before that time, please contact [Soracom Support](https://support.soracom.io).
-
-        '
+        **Warning**: The maximum information you can get is for the last 18 months. If you need the information before that time, please contact Soracom Support.'
       operationId: getBilling
       parameters:
       - description: Target year and month
@@ -97,9 +93,7 @@ paths:
       description: 'Gets a daily bill for the specified month. Fees charged on a monthly basis cannot be retrieved. If you specify current month (a month for which the fee has not yet been finalized), a preliminary value will be returned.
 
 
-        **Warning**: The maximum information you can get is for the last 18 months. If you need the information before that time, please contact [Soracom Support](https://support.soracom.io).
-
-        '
+        **Warning**: The maximum information you can get is for the last 18 months. If you need the information before that time, please contact Soracom Support.'
       operationId: getBillingPerDay
       parameters:
       - description: Target year and month
@@ -135,12 +129,10 @@ paths:
       - bills get-daily
   /bills/{yyyyMM}/export:
     post:
-      description: 'Export historical [Detailed billing CSV](/en/docs/account/billing/#detailed-billing-csv) to dedicated storage and issue URL to download.
+      description: 'Export historical Detailed billing CSV to dedicated storage and issue URL to download.
 
 
-        **Warning**: The maximum information you can get is for the last 18 months. If you need the information before that time, please contact [Soracom Support](https://support.soracom.io).
-
-        '
+        **Warning**: The maximum information you can get is for the last 18 months. If you need the information before that time, please contact Soracom Support.'
       operationId: exportBilling
       parameters:
       - description: Target year and month
@@ -211,7 +203,7 @@ paths:
       - bills get-latest
   /bills/latest/export:
     post:
-      description: Export [Detailed Billing CSV](/en/docs/account/billing/#detailed-billing-csv) for current month (the month in which the usage fee has not yet been finalized) to dedicated storage and issue a URL to download it. The fees will be finalized by the second business day of the following month. The Detailed billing CSV exported using this API will output preliminary values.
+      description: Export Detailed Billing CSV for current month (the month in which the usage fee has not yet been finalized) to dedicated storage and issue a URL to download it. The fees will be finalized by the second business day of the following month. The Detailed billing CSV exported using this API will output preliminary values.
       operationId: exportLatestBilling
       parameters:
       - description: 'Specify how to get the URL to download the billing details CSV.
@@ -255,12 +247,10 @@ paths:
       - bills export-latest
   /bills/summaries/bill_items:
     get:
-      description: 'Get a billing summary of bill items for the last 4 months (this month to 3 months ago).  Sorted by date from newest to oldest.
+      description: 'Get a billing summary of bill items for the last 4 months (this month to 3 months ago). Sorted by date from newest to oldest.
 
 
-        The summary you can get from this API is equivalent to the usage fees displayed in the [COSTS BY SERVICE] panel of the Billing Dashboard. For more information, please refer to [Billing Information](/en/docs/account/billing/).
-
-        '
+        The summary you can get from this API is equivalent to the usage fees displayed in the [COSTS BY SERVICE] panel of the Billing Dashboard. For more information, please refer to Billing Information.'
       operationId: getBillingSummaryOfBillItems
       responses:
         '200':
@@ -274,7 +264,7 @@ paths:
       security:
       - api_key: []
         api_token: []
-      summary: Gets a billing summary of bill items.
+      summary: Gets a billing summary of bill items
       tags:
       - Billing
       x-soracom-cli:
@@ -284,9 +274,7 @@ paths:
       description: 'Get a billing summary of SIMs for the last 4 months (current month to 3 months ago). Sorted by date from newest to oldest.
 
 
-        The summary you get from this API is equivalent to the rates displayed in the [COSTS PER SIM (TOP 100)] panel of the Rates Dashboard. For more information, please refer to [Billing Information](/en/docs/account/billing/).
-
-        '
+        The summary you get from this API is equivalent to the rates displayed in the [COSTS PER SIM (TOP 100)] panel of the Rates Dashboard. For more information, please refer to Billing Information.'
       operationId: getBillingSummaryOfSims
       responses:
         '200':
@@ -307,85 +295,6 @@ paths:
       - bills summaries get-sims
 components:
   schemas:
-    DailyBill:
-      properties:
-        amount:
-          description: Amount of bills.
-          format: double
-          type: number
-        currency:
-          description: Currency of bills.
-          enum:
-          - JPY
-          - USD
-          - EUR
-          type: string
-        date:
-          description: Date
-          format: yyyyMMdd
-          type: string
-      type: object
-    BillItemCostBreakdown:
-      properties:
-        amount:
-          description: Amount.
-          format: double
-          type: number
-        billItemCategory:
-          description: Bill item category.
-          type: string
-        billItemName:
-          description: Bill item name.
-          type: string
-    GetLatestBill:
-      properties:
-        amount:
-          description: Amount of bills.
-          format: double
-          type: number
-        currency:
-          description: Currency of bills.
-          enum:
-          - JPY
-          - USD
-          - EUR
-          type: string
-        lastEvaluatedTime:
-          description: Date and time when calculated.
-          example: yyyyMMddHHmmss
-          type: string
-      type: object
-    SimCostBreakdown:
-      properties:
-        amount:
-          description: Amount.
-          format: double
-          type: number
-        simId:
-          description: SIM ID.
-          type: string
-    BillingSummaryResponseOfSims:
-      properties:
-        costBreakdownList:
-          description: List of cost breakdown. The list is sorted by amount in descending order, and include up to 100 items.
-          items:
-            $ref: '#/components/schemas/SimCostBreakdown'
-          type: array
-        currency:
-          description: Currency of bills.
-          enum:
-          - JPY
-          - USD
-          - EUR
-          type: string
-        updatedTime:
-          description: Last updated time in UNIX time in seconds.
-          format: int64
-          type: integer
-        yearMonth:
-          description: Year and month.
-          type: string
-      type: object
     MonthlyBill:
       properties:
         amount:
@@ -470,6 +379,24 @@ components:
           format: yyyyMM
           type: string
       type: object
+    GetLatestBill:
+      properties:
+        amount:
+          description: Amount of bills.
+          format: double
+          type: number
+        currency:
+          description: Currency of bills.
+          enum:
+          - JPY
+          - USD
+          - EUR
+          type: string
+        lastEvaluatedTime:
+          description: Date and time when calculated.
+          example: yyyyMMddHHmmss
+          type: string
+      type: object
     GetBillingHistoryResponse:
       properties:
         billList:
@@ -486,6 +413,39 @@ components:
             $ref: '#/components/schemas/DailyBill'
           type: array
       type: object
+    FileExportResponse:
+      properties:
+        exportedFileId:
+          description: File Export ID. Specify this ID when calling [Files:getExportedFile API](#!/Files/getExportedFile) to get the URL to download the file. Included only if `export_mode` is `async`.
+          type: string
+        exportedFilePath:
+          description: Path of the exported file. Included only if `export_mode` is `async`.
+          type: string
+        url:
+          description: URL to download the file. Included only if `export_mode` is `sync`.
+          type: string
+      type: object
+    SimCostBreakdown:
+      properties:
+        amount:
+          description: Amount.
+          format: double
+          type: number
+        simId:
+          description: SIM ID.
+          type: string
+    BillItemCostBreakdown:
+      properties:
+        amount:
+          description: Amount.
+          format: double
+          type: number
+        billItemCategory:
+          description: Bill item category.
+          type: string
+        billItemName:
+          description: Bill item name.
+          type: string
     BillingSummaryResponseOfBillItems:
       properties:
         costBreakdownList:
@@ -508,16 +468,44 @@ components:
           description: Year and month.
           type: string
       type: object
-    FileExportResponse:
+    BillingSummaryResponseOfSims:
       properties:
-        exportedFileId:
-          description: File Export ID. Specify this ID when calling [Files:getExportedFile API](#!/Files/getExportedFile) to get the URL to download the file. Included only if `export_mode` is `async`.
+        costBreakdownList:
+          description: List of cost breakdown. The list is sorted by amount in descending order, and include up to 100 items.
+          items:
+            $ref: '#/components/schemas/SimCostBreakdown'
+          type: array
+        currency:
+          description: Currency of bills.
+          enum:
+          - JPY
+          - USD
+          - EUR
           type: string
-        exportedFilePath:
-          description: Path of the exported file. Included only if `export_mode` is `async`.
+        updatedTime:
+          description: Last updated time in UNIX time in seconds.
+          format: int64
+          type: integer
+        yearMonth:
+          description: Year and month.
           type: string
-        url:
-          description: URL to download the file. Included only if `export_mode` is `sync`.
+      type: object
+    DailyBill:
+      properties:
+        amount:
+          description: Amount of bills.
+          format: double
+          type: number
+        currency:
+          description: Currency of bills.
+          enum:
+          - JPY
+          - USD
+          - EUR
+          type: string
+        date:
+          description: Date
+          format: yyyyMMdd
           type: string
       type: object
   securitySchemes:

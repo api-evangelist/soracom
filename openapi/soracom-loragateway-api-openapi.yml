@@ -1,22 +1,20 @@
 openapi: 3.2.0
 info:
+  description: Soracom API v1
   title: Soracom Lora Gateway API
   version: 20250903-043502
-  description: 'Operations tagged LoraGateway across 2 of this provider''s published API definitions: soracom-lorawan-api-openapi.yml, soracom-platform-api-openapi.yml. Each path carries the servers of the definition it was published in.'
 servers:
 - description: Japan coverage production API endpoint
   url: https://api.soracom.io/v1
 - description: Global coverage production API endpoint
   url: https://g.api.soracom.io/v1
 tags:
-- description: '[Soracom Air for LoRaWAN](/en/docs/air-for-lorawan/) gateways'
+- description: Soracom Air for LoRaWAN gateways
   name: LoraGateway
 paths:
   /lora_gateways:
     get:
-      description: 'Returns a list of LoRaWAN gateways that match certain criteria. If the total number of LoRaWAN gateways does not fit in one page, a URL for accessing the next page is returned in the `link` header of the response.
-
-        '
+      description: Returns a list of LoRaWAN gateways that match certain criteria. If the total number of LoRaWAN gateways does not fit in one page, a URL for accessing the next page is returned in the `link` header of the response.
       operationId: listLoraGateways
       parameters:
       - description: Tag name for filtering the search (exact match).
@@ -76,11 +74,6 @@ paths:
           param: last_evaluated_key
         response:
           header: x-soracom-next-key
-    servers:
-    - description: Japan coverage production API endpoint
-      url: https://api.soracom.io/v1
-    - description: Global coverage production API endpoint
-      url: https://g.api.soracom.io/v1
   /lora_gateways/{gateway_id}:
     get:
       description: Returns information about the specified LoRaWAN gateway.
@@ -109,11 +102,6 @@ paths:
       - LoraGateway
       x-soracom-cli:
       - lora-gateways get
-    servers:
-    - description: Japan coverage production API endpoint
-      url: https://api.soracom.io/v1
-    - description: Global coverage production API endpoint
-      url: https://g.api.soracom.io/v1
   /lora_gateways/{gateway_id}/disable_termination:
     post:
       description: Disables termination of specified LoRaWAN gateway.
@@ -142,11 +130,6 @@ paths:
       - LoraGateway
       x-soracom-cli:
       - lora-gateways disable-termination
-    servers:
-    - description: Japan coverage production API endpoint
-      url: https://api.soracom.io/v1
-    - description: Global coverage production API endpoint
-      url: https://g.api.soracom.io/v1
   /lora_gateways/{gateway_id}/enable_termination:
     post:
       description: Enables termination of specified LoRaWAN gateway.
@@ -175,11 +158,6 @@ paths:
       - LoraGateway
       x-soracom-cli:
       - lora-gateways enable-termination
-    servers:
-    - description: Japan coverage production API endpoint
-      url: https://api.soracom.io/v1
-    - description: Global coverage production API endpoint
-      url: https://g.api.soracom.io/v1
   /lora_gateways/{gateway_id}/set_network_set:
     post:
       description: Sets or overwrites network set ID for the specified LoRaWAN gateway.
@@ -214,11 +192,6 @@ paths:
       - LoraGateway
       x-soracom-cli:
       - lora-gateways set-network-set
-    servers:
-    - description: Japan coverage production API endpoint
-      url: https://api.soracom.io/v1
-    - description: Global coverage production API endpoint
-      url: https://g.api.soracom.io/v1
   /lora_gateways/{gateway_id}/tags:
     put:
       description: Inserts/updates tags for the specified LoRaWAN gateway.
@@ -256,11 +229,6 @@ paths:
       - LoraGateway
       x-soracom-cli:
       - lora-gateways put-tags
-    servers:
-    - description: Japan coverage production API endpoint
-      url: https://api.soracom.io/v1
-    - description: Global coverage production API endpoint
-      url: https://g.api.soracom.io/v1
   /lora_gateways/{gateway_id}/tags/{tag_name}:
     delete:
       description: Deletes a tag from the specified LoRaWAN gateway.
@@ -291,11 +259,6 @@ paths:
       - LoraGateway
       x-soracom-cli:
       - lora-gateways delete-tag
-    servers:
-    - description: Japan coverage production API endpoint
-      url: https://api.soracom.io/v1
-    - description: Global coverage production API endpoint
-      url: https://g.api.soracom.io/v1
   /lora_gateways/{gateway_id}/terminate:
     post:
       description: Terminates the specified LoRaWAN gateway.
@@ -324,11 +287,6 @@ paths:
       - LoraGateway
       x-soracom-cli:
       - lora-gateways terminate
-    servers:
-    - description: Japan coverage production API endpoint
-      url: https://api.soracom.io/v1
-    - description: Global coverage production API endpoint
-      url: https://g.api.soracom.io/v1
   /lora_gateways/{gateway_id}/unset_network_set:
     post:
       description: Unset network set ID of the specified LoRaWAN gateway.
@@ -357,13 +315,13 @@ paths:
       - LoraGateway
       x-soracom-cli:
       - lora-gateways unset-network-set
-    servers:
-    - description: Japan coverage production API endpoint
-      url: https://api.soracom.io/v1
-    - description: Global coverage production API endpoint
-      url: https://g.api.soracom.io/v1
 components:
   schemas:
+    SetNetworkSetRequest:
+      properties:
+        networkSetId:
+          type: string
+      type: object
     TagUpdateRequest:
       properties:
         tagName:
@@ -373,11 +331,6 @@ components:
       required:
       - tagName
       - tagValue
-      type: object
-    SetNetworkSetRequest:
-      properties:
-        networkSetId:
-          type: string
       type: object
     LoraGateway:
       properties:
@@ -433,6 +386,3 @@ components:
       in: header
       name: X-Soracom-Token
       type: apiKey
-x-refined-from:
-- soracom-lorawan-api-openapi.yml
-- soracom-platform-api-openapi.yml
