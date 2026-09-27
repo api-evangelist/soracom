@@ -368,6 +368,17 @@ paths:
           header: x-soracom-next-key
 components:
   schemas:
+    UpdateBatchGroupRequest:
+      properties:
+        batchGroupName:
+          description: Batch group name.
+          maxLength: 100
+          type: string
+        description:
+          description: Description of the batch group.
+          maxLength: 500
+          type: string
+      type: object
     BatchTaskRequest:
       properties:
         request:
@@ -375,25 +386,6 @@ components:
           description: (Not shown because $ref is used at the same level in base/batch.yaml)
       required:
       - request
-      type: object
-    BatchJobSummary:
-      description: Number of tasks for each status. These numbers are periodically updated during the batch job execution.
-      properties:
-        error:
-          description: Number of tasks that failed to execute.
-          example: 0
-          format: int32
-          type: integer
-        pending:
-          description: Number of tasks waiting for execution.
-          example: 5
-          format: int32
-          type: integer
-        success:
-          description: Number of tasks that have successfully executed.
-          example: 95
-          format: int32
-          type: integer
       type: object
     BatchGroupResponse:
       properties:
@@ -443,71 +435,6 @@ components:
       required:
       - path
       - method
-      type: object
-    BatchTaskResponse:
-      properties:
-        finishedTime:
-          description: Finished time of the task.
-          example: 1704067202
-          format: int64
-          type: integer
-        request:
-          $ref: '#/components/schemas/BatchTaskApiRequest'
-          description: (Not shown because $ref is used at the same level in base/batch.yaml)
-        response:
-          $ref: '#/components/schemas/BatchTaskApiResponse'
-          description: (Not shown because $ref is used at the same level in base/batch.yaml)
-        startedTime:
-          description: Started time of the task.
-          example: 1704067201
-          format: int64
-          type: integer
-        status:
-          description: 'Status of the task.
-
-
-            - `pending`: Task is waiting for execution.
-
-            - `success`: Task succeeded.
-
-            - `error`: Task failed.
-
-            '
-          enum:
-          - pending
-          - success
-          - error
-          type: string
-        taskId:
-          description: Task ID.
-          example: 1
-          format: int32
-          type: integer
-      type: object
-    UpdateBatchGroupRequest:
-      properties:
-        batchGroupName:
-          description: Batch group name.
-          maxLength: 100
-          type: string
-        description:
-          description: Description of the batch group.
-          maxLength: 500
-          type: string
-      type: object
-    CreateBatchGroupRequest:
-      properties:
-        batchGroupName:
-          description: Batch group name.
-          example: Monthly SIM Tag Update
-          maxLength: 100
-          type: string
-        description:
-          description: Description of the batch group.
-          maxLength: 500
-          type: string
-      required:
-      - batchGroupName
       type: object
     BatchJobResponse:
       properties:
@@ -572,15 +499,44 @@ components:
           format: int64
           type: integer
       type: object
-    BatchTaskApiResponse:
-      description: このタスクの API レスポンス。
+    BatchTaskResponse:
       properties:
-        body:
-          description: Body in the response.
-          type: object
-        statusCode:
-          description: Status code in the response.
-          example: 200
+        finishedTime:
+          description: Finished time of the task.
+          example: 1704067202
+          format: int64
+          type: integer
+        request:
+          $ref: '#/components/schemas/BatchTaskApiRequest'
+          description: (Not shown because $ref is used at the same level in base/batch.yaml)
+        response:
+          $ref: '#/components/schemas/BatchTaskApiResponse'
+          description: (Not shown because $ref is used at the same level in base/batch.yaml)
+        startedTime:
+          description: Started time of the task.
+          example: 1704067201
+          format: int64
+          type: integer
+        status:
+          description: 'Status of the task.
+
+
+            - `pending`: Task is waiting for execution.
+
+            - `success`: Task succeeded.
+
+            - `error`: Task failed.
+
+            '
+          enum:
+          - pending
+          - success
+          - error
+          type: string
+        taskId:
+          description: Task ID.
+          example: 1
+          format: int32
           type: integer
       type: object
     CreateBatchJobRequest:
@@ -605,6 +561,50 @@ components:
           type: array
       required:
       - tasks
+      type: object
+    CreateBatchGroupRequest:
+      properties:
+        batchGroupName:
+          description: Batch group name.
+          example: Monthly SIM Tag Update
+          maxLength: 100
+          type: string
+        description:
+          description: Description of the batch group.
+          maxLength: 500
+          type: string
+      required:
+      - batchGroupName
+      type: object
+    BatchTaskApiResponse:
+      description: このタスクの API レスポンス。
+      properties:
+        body:
+          description: Body in the response.
+          type: object
+        statusCode:
+          description: Status code in the response.
+          example: 200
+          type: integer
+      type: object
+    BatchJobSummary:
+      description: Number of tasks for each status. These numbers are periodically updated during the batch job execution.
+      properties:
+        error:
+          description: Number of tasks that failed to execute.
+          example: 0
+          format: int32
+          type: integer
+        pending:
+          description: Number of tasks waiting for execution.
+          example: 5
+          format: int32
+          type: integer
+        success:
+          description: Number of tasks that have successfully executed.
+          example: 95
+          format: int32
+          type: integer
       type: object
   securitySchemes:
     api_key:

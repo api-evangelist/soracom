@@ -740,15 +740,6 @@ paths:
       - stats napter audit-logs get
 components:
   schemas:
-    HarvestExportedDataStatsResponse:
-      properties:
-        exportedBytes:
-          description: exportedBytes
-          type: integer
-        yearMonth:
-          description: yearMonth
-          type: string
-      type: object
     NapterAuditLogsExportedDataStatsResponse:
       properties:
         exportedBytes:
@@ -757,117 +748,6 @@ components:
         yearMonth:
           description: yearMonth
           type: string
-      type: object
-    AirStatsResponse:
-      properties:
-        dataTrafficStatsMap:
-          additionalProperties:
-            $ref: '#/components/schemas/DataTrafficStats'
-          type: object
-        date:
-          description: Date and time (Coordinated Universal Time (UTC))
-          type: string
-        unixtime:
-          format: int64
-          type: integer
-      type: object
-    HarvestStatsResponse:
-      properties:
-        harvestStatsMap:
-          additionalProperties:
-            $ref: '#/components/schemas/SoracomHarvestStats'
-          type: object
-        unixtime:
-          format: int64
-          type: integer
-      type: object
-    SoracomBeamStats:
-      properties:
-        count:
-          format: int64
-          type: integer
-      type: object
-    SoracomHarvestStats:
-      properties:
-        count:
-          format: int64
-          type: integer
-      type: object
-    FunnelStatsResponse:
-      properties:
-        funnelStatsMap:
-          additionalProperties:
-            $ref: '#/components/schemas/SoracomFunnelStats'
-          type: object
-        unixtime:
-          format: int64
-          type: integer
-      type: object
-    ExportRequest:
-      properties:
-        from:
-          description: Specify the start month/day/minute of the period to be aggregated in UNIX time in seconds.
-          example: 1709218800
-          format: int64
-          type: integer
-        period:
-          description: "Unit of aggregation.\n\n- `month`: Aggregate by month.\n\n  The `from` and `to` should be UNIX time (in seconds) from 18 months before the current time to the current time. The actual period of interest is not the time specified by `from` and `to`.\n\n  | Item | Description |\n  |-|-|\n  | Actual start time | 00:00:00 on the first day of the month, including the specified UNIX time (in seconds). |\n  | Actual end time | 24:00:00 of the last day of the month containing the specified UNIX time (in seconds). |\n- `day`: Aggregate by day.\n\n  The `from` and `to` should be UNIX time (in seconds) from 18 months before the current time to the current time. The actual period of interest is not the time specified by `from` and `to`.\n\n  | Item | Description |\n  |-|-|\n  | Actual start time | 00:00:00 of the day including the specified UNIX time (in seconds). |\n  | Actual end time | 24:00:00 of the day including the specified UNIX time (in seconds). |\n- `minutes`: Aggregate by approximately every 5 minutes.\n\n  The `from` and `to` must be between 32 days before the current time and the UNIX time (in seconds) of the current time. The actual period to be aggregated is not the time specified by `from` and `to`.\n\n  | Item | Description |\n  |-|-|\n  | Actual Start Time | Start time of approximately 5 minutes including the specified UNIX time (seconds). |\n  | Actual End Time | End time of approximately 5 minutes including the specified UNIX time (seconds). |\n"
-          enum:
-          - month
-          - day
-          - minutes
-          type: string
-        to:
-          description: Specify the end month/day/minute of the period to be aggregated in UNIX time in seconds.
-          example: 1714402800
-          format: int64
-          type: integer
-      type: object
-    FileExportResponse:
-      properties:
-        exportedFileId:
-          description: File Export ID. Specify this ID when calling [Files:getExportedFile API](#!/Files/getExportedFile) to get the URL to download the file. Included only if `export_mode` is `async`.
-          type: string
-        exportedFilePath:
-          description: Path of the exported file. Included only if `export_mode` is `async`.
-          type: string
-        url:
-          description: URL to download the file. Included only if `export_mode` is `sync`.
-          type: string
-      type: object
-    SoracomFunnelStats:
-      properties:
-        count:
-          format: int64
-          type: integer
-      type: object
-    SoracomFunkStats:
-      properties:
-        count:
-          format: int64
-          type: integer
-      type: object
-    FunkStatsResponse:
-      properties:
-        funkStatsMap:
-          additionalProperties:
-            $ref: '#/components/schemas/SoracomFunkStats'
-          type: object
-        unixtime:
-          format: int64
-          type: integer
-      type: object
-    BeamStatsResponse:
-      properties:
-        beamStatsMap:
-          additionalProperties:
-            $ref: '#/components/schemas/SoracomBeamStats'
-          type: object
-        date:
-          type: string
-        unixtime:
-          format: int64
-          type: integer
       type: object
     DataTrafficStats:
       properties:
@@ -896,6 +776,126 @@ components:
           type: integer
         uploadByteSizeTotal:
           description: Number of bytes uploaded during the period covered by the aggregate
+          format: int64
+          type: integer
+      type: object
+    HarvestExportedDataStatsResponse:
+      properties:
+        exportedBytes:
+          description: exportedBytes
+          type: integer
+        yearMonth:
+          description: yearMonth
+          type: string
+      type: object
+    FileExportResponse:
+      properties:
+        exportedFileId:
+          description: File Export ID. Specify this ID when calling [Files:getExportedFile API](#!/Files/getExportedFile) to get the URL to download the file. Included only if `export_mode` is `async`.
+          type: string
+        exportedFilePath:
+          description: Path of the exported file. Included only if `export_mode` is `async`.
+          type: string
+        url:
+          description: URL to download the file. Included only if `export_mode` is `sync`.
+          type: string
+      type: object
+    BeamStatsResponse:
+      properties:
+        beamStatsMap:
+          additionalProperties:
+            $ref: '#/components/schemas/SoracomBeamStats'
+          type: object
+        date:
+          type: string
+        unixtime:
+          format: int64
+          type: integer
+      type: object
+    AirStatsResponse:
+      properties:
+        dataTrafficStatsMap:
+          additionalProperties:
+            $ref: '#/components/schemas/DataTrafficStats'
+          type: object
+        date:
+          description: Date and time (Coordinated Universal Time (UTC))
+          type: string
+        unixtime:
+          format: int64
+          type: integer
+      type: object
+    SoracomHarvestStats:
+      properties:
+        count:
+          format: int64
+          type: integer
+      type: object
+    SoracomFunkStats:
+      properties:
+        count:
+          format: int64
+          type: integer
+      type: object
+    FunnelStatsResponse:
+      properties:
+        funnelStatsMap:
+          additionalProperties:
+            $ref: '#/components/schemas/SoracomFunnelStats'
+          type: object
+        unixtime:
+          format: int64
+          type: integer
+      type: object
+    HarvestStatsResponse:
+      properties:
+        harvestStatsMap:
+          additionalProperties:
+            $ref: '#/components/schemas/SoracomHarvestStats'
+          type: object
+        unixtime:
+          format: int64
+          type: integer
+      type: object
+    FunkStatsResponse:
+      properties:
+        funkStatsMap:
+          additionalProperties:
+            $ref: '#/components/schemas/SoracomFunkStats'
+          type: object
+        unixtime:
+          format: int64
+          type: integer
+      type: object
+    SoracomFunnelStats:
+      properties:
+        count:
+          format: int64
+          type: integer
+      type: object
+    SoracomBeamStats:
+      properties:
+        count:
+          format: int64
+          type: integer
+      type: object
+    ExportRequest:
+      properties:
+        from:
+          description: Specify the start month/day/minute of the period to be aggregated in UNIX time in seconds.
+          example: 1709218800
+          format: int64
+          type: integer
+        period:
+          description: "Unit of aggregation.\n\n- `month`: Aggregate by month.\n\n  The `from` and `to` should be UNIX time (in seconds) from 18 months before the current time to the current time. The actual period of interest is not the time specified by `from` and `to`.\n\n  | Item | Description |\n  |-|-|\n  | Actual start time | 00:00:00 on the first day of the month, including the specified UNIX time (in seconds). |\n  | Actual end time | 24:00:00 of the last day of the month containing the specified UNIX time (in seconds). |\n- `day`: Aggregate by day.\n\n  The `from` and `to` should be UNIX time (in seconds) from 18 months before the current time to the current time. The actual period of interest is not the time specified by `from` and `to`.\n\n  | Item | Description |\n  |-|-|\n  | Actual start time | 00:00:00 of the day including the specified UNIX time (in seconds). |\n  | Actual end time | 24:00:00 of the day including the specified UNIX time (in seconds). |\n- `minutes`: Aggregate by approximately every 5 minutes.\n\n  The `from` and `to` must be between 32 days before the current time and the UNIX time (in seconds) of the current time. The actual period to be aggregated is not the time specified by `from` and `to`.\n\n  | Item | Description |\n  |-|-|\n  | Actual Start Time | Start time of approximately 5 minutes including the specified UNIX time (seconds). |\n  | Actual End Time | End time of approximately 5 minutes including the specified UNIX time (seconds). |\n"
+          enum:
+          - month
+          - day
+          - minutes
+          type: string
+        to:
+          description: Specify the end month/day/minute of the period to be aggregated in UNIX time in seconds.
+          example: 1714402800
           format: int64
           type: integer
       type: object

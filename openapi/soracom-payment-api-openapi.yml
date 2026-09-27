@@ -338,14 +338,6 @@ components:
           format: double
           type: number
       type: object
-    ListCouponResponse:
-      properties:
-        couponList:
-          description: Coupons
-          items:
-            $ref: '#/components/schemas/CouponResponse'
-          type: array
-      type: object
     PaymentDescription:
       description: Payment description.
       properties:
@@ -394,54 +386,13 @@ components:
           description: Payment statement information
           type: string
       type: object
-    FileExportResponse:
+    ListPaymentStatementResponse:
       properties:
-        exportedFileId:
-          description: File Export ID. Specify this ID when calling [Files:getExportedFile API](#!/Files/getExportedFile) to get the URL to download the file. Included only if `export_mode` is `async`.
-          type: string
-        exportedFilePath:
-          description: Path of the exported file. Included only if `export_mode` is `async`.
-          type: string
-        url:
-          description: URL to download the file. Included only if `export_mode` is `sync`.
-          type: string
-      type: object
-    GetPaymentTransactionResult:
-      properties:
-        amount:
-          $ref: '#/components/schemas/PaymentAmount'
-          description: Billing amount
-        description:
-          $ref: '#/components/schemas/PaymentDescription'
-          description: Billing description
-        message:
-          description: Message
-          type: string
-        messageCode:
-          description: Message code
-          enum:
-          - success
-          - processing
-          - invalid_request
-          - invalid_number
-          - incorrect_number
-          - invalid_name
-          - invalid_expiry_month
-          - invalid_expiry_year
-          - invalid_expiry
-          - incorrect_expiry
-          - invalid_cvc
-          - incorrect_cvc
-          - card_declined
-          - missing
-          - processing_error
-          type: string
-        status:
-          description: Status
-          enum:
-          - success
-          - error
-          type: string
+        paymentStatementsList:
+          description: Payment statements.
+          items:
+            $ref: '#/components/schemas/PaymentStatementResponse'
+          type: array
       type: object
     CouponResponse:
       properties:
@@ -474,70 +425,25 @@ components:
           description: Order ID.
           type: string
       type: object
-    ListVolumeDiscountResponse:
+    ListCouponResponse:
       properties:
-        volumeDiscountList:
-          description: Contracted long term discounts.
+        couponList:
+          description: Coupons
           items:
-            $ref: '#/components/schemas/GetVolumeDiscountResponse'
+            $ref: '#/components/schemas/CouponResponse'
           type: array
       type: object
-    RegisterPayerInformationModel:
+    FileExportResponse:
       properties:
-        companyName:
-          description: Company name
+        exportedFileId:
+          description: File Export ID. Specify this ID when calling [Files:getExportedFile API](#!/Files/getExportedFile) to get the URL to download the file. Included only if `export_mode` is `async`.
           type: string
-        department:
-          description: Department.
+        exportedFilePath:
+          description: Path of the exported file. Included only if `export_mode` is `async`.
           type: string
-        fullName:
-          description: Full name.
+        url:
+          description: URL to download the file. Included only if `export_mode` is `sync`.
           type: string
-      type: object
-    GetPaymentMethodResult:
-      properties:
-        errorCode:
-          description: Error code (only if payment information is invalid)
-          enum:
-          - success
-          - processing
-          - invalid_request
-          - invalid_number
-          - incorrect_number
-          - invalid_name
-          - invalid_expiry_month
-          - invalid_expiry_year
-          - invalid_expiry
-          - incorrect_expiry
-          - invalid_cvc
-          - incorrect_cvc
-          - card_declined
-          - missing
-          - processing_error
-          type: string
-        errorMessage:
-          description: Error message (only if payment information is invalid)
-          type: string
-        properties:
-          description: Payment information
-          type: string
-        providerType:
-          description: Provider type
-          enum:
-          - WebPay
-          type: string
-        updateDate:
-          description: Update date
-          example: yyyyMMddHHmmss
-          type: string
-      type: object
-    ListPaymentStatementResponse:
-      properties:
-        paymentStatementsList:
-          description: Payment statements.
-          items:
-            $ref: '#/components/schemas/PaymentStatementResponse'
-          type: array
       type: object
     GetVolumeDiscountResponse:
       properties:
@@ -598,6 +504,100 @@ components:
           - SORACOM_AIR_BASIC_CHARGE_V2
           - SORACOM_AIR_BASIC_CHARGE
           - SORACOM_AIR_MONTHLY_FIXED_BASIC_CHARGE
+          type: string
+      type: object
+    ListVolumeDiscountResponse:
+      properties:
+        volumeDiscountList:
+          description: Contracted long term discounts.
+          items:
+            $ref: '#/components/schemas/GetVolumeDiscountResponse'
+          type: array
+      type: object
+    RegisterPayerInformationModel:
+      properties:
+        companyName:
+          description: Company name
+          type: string
+        department:
+          description: Department.
+          type: string
+        fullName:
+          description: Full name.
+          type: string
+      type: object
+    GetPaymentTransactionResult:
+      properties:
+        amount:
+          $ref: '#/components/schemas/PaymentAmount'
+          description: Billing amount
+        description:
+          $ref: '#/components/schemas/PaymentDescription'
+          description: Billing description
+        message:
+          description: Message
+          type: string
+        messageCode:
+          description: Message code
+          enum:
+          - success
+          - processing
+          - invalid_request
+          - invalid_number
+          - incorrect_number
+          - invalid_name
+          - invalid_expiry_month
+          - invalid_expiry_year
+          - invalid_expiry
+          - incorrect_expiry
+          - invalid_cvc
+          - incorrect_cvc
+          - card_declined
+          - missing
+          - processing_error
+          type: string
+        status:
+          description: Status
+          enum:
+          - success
+          - error
+          type: string
+      type: object
+    GetPaymentMethodResult:
+      properties:
+        errorCode:
+          description: Error code (only if payment information is invalid)
+          enum:
+          - success
+          - processing
+          - invalid_request
+          - invalid_number
+          - incorrect_number
+          - invalid_name
+          - invalid_expiry_month
+          - invalid_expiry_year
+          - invalid_expiry
+          - incorrect_expiry
+          - invalid_cvc
+          - incorrect_cvc
+          - card_declined
+          - missing
+          - processing_error
+          type: string
+        errorMessage:
+          description: Error message (only if payment information is invalid)
+          type: string
+        properties:
+          description: Payment information
+          type: string
+        providerType:
+          description: Provider type
+          enum:
+          - WebPay
+          type: string
+        updateDate:
+          description: Update date
+          example: yyyyMMddHHmmss
           type: string
       type: object
   securitySchemes:

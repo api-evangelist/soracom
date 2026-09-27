@@ -48,6 +48,32 @@ paths:
       - resource-summaries get
 components:
   schemas:
+    ResourceSummaryItemDimension:
+      properties:
+        name:
+          description: The name of the resource summary item dimension.
+          type: string
+        value:
+          description: The value of the resource summary item dimension.
+          type: string
+      type: object
+    ResourceSummary:
+      properties:
+        resourceSummaryItems:
+          description: A list of resource summary items.
+          items:
+            $ref: '#/components/schemas/ResourceSummaryItem'
+          type: array
+        resourceSummaryType:
+          description: 'The type of the resource summary.
+
+
+            - `simsPerStatus`: The number of IoT SIMs per status.
+
+            '
+          example: simsPerStatus
+          type: string
+      type: object
     ResourceSummaryItemValue:
       properties:
         name:
@@ -77,32 +103,6 @@ components:
           items:
             $ref: '#/components/schemas/ResourceSummaryItemValue'
           type: array
-      type: object
-    ResourceSummary:
-      properties:
-        resourceSummaryItems:
-          description: A list of resource summary items.
-          items:
-            $ref: '#/components/schemas/ResourceSummaryItem'
-          type: array
-        resourceSummaryType:
-          description: 'The type of the resource summary.
-
-
-            - `simsPerStatus`: The number of IoT SIMs per status.
-
-            '
-          example: simsPerStatus
-          type: string
-      type: object
-    ResourceSummaryItemDimension:
-      properties:
-        name:
-          description: The name of the resource summary item dimension.
-          type: string
-        value:
-          description: The value of the resource summary item dimension.
-          type: string
       type: object
   securitySchemes:
     api_key:

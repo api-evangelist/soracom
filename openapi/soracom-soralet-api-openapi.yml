@@ -349,6 +349,31 @@ paths:
       - soralets delete-version
 components:
   schemas:
+    SoraletDataSource:
+      properties:
+        resourceId:
+          type: string
+        resourceType:
+          type: string
+      required:
+      - resourceType
+      - resourceId
+      type: object
+    SoraletLog:
+      properties:
+        createdTime:
+          format: int64
+          type: integer
+        message:
+          type: string
+        operatorId:
+          type: string
+        soraletId:
+          type: string
+        version:
+          format: int64
+          type: integer
+      type: object
     SoraletVersion:
       properties:
         createdTime:
@@ -368,52 +393,6 @@ components:
         version:
           format: int64
           type: integer
-      type: object
-    Soralet:
-      properties:
-        createdTime:
-          format: int64
-          type: integer
-        description:
-          type: string
-        operatorId:
-          type: string
-        soraletId:
-          type: string
-        updatedTime:
-          format: int64
-          type: integer
-      type: object
-    SoraletDataSource:
-      properties:
-        resourceId:
-          type: string
-        resourceType:
-          type: string
-      required:
-      - resourceType
-      - resourceId
-      type: object
-    ExecuteSoraletResponse:
-      properties:
-        body:
-          type: string
-        contentType:
-          type: string
-        encodingType:
-          type: string
-        resultCode:
-          format: int32
-          type: integer
-      type: object
-    CreateSoraletRequest:
-      properties:
-        description:
-          type: string
-        soraletId:
-          type: string
-      required:
-      - soraletId
       type: object
     ExecuteSoraletRequest:
       properties:
@@ -446,20 +425,41 @@ components:
       - payload
       - source
       type: object
-    SoraletLog:
+    ExecuteSoraletResponse:
+      properties:
+        body:
+          type: string
+        contentType:
+          type: string
+        encodingType:
+          type: string
+        resultCode:
+          format: int32
+          type: integer
+      type: object
+    Soralet:
       properties:
         createdTime:
           format: int64
           type: integer
-        message:
+        description:
           type: string
         operatorId:
           type: string
         soraletId:
           type: string
-        version:
+        updatedTime:
           format: int64
           type: integer
+      type: object
+    CreateSoraletRequest:
+      properties:
+        description:
+          type: string
+        soraletId:
+          type: string
+      required:
+      - soraletId
       type: object
   securitySchemes:
     api_key:

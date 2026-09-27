@@ -236,97 +236,6 @@ paths:
       - sim-profile-orders list-profiles
 components:
   schemas:
-    SimProfileOrderResponse:
-      description: Represents an eSIM profile order.
-      properties:
-        bundles:
-          description: Bundles of the eSIM profile ordered.
-          example:
-          - X3-5MB
-          items:
-            type: string
-          type: array
-        completedTime:
-          description: The time the order was completed (unix time in milliseconds).
-          example: 1718756585000
-          format: int64
-          type: integer
-        confirmedTime:
-          description: The time the order was confirmed (unix time in milliseconds).
-          example: 1718756585000
-          format: int64
-          type: integer
-        description:
-          description: The description of the eSIM profile order.
-          example: This is a test order
-          type: string
-        orderedTime:
-          description: The time the order was created (unix time in milliseconds).
-          example: 1718756585000
-          format: int64
-          type: integer
-        profileOrderId:
-          description: The ID of the eSIM profile order.
-          example: 01902ddd-1cf3-77d9-afc0-fe8d410cadb1
-          type: string
-        quantity:
-          description: The quantity of the eSIM profile ordered.
-          example: 10
-          format: int32
-          type: integer
-        speedClass:
-          description: The speed class of the eSIM profile ordered.
-          example: s1.4xfast
-          type: string
-        status:
-          description: 'The status of the eSIM profile order.
-
-
-            - `DRAFT`: Unconfirmed order
-
-            - `CONFIRMED`: Order confirmed
-
-            - `IN_PROGRESS`: Order in progress
-
-            - `COMPLETED`: Order completed
-
-            - `FAILED`: Order failed
-
-            '
-          enum:
-          - DRAFT
-          - CONFIRMED
-          - IN_PROGRESS
-          - COMPLETED
-          - FAILED
-          example: COMPLETED
-          type: string
-        subscription:
-          description: 'The subscription of the eSIM profile ordered.
-
-
-            - `plan01s`
-
-            - `planP1`
-
-            - `planX1`
-
-            - `planX2`
-
-            - `planX3`
-
-            - `plan-US`
-
-            '
-          example: plan01s
-          type: string
-      required:
-      - profileOrderId
-      - subscription
-      - quantity
-      - status
-      - orderedTime
-      type: object
     OrderedSimProfileResponse:
       description: Represents an eSIM profile ordered.
       properties:
@@ -433,6 +342,97 @@ components:
       - profileStatus
       - createdTime
       - lastModifiedTime
+      type: object
+    SimProfileOrderResponse:
+      description: Represents an eSIM profile order.
+      properties:
+        bundles:
+          description: Bundles of the eSIM profile ordered.
+          example:
+          - X3-5MB
+          items:
+            type: string
+          type: array
+        completedTime:
+          description: The time the order was completed (unix time in milliseconds).
+          example: 1718756585000
+          format: int64
+          type: integer
+        confirmedTime:
+          description: The time the order was confirmed (unix time in milliseconds).
+          example: 1718756585000
+          format: int64
+          type: integer
+        description:
+          description: The description of the eSIM profile order.
+          example: This is a test order
+          type: string
+        orderedTime:
+          description: The time the order was created (unix time in milliseconds).
+          example: 1718756585000
+          format: int64
+          type: integer
+        profileOrderId:
+          description: The ID of the eSIM profile order.
+          example: 01902ddd-1cf3-77d9-afc0-fe8d410cadb1
+          type: string
+        quantity:
+          description: The quantity of the eSIM profile ordered.
+          example: 10
+          format: int32
+          type: integer
+        speedClass:
+          description: The speed class of the eSIM profile ordered.
+          example: s1.4xfast
+          type: string
+        status:
+          description: 'The status of the eSIM profile order.
+
+
+            - `DRAFT`: Unconfirmed order
+
+            - `CONFIRMED`: Order confirmed
+
+            - `IN_PROGRESS`: Order in progress
+
+            - `COMPLETED`: Order completed
+
+            - `FAILED`: Order failed
+
+            '
+          enum:
+          - DRAFT
+          - CONFIRMED
+          - IN_PROGRESS
+          - COMPLETED
+          - FAILED
+          example: COMPLETED
+          type: string
+        subscription:
+          description: 'The subscription of the eSIM profile ordered.
+
+
+            - `plan01s`
+
+            - `planP1`
+
+            - `planX1`
+
+            - `planX2`
+
+            - `planX3`
+
+            - `plan-US`
+
+            '
+          example: plan01s
+          type: string
+      required:
+      - profileOrderId
+      - subscription
+      - quantity
+      - status
+      - orderedTime
       type: object
     CreateSimProfileOrderRequest:
       description: Represents a request to place a eSIM profile order without confirming it.

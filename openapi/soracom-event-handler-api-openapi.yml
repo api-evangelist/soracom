@@ -642,6 +642,8 @@ paths:
       - event-handlers list-for-subscriber
 components:
   schemas:
+    UpdateEventHandlerRequest:
+      $ref: '#/components/schemas/CreateEventHandlerRequest'
     RuleConfigProperty:
       properties:
         inactiveTimeoutDateConst:
@@ -954,22 +956,32 @@ components:
       - status
       - name
       type: object
-    ActionConfig:
+    RuleConfig:
       properties:
         properties:
-          $ref: '#/components/schemas/ActionConfigProperty'
+          $ref: '#/components/schemas/RuleConfigProperty'
         type:
-          description: "The type of action. Set one of the following. The values that can be specified in `properties` vary depending on the type.\n\n- `SendMailAction`: Send an email.\n\n  The properties that can be set in `properties` are as follows:\n  - `executionDateTimeConst` (required)\n  - `executionOffsetMinutes`\n  - `to`\n  - `title`\n  - `message`\n- `SendMailToOperatorAction`: Send an email to the operator's primary email address.\n\n  The properties that can be set in `properties` are as follows:\n  - `executionDateTimeConst` (required)\n  - `executionOffsetMinutes`\n  - `title`\n  - `message`\n- `ChangeSpeedClassAction`: Change the speed class of the IoT SIM.\n\n  The properties that can be set in `properties` are as follows:\n  - `executionDateTimeConst` (required)\n  - `executionOffsetMinutes`\n  - `speedClass`\n- `ActivationAction`, `DeactivationAction`, `StandbyAction`, `SuspendAction`: Change to active, inactive, standby, or suspended.\n\n  The properties that can be set in `properties` are as follows:\n  - `executionDateTimeConst` (required)\n  - `executionOffsetMinutes`\n- `ExecuteWebRequestAction`: Send a request to a specified URL.\n\n  The properties that can be set in `properties` are as follows:\n  - `executionDateTimeConst` (required)\n  - `executionOffsetMinutes`\n  - `url` (required)\n  - `httpMethod` (required)\n  - `contentType` (required)\n  - `headers` (required)\n  - `body`\n- `InvokeAWSLambdaAction`: Invoke AWS Lambda.\n\n  The properties that can be set in `properties` are as follows:\n  - `executionDateTimeConst` (required)\n  - `executionOffsetMinutes`\n  - `endpoint` (required)\n  - `functionName` (required)\n  - `credentialsId` (required)\n  - `parameter1`, `parameter2`, `parameter3`, `parameter4`, `parameter5`\n  \n  **Warning**: `accessKey` and `secretAccessKey` are deprecated properties. Please use `credentialsId`.\n"
+          description: "The type of rule. Set one of the following. The values that can be specified in `properties` vary depending on the type.\n\n- `SubscriberFirstTrafficRule`: Execute when a subscriber's data traffic is recorded for the first time.\n\n  The properties that can be set in `properties` are as follows:\n  - `inactiveTimeoutDateConst` (required)\n- `SubscriberDailyTrafficRule`: Execute when a subscriber's daily data traffic volume exceeds a certain limit.\n\n  The properties that can be set in `properties` are as follows:\n  - `limitTotalTrafficMegaByte` (required)\n  - `inactiveTimeoutDateConst` (required)\n  - `inactiveTimeoutOffsetMinutes`\n- `SubscriberMonthlyTrafficRule`: Execute when a subscriber's monthly data traffic volume exceeds a certain limit.\n\n  The properties that can be set in `properties` are as follows:\n  - `limitTotalTrafficMegaByte` (required)\n  - `inactiveTimeoutDateConst` (required)\n  - `inactiveTimeoutOffsetMinutes`\n- `SubscriberCumulativeTrafficRule`: Execute when the cumulative data traffic volume from the start of use of a subscriber exceeds a certain limit.\n\n  The properties that can be set in `properties` are as follows:\n  - `limitTotalTrafficMegaByte` (required)\n  - `inactiveTimeoutDateConst` (required)\n  - `inactiveTimeoutOffsetMinutes`\n- `SubscriberStatusAttributeRule`: Execute when a subscriber's status changes.\n\n  The properties that can be set in `properties` are as follows:\n  - `sourceStatus`\n  - `targetStatus`\n  - `inactiveTimeoutDateConst` (required)\n  - `inactiveTimeoutOffsetMinute`\n  - `runOnceAmongTarget`\n- `SimStatusAttributeRule`: Execute when the status of an IoT SIM changes.\n\n  The properties that can be set in `properties` are as follows:\n  - `sourceStatus`\n  - `targetStatus`\n  - `inactiveTimeoutDateConst` (required)\n  - `inactiveTimeoutOffsetMinute`\n  - `runOnceAmongTarget`\n- `SubscriberSpeedClassAttributeRule`: Execute when a subscriber's speed class changes.\n\n  The properties that can be set in `properties` are as follows:\n  - `targetSpeedClass`\n  - `inactiveTimeoutDateConst` (required)\n  - `inactiveTimeoutOffsetMinutes`\n  - `runOnceAmongTarget`\n- `SimSpeedClassAttributeRule`: Execute when the speed class of an IoT SIM changes.\n\n  The properties that can be set in `properties` are as follows:\n  - `targetSpeedClass`\n  - `inactiveTimeoutDateConst` (required)\n  - `inactiveTimeoutOffsetMinutes`\n  - `runOnceAmongTarget`\n- `SubscriberExpiredRule`: Execute when a subscriber's validity period expires.\n\n  The properties that can be set in `properties` are as follows:\n  - `inactiveTimeoutDateConst` (required)\n  - `inactiveTimeoutOffsetMinutes`\n  - `runOnceAmongTarget`\n- `SimExpiredRule`: Execute when the validity period of an IoT SIM expires.\n\n  The properties that can be set in `properties` are as follows:\n  - `inactiveTimeoutDateConst` (required)\n  - `inactiveTimeoutOffsetMinutes`\n  - `runOnceAmongTarget`\n- `SubscriberImeiMismatchedRule`: Execute when a subscriber fails to connect due to an IMEI lock.\n\n  The properties that can be set in `properties` are as follows:\n  - `inactiveTimeoutDateConst` (required)\n  - `inactiveTimeoutOffsetMinutes`\n  - `runOnceAmongTarget`\n- `SimImeiMismatchedRule`: Execute when an IoT SIM fails to connect due to an IMEI lock.\n\n  The properties that can be set in `properties` are as follows:\n  - `inactiveTimeoutDateConst` (required)\n  - `inactiveTimeoutOffsetMinutes`\n  - `runOnceAmongTarget`\n- `SimDailyTotalTrafficRule`: Execute when the total daily data traffic volume of all subscribers linked to an IoT SIM exceeds a certain limit.\n\n  The properties that can be set in `properties` are as follows:\n  - `limitTotalTrafficMegaByte` (required)\n  - `inactiveTimeoutDateConst` (required)\n  - `inactiveTimeoutOffsetMinutes`\n  - `runOnceAmongTarget`\n- `SimMonthlyTotalTrafficRule`: Execute when the total monthly data traffic volume of all subscribers linked to an IoT SIM exceeds a certain limit.\n\n  The properties that can be set in `properties` are as follows:\n  - `limitTotalTrafficMegaByte` (required)\n  - `inactiveTimeoutDateConst` (required)\n  - `inactiveTimeoutOffsetMinutes`\n  - `runOnceAmongTarget`\n- `SimCumulativeTotalTrafficRule`: Execute when the total cumulative data traffic volume from the start of use of all subscribers linked to an IoT SIM exceeds a certain limit.\n\n  The properties that can be set in `properties` are as follows:\n  - `limitTotalTrafficMegaByte` (required)\n  - `inactiveTimeoutDateConst` (required)\n  - `inactiveTimeoutOffsetMinutes`\n  - `runOnceAmongTarget`\n- `SimSubscriptionStatusRule`: Execute when a subscription is added to an IoT SIM.\n\n  The properties that can be set in `properties` are as follows:\n  - `targetOtaStatus`\n  - `inactiveTimeoutDateConst` (required)\n  - `inactiveTimeoutOffsetMinutes`\n  - `runOnceAmongTarget`\n- `DailyTotalTrafficRule`: Execute when the total daily data traffic volume of all IoT SIMs linked to a group/operator exceeds a certain limit.\n\n  The properties that can be set in `properties` are as follows:\n  - `limitTotalTrafficMegaByte` (required)\n  - `inactiveTimeoutDateConst` (required)\n  - `inactiveTimeoutOffsetMinutes`\n  - `runOnceAmongTarget`\n- `MonthlyTotalTrafficRule`: Execute when the total monthly data traffic volume of all IoT SIMs linked to a group/operator exceeds a certain limit.\n\n  The properties that can be set in `properties` are as follows:\n  - `limitTotalTrafficMegaByte` (required)\n  - `inactiveTimeoutDateConst` (required)\n  - `inactiveTimeoutOffsetMinutes`\n  - `runOnceAmongTarget`\n- `MonthlyChargeRule`: Execute when this month's usage fee exceeds a set amount.\n\n  The properties that can be set in `properties` are as follows:\n  - `limitTotalAmount` (required)\n  - `inactiveTimeoutDateConst` (required)\n  - `inactiveTimeoutOffsetMinutes`\n"
           enum:
-          - ChangeSpeedClassAction
-          - InvokeAWSLambdaAction
-          - ExecuteWebRequestAction
-          - SendMailAction
-          - SendMailToOperatorAction
-          - ActivationAction
-          - DeactivationAction
-          - StandbyAction
-          - SuspendAction
+          - SubscriberFirstTrafficRule
+          - SubscriberDailyTrafficRule
+          - SubscriberMonthlyTrafficRule
+          - SubscriberCumulativeTrafficRule
+          - SubscriberStatusAttributeRule
+          - SimStatusAttributeRule
+          - SubscriberSpeedClassAttributeRule
+          - SimSpeedClassAttributeRule
+          - SubscriberExpiredRule
+          - SimExpiredRule
+          - SubscriberImeiMismatchedRule
+          - SimImeiMismatchedRule
+          - SimDailyTotalTrafficRule
+          - SimMonthlyTotalTrafficRule
+          - SimCumulativeTotalTrafficRule
+          - SimSubscriptionStatusRule
+          - DailyTotalTrafficRule
+          - MonthlyTotalTrafficRule
+          - MonthlyChargeRule
           type: string
       required:
       - properties
@@ -1046,34 +1058,22 @@ components:
       - ruleConfig
       - status
       type: object
-    UpdateEventHandlerRequest:
-      $ref: '#/components/schemas/CreateEventHandlerRequest'
-    RuleConfig:
+    ActionConfig:
       properties:
         properties:
-          $ref: '#/components/schemas/RuleConfigProperty'
+          $ref: '#/components/schemas/ActionConfigProperty'
         type:
-          description: "The type of rule. Set one of the following. The values that can be specified in `properties` vary depending on the type.\n\n- `SubscriberFirstTrafficRule`: Execute when a subscriber's data traffic is recorded for the first time.\n\n  The properties that can be set in `properties` are as follows:\n  - `inactiveTimeoutDateConst` (required)\n- `SubscriberDailyTrafficRule`: Execute when a subscriber's daily data traffic volume exceeds a certain limit.\n\n  The properties that can be set in `properties` are as follows:\n  - `limitTotalTrafficMegaByte` (required)\n  - `inactiveTimeoutDateConst` (required)\n  - `inactiveTimeoutOffsetMinutes`\n- `SubscriberMonthlyTrafficRule`: Execute when a subscriber's monthly data traffic volume exceeds a certain limit.\n\n  The properties that can be set in `properties` are as follows:\n  - `limitTotalTrafficMegaByte` (required)\n  - `inactiveTimeoutDateConst` (required)\n  - `inactiveTimeoutOffsetMinutes`\n- `SubscriberCumulativeTrafficRule`: Execute when the cumulative data traffic volume from the start of use of a subscriber exceeds a certain limit.\n\n  The properties that can be set in `properties` are as follows:\n  - `limitTotalTrafficMegaByte` (required)\n  - `inactiveTimeoutDateConst` (required)\n  - `inactiveTimeoutOffsetMinutes`\n- `SubscriberStatusAttributeRule`: Execute when a subscriber's status changes.\n\n  The properties that can be set in `properties` are as follows:\n  - `sourceStatus`\n  - `targetStatus`\n  - `inactiveTimeoutDateConst` (required)\n  - `inactiveTimeoutOffsetMinute`\n  - `runOnceAmongTarget`\n- `SimStatusAttributeRule`: Execute when the status of an IoT SIM changes.\n\n  The properties that can be set in `properties` are as follows:\n  - `sourceStatus`\n  - `targetStatus`\n  - `inactiveTimeoutDateConst` (required)\n  - `inactiveTimeoutOffsetMinute`\n  - `runOnceAmongTarget`\n- `SubscriberSpeedClassAttributeRule`: Execute when a subscriber's speed class changes.\n\n  The properties that can be set in `properties` are as follows:\n  - `targetSpeedClass`\n  - `inactiveTimeoutDateConst` (required)\n  - `inactiveTimeoutOffsetMinutes`\n  - `runOnceAmongTarget`\n- `SimSpeedClassAttributeRule`: Execute when the speed class of an IoT SIM changes.\n\n  The properties that can be set in `properties` are as follows:\n  - `targetSpeedClass`\n  - `inactiveTimeoutDateConst` (required)\n  - `inactiveTimeoutOffsetMinutes`\n  - `runOnceAmongTarget`\n- `SubscriberExpiredRule`: Execute when a subscriber's validity period expires.\n\n  The properties that can be set in `properties` are as follows:\n  - `inactiveTimeoutDateConst` (required)\n  - `inactiveTimeoutOffsetMinutes`\n  - `runOnceAmongTarget`\n- `SimExpiredRule`: Execute when the validity period of an IoT SIM expires.\n\n  The properties that can be set in `properties` are as follows:\n  - `inactiveTimeoutDateConst` (required)\n  - `inactiveTimeoutOffsetMinutes`\n  - `runOnceAmongTarget`\n- `SubscriberImeiMismatchedRule`: Execute when a subscriber fails to connect due to an IMEI lock.\n\n  The properties that can be set in `properties` are as follows:\n  - `inactiveTimeoutDateConst` (required)\n  - `inactiveTimeoutOffsetMinutes`\n  - `runOnceAmongTarget`\n- `SimImeiMismatchedRule`: Execute when an IoT SIM fails to connect due to an IMEI lock.\n\n  The properties that can be set in `properties` are as follows:\n  - `inactiveTimeoutDateConst` (required)\n  - `inactiveTimeoutOffsetMinutes`\n  - `runOnceAmongTarget`\n- `SimDailyTotalTrafficRule`: Execute when the total daily data traffic volume of all subscribers linked to an IoT SIM exceeds a certain limit.\n\n  The properties that can be set in `properties` are as follows:\n  - `limitTotalTrafficMegaByte` (required)\n  - `inactiveTimeoutDateConst` (required)\n  - `inactiveTimeoutOffsetMinutes`\n  - `runOnceAmongTarget`\n- `SimMonthlyTotalTrafficRule`: Execute when the total monthly data traffic volume of all subscribers linked to an IoT SIM exceeds a certain limit.\n\n  The properties that can be set in `properties` are as follows:\n  - `limitTotalTrafficMegaByte` (required)\n  - `inactiveTimeoutDateConst` (required)\n  - `inactiveTimeoutOffsetMinutes`\n  - `runOnceAmongTarget`\n- `SimCumulativeTotalTrafficRule`: Execute when the total cumulative data traffic volume from the start of use of all subscribers linked to an IoT SIM exceeds a certain limit.\n\n  The properties that can be set in `properties` are as follows:\n  - `limitTotalTrafficMegaByte` (required)\n  - `inactiveTimeoutDateConst` (required)\n  - `inactiveTimeoutOffsetMinutes`\n  - `runOnceAmongTarget`\n- `SimSubscriptionStatusRule`: Execute when a subscription is added to an IoT SIM.\n\n  The properties that can be set in `properties` are as follows:\n  - `targetOtaStatus`\n  - `inactiveTimeoutDateConst` (required)\n  - `inactiveTimeoutOffsetMinutes`\n  - `runOnceAmongTarget`\n- `DailyTotalTrafficRule`: Execute when the total daily data traffic volume of all IoT SIMs linked to a group/operator exceeds a certain limit.\n\n  The properties that can be set in `properties` are as follows:\n  - `limitTotalTrafficMegaByte` (required)\n  - `inactiveTimeoutDateConst` (required)\n  - `inactiveTimeoutOffsetMinutes`\n  - `runOnceAmongTarget`\n- `MonthlyTotalTrafficRule`: Execute when the total monthly data traffic volume of all IoT SIMs linked to a group/operator exceeds a certain limit.\n\n  The properties that can be set in `properties` are as follows:\n  - `limitTotalTrafficMegaByte` (required)\n  - `inactiveTimeoutDateConst` (required)\n  - `inactiveTimeoutOffsetMinutes`\n  - `runOnceAmongTarget`\n- `MonthlyChargeRule`: Execute when this month's usage fee exceeds a set amount.\n\n  The properties that can be set in `properties` are as follows:\n  - `limitTotalAmount` (required)\n  - `inactiveTimeoutDateConst` (required)\n  - `inactiveTimeoutOffsetMinutes`\n"
+          description: "The type of action. Set one of the following. The values that can be specified in `properties` vary depending on the type.\n\n- `SendMailAction`: Send an email.\n\n  The properties that can be set in `properties` are as follows:\n  - `executionDateTimeConst` (required)\n  - `executionOffsetMinutes`\n  - `to`\n  - `title`\n  - `message`\n- `SendMailToOperatorAction`: Send an email to the operator's primary email address.\n\n  The properties that can be set in `properties` are as follows:\n  - `executionDateTimeConst` (required)\n  - `executionOffsetMinutes`\n  - `title`\n  - `message`\n- `ChangeSpeedClassAction`: Change the speed class of the IoT SIM.\n\n  The properties that can be set in `properties` are as follows:\n  - `executionDateTimeConst` (required)\n  - `executionOffsetMinutes`\n  - `speedClass`\n- `ActivationAction`, `DeactivationAction`, `StandbyAction`, `SuspendAction`: Change to active, inactive, standby, or suspended.\n\n  The properties that can be set in `properties` are as follows:\n  - `executionDateTimeConst` (required)\n  - `executionOffsetMinutes`\n- `ExecuteWebRequestAction`: Send a request to a specified URL.\n\n  The properties that can be set in `properties` are as follows:\n  - `executionDateTimeConst` (required)\n  - `executionOffsetMinutes`\n  - `url` (required)\n  - `httpMethod` (required)\n  - `contentType` (required)\n  - `headers` (required)\n  - `body`\n- `InvokeAWSLambdaAction`: Invoke AWS Lambda.\n\n  The properties that can be set in `properties` are as follows:\n  - `executionDateTimeConst` (required)\n  - `executionOffsetMinutes`\n  - `endpoint` (required)\n  - `functionName` (required)\n  - `credentialsId` (required)\n  - `parameter1`, `parameter2`, `parameter3`, `parameter4`, `parameter5`\n  \n  **Warning**: `accessKey` and `secretAccessKey` are deprecated properties. Please use `credentialsId`.\n"
           enum:
-          - SubscriberFirstTrafficRule
-          - SubscriberDailyTrafficRule
-          - SubscriberMonthlyTrafficRule
-          - SubscriberCumulativeTrafficRule
-          - SubscriberStatusAttributeRule
-          - SimStatusAttributeRule
-          - SubscriberSpeedClassAttributeRule
-          - SimSpeedClassAttributeRule
-          - SubscriberExpiredRule
-          - SimExpiredRule
-          - SubscriberImeiMismatchedRule
-          - SimImeiMismatchedRule
-          - SimDailyTotalTrafficRule
-          - SimMonthlyTotalTrafficRule
-          - SimCumulativeTotalTrafficRule
-          - SimSubscriptionStatusRule
-          - DailyTotalTrafficRule
-          - MonthlyTotalTrafficRule
-          - MonthlyChargeRule
+          - ChangeSpeedClassAction
+          - InvokeAWSLambdaAction
+          - ExecuteWebRequestAction
+          - SendMailAction
+          - SendMailToOperatorAction
+          - ActivationAction
+          - DeactivationAction
+          - StandbyAction
+          - SuspendAction
           type: string
       required:
       - properties

@@ -451,18 +451,6 @@ paths:
       - lora-devices unset-group
 components:
   schemas:
-    LastSeen:
-      properties:
-        rssi:
-          format: int32
-          type: integer
-        snr:
-          format: int32
-          type: integer
-        time:
-          format: date-time
-          type: string
-      type: object
     RegisterLoraDeviceRequest:
       properties:
         groupId:
@@ -487,29 +475,6 @@ components:
         groupId:
           description: Group ID. The group ID can be obtained using the [Group:listGroups API](#!/Group/listGroups).
           type: string
-      type: object
-    DataEntry:
-      properties:
-        category:
-          type: string
-        content:
-          type: string
-        contentType:
-          type: string
-        resourceId:
-          type: string
-        resourceType:
-          enum:
-          - Subscriber
-          - LoraDevice
-          - Sim
-          - SigfoxDevice
-          - Device
-          - SoraCam
-          type: string
-        time:
-          format: int64
-          type: integer
       type: object
     LoraDevice:
       properties:
@@ -548,6 +513,41 @@ components:
       required:
       - tagName
       - tagValue
+      type: object
+    LastSeen:
+      properties:
+        rssi:
+          format: int32
+          type: integer
+        snr:
+          format: int32
+          type: integer
+        time:
+          format: date-time
+          type: string
+      type: object
+    DataEntry:
+      properties:
+        category:
+          type: string
+        content:
+          type: string
+        contentType:
+          type: string
+        resourceId:
+          type: string
+        resourceType:
+          enum:
+          - Subscriber
+          - LoraDevice
+          - Sim
+          - SigfoxDevice
+          - Device
+          - SoraCam
+          type: string
+        time:
+          format: int64
+          type: integer
       type: object
   securitySchemes:
     api_key:

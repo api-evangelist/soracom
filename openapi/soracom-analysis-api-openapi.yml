@@ -161,6 +161,18 @@ paths:
       - analysis schemas
 components:
   schemas:
+    StartAnalysisQueriesRequest:
+      properties:
+        from:
+          description: Start of the period to apply the SQL query (UNIX time (seconds)).
+          type: integer
+        sql:
+          description: A SQL query.
+          type: string
+        to:
+          description: End of the period to apply the SQL query (UNIX time (seconds)).
+          type: integer
+      type: object
     StartAnalysisQueriesResponse:
       properties:
         queryId:
@@ -247,18 +259,6 @@ components:
           type: string
         usedExecCount:
           description: Number of SQL queries executed this month.
-          type: integer
-      type: object
-    StartAnalysisQueriesRequest:
-      properties:
-        from:
-          description: Start of the period to apply the SQL query (UNIX time (seconds)).
-          type: integer
-        sql:
-          description: A SQL query.
-          type: string
-        to:
-          description: End of the period to apply the SQL query (UNIX time (seconds)).
           type: integer
       type: object
     GetAnalysisSchemasResponse:

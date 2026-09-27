@@ -2980,6 +2980,153 @@ paths:
       - sora-cam license-packs update-quantity
 components:
   schemas:
+    SoraCamImageExportSpecification:
+      properties:
+        harvestFiles:
+          $ref: '#/components/schemas/SoraCamExportImageToHarvestFiles'
+        imageFilters:
+          description: Image filters to be applied to the exported image.
+          items:
+            enum:
+            - wide_angle_correction
+            type: string
+          type: array
+        time:
+          description: Time to be exported (unix time in milliseconds). A still image is exported from the recorded video taken at the specified time.
+          format: int64
+          type: integer
+      required:
+      - time
+      type: object
+    SoraCamDeviceLicenseUpdate:
+      properties:
+        type:
+          description: 'Type of license to assign.
+
+
+            - `CR7-SC`: Cloud Continuous Recording License (7 Days).
+
+            - `CR14-SC`: Cloud Continuous Recording License (14 Days).
+
+            - `CR30-SC`: Cloud Continuous Recording License (30 Days).
+
+            - `MR7-SC`: Cloud Motion Detection "Unlimited" Recording License (7 Days).
+
+            - `MR14-SC`: Cloud Motion Detection "Unlimited" Recording License (14 Days).
+
+            '
+          enum:
+          - CR7-SC
+          - CR14-SC
+          - CR30-SC
+          - MR7-SC
+          - MR14-SC
+          type: string
+      type: object
+    SoraCamDeviceLicenseInfo:
+      properties:
+        name:
+          description: 'Name of the license applied to a SoraCam compatible camera device.
+
+
+            - `Cloud Continuous Recording License (x Days)`
+
+            - `Cloud Motion Detection "Unlimited" Recording License (x Days)`
+
+            '
+          type: string
+        value:
+          description: 'Properties of the license applied to a SoraCam compatible camera device.
+
+
+            If `name` is `Cloud Continuous Recording License (x Days)` or
+
+            `Cloud Motion Detection "Unlimited" Recording License (x Days)`:
+
+
+            - `storage_life`: Storage life.
+
+            '
+          type: string
+      required:
+      - name
+      - value
+      type: object
+    SoraCamAtomCamSettingsLogo:
+      properties:
+        state:
+          description: 'Display settings for the ATOM tech Inc. logo shown on the bottom left of the captured image.
+
+
+            - `on`
+
+            - `off`
+
+            '
+          enum:
+          - 'on'
+          - 'off'
+          type: string
+      required:
+      - state
+      type: object
+    SoraCamPowerState:
+      properties:
+        powerState:
+          description: 'Power state of the SoraCam compatible camera device.
+
+
+            - `on`
+
+            - `sleep`
+
+            '
+          enum:
+          - 'on'
+          - sleep
+          type: string
+      required:
+      - powerState
+      type: object
+    SoraCamStreamingVideo:
+      properties:
+        expiryTime:
+          description: Expiration timestamp of all URLs in playList (UNIX time in milliseconds).
+          format: int64
+          type: integer
+        playList:
+          description: 'Array of playlist entries for streaming video (latest video / recorded video).
+
+
+            - For the latest video, only one video file is always returned. In addition, `from` and `to` are omitted.
+
+            - For recorded video, the video file may be split depending on the recording status.
+
+            '
+          items:
+            $ref: '#/components/schemas/SoraCamPlayListEntry'
+          type: array
+      required:
+      - expiryTime
+      type: object
+    SoraCamAtomCamSettingsRotation:
+      properties:
+        state:
+          description: 'Settings for rotating the image by 180 degrees. Set to `180` when installing the SoraCam compatible camera device upside down.
+
+
+            - `0`: OFF (no rotation).
+
+            - `180`: ON (180-degree rotation).
+
+            '
+          enum:
+          - 0
+          - 180
+          type: integer
+      required:
+      - state
+      type: object
     SoraCamImageExportUsage:
       properties:
         billedFrames:
@@ -3000,73 +3147,163 @@ components:
       - remainingFrames
       - usedFrames
       type: object
-    SoraCamVideoExportInfo:
+    SoraCamVideoExportUsage:
       properties:
-        deviceId:
-          description: Device ID of the SoraCam compatible camera device.
-          type: string
-        expiryTime:
-          description: Expiration timestamp of the URL (unix time in milliseconds). The URL becomes unusable 10 minutes after export completion. Only included if `status` is `completed`.
-          format: int64
+        billedSeconds:
+          description: The number of seconds of video, assuming that all of the recorded video time available for export has been used for exporting video. In other words, when the value is 0, no charge is incurred. Note that only `billedSeconds` are used in the calculation of the billing amount.
           type: integer
-        exportId:
-          description: 'Export ID. If you specify the export ID obtained in [SoraCam:exportSoraCamDeviceRecordedVideo API](#!/SoraCam/exportSoraCamDeviceRecordedVideo) to [SoraCam:getSoraCamDeviceExportedVideo API](#!/SoraCam/getSoraCamDeviceExportedVideo), you can obtain the URL for downloading the zipped mp4 file.
-
-            '
-          type: string
-        operatorId:
-          description: 'Operator ID that called [SoraCam:exportSoraCamDeviceRecordedVideo API](#!/SoraCam/exportSoraCamDeviceRecordedVideo).
-
-            '
-          type: string
-        requestedTime:
-          description: 'The date and time when the Soracom platform accepted the export request from [SoraCam:exportSoraCamDeviceRecordedVideo API](#!/SoraCam/exportSoraCamDeviceRecordedVideo) (unix time in milliseconds).
-
-            '
-          format: int64
+        limitSeconds:
+          description: The number of seconds of video, assuming that all of the available export time for the video is used for exporting video. The maximum available export time for the video is output in seconds of video.
           type: integer
-        status:
-          description: 'Current status of the export.
+        remainingSeconds:
+          description: The number of seconds of video that can be exported, assuming that all of  the available export time for the video is used for exporting as video, up to the maximum possible video export time. `limitSeconds` minus `usedSeconds`.
+          type: integer
+        usedSeconds:
+          description: The number of seconds of video exported, assuming that all the recorded video time available for export consumed in the current month was used for exporting video.
+          type: integer
+      required:
+      - billedSeconds
+      - limitSeconds
+      - remainingSeconds
+      - usedSeconds
+      type: object
+    SoraCamDeviceName:
+      properties:
+        name:
+          type: string
+      required:
+      - name
+      type: object
+    SoraCamAtomCamSettingsTimestamp:
+      properties:
+        state:
+          description: 'Display settings for the timestamp shown on the bottom right of the captured image.
 
 
-            - `initializing`: Initial state.
+            - `on`
 
-            - `processing`: Processing.
-
-            - `completed`: Export completed.
-
-            - `retrying`: Retry export.
-
-            - `failed`: Export failed.
-
-            - `limitExceeded`: Video cannot be exported because the recorded video time available for export has been exceeded.
-
-            - `expired`: Exported URL is expired.
+            - `off`
 
             '
           enum:
-          - initializing
-          - processing
-          - completed
-          - retrying
-          - failed
-          - limitExceeded
-          - expired
+          - 'on'
+          - 'off'
           type: string
+      required:
+      - state
+      type: object
+    SoraCamAtomCamLiveImageResponse:
+      properties:
         url:
-          description: 'URL to download a zipped mp4 file. Only included if `status` is `completed`.
+          type: string
+      required:
+      - url
+      type: object
+    SoraCamLicensePackQuantityUpdatingRequest:
+      properties:
+        currentQuantity:
+          description: Current license quantity of the license pack.
+          example: 1
+          format: int32
+          type: integer
+        desiredQuantity:
+          description: Desired license quantity of the license pack.
+          example: 2
+          format: int32
+          type: integer
+      type: object
+    SoraCamAtomCamSettingsStatusLight:
+      properties:
+        state:
+          description: 'Settings for the status light (indicator light that shows the status of the camera).
 
 
-            - You can get mp4 files by extracting the downloaded zip file.
+            - `on`
+
+            - `off`
+
+            '
+          enum:
+          - 'on'
+          - 'off'
+          type: string
+      required:
+      - state
+      type: object
+    SoraCamExportImageToHarvestFiles:
+      description: 'Specifies the settings for exporting images to Harvest Files.
+
+
+        Example: `harvestFiles: { pathPrefix: "/sora_cam/{device_id}" }`
+
+
+        If the `pathPrefix` is omitted or set to an empty string, the export will be saved in the root directory of Harvest Files.
+
+
+        Example of exporting to the root directory: `harvestFiles: { pathPrefix: "" }`
+
+        '
+      properties:
+        pathPrefix:
+          description: 'The directory name where the images will be saved when exporting to Harvest Files.
+
+
+            The following strings can be entered, and they will be replaced according to the rules during export:
+
+
+            - `{export_id}`: The export ID (e.g., `123e4567-e89b-12d3-a456-426614174000`).
+
+            - `{device_id}`: The device ID (e.g., `001A2B3C4D5E`).
+
+            - `{date}`: The request date and time of the export (e.g., `2024/10/01/12/34`).
+
+            - `{time}`: The capture time of the image (UNIX time in milliseconds) (e.g., `1728393803000`).
+
+
+            For example, if you enter `/sora_cam/{device_id}`, the images will be exported to a directory unique to each SoraCam compatible camera device. `{date}` and `{time}` are useful when saving images captured/exported at the same time from multiple SoraCam compatible camera devices to the same directory.
+
+
+            **Info**: If omitted or set to an empty string, the export will be saved in the root directory of Harvest Files.
 
             '
           type: string
+      type: object
+    SoraCamAtomCamSettingsNightVision:
+      properties:
+        state:
+          description: 'Settings for night vision mode.
+
+
+            - `on`: Night vision mode.
+
+            - `off`: Normal mode.
+
+            - `auto`: Auto-switching.
+
+            '
+          enum:
+          - 'on'
+          - 'off'
+          - auto
+          type: string
       required:
-      - exportId
-      - requestedTime
-      - operatorId
-      - deviceId
-      - status
+      - state
+      type: object
+    SoraCamPlayListEntry:
+      properties:
+        from:
+          description: The start time of the recorded video (UNIX time in milliseconds). Omitted for the latest video.
+          format: int64
+          type: integer
+        to:
+          description: The end time of the recorded video (UNIX time in milliseconds). Omitted for the latest video.
+          format: int64
+          type: integer
+        url:
+          description: "URL to get mpd file of streaming video (latest video / recorded video).\n\n- No URL is returned in the following cases:\n  - When trying to get the latest video, the power of the SoraCam compatible camera device is not turned on.\n  - When trying to get the latest video, cloud recording has not started on a SoraCam compatible camera device.\n  - When trying to get recorded video, there is no recorded video between the specified `from` and `to`.\n"
+          type: string
+      required:
+      - url
       type: object
     SoraCamImageExportInfo:
       properties:
@@ -3130,70 +3367,6 @@ components:
       - operatorId
       - deviceId
       - status
-      type: object
-    SoraCamAtomCamSettingsSoundSensitivity:
-      properties:
-        state:
-          description: 'Settings for sound detection sensitivity. The higher the sensitivity, the easier it is to detect small sounds.
-
-
-            - `high`
-
-            - `medium`
-
-            - `low`
-
-            '
-          enum:
-          - high
-          - medium
-          - low
-          type: string
-      required:
-      - state
-      type: object
-    SoraCamAtomCamSettingsLogo:
-      properties:
-        state:
-          description: 'Display settings for the ATOM tech Inc. logo shown on the bottom left of the captured image.
-
-
-            - `on`
-
-            - `off`
-
-            '
-          enum:
-          - 'on'
-          - 'off'
-          type: string
-      required:
-      - state
-      type: object
-    SoraCamAtomCamSettingsSound:
-      properties:
-        state:
-          description: 'Settings for sound detection.
-
-
-            - `on`
-
-            - `off`
-
-            '
-          enum:
-          - 'on'
-          - 'off'
-          type: string
-      required:
-      - state
-      type: object
-    SoraCamAtomCamLiveImageResponse:
-      properties:
-        url:
-          type: string
-      required:
-      - url
       type: object
     SoraCamAtomCamSettingsAll:
       properties:
@@ -3364,127 +3537,6 @@ components:
       - soundSensitivity
       - nightVision
       type: object
-    SoraCamExportImageToHarvestFiles:
-      description: 'Specifies the settings for exporting images to Harvest Files.
-
-
-        Example: `harvestFiles: { pathPrefix: "/sora_cam/{device_id}" }`
-
-
-        If the `pathPrefix` is omitted or set to an empty string, the export will be saved in the root directory of Harvest Files.
-
-
-        Example of exporting to the root directory: `harvestFiles: { pathPrefix: "" }`
-
-        '
-      properties:
-        pathPrefix:
-          description: 'The directory name where the images will be saved when exporting to Harvest Files.
-
-
-            The following strings can be entered, and they will be replaced according to the rules during export:
-
-
-            - `{export_id}`: The export ID (e.g., `123e4567-e89b-12d3-a456-426614174000`).
-
-            - `{device_id}`: The device ID (e.g., `001A2B3C4D5E`).
-
-            - `{date}`: The request date and time of the export (e.g., `2024/10/01/12/34`).
-
-            - `{time}`: The capture time of the image (UNIX time in milliseconds) (e.g., `1728393803000`).
-
-
-            For example, if you enter `/sora_cam/{device_id}`, the images will be exported to a directory unique to each SoraCam compatible camera device. `{date}` and `{time}` are useful when saving images captured/exported at the same time from multiple SoraCam compatible camera devices to the same directory.
-
-
-            **Info**: If omitted or set to an empty string, the export will be saved in the root directory of Harvest Files.
-
-            '
-          type: string
-      type: object
-    SoraCamAtomCamSettingsNightVision:
-      properties:
-        state:
-          description: 'Settings for night vision mode.
-
-
-            - `on`: Night vision mode.
-
-            - `off`: Normal mode.
-
-            - `auto`: Auto-switching.
-
-            '
-          enum:
-          - 'on'
-          - 'off'
-          - auto
-          type: string
-      required:
-      - state
-      type: object
-    SoraCamDeviceRealTimeAccessOption:
-      properties:
-        enabled:
-          type: boolean
-      required:
-      - enabled
-      type: object
-    SoraCamPlayListEntry:
-      properties:
-        from:
-          description: The start time of the recorded video (UNIX time in milliseconds). Omitted for the latest video.
-          format: int64
-          type: integer
-        to:
-          description: The end time of the recorded video (UNIX time in milliseconds). Omitted for the latest video.
-          format: int64
-          type: integer
-        url:
-          description: "URL to get mpd file of streaming video (latest video / recorded video).\n\n- No URL is returned in the following cases:\n  - When trying to get the latest video, the power of the SoraCam compatible camera device is not turned on.\n  - When trying to get the latest video, cloud recording has not started on a SoraCam compatible camera device.\n  - When trying to get recorded video, there is no recorded video between the specified `from` and `to`.\n"
-          type: string
-      required:
-      - url
-      type: object
-    SoraCamPowerState:
-      properties:
-        powerState:
-          description: 'Power state of the SoraCam compatible camera device.
-
-
-            - `on`
-
-            - `sleep`
-
-            '
-          enum:
-          - 'on'
-          - sleep
-          type: string
-      required:
-      - powerState
-      type: object
-    SoraCamAtomCamSettingsQuality:
-      properties:
-        state:
-          description: 'Settings for the live video and cloud recording quality. Note that for cloud recordings, the resolution is 1080p (1920 x 1080 pixels), regardless of the quality setting.
-
-
-            - `low`: The same quality as selecting "360p" in the ATOM app.
-
-            - `medium`: The same quality as selecting "SD" in the ATOM app.
-
-            - `high`: The same quality as selecting "HD (1080p)" in the ATOM app.
-
-            '
-          enum:
-          - low
-          - medium
-          - high
-          type: string
-      required:
-      - state
-      type: object
     SoraCamRecordingsAndEventsList:
       properties:
         events:
@@ -3538,23 +3590,12 @@ components:
       - records
       - events
       type: object
-    SoraCamAtomCamSettingsMotionTagging:
+    SoraCamDeviceOptions:
       properties:
-        state:
-          description: 'Display settings for motion tagging.
-
-
-            - `on`
-
-            - `off`
-
-            '
-          enum:
-          - 'on'
-          - 'off'
-          type: string
+        realTimeAccess:
+          $ref: '#/components/schemas/SoraCamDeviceRealTimeAccessOption'
       required:
-      - state
+      - realTimeAccess
       type: object
     SoraCamAtomCamSettingsMotion:
       properties:
@@ -3574,178 +3615,88 @@ components:
       required:
       - state
       type: object
-    SoraCamAtomCamSettingsStatusLight:
+    SoraCamDevicesFirmwareUpdate:
       properties:
-        state:
-          description: 'Settings for the status light (indicator light that shows the status of the camera).
-
-
-            - `on`
-
-            - `off`
-
-            '
-          enum:
-          - 'on'
-          - 'off'
-          type: string
-      required:
-      - state
-      type: object
-    SoraCamAtomCamSettingsRotation:
-      properties:
-        state:
-          description: 'Settings for rotating the image by 180 degrees. Set to `180` when installing the SoraCam compatible camera device upside down.
-
-
-            - `0`: OFF (no rotation).
-
-            - `180`: ON (180-degree rotation).
-
-            '
-          enum:
-          - 0
-          - 180
-          type: integer
-      required:
-      - state
-      type: object
-    SoraCamAtomCamSettingsTimestamp:
-      properties:
-        state:
-          description: 'Display settings for the timestamp shown on the bottom right of the captured image.
-
-
-            - `on`
-
-            - `off`
-
-            '
-          enum:
-          - 'on'
-          - 'off'
-          type: string
-      required:
-      - state
-      type: object
-    SoraCamDeviceName:
-      properties:
-        name:
-          type: string
-      required:
-      - name
-      type: object
-    SoraCamDeviceLicenseInfo:
-      properties:
-        name:
-          description: 'Name of the license applied to a SoraCam compatible camera device.
-
-
-            - `Cloud Continuous Recording License (x Days)`
-
-            - `Cloud Motion Detection "Unlimited" Recording License (x Days)`
+        deviceId:
+          description: 'Device ID of the SoraCam compatible camera device.
 
             '
           type: string
-        value:
-          description: 'Properties of the license applied to a SoraCam compatible camera device.
-
-
-            If `name` is `Cloud Continuous Recording License (x Days)` or
-
-            `Cloud Motion Detection "Unlimited" Recording License (x Days)`:
-
-
-            - `storage_life`: Storage life.
+        firmwareVersion:
+          description: 'Available firmware version for the SoraCam compatible camera device.
 
             '
           type: string
-      required:
-      - name
-      - value
-      type: object
-    SoraCamDeviceLicenseUpdate:
-      properties:
-        type:
-          description: 'Type of license to assign.
-
-
-            - `CR7-SC`: Cloud Continuous Recording License (7 Days).
-
-            - `CR14-SC`: Cloud Continuous Recording License (14 Days).
-
-            - `CR30-SC`: Cloud Continuous Recording License (30 Days).
-
-            - `MR7-SC`: Cloud Motion Detection "Unlimited" Recording License (7 Days).
-
-            - `MR14-SC`: Cloud Motion Detection "Unlimited" Recording License (14 Days).
+        timeout:
+          description: 'Timeout for the firmware update process (in seconds). If the firmware update process is not completed within this time, the process is considered to have failed.
 
             '
-          enum:
-          - CR7-SC
-          - CR14-SC
-          - CR30-SC
-          - MR7-SC
-          - MR14-SC
-          type: string
-      type: object
-    SoraCamLicensePackResponse:
-      properties:
-        id:
-          description: ID of the license pack.
-          example: CR7-SC
-          type: string
-        name:
-          description: Name of the license pack.
-          example: Cloud Recording License (7 Days)
-          type: string
-        quantity:
-          description: The quantity of licenses in the license pack.
-          example: 1
-          format: int32
-          type: integer
-        quantityInUse:
-          description: The quantity of licenses in the license pack currently in use.
-          example: 1
-          format: int32
-          type: integer
-        salesChannel:
-          description: Sales channel of the license pack.
-          example: SORACOM Inc.
-          type: string
-      type: object
-    SoraCamLicensePackQuantityUpdatingRequest:
-      properties:
-        currentQuantity:
-          description: Current license quantity of the license pack.
-          example: 1
-          format: int32
-          type: integer
-        desiredQuantity:
-          description: Desired license quantity of the license pack.
-          example: 2
-          format: int32
-          type: integer
-      type: object
-    SoraCamVideoExportUsage:
-      properties:
-        billedSeconds:
-          description: The number of seconds of video, assuming that all of the recorded video time available for export has been used for exporting video. In other words, when the value is 0, no charge is incurred. Note that only `billedSeconds` are used in the calculation of the billing amount.
-          type: integer
-        limitSeconds:
-          description: The number of seconds of video, assuming that all of the available export time for the video is used for exporting video. The maximum available export time for the video is output in seconds of video.
-          type: integer
-        remainingSeconds:
-          description: The number of seconds of video that can be exported, assuming that all of  the available export time for the video is used for exporting as video, up to the maximum possible video export time. `limitSeconds` minus `usedSeconds`.
-          type: integer
-        usedSeconds:
-          description: The number of seconds of video exported, assuming that all the recorded video time available for export consumed in the current month was used for exporting video.
+          format: int64
           type: integer
       required:
-      - billedSeconds
-      - limitSeconds
-      - remainingSeconds
-      - usedSeconds
+      - deviceId
+      - firmwareVersion
+      - timeout
+      type: object
+    SoraCamExportVideoToHarvestFiles:
+      description: 'Specifies the settings for exporting video to Harvest Files.
+
+
+        Example: `harvestFiles: { pathPrefix: "/sora_cam/{device_id}" }`
+
+
+        If the `pathPrefix` is omitted or set to an empty string, the export will be saved in the root directory of Harvest Files.
+
+
+        Example of exporting to the root directory: `harvestFiles: { pathPrefix: "" }`
+
+        '
+      properties:
+        pathPrefix:
+          description: 'The directory name where the video will be saved when exporting to Harvest Files.
+
+
+            The following strings can be entered, and they will be replaced according to the rules during export:
+
+
+            - `{export_id}`: The export ID (e.g., `123e4567-e89b-12d3-a456-426614174000`).
+
+            - `{device_id}`: The device ID (e.g., `001A2B3C4D5E`).
+
+            - `{date}`: The request date and time of the export (e.g., `2024/10/01/12/34`).
+
+            - `{from}`: The start time of the video (UNIX time in milliseconds) (e.g., `1728393803000`).
+
+            - `{to}`: The end time of the video (UNIX time in milliseconds) (e.g., `1728394700000`).
+
+
+            For example, if you enter `/sora_cam/{device_id}`, the video will be exported to a directory unique to each SoraCam compatible camera device. `{date}`, `{from}`, and `{to}` are useful when saving videos recorded/exported at the same time from multiple SoraCam compatible camera devices to the same directory.
+
+
+            **Info**: If omitted or set to an empty string, the export will be saved in the root directory of Harvest Files.
+
+            '
+          type: string
+      type: object
+    SoraCamExportUsage:
+      properties:
+        deviceId:
+          description: Device ID of the SoraCam compatible camera device.
+          type: string
+        image:
+          $ref: '#/components/schemas/SoraCamImageExportUsage'
+          description: The number of still images, assuming that all of the recorded video time available for export is used for exporting still images.
+        meteredYearMonth:
+          description: 'The year and month (format: ''YYYYMM'') for which the video can be exported. In the case of `202301`, this means that the available export time of the video for January 2023 is output.'
+          type: string
+        video:
+          $ref: '#/components/schemas/SoraCamVideoExportUsage'
+          description: The number of seconds of video, assuming that all of the recorded video time available for export is used for exporting as video.
+      required:
+      - deviceId
+      - meteredYearMonth
+      - video
+      - image
       type: object
     SoraCamVideoExportSpecification:
       properties:
@@ -3796,45 +3747,133 @@ components:
       - from
       - to
       type: object
-    SoraCamExportVideoToHarvestFiles:
-      description: 'Specifies the settings for exporting video to Harvest Files.
-
-
-        Example: `harvestFiles: { pathPrefix: "/sora_cam/{device_id}" }`
-
-
-        If the `pathPrefix` is omitted or set to an empty string, the export will be saved in the root directory of Harvest Files.
-
-
-        Example of exporting to the root directory: `harvestFiles: { pathPrefix: "" }`
-
-        '
+    SoraCamAtomCamSettingsMotionSensitivity:
       properties:
-        pathPrefix:
-          description: 'The directory name where the video will be saved when exporting to Harvest Files.
+        state:
+          description: 'Settings for the motion detection sensitivity. The higher the sensitivity, the smaller the image changes that can be detected.
 
 
-            The following strings can be entered, and they will be replaced according to the rules during export:
+            - `high`
+
+            - `medium`
+
+            - `low`
+
+            '
+          enum:
+          - high
+          - medium
+          - low
+          type: string
+      required:
+      - state
+      type: object
+    SoraCamDevice:
+      properties:
+        appliedLicenses:
+          description: 'List of licenses applied to the device. This information cannot be obtained using [SoraCam:listSoraCamDevices API](#!/SoraCam/listSoraCamDevices). Use [SoraCam:getSoraCamDevice API](#!/SoraCam/getSoraCamDevice).
+
+            '
+          items:
+            $ref: '#/components/schemas/SoraCamDeviceLicenseInfo'
+          type: array
+        configuration:
+          $ref: '#/components/schemas/SoraCamDeviceConfiguration'
+          description: Current configuration of the SoraCam compatible camera device.
+        connected:
+          description: Whether the SoraCam compatible camera device is connected to the cloud.
+          type: boolean
+        deviceCategory:
+          description: 'Category of the SoraCam compatible camera device
 
 
-            - `{export_id}`: The export ID (e.g., `123e4567-e89b-12d3-a456-426614174000`).
-
-            - `{device_id}`: The device ID (e.g., `001A2B3C4D5E`).
-
-            - `{date}`: The request date and time of the export (e.g., `2024/10/01/12/34`).
-
-            - `{from}`: The start time of the video (UNIX time in milliseconds) (e.g., `1728393803000`).
-
-            - `{to}`: The end time of the video (UNIX time in milliseconds) (e.g., `1728394700000`).
-
-
-            For example, if you enter `/sora_cam/{device_id}`, the video will be exported to a directory unique to each SoraCam compatible camera device. `{date}`, `{from}`, and `{to}` are useful when saving videos recorded/exported at the same time from multiple SoraCam compatible camera devices to the same directory.
-
-
-            **Info**: If omitted or set to an empty string, the export will be saved in the root directory of Harvest Files.
+            - `Camera`
 
             '
           type: string
+        deviceId:
+          description: Device ID of the SoraCam compatible camera device.
+          type: string
+        firmwareVersion:
+          description: Current firmware version of the SoraCam compatible camera device.
+          type: string
+        isShared:
+          type: boolean
+        lastConnectedTime:
+          description: UNIX time in milliseconds when the SoraCam compatible camera device was last connected to the cloud.
+          format: int64
+          type: integer
+        name:
+          description: Name of the SoraCam compatible camera device.
+          type: string
+        powerState:
+          enum:
+          - 'on'
+          - sleep
+          type: string
+        productDisplayName:
+          description: Product name of the SoraCam compatible camera device.
+          type: string
+      required:
+      - deviceId
+      - name
+      - firmwareVersion
+      - productDisplayName
+      - powerState
+      type: object
+    SoraCamDeviceRealTimeAccessOption:
+      properties:
+        enabled:
+          type: boolean
+      required:
+      - enabled
+      type: object
+    SoraCamExportUsageLimitOverrideSpecification:
+      properties:
+        limitHours:
+          description: New value for the monthly limit for the amount of hours that recorded video can be exported.
+          type: integer
+      required:
+      - limitHours
+      type: object
+    SoraCamAtomCamSettingsSoundSensitivity:
+      properties:
+        state:
+          description: 'Settings for sound detection sensitivity. The higher the sensitivity, the easier it is to detect small sounds.
+
+
+            - `high`
+
+            - `medium`
+
+            - `low`
+
+            '
+          enum:
+          - high
+          - medium
+          - low
+          type: string
+      required:
+      - state
+      type: object
+    SoraCamAtomCamSettingsMotionTagging:
+      properties:
+        state:
+          description: 'Display settings for motion tagging.
+
+
+            - `on`
+
+            - `off`
+
+            '
+          enum:
+          - 'on'
+          - 'off'
+          type: string
+      required:
+      - state
       type: object
     SoraCamEvent:
       properties:
@@ -3910,168 +3949,98 @@ components:
       - time
       - deviceType
       type: object
-    SoraCamDevice:
+    SoraCamVideoExportInfo:
       properties:
-        appliedLicenses:
-          description: 'List of licenses applied to the device. This information cannot be obtained using [SoraCam:listSoraCamDevices API](#!/SoraCam/listSoraCamDevices). Use [SoraCam:getSoraCamDevice API](#!/SoraCam/getSoraCamDevice).
-
-            '
-          items:
-            $ref: '#/components/schemas/SoraCamDeviceLicenseInfo'
-          type: array
-        configuration:
-          $ref: '#/components/schemas/SoraCamDeviceConfiguration'
-          description: Current configuration of the SoraCam compatible camera device.
-        connected:
-          description: Whether the SoraCam compatible camera device is connected to the cloud.
-          type: boolean
-        deviceCategory:
-          description: 'Category of the SoraCam compatible camera device
-
-
-            - `Camera`
-
-            '
-          type: string
         deviceId:
           description: Device ID of the SoraCam compatible camera device.
           type: string
-        firmwareVersion:
-          description: Current firmware version of the SoraCam compatible camera device.
-          type: string
-        isShared:
-          type: boolean
-        lastConnectedTime:
-          description: UNIX time in milliseconds when the SoraCam compatible camera device was last connected to the cloud.
-          format: int64
-          type: integer
-        name:
-          description: Name of the SoraCam compatible camera device.
-          type: string
-        powerState:
-          enum:
-          - 'on'
-          - sleep
-          type: string
-        productDisplayName:
-          description: Product name of the SoraCam compatible camera device.
-          type: string
-      required:
-      - deviceId
-      - name
-      - firmwareVersion
-      - productDisplayName
-      - powerState
-      type: object
-    SoraCamStreamingVideo:
-      properties:
         expiryTime:
-          description: Expiration timestamp of all URLs in playList (UNIX time in milliseconds).
+          description: Expiration timestamp of the URL (unix time in milliseconds). The URL becomes unusable 10 minutes after export completion. Only included if `status` is `completed`.
           format: int64
           type: integer
-        playList:
-          description: 'Array of playlist entries for streaming video (latest video / recorded video).
-
-
-            - For the latest video, only one video file is always returned. In addition, `from` and `to` are omitted.
-
-            - For recorded video, the video file may be split depending on the recording status.
+        exportId:
+          description: 'Export ID. If you specify the export ID obtained in [SoraCam:exportSoraCamDeviceRecordedVideo API](#!/SoraCam/exportSoraCamDeviceRecordedVideo) to [SoraCam:getSoraCamDeviceExportedVideo API](#!/SoraCam/getSoraCamDeviceExportedVideo), you can obtain the URL for downloading the zipped mp4 file.
 
             '
-          items:
-            $ref: '#/components/schemas/SoraCamPlayListEntry'
-          type: array
-      required:
-      - expiryTime
-      type: object
-    SoraCamAtomCamSettingsMotionSensitivity:
-      properties:
-        state:
-          description: 'Settings for the motion detection sensitivity. The higher the sensitivity, the smaller the image changes that can be detected.
+          type: string
+        operatorId:
+          description: 'Operator ID that called [SoraCam:exportSoraCamDeviceRecordedVideo API](#!/SoraCam/exportSoraCamDeviceRecordedVideo).
+
+            '
+          type: string
+        requestedTime:
+          description: 'The date and time when the Soracom platform accepted the export request from [SoraCam:exportSoraCamDeviceRecordedVideo API](#!/SoraCam/exportSoraCamDeviceRecordedVideo) (unix time in milliseconds).
+
+            '
+          format: int64
+          type: integer
+        status:
+          description: 'Current status of the export.
 
 
-            - `high`
+            - `initializing`: Initial state.
 
-            - `medium`
+            - `processing`: Processing.
 
-            - `low`
+            - `completed`: Export completed.
+
+            - `retrying`: Retry export.
+
+            - `failed`: Export failed.
+
+            - `limitExceeded`: Video cannot be exported because the recorded video time available for export has been exceeded.
+
+            - `expired`: Exported URL is expired.
 
             '
           enum:
-          - high
-          - medium
-          - low
+          - initializing
+          - processing
+          - completed
+          - retrying
+          - failed
+          - limitExceeded
+          - expired
+          type: string
+        url:
+          description: 'URL to download a zipped mp4 file. Only included if `status` is `completed`.
+
+
+            - You can get mp4 files by extracting the downloaded zip file.
+
+            '
           type: string
       required:
-      - state
-      type: object
-    SoraCamExportUsage:
-      properties:
-        deviceId:
-          description: Device ID of the SoraCam compatible camera device.
-          type: string
-        image:
-          $ref: '#/components/schemas/SoraCamImageExportUsage'
-          description: The number of still images, assuming that all of the recorded video time available for export is used for exporting still images.
-        meteredYearMonth:
-          description: 'The year and month (format: ''YYYYMM'') for which the video can be exported. In the case of `202301`, this means that the available export time of the video for January 2023 is output.'
-          type: string
-        video:
-          $ref: '#/components/schemas/SoraCamVideoExportUsage'
-          description: The number of seconds of video, assuming that all of the recorded video time available for export is used for exporting as video.
-      required:
+      - exportId
+      - requestedTime
+      - operatorId
       - deviceId
-      - meteredYearMonth
-      - video
-      - image
+      - status
       type: object
-    SoraCamDeviceOptions:
+    SoraCamLicensePackResponse:
       properties:
-        realTimeAccess:
-          $ref: '#/components/schemas/SoraCamDeviceRealTimeAccessOption'
-      required:
-      - realTimeAccess
-      type: object
-    SoraCamDevicesFirmwareUpdate:
-      properties:
-        deviceId:
-          description: 'Device ID of the SoraCam compatible camera device.
-
-            '
+        id:
+          description: ID of the license pack.
+          example: CR7-SC
           type: string
-        firmwareVersion:
-          description: 'Available firmware version for the SoraCam compatible camera device.
-
-            '
+        name:
+          description: Name of the license pack.
+          example: Cloud Recording License (7 Days)
           type: string
-        timeout:
-          description: 'Timeout for the firmware update process (in seconds). If the firmware update process is not completed within this time, the process is considered to have failed.
-
-            '
-          format: int64
+        quantity:
+          description: The quantity of licenses in the license pack.
+          example: 1
+          format: int32
           type: integer
-      required:
-      - deviceId
-      - firmwareVersion
-      - timeout
-      type: object
-    SoraCamImageExportSpecification:
-      properties:
-        harvestFiles:
-          $ref: '#/components/schemas/SoraCamExportImageToHarvestFiles'
-        imageFilters:
-          description: Image filters to be applied to the exported image.
-          items:
-            enum:
-            - wide_angle_correction
-            type: string
-          type: array
-        time:
-          description: Time to be exported (unix time in milliseconds). A still image is exported from the recorded video taken at the specified time.
-          format: int64
+        quantityInUse:
+          description: The quantity of licenses in the license pack currently in use.
+          example: 1
+          format: int32
           type: integer
-      required:
-      - time
+        salesChannel:
+          description: Sales channel of the license pack.
+          example: SORACOM Inc.
+          type: string
       type: object
     SoraCamDeviceConfiguration:
       description: Configuration of the SoraCam compatible camera device.
@@ -4086,13 +4055,44 @@ components:
           description: Whether smoke alarm is enabled or not.
           type: boolean
       type: object
-    SoraCamExportUsageLimitOverrideSpecification:
+    SoraCamAtomCamSettingsQuality:
       properties:
-        limitHours:
-          description: New value for the monthly limit for the amount of hours that recorded video can be exported.
-          type: integer
+        state:
+          description: 'Settings for the live video and cloud recording quality. Note that for cloud recordings, the resolution is 1080p (1920 x 1080 pixels), regardless of the quality setting.
+
+
+            - `low`: The same quality as selecting "360p" in the ATOM app.
+
+            - `medium`: The same quality as selecting "SD" in the ATOM app.
+
+            - `high`: The same quality as selecting "HD (1080p)" in the ATOM app.
+
+            '
+          enum:
+          - low
+          - medium
+          - high
+          type: string
       required:
-      - limitHours
+      - state
+      type: object
+    SoraCamAtomCamSettingsSound:
+      properties:
+        state:
+          description: 'Settings for sound detection.
+
+
+            - `on`
+
+            - `off`
+
+            '
+          enum:
+          - 'on'
+          - 'off'
+          type: string
+      required:
+      - state
       type: object
   securitySchemes:
     api_key:
