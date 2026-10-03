@@ -295,6 +295,49 @@ paths:
       - bills summaries get-sims
 components:
   schemas:
+    BillItemCostBreakdown:
+      properties:
+        amount:
+          description: Amount.
+          format: double
+          type: number
+        billItemCategory:
+          description: Bill item category.
+          type: string
+        billItemName:
+          description: Bill item name.
+          type: string
+    BillingSummaryResponseOfSims:
+      properties:
+        costBreakdownList:
+          description: List of cost breakdown. The list is sorted by amount in descending order, and include up to 100 items.
+          items:
+            $ref: '#/components/schemas/SimCostBreakdown'
+          type: array
+        currency:
+          description: Currency of bills.
+          enum:
+          - JPY
+          - USD
+          - EUR
+          type: string
+        updatedTime:
+          description: Last updated time in UNIX time in seconds.
+          format: int64
+          type: integer
+        yearMonth:
+          description: Year and month.
+          type: string
+      type: object
+    SimCostBreakdown:
+      properties:
+        amount:
+          description: Amount.
+          format: double
+          type: number
+        simId:
+          description: SIM ID.
+          type: string
     GetLatestBill:
       properties:
         amount:
@@ -313,18 +356,66 @@ components:
           example: yyyyMMddHHmmss
           type: string
       type: object
-    BillItemCostBreakdown:
+    BillingSummaryResponseOfBillItems:
+      properties:
+        costBreakdownList:
+          description: List of cost breakdown. The list is sorted by amount in descending order.
+          items:
+            $ref: '#/components/schemas/BillItemCostBreakdown'
+          type: array
+        currency:
+          description: Currency of bills.
+          enum:
+          - JPY
+          - USD
+          - EUR
+          type: string
+        updatedTime:
+          description: Last updated time in UNIX time in seconds.
+          format: int64
+          type: integer
+        yearMonth:
+          description: Year and month.
+          type: string
+      type: object
+    DailyBill:
       properties:
         amount:
-          description: Amount.
+          description: Amount of bills.
           format: double
           type: number
-        billItemCategory:
-          description: Bill item category.
+        currency:
+          description: Currency of bills.
+          enum:
+          - JPY
+          - USD
+          - EUR
           type: string
-        billItemName:
-          description: Bill item name.
+        date:
+          description: Date
+          format: yyyyMMdd
           type: string
+      type: object
+    DailyBillResponse:
+      properties:
+        billList:
+          description: List of daily bills.
+          items:
+            $ref: '#/components/schemas/DailyBill'
+          type: array
+      type: object
+    FileExportResponse:
+      properties:
+        exportedFileId:
+          description: File Export ID. Specify this ID when calling [Files:getExportedFile API](#!/Files/getExportedFile) to get the URL to download the file. Included only if `export_mode` is `async`.
+          type: string
+        exportedFilePath:
+          description: Path of the exported file. Included only if `export_mode` is `async`.
+          type: string
+        url:
+          description: URL to download the file. Included only if `export_mode` is `sync`.
+          type: string
+      type: object
     MonthlyBill:
       properties:
         amount:
@@ -409,75 +500,6 @@ components:
           format: yyyyMM
           type: string
       type: object
-    FileExportResponse:
-      properties:
-        exportedFileId:
-          description: File Export ID. Specify this ID when calling [Files:getExportedFile API](#!/Files/getExportedFile) to get the URL to download the file. Included only if `export_mode` is `async`.
-          type: string
-        exportedFilePath:
-          description: Path of the exported file. Included only if `export_mode` is `async`.
-          type: string
-        url:
-          description: URL to download the file. Included only if `export_mode` is `sync`.
-          type: string
-      type: object
-    BillingSummaryResponseOfSims:
-      properties:
-        costBreakdownList:
-          description: List of cost breakdown. The list is sorted by amount in descending order, and include up to 100 items.
-          items:
-            $ref: '#/components/schemas/SimCostBreakdown'
-          type: array
-        currency:
-          description: Currency of bills.
-          enum:
-          - JPY
-          - USD
-          - EUR
-          type: string
-        updatedTime:
-          description: Last updated time in UNIX time in seconds.
-          format: int64
-          type: integer
-        yearMonth:
-          description: Year and month.
-          type: string
-      type: object
-    SimCostBreakdown:
-      properties:
-        amount:
-          description: Amount.
-          format: double
-          type: number
-        simId:
-          description: SIM ID.
-          type: string
-    DailyBillResponse:
-      properties:
-        billList:
-          description: List of daily bills.
-          items:
-            $ref: '#/components/schemas/DailyBill'
-          type: array
-      type: object
-    DailyBill:
-      properties:
-        amount:
-          description: Amount of bills.
-          format: double
-          type: number
-        currency:
-          description: Currency of bills.
-          enum:
-          - JPY
-          - USD
-          - EUR
-          type: string
-        date:
-          description: Date
-          format: yyyyMMdd
-          type: string
-      type: object
     GetBillingHistoryResponse:
       properties:
         billList:
@@ -485,28 +507,6 @@ components:
           items:
             $ref: '#/components/schemas/MonthlyBill'
           type: array
-      type: object
-    BillingSummaryResponseOfBillItems:
-      properties:
-        costBreakdownList:
-          description: List of cost breakdown. The list is sorted by amount in descending order.
-          items:
-            $ref: '#/components/schemas/BillItemCostBreakdown'
-          type: array
-        currency:
-          description: Currency of bills.
-          enum:
-          - JPY
-          - USD
-          - EUR
-          type: string
-        updatedTime:
-          description: Last updated time in UNIX time in seconds.
-          format: int64
-          type: integer
-        yearMonth:
-          description: Year and month.
-          type: string
       type: object
   securitySchemes:
     api_key:

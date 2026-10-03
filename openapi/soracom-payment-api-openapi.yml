@@ -301,150 +301,6 @@ paths:
       - volume-discounts get
 components:
   schemas:
-    PaymentAmount:
-      description: Payment amount.
-      properties:
-        currency:
-          description: Currency.
-          enum:
-          - JPY
-          - USD
-          - EUR
-          type: string
-        paymentAmount:
-          type: number
-        subTotalAmount:
-          type: number
-        taxAmount:
-          description: Tax amount.
-          format: double
-          type: number
-        taxFreeSubTotalAmount:
-          description: Tax free sub total amount.
-          format: double
-          type: number
-        taxRate:
-          type: object
-        taxableSubTotalAmount:
-          description: Taxable sub total amount.
-          format: double
-          type: number
-        totalAmount:
-          description: Total amount (tax included).
-          format: double
-          type: number
-        withholdingTaxAmount:
-          description: Withholding tax amount.
-          format: double
-          type: number
-      type: object
-    PaymentDescription:
-      description: Payment description.
-      properties:
-        description:
-          type: string
-        itemList:
-          items:
-            type: string
-          type: array
-      type: object
-    PaymentStatementResponse:
-      properties:
-        amount:
-          description: Amount.
-          format: double
-          type: number
-        chargedYearMonths:
-          description: A list of months of usage included in this billing. If the billing is not for monthly charges, this field is omitted. If the monthly charge is less than a certain amount, it may be carried over to the next month. In such cases, this field may include multiple months.
-          items:
-            type: string
-          type: array
-        currency:
-          description: Currency.
-          enum:
-          - JPY
-          - USD
-          - EUR
-          type: string
-        orderId:
-          description: Order ID. If the billing is not an order, this field is omitted.
-          type: string
-        paymentDateTime:
-          description: Payment date time.
-          format: int64
-          type: integer
-        paymentInstrument:
-          description: Payment instrument.
-          type: string
-        paymentMethod:
-          description: Payment method.
-          type: string
-        paymentStatementId:
-          description: Payment statement ID.
-          type: string
-        paymentStatementInfo:
-          description: Payment statement information
-          type: string
-      type: object
-    ListPaymentStatementResponse:
-      properties:
-        paymentStatementsList:
-          description: Payment statements.
-          items:
-            $ref: '#/components/schemas/PaymentStatementResponse'
-          type: array
-      type: object
-    CouponResponse:
-      properties:
-        amount:
-          description: Amount.
-          format: double
-          type: number
-        balance:
-          description: Balance.
-          format: double
-          type: number
-        billItemName:
-          description: Item.
-          type: string
-        couponCode:
-          description: Coupon code.
-          type: string
-        currency:
-          description: Currency.
-          enum:
-          - JPY
-          - USD
-          - EUR
-          type: string
-        expiryYearMonth:
-          description: Expiry month.
-          format: yyyyMM
-          type: string
-        orderId:
-          description: Order ID.
-          type: string
-      type: object
-    ListCouponResponse:
-      properties:
-        couponList:
-          description: Coupons
-          items:
-            $ref: '#/components/schemas/CouponResponse'
-          type: array
-      type: object
-    FileExportResponse:
-      properties:
-        exportedFileId:
-          description: File Export ID. Specify this ID when calling [Files:getExportedFile API](#!/Files/getExportedFile) to get the URL to download the file. Included only if `export_mode` is `async`.
-          type: string
-        exportedFilePath:
-          description: Path of the exported file. Included only if `export_mode` is `async`.
-          type: string
-        url:
-          description: URL to download the file. Included only if `export_mode` is `sync`.
-          type: string
-      type: object
     GetVolumeDiscountResponse:
       properties:
         contractDateTime:
@@ -514,16 +370,134 @@ components:
             $ref: '#/components/schemas/GetVolumeDiscountResponse'
           type: array
       type: object
-    RegisterPayerInformationModel:
+    ListCouponResponse:
       properties:
-        companyName:
-          description: Company name
+        couponList:
+          description: Coupons
+          items:
+            $ref: '#/components/schemas/CouponResponse'
+          type: array
+      type: object
+    PaymentStatementResponse:
+      properties:
+        amount:
+          description: Amount.
+          format: double
+          type: number
+        chargedYearMonths:
+          description: A list of months of usage included in this billing. If the billing is not for monthly charges, this field is omitted. If the monthly charge is less than a certain amount, it may be carried over to the next month. In such cases, this field may include multiple months.
+          items:
+            type: string
+          type: array
+        currency:
+          description: Currency.
+          enum:
+          - JPY
+          - USD
+          - EUR
           type: string
-        department:
-          description: Department.
+        orderId:
+          description: Order ID. If the billing is not an order, this field is omitted.
           type: string
-        fullName:
-          description: Full name.
+        paymentDateTime:
+          description: Payment date time.
+          format: int64
+          type: integer
+        paymentInstrument:
+          description: Payment instrument.
+          type: string
+        paymentMethod:
+          description: Payment method.
+          type: string
+        paymentStatementId:
+          description: Payment statement ID.
+          type: string
+        paymentStatementInfo:
+          description: Payment statement information
+          type: string
+      type: object
+    PaymentAmount:
+      description: Payment amount.
+      properties:
+        currency:
+          description: Currency.
+          enum:
+          - JPY
+          - USD
+          - EUR
+          type: string
+        paymentAmount:
+          type: number
+        subTotalAmount:
+          type: number
+        taxAmount:
+          description: Tax amount.
+          format: double
+          type: number
+        taxFreeSubTotalAmount:
+          description: Tax free sub total amount.
+          format: double
+          type: number
+        taxRate:
+          type: object
+        taxableSubTotalAmount:
+          description: Taxable sub total amount.
+          format: double
+          type: number
+        totalAmount:
+          description: Total amount (tax included).
+          format: double
+          type: number
+        withholdingTaxAmount:
+          description: Withholding tax amount.
+          format: double
+          type: number
+      type: object
+    PaymentDescription:
+      description: Payment description.
+      properties:
+        description:
+          type: string
+        itemList:
+          items:
+            type: string
+          type: array
+      type: object
+    GetPaymentMethodResult:
+      properties:
+        errorCode:
+          description: Error code (only if payment information is invalid)
+          enum:
+          - success
+          - processing
+          - invalid_request
+          - invalid_number
+          - incorrect_number
+          - invalid_name
+          - invalid_expiry_month
+          - invalid_expiry_year
+          - invalid_expiry
+          - incorrect_expiry
+          - invalid_cvc
+          - incorrect_cvc
+          - card_declined
+          - missing
+          - processing_error
+          type: string
+        errorMessage:
+          description: Error message (only if payment information is invalid)
+          type: string
+        properties:
+          description: Payment information
+          type: string
+        providerType:
+          description: Provider type
+          enum:
+          - WebPay
+          type: string
+        updateDate:
+          description: Update date
+          example: yyyyMMddHHmmss
           type: string
       type: object
     GetPaymentTransactionResult:
@@ -563,41 +537,67 @@ components:
           - error
           type: string
       type: object
-    GetPaymentMethodResult:
+    ListPaymentStatementResponse:
       properties:
-        errorCode:
-          description: Error code (only if payment information is invalid)
+        paymentStatementsList:
+          description: Payment statements.
+          items:
+            $ref: '#/components/schemas/PaymentStatementResponse'
+          type: array
+      type: object
+    RegisterPayerInformationModel:
+      properties:
+        companyName:
+          description: Company name
+          type: string
+        department:
+          description: Department.
+          type: string
+        fullName:
+          description: Full name.
+          type: string
+      type: object
+    CouponResponse:
+      properties:
+        amount:
+          description: Amount.
+          format: double
+          type: number
+        balance:
+          description: Balance.
+          format: double
+          type: number
+        billItemName:
+          description: Item.
+          type: string
+        couponCode:
+          description: Coupon code.
+          type: string
+        currency:
+          description: Currency.
           enum:
-          - success
-          - processing
-          - invalid_request
-          - invalid_number
-          - incorrect_number
-          - invalid_name
-          - invalid_expiry_month
-          - invalid_expiry_year
-          - invalid_expiry
-          - incorrect_expiry
-          - invalid_cvc
-          - incorrect_cvc
-          - card_declined
-          - missing
-          - processing_error
+          - JPY
+          - USD
+          - EUR
           type: string
-        errorMessage:
-          description: Error message (only if payment information is invalid)
+        expiryYearMonth:
+          description: Expiry month.
+          format: yyyyMM
           type: string
-        properties:
-          description: Payment information
+        orderId:
+          description: Order ID.
           type: string
-        providerType:
-          description: Provider type
-          enum:
-          - WebPay
+      type: object
+    FileExportResponse:
+      properties:
+        exportedFileId:
+          description: File Export ID. Specify this ID when calling [Files:getExportedFile API](#!/Files/getExportedFile) to get the URL to download the file. Included only if `export_mode` is `async`.
           type: string
-        updateDate:
-          description: Update date
-          example: yyyyMMddHHmmss
+        exportedFilePath:
+          description: Path of the exported file. Included only if `export_mode` is `async`.
+          type: string
+        url:
+          description: URL to download the file. Included only if `export_mode` is `sync`.
           type: string
       type: object
   securitySchemes:

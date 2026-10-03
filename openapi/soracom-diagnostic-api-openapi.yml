@@ -80,6 +80,44 @@ paths:
       - diagnostics get
 components:
   schemas:
+    Insight:
+      properties:
+        anomalyDetectedTimes:
+          description: Times that possible anomaly behaviors were detected. The format depends on the timestamp of events relating to the category. (e.g., UNIX time in milliseconds for session category)
+          items:
+            type: string
+          type: array
+        category:
+          enum:
+          - data
+          - session
+          - sim
+          - others
+          - unknown
+          type: string
+        insightId:
+          type: string
+        message:
+          type: string
+        referenceUrls:
+          description: Reference URLs that is related to the insight.
+          items:
+            $ref: '#/components/schemas/ReferenceUrl'
+          type: array
+        severity:
+          enum:
+          - error
+          - warning
+          - info
+          - none
+          - unknown
+          type: string
+      required:
+      - insightId
+      - message
+      - category
+      - severity
+      type: object
     DiagnosticResponse:
       properties:
         diagnosticId:
@@ -160,44 +198,6 @@ components:
       - service
       - resourceType
       - resourceId
-      type: object
-    Insight:
-      properties:
-        anomalyDetectedTimes:
-          description: Times that possible anomaly behaviors were detected. The format depends on the timestamp of events relating to the category. (e.g., UNIX time in milliseconds for session category)
-          items:
-            type: string
-          type: array
-        category:
-          enum:
-          - data
-          - session
-          - sim
-          - others
-          - unknown
-          type: string
-        insightId:
-          type: string
-        message:
-          type: string
-        referenceUrls:
-          description: Reference URLs that is related to the insight.
-          items:
-            $ref: '#/components/schemas/ReferenceUrl'
-          type: array
-        severity:
-          enum:
-          - error
-          - warning
-          - info
-          - none
-          - unknown
-          type: string
-      required:
-      - insightId
-      - message
-      - category
-      - severity
       type: object
   securitySchemes:
     api_key:

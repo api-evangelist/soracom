@@ -38,6 +38,23 @@ paths:
       - sandbox coupons create
 components:
   schemas:
+    sandboxCreateCouponRequest:
+      properties:
+        amount:
+          example: 1000
+          format: int32
+          type: integer
+        applicableBillItemName:
+          enum:
+          - dailyDataTrafficChargeTotal
+          - dailyChargeTotal
+          - dailySoracomBeamRequestChargeTotal
+          example: dailyDataTrafficChargeTotal
+          type: string
+        expiryYearMonth:
+          format: yyyyMM
+          type: string
+      type: object
     sandboxCreateCouponResponse:
       properties:
         amount:
@@ -56,23 +73,6 @@ components:
           type: string
         expiryYearMonth:
           description: Year and month of expiration.
-          format: yyyyMM
-          type: string
-      type: object
-    sandboxCreateCouponRequest:
-      properties:
-        amount:
-          example: 1000
-          format: int32
-          type: integer
-        applicableBillItemName:
-          enum:
-          - dailyDataTrafficChargeTotal
-          - dailyChargeTotal
-          - dailySoracomBeamRequestChargeTotal
-          example: dailyDataTrafficChargeTotal
-          type: string
-        expiryYearMonth:
           format: yyyyMM
           type: string
       type: object

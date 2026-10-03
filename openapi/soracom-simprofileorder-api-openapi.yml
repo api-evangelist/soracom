@@ -343,6 +343,80 @@ components:
       - createdTime
       - lastModifiedTime
       type: object
+    CreateSimProfileOrderRequest:
+      description: Represents a request to place a eSIM profile order without confirming it.
+      properties:
+        bundles:
+          description: "Bundles of the eSIM profile to be ordered. Specify one of the following. Please specify the bundle that matches the subscription.\n\n- For planX3:\n    - `X3-5MB`\n- For plan-US:\n    - `US-1MB`\n    - `US-3MB`\n    - `US-10MB`\n    - `US-20MB`\n    - `US-50MB`\n    - `US-100MB`\n    - `US-300MB`\n    - `US-500MB`\n    - `US-1GB`\n    - `US-3GB`\n    - `US-5GB`\n    - `US-10GB`\n"
+          items:
+            enum:
+            - X3-5MB
+            - US-1MB
+            - US-3MB
+            - US-10MB
+            - US-20MB
+            - US-50MB
+            - US-100MB
+            - US-300MB
+            - US-500MB
+            - US-1GB
+            - US-3GB
+            - US-5GB
+            - US-10GB
+            type: string
+          maxItems: 1
+          type: array
+        description:
+          description: The description of the order. You can use this to identify the order in the order history.
+          example: This is a test order
+          maxLength: 100
+          type: string
+        quantity:
+          description: 'The quantity of the eSIM profile to be ordered.
+
+
+            **Info**: A maximum of 20 eSIM profiles may be purchased per order. If you would like to purchase more, please [contact us](https://www.soracom.io/contact/).
+
+            '
+          example: 10
+          format: int32
+          maximum: 100
+          minimum: 1
+          type: integer
+        speedClass:
+          description: "The speed class of the eSIM profile to be ordered. Specify one of the following. Please specify the speed class that matches the subscription.\n\n- For plan01s, planP1, planX1, planX2, planX3:\n    - `s1.minimum`\n    - `s1.slow`\n    - `s1.standard`\n    - `s1.fast`\n    - `s1.4xfast`\n- For plan-US:\n    - `s1.minimum`\n    - `s1.slow`\n    - `s1.standard`\n    - `s1.fast`\n    - `s1.4xfast`\n    - `s1.8xfast`"
+          enum:
+          - s1.minimum
+          - s1.slow
+          - s1.standard
+          - s1.fast
+          - s1.4xfast
+          - s1.8xfast
+          example: s1.4xfast
+          type: string
+        subscription:
+          description: 'The subscription of the eSIM profile to be ordered.
+
+
+            - `plan01s`
+
+            - `planP1`
+
+            - `planX1`
+
+            - `planX2`
+
+            - `planX3`: Only available for customers located in the European Union and United Kingdom.
+
+            - `plan-US`: Only available for customers located in in the United States and Canada.
+
+            '
+          example: plan01s
+          type: string
+      required:
+      - subscription
+      - quantity
+      type: object
     SimProfileOrderResponse:
       description: Represents an eSIM profile order.
       properties:
@@ -433,80 +507,6 @@ components:
       - quantity
       - status
       - orderedTime
-      type: object
-    CreateSimProfileOrderRequest:
-      description: Represents a request to place a eSIM profile order without confirming it.
-      properties:
-        bundles:
-          description: "Bundles of the eSIM profile to be ordered. Specify one of the following. Please specify the bundle that matches the subscription.\n\n- For planX3:\n    - `X3-5MB`\n- For plan-US:\n    - `US-1MB`\n    - `US-3MB`\n    - `US-10MB`\n    - `US-20MB`\n    - `US-50MB`\n    - `US-100MB`\n    - `US-300MB`\n    - `US-500MB`\n    - `US-1GB`\n    - `US-3GB`\n    - `US-5GB`\n    - `US-10GB`\n"
-          items:
-            enum:
-            - X3-5MB
-            - US-1MB
-            - US-3MB
-            - US-10MB
-            - US-20MB
-            - US-50MB
-            - US-100MB
-            - US-300MB
-            - US-500MB
-            - US-1GB
-            - US-3GB
-            - US-5GB
-            - US-10GB
-            type: string
-          maxItems: 1
-          type: array
-        description:
-          description: The description of the order. You can use this to identify the order in the order history.
-          example: This is a test order
-          maxLength: 100
-          type: string
-        quantity:
-          description: 'The quantity of the eSIM profile to be ordered.
-
-
-            **Info**: A maximum of 20 eSIM profiles may be purchased per order. If you would like to purchase more, please [contact us](https://www.soracom.io/contact/).
-
-            '
-          example: 10
-          format: int32
-          maximum: 100
-          minimum: 1
-          type: integer
-        speedClass:
-          description: "The speed class of the eSIM profile to be ordered. Specify one of the following. Please specify the speed class that matches the subscription.\n\n- For plan01s, planP1, planX1, planX2, planX3:\n    - `s1.minimum`\n    - `s1.slow`\n    - `s1.standard`\n    - `s1.fast`\n    - `s1.4xfast`\n- For plan-US:\n    - `s1.minimum`\n    - `s1.slow`\n    - `s1.standard`\n    - `s1.fast`\n    - `s1.4xfast`\n    - `s1.8xfast`"
-          enum:
-          - s1.minimum
-          - s1.slow
-          - s1.standard
-          - s1.fast
-          - s1.4xfast
-          - s1.8xfast
-          example: s1.4xfast
-          type: string
-        subscription:
-          description: 'The subscription of the eSIM profile to be ordered.
-
-
-            - `plan01s`
-
-            - `planP1`
-
-            - `planX1`
-
-            - `planX2`
-
-            - `planX3`: Only available for customers located in the European Union and United Kingdom.
-
-            - `plan-US`: Only available for customers located in in the United States and Canada.
-
-            '
-          example: plan01s
-          type: string
-      required:
-      - subscription
-      - quantity
       type: object
   securitySchemes:
     api_key:

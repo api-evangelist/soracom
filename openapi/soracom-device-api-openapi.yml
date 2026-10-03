@@ -778,6 +778,22 @@ components:
         values:
           type: object
       type: object
+    TagUpdateRequest:
+      properties:
+        tagName:
+          type: string
+        tagValue:
+          type: string
+      required:
+      - tagName
+      - tagValue
+      type: object
+    SetGroupRequest:
+      properties:
+        groupId:
+          description: Group ID. The group ID can be obtained using the [Group:listGroups API](#!/Group/listGroups).
+          type: string
+      type: object
     ObjectInstance:
       properties:
         id:
@@ -790,22 +806,6 @@ components:
           additionalProperties:
             $ref: '#/components/schemas/ResourceInstance'
           type: object
-      type: object
-    SetGroupRequest:
-      properties:
-        groupId:
-          description: Group ID. The group ID can be obtained using the [Group:listGroups API](#!/Group/listGroups).
-          type: string
-      type: object
-    TagUpdateRequest:
-      properties:
-        tagName:
-          type: string
-        tagValue:
-          type: string
-      required:
-      - tagName
-      - tagValue
       type: object
     DataEntry:
       properties:

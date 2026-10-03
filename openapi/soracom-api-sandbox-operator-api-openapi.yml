@@ -91,6 +91,13 @@ paths:
       - sandbox operators get-signup-token
 components:
   schemas:
+    sandboxGetSignupTokenResponse:
+      properties:
+        token:
+          type: string
+      required:
+      - token
+      type: object
     sandboxInitRequest:
       properties:
         authKey:
@@ -124,13 +131,6 @@ components:
       - authKeyId
       - authKey
       type: object
-    sandboxGetSignupTokenRequest:
-      properties:
-        authKey:
-          type: string
-        authKeyId:
-          type: string
-      type: object
     sandboxAuthResponse:
       properties:
         apiKey:
@@ -142,10 +142,10 @@ components:
         userName:
           type: string
       type: object
-    sandboxGetSignupTokenResponse:
+    sandboxGetSignupTokenRequest:
       properties:
-        token:
+        authKey:
           type: string
-      required:
-      - token
+        authKeyId:
+          type: string
       type: object

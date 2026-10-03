@@ -342,21 +342,6 @@ paths:
       - lagoon users update-permission
 components:
   schemas:
-    LagoonUserPermissionUpdatingRequest:
-      properties:
-        role:
-          description: A role that represents the permission.
-          enum:
-          - Viewer
-          - Editor
-          type: string
-      type: object
-    LagoonUserCreationResponse:
-      properties:
-        id:
-          description: Lagoon user ID assigned to the created user.
-          type: integer
-      type: object
     LagoonUserCreationRequest:
       properties:
         role:
@@ -368,6 +353,74 @@ components:
         userEmail:
           type: string
         userPassword:
+          type: string
+      type: object
+    LagoonUserPasswordUpdatingRequest:
+      properties:
+        newPassword:
+          type: string
+        oldPassword:
+          type: string
+      type: object
+    LagoonPlanChangingRequest:
+      properties:
+        plan:
+          enum:
+          - maker
+          - pro
+          - free
+          type: string
+      type: object
+    LagoonUserCreationResponse:
+      properties:
+        id:
+          description: Lagoon user ID assigned to the created user.
+          type: integer
+      type: object
+    LagoonUserPermissionUpdatingRequest:
+      properties:
+        role:
+          description: A role that represents the permission.
+          enum:
+          - Viewer
+          - Editor
+          type: string
+      type: object
+    LagoonUserEmailUpdatingRequest:
+      properties:
+        userEmail:
+          type: string
+      type: object
+    LagoonUser:
+      properties:
+        email:
+          description: This value used on login.
+          type: string
+        id:
+          type: number
+        lastSeenAt:
+          description: The last login datetime.
+          type: string
+        lastSeenAtAge:
+          description: The last login datetime as age.
+          type: string
+        role:
+          description: A role that represents the permission.
+          enum:
+          - Viewer
+          - Editor
+          type: string
+      type: object
+    LagoonRegistrationRequest:
+      properties:
+        plan:
+          enum:
+          - free
+          - maker
+          - pro
+          type: string
+        userPassword:
+          description: This password is used by the initial user's login.
           type: string
       type: object
     LagoonLicensePacksUpdatingRequest:
@@ -393,44 +446,6 @@ components:
             type: object
           type: array
       type: object
-    LagoonUser:
-      properties:
-        email:
-          description: This value used on login.
-          type: string
-        id:
-          type: number
-        lastSeenAt:
-          description: The last login datetime.
-          type: string
-        lastSeenAtAge:
-          description: The last login datetime as age.
-          type: string
-        role:
-          description: A role that represents the permission.
-          enum:
-          - Viewer
-          - Editor
-          type: string
-      type: object
-    LagoonRegistrationResponse:
-      properties:
-        lagoonUserEmail:
-          description: This email address is used on login with the initial user.
-          type: string
-      type: object
-    LagoonUserPasswordUpdatingRequest:
-      properties:
-        newPassword:
-          type: string
-        oldPassword:
-          type: string
-      type: object
-    LagoonUserEmailUpdatingRequest:
-      properties:
-        userEmail:
-          type: string
-      type: object
     LagoonLicensePackStatusResponse:
       properties:
         licensePackName:
@@ -439,25 +454,10 @@ components:
           format: int32
           type: integer
       type: object
-    LagoonRegistrationRequest:
+    LagoonRegistrationResponse:
       properties:
-        plan:
-          enum:
-          - free
-          - maker
-          - pro
-          type: string
-        userPassword:
-          description: This password is used by the initial user's login.
-          type: string
-      type: object
-    LagoonPlanChangingRequest:
-      properties:
-        plan:
-          enum:
-          - maker
-          - pro
-          - free
+        lagoonUserEmail:
+          description: This email address is used on login with the initial user.
           type: string
       type: object
   securitySchemes:

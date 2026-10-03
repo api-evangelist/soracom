@@ -446,6 +446,156 @@ paths:
       - volume-discounts available-discounts
 components:
   schemas:
+    ShippingCostModel:
+      description: Shipping cost.
+      properties:
+        appliedShippingOptions:
+          description: Applied shipping options.
+          items:
+            type: object
+          type: array
+        currency:
+          description: Currency.
+          enum:
+          - JPY
+          - USD
+          - EUR
+          type: string
+        shippingArea:
+          description: (Japan coverage only) Shipping area.
+          enum:
+          - hokkaido
+          - kita_tohoku
+          - minami_tohoku
+          - kanto
+          - shinetsu
+          - chubu
+          - hokuriku
+          - kansai
+          - chugoku
+          - shikoku
+          - kyushu
+          - okinawa
+          type: string
+        shippingAreaName:
+          description: Shipping Area name.
+          type: string
+        shippingCost:
+          description: Shipping Cost.
+          format: double
+          type: number
+        size:
+          description: Size.
+          format: int32
+          type: integer
+      type: object
+    EstimatedOrderModel:
+      properties:
+        appliedShippingOptions:
+          description: Applied shipping options.
+          items:
+            oneOf:
+            - $ref: '#/components/schemas/ShippingOptionOfNekopos'
+            - $ref: '#/components/schemas/ShippingOptionOfExpeditedShipping'
+          type: array
+        balanceDue:
+          description: Balance due.
+          format: double
+          type: number
+        containsTaxIncludedAmounts:
+          description: Contains tax included amounts.
+          type: boolean
+        currency:
+          description: Currency.
+          enum:
+          - JPY
+          - USD
+          - EUR
+          type: string
+        email:
+          description: Email address.
+          type: string
+        orderChannel:
+          description: Order channel.
+          type: string
+        orderId:
+          description: Order ID.
+          type: string
+        orderItemList:
+          description: Order item list.
+          items:
+            $ref: '#/components/schemas/EstimatedOrderItemModel'
+          type: array
+        preferredDeliveryDate:
+          description: Preferred delivery date.
+          format: yyyyMMdd
+          type: string
+        purchaseOrderNumber:
+          description: Purchase order number.
+          type: string
+        shippingAddress:
+          $ref: '#/components/schemas/ShippingAddressModel'
+        shippingAddressId:
+          description: Shipping address ID.
+          type: string
+        shippingCost:
+          description: Shipping cost.
+          format: double
+          type: number
+        taxAmount:
+          description: Tax amount.
+          format: double
+          type: number
+        taxIncludedInShippingCost:
+          description: Tax included in shipping cost.
+          format: double
+          type: number
+        taxOnShippingCost:
+          description: Whether shipping cost is taxable.
+          type: boolean
+        totalAmount:
+          description: Total amount.
+          format: double
+          type: number
+        withholdingTaxAmount:
+          description: Withholding tax amount.
+          format: double
+          type: number
+      type: object
+    CreateEstimatedCouponRequest:
+      properties:
+        amount:
+          description: Amount.
+          format: double
+          type: number
+      required:
+      - amount
+      type: object
+    EstimatedOrderItemModel:
+      properties:
+        product:
+          $ref: '#/components/schemas/ProductModel'
+        productAmount:
+          description: Product amount.
+          format: double
+          type: number
+        quantity:
+          description: Quantity.
+          format: int32
+          type: integer
+        taxIncludedProductAmount:
+          type: number
+      type: object
+    OrderItemModel:
+      properties:
+        productCode:
+          description: Product code.
+          type: string
+        quantity:
+          description: Quantity.
+          format: int32
+          type: integer
+      type: object
     VolumeDiscountModel:
       description: Long term discount.
       properties:
@@ -502,6 +652,21 @@ components:
           - SORACOM_AIR_BASIC_CHARGE
           - SORACOM_AIR_MONTHLY_FIXED_BASIC_CHARGE
           type: string
+      type: object
+    SimInitialSetting:
+      description: Sim initial setting for the specific subscription.
+      properties:
+        groupId:
+          description: Group ID.
+          type: string
+        speedClass:
+          description: "Speed class. Specify one of the following. Please specify the speed class that matches the subscription.\n\n- For plan01s, plan01s - Low Data Volume, planX3 (X3-5MB), planP1, plan-D (without bundle), plan-D (D-300MB), plan-K2 (K2-300MB), plan-K:\n    - `s1.minimum`\n    - `s1.slow`\n    - `s1.standard`\n    - `s1.fast`\n    - `s1.4xfast`\n- For plan-US:\n    - `s1.minimum`\n    - `s1.slow`\n    - `s1.standard`\n    - `s1.fast`\n    - `s1.4xfast`\n    - `s1.8xfast`\n- For plan-DU:\n    - `u1.standard`\n    - `u1.slow`\n- For plan-KM1:\n    - `t1.standard`\n"
+          type: string
+        tags:
+          additionalProperties:
+            type: string
+          description: Tags.
+          type: object
       type: object
     GetOrderResponse:
       properties:
@@ -682,112 +847,6 @@ components:
           format: double
           type: number
       type: object
-    ListProductResponse:
-      properties:
-        productList:
-          items:
-            $ref: '#/components/schemas/ProductModel'
-          type: array
-        shippingCostList:
-          items:
-            $ref: '#/components/schemas/ShippingCostModel'
-          type: array
-      type: object
-    EstimatedVolumeDiscountModel:
-      properties:
-        currency:
-          description: Currency.
-          enum:
-          - JPY
-          - USD
-          - EUR
-          type: string
-        orderId:
-          description: Order ID.
-          type: string
-        taxAmount:
-          description: Tax amount.
-          format: double
-          type: number
-        totalAmount:
-          description: Total amount.
-          format: double
-          type: number
-        volumeDiscount:
-          $ref: '#/components/schemas/VolumeDiscountModel'
-      type: object
-    ShippingOptionOfExpeditedShipping:
-      description: Available for United States and Canada operators only.
-      properties:
-        useExpeditedShipping:
-          description: Specify true to ship by Expedited Shipping. (Shipping to United States only)
-          type: boolean
-      type: object
-    ShippingCostModel:
-      description: Shipping cost.
-      properties:
-        appliedShippingOptions:
-          description: Applied shipping options.
-          items:
-            type: object
-          type: array
-        currency:
-          description: Currency.
-          enum:
-          - JPY
-          - USD
-          - EUR
-          type: string
-        shippingArea:
-          description: (Japan coverage only) Shipping area.
-          enum:
-          - hokkaido
-          - kita_tohoku
-          - minami_tohoku
-          - kanto
-          - shinetsu
-          - chubu
-          - hokuriku
-          - kansai
-          - chugoku
-          - shikoku
-          - kyushu
-          - okinawa
-          type: string
-        shippingAreaName:
-          description: Shipping Area name.
-          type: string
-        shippingCost:
-          description: Shipping Cost.
-          format: double
-          type: number
-        size:
-          description: Size.
-          format: int32
-          type: integer
-      type: object
-    ShippingLabelDetail:
-      properties:
-        shipmentCompany:
-          description: Shipment company name.
-          example: Yamato Transport
-          type: string
-        shipmentCompanyUrl:
-          description: Shipment company URL.
-          example: http://track.kuronekoyamato.co.jp/english/tracking
-          type: string
-        trackingNumber:
-          description: Tracking number.
-          example: 0000-1111-2222
-          type: string
-        trackingUrl:
-          description: Tracking URL with tracking number.
-          example: https://jizen.kuronekoyamato.co.jp/jizen/servlet/crjz.b.NQ0010?id=0000-1111-2222
-          type: string
-      required:
-      - shipmentCompany
-      - trackingNumber
-      type: object
     AvailableLongTermDiscountModel:
       properties:
         contractTermMonth:
@@ -824,146 +883,69 @@ components:
           - SORACOM_AIR_MONTHLY_FIXED_BASIC_CHARGE
           type: string
       type: object
-    OrderItemModel:
+    PriceByQuantity:
       properties:
-        productCode:
-          description: Product code.
-          type: string
-        quantity:
-          description: Quantity.
+        minQuantity:
+          description: Min quantity.
           format: int32
           type: integer
-      type: object
-    EstimatedCouponModel:
-      properties:
-        amount:
-          description: Amount.
+        price:
+          description: Price.
           format: double
           type: number
-        currency:
-          description: Currency.
-          enum:
-          - JPY
-          - USD
-          - EUR
-          type: string
-        expiryYearMonth:
-          description: Expiry month.
-          format: yyyyMM
-          type: string
-        orderId:
-          description: Order ID.
-          type: string
-        taxAmount:
-          description: Tax amount.
-          format: double
-          type: number
-        totalAmount:
-          description: Total amount.
+        taxIncludedPrice:
+          description: Tax Included price.
           format: double
           type: number
       type: object
-    CouponResponse:
+    ListOrderedSubscriberResponse:
       properties:
-        amount:
-          description: Amount.
-          format: double
-          type: number
-        balance:
-          description: Balance.
-          format: double
-          type: number
-        billItemName:
-          description: Item.
-          type: string
-        couponCode:
-          description: Coupon code.
-          type: string
-        currency:
-          description: Currency.
-          enum:
-          - JPY
-          - USD
-          - EUR
-          type: string
-        expiryYearMonth:
-          description: Expiry month.
-          format: yyyyMM
-          type: string
-        orderId:
-          description: Order ID.
-          type: string
-      type: object
-    OrderedSubscriber:
-      properties:
-        bundles:
-          description: Bundle.
+        orderedSubscriberList:
+          description: List of ordered SIMs.
           items:
-            type: string
+            $ref: '#/components/schemas/OrderedSubscriber'
           type: array
-        deviceSerialNumber:
-          description: Serial number of Device.
-          type: string
-        eiccid:
-          description: eICCID.
-          type: string
-        iccid:
-          description: ICCID.
-          type: string
-        imsi:
-          description: IMSI.
-          type: string
-        msisdn:
-          description: MSISDN.
-          type: string
-        serialNumber:
-          description: Serial number of IoT SIM.
-          type: string
-        simId:
-          description: SIM ID.
-          type: string
       type: object
-    SimInitialSetting:
-      description: Sim initial setting for the specific subscription.
+    ShippingLabelDetail:
       properties:
-        groupId:
-          description: Group ID.
-          type: string
-        speedClass:
-          description: "Speed class. Specify one of the following. Please specify the speed class that matches the subscription.\n\n- For plan01s, plan01s - Low Data Volume, planX3 (X3-5MB), planP1, plan-D (without bundle), plan-D (D-300MB), plan-K2 (K2-300MB), plan-K:\n    - `s1.minimum`\n    - `s1.slow`\n    - `s1.standard`\n    - `s1.fast`\n    - `s1.4xfast`\n- For plan-US:\n    - `s1.minimum`\n    - `s1.slow`\n    - `s1.standard`\n    - `s1.fast`\n    - `s1.4xfast`\n    - `s1.8xfast`\n- For plan-DU:\n    - `u1.standard`\n    - `u1.slow`\n- For plan-KM1:\n    - `t1.standard`\n"
-          type: string
-        tags:
-          additionalProperties:
-            type: string
-          description: Tags.
-          type: object
-      type: object
-    EstimatedOrderItemModel:
-      properties:
-        product:
-          $ref: '#/components/schemas/ProductModel'
-        productAmount:
-          description: Product amount.
-          format: double
-          type: number
-        quantity:
-          description: Quantity.
-          format: int32
-          type: integer
-        taxIncludedProductAmount:
-          type: number
-      type: object
-    ShippingOptionOfNekopos:
-      description: Available for Japan operators only.
-      properties:
-        allowNekopos:
-          description: Specify true to allow use of Nekopos.
-          type: boolean
         shipmentCompany:
-          description: Shipment company.
-          enum:
-          - yamato_transport
+          description: Shipment company name.
+          example: Yamato Transport
           type: string
+        shipmentCompanyUrl:
+          description: Shipment company URL.
+          example: http://track.kuronekoyamato.co.jp/english/tracking
+          type: string
+        trackingNumber:
+          description: Tracking number.
+          example: 0000-1111-2222
+          type: string
+        trackingUrl:
+          description: Tracking URL with tracking number.
+          example: https://jizen.kuronekoyamato.co.jp/jizen/servlet/crjz.b.NQ0010?id=0000-1111-2222
+          type: string
+      required:
+      - shipmentCompany
+      - trackingNumber
+      type: object
+    ListProductResponse:
+      properties:
+        productList:
+          items:
+            $ref: '#/components/schemas/ProductModel'
+          type: array
+        shippingCostList:
+          items:
+            $ref: '#/components/schemas/ShippingCostModel'
+          type: array
+      type: object
+    ListOrderResponse:
+      properties:
+        orderList:
+          description: List of confirmed orders.
+          items:
+            $ref: '#/components/schemas/GetOrderResponse'
+          type: array
       type: object
     ShippingAddressModel:
       description: Shipping address.
@@ -997,57 +979,6 @@ components:
       - city
       - state
       - zipCode
-      type: object
-    ListOrderedSubscriberResponse:
-      properties:
-        orderedSubscriberList:
-          description: List of ordered SIMs.
-          items:
-            $ref: '#/components/schemas/OrderedSubscriber'
-          type: array
-      type: object
-    CreateEstimatedVolumeDiscountRequest:
-      properties:
-        contractTermMonth:
-          default: 12
-          description: Contract months.
-          format: int32
-          type: integer
-        quantity:
-          description: Quantity.
-          format: int32
-          type: integer
-        startDate:
-          description: Start date.
-          example: yyyyMMdd
-          type: string
-        volumeDiscountPaymentType:
-          description: Payment type.
-          enum:
-          - MONTHLY
-          - PREPAYMENT
-          type: string
-        volumeDiscountType:
-          description: Long term discount type.
-          enum:
-          - SORACOM_AIR_BASIC_CHARGE_V2
-          - SORACOM_AIR_BASIC_CHARGE
-          - SORACOM_AIR_MONTHLY_FIXED_BASIC_CHARGE
-          type: string
-      required:
-      - volumeDiscountType
-      - volumeDiscountPaymentType
-      - contractTermMonth
-      - quantity
-      type: object
-    CreateEstimatedCouponRequest:
-      properties:
-        amount:
-          description: Amount.
-          format: double
-          type: number
-      required:
-      - amount
       type: object
     GetVolumeDiscountResponse:
       properties:
@@ -1110,22 +1041,84 @@ components:
           - SORACOM_AIR_MONTHLY_FIXED_BASIC_CHARGE
           type: string
       type: object
-    EstimatedOrderModel:
+    CreateEstimatedOrderRequest:
       properties:
-        appliedShippingOptions:
-          description: Applied shipping options.
+        orderItemList:
+          description: Order item list.
+          items:
+            $ref: '#/components/schemas/OrderItemModel'
+          type: array
+        preferredDeliveryDate:
+          description: Preferred delivery date.
+          format: yyyyMMdd
+          type: string
+        shippingAddressId:
+          description: Shipping address ID.
+          type: string
+        shippingOptions:
+          description: Shipping options.
           items:
             oneOf:
             - $ref: '#/components/schemas/ShippingOptionOfNekopos'
             - $ref: '#/components/schemas/ShippingOptionOfExpeditedShipping'
           type: array
-        balanceDue:
-          description: Balance due.
-          format: double
-          type: number
-        containsTaxIncludedAmounts:
-          description: Contains tax included amounts.
+      type: object
+    ResourceInitialSetting:
+      description: Initial setting for the resource.
+      properties:
+        simInitialSettings:
+          additionalProperties:
+            $ref: '#/components/schemas/SimInitialSetting'
+          description: 'Initial setting of SIMs for each subscription. The key specifies a subscription.
+
+
+            - `plan01s`
+
+            - `plan01s-low_data_volume`: plan01s - Low Data Volume.
+
+            - `planX3`: planX3 (X3-5MB).
+
+            - `planP1`
+
+            - `plan-D`: plan-D (without bundle), plan-D (D-300MB).
+
+            - `plan-K2`: plan-K2 (K2-300MB).
+
+            - `plan-DU`
+
+            - `plan-KM1`
+
+            - `plan-K`
+
+            - `plan-US`
+
+            '
+          example:
+            plan01s:
+              groupId: 00000000-1111-2222-3333-444444444444
+              speedClass: s1.4xfast
+              tags:
+                date: 20221111
+                location: headquarters
+          type: object
+      type: object
+    ShippingOptionOfExpeditedShipping:
+      description: Available for United States and Canada operators only.
+      properties:
+        useExpeditedShipping:
+          description: Specify true to ship by Expedited Shipping. (Shipping to United States only)
           type: boolean
+      type: object
+    AvailableLongTermDiscountResponse:
+      properties:
+        availableLongTermDiscounts:
+          description: List of available long term discounts.
+          items:
+            $ref: '#/components/schemas/AvailableLongTermDiscountModel'
+          type: array
+      type: object
+    EstimatedVolumeDiscountModel:
+      properties:
         currency:
           description: Currency.
           enum:
@@ -1133,53 +1126,123 @@ components:
           - USD
           - EUR
           type: string
-        email:
-          description: Email address.
-          type: string
-        orderChannel:
-          description: Order channel.
-          type: string
         orderId:
           description: Order ID.
           type: string
-        orderItemList:
-          description: Order item list.
-          items:
-            $ref: '#/components/schemas/EstimatedOrderItemModel'
-          type: array
-        preferredDeliveryDate:
-          description: Preferred delivery date.
-          format: yyyyMMdd
-          type: string
-        purchaseOrderNumber:
-          description: Purchase order number.
-          type: string
-        shippingAddress:
-          $ref: '#/components/schemas/ShippingAddressModel'
-        shippingAddressId:
-          description: Shipping address ID.
-          type: string
-        shippingCost:
-          description: Shipping cost.
-          format: double
-          type: number
         taxAmount:
           description: Tax amount.
           format: double
           type: number
-        taxIncludedInShippingCost:
-          description: Tax included in shipping cost.
-          format: double
-          type: number
-        taxOnShippingCost:
-          description: Whether shipping cost is taxable.
-          type: boolean
         totalAmount:
           description: Total amount.
           format: double
           type: number
-        withholdingTaxAmount:
-          description: Withholding tax amount.
+        volumeDiscount:
+          $ref: '#/components/schemas/VolumeDiscountModel'
+      type: object
+    ShippingOptionOfNekopos:
+      description: Available for Japan operators only.
+      properties:
+        allowNekopos:
+          description: Specify true to allow use of Nekopos.
+          type: boolean
+        shipmentCompany:
+          description: Shipment company.
+          enum:
+          - yamato_transport
+          type: string
+      type: object
+    CreateEstimatedVolumeDiscountRequest:
+      properties:
+        contractTermMonth:
+          default: 12
+          description: Contract months.
+          format: int32
+          type: integer
+        quantity:
+          description: Quantity.
+          format: int32
+          type: integer
+        startDate:
+          description: Start date.
+          example: yyyyMMdd
+          type: string
+        volumeDiscountPaymentType:
+          description: Payment type.
+          enum:
+          - MONTHLY
+          - PREPAYMENT
+          type: string
+        volumeDiscountType:
+          description: Long term discount type.
+          enum:
+          - SORACOM_AIR_BASIC_CHARGE_V2
+          - SORACOM_AIR_BASIC_CHARGE
+          - SORACOM_AIR_MONTHLY_FIXED_BASIC_CHARGE
+          type: string
+      required:
+      - volumeDiscountType
+      - volumeDiscountPaymentType
+      - contractTermMonth
+      - quantity
+      type: object
+    CouponResponse:
+      properties:
+        amount:
+          description: Amount.
+          format: double
+          type: number
+        balance:
+          description: Balance.
+          format: double
+          type: number
+        billItemName:
+          description: Item.
+          type: string
+        couponCode:
+          description: Coupon code.
+          type: string
+        currency:
+          description: Currency.
+          enum:
+          - JPY
+          - USD
+          - EUR
+          type: string
+        expiryYearMonth:
+          description: Expiry month.
+          format: yyyyMM
+          type: string
+        orderId:
+          description: Order ID.
+          type: string
+      type: object
+    EstimatedCouponModel:
+      properties:
+        amount:
+          description: Amount.
+          format: double
+          type: number
+        currency:
+          description: Currency.
+          enum:
+          - JPY
+          - USD
+          - EUR
+          type: string
+        expiryYearMonth:
+          description: Expiry month.
+          format: yyyyMM
+          type: string
+        orderId:
+          description: Order ID.
+          type: string
+        taxAmount:
+          description: Tax amount.
+          format: double
+          type: number
+        totalAmount:
+          description: Total amount.
           format: double
           type: number
       type: object
@@ -1267,97 +1330,34 @@ components:
           description: The URL of terms and conditions for the solution.
           type: string
       type: object
-    CreateEstimatedOrderRequest:
+    OrderedSubscriber:
       properties:
-        orderItemList:
-          description: Order item list.
+        bundles:
+          description: Bundle.
           items:
-            $ref: '#/components/schemas/OrderItemModel'
+            type: string
           type: array
-        preferredDeliveryDate:
-          description: Preferred delivery date.
-          format: yyyyMMdd
+        deviceSerialNumber:
+          description: Serial number of Device.
           type: string
-        shippingAddressId:
-          description: Shipping address ID.
+        eiccid:
+          description: eICCID.
           type: string
-        shippingOptions:
-          description: Shipping options.
-          items:
-            oneOf:
-            - $ref: '#/components/schemas/ShippingOptionOfNekopos'
-            - $ref: '#/components/schemas/ShippingOptionOfExpeditedShipping'
-          type: array
-      type: object
-    PriceByQuantity:
-      properties:
-        minQuantity:
-          description: Min quantity.
-          format: int32
-          type: integer
-        price:
-          description: Price.
-          format: double
-          type: number
-        taxIncludedPrice:
-          description: Tax Included price.
-          format: double
-          type: number
-      type: object
-    ResourceInitialSetting:
-      description: Initial setting for the resource.
-      properties:
-        simInitialSettings:
-          additionalProperties:
-            $ref: '#/components/schemas/SimInitialSetting'
-          description: 'Initial setting of SIMs for each subscription. The key specifies a subscription.
-
-
-            - `plan01s`
-
-            - `plan01s-low_data_volume`: plan01s - Low Data Volume.
-
-            - `planX3`: planX3 (X3-5MB).
-
-            - `planP1`
-
-            - `plan-D`: plan-D (without bundle), plan-D (D-300MB).
-
-            - `plan-K2`: plan-K2 (K2-300MB).
-
-            - `plan-DU`
-
-            - `plan-KM1`
-
-            - `plan-K`
-
-            - `plan-US`
-
-            '
-          example:
-            plan01s:
-              groupId: 00000000-1111-2222-3333-444444444444
-              speedClass: s1.4xfast
-              tags:
-                date: 20221111
-                location: headquarters
-          type: object
-      type: object
-    ListOrderResponse:
-      properties:
-        orderList:
-          description: List of confirmed orders.
-          items:
-            $ref: '#/components/schemas/GetOrderResponse'
-          type: array
-      type: object
-    AvailableLongTermDiscountResponse:
-      properties:
-        availableLongTermDiscounts:
-          description: List of available long term discounts.
-          items:
-            $ref: '#/components/schemas/AvailableLongTermDiscountModel'
-          type: array
+        iccid:
+          description: ICCID.
+          type: string
+        imsi:
+          description: IMSI.
+          type: string
+        msisdn:
+          description: MSISDN.
+          type: string
+        serialNumber:
+          description: Serial number of IoT SIM.
+          type: string
+        simId:
+          description: SIM ID.
+          type: string
       type: object
   securitySchemes:
     api_key:

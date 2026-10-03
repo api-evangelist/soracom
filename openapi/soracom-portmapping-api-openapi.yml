@@ -203,6 +203,64 @@ paths:
       - port-mappings list-for-subscriber
 components:
   schemas:
+    PortMappingDestination:
+      description: 'When creating an On-Demand Remote Access entry, you must specify either `imsi` or `simId`.
+
+        '
+      properties:
+        destinationChoosingStrategy:
+          description: "A string indicating how the On-Demand Remote Access was created. Ignored at creation time.\n\n- `AIR_PRIORITIZED`: On-Demand Remote Access created by specifying SIM ID and setting `service` to `air`.\n- `ARC_PRIORITIZED`: On-Demand Remote Access created by specifying SIM ID and setting `service` to `arc`.\n- `DYNAMIC`: On-Demand Remote Access created by specifying only SIM ID.\n\n    Online subscribers' sessions will be the target for creating an On-Demand Remote Access entry. If multiple online subscriber sessions exist (for example, both Soracom Air and Soracom Arc sessions are online), it is not guaranteed which will be used to create the On-Demand Remote Access entry.\n- `IMSI_PRIORITIZED`: On-Demand Remote Access created by specifying IMSI.\n"
+          enum:
+          - AIR_PRIORITIZED
+          - ARC_PRIORITIZED
+          - DYNAMIC
+          - IMSI_PRIORITIZED
+          type: string
+        imsi:
+          description: 'IMSI. If `simId` is specified when creating an On-Demand Remote Access entry, `imsi` will be ignored.
+
+            '
+          type: string
+        port:
+          description: The port number on the device using IoT SIM or virtual SIM/Subscriber, waiting for connection.
+          type: number
+        service:
+          description: 'The target for creating an On-Demand Remote Access entry. Valid when `simId` is specified.
+
+
+            - `air`: Target Soracom Air subscribers'' sessions that are online.
+
+            - `arc`: Target Soracom Arc virtual SIM/Subscriber.
+
+
+            **Warning**: If `service` is omitted, online subscriber sessions will be the target for creating an On-Demand Remote Access entry. If multiple online subscriber sessions exist (e.g., both Soracom Air and Soracom Arc sessions are online), it is not guaranteed which session will be used. Please specify either `air` or `arc`.
+
+
+            **Warning**: This property is required when creating an On-Demand Remote Access entry. It will not be included in the response.
+
+            '
+          enum:
+          - air
+          - arc
+          type: string
+        simId:
+          description: 'SIM ID. When specifying `simId` for creating an On-Demand Remote Access entry, also specify `service`. Note that if `simId` is specified, `imsi` will be ignored.
+
+            '
+          type: string
+      required:
+      - port
+      type: object
+    PortMappingSource:
+      properties:
+        ipRanges:
+          description: 'The IP address ranges (in CIDR notation) allowed to access the On-Demand Remote Access. Specify global IP addresses. Only devices from IP addresses within the specified ranges will be able to access the device remotely.
+
+            '
+          items:
+            type: string
+          type: array
+      type: object
     PortMappingDestinationForSim:
       description: 'Information about the destination when creating an On-Demand Remote Access entry.
 
@@ -256,16 +314,6 @@ components:
           type: boolean
       required:
       - destination
-      type: object
-    PortMappingSource:
-      properties:
-        ipRanges:
-          description: 'The IP address ranges (in CIDR notation) allowed to access the On-Demand Remote Access. Specify global IP addresses. Only devices from IP addresses within the specified ranges will be able to access the device remotely.
-
-            '
-          items:
-            type: string
-          type: array
       type: object
     PortMapping:
       properties:
@@ -361,54 +409,6 @@ components:
           type: boolean
       required:
       - destination
-      type: object
-    PortMappingDestination:
-      description: 'When creating an On-Demand Remote Access entry, you must specify either `imsi` or `simId`.
-
-        '
-      properties:
-        destinationChoosingStrategy:
-          description: "A string indicating how the On-Demand Remote Access was created. Ignored at creation time.\n\n- `AIR_PRIORITIZED`: On-Demand Remote Access created by specifying SIM ID and setting `service` to `air`.\n- `ARC_PRIORITIZED`: On-Demand Remote Access created by specifying SIM ID and setting `service` to `arc`.\n- `DYNAMIC`: On-Demand Remote Access created by specifying only SIM ID.\n\n    Online subscribers' sessions will be the target for creating an On-Demand Remote Access entry. If multiple online subscriber sessions exist (for example, both Soracom Air and Soracom Arc sessions are online), it is not guaranteed which will be used to create the On-Demand Remote Access entry.\n- `IMSI_PRIORITIZED`: On-Demand Remote Access created by specifying IMSI.\n"
-          enum:
-          - AIR_PRIORITIZED
-          - ARC_PRIORITIZED
-          - DYNAMIC
-          - IMSI_PRIORITIZED
-          type: string
-        imsi:
-          description: 'IMSI. If `simId` is specified when creating an On-Demand Remote Access entry, `imsi` will be ignored.
-
-            '
-          type: string
-        port:
-          description: The port number on the device using IoT SIM or virtual SIM/Subscriber, waiting for connection.
-          type: number
-        service:
-          description: 'The target for creating an On-Demand Remote Access entry. Valid when `simId` is specified.
-
-
-            - `air`: Target Soracom Air subscribers'' sessions that are online.
-
-            - `arc`: Target Soracom Arc virtual SIM/Subscriber.
-
-
-            **Warning**: If `service` is omitted, online subscriber sessions will be the target for creating an On-Demand Remote Access entry. If multiple online subscriber sessions exist (e.g., both Soracom Air and Soracom Arc sessions are online), it is not guaranteed which session will be used. Please specify either `air` or `arc`.
-
-
-            **Warning**: This property is required when creating an On-Demand Remote Access entry. It will not be included in the response.
-
-            '
-          enum:
-          - air
-          - arc
-          type: string
-        simId:
-          description: 'SIM ID. When specifying `simId` for creating an On-Demand Remote Access entry, also specify `service`. Note that if `simId` is specified, `imsi` will be ignored.
-
-            '
-          type: string
-      required:
-      - port
       type: object
   securitySchemes:
     api_key:

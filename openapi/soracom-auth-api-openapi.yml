@@ -159,12 +159,27 @@ paths:
       - auth switch-user
 components:
   schemas:
-    IssuePasswordResetTokenRequest:
+    SwitchUserRequest:
       properties:
-        email:
+        operatorId:
+          description: Operator ID to be switched to.
           type: string
-      required:
-      - email
+        tokenTimeoutSeconds:
+          default: 3600
+          description: 'API key and API token validity period (in seconds) for the switched user. The default is 3600 seconds (1 hour). The minimum and maximum values are also shown below.
+
+
+            - Minimum: 180 seconds (3 minutes)
+
+            - Maximum value: 3600 seconds (1 hour)
+
+            '
+          maximum: 3600
+          minimum: 180
+          type: integer
+        userName:
+          description: The SAM user name of the specified operator ID to be switched to.
+          type: string
       type: object
     VerifyPasswordResetTokenRequest:
       properties:
@@ -191,6 +206,13 @@ components:
           example: SORACOMAPI
           type: string
       type: object
+    IssuePasswordResetTokenRequest:
+      properties:
+        email:
+          type: string
+      required:
+      - email
+      type: object
     AuthRequest:
       properties:
         authKey:
@@ -211,28 +233,6 @@ components:
           maximum: 172800
           type: integer
         userName:
-          type: string
-      type: object
-    SwitchUserRequest:
-      properties:
-        operatorId:
-          description: Operator ID to be switched to.
-          type: string
-        tokenTimeoutSeconds:
-          default: 3600
-          description: 'API key and API token validity period (in seconds) for the switched user. The default is 3600 seconds (1 hour). The minimum and maximum values are also shown below.
-
-
-            - Minimum: 180 seconds (3 minutes)
-
-            - Maximum value: 3600 seconds (1 hour)
-
-            '
-          maximum: 3600
-          minimum: 180
-          type: integer
-        userName:
-          description: The SAM user name of the specified operator ID to be switched to.
           type: string
       type: object
   securitySchemes:

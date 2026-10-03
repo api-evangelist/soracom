@@ -368,135 +368,15 @@ paths:
           header: x-soracom-next-key
 components:
   schemas:
-    UpdateBatchGroupRequest:
-      properties:
-        batchGroupName:
-          description: Batch group name.
-          maxLength: 100
-          type: string
-        description:
-          description: Description of the batch group.
-          maxLength: 500
-          type: string
-      type: object
-    BatchTaskRequest:
-      properties:
-        request:
-          $ref: '#/components/schemas/BatchTaskApiRequest'
-          description: (Not shown because $ref is used at the same level in base/batch.yaml)
-      required:
-      - request
-      type: object
-    BatchGroupResponse:
-      properties:
-        batchGroupId:
-          description: Batch group ID.
-          example: aaaa1111
-          type: string
-        batchGroupName:
-          description: Batch group name.
-          example: Monthly SIM Tag Update
-          type: string
-        createdTime:
-          description: Created time.
-          example: 1704067200
-          format: int64
-          type: integer
-        description:
-          description: Description of the batch group.
-          type: string
-        updatedTime:
-          description: Updated time.
-          example: 1704153600
-          format: int64
-          type: integer
-      type: object
-    BatchTaskApiRequest:
-      description: The API request of this task.
+    BatchTaskApiResponse:
+      description: このタスクの API レスポンス。
       properties:
         body:
-          description: Body of the API request.
-          example:
-            groupId: 11111111-2222-3333-4444-555555555555
+          description: Body in the response.
           type: object
-        method:
-          description: HTTP method of the API request.
-          enum:
-          - POST
-          - GET
-          - PUT
-          - DELETE
-          example: POST
-          type: string
-        path:
-          description: Path of the API request.
-          example: /v1/sims/8981100001234567890/set_group
-          type: string
-      required:
-      - path
-      - method
-      type: object
-    BatchJobResponse:
-      properties:
-        abortOnFailure:
-          description: Whether to immediately abort upon encountering an error.
-          type: boolean
-        batchGroupId:
-          description: Batch group ID.
-          example: aaaa1111
-          type: string
-        createdTime:
-          description: Created time.
-          example: 1704067200
-          format: int64
-          type: integer
-        description:
-          description: Description of the batch job.
-          type: string
-        errorMessage:
-          description: Detailed information about the failed batch job.
-          type: string
-        finishedTime:
-          description: Finished time.
-          example: 1704240000
-          format: int64
-          type: integer
-        jobId:
-          description: Batch job ID.
-          example: bbbb2222
-          type: string
-        jobName:
-          description: Batch job name.
-          example: July 16th 2025 Set group
-          type: string
-        status:
-          description: 'Status of the batch job.
-
-
-            - `pending`: The job is preparing to execute. No tasks have been processed yet.
-
-            - `running`: The job is executing tasks.
-
-            - `completed`: The job has finished successfully. All tasks have been executed without any errors.
-
-            - `failed`: The job has finished processing all tasks, but one or more tasks encountered errors during execution.
-
-            - `aborted`: The job was stopped before all tasks could be processed.
-
-            '
-          enum:
-          - pending
-          - running
-          - completed
-          - aborted
-          - failed
-          type: string
-        summary:
-          $ref: '#/components/schemas/BatchJobSummary'
-        updatedTime:
-          description: Updated time.
-          example: 1704153600
-          format: int64
+        statusCode:
+          description: Status code in the response.
+          example: 200
           type: integer
       type: object
     BatchTaskResponse:
@@ -562,31 +442,6 @@ components:
       required:
       - tasks
       type: object
-    CreateBatchGroupRequest:
-      properties:
-        batchGroupName:
-          description: Batch group name.
-          example: Monthly SIM Tag Update
-          maxLength: 100
-          type: string
-        description:
-          description: Description of the batch group.
-          maxLength: 500
-          type: string
-      required:
-      - batchGroupName
-      type: object
-    BatchTaskApiResponse:
-      description: このタスクの API レスポンス。
-      properties:
-        body:
-          description: Body in the response.
-          type: object
-        statusCode:
-          description: Status code in the response.
-          example: 200
-          type: integer
-      type: object
     BatchJobSummary:
       description: Number of tasks for each status. These numbers are periodically updated during the batch job execution.
       properties:
@@ -605,6 +460,151 @@ components:
           example: 95
           format: int32
           type: integer
+      type: object
+    BatchTaskApiRequest:
+      description: The API request of this task.
+      properties:
+        body:
+          description: Body of the API request.
+          example:
+            groupId: 11111111-2222-3333-4444-555555555555
+          type: object
+        method:
+          description: HTTP method of the API request.
+          enum:
+          - POST
+          - GET
+          - PUT
+          - DELETE
+          example: POST
+          type: string
+        path:
+          description: Path of the API request.
+          example: /v1/sims/8981100001234567890/set_group
+          type: string
+      required:
+      - path
+      - method
+      type: object
+    UpdateBatchGroupRequest:
+      properties:
+        batchGroupName:
+          description: Batch group name.
+          maxLength: 100
+          type: string
+        description:
+          description: Description of the batch group.
+          maxLength: 500
+          type: string
+      type: object
+    BatchGroupResponse:
+      properties:
+        batchGroupId:
+          description: Batch group ID.
+          example: aaaa1111
+          type: string
+        batchGroupName:
+          description: Batch group name.
+          example: Monthly SIM Tag Update
+          type: string
+        createdTime:
+          description: Created time.
+          example: 1704067200
+          format: int64
+          type: integer
+        description:
+          description: Description of the batch group.
+          type: string
+        updatedTime:
+          description: Updated time.
+          example: 1704153600
+          format: int64
+          type: integer
+      type: object
+    BatchJobResponse:
+      properties:
+        abortOnFailure:
+          description: Whether to immediately abort upon encountering an error.
+          type: boolean
+        batchGroupId:
+          description: Batch group ID.
+          example: aaaa1111
+          type: string
+        createdTime:
+          description: Created time.
+          example: 1704067200
+          format: int64
+          type: integer
+        description:
+          description: Description of the batch job.
+          type: string
+        errorMessage:
+          description: Detailed information about the failed batch job.
+          type: string
+        finishedTime:
+          description: Finished time.
+          example: 1704240000
+          format: int64
+          type: integer
+        jobId:
+          description: Batch job ID.
+          example: bbbb2222
+          type: string
+        jobName:
+          description: Batch job name.
+          example: July 16th 2025 Set group
+          type: string
+        status:
+          description: 'Status of the batch job.
+
+
+            - `pending`: The job is preparing to execute. No tasks have been processed yet.
+
+            - `running`: The job is executing tasks.
+
+            - `completed`: The job has finished successfully. All tasks have been executed without any errors.
+
+            - `failed`: The job has finished processing all tasks, but one or more tasks encountered errors during execution.
+
+            - `aborted`: The job was stopped before all tasks could be processed.
+
+            '
+          enum:
+          - pending
+          - running
+          - completed
+          - aborted
+          - failed
+          type: string
+        summary:
+          $ref: '#/components/schemas/BatchJobSummary'
+        updatedTime:
+          description: Updated time.
+          example: 1704153600
+          format: int64
+          type: integer
+      type: object
+    BatchTaskRequest:
+      properties:
+        request:
+          $ref: '#/components/schemas/BatchTaskApiRequest'
+          description: (Not shown because $ref is used at the same level in base/batch.yaml)
+      required:
+      - request
+      type: object
+    CreateBatchGroupRequest:
+      properties:
+        batchGroupName:
+          description: Batch group name.
+          example: Monthly SIM Tag Update
+          maxLength: 100
+          type: string
+        description:
+          description: Description of the batch group.
+          maxLength: 500
+          type: string
+      required:
+      - batchGroupName
       type: object
   securitySchemes:
     api_key:

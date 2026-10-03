@@ -1501,37 +1501,201 @@ paths:
       - vpg delete-vpc-peering-connection
 components:
   schemas:
-    AttributeUpdate:
+    FunnelYaskawaMmcloudDestination:
       properties:
-        key:
+        desthost:
           type: string
-        value:
+        destport:
+          maximum: 0
+          minimum: 65535
+          type: integer
+        provider:
+          enum:
+          - yaskawa
+          type: string
+        resourceUrl:
+          type: string
+        service:
+          enum:
+          - mmcloud
           type: string
       type: object
-    Placement:
+    CreateVpcPeeringConnectionRequest:
       properties:
-        infrastructureProvider:
-          enum:
-          - aws
+        destinationCidrBlock:
           type: string
-        region:
-          description: 'If `infrastructureProvider` is `aws`, it indicates the rendezvous point.
-
-
-            - `ap-northeast-1`: Tokyo (Japan). The default for Japan coverage.
-
-            - `eu-central-1`: Frankfurt (Germany).  The default for Global coverage.
-
-            - `us-west-2`: Oregon (USA).
-
-            - `ap-southeast-2`: Sydney (Australia).
-
-            '
+        peerOwnerId:
+          type: string
+        peerRegion:
+          type: string
+        peerVpcId:
+          type: string
+      type: object
+    FunnelBrainsTechImpulseDestination:
+      properties:
+        provider:
           enum:
-          - ap-northeast-1
-          - eu-central-1
-          - us-west-2
-          - ap-southeast-2
+          - brains-tech
+          type: string
+        resourceUrl:
+          type: string
+        service:
+          enum:
+          - impulse
+          type: string
+      type: object
+    RegisterGatePeerRequest:
+      properties:
+        innerIpAddress:
+          description: An IP address within the device subnet range (inner IP address).
+          type: string
+        outerIpAddress:
+          type: string
+      required:
+      - outerIpAddress
+      type: object
+    FunnelOptimCloudiotosDestination:
+      properties:
+        channel_id:
+          type: string
+        data_format:
+          type: string
+        provider:
+          enum:
+          - optim
+          type: string
+        resourceUrl:
+          example: https://messaging.optimcloudapis.com
+          type: string
+        service:
+          enum:
+          - cloudiotos
+          type: string
+      type: object
+    TagSet:
+      additionalProperties:
+        type: string
+      description: An object which always contains at least one property "name" with a string value. If you give a subscriber/SIM a name, the name will be returned as the value of the "name" property. If the subscriber/SIM does not have a name, an empty string "" is returned. In addition, if you create any custom tags for the subscriber/SIM, each custom tag will appear as additional properties in the object.
+      example:
+        tagName1: tagValue1
+        tagName2: tagValue2...
+      type: object
+    FunnelAzureEventHubDestination:
+      properties:
+        payloadsOnly:
+          default: false
+          type: boolean
+        provider:
+          enum:
+          - azure
+          type: string
+        resourceUrl:
+          example: https://<namespace>.servicebus.windows.net/<event hubs name>/messages
+          type: string
+        service:
+          enum:
+          - eventhubs
+          type: string
+      type: object
+    CreateCustomerRouteRequest:
+      properties:
+        destinationCidr:
+          description: Destination CIDR block
+          type: string
+        ignoreDeviceSubnetCidrRangeOverlap:
+          type: boolean
+        ignoreDeviceSubnetcidrRangeOverlap:
+          description: A boolean flag to ignore device subnet CIDR range overlap with the destination CIDR range
+        target:
+          description: Transit Gateway ID
+          type: string
+      required:
+      - destinationCidr
+      - target
+      type: object
+    TransitGatewayResourceSharedStatus:
+      properties:
+        createdTime:
+          description: Creation time of the resource share
+          type: integer
+        customerAwsAccountId:
+          description: AWS account ID which is sharing resources with Soracom
+          type: string
+        lastModifiedTime:
+          description: Last modified time of the resource share
+          type: integer
+        resourceShareArn:
+          description: The ARN for the resource share
+          type: string
+        status:
+          description: Status of the resource share. Status of pending implies that the user has yet to accept resource share with Soracom on their aws account.
+          type: string
+      type: object
+    UpdateVirtualPrivateGatewayTagsRequest:
+      items:
+        properties:
+          tagName:
+            type: string
+          tagValue:
+            type: string
+        required:
+        - tagName
+        - tagValue
+        type: object
+      type: array
+    FunnelLandlogDestination:
+      properties:
+        channel_id:
+          type: string
+        data_format:
+          enum:
+          - json
+          - text
+          - xml
+          type: string
+        provider:
+          enum:
+          - landlog
+          type: string
+        resourceUrl:
+          example: https://api.landlog.info
+          type: string
+        service:
+          enum:
+          - landlog
+          type: string
+      type: object
+    TransitGatewayPeeringConnection:
+      properties:
+        createdTime:
+          description: Creation time of the transit gateway peering connection
+          type: integer
+        customerAwsAccountId:
+          description: AWS account ID of the peer transit Gateway
+          type: string
+        customerRegion:
+          description: AWS region of the peer transit Gateway
+          type: string
+        customerTransitGatewayId:
+          description: Peer transit gateway ID
+          type: string
+        id:
+          description: Transit gateway peering attachment ID of the peering connection. This is the unique ID of the transit gateway peering connection.
+          type: string
+        lastModifiedTime:
+          description: Last modified time of the transit gateway peering connection
+          type: integer
+        name:
+          description: User defined name of the transit gateway peering connection
+          type: string
+        soracomTransitGatewayPeeringAttachmentId:
+          description: Transit gateway peering attachment ID of the peering connection. This is the unique ID of the transit gateway peering connection.
+          type: string
+        status:
+          description: Current status of the transit gateway peering connection
+          enum:
+          - pending
+          - active
           type: string
       type: object
     VirtualPrivateGateway:
@@ -1725,43 +1889,55 @@ components:
             $ref: '#/components/schemas/VpnConnection'
           type: object
       type: object
-    FunnelTeradataIntellicloudDestination:
+    FunnelGooglePubSubDestination:
       properties:
+        payloadsOnly:
+          default: false
+          type: boolean
         provider:
           enum:
-          - teradata
+          - google
           type: string
         resourceUrl:
+          example: your_topic_name
           type: string
         service:
           enum:
-          - intellicloud
+          - pubsub
           type: string
       type: object
-    FunnelDestination:
+    OpenGateRequest:
       properties:
-        provider:
-          type: string
-        resourceUrl:
-          type: string
-        service:
-          type: string
+        privacySeparatorEnabled:
+          default: false
+          type: boolean
+        vxlanId:
+          default: 10
+          format: int32
+          type: integer
       type: object
-    FunnelContentType:
-      enum:
-      - json
-      - text
-      - unspecified
-      - binary
-      - application/x-soracom-bf-v1
-      type: string
-    TagSet:
-      additionalProperties:
-        type: string
-      description: An object which always contains at least one property "name" with a string value. If you give a subscriber/SIM a name, the name will be returned as the value of the "name" property. If the subscriber/SIM does not have a name, an empty string "" is returned. In addition, if you create any custom tags for the subscriber/SIM, each custom tag will appear as additional properties in the object.
-      example:
-        tagName1: tagValue1
-        tagName2: tagValue2...
+    SetVirtualPrivateGatewayVxLanIdRequest:
+      properties:
+        vxlanId:
+          description: VXLAN ID. Specify a range between 1 and 16777215.
+          type: integer
+      required:
+      - vxlanId
+      type: object
+    RoutingFilterEntry:
+      properties:
+        action:
+          description: Whether to allow or deny the outbound packets with a destination in the specified range
+          enum:
+          - allow
+          - deny
+          type: string
+        ipRange:
+          description: IPv4 address range in CIDR format, e.g. a.b.c.d/x
+          type: string
+      required:
+      - action
+      - ipRange
       type: object
     CreateTransitGatewayPeeringConnectionRequest:
       properties:
@@ -1782,46 +1958,6 @@ components:
       - customerRegion
       - customerTransitGatewayId
       type: object
-    FunnelConfiguration:
-      properties:
-        addSimId:
-          default: false
-          type: boolean
-        contentType:
-          $ref: '#/components/schemas/FunnelContentType'
-        credentialsId:
-          type: string
-        destination:
-          oneOf:
-          - $ref: '#/components/schemas/FunnelDestination'
-          - $ref: '#/components/schemas/FunnelAWSFirehoseDestination'
-          - $ref: '#/components/schemas/FunnelAWSIoTDestination'
-          - $ref: '#/components/schemas/FunnelAWSKinesisDestination'
-          - $ref: '#/components/schemas/FunnelAzureEventHubDestination'
-          - $ref: '#/components/schemas/FunnelGooglePubSubDestination'
-          - $ref: '#/components/schemas/FunnelAcroquestTorrentioDestination'
-          - $ref: '#/components/schemas/FunnelBrainsTechImpulseDestination'
-          - $ref: '#/components/schemas/FunnelEsrijArcgisOnlineDestination'
-          - $ref: '#/components/schemas/FunnelInfoteriaPlatioDestination'
-          - $ref: '#/components/schemas/FunnelKiiThingifDestination'
-          - $ref: '#/components/schemas/FunnelLandlogDestination'
-          - $ref: '#/components/schemas/FunnelOptimCloudiotosDestination'
-          - $ref: '#/components/schemas/FunnelTeradataIntellicloudDestination'
-          - $ref: '#/components/schemas/FunnelWingarcMotionboardDestination'
-          - $ref: '#/components/schemas/FunnelYaskawaMmcloudDestination'
-          - $ref: '#/components/schemas/FunnelSensorCorpusDestination'
-        enabled:
-          default: false
-          type: boolean
-      type: object
-    JunctionInspectionConfiguration:
-      properties:
-        enabled:
-          default: false
-          type: boolean
-        report:
-          $ref: '#/components/schemas/FunnelConfiguration'
-      type: object
     TransitGatewayAttachment:
       properties:
         destinationCidrBlocks:
@@ -1833,97 +1969,161 @@ components:
         tgwId:
           type: string
       type: object
-    TransitGatewayResourceSharedStatus:
+    CreateTransitGatewayVpcAttachmentRequest:
       properties:
-        createdTime:
-          description: Creation time of the resource share
-          type: integer
         customerAwsAccountId:
-          description: AWS account ID which is sharing resources with Soracom
+          description: AWS account ID of the VPC to be attached
           type: string
-        lastModifiedTime:
-          description: Last modified time of the resource share
-          type: integer
-        resourceShareArn:
-          description: The ARN for the resource share
+        customerVpcId:
+          description: AWS VPC ID of the VPC to be attached
           type: string
-        status:
-          description: Status of the resource share. Status of pending implies that the user has yet to accept resource share with Soracom on their aws account.
-          type: string
-      type: object
-    SetVirtualPrivateGatewayVxLanIdRequest:
-      properties:
-        vxlanId:
-          description: VXLAN ID. Specify a range between 1 and 16777215.
-          type: integer
-      required:
-      - vxlanId
-      type: object
-    PutIpAddressMapEntryRequest:
-      properties:
-        ipAddress:
-          description: IP address to assign to the specified `key`.
-          type: string
-        key:
-          description: IMSI of the IoT SIM to assign the fixed IP address to.
+        name:
+          description: A name used to identify the VPC attachment
           type: string
       required:
-      - key
-      - ipAddress
+      - customerAwsAccountId
+      - customerVpcId
       type: object
-    FunnelLandlogDestination:
+    FunnelAWSIoTDestination:
       properties:
-        channel_id:
-          type: string
-        data_format:
-          enum:
-          - json
-          - text
-          - xml
-          type: string
+        payloadsOnly:
+          default: false
+          type: boolean
         provider:
           enum:
-          - landlog
+          - aws
           type: string
         resourceUrl:
-          example: https://api.landlog.info
+          example: https://<id>.iot.<region>.amazonaws.com/<topic>
+          type: string
+        sendPayloadsAsBinary:
+          default: false
+          type: boolean
+        service:
+          enum:
+          - aws-iot
+          type: string
+      type: object
+    FunnelKiiThingifDestination:
+      properties:
+        provider:
+          enum:
+          - kii
+          type: string
+        resourceUrl:
           type: string
         service:
           enum:
-          - landlog
+          - thingif
           type: string
       type: object
-    TransitGatewayPeeringConnection:
+    CreateVirtualPrivateGatewayRequest:
       properties:
-        createdTime:
-          description: Creation time of the transit gateway peering connection
+        deviceSubnetCidrRange:
+          default: 10.128.0.0/9
+          type: string
+        placement:
+          properties:
+            region:
+              description: '[Rendezvous Point](/en/docs/reference/rendezvous-points/) for the VPG.
+
+
+                - `ap-northeast-1`: Tokyo (Japan), default for Japan Coverage
+
+                - `eu-central-1`: Frankfurt (Germany), default for Global Coverage
+
+                - `us-west-2`: Oregon (USA)
+
+                - `ap-southeast-2`: Sydney (Australia)
+
+                '
+              enum:
+              - ap-northeast-1
+              - eu-central-1
+              - us-west-2
+              - ap-southeast-2
+              type: string
+          type: object
+        soracomTransitGateway:
+          properties:
+            asn:
+              type: integer
+          type: object
+        tags:
+          $ref: '#/components/schemas/TagSet'
+        type:
+          description: 'VPG Type.
+
+
+            - `14` : Type-E
+
+            - `15` : Type-F
+
+            - `242` : Type-F2
+
+            '
+          enum:
+          - 14
+          - 15
+          - 242
           type: integer
-        customerAwsAccountId:
-          description: AWS account ID of the peer transit Gateway
-          type: string
-        customerRegion:
-          description: AWS region of the peer transit Gateway
-          type: string
-        customerTransitGatewayId:
-          description: Peer transit gateway ID
+        useInternetGateway:
+          default: true
+          type: boolean
+      required:
+      - type
+      type: object
+    VpnConnection:
+      properties:
+        bgpAsn:
           type: string
         id:
-          description: Transit gateway peering attachment ID of the peering connection. This is the unique ID of the transit gateway peering connection.
           type: string
-        lastModifiedTime:
-          description: Last modified time of the transit gateway peering connection
-          type: integer
-        name:
-          description: User defined name of the transit gateway peering connection
+        useDynamicRouting:
+          type: boolean
+      type: object
+    FunnelInfoteriaPlatioDestination:
+      properties:
+        applicationId:
           type: string
-        soracomTransitGatewayPeeringAttachmentId:
-          description: Transit gateway peering attachment ID of the peering connection. This is the unique ID of the transit gateway peering connection.
+        collectionId:
           type: string
-        status:
-          description: Current status of the transit gateway peering connection
+        passAll:
+          type: boolean
+        provider:
           enum:
-          - pending
-          - active
+          - infoteria
+          type: string
+        resourceUrl:
+          type: string
+        service:
+          enum:
+          - platio
+          type: string
+        values:
+          type: string
+      type: object
+    JunctionRedirectionConfiguration:
+      properties:
+        description:
+          type: string
+        enabled:
+          type: boolean
+        gateway:
+          type: string
+      type: object
+    JunctionMirroringPeer:
+      properties:
+        description:
+          type: string
+        enabled:
+          default: false
+          type: boolean
+        ipAddress:
+          type: string
+        protocol:
+          enum:
+          - gre
           type: string
       type: object
     IpAddressMapEntry:
@@ -1991,39 +2191,146 @@ components:
       - key
       - type
       type: object
-    GatePeer:
+    FunnelAWSFirehoseDestination:
       properties:
-        innerIpAddress:
-          description: An IP address within the device subnet range (inner IP address).
-          type: string
-        netmask:
-          type: string
-        outerIpAddress:
-          type: string
-        ownedByCustomer:
+        payloadsOnly:
+          default: false
           type: boolean
-      type: object
-    VpnConnection:
-      properties:
-        bgpAsn:
-          type: string
-        id:
-          type: string
-        useDynamicRouting:
-          type: boolean
-      type: object
-    FunnelKiiThingifDestination:
-      properties:
         provider:
           enum:
-          - kii
+          - aws
+          type: string
+        resourceUrl:
+          example: https://firehose.<region>.amazonaws.com/<delivery stream name>
+          type: string
+        service:
+          enum:
+          - firehose
+          type: string
+      type: object
+    AttributeUpdate:
+      properties:
+        key:
+          type: string
+        value:
+          type: string
+      type: object
+    FunnelConfiguration:
+      properties:
+        addSimId:
+          default: false
+          type: boolean
+        contentType:
+          $ref: '#/components/schemas/FunnelContentType'
+        credentialsId:
+          type: string
+        destination:
+          oneOf:
+          - $ref: '#/components/schemas/FunnelDestination'
+          - $ref: '#/components/schemas/FunnelAWSFirehoseDestination'
+          - $ref: '#/components/schemas/FunnelAWSIoTDestination'
+          - $ref: '#/components/schemas/FunnelAWSKinesisDestination'
+          - $ref: '#/components/schemas/FunnelAzureEventHubDestination'
+          - $ref: '#/components/schemas/FunnelGooglePubSubDestination'
+          - $ref: '#/components/schemas/FunnelAcroquestTorrentioDestination'
+          - $ref: '#/components/schemas/FunnelBrainsTechImpulseDestination'
+          - $ref: '#/components/schemas/FunnelEsrijArcgisOnlineDestination'
+          - $ref: '#/components/schemas/FunnelInfoteriaPlatioDestination'
+          - $ref: '#/components/schemas/FunnelKiiThingifDestination'
+          - $ref: '#/components/schemas/FunnelLandlogDestination'
+          - $ref: '#/components/schemas/FunnelOptimCloudiotosDestination'
+          - $ref: '#/components/schemas/FunnelTeradataIntellicloudDestination'
+          - $ref: '#/components/schemas/FunnelWingarcMotionboardDestination'
+          - $ref: '#/components/schemas/FunnelYaskawaMmcloudDestination'
+          - $ref: '#/components/schemas/FunnelSensorCorpusDestination'
+        enabled:
+          default: false
+          type: boolean
+      type: object
+    FunnelEsrijArcgisOnlineDestination:
+      properties:
+        config:
+          type: string
+        provider:
+          enum:
+          - esrij
           type: string
         resourceUrl:
           type: string
         service:
           enum:
-          - thingif
+          - arcgis-online
           type: string
+      type: object
+    FunnelContentType:
+      enum:
+      - json
+      - text
+      - unspecified
+      - binary
+      - application/x-soracom-bf-v1
+      type: string
+    CustomerRoute:
+      properties:
+        destinationCidr:
+          description: Destination CIDR block
+          type: string
+        id:
+          description: Unique ID of the routing table entry
+          type: string
+        target:
+          description: Transit Gateway ID
+          type: string
+        type:
+          description: Type of the routing table entry, either "static" or "dynamic"
+          enum:
+          - static
+          - dynamic
+          type: string
+      type: object
+    TransitGatewayVpcAttachment:
+      properties:
+        createdTime:
+          description: Creation time of the VPC attachment
+          type: integer
+        customerAwsAccountId:
+          description: AWS Account ID of the VPC to be attached
+          type: string
+        customerTransitGatewayVpcAttachmentId:
+          description: Transit gateway VPC attachment ID of the VPC to be attached. This is the unique ID of the transit gateway VPC attachment.
+          type: string
+        customerVpcId:
+          description: ID of the VPC to be attached
+          type: string
+        id:
+          description: Transit gateway VPC attachment ID of the VPC to be attached. This is the unique ID of the transit gateway VPC attachment.
+          type: string
+        lastModifiedTime:
+          description: Last modified time of the VPC attachment
+          type: integer
+        name:
+          description: User defined name of the transit gateway VPC attachment
+          type: string
+        status:
+          description: Current status of the transit gateway VPC attachment. 'vpcAttachmentPending' status implies that a VPC attachment is yet to be created on the peer AWS account.
+          enum:
+          - vpcAttachmentPending
+          - acceptancePending
+          - active
+          - failed
+          type: string
+      type: object
+    PutIpAddressMapEntryRequest:
+      properties:
+        ipAddress:
+          description: IP address to assign to the specified `key`.
+          type: string
+        key:
+          description: IMSI of the IoT SIM to assign the fixed IP address to.
+          type: string
+      required:
+      - key
+      - ipAddress
       type: object
     UpdateCustomerRouteRequest:
       properties:
@@ -2032,114 +2339,120 @@ components:
       required:
       - target
       type: object
-    RoutingFilterEntry:
+    JunctionInspectionConfiguration:
       properties:
-        action:
-          description: Whether to allow or deny the outbound packets with a destination in the specified range
-          enum:
-          - allow
-          - deny
-          type: string
-        ipRange:
-          description: IPv4 address range in CIDR format, e.g. a.b.c.d/x
-          type: string
-      required:
-      - action
-      - ipRange
-      type: object
-    UpdateVirtualPrivateGatewayTagsRequest:
-      items:
-        properties:
-          tagName:
-            type: string
-          tagValue:
-            type: string
-        required:
-        - tagName
-        - tagValue
-        type: object
-      type: array
-    OpenGateRequest:
-      properties:
-        privacySeparatorEnabled:
+        enabled:
           default: false
           type: boolean
-        vxlanId:
-          default: 10
-          format: int32
-          type: integer
+        report:
+          $ref: '#/components/schemas/FunnelConfiguration'
       type: object
-    CreateCustomerRouteRequest:
+    FunnelAcroquestTorrentioDestination:
       properties:
-        destinationCidr:
-          description: Destination CIDR block
+        endpointId:
           type: string
-        ignoreDeviceSubnetCidrRangeOverlap:
-          type: boolean
-        ignoreDeviceSubnetcidrRangeOverlap:
-          description: A boolean flag to ignore device subnet CIDR range overlap with the destination CIDR range
-        target:
-          description: Transit Gateway ID
+        provider:
+          enum:
+          - acroquest
+          type: string
+        resourceUrl:
+          type: string
+        service:
+          enum:
+          - torrentio
+          type: string
+        tenantId:
+          type: string
+      type: object
+    FunnelWingarcMotionboardDestination:
+      properties:
+        provider:
+          enum:
+          - wingarc
+          type: string
+        resourceUrl:
+          example: https://iot-cloud.motionboard.jp/motionboard/
+          type: string
+        service:
+          enum:
+          - motionboard
+          type: string
+      type: object
+    PutSimBasedRoutingRoutesRequest:
+      additionalProperties:
+        type: string
+      description: Association a router's LAN IP address range and its SIM ID.
+      example:
+        YOUR_SIM_ID_1: 192.0.2.0/24
+        YOUR_SIM_ID_2: 192.0.2.128/25
+      type: object
+    PacketCaptureSessionRequest:
+      properties:
+        duration:
+          format: int32
+          maximum: 86400
+          minimum: 30
+          type: integer
+        prefix:
+          pattern: ^[0-9A-Za-z_\-]{0,100}$
           type: string
       required:
-      - destinationCidr
-      - target
+      - duration
       type: object
-    CreateVirtualPrivateGatewayRequest:
+    FunnelTeradataIntellicloudDestination:
       properties:
-        deviceSubnetCidrRange:
-          default: 10.128.0.0/9
+        provider:
+          enum:
+          - teradata
           type: string
-        placement:
-          properties:
-            region:
-              description: '[Rendezvous Point](/en/docs/reference/rendezvous-points/) for the VPG.
+        resourceUrl:
+          type: string
+        service:
+          enum:
+          - intellicloud
+          type: string
+      type: object
+    Placement:
+      properties:
+        infrastructureProvider:
+          enum:
+          - aws
+          type: string
+        region:
+          description: 'If `infrastructureProvider` is `aws`, it indicates the rendezvous point.
 
 
-                - `ap-northeast-1`: Tokyo (Japan), default for Japan Coverage
+            - `ap-northeast-1`: Tokyo (Japan). The default for Japan coverage.
 
-                - `eu-central-1`: Frankfurt (Germany), default for Global Coverage
+            - `eu-central-1`: Frankfurt (Germany).  The default for Global coverage.
 
-                - `us-west-2`: Oregon (USA)
+            - `us-west-2`: Oregon (USA).
 
-                - `ap-southeast-2`: Sydney (Australia)
-
-                '
-              enum:
-              - ap-northeast-1
-              - eu-central-1
-              - us-west-2
-              - ap-southeast-2
-              type: string
-          type: object
-        soracomTransitGateway:
-          properties:
-            asn:
-              type: integer
-          type: object
-        tags:
-          $ref: '#/components/schemas/TagSet'
-        type:
-          description: 'VPG Type.
-
-
-            - `14` : Type-E
-
-            - `15` : Type-F
-
-            - `242` : Type-F2
+            - `ap-southeast-2`: Sydney (Australia).
 
             '
           enum:
-          - 14
-          - 15
-          - 242
-          type: integer
-        useInternetGateway:
-          default: true
-          type: boolean
-      required:
-      - type
+          - ap-northeast-1
+          - eu-central-1
+          - us-west-2
+          - ap-southeast-2
+          type: string
+      type: object
+    FunnelSensorCorpusDestination:
+      properties:
+        additionalData:
+          type: string
+        provider:
+          enum:
+          - infocorpus
+          type: string
+        resourceUrl:
+          example: https://www.sensorcorpus.net/
+          type: string
+        service:
+          enum:
+          - sensorcorpus
+          type: string
       type: object
     FunnelAWSKinesisDestination:
       properties:
@@ -2160,196 +2473,22 @@ components:
           - kinesis
           type: string
       type: object
-    FunnelSensorCorpusDestination:
+    SoracomTransitGateway:
       properties:
-        additionalData:
+        arn:
           type: string
-        provider:
-          enum:
-          - infocorpus
-          type: string
-        resourceUrl:
-          example: https://www.sensorcorpus.net/
-          type: string
-        service:
-          enum:
-          - sensorcorpus
-          type: string
-      type: object
-    FunnelInfoteriaPlatioDestination:
-      properties:
-        applicationId:
-          type: string
-        collectionId:
-          type: string
-        passAll:
-          type: boolean
-        provider:
-          enum:
-          - infoteria
-          type: string
-        resourceUrl:
-          type: string
-        service:
-          enum:
-          - platio
-          type: string
-        values:
-          type: string
-      type: object
-    FunnelAWSIoTDestination:
-      properties:
-        payloadsOnly:
-          default: false
-          type: boolean
-        provider:
-          enum:
-          - aws
-          type: string
-        resourceUrl:
-          example: https://<id>.iot.<region>.amazonaws.com/<topic>
-          type: string
-        sendPayloadsAsBinary:
-          default: false
-          type: boolean
-        service:
-          enum:
-          - aws-iot
-          type: string
-      type: object
-    CreateTransitGatewayVpcAttachmentRequest:
-      properties:
-        customerAwsAccountId:
-          description: AWS account ID of the VPC to be attached
-          type: string
-        customerVpcId:
-          description: AWS VPC ID of the VPC to be attached
-          type: string
-        name:
-          description: A name used to identify the VPC attachment
-          type: string
-      required:
-      - customerAwsAccountId
-      - customerVpcId
-      type: object
-    FunnelYaskawaMmcloudDestination:
-      properties:
-        desthost:
-          type: string
-        destport:
-          maximum: 0
-          minimum: 65535
+        asn:
           type: integer
-        provider:
-          enum:
-          - yaskawa
-          type: string
-        resourceUrl:
-          type: string
-        service:
-          enum:
-          - mmcloud
-          type: string
-      type: object
-    FunnelGooglePubSubDestination:
-      properties:
-        payloadsOnly:
-          default: false
-          type: boolean
-        provider:
-          enum:
-          - google
-          type: string
-        resourceUrl:
-          example: your_topic_name
-          type: string
-        service:
-          enum:
-          - pubsub
-          type: string
-      type: object
-    FunnelAcroquestTorrentioDestination:
-      properties:
-        endpointId:
-          type: string
-        provider:
-          enum:
-          - acroquest
-          type: string
-        resourceUrl:
-          type: string
-        service:
-          enum:
-          - torrentio
-          type: string
-        tenantId:
-          type: string
-      type: object
-    PacketCaptureSessionRequest:
-      properties:
-        duration:
-          format: int32
-          maximum: 86400
-          minimum: 30
-          type: integer
-        prefix:
-          pattern: ^[0-9A-Za-z_\-]{0,100}$
-          type: string
-      required:
-      - duration
-      type: object
-    CustomerRoute:
-      properties:
-        destinationCidr:
-          description: Destination CIDR block
+        awsAccountId:
           type: string
         id:
-          description: Unique ID of the routing table entry
           type: string
-        target:
-          description: Transit Gateway ID
+        region:
           type: string
-        type:
-          description: Type of the routing table entry, either "static" or "dynamic"
-          enum:
-          - static
-          - dynamic
-          type: string
-      type: object
-    FunnelOptimCloudiotosDestination:
-      properties:
-        channel_id:
-          type: string
-        data_format:
-          type: string
-        provider:
-          enum:
-          - optim
-          type: string
-        resourceUrl:
-          example: https://messaging.optimcloudapis.com
-          type: string
-        service:
-          enum:
-          - cloudiotos
-          type: string
-      type: object
-    FunnelAWSFirehoseDestination:
-      properties:
-        payloadsOnly:
-          default: false
-          type: boolean
-        provider:
-          enum:
-          - aws
-          type: string
-        resourceUrl:
-          example: https://firehose.<region>.amazonaws.com/<delivery stream name>
-          type: string
-        service:
-          enum:
-          - firehose
-          type: string
+        resourceSharedStatus:
+          additionalProperties:
+            $ref: '#/components/schemas/TransitGatewayResourceSharedStatus'
+          type: object
       type: object
     PacketCaptureSession:
       properties:
@@ -2385,164 +2524,25 @@ components:
           format: uri
           type: string
       type: object
-    CreateVpcPeeringConnectionRequest:
-      properties:
-        destinationCidrBlock:
-          type: string
-        peerOwnerId:
-          type: string
-        peerRegion:
-          type: string
-        peerVpcId:
-          type: string
-      type: object
-    FunnelWingarcMotionboardDestination:
-      properties:
-        provider:
-          enum:
-          - wingarc
-          type: string
-        resourceUrl:
-          example: https://iot-cloud.motionboard.jp/motionboard/
-          type: string
-        service:
-          enum:
-          - motionboard
-          type: string
-      type: object
-    TransitGatewayVpcAttachment:
-      properties:
-        createdTime:
-          description: Creation time of the VPC attachment
-          type: integer
-        customerAwsAccountId:
-          description: AWS Account ID of the VPC to be attached
-          type: string
-        customerTransitGatewayVpcAttachmentId:
-          description: Transit gateway VPC attachment ID of the VPC to be attached. This is the unique ID of the transit gateway VPC attachment.
-          type: string
-        customerVpcId:
-          description: ID of the VPC to be attached
-          type: string
-        id:
-          description: Transit gateway VPC attachment ID of the VPC to be attached. This is the unique ID of the transit gateway VPC attachment.
-          type: string
-        lastModifiedTime:
-          description: Last modified time of the VPC attachment
-          type: integer
-        name:
-          description: User defined name of the transit gateway VPC attachment
-          type: string
-        status:
-          description: Current status of the transit gateway VPC attachment. 'vpcAttachmentPending' status implies that a VPC attachment is yet to be created on the peer AWS account.
-          enum:
-          - vpcAttachmentPending
-          - acceptancePending
-          - active
-          - failed
-          type: string
-      type: object
-    PutSimBasedRoutingRoutesRequest:
-      additionalProperties:
-        type: string
-      description: Association a router's LAN IP address range and its SIM ID.
-      example:
-        YOUR_SIM_ID_1: 192.0.2.0/24
-        YOUR_SIM_ID_2: 192.0.2.128/25
-      type: object
-    SoracomTransitGateway:
-      properties:
-        arn:
-          type: string
-        asn:
-          type: integer
-        awsAccountId:
-          type: string
-        id:
-          type: string
-        region:
-          type: string
-        resourceSharedStatus:
-          additionalProperties:
-            $ref: '#/components/schemas/TransitGatewayResourceSharedStatus'
-          type: object
-      type: object
-    FunnelEsrijArcgisOnlineDestination:
-      properties:
-        config:
-          type: string
-        provider:
-          enum:
-          - esrij
-          type: string
-        resourceUrl:
-          type: string
-        service:
-          enum:
-          - arcgis-online
-          type: string
-      type: object
-    JunctionMirroringPeer:
-      properties:
-        description:
-          type: string
-        enabled:
-          default: false
-          type: boolean
-        ipAddress:
-          type: string
-        protocol:
-          enum:
-          - gre
-          type: string
-      type: object
-    RegisterGatePeerRequest:
+    GatePeer:
       properties:
         innerIpAddress:
           description: An IP address within the device subnet range (inner IP address).
           type: string
+        netmask:
+          type: string
         outerIpAddress:
           type: string
-      required:
-      - outerIpAddress
-      type: object
-    JunctionRedirectionConfiguration:
-      properties:
-        description:
-          type: string
-        enabled:
+        ownedByCustomer:
           type: boolean
-        gateway:
-          type: string
       type: object
-    FunnelBrainsTechImpulseDestination:
+    FunnelDestination:
       properties:
         provider:
-          enum:
-          - brains-tech
           type: string
         resourceUrl:
           type: string
         service:
-          enum:
-          - impulse
-          type: string
-      type: object
-    FunnelAzureEventHubDestination:
-      properties:
-        payloadsOnly:
-          default: false
-          type: boolean
-        provider:
-          enum:
-          - azure
-          type: string
-        resourceUrl:
-          example: https://<namespace>.servicebus.windows.net/<event hubs name>/messages
-          type: string
-        service:
-          enum:
-          - eventhubs
           type: string
       type: object
   securitySchemes:

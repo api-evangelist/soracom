@@ -462,13 +462,15 @@ components:
             type: string
           type: object
       type: object
-    LoraData:
+    TagUpdateRequest:
       properties:
-        data:
+        tagName:
           type: string
-        fPort:
-          default: 2
-          type: integer
+        tagValue:
+          type: string
+      required:
+      - tagName
+      - tagValue
       type: object
     SetGroupRequest:
       properties:
@@ -504,16 +506,6 @@ components:
           default: false
           type: boolean
       type: object
-    TagUpdateRequest:
-      properties:
-        tagName:
-          type: string
-        tagValue:
-          type: string
-      required:
-      - tagName
-      - tagValue
-      type: object
     LastSeen:
       properties:
         rssi:
@@ -547,6 +539,14 @@ components:
           type: string
         time:
           format: int64
+          type: integer
+      type: object
+    LoraData:
+      properties:
+        data:
+          type: string
+        fPort:
+          default: 2
           type: integer
       type: object
   securitySchemes:

@@ -72,6 +72,27 @@ paths:
       - sandbox stats beam insert
 components:
   schemas:
+    sandboxBeamCounts:
+      properties:
+        count:
+          format: int64
+          type: integer
+      type: object
+    sandboxDataTrafficStats:
+      properties:
+        downloadByteSizeTotal:
+          format: int64
+          type: integer
+        downloadPacketSizeTotal:
+          format: int64
+          type: integer
+        uploadByteSizeTotal:
+          format: int64
+          type: integer
+        uploadPacketSizeTotal:
+          format: int64
+          type: integer
+      type: object
     sandboxInsertAirStatsRequest:
       properties:
         dataTrafficStatsMap:
@@ -104,27 +125,6 @@ components:
           type: object
         unixtime:
           description: UNIX time (in seconds).
-          format: int64
-          type: integer
-      type: object
-    sandboxBeamCounts:
-      properties:
-        count:
-          format: int64
-          type: integer
-      type: object
-    sandboxDataTrafficStats:
-      properties:
-        downloadByteSizeTotal:
-          format: int64
-          type: integer
-        downloadPacketSizeTotal:
-          format: int64
-          type: integer
-        uploadByteSizeTotal:
-          format: int64
-          type: integer
-        uploadPacketSizeTotal:
           format: int64
           type: integer
       type: object
