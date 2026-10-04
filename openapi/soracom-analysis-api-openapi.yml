@@ -161,58 +161,12 @@ paths:
       - analysis schemas
 components:
   schemas:
-    GetAnalysisSchemasResponse:
-      items:
-        properties:
-          columnInfo:
-            description: Table column information.
-            items:
-              properties:
-                databaseType:
-                  description: 'Database data type.
-
-                    - `TEXT`: String type.
-
-                    - `FIXED`: Fixed-length string type.
-
-                    - `REAL`: Floating-point type.
-
-                    - `TIMESTAMP_TZ`: Timestamp type.
-
-                    - `BOOLEAN`: Boolean type.
-
-                    - `VARIANT`: Variable-length string type.
-
-                    '
-                  type: string
-                description:
-                  description: Description of the column.
-                  type: string
-                name:
-                  description: Column name.
-                  type: string
-                type:
-                  description: 'Reference type for programming languages (inferred from the database data type).
-
-                    - `string`: String type.
-
-                    - `int64`: Integer type.
-
-                    - `float64`: Floating-point type.
-
-                    - `Time`: DateTime type.
-
-                    - `bool`: Boolean type.
-
-                    '
-                  type: string
-              type: object
-            type: array
-          name:
-            description: Table name.
-            type: string
-        type: object
-      type: array
+    StartAnalysisQueriesResponse:
+      properties:
+        queryId:
+          description: SQL query ID.
+          type: string
+      type: object
     GetAnalysisQueriesResponse:
       properties:
         columnInfo:
@@ -295,12 +249,58 @@ components:
           description: Number of SQL queries executed this month.
           type: integer
       type: object
-    StartAnalysisQueriesResponse:
-      properties:
-        queryId:
-          description: SQL query ID.
-          type: string
-      type: object
+    GetAnalysisSchemasResponse:
+      items:
+        properties:
+          columnInfo:
+            description: Table column information.
+            items:
+              properties:
+                databaseType:
+                  description: 'Database data type.
+
+                    - `TEXT`: String type.
+
+                    - `FIXED`: Fixed-length string type.
+
+                    - `REAL`: Floating-point type.
+
+                    - `TIMESTAMP_TZ`: Timestamp type.
+
+                    - `BOOLEAN`: Boolean type.
+
+                    - `VARIANT`: Variable-length string type.
+
+                    '
+                  type: string
+                description:
+                  description: Description of the column.
+                  type: string
+                name:
+                  description: Column name.
+                  type: string
+                type:
+                  description: 'Reference type for programming languages (inferred from the database data type).
+
+                    - `string`: String type.
+
+                    - `int64`: Integer type.
+
+                    - `float64`: Floating-point type.
+
+                    - `Time`: DateTime type.
+
+                    - `bool`: Boolean type.
+
+                    '
+                  type: string
+              type: object
+            type: array
+          name:
+            description: Table name.
+            type: string
+        type: object
+      type: array
     StartAnalysisQueriesRequest:
       properties:
         from:

@@ -59,6 +59,23 @@ components:
           example: 1
           type: number
       type: object
+    ResourceSummary:
+      properties:
+        resourceSummaryItems:
+          description: A list of resource summary items.
+          items:
+            $ref: '#/components/schemas/ResourceSummaryItem'
+          type: array
+        resourceSummaryType:
+          description: 'The type of the resource summary.
+
+
+            - `simsPerStatus`: The number of IoT SIMs per status.
+
+            '
+          example: simsPerStatus
+          type: string
+      type: object
     ResourceSummaryItem:
       properties:
         dimensions:
@@ -77,23 +94,6 @@ components:
           items:
             $ref: '#/components/schemas/ResourceSummaryItemValue'
           type: array
-      type: object
-    ResourceSummary:
-      properties:
-        resourceSummaryItems:
-          description: A list of resource summary items.
-          items:
-            $ref: '#/components/schemas/ResourceSummaryItem'
-          type: array
-        resourceSummaryType:
-          description: 'The type of the resource summary.
-
-
-            - `simsPerStatus`: The number of IoT SIMs per status.
-
-            '
-          example: simsPerStatus
-          type: string
       type: object
     ResourceSummaryItemDimension:
       properties:

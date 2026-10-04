@@ -468,61 +468,6 @@ components:
       - tagName
       - tagValue
       type: object
-    SetGroupRequest:
-      properties:
-        groupId:
-          description: Group ID. The group ID can be obtained using the [Group:listGroups API](#!/Group/listGroups).
-          type: string
-      type: object
-    LastSeen:
-      properties:
-        rssi:
-          format: int32
-          type: integer
-        snr:
-          format: int32
-          type: integer
-        time:
-          format: date-time
-          type: string
-      type: object
-    SigfoxData:
-      properties:
-        data:
-          type: string
-      type: object
-    DataEntry:
-      properties:
-        category:
-          type: string
-        content:
-          type: string
-        contentType:
-          type: string
-        resourceId:
-          type: string
-        resourceType:
-          enum:
-          - Subscriber
-          - LoraDevice
-          - Sim
-          - SigfoxDevice
-          - Device
-          - SoraCam
-          type: string
-        time:
-          format: int64
-          type: integer
-      type: object
-    SigfoxRegistrationRequest:
-      properties:
-        registrationSecret:
-          type: string
-        tags:
-          additionalProperties:
-            type: string
-          type: object
-      type: object
     SigfoxDevice:
       properties:
         device_id:
@@ -550,6 +495,61 @@ components:
         terminationEnabled:
           default: false
           type: boolean
+      type: object
+    SigfoxRegistrationRequest:
+      properties:
+        registrationSecret:
+          type: string
+        tags:
+          additionalProperties:
+            type: string
+          type: object
+      type: object
+    SetGroupRequest:
+      properties:
+        groupId:
+          description: Group ID. The group ID can be obtained using the [Group:listGroups API](#!/Group/listGroups).
+          type: string
+      type: object
+    DataEntry:
+      properties:
+        category:
+          type: string
+        content:
+          type: string
+        contentType:
+          type: string
+        resourceId:
+          type: string
+        resourceType:
+          enum:
+          - Subscriber
+          - LoraDevice
+          - Sim
+          - SigfoxDevice
+          - Device
+          - SoraCam
+          type: string
+        time:
+          format: int64
+          type: integer
+      type: object
+    LastSeen:
+      properties:
+        rssi:
+          format: int32
+          type: integer
+        snr:
+          format: int32
+          type: integer
+        time:
+          format: date-time
+          type: string
+      type: object
+    SigfoxData:
+      properties:
+        data:
+          type: string
       type: object
   securitySchemes:
     api_key:

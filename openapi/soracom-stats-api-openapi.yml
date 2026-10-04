@@ -740,11 +740,11 @@ paths:
       - stats napter audit-logs get
 components:
   schemas:
-    FunnelStatsResponse:
+    HarvestStatsResponse:
       properties:
-        funnelStatsMap:
+        harvestStatsMap:
           additionalProperties:
-            $ref: '#/components/schemas/SoracomFunnelStats'
+            $ref: '#/components/schemas/SoracomHarvestStats'
           type: object
         unixtime:
           format: int64
@@ -756,44 +756,22 @@ components:
           format: int64
           type: integer
       type: object
-    BeamStatsResponse:
+    DataTrafficStats:
       properties:
-        beamStatsMap:
-          additionalProperties:
-            $ref: '#/components/schemas/SoracomBeamStats'
-          type: object
-        date:
-          type: string
-        unixtime:
+        downloadByteSizeTotal:
+          format: int64
+          type: integer
+        downloadPacketSizeTotal:
+          format: int64
+          type: integer
+        uploadByteSizeTotal:
+          format: int64
+          type: integer
+        uploadPacketSizeTotal:
           format: int64
           type: integer
       type: object
-    FunkStatsResponse:
-      properties:
-        funkStatsMap:
-          additionalProperties:
-            $ref: '#/components/schemas/SoracomFunkStats'
-          type: object
-        unixtime:
-          format: int64
-          type: integer
-      type: object
-    HarvestExportedDataStatsResponse:
-      properties:
-        exportedBytes:
-          description: exportedBytes
-          type: integer
-        yearMonth:
-          description: yearMonth
-          type: string
-      type: object
-    SoracomBeamStats:
-      properties:
-        count:
-          format: int64
-          type: integer
-      type: object
-    SoracomFunkStats:
+    SoracomHarvestStats:
       properties:
         count:
           format: int64
@@ -819,35 +797,17 @@ components:
           format: int64
           type: integer
       type: object
-    AirStatsResponse:
+    FunnelStatsResponse:
       properties:
-        dataTrafficStatsMap:
+        funnelStatsMap:
           additionalProperties:
-            $ref: '#/components/schemas/DataTrafficStats'
+            $ref: '#/components/schemas/SoracomFunnelStats'
           type: object
-        date:
-          description: Date and time (Coordinated Universal Time (UTC))
-          type: string
         unixtime:
           format: int64
           type: integer
       type: object
-    DataTrafficStats:
-      properties:
-        downloadByteSizeTotal:
-          format: int64
-          type: integer
-        downloadPacketSizeTotal:
-          format: int64
-          type: integer
-        uploadByteSizeTotal:
-          format: int64
-          type: integer
-        uploadPacketSizeTotal:
-          format: int64
-          type: integer
-      type: object
-    SoracomHarvestStats:
+    SoracomBeamStats:
       properties:
         count:
           format: int64
@@ -862,16 +822,6 @@ components:
           description: yearMonth
           type: string
       type: object
-    HarvestStatsResponse:
-      properties:
-        harvestStatsMap:
-          additionalProperties:
-            $ref: '#/components/schemas/SoracomHarvestStats'
-          type: object
-        unixtime:
-          format: int64
-          type: integer
-      type: object
     FileExportResponse:
       properties:
         exportedFileId:
@@ -883,6 +833,27 @@ components:
         url:
           description: URL to download the file. Included only if `export_mode` is `sync`.
           type: string
+      type: object
+    HarvestExportedDataStatsResponse:
+      properties:
+        exportedBytes:
+          description: exportedBytes
+          type: integer
+        yearMonth:
+          description: yearMonth
+          type: string
+      type: object
+    BeamStatsResponse:
+      properties:
+        beamStatsMap:
+          additionalProperties:
+            $ref: '#/components/schemas/SoracomBeamStats'
+          type: object
+        date:
+          type: string
+        unixtime:
+          format: int64
+          type: integer
       type: object
     AirAggregatedStatsResponse:
       properties:
@@ -896,6 +867,35 @@ components:
           type: integer
         uploadByteSizeTotal:
           description: Number of bytes uploaded during the period covered by the aggregate
+          format: int64
+          type: integer
+      type: object
+    SoracomFunkStats:
+      properties:
+        count:
+          format: int64
+          type: integer
+      type: object
+    AirStatsResponse:
+      properties:
+        dataTrafficStatsMap:
+          additionalProperties:
+            $ref: '#/components/schemas/DataTrafficStats'
+          type: object
+        date:
+          description: Date and time (Coordinated Universal Time (UTC))
+          type: string
+        unixtime:
+          format: int64
+          type: integer
+      type: object
+    FunkStatsResponse:
+      properties:
+        funkStatsMap:
+          additionalProperties:
+            $ref: '#/components/schemas/SoracomFunkStats'
+          type: object
+        unixtime:
           format: int64
           type: integer
       type: object

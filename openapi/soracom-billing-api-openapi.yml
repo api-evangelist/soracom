@@ -295,18 +295,6 @@ paths:
       - bills summaries get-sims
 components:
   schemas:
-    BillItemCostBreakdown:
-      properties:
-        amount:
-          description: Amount.
-          format: double
-          type: number
-        billItemCategory:
-          description: Bill item category.
-          type: string
-        billItemName:
-          description: Bill item name.
-          type: string
     BillingSummaryResponseOfSims:
       properties:
         costBreakdownList:
@@ -329,6 +317,26 @@ components:
           description: Year and month.
           type: string
       type: object
+    BillItemCostBreakdown:
+      properties:
+        amount:
+          description: Amount.
+          format: double
+          type: number
+        billItemCategory:
+          description: Bill item category.
+          type: string
+        billItemName:
+          description: Bill item name.
+          type: string
+    GetBillingHistoryResponse:
+      properties:
+        billList:
+          description: List of monthly bills.
+          items:
+            $ref: '#/components/schemas/MonthlyBill'
+          type: array
+      type: object
     SimCostBreakdown:
       properties:
         amount:
@@ -338,64 +346,6 @@ components:
         simId:
           description: SIM ID.
           type: string
-    GetLatestBill:
-      properties:
-        amount:
-          description: Amount of bills.
-          format: double
-          type: number
-        currency:
-          description: Currency of bills.
-          enum:
-          - JPY
-          - USD
-          - EUR
-          type: string
-        lastEvaluatedTime:
-          description: Date and time when calculated.
-          example: yyyyMMddHHmmss
-          type: string
-      type: object
-    BillingSummaryResponseOfBillItems:
-      properties:
-        costBreakdownList:
-          description: List of cost breakdown. The list is sorted by amount in descending order.
-          items:
-            $ref: '#/components/schemas/BillItemCostBreakdown'
-          type: array
-        currency:
-          description: Currency of bills.
-          enum:
-          - JPY
-          - USD
-          - EUR
-          type: string
-        updatedTime:
-          description: Last updated time in UNIX time in seconds.
-          format: int64
-          type: integer
-        yearMonth:
-          description: Year and month.
-          type: string
-      type: object
-    DailyBill:
-      properties:
-        amount:
-          description: Amount of bills.
-          format: double
-          type: number
-        currency:
-          description: Currency of bills.
-          enum:
-          - JPY
-          - USD
-          - EUR
-          type: string
-        date:
-          description: Date
-          format: yyyyMMdd
-          type: string
-      type: object
     DailyBillResponse:
       properties:
         billList:
@@ -414,6 +364,42 @@ components:
           type: string
         url:
           description: URL to download the file. Included only if `export_mode` is `sync`.
+          type: string
+      type: object
+    GetLatestBill:
+      properties:
+        amount:
+          description: Amount of bills.
+          format: double
+          type: number
+        currency:
+          description: Currency of bills.
+          enum:
+          - JPY
+          - USD
+          - EUR
+          type: string
+        lastEvaluatedTime:
+          description: Date and time when calculated.
+          example: yyyyMMddHHmmss
+          type: string
+      type: object
+    DailyBill:
+      properties:
+        amount:
+          description: Amount of bills.
+          format: double
+          type: number
+        currency:
+          description: Currency of bills.
+          enum:
+          - JPY
+          - USD
+          - EUR
+          type: string
+        date:
+          description: Date
+          format: yyyyMMdd
           type: string
       type: object
     MonthlyBill:
@@ -500,13 +486,27 @@ components:
           format: yyyyMM
           type: string
       type: object
-    GetBillingHistoryResponse:
+    BillingSummaryResponseOfBillItems:
       properties:
-        billList:
-          description: List of monthly bills.
+        costBreakdownList:
+          description: List of cost breakdown. The list is sorted by amount in descending order.
           items:
-            $ref: '#/components/schemas/MonthlyBill'
+            $ref: '#/components/schemas/BillItemCostBreakdown'
           type: array
+        currency:
+          description: Currency of bills.
+          enum:
+          - JPY
+          - USD
+          - EUR
+          type: string
+        updatedTime:
+          description: Last updated time in UNIX time in seconds.
+          format: int64
+          type: integer
+        yearMonth:
+          description: Year and month.
+          type: string
       type: object
   securitySchemes:
     api_key:

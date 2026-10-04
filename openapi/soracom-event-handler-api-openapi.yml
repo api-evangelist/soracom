@@ -642,98 +642,6 @@ paths:
       - event-handlers list-for-subscriber
 components:
   schemas:
-    ActionConfig:
-      properties:
-        properties:
-          $ref: '#/components/schemas/ActionConfigProperty'
-        type:
-          description: "The type of action. Set one of the following. The values that can be specified in `properties` vary depending on the type.\n\n- `SendMailAction`: Send an email.\n\n  The properties that can be set in `properties` are as follows:\n  - `executionDateTimeConst` (required)\n  - `executionOffsetMinutes`\n  - `to`\n  - `title`\n  - `message`\n- `SendMailToOperatorAction`: Send an email to the operator's primary email address.\n\n  The properties that can be set in `properties` are as follows:\n  - `executionDateTimeConst` (required)\n  - `executionOffsetMinutes`\n  - `title`\n  - `message`\n- `ChangeSpeedClassAction`: Change the speed class of the IoT SIM.\n\n  The properties that can be set in `properties` are as follows:\n  - `executionDateTimeConst` (required)\n  - `executionOffsetMinutes`\n  - `speedClass`\n- `ActivationAction`, `DeactivationAction`, `StandbyAction`, `SuspendAction`: Change to active, inactive, standby, or suspended.\n\n  The properties that can be set in `properties` are as follows:\n  - `executionDateTimeConst` (required)\n  - `executionOffsetMinutes`\n- `ExecuteWebRequestAction`: Send a request to a specified URL.\n\n  The properties that can be set in `properties` are as follows:\n  - `executionDateTimeConst` (required)\n  - `executionOffsetMinutes`\n  - `url` (required)\n  - `httpMethod` (required)\n  - `contentType` (required)\n  - `headers` (required)\n  - `body`\n- `InvokeAWSLambdaAction`: Invoke AWS Lambda.\n\n  The properties that can be set in `properties` are as follows:\n  - `executionDateTimeConst` (required)\n  - `executionOffsetMinutes`\n  - `endpoint` (required)\n  - `functionName` (required)\n  - `credentialsId` (required)\n  - `parameter1`, `parameter2`, `parameter3`, `parameter4`, `parameter5`\n  \n  **Warning**: `accessKey` and `secretAccessKey` are deprecated properties. Please use `credentialsId`.\n"
-          enum:
-          - ChangeSpeedClassAction
-          - InvokeAWSLambdaAction
-          - ExecuteWebRequestAction
-          - SendMailAction
-          - SendMailToOperatorAction
-          - ActivationAction
-          - DeactivationAction
-          - StandbyAction
-          - SuspendAction
-          type: string
-      required:
-      - properties
-      - type
-      type: object
-    CreateEventHandlerRequest:
-      properties:
-        actionConfigList:
-          description: 'Action type. For more details, refer to [Actions](/en/docs/air/event-handler/#actions).
-
-            '
-          items:
-            $ref: '#/components/schemas/ActionConfig'
-          type: array
-        description:
-          description: Summary.
-          type: string
-        name:
-          description: Event name.
-          type: string
-        ruleConfig:
-          $ref: '#/components/schemas/RuleConfig'
-          description: 'Rule. For more details, refer to [Rules](/en/docs/air/event-handler/#rules).
-
-            '
-        status:
-          description: 'The status of the event handler, whether it is active or inactive.
-
-
-            - `active`: Active
-
-            - `inactive`: Inactive
-
-            '
-          enum:
-          - inactive
-          - active
-          type: string
-        targetGroupId:
-          description: 'The target group. All IoT SIMs belonging to the group are monitored.
-
-
-            Specify only one of `targetGroupId`, `targetImsi`, `targetOperatorId`, or `targetSimId`.
-
-            '
-          type: string
-        targetImsi:
-          description: 'The target IMSI of the IoT SIM.
-
-
-            Specify only one of `targetGroupId`, `targetImsi`, `targetOperatorId`, or `targetSimId`.
-
-            '
-          type: string
-        targetOperatorId:
-          description: 'The target operator. All IoT SIMs in your account.
-
-
-            Specify only one of `targetGroupId`, `targetImsi`, `targetOperatorId`, or `targetSimId`.
-
-            '
-          type: string
-        targetSimId:
-          description: 'The target SIM ID of the IoT SIM.
-
-
-            Specify only one of `targetGroupId`, `targetImsi`, `targetOperatorId`, or `targetSimId`.
-
-            '
-          type: string
-      required:
-      - actionConfigList
-      - name
-      - ruleConfig
-      - status
-      type: object
     ActionConfigProperty:
       properties:
         accessKey:
@@ -920,6 +828,77 @@ components:
       - properties
       - type
       type: object
+    CreateEventHandlerRequest:
+      properties:
+        actionConfigList:
+          description: 'Action type. For more details, refer to [Actions](/en/docs/air/event-handler/#actions).
+
+            '
+          items:
+            $ref: '#/components/schemas/ActionConfig'
+          type: array
+        description:
+          description: Summary.
+          type: string
+        name:
+          description: Event name.
+          type: string
+        ruleConfig:
+          $ref: '#/components/schemas/RuleConfig'
+          description: 'Rule. For more details, refer to [Rules](/en/docs/air/event-handler/#rules).
+
+            '
+        status:
+          description: 'The status of the event handler, whether it is active or inactive.
+
+
+            - `active`: Active
+
+            - `inactive`: Inactive
+
+            '
+          enum:
+          - inactive
+          - active
+          type: string
+        targetGroupId:
+          description: 'The target group. All IoT SIMs belonging to the group are monitored.
+
+
+            Specify only one of `targetGroupId`, `targetImsi`, `targetOperatorId`, or `targetSimId`.
+
+            '
+          type: string
+        targetImsi:
+          description: 'The target IMSI of the IoT SIM.
+
+
+            Specify only one of `targetGroupId`, `targetImsi`, `targetOperatorId`, or `targetSimId`.
+
+            '
+          type: string
+        targetOperatorId:
+          description: 'The target operator. All IoT SIMs in your account.
+
+
+            Specify only one of `targetGroupId`, `targetImsi`, `targetOperatorId`, or `targetSimId`.
+
+            '
+          type: string
+        targetSimId:
+          description: 'The target SIM ID of the IoT SIM.
+
+
+            Specify only one of `targetGroupId`, `targetImsi`, `targetOperatorId`, or `targetSimId`.
+
+            '
+          type: string
+      required:
+      - actionConfigList
+      - name
+      - ruleConfig
+      - status
+      type: object
     EventHandlerModel:
       properties:
         actionConfigList:
@@ -1078,6 +1057,27 @@ components:
           type: string
       required:
       - inactiveTimeoutDateConst
+      type: object
+    ActionConfig:
+      properties:
+        properties:
+          $ref: '#/components/schemas/ActionConfigProperty'
+        type:
+          description: "The type of action. Set one of the following. The values that can be specified in `properties` vary depending on the type.\n\n- `SendMailAction`: Send an email.\n\n  The properties that can be set in `properties` are as follows:\n  - `executionDateTimeConst` (required)\n  - `executionOffsetMinutes`\n  - `to`\n  - `title`\n  - `message`\n- `SendMailToOperatorAction`: Send an email to the operator's primary email address.\n\n  The properties that can be set in `properties` are as follows:\n  - `executionDateTimeConst` (required)\n  - `executionOffsetMinutes`\n  - `title`\n  - `message`\n- `ChangeSpeedClassAction`: Change the speed class of the IoT SIM.\n\n  The properties that can be set in `properties` are as follows:\n  - `executionDateTimeConst` (required)\n  - `executionOffsetMinutes`\n  - `speedClass`\n- `ActivationAction`, `DeactivationAction`, `StandbyAction`, `SuspendAction`: Change to active, inactive, standby, or suspended.\n\n  The properties that can be set in `properties` are as follows:\n  - `executionDateTimeConst` (required)\n  - `executionOffsetMinutes`\n- `ExecuteWebRequestAction`: Send a request to a specified URL.\n\n  The properties that can be set in `properties` are as follows:\n  - `executionDateTimeConst` (required)\n  - `executionOffsetMinutes`\n  - `url` (required)\n  - `httpMethod` (required)\n  - `contentType` (required)\n  - `headers` (required)\n  - `body`\n- `InvokeAWSLambdaAction`: Invoke AWS Lambda.\n\n  The properties that can be set in `properties` are as follows:\n  - `executionDateTimeConst` (required)\n  - `executionOffsetMinutes`\n  - `endpoint` (required)\n  - `functionName` (required)\n  - `credentialsId` (required)\n  - `parameter1`, `parameter2`, `parameter3`, `parameter4`, `parameter5`\n  \n  **Warning**: `accessKey` and `secretAccessKey` are deprecated properties. Please use `credentialsId`.\n"
+          enum:
+          - ChangeSpeedClassAction
+          - InvokeAWSLambdaAction
+          - ExecuteWebRequestAction
+          - SendMailAction
+          - SendMailToOperatorAction
+          - ActivationAction
+          - DeactivationAction
+          - StandbyAction
+          - SuspendAction
+          type: string
+      required:
+      - properties
+      - type
       type: object
   securitySchemes:
     api_key:

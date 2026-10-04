@@ -349,32 +349,39 @@ paths:
       - soralets delete-version
 components:
   schemas:
-    Soralet:
+    SoraletLog:
       properties:
         createdTime:
           format: int64
           type: integer
-        description:
+        message:
           type: string
         operatorId:
           type: string
         soraletId:
           type: string
-        updatedTime:
+        version:
           format: int64
           type: integer
       type: object
-    ExecuteSoraletResponse:
+    SoraletDataSource:
       properties:
-        body:
+        resourceId:
           type: string
-        contentType:
+        resourceType:
           type: string
-        encodingType:
+      required:
+      - resourceType
+      - resourceId
+      type: object
+    CreateSoraletRequest:
+      properties:
+        description:
           type: string
-        resultCode:
-          format: int32
-          type: integer
+        soraletId:
+          type: string
+      required:
+      - soraletId
       type: object
     SoraletVersion:
       properties:
@@ -427,39 +434,32 @@ components:
       - payload
       - source
       type: object
-    CreateSoraletRequest:
+    ExecuteSoraletResponse:
       properties:
-        description:
+        body:
           type: string
-        soraletId:
+        contentType:
           type: string
-      required:
-      - soraletId
+        encodingType:
+          type: string
+        resultCode:
+          format: int32
+          type: integer
       type: object
-    SoraletLog:
+    Soralet:
       properties:
         createdTime:
           format: int64
           type: integer
-        message:
+        description:
           type: string
         operatorId:
           type: string
         soraletId:
           type: string
-        version:
+        updatedTime:
           format: int64
           type: integer
-      type: object
-    SoraletDataSource:
-      properties:
-        resourceId:
-          type: string
-        resourceType:
-          type: string
-      required:
-      - resourceType
-      - resourceId
       type: object
   securitySchemes:
     api_key:

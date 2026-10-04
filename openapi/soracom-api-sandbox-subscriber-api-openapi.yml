@@ -44,34 +44,6 @@ paths:
       - sandbox subscribers create
 components:
   schemas:
-    sandboxCreateSubscriberRequest:
-      properties:
-        bundles:
-          description: 'Bundle. If necessary, specify one of:'
-          items:
-            enum:
-            - X3-5MB
-            - D-300MB
-            - DU-10GB
-            - DU-50GB
-            - DU-100GB
-            - K2-300MB
-            type: string
-          type: array
-        subscription:
-          description: 'Subscription. Specify one of:'
-          enum:
-          - plan01s
-          - plan01s-low_data_volume
-          - planP1
-          - planX3
-          - plan-D
-          - plan-K
-          - plan-KM1
-          - plan-DU
-          - plan-K2
-          type: string
-      type: object
     TagSet:
       additionalProperties:
         type: string
@@ -109,4 +81,32 @@ components:
           type: string
         tags:
           $ref: '#/components/schemas/TagSet'
+      type: object
+    sandboxCreateSubscriberRequest:
+      properties:
+        bundles:
+          description: 'Bundle. If necessary, specify one of:'
+          items:
+            enum:
+            - X3-5MB
+            - D-300MB
+            - DU-10GB
+            - DU-50GB
+            - DU-100GB
+            - K2-300MB
+            type: string
+          type: array
+        subscription:
+          description: 'Subscription. Specify one of:'
+          enum:
+          - plan01s
+          - plan01s-low_data_volume
+          - planP1
+          - planX3
+          - plan-D
+          - plan-K
+          - plan-KM1
+          - plan-DU
+          - plan-K2
+          type: string
       type: object

@@ -391,59 +391,6 @@ paths:
       - users detach-role
 components:
   schemas:
-    CreateRoleResponse:
-      properties:
-        roleId:
-          description: The role ID.
-          type: string
-      type: object
-    CreateOrUpdateRoleRequest:
-      properties:
-        description:
-          description: The description of the operator managed role.
-          type: string
-        permission:
-          description: Permission as JSON for the operator managed role.
-          type: string
-      required:
-      - permission
-      type: object
-    RoleResponse:
-      properties:
-        createDateTime:
-          description: The creation date and time of the role (UNIX time in seconds).
-          format: int64
-          type: integer
-        description:
-          description: The description of the role.
-          type: string
-        owner:
-          description: 'The type of the role. It can be one of the following:
-
-            - `operator`: Operator managed role
-
-            - `soracom`: Soracom managed role
-
-            '
-          enum:
-          - operator
-          - soracom
-          type: string
-        permission:
-          description: Permission as JSON.
-          type: string
-        roleId:
-          description: Role ID. For operator managed roles, this is the role ID specified at creation. For Soracom managed roles, this will be in SRN (Soracom Resource Name) format.
-          type: string
-        roleName:
-          description: Role name. For operator managed roles, this will be the same as `roleId`. For Soracom managed roles, this will be the resource name part of the SRN (e.g., `srn:soracom:::Role:[roleName]`).
-          example: my-role
-          type: string
-        updateDateTime:
-          description: The update date and time of the role (UNIX time in seconds).
-          format: int64
-          type: integer
-      type: object
     ListRolesResponse:
       properties:
         createDateTime:
@@ -484,6 +431,65 @@ components:
       - createDateTime
       - roleId
       - updateDateTime
+      type: object
+    RoleVersionResponse:
+      properties:
+        description:
+          description: The description of the Soracom managed role.
+          type: string
+        owner:
+          description: 'The type of the role.
+
+            - `soracom`: Soracom managed role
+
+            '
+          enum:
+          - operator
+          - soracom
+          type: string
+        permission:
+          description: Permission as JSON for the Soracom managed role.
+          type: string
+        publishDateTime:
+          description: The publish date and time of the Soracom managed role version (UNIX time in seconds).
+          format: int64
+          type: integer
+        roleId:
+          description: SRN (Soracom Resource Name) format ID of the Soracom managed role.
+          type: string
+        roleName:
+          description: Resource name part of the SRN (Soracom Resource Name) of the Soracom managed role (e.g., `srn:soracom:::Role:[roleName]`).
+          example: my-role
+          type: string
+        version:
+          description: The version number of the Soracom managed role.
+          format: int64
+          type: integer
+      type: object
+    CreateOrUpdateRoleRequest:
+      properties:
+        description:
+          description: The description of the operator managed role.
+          type: string
+        permission:
+          description: Permission as JSON for the operator managed role.
+          type: string
+      required:
+      - permission
+      type: object
+    CreateRoleResponse:
+      properties:
+        roleId:
+          description: The role ID.
+          type: string
+      type: object
+    AttachRoleRequest:
+      properties:
+        roleId:
+          description: 'The ID of the role to attach. For an operator managed role, specify the role ID (`roleId`) obtained from the [Role:listRoles API](#/Role/listRoles). For a Soracom managed role, specify the SRN (Soracom Resource Name).
+
+            '
+          type: string
       type: object
     UserDetailResponse:
       properties:
@@ -550,13 +556,19 @@ components:
       - authKeyId
       - createDateTime
       type: object
-    RoleVersionResponse:
+    RoleResponse:
       properties:
+        createDateTime:
+          description: The creation date and time of the role (UNIX time in seconds).
+          format: int64
+          type: integer
         description:
-          description: The description of the Soracom managed role.
+          description: The description of the role.
           type: string
         owner:
-          description: 'The type of the role.
+          description: 'The type of the role. It can be one of the following:
+
+            - `operator`: Operator managed role
 
             - `soracom`: Soracom managed role
 
@@ -566,31 +578,19 @@ components:
           - soracom
           type: string
         permission:
-          description: Permission as JSON for the Soracom managed role.
+          description: Permission as JSON.
           type: string
-        publishDateTime:
-          description: The publish date and time of the Soracom managed role version (UNIX time in seconds).
-          format: int64
-          type: integer
         roleId:
-          description: SRN (Soracom Resource Name) format ID of the Soracom managed role.
+          description: Role ID. For operator managed roles, this is the role ID specified at creation. For Soracom managed roles, this will be in SRN (Soracom Resource Name) format.
           type: string
         roleName:
-          description: Resource name part of the SRN (Soracom Resource Name) of the Soracom managed role (e.g., `srn:soracom:::Role:[roleName]`).
+          description: Role name. For operator managed roles, this will be the same as `roleId`. For Soracom managed roles, this will be the resource name part of the SRN (e.g., `srn:soracom:::Role:[roleName]`).
           example: my-role
           type: string
-        version:
-          description: The version number of the Soracom managed role.
+        updateDateTime:
+          description: The update date and time of the role (UNIX time in seconds).
           format: int64
           type: integer
-      type: object
-    AttachRoleRequest:
-      properties:
-        roleId:
-          description: 'The ID of the role to attach. For an operator managed role, specify the role ID (`roleId`) obtained from the [Role:listRoles API](#/Role/listRoles). For a Soracom managed role, specify the SRN (Soracom Resource Name).
-
-            '
-          type: string
       type: object
   securitySchemes:
     api_key:

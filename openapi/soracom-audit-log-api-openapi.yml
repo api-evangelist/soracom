@@ -171,33 +171,6 @@ paths:
           header: x-soracom-next-key
 components:
   schemas:
-    NapterAuditLogEntry:
-      properties:
-        connectionId:
-          type: string
-        createdAt:
-          format: int64
-          type: integer
-        direction:
-          $ref: '#/components/schemas/NapterAuditLogDirection'
-        imsi:
-          type: string
-        operatorId:
-          type: string
-        tls:
-          type: boolean
-        type:
-          enum:
-          - ACCESS
-          - DENIED
-          - CONNECTED
-          - CLOSED
-          - REFUSED
-          - CREATED
-          - DELETED
-          - EXPIRED
-          type: string
-      type: object
     NapterAuditLogDirection:
       properties:
         destinationIPAddress:
@@ -231,6 +204,33 @@ components:
           type: integer
         userName:
           description: The SAM username that called the API. If this parameter is empty, it means the caller user is the root user.
+          type: string
+      type: object
+    NapterAuditLogEntry:
+      properties:
+        connectionId:
+          type: string
+        createdAt:
+          format: int64
+          type: integer
+        direction:
+          $ref: '#/components/schemas/NapterAuditLogDirection'
+        imsi:
+          type: string
+        operatorId:
+          type: string
+        tls:
+          type: boolean
+        type:
+          enum:
+          - ACCESS
+          - DENIED
+          - CONNECTED
+          - CLOSED
+          - REFUSED
+          - CREATED
+          - DELETED
+          - EXPIRED
           type: string
       type: object
   securitySchemes:

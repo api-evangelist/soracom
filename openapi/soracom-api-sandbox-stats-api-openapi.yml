@@ -72,24 +72,35 @@ paths:
       - sandbox stats beam insert
 components:
   schemas:
-    sandboxBeamCounts:
+    sandboxInsertBeamStatsRequest:
       properties:
-        count:
-          format: int64
-          type: integer
-      type: object
-    sandboxDataTrafficStats:
-      properties:
-        downloadByteSizeTotal:
-          format: int64
-          type: integer
-        downloadPacketSizeTotal:
-          format: int64
-          type: integer
-        uploadByteSizeTotal:
-          format: int64
-          type: integer
-        uploadPacketSizeTotal:
+        beamStatsMap:
+          properties:
+            inHttp:
+              $ref: '#/components/schemas/sandboxBeamCounts'
+            inMqtt:
+              $ref: '#/components/schemas/sandboxBeamCounts'
+            inTcp:
+              $ref: '#/components/schemas/sandboxBeamCounts'
+            inUdp:
+              $ref: '#/components/schemas/sandboxBeamCounts'
+            outHttp:
+              $ref: '#/components/schemas/sandboxBeamCounts'
+            outHttps:
+              $ref: '#/components/schemas/sandboxBeamCounts'
+            outMqtt:
+              $ref: '#/components/schemas/sandboxBeamCounts'
+            outMqtts:
+              $ref: '#/components/schemas/sandboxBeamCounts'
+            outTcp:
+              $ref: '#/components/schemas/sandboxBeamCounts'
+            outTcps:
+              $ref: '#/components/schemas/sandboxBeamCounts'
+            outUdp:
+              $ref: '#/components/schemas/sandboxBeamCounts'
+          type: object
+        unixtime:
+          description: UNIX time (in seconds).
           format: int64
           type: integer
       type: object
@@ -128,35 +139,24 @@ components:
           format: int64
           type: integer
       type: object
-    sandboxInsertBeamStatsRequest:
+    sandboxBeamCounts:
       properties:
-        beamStatsMap:
-          properties:
-            inHttp:
-              $ref: '#/components/schemas/sandboxBeamCounts'
-            inMqtt:
-              $ref: '#/components/schemas/sandboxBeamCounts'
-            inTcp:
-              $ref: '#/components/schemas/sandboxBeamCounts'
-            inUdp:
-              $ref: '#/components/schemas/sandboxBeamCounts'
-            outHttp:
-              $ref: '#/components/schemas/sandboxBeamCounts'
-            outHttps:
-              $ref: '#/components/schemas/sandboxBeamCounts'
-            outMqtt:
-              $ref: '#/components/schemas/sandboxBeamCounts'
-            outMqtts:
-              $ref: '#/components/schemas/sandboxBeamCounts'
-            outTcp:
-              $ref: '#/components/schemas/sandboxBeamCounts'
-            outTcps:
-              $ref: '#/components/schemas/sandboxBeamCounts'
-            outUdp:
-              $ref: '#/components/schemas/sandboxBeamCounts'
-          type: object
-        unixtime:
-          description: UNIX time (in seconds).
+        count:
+          format: int64
+          type: integer
+      type: object
+    sandboxDataTrafficStats:
+      properties:
+        downloadByteSizeTotal:
+          format: int64
+          type: integer
+        downloadPacketSizeTotal:
+          format: int64
+          type: integer
+        uploadByteSizeTotal:
+          format: int64
+          type: integer
+        uploadPacketSizeTotal:
           format: int64
           type: integer
       type: object
