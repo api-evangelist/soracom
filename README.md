@@ -1,4 +1,4 @@
-# Soracom (soracom)
+# Soracom
 
 <!-- API-EVANGELIST-PROVENANCE:BEGIN -->
 > ### About this repository
@@ -66,504 +66,255 @@
 
 Soracom is a global IoT cellular connectivity and platform provider headquartered in Tokyo, founded in 2014, with regional operations in the US (Soracom Global) and EU. The platform pairs multicarrier SIMs (physical, eSIM, iSIM) across 170+ countries with a deep platform of cloud integration services (Beam, Funnel, Funk), data services (Harvest, Lagoon, Query, Orbit), device management (Inventory, Krypton, Endorse, Napter), and network gateways (VPG / Canal / Direct / Door / Gate / Junction / Peek). Soracom exposes the entire stack through a coverage-aware REST API documented at users.soracom.io and maintained as a public OpenAPI 3.0 specification in the soracom-cli GitHub repo.
 
-**APIs.json:** [https://raw.githubusercontent.com/api-evangelist/soracom/refs/heads/main/apis.yml](https://raw.githubusercontent.com/api-evangelist/soracom/refs/heads/main/apis.yml)
+**Areas:** IoT · Cellular · LPWAN · SIM · LoRaWAN · Sigfox · MVNO · Connectivity · Edge · Japan
+
+## Soracom on APIs.io
+
+Everything profiled for Soracom is published on APIs.io rather than in this repository. Start at the provider page — **[apis.io/providers/soracom/](https://apis.io/providers/soracom/)** — or go straight to one of the APIs or properties below.
+
+### APIs (45)
+
+- [Soracom SIM Management API](https://apis.io/apis/soracom/soracom-sim-api/) — Manage Soracom Air for Cellular SIMs (and Subscribers) — list, get, create Arc virtual SIMs, activate/deactivate/suspend/terminate, set group binding, set…
+- [Soracom Group Configuration API](https://apis.io/apis/soracom/soracom-group-api/) — Manage Soracom groups and per-service configuration. Groups bind SIMs and devices to namespaced configuration for SoracomAir, SoracomBeam, SoracomFunnel,…
+- [Soracom Billing API](https://apis.io/apis/soracom/soracom-billing-api/) — Retrieve usage charges (monthly bills, daily bill items, per-SIM and per-bill-item summaries), export bills to CSV, manage payment methods, register…
+- [Soracom Stats and Diagnostics API](https://apis.io/apis/soracom/soracom-stats-api/) — Retrieve cellular data usage statistics (per SIM/subscriber/group/account), API and Napter audit logs, operator error logs, and diagnostic features.
+- [Soracom Auth and Access Management API](https://apis.io/apis/soracom/soracom-auth-api/) — Authenticate operators (email/password or AuthKey), issue short-lived API Keys + Tokens, manage operator profile, SAM (Soracom Access Management) users and…
+- [Soracom Lagoon API](https://apis.io/apis/soracom/soracom-lagoon-api/) — Manage Soracom Lagoon (managed Grafana) subscription, plan tier, organization, dashboards, users, licenses, and data sources.
+- [Soracom Cloud Camera Services API](https://apis.io/apis/soracom/soracom-soracam-api/) — Manage Soracom Cloud Camera Services (SoraCam) devices, livestream URLs, image exports, recording exports, motion events, atomic timestamps, and dedicated…
+- [Soracom Batch API](https://apis.io/apis/soracom/soracom-batch-api/) — Batch processing — create batch groups, define jobs that invoke API operations across many SIMs or devices, and inspect tasks for status and results.
+- [Soracom Analysis API](https://apis.io/apis/soracom/soracom-analysis-api/) — [Soracom Query](/en/docs/query/)
+- [Soracom API Sandbox: Coupon API](https://apis.io/apis/soracom/soracom-api-sandbox-coupon-api/) — The API Sandbox: Coupon API from Soracom — 1 operation(s) for api sandbox: coupon.
+- [Soracom API Sandbox: Operator API](https://apis.io/apis/soracom/soracom-api-sandbox-operator-api/) — The API Sandbox: Operator API from Soracom — 3 operation(s) for api sandbox: operator.
+- [Soracom API Sandbox: Order API](https://apis.io/apis/soracom/soracom-api-sandbox-order-api/) — The API Sandbox: Order API from Soracom — 1 operation(s) for api sandbox: order.
+- [Soracom API Sandbox: Stats API](https://apis.io/apis/soracom/soracom-api-sandbox-stats-api/) — The API Sandbox: Stats API from Soracom — 2 operation(s) for api sandbox: stats.
+- [Soracom API Sandbox: Subscriber API](https://apis.io/apis/soracom/soracom-api-sandbox-subscriber-api/) — The API Sandbox: Subscriber API from Soracom — 1 operation(s) for api sandbox: subscriber.
+- [Soracom CellLocation API](https://apis.io/apis/soracom/soracom-celllocation-api/) — [Cell tower location information](/en/docs/air/get-location-info/#get-cell-tower-location-information)
+- [Soracom Credential API](https://apis.io/apis/soracom/soracom-credential-api/) — [Credentials store](/en/docs/credentials-store/) Create, update, and delete credentials
+- [Soracom DataEntry API](https://apis.io/apis/soracom/soracom-dataentry-api/) — [Soracom Harvest Data](/en/docs/harvest/)
+- [Soracom Device API](https://apis.io/apis/soracom/soracom-device-api/) — [Soracom Inventory devices](/en/docs/inventory/)
+- [Soracom DeviceObjectModel API](https://apis.io/apis/soracom/soracom-deviceobjectmodel-api/) — [Soracom Inventory object model](/en/docs/inventory/define-custom-object/)
+- [Soracom Diagnostic API](https://apis.io/apis/soracom/soracom-diagnostic-api/) — [Diagnostic features](/en/guides/diagnostic/)
+- [Soracom Email API](https://apis.io/apis/soracom/soracom-email-api/) — [Email addresses](/en/docs/email/)
+- [Soracom FileEntry API](https://apis.io/apis/soracom/soracom-fileentry-api/) — [Soracom Harvest Files](/en/docs/harvest/)
+- [Soracom Files API](https://apis.io/apis/soracom/soracom-files-api/) — Download files exported by the following APIs: - [Billing](#/Billing) - [Payment: exportPaymentStatement](#/Payment/exportPaymentStatement) -…
+- [Soracom Gadget API](https://apis.io/apis/soracom/soracom-gadget-api/) — Gadget API compatible devices<ul><li>[SoraCam dedicated cellular pack](/en/guides/soracom-cloud-camera-services/setting-cellular-pack/)</li></ul>
+- [Soracom Log API](https://apis.io/apis/soracom/soracom-log-api/) — Error logs
+- [Soracom LoraDevice API](https://apis.io/apis/soracom/soracom-loradevice-api/) — [Soracom Air for LoRaWAN](/en/docs/air-for-lorawan/) devices
+- [Soracom LoraGateway API](https://apis.io/apis/soracom/soracom-loragateway-api/) — [Soracom Air for LoRaWAN](/en/docs/air-for-lorawan/) gateways
+- [Soracom LoraNetworkSet API](https://apis.io/apis/soracom/soracom-loranetworkset-api/) — [Soracom Air for LoRaWAN](/en/docs/air-for-lorawan/) network sets
+- [Soracom Operator API](https://apis.io/apis/soracom/soracom-operator-api/) — - Operator management - Update registration information - Password changes - [Multi-factor authentication](/en/docs/mfa/)
+- [Soracom Order API](https://apis.io/apis/soracom/soracom-order-api/) — - [Coupon codes](/en/guides/accounting/payment/register-coupon/) - [Long term discounts](/en/docs/air/volume-discount/) - Order management - Product catalog
+- [Soracom Payment API](https://apis.io/apis/soracom/soracom-payment-api/) — - [Coupon codes](/en/guides/accounting/payment/register-coupon/) - [Usage charges (billing details)](/en/guides/accounting/check-usage/) - [Payment…
+- [Soracom PortMapping API](https://apis.io/apis/soracom/soracom-portmapping-api/) — [Soracom Napter](/en/docs/napter/)
+- [Soracom Query API](https://apis.io/apis/soracom/soracom-query-api/) — Search SIMs, Soracom Inventory devices, and Sigfox devices
+- [Soracom ResourceSummary API](https://apis.io/apis/soracom/soracom-resourcesummary-api/) — The ResourceSummary API from Soracom — 1 operation(s) for resourcesummary.
+- [Soracom Role API](https://apis.io/apis/soracom/soracom-role-api/) — [Access management (Soracom Access Management)](/en/docs/sam/)
+- [Soracom SigfoxDevice API](https://apis.io/apis/soracom/soracom-sigfoxdevice-api/) — [Soracom Air for Sigfox](/en/docs/air-for-sigfox/) devices
+- [Soracom SimProfileOrder API](https://apis.io/apis/soracom/soracom-simprofileorder-api/) — [eSIM profiles](/en/docs/air/provision-esim/)
+- [Soracom Soralet API](https://apis.io/apis/soracom/soracom-soralet-api/) — [Soracom Orbit](/en/docs/orbit/) Soralet
+- [Soracom Subscriber API](https://apis.io/apis/soracom/soracom-subscriber-api/) — [Soracom Air for Cellular](/en/docs/air/) SIM information, operations, and cancellation
+- [Soracom SystemNotification API](https://apis.io/apis/soracom/soracom-systemnotification-api/) — [Email addresses](/en/docs/email/)
+- [Soracom User API](https://apis.io/apis/soracom/soracom-user-api/) — - [Access management (Soracom Access Management)](/en/docs/sam/) - Password changes - [Multi-factor authentication](/en/docs/mfa/) - [Switch…
+- [Soracom VirtualPrivateGateway API](https://apis.io/apis/soracom/soracom-virtualprivategateway-api/) — - [Virtual Private Gateway (VPG)](/en/docs/vpg/) (Canal / Direct / Door / Gate) - [Soracom Junction](/en/docs/junction/) - [Soracom Peek](/en/docs/peek/)
+- [Soracom Audit Log API](https://apis.io/apis/soracom/soracom-audit-log-api/) — Audit logs
+- [Soracom Event Handler API](https://apis.io/apis/soracom/soracom-event-handler-api/) — Event handlers
+- [Soracom Shipping Address API](https://apis.io/apis/soracom/soracom-shipping-address-api/) — Shipping address operations for direct sales
+
+### Published properties
+
+Each property below is a page on APIs.io carrying the machine-readable artifact and what it says.
+
+#### Arazzo workflows (11)
+
+Multi-step workflows that chain operations into a business task.
+
+- [Soracom Audit SIM Session Events](https://apis.io/arazzos/soracom/soracom-audit-sim-session-events-workflow/)
+- [Soracom Collect SIM Harvest Data](https://apis.io/arazzos/soracom/soracom-collect-sim-harvest-data-workflow/)
+- [Soracom Create Monthly Traffic Event Handler](https://apis.io/arazzos/soracom/soracom-create-traffic-event-handler-workflow/)
+- [Soracom Deactivate IoT SIM with Guard](https://apis.io/arazzos/soracom/soracom-deactivate-sim-with-guard-workflow/)
+- [Soracom Export Monthly Billing CSV](https://apis.io/arazzos/soracom/soracom-export-monthly-billing-workflow/)
+- [Soracom Provision Group and Attach SIM](https://apis.io/arazzos/soracom/soracom-provision-group-and-attach-sim-workflow/)
+- [Soracom Register and Activate IoT SIM](https://apis.io/arazzos/soracom/soracom-register-and-activate-sim-workflow/)
+- [Soracom Register and Verify Coupon](https://apis.io/arazzos/soracom/soracom-register-and-verify-coupon-workflow/)
+- [Soracom Register Inventory Device to Group](https://apis.io/arazzos/soracom/soracom-register-device-to-group-workflow/)
+- [Soracom Register Subscriber to Group](https://apis.io/arazzos/soracom/soracom-register-subscriber-to-group-workflow/)
+- [Soracom Send SMS to Active IoT SIM](https://apis.io/arazzos/soracom/soracom-send-sms-to-active-sim-workflow/)
+
+#### Agentic access (1)
+
+Which operations an agent can call, which act, and which need a human in the loop.
+
+- [Soracom Agentic Access](https://apis.io/agentic-access/soracom/soracom-agentic-access/)
+
+#### JSON Schema (5)
+
+The data models the API reads and writes.
 
-## Scope
+- [Soracom Harvest Data Entry](https://apis.io/schemas/soracom/soracom-data-entry/)
+- [Soracom Inventory Device](https://apis.io/schemas/soracom/soracom-device/)
+- [Soracom Group](https://apis.io/schemas/soracom/soracom-group/)
+- [Soracom Napter Port Mapping](https://apis.io/schemas/soracom/soracom-port-mapping/)
+- [Soracom SIM](https://apis.io/schemas/soracom/soracom-sim/)
 
-- **Position:** Provider
+#### JSON Structure (2)
 
-## Tags
+Data models expressed in JSON Structure.
 
-- IoT
-- Cellular
-- LPWAN
-- SIM
-- LoRaWAN
-- Sigfox
-- MVNO
-- Connectivity
-- Edge
-- Japan
+- [Soracom Device Structure](https://apis.io/json-structure/soracom/soracom-device-structure/)
+- [Soracom Sim Structure](https://apis.io/json-structure/soracom/soracom-sim-structure/)
 
-## Timestamps
+#### JSON-LD (1)
 
-- **Created:** 2026-05-25T00:00:00.000Z
-- **Modified:** 2026-05-25
+Linked-data contexts for the provider's vocabulary.
 
-## APIs
+- [Soracom Context](https://apis.io/jsonld/soracom/soracom-context/)
 
-### Soracom SIM Management API
+#### Vocabulary (1)
 
-Manage Soracom Air for Cellular SIMs (and Subscribers) — list, get, create Arc virtual SIMs, activate/deactivate/suspend/terminate, set group binding, set IMEI lock, view session events, manage SIM profiles for multi-IMSI eSIM, and read cell-tower location info.
+The provider's domain terms, defined.
 
-- **Human URL:** [https://users.soracom.io/ja-jp/tools/api/reference/#/Sim](https://users.soracom.io/ja-jp/tools/api/reference/#/Sim)
-- **Base URL:** `https://api.soracom.io/v1`
+- [Soracom Vocabulary](https://apis.io/vocabularies/soracom/soracom-vocabulary/)
 
-#### Tags
+#### Examples (5)
 
-- IoT
-- Cellular
-- SIM
-- Subscriber
+Example requests and responses.
 
-#### Properties
+- [Soracom Auth Example](https://apis.io/examples/soracom/soracom-auth-example/)
+- [Soracom Bill Latest Example](https://apis.io/examples/soracom/soracom-bill-latest-example/)
+- [Soracom Harvest Data Example](https://apis.io/examples/soracom/soracom-harvest-data-example/)
+- [Soracom Napter Create Example](https://apis.io/examples/soracom/soracom-napter-create-example/)
+- [Soracom Sim List Example](https://apis.io/examples/soracom/soracom-sim-list-example/)
 
-- [Documentation](https://developers.soracom.io/en/docs/air/)
-- [Documentation](https://users.soracom.io/ja-jp/tools/api/reference/#/Sim)
-- [OpenAPI](openapi/soracom-sim-api-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [Postman Collection](collections/soracom-sim-api.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/soracom-sim-api.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
-- [JSON Schema](json-schema/soracom-sim-schema.json) — [JSON Schema](https://json-schema.org/specification)
-- [JSON Structure](json-structure/soracom-sim-structure.json)
-- [Examples](examples/soracom-sim-list-example.json)
+#### Collections (73)
 
-### Soracom Group Configuration API
+Postman and Open Collection request collections.
 
-Manage Soracom groups and per-service configuration. Groups bind SIMs and devices to namespaced configuration for SoracomAir, SoracomBeam, SoracomFunnel, SoracomFunk, SoracomHarvest, SoracomJunction, SoracomOrbit, and metadata services.
+- [Soracom and Query Analysis API](https://apis.io/collections/soracom/open-soracom-analysis-api/)
+- [Soracom Analysis and Query API](https://apis.io/collections/soracom/open-soracom-analysis-query-api/)
+- [Soracom and Query Analysis API Sandbox: Coupon API](https://apis.io/collections/soracom/open-soracom-api-sandbox-coupon-api/)
+- [Soracom and Query Analysis API Sandbox: Operator API](https://apis.io/collections/soracom/open-soracom-api-sandbox-operator-api/)
+- [Soracom and Query Analysis API Sandbox: Order API](https://apis.io/collections/soracom/open-soracom-api-sandbox-order-api/)
+- [Soracom and Query Analysis API Sandbox: Stats API](https://apis.io/collections/soracom/open-soracom-api-sandbox-stats-api/)
+- [Soracom and Query Analysis API Sandbox: Subscriber API](https://apis.io/collections/soracom/open-soracom-api-sandbox-subscriber-api/)
+- [Soracom and Query Analysis AuditLog API](https://apis.io/collections/soracom/open-soracom-auditlog-api/)
+- [Soracom and Query Analysis Auth API](https://apis.io/collections/soracom/open-soracom-auth-api/)
+- [Soracom and Query Analysis Batch API](https://apis.io/collections/soracom/open-soracom-batch-api/)
+- [Soracom and Query Analysis Billing API](https://apis.io/collections/soracom/open-soracom-billing-api/)
+- [Soracom and Query Analysis CellLocation API](https://apis.io/collections/soracom/open-soracom-celllocation-api/)
+- [Soracom and Query Analysis Credential API](https://apis.io/collections/soracom/open-soracom-credential-api/)
+- [Soracom and Query Analysis DataEntry API](https://apis.io/collections/soracom/open-soracom-dataentry-api/)
+- [Soracom and Query Analysis Device API](https://apis.io/collections/soracom/open-soracom-device-api/)
+- [Soracom and Query Analysis DeviceObjectModel API](https://apis.io/collections/soracom/open-soracom-deviceobjectmodel-api/)
+- [Soracom and Query Analysis Diagnostic API](https://apis.io/collections/soracom/open-soracom-diagnostic-api/)
+- [Soracom and Query Analysis Email API](https://apis.io/collections/soracom/open-soracom-email-api/)
+- [Soracom Event Handler API](https://apis.io/collections/soracom/open-soracom-event-handler-api/)
+- [Soracom and Query Analysis EventHandler API](https://apis.io/collections/soracom/open-soracom-eventhandler-api/)
+- [Soracom and Query Analysis FileEntry API](https://apis.io/collections/soracom/open-soracom-fileentry-api/)
+- [Soracom and Query Analysis Files API](https://apis.io/collections/soracom/open-soracom-files-api/)
+- [Soracom and Query Analysis Gadget API](https://apis.io/collections/soracom/open-soracom-gadget-api/)
+- [Soracom and Query Analysis Group API](https://apis.io/collections/soracom/open-soracom-group-api/)
+- [Soracom Harvest API](https://apis.io/collections/soracom/open-soracom-harvest-api/)
+- …and 48 more published on APIs.io
 
-- **Human URL:** [https://users.soracom.io/ja-jp/tools/api/reference/#/Group](https://users.soracom.io/ja-jp/tools/api/reference/#/Group)
-- **Base URL:** `https://api.soracom.io/v1`
+#### Governance rules (2)
 
-#### Tags
+Spectral rulesets for the provider's contracts.
 
-- IoT
-- Groups
-- Configuration
+- [Soracom — jsonschema rules](https://apis.io/rules/soracom/soracom-jsonschema-spectral-rules/)
+- [Soracom API Rules](https://apis.io/rules/soracom/soracom-rules/)
 
-#### Properties
+#### Security (2)
 
-- [Documentation](https://developers.soracom.io/en/docs/group-configuration/)
-- [OpenAPI](openapi/soracom-group-api-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [Postman Collection](collections/soracom-group-api.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/soracom-group-api.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
-- [JSON Schema](json-schema/soracom-group-schema.json) — [JSON Schema](https://json-schema.org/specification)
+Authentication, trust centre, and vulnerability disclosure.
 
-### Soracom Harvest API
+- [Soracom Authentication](https://apis.io/security/soracom/soracom-authentication/)
+- [Soracom Domain Security](https://apis.io/security/soracom/soracom-domain-security/)
 
-Soracom Harvest is a managed time-series and file store for IoT device payloads. The API retrieves data entries by Subscriber/Device/SigfoxDevice/LoraDevice, lists indexed resources, and uploads/downloads binary Harvest Files.
+#### Plans and pricing (1)
 
-- **Human URL:** [https://users.soracom.io/ja-jp/tools/api/reference/#/DataEntry](https://users.soracom.io/ja-jp/tools/api/reference/#/DataEntry)
-- **Base URL:** `https://api.soracom.io/v1`
+Published plans, tiers and prices.
 
-#### Tags
+- [Soracom Plans Pricing](https://apis.io/plans/soracom/soracom-plans-pricing/)
 
-- IoT
-- Harvest
-- Data
-- Telemetry
-- Files
+#### Rate limits (1)
 
-#### Properties
+Published request limits.
 
-- [Documentation](https://developers.soracom.io/en/docs/harvest/)
-- [OpenAPI](openapi/soracom-harvest-api-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [Postman Collection](collections/soracom-harvest-api.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/soracom-harvest-api.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
-- [JSON Schema](json-schema/soracom-data-entry-schema.json) — [JSON Schema](https://json-schema.org/specification)
-- [Examples](examples/soracom-harvest-data-example.json)
+- [Soracom Rate Limits](https://apis.io/rate-limits/soracom/soracom-rate-limits/)
 
-### Soracom Inventory API
+#### FinOps (1)
 
-Soracom Inventory provides LwM2M-based registration, object models, resource read/write, observe/notify subscriptions, and remote execution against IoT devices.
+What the API costs to run, by operation.
 
-- **Human URL:** [https://users.soracom.io/ja-jp/tools/api/reference/#/Device](https://users.soracom.io/ja-jp/tools/api/reference/#/Device)
-- **Base URL:** `https://api.soracom.io/v1`
+- [Soracom Finops](https://apis.io/finops/soracom/soracom-finops/)
 
-#### Tags
+## Where to find this API
 
-- IoT
-- LwM2M
-- Devices
-- Inventory
+Links to the company's own pages. This repository publishes no copy of their specifications — the canonical document is theirs and lives at the URLs below.
 
-#### Properties
-
-- [Documentation](https://developers.soracom.io/en/docs/inventory/)
-- [OpenAPI](openapi/soracom-inventory-api-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [Postman Collection](collections/soracom-inventory-api.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/soracom-inventory-api.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
-- [JSON Schema](json-schema/soracom-device-schema.json) — [JSON Schema](https://json-schema.org/specification)
-- [JSON Structure](json-structure/soracom-device-structure.json)
-
-### Soracom Napter API
-
-Soracom Napter creates on-demand TCP port mappings (with optional TLS) that allow a defined source CIDR to reach a SIM-attached device's TCP port for SSH, HTTP(S), VNC, or RDP-style remote access, auditable in audit_logs/napter.
-
-- **Human URL:** [https://users.soracom.io/ja-jp/tools/api/reference/#/PortMapping](https://users.soracom.io/ja-jp/tools/api/reference/#/PortMapping)
-- **Base URL:** `https://api.soracom.io/v1`
-
-#### Tags
-
-- IoT
-- Remote Access
-- Napter
-- Security
-
-#### Properties
-
-- [Documentation](https://developers.soracom.io/en/docs/napter/)
-- [OpenAPI](openapi/soracom-napter-api-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [Postman Collection](collections/soracom-napter-api.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/soracom-napter-api.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
-- [JSON Schema](json-schema/soracom-port-mapping-schema.json) — [JSON Schema](https://json-schema.org/specification)
-- [Examples](examples/soracom-napter-create-example.json)
-
-### Soracom Event Handler API
-
-Configure event handlers (rules + actions) on SIM, data, and billing events; manage the Credentials Store; and deploy Orbit Soralets (WebAssembly inline payload transforms).
-
-- **Human URL:** [https://users.soracom.io/ja-jp/tools/api/reference/#/EventHandler](https://users.soracom.io/ja-jp/tools/api/reference/#/EventHandler)
-- **Base URL:** `https://api.soracom.io/v1`
-
-#### Tags
-
-- IoT
-- Automation
-- Event Handler
-- Soralet
-- Credentials
-
-#### Properties
-
-- [Documentation](https://developers.soracom.io/en/docs/event-handler/)
-- [OpenAPI](openapi/soracom-event-handler-api-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [Postman Collection](collections/soracom-event-handler-api.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/soracom-event-handler-api.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
-
-### Soracom Virtual Private Gateway API
-
-Provision and manage Soracom Virtual Private Gateways (VPG) including Canal (AWS VPC peering), Direct (AWS Direct Connect), Door (IPSec VPN), Gate (reverse-NAT), Junction (packet rules), and Peek (packet capture).
-
-- **Human URL:** [https://users.soracom.io/ja-jp/tools/api/reference/#/VirtualPrivateGateway](https://users.soracom.io/ja-jp/tools/api/reference/#/VirtualPrivateGateway)
-- **Base URL:** `https://api.soracom.io/v1`
-
-#### Tags
-
-- IoT
-- Networking
-- VPG
-- Canal
-- Door
-- Gate
-- Junction
-- Peek
-
-#### Properties
-
-- [Documentation](https://developers.soracom.io/en/docs/vpg/)
-- [OpenAPI](openapi/soracom-vpg-api-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [Postman Collection](collections/soracom-vpg-api.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/soracom-vpg-api.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
-
-### Soracom Billing API
-
-Retrieve usage charges (monthly bills, daily bill items, per-SIM and per-bill-item summaries), export bills to CSV, manage payment methods, register coupons, manage orders, and configure shipping addresses.
-
-- **Human URL:** [https://users.soracom.io/ja-jp/tools/api/reference/#/Billing](https://users.soracom.io/ja-jp/tools/api/reference/#/Billing)
-- **Base URL:** `https://api.soracom.io/v1`
-
-#### Tags
-
-- IoT
-- Billing
-- FinOps
-- Payment
-- Coupons
-- Orders
-
-#### Properties
-
-- [Documentation](https://developers.soracom.io/en/docs/reference/fees/)
-- [OpenAPI](openapi/soracom-billing-api-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [Postman Collection](collections/soracom-billing-api.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/soracom-billing-api.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
-- [Examples](examples/soracom-bill-latest-example.json)
-
-### Soracom Stats and Diagnostics API
-
-Retrieve cellular data usage statistics (per SIM/subscriber/group/account), API and Napter audit logs, operator error logs, and diagnostic features.
-
-- **Human URL:** [https://users.soracom.io/ja-jp/tools/api/reference/#/Stats](https://users.soracom.io/ja-jp/tools/api/reference/#/Stats)
-- **Base URL:** `https://api.soracom.io/v1`
-
-#### Tags
-
-- IoT
-- Stats
-- Audit
-- Diagnostics
-- Observability
-
-#### Properties
-
-- [Documentation](https://developers.soracom.io/en/docs/air/view-data-usage/)
-- [OpenAPI](openapi/soracom-stats-api-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [Postman Collection](collections/soracom-stats-api.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/soracom-stats-api.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
-
-### Soracom Auth and Access Management API
-
-Authenticate operators (email/password or AuthKey), issue short-lived API Keys + Tokens, manage operator profile, SAM (Soracom Access Management) users and roles, MFA settings, registered email addresses, switch-user (cross-operator) flows, and system notifications.
-
-- **Human URL:** [https://users.soracom.io/ja-jp/tools/api/reference/#/Auth](https://users.soracom.io/ja-jp/tools/api/reference/#/Auth)
-- **Base URL:** `https://api.soracom.io/v1`
-
-#### Tags
-
-- IoT
-- Auth
-- SAM
-- Access Management
-- MFA
-- Users
-- Roles
-
-#### Properties
-
-- [Documentation](https://developers.soracom.io/en/tools/api/key-and-token/)
-- [Documentation](https://developers.soracom.io/en/docs/sam/)
-- [OpenAPI](openapi/soracom-auth-api-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [Postman Collection](collections/soracom-auth-api.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/soracom-auth-api.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
-- [Examples](examples/soracom-auth-example.json)
-
-### Soracom Analysis and Query API
-
-Asynchronous SQL query execution over Soracom Query tables (SIM_SESSION_EVENTS, SIM_LOCATIONS, BILLING, and more) and search across SIMs, Inventory devices, and Sigfox devices.
-
-- **Human URL:** [https://users.soracom.io/ja-jp/tools/api/reference/#/Analysis](https://users.soracom.io/ja-jp/tools/api/reference/#/Analysis)
-- **Base URL:** `https://api.soracom.io/v1`
-
-#### Tags
-
-- IoT
-- Query
-- Analysis
-- SQL
-- Search
-
-#### Properties
-
-- [Documentation](https://developers.soracom.io/en/docs/query/)
-- [OpenAPI](openapi/soracom-analysis-query-api-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [Postman Collection](collections/soracom-analysis-query-api.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/soracom-analysis-query-api.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
-
-### Soracom Lagoon API
-
-Manage Soracom Lagoon (managed Grafana) subscription, plan tier, organization, dashboards, users, licenses, and data sources.
-
-- **Human URL:** [https://users.soracom.io/ja-jp/tools/api/reference/#/Lagoon](https://users.soracom.io/ja-jp/tools/api/reference/#/Lagoon)
-- **Base URL:** `https://api.soracom.io/v1`
-
-#### Tags
-
-- IoT
-- Lagoon
-- Dashboards
-- Visualization
-
-#### Properties
-
-- [Documentation](https://developers.soracom.io/en/docs/lagoon-v3/)
-- [OpenAPI](openapi/soracom-lagoon-api-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [Postman Collection](collections/soracom-lagoon-api.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/soracom-lagoon-api.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
-
-### Soracom Air for LoRaWAN API
-
-Manage Soracom Air for LoRaWAN — devices, gateways, network sets, session keys, and group binding for LoRaWAN deployments.
-
-- **Human URL:** [https://users.soracom.io/ja-jp/tools/api/reference/#/LoraDevice](https://users.soracom.io/ja-jp/tools/api/reference/#/LoraDevice)
-- **Base URL:** `https://api.soracom.io/v1`
-
-#### Tags
-
-- IoT
-- LoRaWAN
-- LPWAN
-- Devices
-- Gateways
-
-#### Properties
-
-- [Documentation](https://developers.soracom.io/en/docs/air-for-lorawan/)
-- [OpenAPI](openapi/soracom-lorawan-api-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [Postman Collection](collections/soracom-lorawan-api.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/soracom-lorawan-api.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
-
-### Soracom Air for Sigfox API
-
-Manage Soracom Air for Sigfox devices.
-
-- **Human URL:** [https://users.soracom.io/ja-jp/tools/api/reference/#/SigfoxDevice](https://users.soracom.io/ja-jp/tools/api/reference/#/SigfoxDevice)
-- **Base URL:** `https://api.soracom.io/v1`
-
-#### Tags
-
-- IoT
-- Sigfox
-- LPWAN
-- Devices
-
-#### Properties
-
-- [Documentation](https://developers.soracom.io/en/docs/air-for-sigfox/)
-- [OpenAPI](openapi/soracom-sigfox-api-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [Postman Collection](collections/soracom-sigfox-api.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/soracom-sigfox-api.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
-
-### Soracom Cloud Camera Services API
-
-Manage Soracom Cloud Camera Services (SoraCam) devices, livestream URLs, image exports, recording exports, motion events, atomic timestamps, and dedicated cellular pack provisioning.
-
-- **Human URL:** [https://users.soracom.io/ja-jp/tools/api/reference/#/SoraCam](https://users.soracom.io/ja-jp/tools/api/reference/#/SoraCam)
-- **Base URL:** `https://api.soracom.io/v1`
-
-#### Tags
-
-- IoT
-- SoraCam
-- Camera
-- Video
-
-#### Properties
-
-- [Documentation](https://developers.soracom.io/en/guides/soracom-cloud-camera-services/)
-- [OpenAPI](openapi/soracom-soracam-api-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [Postman Collection](collections/soracom-soracam-api.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/soracom-soracam-api.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
-
-### Soracom Batch API
-
-Batch processing — create batch groups, define jobs that invoke API operations across many SIMs or devices, and inspect tasks for status and results.
-
-- **Human URL:** [https://users.soracom.io/ja-jp/tools/api/reference/#/Batch](https://users.soracom.io/ja-jp/tools/api/reference/#/Batch)
-- **Base URL:** `https://api.soracom.io/v1`
-
-#### Tags
-
-- IoT
-- Batch
-- Automation
-
-#### Properties
-
-- [OpenAPI](openapi/soracom-batch-api-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [Postman Collection](collections/soracom-batch-api.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/soracom-batch-api.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
-
-### Soracom Platform API (Aggregate)
-
-The full monolithic Soracom Platform OpenAPI spec — 487 operations across 40 tags covering every Soracom service surface (Sim, Subscriber, Group, Harvest, Inventory, Napter, EventHandler, VPG, Billing, Auth, Query, Lagoon, LoRaWAN, Sigfox, SoraCam, Batch). Source of truth maintained in the soracom-cli repo.
-
-- **Human URL:** [https://users.soracom.io/ja-jp/tools/api/reference/](https://users.soracom.io/ja-jp/tools/api/reference/)
-- **Base URL:** `https://api.soracom.io/v1`
-
-#### Tags
-
-- IoT
-- Platform
-- Aggregate
-
-#### Properties
-
-- [Documentation](https://users.soracom.io/ja-jp/tools/api/reference/)
-- [OpenAPI](openapi/soracom-platform-api-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [Postman Collection](collections/soracom-platform-api.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/soracom-platform-api.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
-- [JSON-LD](json-ld/soracom-context.jsonld) — [JSON-LD](https://www.w3.org/TR/json-ld11/)
-
-### Soracom Sandbox API
-
-Soracom Sandbox API for safely exercising platform workflows. Lets developers create test coupons, fake SIMs, and dummy subscriber records, then run normal API calls against the sandbox endpoint without billing.
-
-- **Human URL:** [https://users.soracom.io/ja-jp/tools/api/sandbox/](https://users.soracom.io/ja-jp/tools/api/sandbox/)
-- **Base URL:** `https://api-sandbox.soracom.io/v1`
-
-#### Tags
-
-- IoT
-- Sandbox
-- Testing
-
-#### Properties
-
-- [OpenAPI](openapi/soracom-sandbox-api-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [Postman Collection](collections/soracom-sandbox-api.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/soracom-sandbox-api.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
-
-## Common Properties
-
-- [Arazzo Workflows](arazzo/) — [Arazzo Specification](https://spec.openapis.org/arazzo/latest.html)
-- [Portal](https://www.soracom.io)
+- [Website](https://www.soracom.io/)
 - [Documentation](https://developers.soracom.io/en/)
-- [Documentation](https://users.soracom.io/ja-jp/tools/api/reference/)
-- [Getting Started](https://developers.soracom.io/en/start/)
-- [Sign Up](https://console.soracom.io/#/signup)
-- [Login](https://console.soracom.io)
+- [Getting started](https://developers.soracom.io/en/start/)
 - [Pricing](https://www.soracom.io/pricing/)
-- [Pricing](https://developers.soracom.io/en/docs/reference/fees/)
-- [Status Page](https://status.soracom.io/)
-- [Blog](https://soracom.io/blog/)
-- [Changelog](https://changelog.soracom.io/)
-- [Press](https://www.soracom.io/press-releases/)
-- [Terms of Service](https://www.soracom.io/terms_of_service/)
-- [Privacy Policy](https://www.soracom.io/privacy_policy/)
 - [Support](https://support.soracom.io)
-- [Contact](https://www.soracom.io/contact/)
-- [Forum](https://discuss.soracom.io)
-- [Coverage](https://www.soracom.io/pricing/countries/)
-- [Documentation](https://developers.soracom.io/en/docs/air/sim-types/)
-- [Documentation](https://developers.soracom.io/en/tools/api/endpoints/)
-- [Documentation](https://developers.soracom.io/en/tools/api/key-and-token/)
-- [Documentation](https://developers.soracom.io/en/tools/api/how-to-read-api-reference/)
-- [GitHub Organization](https://github.com/soracom)
-- [GitHub Organization](https://github.com/soracom-labs)
-- [C L I](https://github.com/soracom/soracom-cli)
-- [SDK](https://github.com/soracom/soracom-sdk-go)
-- [SDK](https://github.com/soracom/soracom-sdk-ruby)
-- [SDK](https://github.com/soracom/soracom-sdk-swift)
-- [SDK](https://github.com/soracom/soracom-inventory-agent-for-java)
-- [SDK](https://github.com/soracom/krypton-client-go)
-- [SDK](https://github.com/soracom/endorse-client-go)
-- [SDK](https://github.com/soracom/soracom-krypton-client-for-java)
-- [SDK](https://github.com/soracom/soracom-endorse-client-for-java)
-- [Tool](https://github.com/soracom/soratun)
-- [Tool](https://github.com/soracom/soraql)
-- [Tool](https://github.com/soracom/homebrew-soracom-cli)
-- [Tool](https://github.com/soracom/multus-multivpc-cni)
-- [Tool](https://github.com/soracom/orbit-sdk-rust)
-- [Tool](https://github.com/soracom/orbit-sdk-tinygo)
-- [Tool](https://github.com/soracom/orbit-sdk-c)
-- [Tool](https://github.com/soracom/orbit-sdk-assemblyscript)
-- [Code Examples](https://github.com/soracom/handson)
-- [Library](https://github.com/soracom/SORACOM-LoRaWAN)
-- [Documentation](https://developers.soracom.io/en/start/)
-- [Documentation](https://developers.soracom.io/en/docs/air/)
-- [Documentation](https://developers.soracom.io/en/docs/beam/)
-- [Documentation](https://developers.soracom.io/en/docs/funnel/)
-- [Documentation](https://developers.soracom.io/en/docs/funk/)
-- [Documentation](https://developers.soracom.io/en/docs/harvest/)
-- [Documentation](https://developers.soracom.io/en/docs/lagoon-v3/)
-- [Documentation](https://developers.soracom.io/en/docs/inventory/)
-- [Documentation](https://developers.soracom.io/en/docs/napter/)
-- [Documentation](https://developers.soracom.io/en/docs/orbit/)
-- [Documentation](https://developers.soracom.io/en/docs/vpg/)
-- [Documentation](https://developers.soracom.io/en/docs/sam/)
-- [Documentation](https://developers.soracom.io/en/docs/event-handler/)
-- [Documentation](https://developers.soracom.io/en/docs/query/)
-- [Documentation](https://developers.soracom.io/en/docs/credentials-store/)
-- [Coverage](https://developers.soracom.io/en/docs/air/speed-class/)
-- [Plans](plans/soracom-plans-pricing.yml)
-- [Rate Limits](rate-limits/soracom-rate-limits.yml)
-- [Fin Ops](finops/soracom-finops.yml)
-- [Vocabulary](vocabulary/soracom-vocabulary.yml)
-- [Spectral Rules](rules/soracom-rules.yml)
-- [Features](undefined)
+- [Changelog](https://changelog.soracom.io/)
+- [Blog](https://soracom.io/blog/)
+- [Terms of service](https://www.soracom.io/terms_of_service/)
+- [Privacy policy](https://www.soracom.io/privacy_policy/)
+- [GitHub](https://github.com/soracom)
+- [Status](https://status.soracom.io/)
 
-## Maintainers
+## API Evangelist rating
 
-**FN:** Kin Lane
-**Email:** info@apievangelist.com
-**URL:** https://apievangelist.com
+**Kin Score 51.5** — developing · rubric 0.25.0 · scored 2026-10-23
+
+| Facet | Score |
+|---|---|
+| Discoverability | 72.3 |
+| Contract quality | 61.4 |
+| Contract governance | 27.3 |
+| Operational transparency | 18.4 |
+| Developer ergonomics | 75.0 |
+| Access clarity | 32.9 |
+
+**Agent readiness 30.1** — agent-ready
+
+| Agent-readiness dimension | Result |
+|---|---|
+| Spec Presence | yes |
+| Agentic Access | derived (partial credit) |
+| Reversibility Documented | documented (partial credit) |
+| MCP Server | — |
+| Auth Clarity | bearer (partial credit) |
+| Idempotency | — |
+| Error Semantics | verified |
+| OpenAPI Examples | partial |
+| Rate Limit Signal | derived (partial credit) |
+| Event Surface Described | — |
+| Agent Skills | — |
+| Well Known Catalog | — |
+| Consent Identity | — |
+| Agent Card | — |
+| Dry Run Mode | — |
+| Delegated Identity | — |
+| Protected Resource Metadata | — |
+| Dynamic Client Registration | — |
+| Agentic Commerce | — |
+| Pagination Ratio | partial |
+| Operation Distinctiveness | distinct |
+
+**Regulatory alignment 14.2** — Telecommunications
+
+The rubric is published at [github.com/api-evangelist/kin-score](https://github.com/api-evangelist/kin-score). The per-check breakdown behind these numbers — which checks were earned, partial or missed — along with score history and how this provider compares to its peers, is available at [apis.io/providers/soracom/](https://apis.io/providers/soracom/).
+
+## How this profile is made
+
+API Evangelist profiles a company's public API surface the way a developer would find it: the website, developer portal and documentation, the specifications it publishes, its public repositories, and its pricing, status and changelog pages. From that it derives the properties above — contracts split per API, workflows, schemas, collections, governance rules, plans and rate limits — and scores them against the published [Kin Score rubric](https://github.com/api-evangelist/kin-score).
+
+The artifacts are published on [APIs.io](https://apis.io), not in this repository. This repository is the public record for Soracom: the place to say something is wrong, missing or out of date, and to ask for a re-score or a removal.
+
+## Open an issue
+
+- **Something about this listing** — a wrong description, a missing API, a stale artifact or a question about the rating: [open an issue on this repository](https://github.com/api-evangelist/soracom/issues/new).
+- **A new API, or one that is not in the catalog yet** — [submit it on APIs.io](https://apis.io/add/).
+- **Anything else** — [the APIs.io inbox](https://github.com/api-search/inbox/issues/new) or [info@apievangelist.com](mailto:info@apievangelist.com).
